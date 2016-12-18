@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>debian 安装mate桌面与设置多屏 | 码农记事本</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. 
+
+MATE 现在位于 GitHub: 
+
+
+
+安装MATE相关的软件包:
+1234567891011root# apt-get update &amp;amp;&amp;amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="debian 安装mate桌面与设置多屏">
+<meta property="og:url" content="http://yjdwbj.github.io/2016/05/29/安装mate桌面与设置多屏/index.html">
+<meta property="og:site_name" content="码农记事本">
+<meta property="og:description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. 
+
+MATE 现在位于 GitHub: 
+
+
+
+安装MATE相关的软件包:
+1234567891011root# apt-get update &amp;amp;&amp;amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
+<meta property="og:image" content="http://yjdwbj.github.io/2016/05/29/安装mate桌面与设置多屏/xrandr_cmd.png">
+<meta property="og:image" content="http://yjdwbj.github.io/2016/05/29/安装mate桌面与设置多屏/xrandr_example.png">
+<meta property="og:image" content="http://yjdwbj.github.io/2016/05/29/安装mate桌面与设置多屏/arandr.png">
+<meta property="og:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<meta property="og:updated_time" content="2016-12-14T14:28:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="debian 安装mate桌面与设置多屏">
+<meta name="twitter:description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. 
+
+MATE 现在位于 GitHub: 
+
+
+
+安装MATE相关的软件包:
+1234567891011root# apt-get update &amp;amp;&amp;amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
+<meta name="twitter:image" content="http://yjdwbj.github.io/2016/05/29/安装mate桌面与设置多屏/xrandr_cmd.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">码农记事本</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主面</a>
+        
+          <a class="main-nav-link" href="/archives">文章</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/ppoffice/hexo-theme-alex" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">主面</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/14/Linux-下翻墙指南/">Linux 下翻墙指南</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/09/Django-uWsgi-nginx-https-完全配置/">Django+uWsgi+nginx+https 完全配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/">Linux下编译静态MinGW环境,编译windows平台Qt程序</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">vsftpd FTP服务器与django前端共用sqlite3数据库的示例</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 10px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+          <li>
+            <a href="yjdwbj@gmail.com">Email</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+        <section id="main"><article id="post-安装mate桌面与设置多屏" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/29/安装mate桌面与设置多屏/" class="article-date">
+  <time datetime="2016-05-28T16:00:00.000Z" itemprop="datePublished">2016-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      debian 安装mate桌面与设置多屏
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
+</li>
+<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
+</li>
+</ul>
+<ul>
+<li><p><strong>安装MATE相关的软件包:</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装FVWM相关软件包:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
+<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
+<ul>
+<li>代码轻量</li>
+<li>符合标准 (如 PAM, logind, 等)</li>
+<li>为用户提供一个良好的界面。</li>
+<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
+<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
+<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
+<li>获取屏幕的信息如下图所示.</li>
+</ul>
+<img src="/2016/05/29/安装mate桌面与设置多屏/xrandr_cmd.png" alt="xrandr_cmd.png" title="">
+<ul>
+<li><ul>
+<li>通过命令行设置.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
+<ul>
+<li>最后效果图如下.</li>
+</ul>
+<img src="/2016/05/29/安装mate桌面与设置多屏/xrandr_example.png" alt="xrandr_example.png" title="">
+<ul>
+<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
+</ul>
+<img src="/2016/05/29/安装mate桌面与设置多屏/arandr.png" alt="arandr.png" title="">
+<hr>
+<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><p>&gt;</p>
+<ul>
+<li>你的打赏将会鼓励我写出更多的博客。  </li>
+<li>支付宝二维码:<br>&gt;<br><img src="imgs/aex05246pdr9ik5wosogj3b.png" alt="pay"></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yjdwbj.github.io/2016/05/29/安装mate桌面与设置多屏/" data-id="ciwsmzqvf000cuji5fhzw2it0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/27/在Windows-环境下编译Qt静态库/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          在Windows 环境下编译Qt静态库
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="/" class="logo">码农记事本</a>
+      &copy; 2016 lcy<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

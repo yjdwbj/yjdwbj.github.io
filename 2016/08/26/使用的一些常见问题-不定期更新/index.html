@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux 使用的一些常见问题,不定期更新. | 码农记事本</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="minicom 使用　
+Linux 下的超级终端工具minicom 是命令行的工具不像windows下的串口工具那么直观,但是使用习惯了就一样.
+
+初次使用minicom除了一些串口的常规设置,跟其它串口工具都是一样的.
+
+在当前Shell下输入 minicom -s 会出现如下界面:
+123456789101112+-----[configuration]------+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 使用的一些常见问题,不定期更新.">
+<meta property="og:url" content="http://yjdwbj.github.io/2016/08/26/使用的一些常见问题-不定期更新/index.html">
+<meta property="og:site_name" content="码农记事本">
+<meta property="og:description" content="minicom 使用　
+Linux 下的超级终端工具minicom 是命令行的工具不像windows下的串口工具那么直观,但是使用习惯了就一样.
+
+初次使用minicom除了一些串口的常规设置,跟其它串口工具都是一样的.
+
+在当前Shell下输入 minicom -s 会出现如下界面:
+123456789101112+-----[configuration]------+">
+<meta property="og:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<meta property="og:updated_time" content="2016-12-14T14:27:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 使用的一些常见问题,不定期更新.">
+<meta name="twitter:description" content="minicom 使用　
+Linux 下的超级终端工具minicom 是命令行的工具不像windows下的串口工具那么直观,但是使用习惯了就一样.
+
+初次使用minicom除了一些串口的常规设置,跟其它串口工具都是一样的.
+
+在当前Shell下输入 minicom -s 会出现如下界面:
+123456789101112+-----[configuration]------+">
+<meta name="twitter:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">码农记事本</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主面</a>
+        
+          <a class="main-nav-link" href="/archives">文章</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/ppoffice/hexo-theme-alex" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">主面</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/14/Linux-下翻墙指南/">Linux 下翻墙指南</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/09/Django-uWsgi-nginx-https-完全配置/">Django+uWsgi+nginx+https 完全配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/">Linux下编译静态MinGW环境,编译windows平台Qt程序</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">vsftpd FTP服务器与django前端共用sqlite3数据库的示例</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 10px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+          <li>
+            <a href="yjdwbj@gmail.com">Email</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+        <section id="main"><article id="post-使用的一些常见问题-不定期更新" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/26/使用的一些常见问题-不定期更新/" class="article-date">
+  <time datetime="2016-08-25T16:00:00.000Z" itemprop="datePublished">2016-08-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux 使用的一些常见问题,不定期更新.
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="minicom-使用"><a href="#minicom-使用" class="headerlink" title="minicom 使用　"></a>minicom 使用　</h3><ul>
+<li><p>Linux 下的超级终端工具<code>minicom</code> 是命令行的工具不像windows下的串口工具那么直观,但是使用习惯了就一样.</p>
+</li>
+<li><p>初次使用minicom除了一些串口的常规设置,跟其它串口工具都是一样的.</p>
+</li>
+<li><p>在当前Shell下输入 <code>minicom -s</code> 会出现如下界面:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">+-----[configuration]------+                                     </div><div class="line">| Filenames and paths      |                                     </div><div class="line">| File transfer protocols  |                                     </div><div class="line">| Serial port setup        |                                     </div><div class="line">| Modem and dialing        |                                     </div><div class="line">| Screen and keyboard      |</div><div class="line">| Save setup as dfl        |</div><div class="line">| Save setup as..          |</div><div class="line">| Exit                     |</div><div class="line">| Exit from Minicom        |</div><div class="line">+--------------------------+</div></pre></td></tr></table></figure>
+</li>
+<li><p>选择<code>Serial port setup</code> 设置串口参数:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+-----------------------------------------------------------------------+</div><div class="line">| A -    Serial Device      : /dev/ttyUSB5                              |</div><div class="line">| B - Lockfile Location     : /var/lock                                 |</div><div class="line">| C -   Callin Program      :                                           |</div><div class="line">| D -  Callout Program      :                                           |</div><div class="line">| E -    Bps/Par/Bits       : 115200 8N1                                |</div><div class="line">| F - Hardware Flow Control : No                                        |</div><div class="line">| G - Software Flow Control : No                                        |</div><div class="line">|                                                                       |</div><div class="line">|    Change <span class="built_in">which</span> setting?                                              |</div><div class="line">+-----------------------------------------------------------------------+</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置完成回车返回到一个菜单.选择<code>Save setup as dfl</code> 保存退出.</p>
+</li>
+<li><p>我一般使用minicom 的参数去连接.例如:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$  minicom -o -b 115200 -D /dev/ttyUSB5</div></pre></td></tr></table></figure>
+<h4 id="AT命令"><a href="#AT命令" class="headerlink" title="AT命令"></a>AT命令</h4><ul>
+<li>一般图形串口工具都有一项,发送新行或者<code>**newline**</code>这个选项.在连接一些硬件串口时发送AT命令时,这个是必选的.</li>
+<li><p>但是在minicom就只能用组合快捷键来替换了.</p>
+</li>
+<li><p>在minicom 里发送AT命令如:<code>AT+OK</code> 直接回车,它是不会有反应的,必须还要加一个<code>ctrl+j</code>,才能提交,这个问题也是困扰了我很久.</p>
+</li>
+</ul>
+<h3 id="esptool升级固件"><a href="#esptool升级固件" class="headerlink" title="esptool升级固件"></a>esptool升级固件</h3><ul>
+<li><p>参考链接:<br>&gt;</p>
+</li>
+<li><p><a href="http://wiki.ai-thinker.com/doku.php/utils/esp_bin_download" target="_blank" rel="external">ESP8266 Tools</a></p>
+</li>
+<li><a href="https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes" target="_blank" rel="external">ESP8266 Wiki</a></li>
+<li><a href="http://wiki.ai-thinker.com/doku.php/release/esp8266_sdk_release" target="_blank" rel="external">ESP8266 SDK</a></li>
+<li><a href="http://cms.35g.tw/coding/%e4%bd%bf%e7%94%a8arduino%e6%9b%b4%e6%96%b0esp8266-firmware" target="_blank" rel="external">使用Arduino更新ESP8266 firmware</a></li>
+</ul>
+<p>&gt;<br>ESP-01　为例.　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">GPIO0 --&gt; GND</div><div class="line">GPIO2 --&gt; 3V3</div><div class="line">CH_PD --&gt; 3V3</div><div class="line">RST   --&gt; 3V3 </div><div class="line">VCC   --&gt; 3V3</div><div class="line">GND   --&gt; GND</div><div class="line">TX    --&gt; UART(RX)</div><div class="line">RX    --&gt; UART(TX)</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p><a href="https://github.com/themadinventor/esptool" target="_blank" rel="external">esptool工具</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ esptool.py   -p /dev/ttyUSB5 write_flash --flash_mode dio --flash_size 8m 0x0 AiThinker_ESP8266_DIO_8M_8M_20160615_V1.5.4.bin</div></pre></td></tr></table></figure>
+</li>
+<li><p>这个升级问题折腾了我很久,今天总算是升级成功.它们的文档很杂,图与板子上的名称又不全部对应.</p>
+</li>
+</ul>
+<h3 id="转换GBK文本文件的问题"><a href="#转换GBK文本文件的问题" class="headerlink" title="转换GBK文本文件的问题"></a>转换GBK文本文件的问题</h3><ul>
+<li>有时在Linux下打开GBK编码的文件会出现乱码,优其是一些在window下载打包的源码压缩包,源码文件全都是GBK编码.在Linux下用一些文本编辑器打开全是乱码,有些甚至连目录都是乱码.</li>
+<li><p>下面记录一个shell脚本批量转换成UTF8格式的文件.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ cat convert.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> `find . -type f`;<span class="keyword">do</span> </div><div class="line">    org=$(file <span class="variable">$f</span>)</div><div class="line">    string=$(<span class="built_in">echo</span> <span class="variable">$org</span> | grep <span class="string">"ISO-8859"</span>) ;</div><div class="line">    <span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$string</span>"</span> ]; <span class="keyword">then</span> </div><div class="line">        infile=$(<span class="built_in">echo</span> <span class="variable">$string</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $1&#125;'</span>);</div><div class="line">        <span class="comment">#echo $infile</span></div><div class="line">        iconv <span class="_">-f</span> GBK -t UTF8 <span class="variable">$infile</span> &gt; 1;</div><div class="line">        mv 1 <span class="variable">$infile</span>;</div><div class="line">    <span class="keyword">fi</span> ;</div><div class="line"><span class="keyword">done</span></div><div class="line">IFS=<span class="variable">$TMP_IFS</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在转换文件时,有时候路径中会包含空格,如果不按照上面的方式设置<code>IFS</code>变量,脚本就会出错在有空格的地方分隔,认为是两个文件.上面这个脚本只是</p>
+</li>
+<li>一个很简单的处理当前目录下所有文件的转换.还可以把它写的更通用灵活.</li>
+</ul>
+<hr>
+<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><p>&gt;</p>
+<ul>
+<li>你的打赏将会鼓励我写出更多的博客。  </li>
+<li>支付宝二维码:<br>&gt;<br><img src="imgs/aex05246pdr9ik5wosogj3b.png" alt="pay"></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yjdwbj.github.io/2016/08/26/使用的一些常见问题-不定期更新/" data-id="ciwsmzqvc000auji5ig8acazg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vsftpd FTP服务器与django前端共用sqlite3数据库的示例
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/06/为Radeon驱动编译Mesa-GLX支持/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">为Radeon驱动编译Mesa-GLX支持</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="/" class="logo">码农记事本</a>
+      &copy; 2016 lcy<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -98,7 +98,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -108,6 +108,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/12/21/工作中的一些Bash-shell测试脚本/">工作中的一些Bash shell测试脚本</a>
+          </li>
         
           <li>
             <a href="/2016/12/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
@@ -123,10 +127,6 @@
         
           <li>
             <a href="/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/">Linux下编译静态MinGW环境,编译windows平台Qt程序</a>
-          </li>
-        
-          <li>
-            <a href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">vsftpd FTP服务器与django前端共用sqlite3数据库的示例</a>
           </li>
         
       </ul>
@@ -243,6 +243,12 @@
 <li><h4 id="uWSGI配置"><a href="#uWSGI配置" class="headerlink" title="uWSGI配置"></a>uWSGI配置</h4></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">project = my_app</div><div class="line">base = /home/www</div><div class="line"><span class="built_in">chdir</span> = %(base)/%(project)</div><div class="line">module = %(project).wsgi:application</div><div class="line">uid = nginx</div><div class="line">gid = nginx</div><div class="line">listen = 65536</div><div class="line">master = <span class="literal">true</span></div><div class="line">virtualenv = /home/www/pyenv</div><div class="line">home = /home/www/pyenv</div><div class="line">master = <span class="literal">true</span></div><div class="line">cpu = affinity</div><div class="line">async = <span class="literal">true</span></div><div class="line">py-autoreload=<span class="literal">true</span></div><div class="line">processes = 88</div><div class="line">die-on-term = <span class="literal">true</span></div><div class="line"><span class="comment">#threads = 32</span></div><div class="line">max-requests = 65536</div><div class="line"><span class="comment">#socket = /tmp/uwsgi.sock</span></div><div class="line"><span class="comment">#http = 127.0.0.1:9090</span></div><div class="line"><span class="comment">#socket = 192.168.25.109:4599</span></div><div class="line"><span class="built_in">disable</span>-logging = <span class="literal">true</span> </div><div class="line">buffer-size =32768</div><div class="line">harakiri = 20</div><div class="line">chmod-socket = 664</div><div class="line">daemonize=/home/www/<span class="built_in">log</span>/uwsgi.log</div><div class="line">vcauum = <span class="literal">true</span></div></pre></td></tr></table></figure>
+<h3 id="为Postgresql配置连接池"><a href="#为Postgresql配置连接池" class="headerlink" title="为Postgresql配置连接池"></a>为Postgresql配置连接池</h3><ul>
+<li><strong>如果不为Postgresl配置连接池,程序会在高并发的情况下把数据库的连接全部消用完</strong></li>
+<li>参考链接<a href="https://pgbouncer.github.io/" target="_blank" rel="external">pgbouncer</a></li>
+<li>下面设置很简单.更多高级功能后面挖掘.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># grep -v "^;" /etc/pgbouncer/pgbouncer.ini  | grep -v "^$"</span></div><div class="line">[databases]</div><div class="line"><span class="comment">## 下面这个连接信息必需与postgresql里设一样.就是说,postgresql 要有test_db数库名,test用户,它的密码是test123,....</span></div><div class="line">test_db = host=127.0.0.1 port=5432 user=<span class="built_in">test</span> password=<span class="built_in">test</span>123 client_encoding=UNICODE datestyle=ISO connect_query=<span class="string">'SELECT 1'</span></div><div class="line"></div><div class="line">[pgbouncer]</div><div class="line">pidfile = /var/run/postgresql/pgbouncer.pid</div><div class="line"><span class="comment">##  绑定所有地址</span></div><div class="line">listen_addr = *</div><div class="line">listen_port = 6432</div><div class="line"><span class="comment">## 通过unix　socket与postgresql 通信</span></div><div class="line">unix_socket_dir = /var/run/postgresql</div><div class="line">auth_type = md5</div><div class="line"></div><div class="line"><span class="comment">## 认证用户的信息,每行格式: "test" "test123"</span></div><div class="line">auth_file = /etc/pgbouncer/userlist.txt</div><div class="line">admin_users = admin</div><div class="line">pool_mode = transaction</div><div class="line">server_reset_query = DISCARD ALL</div><div class="line"></div><div class="line"><span class="comment">## 我测试到的一个比较理想的数值,过大过小对程序的并发都有影响.</span></div><div class="line">max_client_conn = 100</div><div class="line">default_pool_size = 20</div><div class="line">listen_backlog = 1024</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4></li>
@@ -257,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/11/09/Django-uWsgi-nginx-https-完全配置/" data-id="ciwu2nv850000bxi5f4w8tluc" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/11/09/Django-uWsgi-nginx-https-完全配置/" data-id="ciwz2sm4q000g8hi52a20i7ji" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a></li></ul>

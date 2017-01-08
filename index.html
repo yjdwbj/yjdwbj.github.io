@@ -197,7 +197,11 @@
 <h3 id="模拟事件"><a href="#模拟事件" class="headerlink" title="模拟事件"></a>模拟事件</h3><ul>
 <li>一些GUI的操作,需要一些事件来完成,下面模拟一个鼠标Release的事件</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> QMouseEvent *event = new QMouseEvent(QMouseEvent::MouseButtonRelease,QCursor::pos(),</div><div class="line">                       Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);</div><div class="line">     QApplication::postEvent(this,event);</div><div class="line">[...]</div><div class="line"></div><div class="line"></div><div class="line">* 把事件转换成对其它控件的事件</div><div class="line"></div><div class="line">```sh</div><div class="line">void NewGrid::wheelEvent(QWheelEvent *event)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(sliderOrientation == Qt::Horizontal)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(event-&gt;orientation() != Qt::Horizontal)</div><div class="line">        &#123;</div><div class="line">            QWheelEvent  *evt = new QWheelEvent(event-&gt;pos(),event-&gt;globalPos(),</div><div class="line">                             event-&gt;delta(),</div><div class="line">                             event-&gt;buttons(),</div><div class="line">                             event-&gt;modifiers(),Qt::Horizontal);</div><div class="line">            QApplication::postEvent(mainScroll-&gt;horizontalScrollBar(),evt);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> QMouseEvent *event = new QMouseEvent(QMouseEvent::MouseButtonRelease,QCursor::pos(),</div><div class="line">                       Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);</div><div class="line">     QApplication::postEvent(this,event);</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<ul>
+<li>把事件转换成对其它控件的事件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">void NewGrid::wheelEvent(QWheelEvent *event)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(sliderOrientation == Qt::Horizontal)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(event-&gt;orientation() != Qt::Horizontal)</div><div class="line">        &#123;</div><div class="line">            QWheelEvent  *evt = new QWheelEvent(event-&gt;pos(),event-&gt;globalPos(),</div><div class="line">                             event-&gt;delta(),</div><div class="line">                             event-&gt;buttons(),</div><div class="line">                             event-&gt;modifiers(),Qt::Horizontal);</div><div class="line">            QApplication::postEvent(mainScroll-&gt;horizontalScrollBar(),evt);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="元对像-动态属性"><a href="#元对像-动态属性" class="headerlink" title="元对像,动态属性"></a>元对像,动态属性</h3><p><strong>Meta-Object System 的基本功能</strong><br>Meta Object System 的设计基于以下几个基础设施：</p>
 <ul>
 <li>QObject 类<br>  作为每一个需要利用元对象系统的类的基类</li>
@@ -222,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cixo0enjq0005fti52o7pbfuz" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cixo0exxx0005gyi5vaasa1yk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -533,7 +537,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/08/codeblocks与STM32的开发环境配置/" data-id="cixo0enjz000afti5fz6769lu" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/01/08/codeblocks与STM32的开发环境配置/" data-id="cixo0exy6000agyi52o04b6dm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a></li></ul>
@@ -656,7 +660,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/12/22/安装Postgresql-XL/" data-id="cixo0enko000sfti5gm13wnwm" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/12/22/安装Postgresql-XL/" data-id="cixo0exyv000sgyi5qwarmfe0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Postgresql/">Postgresql</a></li></ul>
@@ -753,7 +757,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/12/22/Linux-下翻墙指南/" data-id="cixo0enjc0001fti5vf3k4fa3" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/12/22/Linux-下翻墙指南/" data-id="cixo0exxp0001gyi5yga3z3yx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a></li></ul>
@@ -814,7 +818,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/12/21/工作中的一些Bash-shell测试脚本/" data-id="cixo0enkr000vfti5os9i3f8d" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/12/21/工作中的一些Bash-shell测试脚本/" data-id="cixo0exz2000ygyi5d4zqocis" class="article-share-link">Share</a>
       
       
     </footer>
@@ -914,7 +918,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/11/09/Django-uWsgi-nginx-https-完全配置/" data-id="cixo0enj50000fti5pzyhifd2" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/11/09/Django-uWsgi-nginx-https-完全配置/" data-id="cixo0exxi0000gyi5epal875a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a></li></ul>
@@ -1004,7 +1008,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/" data-id="cixo0enjn0004fti50gofqas3" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/" data-id="cixo0exxw0004gyi5dpzmlg8o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a></li></ul>
@@ -1097,7 +1101,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" data-id="cixo0enk2000cfti5v064k20p" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" data-id="cixo0exy9000cgyi5x3gal7wn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a></li></ul>
@@ -1195,7 +1199,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/08/26/使用的一些常见问题-不定期更新/" data-id="cixo0enkf000lfti5a4c9stwm" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/08/26/使用的一些常见问题-不定期更新/" data-id="cixo0exym000lgyi5ggu50vzz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a></li></ul>
@@ -1318,7 +1322,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/08/06/为Radeon驱动编译Mesa-GLX支持/" data-id="cixo0enk8000ffti5jfioptb3" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/08/06/为Radeon驱动编译Mesa-GLX支持/" data-id="cixo0exyg000fgyi516f39s94" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a></li></ul>

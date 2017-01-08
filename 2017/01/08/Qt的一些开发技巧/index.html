@@ -16,7 +16,7 @@
 有时候槽函数代码辑逻辑非常简单,可以直接用下面的Lambda匿名函数处理信号,简捷明了.需c++11支持,不支持自身递归调用.
 1234567QComboBox *cb = new QComboBox(this);QObject::connect(cb,&amp;amp;QComboBox::currentTextChanged,[=](QString txt)&amp;#123;">
 <meta property="og:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
-<meta property="og:updated_time" content="2017-01-08T01:54:58.193Z">
+<meta property="og:updated_time" content="2017-01-08T01:58:42.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Qt的一些开发技巧">
 <meta name="twitter:description" content="Lambda匿名函数
@@ -207,7 +207,11 @@
 <h3 id="模拟事件"><a href="#模拟事件" class="headerlink" title="模拟事件"></a>模拟事件</h3><ul>
 <li>一些GUI的操作,需要一些事件来完成,下面模拟一个鼠标Release的事件</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> QMouseEvent *event = new QMouseEvent(QMouseEvent::MouseButtonRelease,QCursor::pos(),</div><div class="line">                       Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);</div><div class="line">     QApplication::postEvent(this,event);</div><div class="line">[...]</div><div class="line"></div><div class="line"></div><div class="line">* 把事件转换成对其它控件的事件</div><div class="line"></div><div class="line">```sh</div><div class="line">void NewGrid::wheelEvent(QWheelEvent *event)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(sliderOrientation == Qt::Horizontal)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(event-&gt;orientation() != Qt::Horizontal)</div><div class="line">        &#123;</div><div class="line">            QWheelEvent  *evt = new QWheelEvent(event-&gt;pos(),event-&gt;globalPos(),</div><div class="line">                             event-&gt;delta(),</div><div class="line">                             event-&gt;buttons(),</div><div class="line">                             event-&gt;modifiers(),Qt::Horizontal);</div><div class="line">            QApplication::postEvent(mainScroll-&gt;horizontalScrollBar(),evt);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> QMouseEvent *event = new QMouseEvent(QMouseEvent::MouseButtonRelease,QCursor::pos(),</div><div class="line">                       Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);</div><div class="line">     QApplication::postEvent(this,event);</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<ul>
+<li>把事件转换成对其它控件的事件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">void NewGrid::wheelEvent(QWheelEvent *event)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(sliderOrientation == Qt::Horizontal)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(event-&gt;orientation() != Qt::Horizontal)</div><div class="line">        &#123;</div><div class="line">            QWheelEvent  *evt = new QWheelEvent(event-&gt;pos(),event-&gt;globalPos(),</div><div class="line">                             event-&gt;delta(),</div><div class="line">                             event-&gt;buttons(),</div><div class="line">                             event-&gt;modifiers(),Qt::Horizontal);</div><div class="line">            QApplication::postEvent(mainScroll-&gt;horizontalScrollBar(),evt);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="元对像-动态属性"><a href="#元对像-动态属性" class="headerlink" title="元对像,动态属性"></a>元对像,动态属性</h3><p><strong>Meta-Object System 的基本功能</strong><br>Meta Object System 的设计基于以下几个基础设施：</p>
 <ul>
 <li>QObject 类<br>  作为每一个需要利用元对象系统的类的基类</li>
@@ -232,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cixo0enjq0005fti52o7pbfuz" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cixo0exxx0005gyi5vaasa1yk" class="article-share-link">Share</a>
       
       
     </footer>

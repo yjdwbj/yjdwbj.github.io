@@ -271,6 +271,20 @@ Linux 下的超级终端工具minicom 是命令行的工具不像windows下的�
 </li>
 <li>一个很简单的处理当前目录下所有文件的转换.还可以把它写的更通用灵活.</li>
 </ul>
+<h3 id="Linux-下是使用蓝牙串口通信"><a href="#Linux-下是使用蓝牙串口通信" class="headerlink" title="Linux 下是使用蓝牙串口通信"></a>Linux 下是使用蓝牙串口通信</h3><ul>
+<li>Linux 下使用蓝牙工具要安装<code>bluez</code>软件,有一个图形配置程序<code>blueman</code>,使用会报一些Python与Dbus的错误,还是直接修改配置文件解决使用问题.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/bluetooth/rfcomm.conf </div><div class="line">rfcomm0 &#123;</div><div class="line">        <span class="built_in">bind</span> yes;</div><div class="line">        device 00:15:83:00:43:AB</div><div class="line">        channel 0;</div><div class="line">        comment <span class="string">"Serial Port"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">rfcomm1 &#123;</div><div class="line">    <span class="built_in">bind</span> yes;</div><div class="line">    device 00:14:01:22:14:49;</div><div class="line">    channel 1;</div><div class="line">    connment <span class="string">"Serial Port 1"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="配对蓝牙"><a href="#配对蓝牙" class="headerlink" title="配对蓝牙"></a>配对蓝牙</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ bluetoothctl </div><div class="line">[NEW] Controller 00:02:5B:0A:59:3A debian-0 [default]</div><div class="line">[NEW] Device 00:14:01:22:14:49 lcy</div><div class="line">[bluetooth]# power on</div><div class="line">Changing power on succeeded</div><div class="line">[bluetooth]# agent on</div><div class="line">Agent registered</div><div class="line">[bluetooth]# pair 00:14:01:22:14:49</div><div class="line">Attempting to pair with 00:14:01:22:14:49</div><div class="line">[CHG] Device 00:14:01:22:14:49 Connected: yes</div><div class="line">Request PIN code</div><div class="line">[agent] Enter PIN code: 1234</div><div class="line">[CHG] Device 00:14:01:22:14:49 Paired: yes</div><div class="line">Pairing successful</div><div class="line">[CHG] Device 00:14:01:22:14:49 Connected: no</div></pre></td></tr></table></figure>
+<h4 id="手动边接RFCOMM串口"><a href="#手动边接RFCOMM串口" class="headerlink" title="手动边接RFCOMM串口"></a>手动边接RFCOMM串口</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> sudo rfcomm connect /dev/rfcomm0 00:14:01:22:14:49 1</div><div class="line">Connected /dev/rfcomm0 to 00:14:01:22:14:49 on channel 1</div><div class="line">Press CTRL-C <span class="keyword">for</span> hangup</div></pre></td></tr></table></figure>
+<ul>
+<li>运行上面的命令无错,就可以使用minicom 连接它了,<code>sudo minicom  -o -b 115200 -D /dev/rfcomm0</code></li>
+</ul>
+<h3 id="Linux-Systemctl-启动服务超时设置"><a href="#Linux-Systemctl-启动服务超时设置" class="headerlink" title="Linux Systemctl 启动服务超时设置"></a>Linux Systemctl 启动服务超时设置</h3><ul>
+<li>下面用一个网络连接服务为示例,如果网络配置是DHCP,刚好网络没有提供DHCP服务,这时该服务程序会重试(默认)两分钟才会报错,这里可以设置成5到10秒,快速跳过该服务启动.</li>
+<li>在文件/lib/systemd/system/networking.service.d/network-pre.conf里添加下面两行:<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[Service]</div><div class="line">TimeoutStartSec=15</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <hr>
 <h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><p>&gt;</p>
 <ul>
@@ -281,7 +295,7 @@ Linux 下的超级终端工具minicom 是命令行的工具不像windows下的�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/08/26/使用的一些常见问题-不定期更新/" data-id="ciy7bldte000spsi5s48a68j8" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/08/26/使用的一些常见问题-不定期更新/" data-id="ciyoid875000fz6i5p2b2many" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a></li></ul>

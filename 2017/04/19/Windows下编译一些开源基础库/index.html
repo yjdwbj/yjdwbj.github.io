@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Windows下编译一些开源基础库 | 码农记事本</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Ｗindows下　Perl运行环境Perl脚本语言在windows下有三个实现可以用，一般网上会建议安装ActivePerl的免费社区版本，我在winxp下安装不成功选了另一个DWIN Perl,还有一个StrawberryPerl没有试过.
+
+默认安装在C:\Dwimperl,完成之后把它添加到环境变量，或者运行它自带的脚本C:\Dwimperl\update_env.pl.bat.
+
+Cygw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下编译一些开源基础库">
+<meta property="og:url" content="http://yjdwbj.github.io/2017/04/19/Windows下编译一些开源基础库/index.html">
+<meta property="og:site_name" content="码农记事本">
+<meta property="og:description" content="Ｗindows下　Perl运行环境Perl脚本语言在windows下有三个实现可以用，一般网上会建议安装ActivePerl的免费社区版本，我在winxp下安装不成功选了另一个DWIN Perl,还有一个StrawberryPerl没有试过.
+
+默认安装在C:\Dwimperl,完成之后把它添加到环境变量，或者运行它自带的脚本C:\Dwimperl\update_env.pl.bat.
+
+Cygw">
+<meta property="og:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<meta property="og:updated_time" content="2017-04-19T13:36:36.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows下编译一些开源基础库">
+<meta name="twitter:description" content="Ｗindows下　Perl运行环境Perl脚本语言在windows下有三个实现可以用，一般网上会建议安装ActivePerl的免费社区版本，我在winxp下安装不成功选了另一个DWIN Perl,还有一个StrawberryPerl没有试过.
+
+默认安装在C:\Dwimperl,完成之后把它添加到环境变量，或者运行它自带的脚本C:\Dwimperl\update_env.pl.bat.
+
+Cygw">
+<meta name="twitter:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<link rel="publisher" href="yjdwbj@gmail.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+  <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78826582-1', 'auto');
+  ga('send', 'pageview');
+
+    </script>
+<!-- End Google Analytics -->
+
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">码农记事本</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">文章</a>
+        
+          <a class="main-nav-link" href="/2016/05/20/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/ppoffice/hexo-theme-alex" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/2016/05/20/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/嵌入式/">嵌入式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/19/Windows下编译一些开源基础库/">Windows下编译一些开源基础库</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/19/Windows下WinDDK驱动开发/">Windows下WinDDK驱动开发</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/03/Mini2440移植最新的u-boot/">Mini2440移植最新的u-boot</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/15/栽剪FFMPEG做GIF录屏工具/">栽剪FFMPEG做GIF录屏工具</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/08/Qt的一些开发技巧/">Qt的一些开发技巧</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 10px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/MinGW-驱动/" style="font-size: 10px;">MinGW,驱动</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a> <a href="/tags/WinDDk-驱动/" style="font-size: 10px;">WinDDk,驱动</a> <a href="/tags/ffmpeg-QT/" style="font-size: 10px;">ffmpeg,QT</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+          <li>
+            <a href="mailto:yjdwbj@gmail.com">Email</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+        <section id="main"><article id="post-Windows下编译一些开源基础库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/19/Windows下编译一些开源基础库/" class="article-date">
+  <time datetime="2017-04-19T13:09:29.000Z" itemprop="datePublished">2017-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows下编译一些开源基础库
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Windows下-Perl运行环境"><a href="#Windows下-Perl运行环境" class="headerlink" title="Ｗindows下　Perl运行环境"></a>Ｗindows下　Perl运行环境</h3><p><a href="https://www.perl.org/get.html" target="_blank" rel="external"><strong>Perl</strong></a>脚本语言在windows下有三个实现可以用，一般网上会建议安装<a href="https://www.activestate.com/activeperl/downloads" target="_blank" rel="external"><strong>ActivePerl</strong></a>的免费社区版本，我在winxp下安装不成功选了另一个<a href="http://dwimperl.com/windows.html" target="_blank" rel="external"><strong>DWIN Perl</strong></a>,还有一个<a href="http://strawberryperl.com/" target="_blank" rel="external"><strong>StrawberryPerl</strong></a>没有试过.</p>
+<ul>
+<li>默认安装在<code>C:\Dwimperl</code>,完成之后把它添加到环境变量，或者运行它自带的脚本<code>C:\Dwimperl\update_env.pl.bat</code>.</li>
+</ul>
+<h3 id="Cygwin-MinGW-MSYS"><a href="#Cygwin-MinGW-MSYS" class="headerlink" title="Cygwin,MinGW,MSYS"></a>Cygwin,MinGW,MSYS</h3><p>windows下一些GNU工具套装介绍，摘自网络。</p>
+<ol>
+<li><a href="http://www.mingw.org/" target="_blank" rel="external"><strong>MinGW</strong></a>是windows版本的gcc集合，不需要依赖中间层。</li>
+<li>MSYS是小型的linux的环境的模拟，可以与MinGW结合来模拟linux环境下使用MinGW的gcc,但是好久都不更新了，现在网有一个<a href="http://www.msys2.org/" target="_blank" rel="external"><strong>MSYS2</strong></a>,但是这两个环境在winxp下安装不成功，之前是可以安装msys.。</li>
+<li><a href="http://www.cygwin.com/" target="_blank" rel="external"><strong>Cygwin</strong></a>是功能强大的linux环境，由于有cygwin1.dll实现了底层的windows api到linux api的转化。所以在Cygwin里开发就相当于在linux上开发，对于开发人员来说就相当于调用linux类型的api，所以这样开发的程序也可以直接移植到linux上。但是如果这样的程序要在windows上执行的话，运行时必须要cygwin1.dll支持。</li>
+</ol>
+<h3 id="安装Qt-MinGW版本的IDE"><a href="#安装Qt-MinGW版本的IDE" class="headerlink" title="安装Qt ＭinGW版本的IDE"></a>安装Qt ＭinGW版本的IDE</h3><ul>
+<li>本人还是喜欢使用Qt来现在界面程，惟一缺点就是生成静态库的执行程序有比较大,Qt在win下面有两个版本，<code>GCC,MSVC</code>.我下面要做的编译基础库都是基于QT安装自带的MinGW　GCC，这样在QT中再调用这些库就不会出现一些奇奇怪怪的问题了。</li>
+</ul>
+<h3 id="Zlib"><a href="#Zlib" class="headerlink" title="Zlib"></a>Zlib</h3><h4 id="MinGW编译"><a href="#MinGW编译" class="headerlink" title="MinGW编译"></a>MinGW编译</h4><p>下截<a href="http://zlib.net/zlib-1.2.11.tar.gz" target="_blank" rel="external"><code>zlib</code></a>最新版本，解压到出来。打开一个命令行窗口，执行Ｑt MinGW环境脚本<code>C:\WINDOWS\system32\cmd.exe /A /Q /K C:\Qt\Qt5.7.1\5.7\mingw53_32\bin\qtenv2.bat</code>,一般装完Ｑt 会有指向这个脚本的快捷方式，点击运行即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D:\zlib-1.2.11\zlib-1.2.11&gt;mingw32-make <span class="_">-f</span> win32/Makefile.gcc</div><div class="line">gcc  -O3 -Wall -c -o adler32.o adler32.c</div><div class="line">gcc  -O3 -Wall -c -o compress.o compress.c</div><div class="line">gcc  -O3 -Wall -c -o crc32.o crc32.c</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">strip example_d.exe</div><div class="line">gcc  -o minigzip_d.exe minigzip.o libz.dll.a</div><div class="line">strip minigzip_d.exe</div></pre></td></tr></table></figure>
+<p>按上面编译成功后，会当前目录下生成zlib1.dll,libz.dll.a ,libz等库文件，把这些库文件与头文件复到一个目录，包含并链接它们就可以了。</p>
+<h4 id="MSVC编译"><a href="#MSVC编译" class="headerlink" title="MSVC编译"></a>MSVC编译</h4><h4 id="x86-32bit"><a href="#x86-32bit" class="headerlink" title="x86 32bit"></a>x86 32bit</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D:\SourceBuild\zlib-1.2.11&gt;vcvarsall.bat</div><div class="line">Setting environment <span class="keyword">for</span> using Microsoft Visual Studio 2010 x86 tools.</div><div class="line">D:\SourceBuild\zlib-1.2.11&gt;nmake /f win32/Makefile.msc</div><div class="line"></div><div class="line">Microsoft (R) 程序维护实用工具 10.00.30319.01 版</div><div class="line">版权所有(C) Microsoft Corporation。保留所有权利。</div><div class="line"></div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\adler32.c</div><div class="line">adler32.c</div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\compress.c</div><div class="line">compress.c</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">fest -outputresource:example_d.exe;1</div><div class="line">        link -nologo -debug -incremental:no -opt:ref -out:minigzip_d.exe minigzi</div><div class="line">p.obj zdll.lib</div><div class="line">        <span class="keyword">if</span> exist minigzip_d.exe.manifest  mt -nologo -manifest minigzip_d.exe.ma</div><div class="line">nifest -outputresource:minigzip_d.exe;1</div></pre></td></tr></table></figure>
+<p>编译完成后会生成zlib.lib,zlib1.dll等一些文件。</p>
+<h4 id="x86-amd64"><a href="#x86-amd64" class="headerlink" title="x86_amd64"></a>x86_amd64</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\zlib-1.2.11&gt;vcvarsx86_amd64.bat</div><div class="line">Setting environment <span class="keyword">for</span> using Microsoft Visual Studio 2010 x64 cross tools.</div><div class="line"></div><div class="line"></div><div class="line">D:\SourceBuild\zlib-1.2.11&gt;nmake /f win32/Makefile.msc</div><div class="line"></div><div class="line">Microsoft (R) 程序维护实用工具 10.00.30319.01 版</div><div class="line">版权所有(C) Microsoft Corporation。保留所有权利。</div><div class="line"></div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\adler32.c</div><div class="line">adler32.c</div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\compress.c</div><div class="line">compress.c</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">fest -outputresource:example_d.exe;1</div><div class="line">        link -nologo -debug -incremental:no -opt:ref -out:minigzip_d.exe minigzi</div><div class="line">p.obj zdll.lib</div><div class="line">        <span class="keyword">if</span> exist minigzip_d.exe.manifest  mt -nologo -manifest minigzip_d.exe.ma</div><div class="line">nifest -outputresource:minigzip_d.exe;1</div></pre></td></tr></table></figure>
+<h3 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h3><ul>
+<li>下载<a href="https://www.openssl.org/source/openssl-1.1.0e.tar.gz" target="_blank" rel="external"><code>openssl-1.1.0e</code></a>,解压出来，仔细阅读里面<code>NOTES.WIN</code>,<code>INSTALL</code>这两个文本文档，里面有详细的编译安装说明。里面调用<code>nmake</code>native 编译的，要确保机器安装了<code>Visual Stduio</code>开发环境，winxp 最高只能安装vs2010.这里没有找到使用MinGW编译的方法只能使用nmake来编译，开发启<code>zlib</code>支持就只能使用zlib的<code>MSVC</code>的编译版本。</li>
+<li>编译前先初始化MSVC的环境变量，有分<code>x86</code>与<code>x86_amd64</code>,确保<code>C:\Program Files\Microsoft Visual Studio 10.0\VC</code>加入用户的<code>PATH</code>变量里面。打开一个新命令行窗口执行：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\openssl-1.1.0e&gt;vcvarsall.bat</div><div class="line">Setting environment <span class="keyword">for</span> using Microsoft Visual Studio 2010 x86 tools.</div><div class="line"></div><div class="line">D:\SourceBuild\openssl-1.1.0e&gt; perl Configure VC-WIN32</div><div class="line">Configuring OpenSSL version 1.1.0e (0x1010005fL)</div><div class="line">    no-asan         [default]  OPENSSL_NO_ASAN</div><div class="line">    no-crypto-mdebug [default]  OPENSSL_NO_CRYPTO_MDEBUG</div><div class="line">    no-crypto-mdebug-backtrace [default]  OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE</div><div class="line">    no-ec_nistp_64_gcc_128 [default]  OPENSSL_NO_EC_NISTP_64_GCC_128</div><div class="line">    no-egd          [default]  OPENSSL_NO_EGD</div><div class="line">    no-fuzz-afl     [default]  OPENSSL_NO_FUZZ_AFL</div><div class="line">    no-fuzz-libfuzzer [default]  OPENSSL_NO_FUZZ_LIBFUZZER</div><div class="line">    no-heartbeats   [default]  OPENSSL_NO_HEARTBEATS</div><div class="line">    no-md2          [default]  OPENSSL_NO_MD2 (skip dir)</div><div class="line">    no-msan         [default]  OPENSSL_NO_MSAN</div><div class="line">    no-rc5          [default]  OPENSSL_NO_RC5 (skip dir)</div><div class="line">    no-sctp         [default]  OPENSSL_NO_SCTP</div><div class="line">    no-ssl-trace    [default]  OPENSSL_NO_SSL_TRACE</div><div class="line">    no-ssl3         [default]  OPENSSL_NO_SSL3</div><div class="line">    no-ssl3-method  [default]  OPENSSL_NO_SSL3_METHOD</div><div class="line">    no-ubsan        [default]  OPENSSL_NO_UBSAN</div><div class="line">    no-unit-test    [default]  OPENSSL_NO_UNIT_TEST</div><div class="line">    no-weak-ssl-ciphers [default]  OPENSSL_NO_WEAK_SSL_CIPHERS</div><div class="line">    no-zlib         [default]</div><div class="line">    no-zlib-dynamic [default]</div><div class="line">Configuring <span class="keyword">for</span> VC-WIN32</div><div class="line">CC            =cl</div><div class="line">CFLAG         =-W3 -wd4090 -Gs0 -GF -Gy -nologo -DOPENSSL_SYS_WIN32 -DWIN32_LEAN</div><div class="line">_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE -DUNICODE -D_UNICODE /MD /O2</div><div class="line">[...]</div><div class="line"></div><div class="line">D:\SourceBuild\openssl-1.1.0e&gt;nmake </div><div class="line">[...]</div><div class="line"></div><div class="line">D:\SourceBuild\openssl-1.1.0e&gt;nmake <span class="built_in">test</span></div><div class="line">[...]</div></pre></td></tr></table></figure>
+<h4 id="C-ares"><a href="#C-ares" class="headerlink" title="C-ares"></a>C-ares</h4><ul>
+<li>下载<a href="https://c-ares.haxx.se/download/c-ares-1.12.0.tar.gz" target="_blank" rel="external"><code>C-ares-1.12</code></a>,查看了它自带<code>README</code>，通过命令行使用<code>nmake</code>安装不成功，通过它的vc目录下的VC工程,要用vs2010IDE打开就可以编译在成功。生成了<br>cares.lib,cares.dll.</li>
+</ul>
+<h4 id="Curl"><a href="#Curl" class="headerlink" title="Curl"></a>Curl</h4><ul>
+<li><p>下载<a href="https://curl.haxx.se/download/curl-7.53.1.zip" target="_blank" rel="external"><code>curl-7.53.1</code></a>,解压出来，仔细阅读它的文档。<code>winbuild/BUILD.WINDOWS.txt</code>文档详细说明了如何编译安装。</p>
+</li>
+<li><p>根据文档指示，如果依赖一些其它库要在它的同级目录新建如下结构的目录结构</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">If you wish to support zlib, openssl, c-ares, ssh2, you will have to download</div><div class="line">  them separately and copy them to the deps directory as shown below:</div><div class="line">  </div><div class="line">  somedirectory</div><div class="line">   |_curl-src</div><div class="line">   | |_winbuild</div><div class="line">   |</div><div class="line">   |_deps</div><div class="line">     |_ lib</div><div class="line">     |_ include</div><div class="line">     |_ bin</div></pre></td></tr></table></figure>
+<ul>
+<li>目录结构如下</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\deps&gt;tree /?</div><div class="line">以图形显示驱动器或路径的文件夹结构。</div><div class="line"></div><div class="line">TREE [drive:][path] [/F] [/A]</div><div class="line"></div><div class="line">   /F   显示每个文件夹中文件的名称。</div><div class="line">   /A   使用 ASCII 字符，而不使用扩展字符。</div><div class="line"></div><div class="line"></div><div class="line">D:\SourceBuild\deps&gt;tree /F</div><div class="line">卷 新加卷 的文件夹 PATH 列表</div><div class="line">卷序列号码为 0006EE44 E462:E6DB</div><div class="line">D:.</div><div class="line">├─include</div><div class="line">│  │  ares.h</div><div class="line">│  │  ares_build.h</div><div class="line">│  │  ares_rules.h</div><div class="line">│  │  ares_version.h</div><div class="line">│  │  zconf.h</div><div class="line">│  │  zlib.h</div><div class="line">│  │</div><div class="line">│  ├─internal</div><div class="line">│  │      bio.h</div><div class="line">│  │      comp.h</div><div class="line">│  │      conf.h</div><div class="line">│  │      constant_time_locl.h</div><div class="line">│  │      dane.h</div><div class="line">│  │      dso.h</div><div class="line">│  │      err.h</div><div class="line">│  │      numbers.h</div><div class="line">│  │      o_dir.h</div><div class="line">│  │      o_str.h</div><div class="line">│  │      thread_once.h</div><div class="line">│  │</div><div class="line">│  └─openssl</div><div class="line">│          aes.h</div><div class="line">│          asn1.h</div><div class="line">│          asn1t.h</div><div class="line">│          asn1_mac.h</div><div class="line">│          async.h</div><div class="line">│          [...]      </div><div class="line">│          x509v3.h</div><div class="line">│          x509_vfy.h</div><div class="line">│          __DECC_INCLUDE_EPILOGUE.H</div><div class="line">│          __DECC_INCLUDE_PROLOGUE.H</div><div class="line">│</div><div class="line">└─lib</div><div class="line">        cares.dll</div><div class="line">        cares.lib</div><div class="line">        libcrypto-1_1.dll</div><div class="line">        libcrypto.lib</div><div class="line">        libssl-1_1.dll</div><div class="line">        libssl.lib</div><div class="line">        zdll.lib</div><div class="line">        zlib.h</div><div class="line">        zlib.lib</div><div class="line">        zlib1.dll</div></pre></td></tr></table></figure>
+<ul>
+<li>因为这个版本的CURL依赖openssl时，会连接<code>libeay32.lib,ssleay32.lib</code>.这里要在脚本文件<code>\winbuild\MakefileBuild.vc</code>里把它改成<code>libssl.lib,libcrypto.lib</code>.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\curl-7.53.1\winbuild&gt;nmake /f Makefile.vc mode=dll vc=10 with_ssl</div><div class="line">=dll with_cares=dll with_zlib=dll machine=x86</div></pre></td></tr></table></figure>
+<ul>
+<li>如果不出错就会产生几个新的文件夹如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\curl-7.53.1\builds&gt;tree</div><div class="line">卷 新加卷 的文件夹 PATH 列表</div><div class="line">卷序列号码为 0006EE44 E462:E6DB</div><div class="line">D:.</div><div class="line">├─libcurl-vc10-x86-release-dll-ssl-dll-cares-dll-zlib-dll-ipv6-sspi</div><div class="line">│  ├─bin</div><div class="line">│  ├─include</div><div class="line">│  │  └─curl</div><div class="line">│  └─lib</div><div class="line">├─libcurl-vc10-x86-release-dll-ssl-dll-cares-dll-zlib-dll-ipv6-sspi-obj-curl</div><div class="line">└─libcurl-vc10-x86-release-dll-ssl-dll-cares-dll-zlib-dll-ipv6-sspi-obj-lib</div><div class="line">    ├─vauth</div><div class="line">    └─vtls</div></pre></td></tr></table></figure>
+<h4 id="MinGW-编译-CURL"><a href="#MinGW-编译-CURL" class="headerlink" title="MinGW 编译 CURL"></a>MinGW 编译 CURL</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\curl-7.53.1&gt;mkdir mingwbuild</div><div class="line">D:\SourceBuild\curl-7.53.1&gt;<span class="built_in">cd</span> mingwbuild</div><div class="line">D:\SourceBuild\curl-7.53.1\mingwbuild&gt;cmake -G <span class="string">"MinGW Makefiles"</span> ../</div><div class="line">D:\SourceBuild\curl-7.53.1\mingwbuild&gt;mingw32-make</div></pre></td></tr></table></figure>
+<ul>
+<li>会在当前目录下生成库文件与一些测试程序。</li>
+</ul>
+<hr>
+<h3 id="MXE环境下交叉编译一些库"><a href="#MXE环境下交叉编译一些库" class="headerlink" title="MXE环境下交叉编译一些库"></a>MXE环境下交叉编译一些库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> mxe</div><div class="line">mxe$ make MXE_TARGETS=<span class="string">"i686-w64-mingw32.shared"</span> curl libwebsockets</div><div class="line"></div><div class="line">$ <span class="built_in">cd</span> ~/mxe/download_src/c-ares-1.12.0/build$</div><div class="line">$ <span class="built_in">export</span> CROSS_COMPILER=i686-w64-mingw32.shared- </div><div class="line">$ ../configure  --prefix=/path/mxe/usr/i686-w64-mingw32.shared --host=i686-w64-mingw32</div><div class="line">$ make &amp;&amp; make install </div><div class="line">$ ls /path/mxe/usr/i686-w64-mingw32.shared/lib/libcares.*</div><div class="line">/path/mxe/usr/i686-w64-mingw32.shared/lib/libcares.dll.a  /path/mxe/usr/i686-w64-mingw32.shared/lib/libcares.la</div></pre></td></tr></table></figure>
+<h4 id="mosquitto"><a href="#mosquitto" class="headerlink" title="mosquitto"></a>mosquitto</h4><ul>
+<li>下载<a href="http://mosquitto.org/files/source/mosquitto-1.4.11.tar.gz" target="_blank" rel="external"><code>Mosquitto-1.4.11</code></a>,解压出来，看了一下它的<code>readme-windows.txt</code>在winxp 下编译安装不成功，不管是MSVC还是MinGW.我根据错误提示做了一些源代码的修改，使用Ｑt MinGW还有MXE环境下编译成功了。修改如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div></pre></td><td class="code"><pre><div class="line">$ diff -r mosquitto-1.4.11 mosquitto-1.4.11-lcy-changed</div><div class="line">Only <span class="keyword">in</span> mosquitto-1.4.11-lcy-changed: build</div><div class="line">diff -r mosquitto-1.4.11/config.mk mosquitto-1.4.11-lcy-changed/config.mk</div><div class="line">68c68</div><div class="line">&lt; WITH_WEBSOCKETS:=no</div><div class="line">---</div><div class="line">&gt; WITH_WEBSOCKETS:=yes</div><div class="line">diff -r mosquitto-1.4.11/lib/CMakeLists.txt mosquitto-1.4.11-lcy-changed/lib/CMakeLists.txt</div><div class="line">7,8c7,12</div><div class="line">&lt; 		<span class="built_in">set</span> (PTHREAD_LIBRARIES C:\\pthreads\\Pre-built.2\\lib\\x86\\pthreadVC2.lib)</div><div class="line">&lt; 		<span class="built_in">set</span> (PTHREAD_INCLUDE_DIR C:\\pthreads\\Pre-built.2\\include)</div><div class="line">---</div><div class="line">&gt;     <span class="keyword">if</span> (MINGW)</div><div class="line">&gt;       <span class="built_in">set</span> (PTHREAD_LIBRARIES -lpthread)</div><div class="line">&gt;     <span class="keyword">else</span> ( MINGW)</div><div class="line">&gt; 		  <span class="built_in">set</span> (PTHREAD_LIBRARIES C:\\pthreads\\Pre-built.2\\lib\\x86\\pthreadVC2.lib)</div><div class="line">&gt; 		  <span class="built_in">set</span> (PTHREAD_INCLUDE_DIR C:\\pthreads\\Pre-built.2\\include)</div><div class="line">&gt;     endif (MINGW)</div><div class="line">diff -r mosquitto-1.4.11/lib/mosquitto_internal.h mosquitto-1.4.11-lcy-changed/lib/mosquitto_internal.h</div><div class="line">20a21</div><div class="line">&gt; <span class="comment">#include &lt;stdint.h&gt;</span></div><div class="line">diff -r mosquitto-1.4.11/lib/net_mosq.c mosquitto-1.4.11-lcy-changed/lib/net_mosq.c</div><div class="line">29a30</div><div class="line">&gt; <span class="comment">#define AI_ADDRCONFIG 0x400</span></div><div class="line">diff -r mosquitto-1.4.11/lib/time_mosq.c mosquitto-1.4.11-lcy-changed/lib/time_mosq.c</div><div class="line">45,47c45,48</div><div class="line">&lt; 		<span class="keyword">if</span>(vi.dwMajorVersion &gt; 5)&#123;</div><div class="line">&lt; 			tick64 = <span class="literal">true</span>;</div><div class="line">&lt; 		&#125;</div><div class="line">---</div><div class="line">&gt; 		<span class="keyword">if</span>(vi.dwMajorVersion &gt; 5 )</div><div class="line">&gt;     &#123;</div><div class="line">&gt;       tick64 = <span class="literal">true</span>;</div><div class="line">&gt;     &#125;</div><div class="line">56c57</div><div class="line">&lt; 		<span class="built_in">return</span> GetTickCount64()/1000;</div><div class="line">---</div><div class="line">&gt; 		<span class="built_in">return</span> GetTickCount()/1000;</div><div class="line">diff -r mosquitto-1.4.11/lib/tls_mosq.c mosquitto-1.4.11-lcy-changed/lib/tls_mosq.c</div><div class="line">21a22</div><div class="line">&gt; <span class="comment"># include &lt;windows.h&gt;</span></div><div class="line">118,119c119,128</div><div class="line">&lt; 	ipv6_ok = InetPton(AF_INET6, hostname, &amp;ipv6_addr);</div><div class="line">&lt; 	ipv4_ok = InetPton(AF_INET, hostname, &amp;ipv4_addr);</div><div class="line">---</div><div class="line">&gt;   typedef INT (WSAAPI *ptrInetPton)( INT     Family, PCTSTR pszAddrString, PVOID  pAddrBuf);</div><div class="line">&gt;   HMODULE  h = LoadLibrary(L<span class="string">"ws2_32.dll"</span>);</div><div class="line">&gt;   ptrInetPton  func = (ptrInetPton)GetProcAddress(h,<span class="string">"InetPtonW"</span>);</div><div class="line">&gt; </div><div class="line">&gt; 	ipv6_ok = func(AF_INET6, hostname, &amp;ipv6_addr);</div><div class="line">&gt; 	ipv4_ok = func(AF_INET, hostname, &amp;ipv4_addr);</div><div class="line">&gt;   FreeLibrary(h); h = NULL;</div><div class="line">&gt; </div><div class="line">&gt; 	//ipv6_ok = InetPton(AF_INET6, hostname, &amp;ipv6_addr);</div><div class="line">&gt; 	//ipv4_ok = InetPton(AF_INET, hostname, &amp;ipv4_addr);</div><div class="line">diff -r mosquitto-1.4.11/src/conf.c mosquitto-1.4.11-lcy-changed/src/conf.c</div><div class="line">33a34</div><div class="line">&gt; <span class="comment">#define AI_ADDRCONFIG 0x400</span></div><div class="line">diff -r mosquitto-1.4.11/src/loop.c mosquitto-1.4.11-lcy-changed/src/loop.c</div><div class="line">27a28,107</div><div class="line">&gt; <span class="comment">#include &lt;windows.h&gt;</span></div><div class="line">&gt; <span class="comment">#if (_WIN32_WINNT &lt; 0x0600)</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment">#define POLLIN 0x0001</span></div><div class="line">&gt; <span class="comment">#define POLLPRI 0x0002</span></div><div class="line">&gt; <span class="comment">#define POLLOUT 0x0004</span></div><div class="line">&gt; <span class="comment">#define POLLERR 0x0008</span></div><div class="line">&gt; <span class="comment">#define POLLHUP 0x0010</span></div><div class="line">&gt; <span class="comment">#define POLLNVAL 0x0020</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment">#ifdef FD_SETSIZE</span></div><div class="line">&gt; <span class="comment">#undef FD_SETSIZE</span></div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment">#define FD_SETSIZE 1000</span></div><div class="line">&gt; </div><div class="line">&gt; struct pollfd &#123;</div><div class="line">&gt;   SOCKET fd;</div><div class="line">&gt;   short events;</div><div class="line">&gt;   short revents;</div><div class="line">&gt; &#125;;</div><div class="line">&gt; </div><div class="line">&gt; </div><div class="line">&gt; int mingw_poll(struct pollfd *fds, unsigned int nfds, int timo)</div><div class="line">&gt; &#123;</div><div class="line">&gt;     struct timeval timeout, *toptr;</div><div class="line">&gt;     fd_set ifds, ofds, efds, *ip, *op;</div><div class="line">&gt;     int i, rc;</div><div class="line">&gt; </div><div class="line">&gt;     /* Set up the file-descriptor sets <span class="keyword">in</span> ifds, ofds and efds. */</div><div class="line">&gt;     FD_ZERO(&amp;ifds);</div><div class="line">&gt;     FD_ZERO(&amp;ofds);</div><div class="line">&gt;     FD_ZERO(&amp;efds);</div><div class="line">&gt;     <span class="keyword">for</span> (i = 0, op = ip = 0; i &lt; nfds; ++i) &#123;</div><div class="line">&gt;         fds[i].revents = 0;</div><div class="line">&gt;         <span class="keyword">if</span>(fds[i].events &amp; (POLLIN|POLLPRI)) &#123;</div><div class="line">&gt;             ip = &amp;ifds;</div><div class="line">&gt;             FD_SET(fds[i].fd, ip);</div><div class="line">&gt;         &#125;</div><div class="line">&gt;         <span class="keyword">if</span>(fds[i].events &amp; POLLOUT) &#123;</div><div class="line">&gt;             op = &amp;ofds;</div><div class="line">&gt;             FD_SET(fds[i].fd, op);</div><div class="line">&gt;         &#125;</div><div class="line">&gt;         FD_SET(fds[i].fd, &amp;efds);</div><div class="line">&gt;     &#125; </div><div class="line">&gt; </div><div class="line">&gt;     /* Set up the timeval structure <span class="keyword">for</span> the timeout parameter */</div><div class="line">&gt;     <span class="keyword">if</span>(timo &lt; 0) &#123;</div><div class="line">&gt;         toptr = 0;</div><div class="line">&gt;     &#125; <span class="keyword">else</span> &#123;</div><div class="line">&gt;         toptr = &amp;timeout;</div><div class="line">&gt;         timeout.tv_sec = timo / 1000;</div><div class="line">&gt;         timeout.tv_usec = (timo - timeout.tv_sec * 1000) * 1000;</div><div class="line">&gt;     &#125;</div><div class="line">&gt; </div><div class="line">&gt;     //kWarning()&lt;&lt;QString(<span class="string">"Entering select() sec=%1 usec=%2 ip=%3 op=%4"</span>).arg(timeout.tv_sec).arg(timeout.tv_usec).arg((long)ip).arg((long)op);</div><div class="line">&gt; </div><div class="line">&gt;     rc = select(0, ip, op, &amp;efds, toptr);</div><div class="line">&gt; </div><div class="line">&gt;     //kWarning()&lt;&lt;<span class="string">"Exiting select rc="</span>&lt;&lt;rc;</div><div class="line">&gt; </div><div class="line">&gt;     <span class="keyword">if</span>(rc &lt;= 0)</div><div class="line">&gt;         <span class="built_in">return</span> rc;</div><div class="line">&gt; </div><div class="line">&gt;     <span class="keyword">if</span>(rc &gt; 0) &#123;</div><div class="line">&gt;         <span class="keyword">for</span> (i = 0; i &lt; nfds; ++i) &#123;</div><div class="line">&gt;             int fd = fds[i].fd;</div><div class="line">&gt;             <span class="keyword">if</span>(fds[i].events &amp; (POLLIN|POLLPRI) &amp;&amp; FD_ISSET(fd, &amp;ifds))</div><div class="line">&gt;                 fds[i].revents |= POLLIN;</div><div class="line">&gt;             <span class="keyword">if</span>(fds[i].events &amp; POLLOUT &amp;&amp; FD_ISSET(fd, &amp;ofds))</div><div class="line">&gt;                 fds[i].revents |= POLLOUT;</div><div class="line">&gt;             <span class="keyword">if</span>(FD_ISSET(fd, &amp;efds))</div><div class="line">&gt;                 /* Some error was detected ... should be some way to know. */</div><div class="line">&gt;                 fds[i].revents |= POLLHUP;</div><div class="line">&gt;             //kWarning()&lt;&lt;QString(<span class="string">"%1 %2 %3 revent = %4"</span>).arg(FD_ISSET(fd, &amp;ifds)).arg(FD_ISSET(fd, &amp;ofds)).arg(FD_ISSET(fd, &amp;efds)).arg(fds[i].revents);</div><div class="line">&gt;         &#125;</div><div class="line">&gt;     &#125;</div><div class="line">&gt;     <span class="built_in">return</span> rc;</div><div class="line">&gt; &#125;</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">354c434,435</div><div class="line">&lt; 		fdcount = WSAPoll(pollfds, pollfd_index, 100);</div><div class="line">---</div><div class="line">&gt; 		//fdcount = WSAPoll(pollfds, pollfd_index, 100);</div><div class="line">&gt; 		fdcount = mingw_poll(pollfds, pollfd_index, 100);</div><div class="line">diff -r mosquitto-1.4.11/src/net.c mosquitto-1.4.11-lcy-changed/src/net.c</div><div class="line">26a27</div><div class="line">&gt; <span class="comment">#include &lt;windows.h&gt;</span></div><div class="line">516a518,523</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; </div><div class="line">&gt; typedef PCTSTR (WSAAPI *ptrInetNtop)( INT     Family, PVOID  pAddr, PTSTR  pStringBuf, size_t StringBufSize);</div><div class="line">&gt;   HMODULE  h = LoadLibrary(L<span class="string">"ws2_32.dll"</span>);</div><div class="line">&gt;   ptrInetNtop  func = (ptrInetNtop)GetProcAddress(h,<span class="string">"InetNtop"</span>);</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">520a528,531</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; 			<span class="keyword">if</span>(func(AF_INET, &amp;((struct sockaddr_in *)&amp;addr)-&gt;sin_addr.s_addr, buf, len))&#123;</div><div class="line">&gt; 				<span class="built_in">return</span> 0;</div><div class="line">&gt; <span class="comment">#else</span></div><div class="line">522a534</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">524a537,540</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; 			<span class="keyword">if</span>(func(AF_INET6, &amp;((struct sockaddr_in6 *)&amp;addr)-&gt;sin6_addr.s6_addr, buf, len))&#123;</div><div class="line">&gt; 				<span class="built_in">return</span> 0;</div><div class="line">&gt; <span class="comment">#else</span></div><div class="line">526a543</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">529a547,549</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; FreeLibrary(h);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>MXE编译参数如下，要先安装OPENSSL</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmake -DCMAKE_SHARED_LIBRARY_LINK_C_FLAGS=<span class="string">""</span> -DCMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS=<span class="string">""</span> -DWIN32=ON -DMINGW=ON -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=i686-w64-mingw32.shared-gcc  -DOPENSSL_ROOT_DIR=/path/usr/i686-w64-mingw32.shared ..</div></pre></td></tr></table></figure>
+</li>
+<li><p>Qt MinGW 编译</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed&gt; mkdir build</div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed&gt; cd build</div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed\build&gt;cmake -G &quot;MinGW Makefiles&quot; ..</div><div class="line">-- The C compiler identification is GNU 5.3.0</div><div class="line">-- The CXX compiler identification is GNU 5.3.0</div><div class="line">-- Check for working C compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/gcc.exe</div><div class="line">-- Check for working C compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/gcc.exe --</div><div class="line">works</div><div class="line">-- Detecting C compiler ABI info</div><div class="line">-- Detecting C compiler ABI info - done</div><div class="line">-- Detecting C compile features</div><div class="line">-- Detecting C compile features - done</div><div class="line">-- Check for working CXX compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/g++.exe</div><div class="line">-- Check for working CXX compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/g++.exe -</div><div class="line">- works</div><div class="line">-- Detecting CXX compiler ABI info</div><div class="line">-- Detecting CXX compiler ABI info - done</div><div class="line">-- Detecting CXX compile features</div><div class="line">-- Detecting CXX compile features - done</div><div class="line">-- Found OpenSSL: C:/Dwimperl/c/lib/libssleay32.a (found version &quot;1.0.0d&quot;)</div><div class="line">CMake Warning at lib/CMakeLists.txt:73 (message):</div><div class="line">  c-ares library not found.</div><div class="line"></div><div class="line"></div><div class="line">-- Looking for getaddrinfo_a in anl</div><div class="line">-- Looking for getaddrinfo_a in anl - not found</div><div class="line">-- Configuring done</div><div class="line">-- Generating done</div><div class="line">-- Build files have been written to: D:/SourceBuild/mosquitto-1.4.11-lcy-changed</div><div class="line">/build</div><div class="line"></div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed\build&gt; mingw32-make</div><div class="line"></div><div class="line">[...]</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>上面提到这些库都是可以通过MSVC或者MinGW可以编译出来，一整套的编译环境加上一大堆的依赖库，还要应对一些编译器带来的错误，一般是不会像上面这样一个一个的去编译，更好的方法是使用MXE去编译上面这些库,但是依赖的动态库文件会比较多。</li>
+</ul>
+<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>支付宝二维码:</li>
+</ul>
+<p><img src="/imgs/aex05246pdr9ik5wosogj3b.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下编译一些开源基础库/" data-id="cj1p0yyox000c4bi5oj4bsj9u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/19/Windows下WinDDK驱动开发/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Windows下WinDDK驱动开发</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="/" class="logo">码农记事本</a>
+      &copy; 2017 lcy<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

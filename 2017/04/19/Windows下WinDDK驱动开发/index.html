@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Windows下WinDDK驱动开发 | 码农记事本</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="WinDDK
+初始化 DDK
+
+12345C:\WinDDK\7600.16385.1\C:\WinDDK\7600.16385.1\bin&amp;gt;setenv.bat C:\WinDDK\7600.16385.1 fre WXPOACR monitor running already
+
+WinDDK包自带了很多开发示例代码，可以直接编译，经过上一步设置了环境变量，如果在根目录下直接运行build">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下WinDDK驱动开发">
+<meta property="og:url" content="http://yjdwbj.github.io/2017/04/19/Windows下WinDDK驱动开发/index.html">
+<meta property="og:site_name" content="码农记事本">
+<meta property="og:description" content="WinDDK
+初始化 DDK
+
+12345C:\WinDDK\7600.16385.1\C:\WinDDK\7600.16385.1\bin&amp;gt;setenv.bat C:\WinDDK\7600.16385.1 fre WXPOACR monitor running already
+
+WinDDK包自带了很多开发示例代码，可以直接编译，经过上一步设置了环境变量，如果在根目录下直接运行build">
+<meta property="og:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<meta property="og:updated_time" content="2017-04-19T13:37:13.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows下WinDDK驱动开发">
+<meta name="twitter:description" content="WinDDK
+初始化 DDK
+
+12345C:\WinDDK\7600.16385.1\C:\WinDDK\7600.16385.1\bin&amp;gt;setenv.bat C:\WinDDK\7600.16385.1 fre WXPOACR monitor running already
+
+WinDDK包自带了很多开发示例代码，可以直接编译，经过上一步设置了环境变量，如果在根目录下直接运行build">
+<meta name="twitter:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<link rel="publisher" href="yjdwbj@gmail.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+  <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78826582-1', 'auto');
+  ga('send', 'pageview');
+
+    </script>
+<!-- End Google Analytics -->
+
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">码农记事本</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">文章</a>
+        
+          <a class="main-nav-link" href="/2016/05/20/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/ppoffice/hexo-theme-alex" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/2016/05/20/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/嵌入式/">嵌入式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/19/Windows下编译一些开源基础库/">Windows下编译一些开源基础库</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/19/Windows下WinDDK驱动开发/">Windows下WinDDK驱动开发</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/03/Mini2440移植最新的u-boot/">Mini2440移植最新的u-boot</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/15/栽剪FFMPEG做GIF录屏工具/">栽剪FFMPEG做GIF录屏工具</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/08/Qt的一些开发技巧/">Qt的一些开发技巧</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 10px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/MinGW-驱动/" style="font-size: 10px;">MinGW,驱动</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a> <a href="/tags/WinDDk-驱动/" style="font-size: 10px;">WinDDk,驱动</a> <a href="/tags/ffmpeg-QT/" style="font-size: 10px;">ffmpeg,QT</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+          <li>
+            <a href="mailto:yjdwbj@gmail.com">Email</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+        <section id="main"><article id="post-Windows下WinDDK驱动开发" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/19/Windows下WinDDK驱动开发/" class="article-date">
+  <time datetime="2017-04-19T12:50:06.000Z" itemprop="datePublished">2017-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows下WinDDK驱动开发
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="WinDDK"><a href="#WinDDK" class="headerlink" title="WinDDK"></a>WinDDK</h3><ul>
+<li>初始化 DDK</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\</div><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\bin&gt;setenv.bat C:\W<span class="keyword">in</span>DDK\7600.16385.1 fre WXP</div><div class="line">OACR monitor running already</div></pre></td></tr></table></figure>
+<ul>
+<li><code>WinDDK</code>包自带了很多开发示例代码，可以直接编译，经过上一步设置了环境变量，如果在根目录下直接运行<code>build</code>,或者<code>bcz</code>就会把所有的示例全部编译出来。如下面只编译一个示例如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui&gt;bcz</div><div class="line">BUILD: Compile and Link <span class="keyword">for</span> x86</div><div class="line">BUILD: Start time: Thu Apr 06 13:02:47 2017</div><div class="line">BUILD: Examining c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui directory <span class="keyword">for</span></div><div class="line"> files to compile.</div><div class="line">    c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui Auto-cleaning queue <span class="keyword">for</span> <span class="string">'W</span></div><div class="line">DKSamples:x86fre' (5 of 5 file(s) removed)</div><div class="line">Invalidating OACR warning <span class="built_in">log</span> <span class="keyword">for</span> <span class="string">'WDKSamples:x86fre'</span></div><div class="line">BUILD: rmdir /q/s .obj\src\<span class="built_in">print</span>\monitors\localui</div><div class="line">BUILD: Compiling c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui directory</div><div class="line">Configuring OACR <span class="keyword">for</span> <span class="string">'WDKSamples:x86fre'</span> - &lt;OACR on&gt;</div><div class="line">_NT_TARGET_VERSION SET TO WINXP</div><div class="line">Precompiling - precomp.h</div><div class="line">Compiling - localui.c</div><div class="line">Compiling - util.c</div><div class="line">Compiling - dialogs.c</div><div class="line">Compiling - config.c</div><div class="line">Compiling - mem.c</div><div class="line">Compiling - generating code...</div><div class="line">Building Library - .obj\src\<span class="built_in">print</span>\monitors\localui\objfre_wxp_x86\i386\ddklocalu</div><div class="line">i.lib</div><div class="line">BUILD: Linking <span class="keyword">for</span> c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui directory</div><div class="line">_NT_TARGET_VERSION SET TO WINXP</div><div class="line">Compiling resources - localui.rc</div><div class="line">_NT_TARGET_VERSION SET TO WINXP</div><div class="line">Linking Executable - .obj\src\<span class="built_in">print</span>\monitors\localui\objfre_wxp_x86\i386\ddkloca</div><div class="line">lui.dll</div><div class="line">BUILD: Finish time: Thu Apr 06 13:02:48 2017</div><div class="line">BUILD: Done</div><div class="line"></div><div class="line">    10 files compiled</div><div class="line">    1 library built</div><div class="line">    1 executable built</div><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui&gt;</div></pre></td></tr></table></figure>
+<h3 id="使用QT开发windows驱动"><a href="#使用QT开发windows驱动" class="headerlink" title="使用QT开发windows驱动"></a>使用QT开发windows驱动</h3><p>&emsp;&emsp;本人也是从使用VC++6.0 MFC开始入门做开发，后来接触并使用GTK，wxWidgets,QT做过一些开发,现在来说对MFC的东西很抵触，.NET与VB没有用过不好说，但是使用QT,wxWidgets做图形界面还是比较快捷的（对于本人来说）。如果是纯软件，我一般都喜欢在Linux下用QT开发，交叉编译出一个静态exe放到windows下发布。但是如果是WINDOWS驱动开发，那就肯定只能在WINDOWS做开发了，vs2010 实在用不习惯，我还是装了Qt来折腾，Qt加MinGW做驱动开发,主要是要用到Qt的图形界面,还有一些QT处理字符串的功能.</p>
+<p>&emsp;&emsp;之前开发都没有注意windows入口函数的问题exe的入口函数<code>WinMain</code>,DLL的入口函数<code>DllMain</code>，通过这次开发了解一些winAPI的功能，和一些需要注意的事项.</p>
+<p>&emsp;&emsp;Windows 开发动态库都是使用def文件做导出的，以前c/c++都是用　<code>__declspec(dllexport)</code>直接声明在函数头文件，如果使用MinGW GCC的编译器就会出现一个问题，可以参考<a href="http://www.willus.com/mingw/yongweiwu_stdcall.html" target="_blank" rel="external"><code>这里</code></a>，比如：要导出DllMain这个函数，它就会变成<code>DllMain@12</code>这样的符号，所以肯是加载不了这个dll的，在使用VC＋＋6.0时会有一个工具叫做<code>dependency walker</code>查看dll的依赖那些DLL，导出了那些函数符号名，到vs2010就不自带了，现在要去单独下载。<a href="http://www.dependencywalker.com/" target="_blank" rel="external"><code>下载地址</code></a>。使用def文件声明就没有这个问题了。如QT工程设置如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">QMAKE_LFLAGS += $<span class="variable">$PWD</span>/<span class="built_in">print</span>-mon.def</div><div class="line">DEFINES += _UNICODE _UNICODE STRICT</div></pre></td></tr></table></figure>
+<p>def 文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">LIBRARY        print-mon</div><div class="line">;DESCRIPTION    &apos;Redirected Port Monitor for Windows NT 5.0&apos;</div><div class="line">;DATA        MULTIPLE SHARED</div><div class="line">EXPORTS</div><div class="line">                DllMain</div><div class="line">                InitializePrintMonitor2</div><div class="line">;                InitializePrintMonitorUI</div></pre></td></tr></table></figure></p>
+<h3 id="开发遇到的问题"><a href="#开发遇到的问题" class="headerlink" title="开发遇到的问题"></a>开发遇到的问题</h3><ul>
+<li>下面是我要开发一个打印机的监视器，参照MSDN API文档开发。</li>
+</ul>
+<h4 id="库版本差异问题"><a href="#库版本差异问题" class="headerlink" title="库版本差异问题"></a>库版本差异问题</h4><p>&emsp;&emsp;Qt的自带的人MinGW的库文件如<code>winspool.a</code>是没有导出<code>XcvDataW</code>这个函数的，所以在链接时会出错，只是链接时出错， 不是运行时。这里有两个办法可以解决。</p>
+<ol>
+<li>我在Linux下交叉编译过Qt5.8,GCC-5.4，我用<code>nm</code>查看了一下<code>winspool.a</code>是有导出<code>XcvDataW</code>这个函数的，我尝试把拿过来，要QT里指定链接它<code>LIBS +=-L$$PWD/lib -lwinspool</code>,竟然编译通过，而且注意了，我windows下的MinGW GCC是5.3,也是可以编译链接的。</li>
+<li>下面这种是常用的，就是直接加载驱动程序文件，通过API取得它的函数入口地址如：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//定义函数指针</span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">BOOL</span> <span class="params">(WINAPI *pfnXcvData)</span><span class="params">(HANDLE hXcv, LPCWSTR pszDataName,</span></span></div><div class="line">                                  PBYTE pInputData, DWORD cbInputData,</div><div class="line">                                  PBYTE pOutputData, DWORD cbOutputData, PDWORD pcbOutputNeeded,</div><div class="line">                                  PDWORD pdwStatus);</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">HINSTANCE hInstance = LoadLibrary(TEXT(<span class="string">"winspool.drv"</span>));</div><div class="line"><span class="keyword">if</span> (hInstance != <span class="literal">NULL</span>) &#123;</div><div class="line">    pfnXcvData fpXcvData = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">    <span class="comment">//取得函数地址</span></div><div class="line">    fpXcvData = (pfnXcvData)GetProcAddress(hInstance, <span class="string">"XcvDataW"</span>);</div><div class="line">    <span class="keyword">if</span> (fpXcvData != <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="comment">//传入参数调用函数。</span></div><div class="line">        rc = fpXcvData(hXcv, <span class="string">L"AddPort"</span>,(PBYTE)pOut,</div><div class="line">                       (wcslen(pOut) + <span class="number">1</span>)*<span class="keyword">sizeof</span>(WCHAR),</div><div class="line">                       dwOutputData, <span class="number">0</span>, &amp;dwNeeded, &amp;dwStatus);</div><div class="line">    &#125;</div><div class="line">    FreeLibrary(hInstance);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="字符串的问题"><a href="#字符串的问题" class="headerlink" title="字符串的问题"></a>字符串的问题</h4><ul>
+<li>使用Qt+MinGW还有一个问题就是字符串转换的问题，被这个问题困了四五天。举例说明，<br>还是用<code>XcvData</code>这个函数举例，它的接口定义来自<a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff564255(v=vs.85" target="_blank" rel="external">MSDN</a>.aspx)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">BOOL <span class="title">XcvData</span><span class="params">(</span></span></div><div class="line">  _In_      HANDLE hXcv,</div><div class="line">  _In_      PCTSTR pszDataName,</div><div class="line">  _In_opt_  PBYTE  pInputData,</div><div class="line">            DWORD  cbInputData,   <span class="comment">//这里这度必须是WCHAR的长度，(wcslen(pOut) + 1)*sizeof(WCHAR)</span></div><div class="line">  _Out_opt_ PBYTE  pOutputData,</div><div class="line">            DWORD  cbOutputData,</div><div class="line">  _Out_     PDWORD pcbOutputNeeded,</div><div class="line">  _Out_opt_ PDWORD pdwStatus</div><div class="line">);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">size_t cbSize =sizeof(PWSTR) * 6;</div><div class="line">PWSTR pOut = (PWSTR)AllocSplMem(cbSize);</div><div class="line">StringCbCopy((PWSTR)pOut,cbSize,L&quot;Net3:&quot;);</div><div class="line">pOut[5] = NULL;</div><div class="line"></div><div class="line"></div><div class="line">pfnXcvData fpXcvData = NULL;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">rc = XcvData(hXcv, L&quot;AddPort&quot;,(PBYTE)pOut,</div><div class="line">                   // 原来把面直接写成常数6,该函数执行成功，就是不返回下一步，调试其它一切正常，最后才把它改成用WCHAR的长度就OK了。</div><div class="line">                   (wcslen(pOut) + 1)*sizeof(WCHAR),</div><div class="line">                   dwOutputData, 0, &amp;dwNeeded, &amp;dwStatus);</div></pre></td></tr></table></figure>
+<p>所以总结一句，<code>魔鬼在细节</code>,windows开发，WCHAR等宽字符问题一定要注意。比如PBYTE转QString ，尝试了很多次都不成功，最后找到方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PBYTE pInputData = &quot;Abc dddd&quot;;</div><div class="line">QString::fromUtf16(reinterpret_cast&lt;const unsigned short*&gt;(pInputData));</div><div class="line"></div><div class="line"></div><div class="line">QString t = &quot;abc&quot;;</div><div class="line"># QString 转 LPCWSTR</div><div class="line">LPCWSTR  tmp = (LPCWSTR)t.utf16();</div></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>Windows 下开发驱动肯定少不了<a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff557573.aspx" target="_blank" rel="external"><code>MSDN</code></a>,调试要用到<code>GetLastError</code> 的API去取得<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx" target="_blank" rel="external"><code>错误码</code></a>,重复性r 的操作最好还是用脚本来处理，比如：我开发调试一个打印监视器的驱动，每次要重启Spooler服务才能替换新的程序。写一个如下脚本省事又不出错：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@<span class="built_in">echo</span> on</div><div class="line"><span class="built_in">echo</span> %1</div><div class="line"><span class="built_in">set</span> TARGET=<span class="string">"C:\WINDOWS\system32\print-mon_i686.dll"</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> UITARGET=<span class="string">"C:\WINDOWS\system32\netmonui_i686.dll"</span></div><div class="line"></div><div class="line">sc stop Spooler</div><div class="line">;这个ping只是用来延时的</div><div class="line">ping 8.8.8.8 -n1 -w 5 &gt;nul</div><div class="line">IF EXIST  %TARGET%  del /f %TARGET%</div><div class="line">IF EXIST  %UITARGET% del /f %UITARGET%</div><div class="line">copy %1\netmon\debug\<span class="built_in">print</span>-mon_i686.dll %TARGET%</div><div class="line">copy %1\ui\debug\netmonui_i686.dll %UITARGET%</div><div class="line">sc start Spooler</div><div class="line"></div><div class="line">;一次不成功，再运行一次保险</div><div class="line"></div><div class="line">sc stop Spooler</div><div class="line">ping 8.8.8.8 -n1 -w 5 &gt;nul</div><div class="line">IF EXIST  %TARGET%  del /f %TARGET%</div><div class="line">IF EXIST  %UITARGET% del /f %UITARGET%</div><div class="line">copy %1\netmon\debug\<span class="built_in">print</span>-mon_i686.dll %TARGET%</div><div class="line">copy %1\ui\debug\netmonui_i686.dll %UITARGET%</div><div class="line">sc start Spooler</div></pre></td></tr></table></figure>
+<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>支付宝二维码:</li>
+</ul>
+<p><img src="/imgs/aex05246pdr9ik5wosogj3b.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下WinDDK驱动开发/" data-id="cj1p0yyoo000a4bi5y3xyio57" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/19/Windows下编译一些开源基础库/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Windows下编译一些开源基础库
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/03/Mini2440移植最新的u-boot/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mini2440移植最新的u-boot</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="/" class="logo">码农记事本</a>
+      &copy; 2017 lcy<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

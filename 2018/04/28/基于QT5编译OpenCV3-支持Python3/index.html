@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于QT5编译OpenCV3,支持Python3 | Sunrise 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[相关链接]Github opencvopencv_contribpyenv
+安装pyenv
+详细安装参照pyenv README.
+
+12345$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv$ echo &amp;apos;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&amp;apos; &amp;gt;&amp;gt; ~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于QT5编译OpenCV3,支持Python3">
+<meta property="og:url" content="http://yjdwbj.github.io/2018/04/28/基于QT5编译OpenCV3-支持Python3/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="[相关链接]Github opencvopencv_contribpyenv
+安装pyenv
+详细安装参照pyenv README.
+
+12345$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv$ echo &amp;apos;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&amp;apos; &amp;gt;&amp;gt; ~">
+<meta property="og:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<meta property="og:updated_time" content="2018-04-28T02:53:58.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于QT5编译OpenCV3,支持Python3">
+<meta name="twitter:description" content="[相关链接]Github opencvopencv_contribpyenv
+安装pyenv
+详细安装参照pyenv README.
+
+12345$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv$ echo &amp;apos;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&amp;apos; &amp;gt;&amp;gt; ~">
+<meta name="twitter:image" content="http://yjdwbj.github.io/imgs/aex05246pdr9ik5wosogj3b.png">
+<link rel="publisher" href="yjdwbj@gmail.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+  <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78826582-1', 'auto');
+  ga('send', 'pageview');
+
+    </script>
+<!-- End Google Analytics -->
+
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Sunrise 博客</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">文章</a>
+        
+          <a class="main-nav-link" href="/2016/05/20/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/ppoffice/hexo-theme-alex" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/2016/05/20/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/嵌入式/">嵌入式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/28/OpenWrt固件编译/">OpenWrt固件编译</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/">基于QT5编译OpenCV3,支持Python3</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/15/Linux-下翻墙指南/">Linux 下翻墙指南</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/19/Windows下编译一些开源基础库/">Windows下编译一些开源基础库</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV-Python3-Qt/">OpenCV,Python3,Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWrt-Linux/">OpenWrt,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 20px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/MinGW-驱动/" style="font-size: 10px;">MinGW,驱动</a> <a href="/tags/OpenCV-Python3-Qt/" style="font-size: 10px;">OpenCV,Python3,Qt</a> <a href="/tags/OpenWrt-Linux/" style="font-size: 10px;">OpenWrt,Linux</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a> <a href="/tags/WinDDk-驱动/" style="font-size: 10px;">WinDDk,驱动</a> <a href="/tags/ffmpeg-QT/" style="font-size: 10px;">ffmpeg,QT</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+          <li>
+            <a href="mailto:yjdwbj@gmail.com">Email</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+        <section id="main"><article id="post-基于QT5编译OpenCV3-支持Python3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/" class="article-date">
+  <time datetime="2018-04-28T02:47:15.000Z" itemprop="datePublished">2018-04-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于QT5编译OpenCV3,支持Python3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[相关链接]<br><a href="https://github.com/opencv/opencv" target="_blank" rel="external">Github opencv</a><br><a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="external">opencv_contrib</a><br><a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a></p>
+<h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><ul>
+<li>详细安装参照<a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a> README.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.5.6 版本</div></pre></td></tr></table></figure>
+<h3 id="编译OpenCV3"><a href="#编译OpenCV3" class="headerlink" title="编译OpenCV3"></a>编译OpenCV3</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/opencv/opencv</div><div class="line">$ git checout -b 3.4.1   <span class="comment"># checkout 一个 Release 版本.</span></div><div class="line">$ <span class="built_in">cd</span> opencv &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</div><div class="line">$ cmake</div><div class="line">	-D CMAKE_PREFIX_PATH=/fullpath/Qt5.7/5.7/gcc_64   <span class="comment"># 本机 QT5 的安装位置</span></div><div class="line">    -D CMAKE_INSTALL_PREFIX=/fullpath/opencv-build-3.x-qt5-py3</div><div class="line">    -D WITH_QT=ON    <span class="comment"># QT 与 GTK 只能二选 一</span></div><div class="line">    -D WITH_V4L=ON</div><div class="line">    -D BUILD_TESTS=OFF</div><div class="line">    -D WITH_TBB=ON</div><div class="line">    -D INSTALL_C_EXAMPLES=ON</div><div class="line">    -D INSTALL_PYTHON_EXAMPLES=ON</div><div class="line">    -D WITH_OPENMP=ON</div><div class="line">    -D WITH_OPENEXR=ON</div><div class="line">    -D WITH_UNICAP=ON</div><div class="line">    -D BUILD_PYTHON_SUPPORT=ON</div><div class="line">    -D BUILD_opencv_python3=ON</div><div class="line">    -D PYTHON_DEFAULT_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">    -D PYTHON_INCLUDE_DIRS=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/include/python3.6m</div><div class="line">    -D PYTHON_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6</div><div class="line">    -D PYTHON_LIBRARY=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0</div><div class="line">    -D WITH_OPENGL=ON ../</div><div class="line">    </div><div class="line">[...]</div><div class="line">--   GUI: </div><div class="line">--     QT:                          YES (ver 5.7.0)</div><div class="line">--       QT OpenGL support:         YES (Qt5::OpenGL 5.7.0)</div><div class="line">--     GTK+:                        NO</div><div class="line">--     OpenGL support:              YES (/usr/lib/x86_64-linux-gnu/libGLU.so /usr/<span class="built_in">local</span>/lib/libGL.so)</div><div class="line">--     VTK support:                 YES (ver 6.3.0)</div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        /usr/lib/x86_64-linux-gnu/libz.so (ver 1.2.8)</div><div class="line">--     JPEG:                        /usr/lib/x86_64-linux-gnu/libjpeg.so (ver )</div><div class="line">--     WEBP:                        /usr/lib/x86_64-linux-gnu/libwebp.so (ver encoder: 0x0209)</div><div class="line">--     PNG:                         /usr/lib/x86_64-linux-gnu/libpng.so (ver 1.6.28)</div><div class="line">--     TIFF:                        /usr/lib/x86_64-linux-gnu/libtiff.so (ver 42 / 4.0.8)</div><div class="line">--     JPEG 2000:                   /usr/lib/x86_64-linux-gnu/libjasper.so (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line">-- </div><div class="line">--   Video I/O:</div><div class="line">--     DC1394:                      NO</div><div class="line">--     FFMPEG:                      YES</div><div class="line">--       avcodec:                   YES (ver 57.89.100)</div><div class="line">--       avformat:                  YES (ver 57.71.100)</div><div class="line">--       avutil:                    YES (ver 55.58.100)</div><div class="line">--       swscale:                   YES (ver 4.6.100)</div><div class="line">--       avresample:                YES (ver 3.5.0)</div><div class="line">--     GStreamer:                   NO</div><div class="line">--     UniCap:                      NO</div><div class="line">--     UniCap ucil:                 NO</div><div class="line">--     libv4l/libv4l2:              NO</div><div class="line">--     v4l/v4l2:                    linux/videodev.h linux/videodev2.h</div><div class="line">--     gPhoto2:                     YES</div><div class="line">-- </div><div class="line">--   Parallel framework:            OpenMP</div><div class="line">-- </div><div class="line">--   Trace:                         YES (with Intel ITT)</div><div class="line">-- </div><div class="line">--   Other third-party libraries:</div><div class="line">--     Intel IPP:                   2017.0.3 [2017.0.3]</div><div class="line">--            at:                   /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippicv_lnx</div><div class="line">--     Intel IPP IW:                sources (2017.0.3)</div><div class="line">--               at:                /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippiw_lnx</div><div class="line">--     Lapack:                      NO</div><div class="line">--     Eigen:                       YES (ver 3.3.2)</div><div class="line">--     Custom HAL:                  NO</div><div class="line">--     Protobuf:                    build (3.5.1)</div><div class="line">-- </div><div class="line">--   NVIDIA CUDA:                   NO</div><div class="line">-- </div><div class="line">--   OpenCL:                        YES (no extra features)</div><div class="line">--     Include path:                /fullpath/opencv-3.4.1/3rdparty/include/opencl/1.2</div><div class="line">--     Link libraries:              Dynamic load</div><div class="line">-- </div><div class="line">--   Python 3:</div><div class="line">--     Interpreter:                 /home/michael/.pyenv/shims/python3 (ver 3.6.5)</div><div class="line">--     Libraries:                   /home/michael/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0 (ver 3.6.5)</div><div class="line">--     numpy:                       /home/michael/.pyenv/versions/3.6.5/lib/python3.6/site-packages/numpy/core/include (ver 1.14.2)</div><div class="line">--     packages path:               lib/python3.6/site-packages</div><div class="line">-- </div><div class="line">--   Python (<span class="keyword">for</span> build):            /home/michael/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">[...]</div><div class="line"></div><div class="line">$ make -j4</div><div class="line">$ make install</div></pre></td></tr></table></figure>
+<h3 id="QtCreator-创建工程测试"><a href="#QtCreator-创建工程测试" class="headerlink" title="QtCreator 创建工程测试"></a>QtCreator 创建工程测试</h3><ul>
+<li>可以创建qmake 或者 cmake 的工程,这里以cmake 为例.</li>
+<li><p>CMakeLists.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">project(cmake_opencv3)</div><div class="line">cmake_minimum_required(VERSION 2.8)</div><div class="line">aux_source_directory(. SRC_LIST)</div><div class="line">add_subdirectory(utils)</div><div class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;SRC_LIST&#125; utils/multipleimagewindow.cpp)</div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include  )</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib )</div><div class="line">find_package( OpenCV  3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5 )</div><div class="line">MESSAGE(&quot;OpenCV version :  $&#123;OpenCV_VERSION&#125; &quot;)</div><div class="line">MESSAGE(&quot;source list :  $&#123;SRC_LIST&#125; &quot;)</div><div class="line">#add_definitions(-DDISABLE_OPENCV_24_COMPATIBILITY)</div><div class="line">target_link_libraries(cmake_opencv3 $&#123;OpenCV_LIBS&#125; )</div></pre></td></tr></table></figure>
+</li>
+<li><p>main.cpp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;opencv2/opencv.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line">using namespace cv;</div><div class="line">using namespace std;</div><div class="line">int main(int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">	 Mat img = imread(<span class="string">"1.jpg"</span>);</div><div class="line">	 namedWindow(<span class="string">"test"</span>);</div><div class="line">     imshow(<span class="string">"test"</span>,img);</div><div class="line">     <span class="built_in">wait</span>Key(100);</div><div class="line">     <span class="built_in">return</span> 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="使用Python3-测试OpenCV-库"><a href="#使用Python3-测试OpenCV-库" class="headerlink" title="使用Python3 测试OpenCV 库"></a>使用Python3 测试OpenCV 库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">~$ pyenv global 3.5.6</div><div class="line">~$ git clone https://github.com/pyenv/pyenv-virtualenv ~/.pyenv/plugins/pyenv-virtualenv</div><div class="line">source ~/.bashrc</div><div class="line">~$ mkdir virtual_env</div><div class="line">~$ cd virtual_env/</div><div class="line">~/virtual_env$ pyenv virtualenv pycv3dev</div><div class="line">Using base prefix &apos;/home/michael/.pyenv/versions/3.6.5&apos;</div><div class="line">New python executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python3.6</div><div class="line">Also creating executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python</div><div class="line">Installing setuptools, pip, wheel...done.</div><div class="line">Requirement already satisfied: setuptools in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line">Requirement already satisfied: pip in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line"></div><div class="line">~/virtual_env$ pyenv activate pycv3dev </div><div class="line">pyenv-virtualenv: prompt changing will be removed from future release. configure `export PYENV_VIRTUALENV_DISABLE_PROMPT=1&apos; to simulate the behavior.</div><div class="line">(pycv3dev) ~/virtual_env$ pip install  matplotlib jupyter</div><div class="line">[...]</div><div class="line"></div><div class="line">(pycv3dev) ~/virtual_env$ jupyter notebook   # 使用jupyter 运行一个网页版notebook,不是必须的,也可以用ipython 运行.</div><div class="line">[I 10:25:24.424 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret</div><div class="line">[I 10:25:24.753 NotebookApp] Serving notebooks from local directory: /home/michael</div><div class="line">[I 10:25:24.753 NotebookApp] 0 active kernels</div><div class="line">[I 10:25:24.753 NotebookApp] The Jupyter Notebook is running at:</div><div class="line">[I 10:25:24.753 NotebookApp] http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:24.753 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</div><div class="line">[C 10:25:24.754 NotebookApp] </div><div class="line">    </div><div class="line">    Copy/paste this URL into your browser when you connect for the first time,</div><div class="line">    to login with a token:</div><div class="line">        http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:25.334 NotebookApp] Accepting one-time-token-authenticated connection from ::1</div><div class="line">[23504:23541:0428/102525.341812:ERROR:browser_gpu_channel_host_factory.cc(103)] Failed to launch GPU process.</div><div class="line">Created new window in existing browser session.</div></pre></td></tr></table></figure>
+<ul>
+<li><p>使用浏览器打开<strong><a href="http://localhost:8888/tree" target="_blank" rel="external">http://localhost:8888/tree</a></strong>,并且创建一个python3 的notebook</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import matplotlib.pyplot as plt</div><div class="line">import sys</div><div class="line">sys.path.append(&apos;/fullpath/opencv-build-3.x-qt5-py3/lib/python3.6/site-packages&apos;)</div><div class="line">import cv2</div><div class="line">img = cv2.imread(&quot;1.jpg&quot;)</div><div class="line">plt.imshow(img)</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果没有出错,会出现一张图片.</p>
+</li>
+</ul>
+<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>支付宝二维码:</li>
+</ul>
+<p><img src="/imgs/aex05246pdr9ik5wosogj3b.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yjdwbj.github.io/2018/04/28/基于QT5编译OpenCV3-支持Python3/" data-id="cjgit6l5m0013nri5ve9v02jx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-Python3-Qt/">OpenCV,Python3,Qt</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/28/OpenWrt固件编译/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenWrt固件编译
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/15/codeblocks与STM32的开发环境配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">codeblocks与STM32的开发环境配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="/" class="logo">Sunrise 博客</a>
+      &copy; 2018 刘春阳<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Linux下编译静态MinGW环境,编译windows平台Qt程序 | 码农记事本</title>
+  <title>Linux下编译静态MinGW环境,编译windows平台Qt程序 | Sunrise 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="参考链接:
 MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在现实中也是绕不过的一个系统平台,做为受过几年VC,MFC”虐待”的程序员,在做为一个程序员之前是一位Linux重度使用者,受够了MFC之后一直想要找一个框架替换,使用过GTK,wxWidgets,Qt,最后还是Qt用得多一些.我认为程序跨平台应该是一个基本标准,同一份代码不需改动,或者改动极少,放在不同">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下编译静态MinGW环境,编译windows平台Qt程序">
 <meta property="og:url" content="http://yjdwbj.github.io/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/index.html">
-<meta property="og:site_name" content="码农记事本">
+<meta property="og:site_name" content="Sunrise 博客">
 <meta property="og:description" content="参考链接:
 MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在现实中也是绕不过的一个系统平台,做为受过几年VC,MFC”虐待”的程序员,在做为一个程序员之前是一位Linux重度使用者,受够了MFC之后一直想要找一个框架替换,使用过GTK,wxWidgets,Qt,最后还是Qt用得多一些.我认为程序跨平台应该是一个基本标准,同一份代码不需改动,或者改动极少,放在不同">
 <meta property="og:image" content="http://yjdwbj.github.io/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/qt_compiler.png">
@@ -54,7 +54,7 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
     <div id="wrap">
       <header id="header">
   <div id="header-outer" class="outer">
-    <a href="/" class="logo">码农记事本</a>
+    <a href="/" class="logo">Sunrise 博客</a>
     <div id="header-inner" class="inner">
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
@@ -99,7 +99,7 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/嵌入式/">嵌入式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/嵌入式/">嵌入式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -108,7 +108,7 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -120,23 +120,23 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
       <ul>
         
           <li>
-            <a href="/2017/05/22/Linux-下翻墙指南/">Linux 下翻墙指南</a>
+            <a href="/2018/04/28/OpenWrt固件编译/">OpenWrt固件编译</a>
           </li>
         
           <li>
-            <a href="/2017/05/22/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
+            <a href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/">基于QT5编译OpenCV3,支持Python3</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/15/Linux-下翻墙指南/">Linux 下翻墙指南</a>
           </li>
         
           <li>
             <a href="/2017/04/19/Windows下编译一些开源基础库/">Windows下编译一些开源基础库</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/19/Windows下WinDDK驱动开发/">Windows下WinDDK驱动开发</a>
-          </li>
-        
-          <li>
-            <a href="/2017/02/03/Mini2440移植最新的u-boot/">Mini2440移植最新的u-boot</a>
           </li>
         
       </ul>
@@ -148,7 +148,7 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV-Python3-Qt/">OpenCV,Python3,Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWrt-Linux/">OpenWrt,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -157,7 +157,7 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 10px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/MinGW-驱动/" style="font-size: 10px;">MinGW,驱动</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a> <a href="/tags/WinDDk-驱动/" style="font-size: 10px;">WinDDk,驱动</a> <a href="/tags/ffmpeg-QT/" style="font-size: 10px;">ffmpeg,QT</a>
+      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 20px;">Debian,Linux,Shell</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/MinGW-驱动/" style="font-size: 10px;">MinGW,驱动</a> <a href="/tags/OpenCV-Python3-Qt/" style="font-size: 10px;">OpenCV,Python3,Qt</a> <a href="/tags/OpenWrt-Linux/" style="font-size: 10px;">OpenWrt,Linux</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a> <a href="/tags/WinDDk-驱动/" style="font-size: 10px;">WinDDk,驱动</a> <a href="/tags/ffmpeg-QT/" style="font-size: 10px;">ffmpeg,QT</a>
     </div>
   </div>
 
@@ -261,7 +261,7 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/" data-id="cj307oyc80006wyi5a9s8bvae" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/" data-id="cjgit6l3y0001nri5wcd4n6in" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a></li></ul>
@@ -298,8 +298,8 @@ MXE.&amp;gt;大多数程序都是在windows平台下开发的程序.windows 在�
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      <a href="/" class="logo">码农记事本</a>
-      &copy; 2017 lcy<br>
+      <a href="/" class="logo">Sunrise 博客</a>
+      &copy; 2018 刘春阳<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

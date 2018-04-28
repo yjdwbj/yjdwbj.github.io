@@ -210,11 +210,20 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LuCI &gt; 1. Collections &gt; luci</div><div class="line">LuCI &gt; 2. Modules &gt; Translations &gt; Chinese (zh-cn)</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$ make -j1 V=s  # 可以详细输出编译日志</div><div class="line"></div><div class="line">$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/</div><div class="line">$ ssh root@192.168.199.1</div><div class="line">$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware</div><div class="line">reboot</div><div class="line">``` </div><div class="line"></div><div class="line"></div><div class="line">#### 总结</div><div class="line"></div><div class="line">烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 用此固件测试联想的**newifi y1** 路由器会出现2.4G WIFI 能连接上但是无法上网的问题.**[相关论坛](http://www.right.com.cn/forum/thread-191416-1-1.html)** , **[优酷路由宝相关](http://jg192.f3322.net:82/wordpress/index.php/2017/05/25/%E4%BC%98%E9%85%B7%E8%B7%AF%E7%94%B1%E5%AE%9D%E7%9B%B8%E5%85%B3/)**,[openwrt.io](https://openwrt.io/docs/build-firmware/)</div><div class="line"></div><div class="line">##### 错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</div></pre></td></tr></table></figure>
-<p>mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queue_write_tx_frame: Error – Dropping frame due to full tx queue 2的处理办法：<br>/openwrt/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7620/linux-3.18.xx/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c文件里<br>修改:case QID_AC_BK:<br>– queue-&gt;limit = 64;</p>
-<ul>
-<li>queue-&gt;limit = 128;<h1 id="该方法来源于上述的链接-还没有测试"><a href="#该方法来源于上述的链接-还没有测试" class="headerlink" title="该方法来源于上述的链接,还没有测试."></a>该方法来源于上述的链接,还没有测试.</h1>``` </li>
-</ul>
+<h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><pre><code>$ make -j1 V=s  # 可以详细输出编译日志
+
+$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/
+$ ssh root@192.168.199.1
+$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware
+reboot
+</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 用此固件测试联想的<strong>newifi y1</strong> 路由器会出现2.4G WIFI 能连接上但是无法上网的问题.<strong><a href="http://www.right.com.cn/forum/thread-191416-1-1.html" target="_blank" rel="external">相关论坛</a></strong> , <strong><a href="http://jg192.f3322.net:82/wordpress/index.php/2017/05/25/%E4%BC%98%E9%85%B7%E8%B7%AF%E7%94%B1%E5%AE%9D%E7%9B%B8%E5%85%B3/" target="_blank" rel="external">优酷路由宝相关</a></strong>,<a href="https://openwrt.io/docs/build-firmware/" target="_blank" rel="external">openwrt.io</a></p>
+<h5 id="错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2"><a href="#错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2" class="headerlink" title="错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2"></a>错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</h5><pre><code class="bash">
+mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queue_write_tx_frame: Error – Dropping frame due to full tx queue 2的处理办法：
+/openwrt/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7620/linux-3.18.xx/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c文件里
+修改:<span class="keyword">case</span> QID_AC_BK:
+– queue-&gt;<span class="built_in">limit</span> = 64;
++ queue-&gt;<span class="built_in">limit</span> = 128;
+</code></pre>
 <h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>支付宝二维码:</li>
@@ -224,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2018/04/28/OpenWrt固件编译/" data-id="cjgit6l4j0006nri5xtlrqez6" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2018/04/28/OpenWrt固件编译/" data-id="cjgithhb700067ai5bfzqto0m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenWrt-Linux/">OpenWrt,Linux</a></li></ul>
@@ -294,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2018/04/28/基于QT5编译OpenCV3-支持Python3/" data-id="cjgit6l5m0013nri5ve9v02jx" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2018/04/28/基于QT5编译OpenCV3-支持Python3/" data-id="cjgithhc800147ai575bagb94" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-Python3-Qt/">OpenCV,Python3,Qt</a></li></ul>
@@ -607,7 +616,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/11/15/codeblocks与STM32的开发环境配置/" data-id="cjgit6l53000mnri5qkz2edvo" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/11/15/codeblocks与STM32的开发环境配置/" data-id="cjgithhbs000n7ai5xk6kjyav" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a></li></ul>
@@ -704,7 +713,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/11/15/Linux-下翻墙指南/" data-id="cjgit6l450004nri5x07vbtqs" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/11/15/Linux-下翻墙指南/" data-id="cjgithhal00017ai55xwyusoh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a></li></ul>
@@ -818,7 +827,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下编译一些开源基础库/" data-id="cjgit6l4v000gnri5mmr3ktv7" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下编译一些开源基础库/" data-id="cjgithhbj000g7ai5grbztmhh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a></li></ul>
@@ -898,7 +907,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下WinDDK驱动开发/" data-id="cjgit6l4q000cnri5tawqa2hd" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下WinDDK驱动开发/" data-id="cjgithhbf000c7ai55iefmvtj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a></li></ul>
@@ -942,7 +951,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/02/03/Mini2440移植最新的u-boot/" data-id="cjgit6l4b0005nri52jb4yhmk" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/02/03/Mini2440移植最新的u-boot/" data-id="cjgithhay00057ai5vl1xnuft" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1050,7 +1059,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/15/栽剪FFMPEG做GIF录屏工具/" data-id="cjgit6l5y001inri50na1rmtk" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/01/15/栽剪FFMPEG做GIF录屏工具/" data-id="cjgithhcp001j7ai5n31d1fry" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a></li></ul>
@@ -1158,7 +1167,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cjgit6l4n000anri566s1l483" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cjgithhbc000a7ai50t6yo18f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1279,7 +1288,7 @@ MEMORY
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/12/22/安装Postgresql-XL/" data-id="cjgit6l5o0016nri51gsq35f1" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/12/22/安装Postgresql-XL/" data-id="cjgithhce001a7ai5d762i63s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Postgresql/">Postgresql</a></li></ul>

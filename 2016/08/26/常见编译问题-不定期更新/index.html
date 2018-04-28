@@ -11,10 +11,12 @@
 <meta property="og:url" content="http://yjdwbj.github.io/2016/08/26/常见编译问题-不定期更新/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
 <meta property="og:description" content="GCC 编译出错12345678In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:cfns.gperf: In function ‘const char* libc_name_p">
+<meta property="og:image" content="http://yjdwbj.github.io/imgs/wx_shoukuan.png">
 <meta property="og:updated_time" content="2017-12-25T14:27:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见编译问题,不定期更新.">
 <meta name="twitter:description" content="GCC 编译出错12345678In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:cfns.gperf: In function ‘const char* libc_name_p">
+<meta name="twitter:image" content="http://yjdwbj.github.io/imgs/wx_shoukuan.png">
 <link rel="publisher" href="yjdwbj@gmail.com">
   
   
@@ -219,30 +221,17 @@
 </ul>
 <h3 id="BOSSAC-烧写Arduino-DUE无法找到设备"><a href="#BOSSAC-烧写Arduino-DUE无法找到设备" class="headerlink" title="BOSSAC 烧写Arduino-DUE无法找到设备"></a>BOSSAC 烧写Arduino-DUE无法找到设备</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">./bossac -i <span class="_">-d</span> --port=ttyACM0 -U <span class="literal">false</span> <span class="_">-e</span> -w -v -b ./nuttx.bin -R</div><div class="line"></div><div class="line"></div><div class="line">Set binary mode</div><div class="line">Send auto-baud</div><div class="line">Set binary mode</div><div class="line">No device found on /dev/ttyACM0</div></pre></td></tr></table></figure>
 <h4 id="处理方法-3"><a href="#处理方法-3" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stty -F /dev/ttyACM0 speed 1200 cs8 -cstopb -parenb</div></pre></td></tr></table></figure>
-<p>Unable to resolve dependency for ‘:sample@debug/compileClasspath’: Could not resolve project :data.</p>
-<p>Could not resolve project :data.<br>Required by:<br>    project :sample</p>
-<blockquote>
-<p>Project :sample declares a dependency from configuration ‘debugCompile’ to configuration ‘debug’ which is not declared in the descriptor for project :data.</p>
-</blockquote>
-<p>FAILURE: Build failed with an exception.</p>
-<ul>
-<li><p>What went wrong:<br>Could not determine the dependencies of task ‘:app:compileReleaseJavaWithJavac’.</p>
-<blockquote>
-<p>Could not resolve all task dependencies for configuration ‘:app:releaseCompileClasspath’.<br>Could not resolve project :kotlin-anko-full.<br>   Required by:</p>
-<pre><code>project :app
-</code></pre><p>Unable to find a matching configuration of project :kotlin-anko-full: None of the consumable configurations have attributes.</p>
-</blockquote>
-</li>
-<li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output.</p>
-</li>
-<li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="external">https://help.gradle.org</a></p>
-</li>
+<hr>
+<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<li>你的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
 </ul>
+<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/08/26/常见编译问题-不定期更新/" data-id="cjgit6l5w001fnri5f2aplght" class="article-share-link">Share</a>
+      <a data-url="http://yjdwbj.github.io/2016/08/26/常见编译问题-不定期更新/" data-id="cjgithhcm001h7ai579o584da" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a></li></ul>

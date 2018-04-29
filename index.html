@@ -1,205 +1,398 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+
+
+
+
+
+
   
-  <title>Sunrise 博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最是人间留不住,朱颜辞镜花辞树">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Sunrise 博客">
-<meta property="og:url" content="http://yjdwbj.github.io/index.html">
+<meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="最是人间留不住,朱颜辞镜花辞树">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sunrise 博客">
-<link rel="publisher" href="yjdwbj@gmail.com">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
-  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
-  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
-  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/css/style.css">
-  
-<!-- Google Analytics -->
-  <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<meta name="twitter:description" content="最是人间留不住,朱颜辞镜花辞树">
 
-  ga('create', 'UA-78826582-1', 'auto');
-  ga('send', 'pageview');
 
-    </script>
-<!-- End Google Analytics -->
 
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Sunrise 博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="header-outer" class="outer">
-    <a href="/" class="logo">Sunrise 博客</a>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">首页</a>
-        
-          <a class="main-nav-link" href="/archives">文章</a>
-        
-          <a class="main-nav-link" href="/2016/05/20/about/index.html">关于</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        <div id="search-form-wrap">
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
-        </div>
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-        
-        
-          <a id="nav-github-link" class="nav-icon" href="https://github.com/ppoffice/hexo-theme-alex" title="Fork me on GitHub"></a>
-        
-      </nav>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise 博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+      
+        <p class="site-subtitle"></p>
+      
   </div>
-</header>
-      <nav id="mobile-nav" class="off">
-  
-    <a href="/" class="mobile-nav-link">首页</a>
-  
-    <a href="/archives" class="mobile-nav-link">文章</a>
-  
-    <a href="/2016/05/20/about/index.html" class="mobile-nav-link">关于</a>
-  
-  <div id="search-form-wrap-mobile">
-    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yjdwbj.github.io"></form>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home menu-item-active">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
 </nav>
-      <div class="outer">
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/嵌入式/">嵌入式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
+
+
 
   
+
+
+
+</div>
+    </header>
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li></ul>
-    </div>
-  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/04/28/Linux-下翻墙指南/">Linux 下翻墙指南</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/28/OpenWrt固件编译/">OpenWrt固件编译</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/">基于QT5编译OpenCV3,支持Python3</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/19/Windows下编译一些开源基础库/">Windows下编译一些开源基础库</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-GLX-ATI-RADEON/">Debian,Linux,GLX,ATI,RADEON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Mate/">Debian,Linux,Mate,</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/">Debian,Linux,Raspberry Pi,ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell/">Debian,Linux,Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debian-Linux-Shell-Ardunio/">Debian,Linux,Shell,Ardunio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/">Django,Ngninx,uWsgi,Let's Encrypt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV-Python3-Qt/">OpenCV,Python3,Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWrt-Linux/">OpenWrt,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C-MinGW/">Qt,C++,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt5-MinGW/">Qt5,MinGW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vsftpd-Django-Sqlite3/">Vsftpd,Django,Sqlite3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" style="font-size: 10px;">Debian,Linux,GLX,ATI,RADEON</a> <a href="/tags/Debian-Linux-Mate/" style="font-size: 10px;">Debian,Linux,Mate,</a> <a href="/tags/Debian-Linux-Raspberry-Pi-ffmpeg/" style="font-size: 10px;">Debian,Linux,Raspberry Pi,ffmpeg</a> <a href="/tags/Debian-Linux-Shell/" style="font-size: 10px;">Debian,Linux,Shell</a> <a href="/tags/Debian-Linux-Shell-Ardunio/" style="font-size: 10px;">Debian,Linux,Shell,Ardunio</a> <a href="/tags/Django-Ngninx-uWsgi-Let-s-Encrypt/" style="font-size: 10px;">Django,Ngninx,uWsgi,Let's Encrypt</a> <a href="/tags/MinGW-驱动/" style="font-size: 10px;">MinGW,驱动</a> <a href="/tags/OpenCV-Python3-Qt/" style="font-size: 10px;">OpenCV,Python3,Qt</a> <a href="/tags/OpenWrt-Linux/" style="font-size: 10px;">OpenWrt,Linux</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Qt-C-MinGW/" style="font-size: 10px;">Qt,C++,MinGW</a> <a href="/tags/Qt5-MinGW/" style="font-size: 10px;">Qt5,MinGW</a> <a href="/tags/RaspberryPi-Linux/" style="font-size: 10px;">RaspberryPi,Linux</a> <a href="/tags/STM32-Codeblocks/" style="font-size: 10px;">STM32,Codeblocks</a> <a href="/tags/Vsftpd-Django-Sqlite3/" style="font-size: 10px;">Vsftpd,Django,Sqlite3</a> <a href="/tags/WinDDk-驱动/" style="font-size: 10px;">WinDDk,驱动</a> <a href="/tags/ffmpeg-QT/" style="font-size: 10px;">ffmpeg,QT</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">links</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="http://hexo.io">Hexo</a>
-          </li>
-        
-          <li>
-            <a href="mailto:yjdwbj@gmail.com">Email</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-        <section id="main">
-  
-    <article id="post-Linux-下翻墙指南" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/28/Linux-下翻墙指南/" class="article-date">
-  <time datetime="2018-04-28T03:23:03.107Z" itemprop="datePublished">2018-04-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/28/Linux-下翻墙指南/">Linux 下翻墙指南</a>
-    </h1>
   
 
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/Linux-下翻墙指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/29/Linux-下翻墙指南/" itemprop="url">
+                  Linux 下翻墙指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-29 23:02:22" itemprop="dateCreated datePublished" datetime="2018-04-29T23:02:22+08:00">2018-04-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-09-14 00:00:00" itemprop="dateModified" datetime="2016-09-14T00:00:00+08:00">2016-09-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p><strong>参考链接:</strong></p>
+      
+
+      
+        
+          
+            <p><strong>参考链接:</strong></p>
 <ul>
 <li><a href="https://getlantern.org" target="_blank" rel="external">lantern(蓝灯)</a></li>
 <li><a href="https://www.torproject.org" target="_blank" rel="external">tor</a></li>
@@ -249,196 +442,181 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">socksParentProxy = localhost:9050</div><div class="line">proxyAddress = 0.0.0.0</div><div class="line">dnsNameServer = 127.0.0.1</div><div class="line"><span class="built_in">log</span>Syslog = <span class="literal">true</span></div><div class="line"><span class="built_in">log</span>File = /var/<span class="built_in">log</span>/polipo/polipo.log</div></pre></td></tr></table></figure>
 <h4 id="本机的服务"><a href="#本机的服务" class="headerlink" title="本机的服务"></a>本机的服务</h4><p>运下上述的服务之后,查看本机树莓派生上的服务是否正常运行起来的,正常情况应包含如下字段:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ netstat -tnlp</div><div class="line">tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 0.0.0.0:8123            0.0.0.0:*               LISTEN      648/polipo      </div><div class="line">tcp        0      0 127.0.0.1:9040          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 127.0.0.1:8788          0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      2053/dnsmasq    </div><div class="line">tcp        0      0 127.0.0.1:16823         0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp6       0      0 :::8787                 :::*                    LISTEN      19220/lantern-2.2.5</div></pre></td></tr></table></figure></p>
 <hr>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
-<li>你的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2018/04/28/Linux-下翻墙指南/" data-id="cjgits4ej0001nti5s07ky9b9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RaspberryPi-Linux/">RaspberryPi,Linux</a></li></ul>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-OpenWrt固件编译" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/28/OpenWrt固件编译/" class="article-date">
-  <time datetime="2018-04-28T02:49:18.000Z" itemprop="datePublished">2018-04-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/codeblocks与STM32的开发环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/28/OpenWrt固件编译/">OpenWrt固件编译</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/29/codeblocks与STM32的开发环境配置/" itemprop="url">
+                  codeblocks与STM32的开发环境配置
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-29 23:01:26" itemprop="dateCreated datePublished" datetime="2018-04-29T23:01:26+08:00">2018-04-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:25:00" itemprop="dateModified" datetime="2016-12-14T22:25:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/openwrt/openwrt" target="_blank" rel="external">OpenWrt官方仓库</a></p>
-<h4 id="获取源码并安状可用的Feeds"><a href="#获取源码并安状可用的Feeds" class="headerlink" title="获取源码并安状可用的Feeds"></a>获取源码并安状可用的Feeds</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git clone git://git.openwrt.org/openwrt.git</div><div class="line">$ cd openwrt</div><div class="line">$ ./scripts/feeds update -a</div><div class="line">$ ./scripts/feeds install -a</div></pre></td></tr></table></figure>
-<h4 id="编译固件-配置与编译"><a href="#编译固件-配置与编译" class="headerlink" title="编译固件,配置与编译"></a>编译固件,配置与编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make defconfig</div><div class="line">$ make prereq</div><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
-<h3 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h3><ul>
-<li><p>选择 CPU 型号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Target System (MediaTek Ralink MIPS)  --&gt;</div><div class="line">Subtarget (MT7620 based boards) ---&gt;</div><div class="line">Target Profile (Lenovo Y1S) ---&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>LUCI 配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LuCI &gt; 1. Collections &gt; luci</div><div class="line">LuCI &gt; 2. Modules &gt; Translations &gt; Chinese (zh-cn)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><pre><code>$ make -j1 V=s  # 可以详细输出编译日志
 
-$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/
-$ ssh root@192.168.199.1
-$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware
-reboot
-</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 用此固件测试联想的<strong>newifi y1</strong> 路由器会出现2.4G WIFI 能连接上但是无法上网的问题.<strong><a href="http://www.right.com.cn/forum/thread-191416-1-1.html" target="_blank" rel="external">相关论坛</a></strong> , <strong><a href="http://jg192.f3322.net:82/wordpress/index.php/2017/05/25/%E4%BC%98%E9%85%B7%E8%B7%AF%E7%94%B1%E5%AE%9D%E7%9B%B8%E5%85%B3/" target="_blank" rel="external">优酷路由宝相关</a></strong>,<a href="https://openwrt.io/docs/build-firmware/" target="_blank" rel="external">openwrt.io</a></p>
-<h5 id="错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2"><a href="#错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2" class="headerlink" title="错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2"></a>错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</h5><pre><code class="bash">
-mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queue_write_tx_frame: Error – Dropping frame due to full tx queue 2的处理办法：
-/openwrt/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7620/linux-3.18.xx/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c文件里
-修改:<span class="keyword">case</span> QID_AC_BK:
-– queue-&gt;<span class="built_in">limit</span> = 64;
-+ queue-&gt;<span class="built_in">limit</span> = 128;
-</code></pre>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>支付宝二维码:</li>
-</ul>
-<p><img src="/imgs/aex05246pdr9ik5wosogj3b.png" width="40%" height="40%" align="center/"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2018/04/28/OpenWrt固件编译/" data-id="cjgits4f40006nti5v0n4mvty" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenWrt-Linux/">OpenWrt,Linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-基于QT5编译OpenCV3-支持Python3" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/" class="article-date">
-  <time datetime="2018-04-28T02:47:15.000Z" itemprop="datePublished">2018-04-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/">基于QT5编译OpenCV3,支持Python3</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[相关链接]<br><a href="https://github.com/opencv/opencv" target="_blank" rel="external">Github opencv</a><br><a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="external">opencv_contrib</a><br><a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a></p>
-<h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><ul>
-<li>详细安装参照<a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a> README.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.5.6 版本</div></pre></td></tr></table></figure>
-<h3 id="编译OpenCV3"><a href="#编译OpenCV3" class="headerlink" title="编译OpenCV3"></a>编译OpenCV3</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/opencv/opencv</div><div class="line">$ git checout -b 3.4.1   <span class="comment"># checkout 一个 Release 版本.</span></div><div class="line">$ <span class="built_in">cd</span> opencv &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</div><div class="line">$ cmake</div><div class="line">	-D CMAKE_PREFIX_PATH=/fullpath/Qt5.7/5.7/gcc_64   <span class="comment"># 本机 QT5 的安装位置</span></div><div class="line">    -D CMAKE_INSTALL_PREFIX=/fullpath/opencv-build-3.x-qt5-py3</div><div class="line">    -D WITH_QT=ON    <span class="comment"># QT 与 GTK 只能二选 一</span></div><div class="line">    -D WITH_V4L=ON</div><div class="line">    -D BUILD_TESTS=OFF</div><div class="line">    -D WITH_TBB=ON</div><div class="line">    -D INSTALL_C_EXAMPLES=ON</div><div class="line">    -D INSTALL_PYTHON_EXAMPLES=ON</div><div class="line">    -D WITH_OPENMP=ON</div><div class="line">    -D WITH_OPENEXR=ON</div><div class="line">    -D WITH_UNICAP=ON</div><div class="line">    -D BUILD_PYTHON_SUPPORT=ON</div><div class="line">    -D BUILD_opencv_python3=ON</div><div class="line">    -D PYTHON_DEFAULT_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">    -D PYTHON_INCLUDE_DIRS=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/include/python3.6m</div><div class="line">    -D PYTHON_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6</div><div class="line">    -D PYTHON_LIBRARY=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0</div><div class="line">    -D WITH_OPENGL=ON ../</div><div class="line">    </div><div class="line">[...]</div><div class="line">--   GUI: </div><div class="line">--     QT:                          YES (ver 5.7.0)</div><div class="line">--       QT OpenGL support:         YES (Qt5::OpenGL 5.7.0)</div><div class="line">--     GTK+:                        NO</div><div class="line">--     OpenGL support:              YES (/usr/lib/x86_64-linux-gnu/libGLU.so /usr/<span class="built_in">local</span>/lib/libGL.so)</div><div class="line">--     VTK support:                 YES (ver 6.3.0)</div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        /usr/lib/x86_64-linux-gnu/libz.so (ver 1.2.8)</div><div class="line">--     JPEG:                        /usr/lib/x86_64-linux-gnu/libjpeg.so (ver )</div><div class="line">--     WEBP:                        /usr/lib/x86_64-linux-gnu/libwebp.so (ver encoder: 0x0209)</div><div class="line">--     PNG:                         /usr/lib/x86_64-linux-gnu/libpng.so (ver 1.6.28)</div><div class="line">--     TIFF:                        /usr/lib/x86_64-linux-gnu/libtiff.so (ver 42 / 4.0.8)</div><div class="line">--     JPEG 2000:                   /usr/lib/x86_64-linux-gnu/libjasper.so (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line">-- </div><div class="line">--   Video I/O:</div><div class="line">--     DC1394:                      NO</div><div class="line">--     FFMPEG:                      YES</div><div class="line">--       avcodec:                   YES (ver 57.89.100)</div><div class="line">--       avformat:                  YES (ver 57.71.100)</div><div class="line">--       avutil:                    YES (ver 55.58.100)</div><div class="line">--       swscale:                   YES (ver 4.6.100)</div><div class="line">--       avresample:                YES (ver 3.5.0)</div><div class="line">--     GStreamer:                   NO</div><div class="line">--     UniCap:                      NO</div><div class="line">--     UniCap ucil:                 NO</div><div class="line">--     libv4l/libv4l2:              NO</div><div class="line">--     v4l/v4l2:                    linux/videodev.h linux/videodev2.h</div><div class="line">--     gPhoto2:                     YES</div><div class="line">-- </div><div class="line">--   Parallel framework:            OpenMP</div><div class="line">-- </div><div class="line">--   Trace:                         YES (with Intel ITT)</div><div class="line">-- </div><div class="line">--   Other third-party libraries:</div><div class="line">--     Intel IPP:                   2017.0.3 [2017.0.3]</div><div class="line">--            at:                   /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippicv_lnx</div><div class="line">--     Intel IPP IW:                sources (2017.0.3)</div><div class="line">--               at:                /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippiw_lnx</div><div class="line">--     Lapack:                      NO</div><div class="line">--     Eigen:                       YES (ver 3.3.2)</div><div class="line">--     Custom HAL:                  NO</div><div class="line">--     Protobuf:                    build (3.5.1)</div><div class="line">-- </div><div class="line">--   NVIDIA CUDA:                   NO</div><div class="line">-- </div><div class="line">--   OpenCL:                        YES (no extra features)</div><div class="line">--     Include path:                /fullpath/opencv-3.4.1/3rdparty/include/opencl/1.2</div><div class="line">--     Link libraries:              Dynamic load</div><div class="line">-- </div><div class="line">--   Python 3:</div><div class="line">--     Interpreter:                 /home/michael/.pyenv/shims/python3 (ver 3.6.5)</div><div class="line">--     Libraries:                   /home/michael/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0 (ver 3.6.5)</div><div class="line">--     numpy:                       /home/michael/.pyenv/versions/3.6.5/lib/python3.6/site-packages/numpy/core/include (ver 1.14.2)</div><div class="line">--     packages path:               lib/python3.6/site-packages</div><div class="line">-- </div><div class="line">--   Python (<span class="keyword">for</span> build):            /home/michael/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">[...]</div><div class="line"></div><div class="line">$ make -j4</div><div class="line">$ make install</div></pre></td></tr></table></figure>
-<h3 id="QtCreator-创建工程测试"><a href="#QtCreator-创建工程测试" class="headerlink" title="QtCreator 创建工程测试"></a>QtCreator 创建工程测试</h3><ul>
-<li>可以创建qmake 或者 cmake 的工程,这里以cmake 为例.</li>
-<li><p>CMakeLists.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">project(cmake_opencv3)</div><div class="line">cmake_minimum_required(VERSION 2.8)</div><div class="line">aux_source_directory(. SRC_LIST)</div><div class="line">add_subdirectory(utils)</div><div class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;SRC_LIST&#125; utils/multipleimagewindow.cpp)</div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include  )</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib )</div><div class="line">find_package( OpenCV  3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5 )</div><div class="line">MESSAGE(&quot;OpenCV version :  $&#123;OpenCV_VERSION&#125; &quot;)</div><div class="line">MESSAGE(&quot;source list :  $&#123;SRC_LIST&#125; &quot;)</div><div class="line">#add_definitions(-DDISABLE_OPENCV_24_COMPATIBILITY)</div><div class="line">target_link_libraries(cmake_opencv3 $&#123;OpenCV_LIBS&#125; )</div></pre></td></tr></table></figure>
-</li>
-<li><p>main.cpp</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;opencv2/opencv.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line">using namespace cv;</div><div class="line">using namespace std;</div><div class="line">int main(int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">	 Mat img = imread(<span class="string">"1.jpg"</span>);</div><div class="line">	 namedWindow(<span class="string">"test"</span>);</div><div class="line">     imshow(<span class="string">"test"</span>,img);</div><div class="line">     <span class="built_in">wait</span>Key(100);</div><div class="line">     <span class="built_in">return</span> 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用Python3-测试OpenCV-库"><a href="#使用Python3-测试OpenCV-库" class="headerlink" title="使用Python3 测试OpenCV 库"></a>使用Python3 测试OpenCV 库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">~$ pyenv global 3.5.6</div><div class="line">~$ git clone https://github.com/pyenv/pyenv-virtualenv ~/.pyenv/plugins/pyenv-virtualenv</div><div class="line">source ~/.bashrc</div><div class="line">~$ mkdir virtual_env</div><div class="line">~$ cd virtual_env/</div><div class="line">~/virtual_env$ pyenv virtualenv pycv3dev</div><div class="line">Using base prefix &apos;/home/michael/.pyenv/versions/3.6.5&apos;</div><div class="line">New python executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python3.6</div><div class="line">Also creating executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python</div><div class="line">Installing setuptools, pip, wheel...done.</div><div class="line">Requirement already satisfied: setuptools in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line">Requirement already satisfied: pip in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line"></div><div class="line">~/virtual_env$ pyenv activate pycv3dev </div><div class="line">pyenv-virtualenv: prompt changing will be removed from future release. configure `export PYENV_VIRTUALENV_DISABLE_PROMPT=1&apos; to simulate the behavior.</div><div class="line">(pycv3dev) ~/virtual_env$ pip install  matplotlib jupyter</div><div class="line">[...]</div><div class="line"></div><div class="line">(pycv3dev) ~/virtual_env$ jupyter notebook   # 使用jupyter 运行一个网页版notebook,不是必须的,也可以用ipython 运行.</div><div class="line">[I 10:25:24.424 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret</div><div class="line">[I 10:25:24.753 NotebookApp] Serving notebooks from local directory: /home/michael</div><div class="line">[I 10:25:24.753 NotebookApp] 0 active kernels</div><div class="line">[I 10:25:24.753 NotebookApp] The Jupyter Notebook is running at:</div><div class="line">[I 10:25:24.753 NotebookApp] http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:24.753 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</div><div class="line">[C 10:25:24.754 NotebookApp] </div><div class="line">    </div><div class="line">    Copy/paste this URL into your browser when you connect for the first time,</div><div class="line">    to login with a token:</div><div class="line">        http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:25.334 NotebookApp] Accepting one-time-token-authenticated connection from ::1</div><div class="line">[23504:23541:0428/102525.341812:ERROR:browser_gpu_channel_host_factory.cc(103)] Failed to launch GPU process.</div><div class="line">Created new window in existing browser session.</div></pre></td></tr></table></figure>
-<ul>
-<li><p>使用浏览器打开<strong><a href="http://localhost:8888/tree" target="_blank" rel="external">http://localhost:8888/tree</a></strong>,并且创建一个python3 的notebook</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import matplotlib.pyplot as plt</div><div class="line">import sys</div><div class="line">sys.path.append(&apos;/fullpath/opencv-build-3.x-qt5-py3/lib/python3.6/site-packages&apos;)</div><div class="line">import cv2</div><div class="line">img = cv2.imread(&quot;1.jpg&quot;)</div><div class="line">plt.imshow(img)</div></pre></td></tr></table></figure>
-</li>
-<li><p>如果没有出错,会出现一张图片.</p>
-</li>
-</ul>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>支付宝二维码:</li>
-</ul>
-<p><img src="/imgs/aex05246pdr9ik5wosogj3b.png" width="40%" height="40%" align="center/"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2018/04/28/基于QT5编译OpenCV3-支持Python3/" data-id="cjgits4g60014nti5ourx4etr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-Python3-Qt/">OpenCV,Python3,Qt</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-codeblocks与STM32的开发环境配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/15/codeblocks与STM32的开发环境配置/" class="article-date">
-  <time datetime="2017-11-14T20:07:10.247Z" itemprop="datePublished">2017-11-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/嵌入式/">嵌入式</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/15/codeblocks与STM32的开发环境配置/">codeblocks与STM32的开发环境配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="软件硬件配置"><a href="#软件硬件配置" class="headerlink" title="软件硬件配置"></a>软件硬件配置</h3><ul>
+          
+            <h3 id="软件硬件配置"><a href="#软件硬件配置" class="headerlink" title="软件硬件配置"></a>软件硬件配置</h3><ul>
 <li><a href="http://www.st.com/stm32f4-discovery" target="_blank" rel="external">STM32F4 Discovery</a></li>
 <li><a href="http://codeblocks.org/downloads" target="_blank" rel="external">Codeblocks 16.01</a></li>
 <li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
@@ -478,20 +656,16 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
 </ul>
 <h4 id="Codeblocks-配置"><a href="#Codeblocks-配置" class="headerlink" title="Codeblocks 配置"></a>Codeblocks 配置</h4><ul>
 <li>安装相应平台的codeblocks二进制包。</li>
-<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<img src="/2017/11/15/codeblocks与STM32的开发环境配置/codecompletion.png" alt="codecompletion.png" title="">
-</li>
+<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt=""></li>
 </ul>
 <h4 id="编译器的全局设置"><a href="#编译器的全局设置" class="headerlink" title="编译器的全局设置"></a>编译器的全局设置</h4><ul>
-<li>设置ARM工具链的路径，根据自己的环境做相应改变，如下图所示。<img src="/2017/11/15/codeblocks与STM32的开发环境配置/compiler_settings.png" alt="compiler_settings.png" title="">
-</li>
+<li>设置ARM工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt=""></li>
 </ul>
 <ul>
-<li>工具链头文件设置，如下图所示。  <img src="/2017/11/15/codeblocks与STM32的开发环境配置/compiler_settings_inc.png" alt="compiler_settings_inc.png" title="">
-</li>
+<li>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt=""></li>
 </ul>
 <ul>
-<li>工具链库文件设置，如下图所示。  <img src="/2017/11/15/codeblocks与STM32的开发环境配置/compiler_settings_lib.png" alt="compiler_settings_lib.png" title="">
-</li>
+<li>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt=""></li>
 </ul>
 <h4 id="STM32工程设置"><a href="#STM32工程设置" class="headerlink" title="STM32工程设置"></a>STM32工程设置</h4><ul>
 <li><p>这里是针对STM32F4 Discovery开发板，工程设置的一些参数</p>
@@ -504,29 +678,25 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
 <li>设置基于特定CPU的CFLAGS  参数。<strong> -mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99 </strong></li>
 </ul>
 </blockquote>
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_options.png" alt="project_options.png" title="">
+<p><img src="/imgs/project_options.png" alt=""></p>
 <ul>
-<li><p>编译宏定义设置，如下图所示。  </p>
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_define.png" alt="project_define.png" title="">
+<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt=""></p>
 </li>
-<li><p>链接选项设置，如下图所示。  </p>
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_link.png" alt="project_link.png" title="">
+<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt=""></p>
 </li>
 </ul>
 <ul>
 <li>工程头文件查找目录,库文件查找目录。</li>
 </ul>
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_inc.png" alt="project_inc.png" title="">
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_search_link.png" alt="project_search_link.png" title="">
+<p><img src="/imgs/project_inc.png" alt=""><br><img src="/imgs/project_search_link.png" alt=""></p>
 <ul>
-<li><p>结合openocd 自动烧写bin文件的设置，如下图所示。  </p>
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_shell.png" alt="project_shell.png" title="">
+<li><p>结合openocd 自动烧写bin文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt=""></p>
 </li>
 <li><p>工程中的自动烧写脚本文件。</p>
 </li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/expect    </span></div><div class="line">spawn telnet localhost 4444  </div><div class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span>   </div><div class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset halt\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset run\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"exit\r"</span>  </div><div class="line">interact</div></pre></td></tr></table></figure>
-<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_shfile.png" alt="project_shfile.png" title="">
+<p><img src="/imgs/project_shfile.png" alt=""></p>
 <ul>
 <li>因为GCC工具链与Keil的链接文件是一样，必须在下面这个LD文件上修改，不能使用Keil版本的链接文件。</li>
 </ul>
@@ -700,58 +870,604 @@ MEMORY
 </code></pre>
 <h3 id="编译下载"><a href="#编译下载" class="headerlink" title="编译下载"></a>编译下载</h3><ul>
 <li>完成上述设置，每次编译完成后都会自动telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
-<li>最终运行的效果如下图<img src="/2017/11/15/codeblocks与STM32的开发环境配置/project_build.png" alt="project_build.png" title="">
-</li>
+<li>最终运行的效果如下图<br><img src="/imgs/img project_build.png" alt=""></li>
 </ul>
 <hr>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
-<li>你的打赏将会鼓励我写出更多的博客。 </li>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/11/15/codeblocks与STM32的开发环境配置/" data-id="cjgits4fq000nnti58ek2byjv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32-Codeblocks/">STM32,Codeblocks</a></li></ul>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-Windows下编译一些开源基础库" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/19/Windows下编译一些开源基础库/" class="article-date">
-  <time datetime="2017-04-19T13:09:29.000Z" itemprop="datePublished">2017-04-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/OpenWrt固件编译/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/19/Windows下编译一些开源基础库/">Windows下编译一些开源基础库</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/28/OpenWrt固件编译/" itemprop="url">
+                  OpenWrt固件编译
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-28 10:49:18" itemprop="dateCreated datePublished" datetime="2018-04-28T10:49:18+08:00">2018-04-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:02:56" itemprop="dateModified" datetime="2018-04-29T23:02:56+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h3 id="Windows下-Perl运行环境"><a href="#Windows下-Perl运行环境" class="headerlink" title="Ｗindows下　Perl运行环境"></a>Ｗindows下　Perl运行环境</h3><p><a href="https://www.perl.org/get.html" target="_blank" rel="external"><strong>Perl</strong></a>脚本语言在windows下有三个实现可以用，一般网上会建议安装<a href="https://www.activestate.com/activeperl/downloads" target="_blank" rel="external"><strong>ActivePerl</strong></a>的免费社区版本，我在winxp下安装不成功选了另一个<a href="http://dwimperl.com/windows.html" target="_blank" rel="external"><strong>DWIN Perl</strong></a>,还有一个<a href="http://strawberryperl.com/" target="_blank" rel="external"><strong>StrawberryPerl</strong></a>没有试过.</p>
+      
+
+      
+        
+          
+            <p><a href="https://github.com/openwrt/openwrt" target="_blank" rel="external">OpenWrt官方仓库</a></p>
+<h4 id="获取源码并安状可用的Feeds"><a href="#获取源码并安状可用的Feeds" class="headerlink" title="获取源码并安状可用的Feeds"></a>获取源码并安状可用的Feeds</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git clone git://git.openwrt.org/openwrt.git</div><div class="line">$ cd openwrt</div><div class="line">$ ./scripts/feeds update -a</div><div class="line">$ ./scripts/feeds install -a</div></pre></td></tr></table></figure>
+<h4 id="编译固件-配置与编译"><a href="#编译固件-配置与编译" class="headerlink" title="编译固件,配置与编译"></a>编译固件,配置与编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make defconfig</div><div class="line">$ make prereq</div><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
+<h3 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h3><ul>
+<li><p>选择 CPU 型号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Target System (MediaTek Ralink MIPS)  --&gt;</div><div class="line">Subtarget (MT7620 based boards) ---&gt;</div><div class="line">Target Profile (Lenovo Y1S) ---&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>LUCI 配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LuCI &gt; 1. Collections &gt; luci</div><div class="line">LuCI &gt; 2. Modules &gt; Translations &gt; Chinese (zh-cn)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><pre><code>$ make -j1 V=s  # 可以详细输出编译日志
+
+$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/
+$ ssh root@192.168.199.1
+$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware
+reboot
+</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 用此固件测试联想的<strong>newifi y1</strong> 路由器会出现2.4G WIFI 能连接上但是无法上网的问题.<strong><a href="http://www.right.com.cn/forum/thread-191416-1-1.html" target="_blank" rel="external">相关论坛</a></strong> , <strong><a href="http://jg192.f3322.net:82/wordpress/index.php/2017/05/25/%E4%BC%98%E9%85%B7%E8%B7%AF%E7%94%B1%E5%AE%9D%E7%9B%B8%E5%85%B3/" target="_blank" rel="external">优酷路由宝相关</a></strong>,<a href="https://openwrt.io/docs/build-firmware/" target="_blank" rel="external">openwrt.io</a></p>
+<h5 id="错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2"><a href="#错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2" class="headerlink" title="错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2"></a>错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</h5><pre><code class="bash">
+mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queue_write_tx_frame: Error – Dropping frame due to full tx queue 2的处理办法：
+/openwrt/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7620/linux-3.18.xx/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c文件里
+修改:<span class="keyword">case</span> QID_AC_BK:
+– queue-&gt;<span class="built_in">limit</span> = 64;
++ queue-&gt;<span class="built_in">limit</span> = 128;
+</code></pre>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/基于QT5编译OpenCV3-支持Python3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/" itemprop="url">
+                  基于QT5编译OpenCV3,支持Python3
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-28 10:47:15" itemprop="dateCreated datePublished" datetime="2018-04-28T10:47:15+08:00">2018-04-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:00:57" itemprop="dateModified" datetime="2018-04-29T23:00:57+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[相关链接]<br><a href="https://github.com/opencv/opencv" target="_blank" rel="external">Github opencv</a><br><a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="external">opencv_contrib</a><br><a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a></p>
+<h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><ul>
+<li>详细安装参照<a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a> README.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.5.6 版本</div></pre></td></tr></table></figure>
+<h3 id="编译OpenCV3"><a href="#编译OpenCV3" class="headerlink" title="编译OpenCV3"></a>编译OpenCV3</h3><ul>
+<li>如果要编译 extra_modules ,要与opencv是同版本号,不然会出现奇奇怪怪的编译错误,这里都选<code>3.4.1</code>版本号</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ wget -c https://github.com/opencv/opencv_contrib/archive/3.4.1.tar.gz</div><div class="line">$ tar xvf 3.4.1.tar.gz</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/opencv/opencv</div><div class="line">$ git checout -b 3.4.1   <span class="comment"># checkout 一个 Release 版本.</span></div><div class="line"><span class="comment"># 或者下载源码包 </span></div><div class="line">$ wget -c https://github.com/opencv/opencv/archive/3.4.1.tar.gz</div><div class="line">$ <span class="built_in">cd</span> opencv &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</div><div class="line">$ cmake</div><div class="line">	-D CMAKE_PREFIX_PATH=/fullpath/Qt5.7/5.7/gcc_64   <span class="comment"># 本机 QT5 的安装位置</span></div><div class="line">    -D CMAKE_INSTALL_PREFIX=/fullpath/opencv-build-3.x-qt5-py3</div><div class="line">    -D WITH_QT=ON    <span class="comment"># QT 与 GTK 只能二选 一</span></div><div class="line">    -D WITH_V4L=ON</div><div class="line">    -D BUILD_TESTS=OFF</div><div class="line">    -D WITH_TBB=ON</div><div class="line">    -D INSTALL_C_EXAMPLES=ON</div><div class="line">    -D INSTALL_PYTHON_EXAMPLES=ON</div><div class="line">    -D WITH_OPENMP=ON</div><div class="line">    -D WITH_OPENEXR=ON</div><div class="line">    -D WITH_UNICAP=ON</div><div class="line">    -D BUILD_PYTHON_SUPPORT=ON</div><div class="line">    -D BUILD_opencv_python3=ON</div><div class="line">    -D PYTHON_DEFAULT_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">    -D PYTHON_INCLUDE_DIRS=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/include/python3.6m</div><div class="line">    -D PYTHON_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6</div><div class="line">    -D PYTHON_LIBRARY=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0</div><div class="line">    -D WITH_OPENGL=ON ../</div><div class="line">    </div><div class="line">[...]</div><div class="line">--   GUI: </div><div class="line">--     QT:                          YES (ver 5.7.0)</div><div class="line">--       QT OpenGL support:         YES (Qt5::OpenGL 5.7.0)</div><div class="line">--     GTK+:                        NO</div><div class="line">--     OpenGL support:              YES (/usr/lib/x86_64-linux-gnu/libGLU.so /usr/<span class="built_in">local</span>/lib/libGL.so)</div><div class="line">--     VTK support:                 YES (ver 6.3.0)</div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        /usr/lib/x86_64-linux-gnu/libz.so (ver 1.2.8)</div><div class="line">--     JPEG:                        /usr/lib/x86_64-linux-gnu/libjpeg.so (ver )</div><div class="line">--     WEBP:                        /usr/lib/x86_64-linux-gnu/libwebp.so (ver encoder: 0x0209)</div><div class="line">--     PNG:                         /usr/lib/x86_64-linux-gnu/libpng.so (ver 1.6.28)</div><div class="line">--     TIFF:                        /usr/lib/x86_64-linux-gnu/libtiff.so (ver 42 / 4.0.8)</div><div class="line">--     JPEG 2000:                   /usr/lib/x86_64-linux-gnu/libjasper.so (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line">-- </div><div class="line">--   Video I/O:</div><div class="line">--     DC1394:                      NO</div><div class="line">--     FFMPEG:                      YES</div><div class="line">--       avcodec:                   YES (ver 57.89.100)</div><div class="line">--       avformat:                  YES (ver 57.71.100)</div><div class="line">--       avutil:                    YES (ver 55.58.100)</div><div class="line">--       swscale:                   YES (ver 4.6.100)</div><div class="line">--       avresample:                YES (ver 3.5.0)</div><div class="line">--     GStreamer:                   NO</div><div class="line">--     UniCap:                      NO</div><div class="line">--     UniCap ucil:                 NO</div><div class="line">--     libv4l/libv4l2:              NO</div><div class="line">--     v4l/v4l2:                    linux/videodev.h linux/videodev2.h</div><div class="line">--     gPhoto2:                     YES</div><div class="line">-- </div><div class="line">--   Parallel framework:            OpenMP</div><div class="line">-- </div><div class="line">--   Trace:                         YES (with Intel ITT)</div><div class="line">-- </div><div class="line">--   Other third-party libraries:</div><div class="line">--     Intel IPP:                   2017.0.3 [2017.0.3]</div><div class="line">--            at:                   /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippicv_lnx</div><div class="line">--     Intel IPP IW:                sources (2017.0.3)</div><div class="line">--               at:                /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippiw_lnx</div><div class="line">--     Lapack:                      NO</div><div class="line">--     Eigen:                       YES (ver 3.3.2)</div><div class="line">--     Custom HAL:                  NO</div><div class="line">--     Protobuf:                    build (3.5.1)</div><div class="line">-- </div><div class="line">--   NVIDIA CUDA:                   NO</div><div class="line">-- </div><div class="line">--   OpenCL:                        YES (no extra features)</div><div class="line">--     Include path:                /fullpath/opencv-3.4.1/3rdparty/include/opencl/1.2</div><div class="line">--     Link libraries:              Dynamic load</div><div class="line">-- </div><div class="line">--   Python 3:</div><div class="line">--     Interpreter:                 /home/michael/.pyenv/shims/python3 (ver 3.6.5)</div><div class="line">--     Libraries:                   /home/michael/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0 (ver 3.6.5)</div><div class="line">--     numpy:                       /home/michael/.pyenv/versions/3.6.5/lib/python3.6/site-packages/numpy/core/include (ver 1.14.2)</div><div class="line">--     packages path:               lib/python3.6/site-packages</div><div class="line">-- </div><div class="line">--   Python (<span class="keyword">for</span> build):            /home/michael/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">[...]</div><div class="line"></div><div class="line">$ make -j4</div><div class="line">$ make install</div></pre></td></tr></table></figure>
+<h3 id="QtCreator-创建工程测试"><a href="#QtCreator-创建工程测试" class="headerlink" title="QtCreator 创建工程测试"></a>QtCreator 创建工程测试</h3><ul>
+<li>可以创建qmake 或者 cmake 的工程,这里以cmake 为例.</li>
+<li><p>CMakeLists.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">project(cmake_opencv3)</div><div class="line">cmake_minimum_required(VERSION 2.8)</div><div class="line">aux_source_directory(. SRC_LIST)</div><div class="line">add_subdirectory(utils)</div><div class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;SRC_LIST&#125; utils/multipleimagewindow.cpp)</div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include  )</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib )</div><div class="line">find_package( OpenCV  3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5 )</div><div class="line">MESSAGE(&quot;OpenCV version :  $&#123;OpenCV_VERSION&#125; &quot;)</div><div class="line">MESSAGE(&quot;source list :  $&#123;SRC_LIST&#125; &quot;)</div><div class="line">#add_definitions(-DDISABLE_OPENCV_24_COMPATIBILITY)</div><div class="line">target_link_libraries(cmake_opencv3 $&#123;OpenCV_LIBS&#125; )</div></pre></td></tr></table></figure>
+</li>
+<li><p>main.cpp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;opencv2/opencv.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line">using namespace cv;</div><div class="line">using namespace std;</div><div class="line">int main(int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">	 Mat img = imread(<span class="string">"1.jpg"</span>);</div><div class="line">	 namedWindow(<span class="string">"test"</span>);</div><div class="line">     imshow(<span class="string">"test"</span>,img);</div><div class="line">     <span class="built_in">wait</span>Key(100);</div><div class="line">     <span class="built_in">return</span> 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="使用Python3-测试OpenCV-库"><a href="#使用Python3-测试OpenCV-库" class="headerlink" title="使用Python3 测试OpenCV 库"></a>使用Python3 测试OpenCV 库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">~$ pyenv global 3.5.6</div><div class="line">~$ git clone https://github.com/pyenv/pyenv-virtualenv ~/.pyenv/plugins/pyenv-virtualenv</div><div class="line">source ~/.bashrc</div><div class="line">~$ mkdir virtual_env</div><div class="line">~$ cd virtual_env/</div><div class="line">~/virtual_env$ pyenv virtualenv pycv3dev</div><div class="line">Using base prefix &apos;/home/michael/.pyenv/versions/3.6.5&apos;</div><div class="line">New python executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python3.6</div><div class="line">Also creating executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python</div><div class="line">Installing setuptools, pip, wheel...done.</div><div class="line">Requirement already satisfied: setuptools in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line">Requirement already satisfied: pip in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line"></div><div class="line">~/virtual_env$ pyenv activate pycv3dev </div><div class="line">pyenv-virtualenv: prompt changing will be removed from future release. configure `export PYENV_VIRTUALENV_DISABLE_PROMPT=1&apos; to simulate the behavior.</div><div class="line">(pycv3dev) ~/virtual_env$ pip install  matplotlib jupyter</div><div class="line">[...]</div><div class="line"></div><div class="line">(pycv3dev) ~/virtual_env$ jupyter notebook   # 使用jupyter 运行一个网页版notebook,不是必须的,也可以用ipython 运行.</div><div class="line">[I 10:25:24.424 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret</div><div class="line">[I 10:25:24.753 NotebookApp] Serving notebooks from local directory: /home/michael</div><div class="line">[I 10:25:24.753 NotebookApp] 0 active kernels</div><div class="line">[I 10:25:24.753 NotebookApp] The Jupyter Notebook is running at:</div><div class="line">[I 10:25:24.753 NotebookApp] http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:24.753 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</div><div class="line">[C 10:25:24.754 NotebookApp] </div><div class="line">    </div><div class="line">    Copy/paste this URL into your browser when you connect for the first time,</div><div class="line">    to login with a token:</div><div class="line">        http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:25.334 NotebookApp] Accepting one-time-token-authenticated connection from ::1</div><div class="line">[23504:23541:0428/102525.341812:ERROR:browser_gpu_channel_host_factory.cc(103)] Failed to launch GPU process.</div><div class="line">Created new window in existing browser session.</div></pre></td></tr></table></figure>
+<ul>
+<li><p>使用浏览器打开<strong><a href="http://localhost:8888/tree" target="_blank" rel="external">http://localhost:8888/tree</a></strong>,并且创建一个python3 的notebook</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import matplotlib.pyplot as plt</div><div class="line">import sys</div><div class="line">sys.path.append(&apos;/fullpath/opencv-build-3.x-qt5-py3/lib/python3.6/site-packages&apos;)</div><div class="line">import cv2</div><div class="line">img = cv2.imread(&quot;1.jpg&quot;)</div><div class="line">plt.imshow(img)</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果没有出错,会出现一张图片.</p>
+</li>
+</ul>
+<hr>
+<h3 id="编译Android-版本"><a href="#编译Android-版本" class="headerlink" title="编译Android 版本."></a>编译Android 版本.</h3><h5 id="本段说明链接"><a href="#本段说明链接" class="headerlink" title="本段说明链接"></a><a href="https://ricky.moe/2017/07/03/opencv-contrib-for-android/" target="_blank" rel="external">本段说明链接</a></h5><p>OpenCV整套代码是基于C和C++实现的，在Android上调用存在两种方式：</p>
+<ul>
+<li>Java Native代码实现</li>
+<li>C++ NDK代码实现<br>其中Java Native代码实现是直接通过Java OpenCV API编写算法实现部分，相对应的特点在于：</li>
+</ul>
+<ul>
+<li>环境搭建简单：直接引入官方OpenCV-for-Android的对应jar包即可</li>
+<li>代码维护繁琐：由于OpenCV-for-Android的Java API与C++不完全相同，任何算法的更新都需要重写 =&gt; 在存在Windows、iOS等多平台更新时比较麻烦</li>
+<li>运行效率低：Java代码会在内部进行C++翻译，运行时性能损耗较大</li>
+</ul>
+<h5 id="而直接采用C-代码导入的方式的特点在于："><a href="#而直接采用C-代码导入的方式的特点在于：" class="headerlink" title="而直接采用C++代码导入的方式的特点在于："></a>而直接采用C++代码导入的方式的特点在于：</h5><ul>
+<li>环境搭建复杂：往往需要现自行编译对应的库，再进行NDK、Cmakelists和build.gradle的配置</li>
+<li>代码维护简单：由于直接采用C++实现算法部分，与其他平台的兼容性极好，能与Android程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可</li>
+<li>运行效率高：不存在内部执行时的代码转换问题，性能最好</li>
+<li>总结来看，Java Native代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建C++ NDK方式。</li>
+</ul>
+<hr>
+<h5 id="编译参数"><a href="#编译参数" class="headerlink" title="编译参数"></a>编译参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">~$ export ANDROID_NDK=/fullpath/Android/Sdk/ndk-bundle</div><div class="line">~$ cmake</div><div class="line">	-D ANDDROID_ABI=armeabi-v7a</div><div class="line">    -D ANDROID_FUNCTION_LEVEL_LINKING=ON</div><div class="line">    -D ANDROID_NATIVE_API_LEVEL=19</div><div class="line">    -D ANDROID_NDK_HOST_X64=ON</div><div class="line">    -D ANDROID_NDK_NOEXECSTACK=ON</div><div class="line">    -D ANDROID_STL=gnustl_static</div><div class="line">    -D BUILD_JPEG=ON</div><div class="line">    -D BUILD_PNG=ON</div><div class="line">    -D BUILD_PACKAGE=ON</div><div class="line">    -D CMAKE_TOOLCHAIN_FILE=/fullpath/opencv-3.4.1/platforms/android/android.toolchain.cmake</div><div class="line">    -D ANDROID_SDK=/fullpath/Android/Sdk</div><div class="line">    -D ANDROID_FORCE_ARM_BUILD=OFF</div><div class="line">    -D ANDROID_NO_UNDEFINED=ON</div><div class="line">    -D BUILD_ANDROID=ON</div><div class="line">    -D BUILD_ANDROID_EXAMPLES=ON</div><div class="line">    -D OPENCV_EXTRA_MODULES_PATH=/fullpath/opencv_contrib-3.4.1/modules  ../</div><div class="line"></div><div class="line">[...]</div><div class="line">--     Linker flags (Release):      -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now    </div><div class="line">--     Linker flags (Debug):        -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now    </div><div class="line">--     ccache:                      NO</div><div class="line">--     Precompiled headers:         NO</div><div class="line">--     Extra dependencies:          z dl m log</div><div class="line">--     3rdparty dependencies:       libcpufeatures libprotobuf libjpeg libwebp libpng libtiff libjasper IlmImf tegra_hal</div><div class="line">-- </div><div class="line">--   OpenCV modules:</div><div class="line">--     To be built:                 aruco bgsegm bioinspired calib3d ccalib core datasets dnn dnn_objdetect dpm face features2d flann fuzzy hfs highgui img_hash imgcodecs imgproc java_bindings_generator line_descriptor ml objdetect optflow phase_unwrapping photo plot python_bindings_generator reg rgbd saliency shape stereo stitching structured_light superres surface_matching text tracking ts video videoio videostab xfeatures2d ximgproc xobjdetect xphoto</div><div class="line">--     Disabled:                    js world</div><div class="line">--     Disabled by dependency:      -</div><div class="line">--     Unavailable:                 cnn_3dobj cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev cvv dnn_modern freetype hdf java matlab ovis python2 python3 sfm viz</div><div class="line">--     Applications:                tests perf_tests</div><div class="line">--     Documentation:               NO</div><div class="line">--     Non-free algorithms:         NO</div><div class="line">-- </div><div class="line">--   Android: </div><div class="line">--     Android ABI:                 armeabi-v7a</div><div class="line">--     STL type:                    gnustl_static</div><div class="line">--     Native API level:            android-19</div><div class="line">--     SDK target:                  android_sdk_target_status-NOTFOUND</div><div class="line">--     Android NDK:                 /home/michael/Android/Sdk/ndk-bundle (toolchain: arm-linux-androideabi-4.9)</div><div class="line">--     android tool:                NO</div><div class="line">-- </div><div class="line">--   GUI: </div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        z (ver 1.2.3)</div><div class="line">--     JPEG:                        build (ver 90)</div><div class="line">--     WEBP:                        build (ver encoder: 0x020e)</div><div class="line">--     PNG:                         build (ver 1.6.34)</div><div class="line">--     TIFF:                        build (ver 42 - 4.0.9)</div><div class="line">--     JPEG 2000:                   build (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">--   Install to:                    /fullpath/opencv-3.4.1/build-android/install</div><div class="line"></div><div class="line"></div><div class="line">~$ make -j4</div><div class="line">~$ make install</div></pre></td></tr></table></figure>
+<h3 id="Android-Studio集成OpenCV-测试"><a href="#Android-Studio集成OpenCV-测试" class="headerlink" title="Android Studio集成OpenCV 测试"></a>Android Studio集成OpenCV 测试</h3><p>关于Android Studio如何使用OpenCV编译库的问题，网上已经有很多文章阐述得很详细了，例如:<br><a href="https://www.jianshu.com/p/e90da53c4bb5" target="_blank" rel="external">Android Studio集成OpenCV</a></p>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Windows下编译一些开源基础库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/19/Windows下编译一些开源基础库/" itemprop="url">
+                  Windows下编译一些开源基础库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-19 21:09:29" itemprop="dateCreated datePublished" datetime="2017-04-19T21:09:29+08:00">2017-04-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:03:49" itemprop="dateModified" datetime="2018-04-29T23:03:49+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Windows下-Perl运行环境"><a href="#Windows下-Perl运行环境" class="headerlink" title="Ｗindows下　Perl运行环境"></a>Ｗindows下　Perl运行环境</h3><p><a href="https://www.perl.org/get.html" target="_blank" rel="external"><strong>Perl</strong></a>脚本语言在windows下有三个实现可以用，一般网上会建议安装<a href="https://www.activestate.com/activeperl/downloads" target="_blank" rel="external"><strong>ActivePerl</strong></a>的免费社区版本，我在winxp下安装不成功选了另一个<a href="http://dwimperl.com/windows.html" target="_blank" rel="external"><strong>DWIN Perl</strong></a>,还有一个<a href="http://strawberryperl.com/" target="_blank" rel="external"><strong>StrawberryPerl</strong></a>没有试过.</p>
 <ul>
 <li>默认安装在<code>C:\Dwimperl</code>,完成之后把它添加到环境变量，或者运行它自带的脚本<code>C:\Dwimperl\update_env.pl.bat</code>.</li>
 </ul>
@@ -818,54 +1534,181 @@ MEMORY
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
 <li>上面提到这些库都是可以通过MSVC或者MinGW可以编译出来，一整套的编译环境加上一大堆的依赖库，还要应对一些编译器带来的错误，一般是不会像上面这样一个一个的去编译，更好的方法是使用MXE去编译上面这些库,但是依赖的动态库文件会比较多。</li>
 </ul>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下编译一些开源基础库/" data-id="cjgits4fg000gnti5jdfx9po8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MinGW-驱动/">MinGW,驱动</a></li></ul>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-Windows下WinDDK驱动开发" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/19/Windows下WinDDK驱动开发/" class="article-date">
-  <time datetime="2017-04-19T12:50:06.000Z" itemprop="datePublished">2017-04-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Windows下WinDDK驱动开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/19/Windows下WinDDK驱动开发/">Windows下WinDDK驱动开发</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/19/Windows下WinDDK驱动开发/" itemprop="url">
+                  Windows下WinDDK驱动开发
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-19 20:50:06" itemprop="dateCreated datePublished" datetime="2017-04-19T20:50:06+08:00">2017-04-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:03:34" itemprop="dateModified" datetime="2018-04-29T23:03:34+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h3 id="WinDDK"><a href="#WinDDK" class="headerlink" title="WinDDK"></a>WinDDK</h3><ul>
+      
+
+      
+        
+          
+            <h3 id="WinDDK"><a href="#WinDDK" class="headerlink" title="WinDDK"></a>WinDDK</h3><ul>
 <li>初始化 DDK</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\</div><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\bin&gt;setenv.bat C:\W<span class="keyword">in</span>DDK\7600.16385.1 fre WXP</div><div class="line">OACR monitor running already</div></pre></td></tr></table></figure>
@@ -898,96 +1741,182 @@ MEMORY
 <li>Windows 下开发驱动肯定少不了<a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff557573.aspx" target="_blank" rel="external"><code>MSDN</code></a>,调试要用到<code>GetLastError</code> 的API去取得<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx" target="_blank" rel="external"><code>错误码</code></a>,重复性r 的操作最好还是用脚本来处理，比如：我开发调试一个打印监视器的驱动，每次要重启Spooler服务才能替换新的程序。写一个如下脚本省事又不出错：</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@<span class="built_in">echo</span> on</div><div class="line"><span class="built_in">echo</span> %1</div><div class="line"><span class="built_in">set</span> TARGET=<span class="string">"C:\WINDOWS\system32\print-mon_i686.dll"</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> UITARGET=<span class="string">"C:\WINDOWS\system32\netmonui_i686.dll"</span></div><div class="line"></div><div class="line">sc stop Spooler</div><div class="line">;这个ping只是用来延时的</div><div class="line">ping 8.8.8.8 -n1 -w 5 &gt;nul</div><div class="line">IF EXIST  %TARGET%  del /f %TARGET%</div><div class="line">IF EXIST  %UITARGET% del /f %UITARGET%</div><div class="line">copy %1\netmon\debug\<span class="built_in">print</span>-mon_i686.dll %TARGET%</div><div class="line">copy %1\ui\debug\netmonui_i686.dll %UITARGET%</div><div class="line">sc start Spooler</div><div class="line"></div><div class="line">;一次不成功，再运行一次保险</div><div class="line"></div><div class="line">sc stop Spooler</div><div class="line">ping 8.8.8.8 -n1 -w 5 &gt;nul</div><div class="line">IF EXIST  %TARGET%  del /f %TARGET%</div><div class="line">IF EXIST  %UITARGET% del /f %UITARGET%</div><div class="line">copy %1\netmon\debug\<span class="built_in">print</span>-mon_i686.dll %TARGET%</div><div class="line">copy %1\ui\debug\netmonui_i686.dll %UITARGET%</div><div class="line">sc start Spooler</div></pre></td></tr></table></figure>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/04/19/Windows下WinDDK驱动开发/" data-id="cjgits4fc000cnti5h4xd9x8f" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WinDDk-驱动/">WinDDk,驱动</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Mini2440移植最新的u-boot" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/03/Mini2440移植最新的u-boot/" class="article-date">
-  <time datetime="2017-02-03T13:27:58.000Z" itemprop="datePublished">2017-02-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/03/Mini2440移植最新的u-boot/">Mini2440移植最新的u-boot</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Clone-三星U-BOOT分支"><a href="#Clone-三星U-BOOT分支" class="headerlink" title="Clone 三星U-BOOT分支"></a>Clone 三星U-BOOT分支</h3><p>git clone git://git.denx.de/u-boot-samsung.git</p>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
-
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/02/03/Mini2440移植最新的u-boot/" data-id="cjgits4ew0005nti5o8oqu56y" class="article-share-link">Share</a>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-栽剪FFMPEG做GIF录屏工具" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/01/15/栽剪FFMPEG做GIF录屏工具/" class="article-date">
-  <time datetime="2017-01-15T12:09:38.000Z" itemprop="datePublished">2017-01-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/栽剪FFMPEG做GIF录屏工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/15/栽剪FFMPEG做GIF录屏工具/">栽剪FFMPEG做GIF录屏工具</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/15/栽剪FFMPEG做GIF录屏工具/" itemprop="url">
+                  栽剪FFMPEG做GIF录屏工具
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-01-15 20:09:38" itemprop="dateCreated datePublished" datetime="2017-01-15T20:09:38+08:00">2017-01-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:07:03" itemprop="dateModified" datetime="2018-04-29T23:07:03+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <ul>
+      
+
+      
+        
+          
+            <ul>
 <li><p>看到网上做的一些gif图片,突然想到做一个gif录屏的工具,win,iso肯定有这些工具,linux 下只发现了<a href="https://github.com/phw/peek" target="_blank" rel="external"><strong>peek</strong></a>,这个工具就是用ffmpeg去录的屏幕.</p>
 </li>
 <li><p>其实不需要这篇文章,只要安装了ffmpeg或者使用静态编译的ffmpeg,使用参数脚本也就能实现录屏功能,可以录成各种视频格式(avi,mp4,…),或者图片格式(png,jpeg,gif…).</p>
@@ -1049,55 +1978,183 @@ MEMORY
 <li>C++ 中需要导出三个函数,还要做如下的必要修改,才能被其它工程调用.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"></div><div class="line">/* C++ 中需要导出三个函数 */</div><div class="line">extern <span class="string">"C"</span> &#123;</div><div class="line">int ffmpeg(int argc,char *argv[]) //原ffmpeg程序的入口函数</div><div class="line">int sigterm_handler(int sig); // 终止ffmpeg程序</div><div class="line">void av_log_set_callback(void (*callback)(void*, int, const char*, va_list)); // 设置日志打印的回调函数.</div><div class="line">&#125;;</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">MainWindow::MainWindow(QWidget *parent) :</div><div class="line">    QMainWindow(parent),</div><div class="line">    //out(stdout, QIODevice::WriteOnly),</div><div class="line">    ui(new Ui::MainWindow),</div><div class="line">&#123;</div><div class="line">[...]</div><div class="line"></div><div class="line">            QList&lt;QByteArray&gt; tmp;</div><div class="line">            tmp &lt;&lt; <span class="string">"ffmpeg"</span></div><div class="line">                &lt;&lt; <span class="string">"-v"</span> &lt;&lt; <span class="string">"quiet"</span>  &lt;&lt; <span class="string">"-y"</span></div><div class="line">                // Video Size 要在<span class="_">-f</span> 的前面.</div><div class="line">                &lt;&lt; <span class="string">"-video_size"</span> &lt;&lt; wsize.toLocal8Bit()</div><div class="line">                &lt;&lt; <span class="string">"-framerate"</span> &lt;&lt; <span class="string">"15"</span></div><div class="line">       <span class="comment">#if _WIN32</span></div><div class="line">                &lt;&lt; <span class="string">"-f"</span> &lt;&lt; <span class="string">"gdigrab"</span></div><div class="line">                &lt;&lt; <span class="string">"-i"</span> &lt;&lt; <span class="string">"desktop"</span></div><div class="line">                &lt;&lt; <span class="string">"-offset_x"</span> &lt;&lt; QString(<span class="string">"%1"</span>).arg(QString::number(mWindow-&gt;pos().x())).toLocal8Bit()</div><div class="line">                &lt;&lt; <span class="string">"-offset_y"</span>  &lt;&lt; QString(<span class="string">"%1"</span>).arg(QString::number(mWindow-&gt;pos().x())).toLocal8Bit()</div><div class="line">       <span class="comment">#else</span></div><div class="line">                &lt;&lt; <span class="string">"-f"</span> &lt;&lt; <span class="string">"x11grab"</span></div><div class="line">                &lt;&lt; <span class="string">"-i"</span> &lt;&lt; pos.toLocal8Bit()</div><div class="line"></div><div class="line">       <span class="comment">#endif</span></div><div class="line">                &lt;&lt; <span class="string">"-vcodec"</span> &lt;&lt; <span class="string">"huffyuv"</span></div><div class="line">                &lt;&lt; <span class="string">"-pix_fmt"</span> &lt;&lt; <span class="string">"yuv422p"</span></div><div class="line">                &lt;&lt; outputvideo;</div><div class="line"></div><div class="line">            char *argv[tmp.size()+1] = &#123;NULL&#125;;</div><div class="line">            <span class="keyword">for</span>(int i =0 ;i &lt; tmp.size() ;i++)</div><div class="line">            &#123;</div><div class="line">                argv[i] = tmp[i].data();</div><div class="line">            &#125;</div><div class="line">            ffmpeg(tmp.size(),argv);</div><div class="line">[...]</div></pre></td></tr></table></figure>
-<h4 id="录制效果图"><a href="#录制效果图" class="headerlink" title="录制效果图"></a>录制效果图</h4><img src="/2017/01/15/栽剪FFMPEG做GIF录屏工具/2017-01-21-22-08-output.gif" alt="2017-01-21-22-08-output.gif" title="">
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。</li>
+<h4 id="录制效果图"><a href="#录制效果图" class="headerlink" title="录制效果图"></a>录制效果图</h4><p><img src="/imgs/2017-01-21-22-08-output.gif" alt=""></p>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/15/栽剪FFMPEG做GIF录屏工具/" data-id="cjgits4go001jnti5chi4bsua" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg-QT/">ffmpeg,QT</a></li></ul>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-Qt的一些开发技巧" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/01/08/Qt的一些开发技巧/" class="article-date">
-  <time datetime="2017-01-08T00:14:44.000Z" itemprop="datePublished">2017-01-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Qt/">Qt</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/08/Qt的一些开发技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/08/Qt的一些开发技巧/">Qt的一些开发技巧</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/08/Qt的一些开发技巧/" itemprop="url">
+                  Qt的一些开发技巧
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-01-08 08:14:44" itemprop="dateCreated datePublished" datetime="2017-01-08T08:14:44+08:00">2017-01-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:03:06" itemprop="dateModified" datetime="2018-04-29T23:03:06+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Qt/" itemprop="url" rel="index"><span itemprop="name">Qt</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h3 id="Lambda匿名函数"><a href="#Lambda匿名函数" class="headerlink" title="Lambda匿名函数"></a>Lambda匿名函数</h3><ul>
+      
+
+      
+        
+          
+            <h3 id="Lambda匿名函数"><a href="#Lambda匿名函数" class="headerlink" title="Lambda匿名函数"></a>Lambda匿名函数</h3><ul>
 <li><p>有时候槽函数代码辑逻辑非常简单,可以直接用下面的<code>Lambda匿名函数</code>处理信号,简捷明了.需<code>c++11</code>支持,不支持自身递归调用.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">QComboBox *cb = new QComboBox(this);</div><div class="line">QObject::connect(cb,&amp;QComboBox::currentTextChanged,[=](QString txt)&#123;</div><div class="line">                       [...]</div><div class="line">                       baseform-&gt;changeJsonValue(btn,uname,</div><div class="line">                                               baseform-&gt;mWindow-&gt;mItemMap.key(txt));</div><div class="line">                       [...]</div><div class="line">                    &#125;);</div></pre></td></tr></table></figure>
 </li>
@@ -1158,52 +2215,181 @@ MEMORY
 </li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">binarycreator --offline-only -c D:\QtDev\QtInstaller\netmon-root\config\config.xml -p D:\QtDev\QtInstaller\netmon-root\packages  <span class="string">"Z:/upload/appname－测试版%DATE%－%TIME::=_%.exe"</span></div></pre></td></tr></table></figure>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2017/01/08/Qt的一些开发技巧/" data-id="cjgits4f8000anti549ion2vq" class="article-share-link">Share</a>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-安装Postgresql-XL" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/22/安装Postgresql-XL/" class="article-date">
-  <time datetime="2016-12-22T14:17:16.000Z" itemprop="datePublished">2016-12-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/运维/">运维</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/22/安装Postgresql-XL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
     
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/22/安装Postgresql-XL/">安装Postgresql-XL</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/22/安装Postgresql-XL/" itemprop="url">
+                  安装Postgresql-XL
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-12-22 22:17:16" itemprop="dateCreated datePublished" datetime="2016-12-22T22:17:16+08:00">2016-12-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:05:53" itemprop="dateModified" datetime="2018-04-29T23:05:53+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <ul>
+      
+
+      
+        
+          
+            <ul>
 <li>一直以来的服务器开发都会使用<code>PostgreSQL</code>做为数据库.有人会问为什么不用MySQL?这个是个人喜好.Postgresql 与MySQL也是一些区别的.Postgresql有一些特性是MySQL没有具备的.有人会说:在中国为什么MySQL的使用会比PostgreSQL流行.可能其中一个原因是PostgreSQL没有服务好PHP.PostgreSQL与MySQL的连接方式有很大不同,PostgreSQL是fork进程,MySQL是线程连接.所以在高并发下PostgreSQL的连接数会很快被用完.这时就需要一个连接池处理客户端的连接.</li>
 <li>Pgbouncer,pgpool,<a href="http://www.postgres-xl.org" target="_blank" rel="external">PostgreSQL-XL</a></li>
 </ul>
@@ -1280,57 +2466,576 @@ MEMORY
 <p>b)可以把不同的数据库连接到一个机器上，而对客户端保持透明。</p>
 <p>c)支持在线的重行配置而无需重启。<br>&gt;</p>
 <hr>
-<h3 id="自愿打赏支持"><a href="#自愿打赏支持" class="headerlink" title="自愿打赏支持"></a>自愿打赏支持</h3><ul>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></p>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yjdwbj.github.io/2016/12/22/安装Postgresql-XL/" data-id="cjgits4ga0017nti5mkytwibr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Postgresql/">Postgresql</a></li></ul>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
 
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
-</section>
-      </div>
-      <footer id="footer">
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      <a href="/" class="logo">Sunrise 博客</a>
-      &copy; 2018 刘春阳<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/21/工作中的一些Bash-shell测试脚本/" itemprop="url">
+                  工作中的一些Bash shell测试脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-12-21 21:24:01" itemprop="dateCreated datePublished" datetime="2016-12-21T21:24:01+08:00">2016-12-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:06:12" itemprop="dateModified" datetime="2018-04-29T23:06:12+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.scrollLoading.js"></script>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>　<em>*做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.</em></em></p>
+<h3 id="提取TOP命令中的数据"><a href="#提取TOP命令中的数据" class="headerlink" title="提取TOP命令中的数据"></a>提取TOP命令中的数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$ cat grep_pid.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">srvdir=<span class="string">"/root/netty_srv_dir/"</span></div><div class="line"></div><div class="line"><span class="comment">##　分类统计top输出的CPU与内存数据</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | head -n1 | awk <span class="string">'&#123;printf "\nCPU min:%4s\t", $9&#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | awk <span class="string">'&#123;sum+=$9;n++&#125;END&#123;printf "avg: %4s\t", sum /n &#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | tail -n1 | awk <span class="string">'&#123;printf " max:%4s\n", $9&#125;'</span></div><div class="line"><span class="comment">## print MEM</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k10 -n | tail -n1 | awk <span class="string">'&#123;printf "MEM: %4s\n",$10&#125;'</span></div><div class="line">cat <span class="variable">$srvdir</span><span class="variable">$1</span>.log &gt; <span class="variable">$1bak</span>.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.log</div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | sort -k 3 |tail -n1 | awk -F";" 'BEGIN&#123;print "Bytes Out\tBytes In\tPackets Out\tPackets In"&#125;&#123; printf "%sKB/s\t%sKB/s\t%sKB/s\t%sKB/s\n", $3 / 1000,$4/1000,$6/1000,$7/1000&#125;' </span></div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | awk 'BEGIN &#123;FS =";";print "BOut\tBin\tPOut\tPin"&#125;&#123;if(NF==16)&#123; if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t",$3&#125;;if($4&gt;1000)&#123;printf "%sKB/s\n",$4/1000&#125;else&#123;printf "%sb/s\n",$4&#125;&#125;&#125;' 18028.net </span></div><div class="line">cat /proc/net/sockstat | grep <span class="string">"TCP"</span> | awk <span class="string">'&#123;print $1,$9&#125;'</span></div><div class="line">awk <span class="string">'BEGIN&#123;print "\nBytesOut\t\tByteIn\t\tPacketsOut\tPacketsIn"&#125;'</span></div><div class="line"></div><div class="line"><span class="comment">## 分类统计bwn-ng输出的CSV格式数据.</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 3 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t\t",$3&#125;&#125;&#125;'</span>  </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 4 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($4&gt;1000)&#123;printf "%sKB/s\t",$4/1000&#125;else&#123;printf "%sb/s\t\t",$4&#125;&#125;&#125;'</span> </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 6 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($6&gt;1000)&#123;printf "%sKB/s\t",$6/1000&#125;else&#123;printf "%sb/s\t\t",$6&#125;&#125;&#125;'</span> </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 7 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($7&gt;1000)&#123;printf "%sKB/s\n",$7/1000&#125;else&#123;printf "%sb/s\n",$7&#125;&#125;&#125;'</span> </div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.net</div></pre></td></tr></table></figure>
+<h3 id="自动批量回答yes"><a href="#自动批量回答yes" class="headerlink" title="自动批量回答yes"></a>自动批量回答yes</h3><ul>
+<li>这里是一个自动登录的脚本,因为每个服务器第一次连接都会提示要接受一个证书.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/expect -f</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> timeout 10</div><div class="line"></div><div class="line"><span class="built_in">set</span> num [lindex <span class="variable">$argv</span> 0]</div><div class="line"></div><div class="line">spawn ssh -b 172.168.<span class="variable">$num</span>.10 root@172.168.<span class="variable">$num</span>.100</div><div class="line">expect &#123;</div><div class="line"><span class="string">"*yes/no"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue&#125;</div><div class="line">&#125;</div><div class="line">expect <span class="string">"#*"</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">send <span class="string">"eof\r"</span></div><div class="line">expect eof</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###　循环测试脚本</p>
+<ul>
+<li>这个脚本根据<code>camera_client.py</code>运行打印出``done”表示该程序运行结束,在while里把它清除掉.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@debian-t6:~<span class="comment"># cat test_loop.sh </span></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">srv=<span class="string">"192.168.25.100"</span></div><div class="line">python camera_client.py dev -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;</div><div class="line">dpid=$!</div><div class="line"><span class="built_in">echo</span> <span class="variable">$dpid</span></div><div class="line"><span class="keyword">done</span>=<span class="string">"done&gt;"</span></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span>; </div><div class="line"><span class="keyword">do</span></div><div class="line">    grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;&amp; <span class="built_in">kill</span> -9 <span class="variable">$dpid</span> &amp;&amp; <span class="built_in">break</span> || sleep 1</div><div class="line"><span class="keyword">done</span>  </div><div class="line">cat camera.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</div></pre></td></tr></table></figure>
+<h3 id="开启服务器与数据收集脚本"><a href="#开启服务器与数据收集脚本" class="headerlink" title="开启服务器与数据收集脚本"></a>开启服务器与数据收集脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ cat test_start_srv.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">## 设置系统的文件句柄数限制</span></div><div class="line"><span class="built_in">ulimit</span> -Hn 20000500</div><div class="line"><span class="built_in">ulimit</span> -Sn 20000500</div><div class="line"><span class="comment">#cd netty_srv_dir</span></div><div class="line"></div><div class="line"><span class="comment">## 清除上次运行的,``bwn-ng, top``命令.</span></div><div class="line">pkill bwm-ng</div><div class="line">pkill top</div><div class="line">srv=<span class="string">"asio_p2p_srv"</span></div><div class="line"><span class="comment">## 清除上次运行的服务器的进程</span></div><div class="line">pkill <span class="variable">$srv</span></div><div class="line"><span class="comment">##  服务已经运行,它的pid赋于给SPID变量,并保存在192.168.25.100机器上的/root/srv.pid里</span></div><div class="line"><span class="variable">$srv</span> &amp;  SPID=$!</div><div class="line">ssh -t root@192.168.25.100 <span class="string">"echo <span class="variable">$SPID</span> &gt; srv.pid"</span></div><div class="line"></div><div class="line"><span class="comment">## bwm-ng 监控网卡eth1的流量,并输出CSV格式到以SPID变量名,.net为后缀的文件名里.　它的pid赋于给NPID变量</span></div><div class="line">bwm-ng -o csv -T rate -I eth1 -F  <span class="variable">$SPID</span>.net &amp; NPID=$!</div><div class="line"><span class="comment">## top 只输出SPID的pid的信息,并重定向pid.log的文件名中.</span></div><div class="line">top -p <span class="variable">$SPID</span> -b &gt; <span class="variable">$SPID</span>.log  &amp;</div></pre></td></tr></table></figure>
+<h3 id="服务器测试脚本"><a href="#服务器测试脚本" class="headerlink" title="服务器测试脚本"></a>服务器测试脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># cat start_srv.py </span></div><div class="line">import paramiko</div><div class="line">import select</div><div class="line">ssh = paramiko.SSHClient()</div><div class="line">SRV = <span class="string">"192.168.25.100"</span></div><div class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</div><div class="line">mykey = paramiko.RSAKey.from_private_key_file(<span class="string">"/root/.ssh/id_rsa"</span>)</div><div class="line">ssh.connect(<span class="string">"%s"</span> % SRV,username=<span class="string">"root"</span>,pkey=mykey)</div><div class="line">ssh.exec_command(<span class="string">"pkill test_start_srv"</span>)</div><div class="line">stdin,stdout,stderr = ssh.exec_command(<span class="string">"/root/test_start_srv.sh"</span>)</div><div class="line"><span class="keyword">while</span> not stdout.channel.exit_status_ready():</div><div class="line">    <span class="keyword">if</span> stdout.channel.recv_ready():</div><div class="line">        rl,wl,xl = select.select([stdout.channel],[],[],0.0)</div><div class="line">        <span class="keyword">if</span> len(rl )&gt; 0:</div><div class="line">            <span class="built_in">print</span> stdout.channel.recv(1024)</div><div class="line">            <span class="built_in">break</span></div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> cat test_devices_only.sh </div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">pid=`python start_srv.py`</div><div class="line"></div><div class="line">./test_camera_client.sh $1</div><div class="line">ssh -t root@192.168.25.100 &quot;/root/grep_pid.sh $pid &amp;&amp; pkill test_start_srv &amp;&amp; pkill socket_srv&quot;</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">cat test_app_dev.sh</div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">test_one()&#123;</div><div class="line">    tt=$200</div><div class="line">    ## 中止远程服务器的之前进程名.</div><div class="line">    ssh -t root@192.168.25.100 &quot;pkill test_start_srv &amp;&amp; pkill socket_srv&quot;</div><div class="line">    pid=`python start_srv.py`</div><div class="line">    srv=&quot;192.168.25.100&quot;</div><div class="line">    </div><div class="line">    ## 开启一种类型的客户端 ,DEV</div><div class="line">    python camera_client.py dev -H $srv -f $1 &amp;</div><div class="line">    dpid=$!</div><div class="line">    while true; </div><div class="line">    do</div><div class="line">       ## 等到DEV输出done,开记另一种类型的客户端,APP </div><div class="line">       grep &quot;done&quot; camera.log &amp;&amp; python camera_client.py app -H $srv -f $1 &amp;&amp; break || sleep 2</div><div class="line">    done  </div><div class="line"></div><div class="line">    ## 上面两种类型的客户端运行完成之后,把各类数据分类增量重定向到相应的文件名中.</div><div class="line">    cat camera.log &gt;&gt; $1.log</div><div class="line">    echo &quot;&quot; &gt; camera.log</div><div class="line">    pkill &quot;python&quot;</div><div class="line">    </div><div class="line">    ssh -t root@192.168.25.100 &quot;pkill test_start_srv &amp;&amp; pkill socket_srv &amp;&amp; /root/grep_pid.sh $pid&quot; &gt;&gt; $1.log</div><div class="line">    echo ---------------------------------------------------------------</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">run_ten_test()</div><div class="line">&#123;</div><div class="line">    test_one $1 $2 &gt;&gt; $1.log</div><div class="line">    echo &quot;$1 test result&quot; &gt;&gt; $1.result</div><div class="line">    ## 分类累计,DEV,APP输出的日志数据,并做平均计算.</div><div class="line">    grep &quot;DEV Run Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;Dev Run Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;DEV Avg Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;Dev Avg Time: %s\n&quot;, sum / n&#125;&apos;  &gt;&gt; $1.result</div><div class="line">    grep &quot;APP Run Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;APP Run Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;APP Avg Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;APP Avg Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    </div><div class="line">    ## 分类统计出top 输出的内存与CPU的总数与平均数值</div><div class="line">    grep &quot;CPU&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;AVG CPU: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;MEM&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;AVG MEM: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    echo &quot;$1 test result---------------------------------------------------------&quot; &gt;&gt; $1.result</div><div class="line">&#125;</div><div class="line">test_all()</div><div class="line">&#123;</div><div class="line">    ext=&quot;0000.txt&quot;</div><div class="line">    pre=&quot;user_&quot;</div><div class="line">        for i in `seq 1 6`;</div><div class="line">        do </div><div class="line">            echo &quot;start test $pre$i$ext&quot;</div><div class="line">            test_one $pre$i$ext $i</div><div class="line">            echo &quot;test $pre$i$ext done&quot; </div><div class="line">            echo &quot;wait 30 seconds&quot;</div><div class="line">            sleep 30</div><div class="line">        done</div><div class="line">&#125;</div><div class="line">test_all</div></pre></td></tr></table></figure>
+<h3 id="复制目录-并生成二进制文件"><a href="#复制目录-并生成二进制文件" class="headerlink" title="复制目录,并生成二进制文件"></a>复制目录,并生成二进制文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cat ./rsync_openresty.sh </div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">LUAJIT=/usr/<span class="built_in">local</span>/openresty/luajit/bin/luajit</div><div class="line">ORG=openresty-china</div><div class="line">BYTECODE=openresty-byte</div><div class="line"></div><div class="line"><span class="comment">## 清除旧的目录</span></div><div class="line">rm -rf <span class="variable">$&#123;BYTECODE&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## 用find 把目录找出来,替换ORG到BYTECODE.</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find <span class="variable">$&#123;ORG&#125;</span> -type d`;<span class="keyword">do</span> </div><div class="line">     mkdir -p <span class="string">"<span class="variable">$&#123;i/"$&#123;ORG&#125;</span>"</span>/<span class="string">"<span class="variable">$&#123;BYTECODE&#125;</span>"</span>&#125;<span class="string">"</span></div><div class="line">done</div><div class="line"></div><div class="line">## 用find 把*.lua结尾的文件找来,并使用LUAJIT编译成字节码,输出到BYTECODE的相应目录下</div><div class="line">for i in `find <span class="variable">$&#123;ORG&#125;</span> -iname "*.lua<span class="string">"`;do </span></div><div class="line">    <span class="variable">$&#123;LUAJIT&#125;</span> -b <span class="variable">$i</span> "<span class="variable">$&#123;i/"$&#123;ORG&#125;</span><span class="string">"/"</span><span class="variable">$&#123;BYTECODE&#125;</span><span class="string">"&#125;"</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">cp <span class="variable">$&#123;ORG&#125;</span>/conf/* <span class="variable">$&#123;BYTECODE&#125;</span>/conf</div><div class="line"></div><div class="line">rsync --exclude=<span class="string">"*.git"</span> --exclude=<span class="string">"*.sh"</span> --exclude=<span class="string">"config.lua"</span> --exclude=<span class="string">"*.conf"</span> <span class="_">-a</span> <span class="variable">$&#123;BYTECODE&#125;</span>/* root@exmaple.com:/home/www/test_openresty</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
-<script src="/js/script.js"></script>
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/imgs/avatar.jpg"
+                alt="yjdwbj" />
+            
+              <p class="site-author-name" itemprop="name">yjdwbj</p>
+              <p class="site-description motion-element" itemprop="description">最是人间留不住,朱颜辞镜花辞树</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yjdwbj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yjdwbj@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/yjdwbj" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>

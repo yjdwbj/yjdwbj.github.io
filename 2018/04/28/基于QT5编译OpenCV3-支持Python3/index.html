@@ -117,7 +117,7 @@
 
 12345$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv$ echo &amp;apos;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&amp;apos; &amp;gt;&amp;gt; ~">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2018-04-29T15:00:57.161Z">
+<meta property="og:updated_time" content="2018-05-02T10:07:02.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于QT5编译OpenCV3,支持Python3">
 <meta name="twitter:description" content="[相关链接]Github opencvopencv_contribpyenv
@@ -349,7 +349,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-04-29 23:00:57" itemprop="dateModified" datetime="2018-04-29T23:00:57+08:00">2018-04-29</time>
+                <time title="修改时间：2018-05-02 18:07:02" itemprop="dateModified" datetime="2018-05-02T18:07:02+08:00">2018-05-02</time>
               
             
           </span>
@@ -404,7 +404,7 @@
 <h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><ul>
 <li>详细安装参照<a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a> README.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.5.6 版本</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.6.5 版本</div></pre></td></tr></table></figure>
 <h3 id="编译OpenCV3"><a href="#编译OpenCV3" class="headerlink" title="编译OpenCV3"></a>编译OpenCV3</h3><ul>
 <li>如果要编译 extra_modules ,要与opencv是同版本号,不然会出现奇奇怪怪的编译错误,这里都选<code>3.4.1</code>版本号</li>
 </ul>
@@ -428,25 +428,6 @@
 </li>
 </ul>
 <hr>
-<h3 id="编译Android-版本"><a href="#编译Android-版本" class="headerlink" title="编译Android 版本."></a>编译Android 版本.</h3><h5 id="本段说明链接"><a href="#本段说明链接" class="headerlink" title="本段说明链接"></a><a href="https://ricky.moe/2017/07/03/opencv-contrib-for-android/" target="_blank" rel="external">本段说明链接</a></h5><p>OpenCV整套代码是基于C和C++实现的，在Android上调用存在两种方式：</p>
-<ul>
-<li>Java Native代码实现</li>
-<li>C++ NDK代码实现<br>其中Java Native代码实现是直接通过Java OpenCV API编写算法实现部分，相对应的特点在于：</li>
-</ul>
-<ul>
-<li>环境搭建简单：直接引入官方OpenCV-for-Android的对应jar包即可</li>
-<li>代码维护繁琐：由于OpenCV-for-Android的Java API与C++不完全相同，任何算法的更新都需要重写 =&gt; 在存在Windows、iOS等多平台更新时比较麻烦</li>
-<li>运行效率低：Java代码会在内部进行C++翻译，运行时性能损耗较大</li>
-</ul>
-<h5 id="而直接采用C-代码导入的方式的特点在于："><a href="#而直接采用C-代码导入的方式的特点在于：" class="headerlink" title="而直接采用C++代码导入的方式的特点在于："></a>而直接采用C++代码导入的方式的特点在于：</h5><ul>
-<li>环境搭建复杂：往往需要现自行编译对应的库，再进行NDK、Cmakelists和build.gradle的配置</li>
-<li>代码维护简单：由于直接采用C++实现算法部分，与其他平台的兼容性极好，能与Android程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可</li>
-<li>运行效率高：不存在内部执行时的代码转换问题，性能最好</li>
-<li>总结来看，Java Native代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建C++ NDK方式。</li>
-</ul>
-<hr>
-<h5 id="编译参数"><a href="#编译参数" class="headerlink" title="编译参数"></a>编译参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">~$ export ANDROID_NDK=/fullpath/Android/Sdk/ndk-bundle</div><div class="line">~$ cmake</div><div class="line">	-D ANDDROID_ABI=armeabi-v7a</div><div class="line">    -D ANDROID_FUNCTION_LEVEL_LINKING=ON</div><div class="line">    -D ANDROID_NATIVE_API_LEVEL=19</div><div class="line">    -D ANDROID_NDK_HOST_X64=ON</div><div class="line">    -D ANDROID_NDK_NOEXECSTACK=ON</div><div class="line">    -D ANDROID_STL=gnustl_static</div><div class="line">    -D BUILD_JPEG=ON</div><div class="line">    -D BUILD_PNG=ON</div><div class="line">    -D BUILD_PACKAGE=ON</div><div class="line">    -D CMAKE_TOOLCHAIN_FILE=/fullpath/opencv-3.4.1/platforms/android/android.toolchain.cmake</div><div class="line">    -D ANDROID_SDK=/fullpath/Android/Sdk</div><div class="line">    -D ANDROID_FORCE_ARM_BUILD=OFF</div><div class="line">    -D ANDROID_NO_UNDEFINED=ON</div><div class="line">    -D BUILD_ANDROID=ON</div><div class="line">    -D BUILD_ANDROID_EXAMPLES=ON</div><div class="line">    -D OPENCV_EXTRA_MODULES_PATH=/fullpath/opencv_contrib-3.4.1/modules  ../</div><div class="line"></div><div class="line">[...]</div><div class="line">--     Linker flags (Release):      -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now    </div><div class="line">--     Linker flags (Debug):        -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now    </div><div class="line">--     ccache:                      NO</div><div class="line">--     Precompiled headers:         NO</div><div class="line">--     Extra dependencies:          z dl m log</div><div class="line">--     3rdparty dependencies:       libcpufeatures libprotobuf libjpeg libwebp libpng libtiff libjasper IlmImf tegra_hal</div><div class="line">-- </div><div class="line">--   OpenCV modules:</div><div class="line">--     To be built:                 aruco bgsegm bioinspired calib3d ccalib core datasets dnn dnn_objdetect dpm face features2d flann fuzzy hfs highgui img_hash imgcodecs imgproc java_bindings_generator line_descriptor ml objdetect optflow phase_unwrapping photo plot python_bindings_generator reg rgbd saliency shape stereo stitching structured_light superres surface_matching text tracking ts video videoio videostab xfeatures2d ximgproc xobjdetect xphoto</div><div class="line">--     Disabled:                    js world</div><div class="line">--     Disabled by dependency:      -</div><div class="line">--     Unavailable:                 cnn_3dobj cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev cvv dnn_modern freetype hdf java matlab ovis python2 python3 sfm viz</div><div class="line">--     Applications:                tests perf_tests</div><div class="line">--     Documentation:               NO</div><div class="line">--     Non-free algorithms:         NO</div><div class="line">-- </div><div class="line">--   Android: </div><div class="line">--     Android ABI:                 armeabi-v7a</div><div class="line">--     STL type:                    gnustl_static</div><div class="line">--     Native API level:            android-19</div><div class="line">--     SDK target:                  android_sdk_target_status-NOTFOUND</div><div class="line">--     Android NDK:                 /home/michael/Android/Sdk/ndk-bundle (toolchain: arm-linux-androideabi-4.9)</div><div class="line">--     android tool:                NO</div><div class="line">-- </div><div class="line">--   GUI: </div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        z (ver 1.2.3)</div><div class="line">--     JPEG:                        build (ver 90)</div><div class="line">--     WEBP:                        build (ver encoder: 0x020e)</div><div class="line">--     PNG:                         build (ver 1.6.34)</div><div class="line">--     TIFF:                        build (ver 42 - 4.0.9)</div><div class="line">--     JPEG 2000:                   build (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">--   Install to:                    /fullpath/opencv-3.4.1/build-android/install</div><div class="line"></div><div class="line"></div><div class="line">~$ make -j4</div><div class="line">~$ make install</div></pre></td></tr></table></figure>
-<h3 id="Android-Studio集成OpenCV-测试"><a href="#Android-Studio集成OpenCV-测试" class="headerlink" title="Android Studio集成OpenCV 测试"></a>Android Studio集成OpenCV 测试</h3><p>关于Android Studio如何使用OpenCV编译库的问题，网上已经有很多文章阐述得很详细了，例如:<br><a href="https://www.jianshu.com/p/e90da53c4bb5" target="_blank" rel="external">Android Studio集成OpenCV</a></p>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
@@ -575,7 +556,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -643,7 +624,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -698,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装pyenv"><span class="nav-number">1.</span> <span class="nav-text">安装pyenv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译OpenCV3"><span class="nav-number">2.</span> <span class="nav-text">编译OpenCV3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QtCreator-创建工程测试"><span class="nav-number">3.</span> <span class="nav-text">QtCreator 创建工程测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Python3-测试OpenCV-库"><span class="nav-number">4.</span> <span class="nav-text">使用Python3 测试OpenCV 库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译Android-版本"><span class="nav-number">5.</span> <span class="nav-text">编译Android 版本.</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#本段说明链接"><span class="nav-number">5.0.1.</span> <span class="nav-text">本段说明链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#而直接采用C-代码导入的方式的特点在于："><span class="nav-number">5.0.2.</span> <span class="nav-text">而直接采用C++代码导入的方式的特点在于：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译参数"><span class="nav-number">5.0.3.</span> <span class="nav-text">编译参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio集成OpenCV-测试"><span class="nav-number">6.</span> <span class="nav-text">Android Studio集成OpenCV 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装pyenv"><span class="nav-number">1.</span> <span class="nav-text">安装pyenv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译OpenCV3"><span class="nav-number">2.</span> <span class="nav-text">编译OpenCV3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QtCreator-创建工程测试"><span class="nav-number">3.</span> <span class="nav-text">QtCreator 创建工程测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Python3-测试OpenCV-库"><span class="nav-number">4.</span> <span class="nav-text">使用Python3 测试OpenCV 库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">5.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
             
 
           </div>

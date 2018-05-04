@@ -276,6 +276,387 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/为Android编译OpenCV3-SDK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/04/为Android编译OpenCV3-SDK/" itemprop="url">
+                  为Android编译OpenCV3_SDK
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-04 18:04:34 / 修改时间：10:27:37" itemprop="dateCreated datePublished" datetime="2018-05-04T18:04:34+08:00">2018-05-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="本段说明链接"><a href="#本段说明链接" class="headerlink" title="本段说明链接"></a><a href="https://ricky.moe/2017/07/03/opencv-contrib-for-android/" target="_blank" rel="external">本段说明链接</a></h5><p>OpenCV整套代码是基于C和C++实现的，在Android上调用存在两种方式：</p>
+<ul>
+<li>Java Native代码实现</li>
+<li>C++ NDK代码实现</li>
+</ul>
+<p><strong> 其中Java Native代码实现是直接通过Java OpenCV API编写算法实现部分，相对应的特点在于：</strong></p>
+<ul>
+<li>环境搭建简单：直接引入官方OpenCV-for-Android的对应jar包即可</li>
+<li>代码维护繁琐：由于OpenCV-for-Android的Java API与C++不完全相同，任何算法的更新都需要重写 =&gt; 在存在Windows、iOS等多平台更新时比较麻烦</li>
+<li>运行效率低：Java代码会在内部进行C++翻译，运行时性能损耗较大</li>
+</ul>
+<p><strong> 而直接采用C++代码导入的方式的特点在于：</strong></p>
+<ul>
+<li>环境搭建复杂：往往需要现自行编译对应的库，再进行NDK、Cmakelists和build.gradle的配置.</li>
+<li>代码维护简单：由于直接采用C++实现算法部分，与其他平台的兼容性极好，能与Android程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可.</li>
+<li>运行效率高：不存在内部执行时的代码转换问题，性能最好.</li>
+<li>总结来看，Java Native代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建C++ NDK方式。</li>
+</ul>
+<p>如果自己不从源码编译也可去<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-android" target="_blank" rel="external">这里</a>下载,网上很多配置教程都是基于这里下载的SDK而写的.如: <a href="https://www.jianshu.com/p/e90da53c4bb5" target="_blank" rel="external">Android Studio集成OpenCV</a> </p>
+<hr>
+<h3 id="Python-脚本编译"><a href="#Python-脚本编译" class="headerlink" title="Python 脚本编译"></a>Python 脚本编译</h3><h5 id="依赖工具"><a href="#依赖工具" class="headerlink" title="依赖工具"></a>依赖工具</h5><ul>
+<li>CMake &gt; 3.7</li>
+<li>ninja-build</li>
+<li>ccache</li>
+<li>python</li>
+</ul>
+<p>安装编译工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">~$ apt-get install ninja-build  ccache</div><div class="line">~$ export ANDROID_SDK=/fullpath/Android/Sdk</div><div class="line">~$ export ANDROID_NDK=/fullpath/Android/Sdk/android-ndk-r16b</div><div class="line"></div><div class="line">~$ mkdir build </div><div class="line">~$ cd build ../opencv-3.4.1/platforms/android/build_sdk.py --no_ccache --extra_module=/fullpath/opencv_contrib-3.4.1/modules --config=ndk-16.config.py  build-ndk ../opencv-3.4.1</div></pre></td></tr></table></figure></p>
+<ul>
+<li>使用<strong>opencv-3.4.1/platforms/android/build_sdk.py</strong> 脚本安装,可以一次编译多种平台的SDK,相关的一些配置要参照文件<strong>ndk-16.config.py</strong>.</li>
+<li>如果没有出错误的话,<strong>build-ndk</strong>目录结构如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">~$ tree build-ndk -L 1</div><div class="line">build-ndk</div><div class="line">├── build_service_arm64-v8a</div><div class="line">├── build_service_armeabi</div><div class="line">├── build_service_armeabi-v7a</div><div class="line">├── build_service_x86</div><div class="line">├── build_service_x86_64</div><div class="line">├── o4a</div><div class="line">└── OpenCV-android-sdk</div><div class="line"></div><div class="line">7 directories, 0 files</div><div class="line"></div><div class="line">~$ tree build-ndk/OpenCV-android-sdk/ -L 2</div><div class="line">build-ndk/OpenCV-android-sdk/</div><div class="line">├── apk</div><div class="line">│   ├── OpenCV_3.4.1_Manager_3.41_arm64-v8a.apk</div><div class="line">│   ├── OpenCV_3.4.1_Manager_3.41_armeabi.apk</div><div class="line">│   ├── OpenCV_3.4.1_Manager_3.41_armeabi-v7a.apk</div><div class="line">│   ├── OpenCV_3.4.1_Manager_3.41_x86_64.apk</div><div class="line">│   ├── OpenCV_3.4.1_Manager_3.41_x86.apk</div><div class="line">│   └── readme.txt</div><div class="line">├── LICENSE</div><div class="line">├── README.android</div><div class="line">├── samples</div><div class="line">│   ├── 15-puzzle</div><div class="line">│   ├── camera-calibration</div><div class="line">│   ├── color-blob-detection</div><div class="line">│   ├── example-15-puzzle.apk</div><div class="line">│   ├── example-camera-calibration.apk</div><div class="line">│   ├── example-color-blob-detection.apk</div><div class="line">│   ├── example-face-detection.apk</div><div class="line">│   ├── example-image-manipulations.apk</div><div class="line">│   ├── example-tutorial-1-camerapreview.apk</div><div class="line">│   ├── example-tutorial-2-mixedprocessing.apk</div><div class="line">│   ├── example-tutorial-3-cameracontrol.apk</div><div class="line">│   ├── face-detection</div><div class="line">│   ├── image-manipulations</div><div class="line">│   ├── tutorial-1-camerapreview</div><div class="line">│   ├── tutorial-2-mixedprocessing</div><div class="line">│   └── tutorial-3-cameracontrol</div><div class="line">└── sdk</div><div class="line">    ├── build.gradle</div><div class="line">    ├── etc</div><div class="line">    ├── java</div><div class="line">    └── native</div><div class="line"></div><div class="line">14 directories, 17 files</div><div class="line"></div><div class="line">~$ tree build-ndk/OpenCV-android-sdk/sdk/native -L 2</div><div class="line">build-ndk/OpenCV-android-sdk/sdk/native</div><div class="line">├── 3rdparty</div><div class="line">│   └── libs</div><div class="line">├── jni</div><div class="line">│   ├── abi-arm64-v8a</div><div class="line">│   ├── abi-armeabi</div><div class="line">│   ├── abi-armeabi-v7a</div><div class="line">│   ├── abi-x86</div><div class="line">│   ├── abi-x86_64</div><div class="line">│   ├── android.toolchain.cmake</div><div class="line">│   ├── include</div><div class="line">│   ├── OpenCV-arm64-v8a.mk</div><div class="line">│   ├── OpenCV-armeabi.mk</div><div class="line">│   ├── OpenCV-armeabi-v7a.mk</div><div class="line">│   ├── OpenCVConfig.cmake</div><div class="line">│   ├── OpenCVConfig-version.cmake</div><div class="line">│   ├── OpenCV.mk</div><div class="line">│   ├── OpenCV-x86_64.mk</div><div class="line">│   └── OpenCV-x86.mk</div><div class="line">├── libs</div><div class="line">│   ├── arm64-v8a</div><div class="line">│   ├── armeabi</div><div class="line">│   ├── armeabi-v7a</div><div class="line">│   ├── x86</div><div class="line">│   └── x86_64</div><div class="line">└── staticlibs</div><div class="line">    ├── arm64-v8a</div><div class="line">    ├── armeabi</div><div class="line">    ├── armeabi-v7a</div><div class="line">    ├── x86</div><div class="line">    └── x86_64</div><div class="line"></div><div class="line">21 directories, 9 files</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="CMake-编译方式"><a href="#CMake-编译方式" class="headerlink" title="CMake 编译方式"></a>CMake 编译方式</h4><h5 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h5><ul>
+<li><a href="https://dl.google.com/android/repository/android-ndk-r14b-linux-x86_64.zip" target="_blank" rel="external">android-ndk-r14b</a></li>
+<li><p><a href="https://dl.google.com/android/repository/tools_r25.2.5-linux.zip" target="_blank" rel="external">tools_r25.2.5</a></p>
+</li>
+<li><p>这里可能要注意, 本次编译测试必須使用<strong>[tools_r25.2.5]</strong></p>
+</li>
+</ul>
+<p>建议使用<strong>[tools_r25.2.5]</strong>测试编译,不然有可能会出现如下错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">--     SDK target:  android_sdk_target-NOTFOUND</div><div class="line"></div><div class="line">[...]</div><div class="line">The &quot;android&quot; command is deprecated.</div><div class="line">For manual SDK, AVD, and project management, please use Android Studio.</div><div class="line">For command-line tools, use tools/bin/sdkmanager and tools/bin/avdmanager</div><div class="line">*************************************************************************</div><div class="line">Invalid or unsupported command &quot;--silent create lib-project --path /fullpath/opencv-3.4.1/build-android/android_sdk --target android_sdk_target-NOTFOUND --name OpenCV --package org.opencv&quot;</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<h5 id="CMake-单独编译参数"><a href="#CMake-单独编译参数" class="headerlink" title="CMake 单独编译参数"></a>CMake 单独编译参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line">~$ cd /fullpath/Android/Sdk</div><div class="line">~$ ln -svf tools_r25.2.5 tools</div><div class="line">~$ ln -svf android-ndk-r14b ndk-bundle</div><div class="line">~$ export ANDROID_NDK=/fullpath/Android/Sdk/ndk-bundle</div><div class="line">~$ cmake</div><div class="line">	-D ANDDROID_ABI=armeabi-v7a</div><div class="line">    -D ANDROID_FUNCTION_LEVEL_LINKING=ON</div><div class="line">    -D ANDROID_NATIVE_API_LEVEL=19</div><div class="line">    -D ANDROID_NDK_HOST_X64=ON</div><div class="line">    -D ANDROID_NDK_NOEXECSTACK=ON</div><div class="line">    -D ANDROID_STL=gnustl_static</div><div class="line">    -D BUILD_JPEG=ON</div><div class="line">    -D BUILD_PNG=ON</div><div class="line">    -D BUILD_PACKAGE=ON</div><div class="line">    -D CMAKE_TOOLCHAIN_FILE=/fullpath/opencv-3.4.1/platforms/android/android.toolchain.cmake</div><div class="line">    -D ANDROID_SDK=/fullpath/Android/Sdk</div><div class="line">    -D ANDROID_FORCE_ARM_BUILD=OFF</div><div class="line">    -D ANDROID_NO_UNDEFINED=ON</div><div class="line">    -D BUILD_ANDROID=ON</div><div class="line">    -D BUILD_ANDROID_EXAMPLES=ON</div><div class="line">    -D OPENCV_EXTRA_MODULES_PATH=/fullpath/opencv_contrib-3.4.1/modules</div><div class="line">    -D BUILD_PYTHON_SUPPORT=ON</div><div class="line">    -D BUILD_opencv_python3=ON</div><div class="line">    -D PYTHON_DEFAULT_EXECUTABLE=$HOME/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">    -D PYTHON_INCLUDE_DIRS=$HOME/.pyenv/versions/3.6.5/include/python3.6m</div><div class="line">    -D PYTHON_EXECUTABLE=$HOME/.pyenv/versions/3.6.5/bin/python3.6</div><div class="line">    -D PYTHON_LIBRARY=$HOME/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0</div><div class="line">    -D BUILD_JDK=ON</div><div class="line">    -D BUILD_opencv_java=ON</div><div class="line">    -D CMAKE_INSTALL_PREFIX=/fullpath/opencv3-android-ndk ../</div><div class="line"></div><div class="line">[...]</div><div class="line">--     Linker flags (Release):      -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now</div><div class="line">--     Linker flags (Debug):        -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now</div><div class="line">--     ccache:                      NO</div><div class="line">--     Precompiled headers:         NO</div><div class="line">--     Extra dependencies:          z dl m log</div><div class="line">--     3rdparty dependencies:       libcpufeatures libprotobuf libjpeg libwebp libpng libtiff libjasper IlmImf tegra_hal</div><div class="line">-- </div><div class="line">--   OpenCV modules:</div><div class="line">--     To be built:                 aruco bgsegm bioinspired calib3d ccalib core datasets dnn dnn_objdetect dpm face features2d flann fuzzy hfs highgui img_hash imgcodecs imgproc java_bindings_generator line_descriptor ml objdetect optflow phase_unwrapping photo plot python_bindings_generator reg rgbd saliency shape stereo stitching structured_light superres surface_matching text tracking ts video videoio videostab xfeatures2d ximgproc xobjdetect xphoto</div><div class="line">--     Disabled:                    js world</div><div class="line">--     Disabled by dependency:      -</div><div class="line">--     Unavailable:                 cnn_3dobj cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev cvv dnn_modern freetype hdf java matlab ovis python2 python3 sfm viz</div><div class="line">--     Applications:                tests perf_tests</div><div class="line">--     Documentation:               NO</div><div class="line">--     Non-free algorithms:         NO</div><div class="line">-- </div><div class="line">--   Android: </div><div class="line">--     Android ABI:                 armeabi-v7a</div><div class="line">--     STL type:                    gnustl_static</div><div class="line">--     Native API level:            android-19</div><div class="line">--     SDK target:                  android-19</div><div class="line">--     Android NDK:                 /fullpath/Android/Sdk/ndk-bundle-r14b (toolchain: arm-linux-androideabi-4.9)</div><div class="line">--     android tool:                /fullpath/3TB-DISK/Android/Sdk/tools/android (Android SDK Tools, revision 25.2.5.)</div><div class="line"></div><div class="line">-- </div><div class="line">--   GUI: </div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        z (ver 1.2.3)</div><div class="line">--     JPEG:                        build (ver 90)</div><div class="line">--     WEBP:                        build (ver encoder: 0x020e)</div><div class="line">--     PNG:                         build (ver 1.6.34)</div><div class="line">--     TIFF:                        build (ver 42 - 4.0.9)</div><div class="line">--     JPEG 2000:                   build (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line">[...]</div><div class="line">--   Java:                          export all functions</div><div class="line">--     ant:                         /fullpath/ant/current/bin/ant (ver 1.10.1)</div><div class="line">--     Java wrappers:               YES</div><div class="line">--     Java tests:                  YES</div><div class="line">[...]</div><div class="line">--   Install to:                    /fullpath/opencv3-android-ndk</div><div class="line"></div><div class="line">~$ make -j4</div><div class="line">[...]</div><div class="line"></div><div class="line"># 编译成功的标志</div><div class="line">BUILD SUCCESSFUL</div><div class="line">Total time: 6 seconds</div><div class="line">[100%] Built target example-color-blob-detection</div><div class="line">[100%] Copy project sources: example-tutorial-1-camerapreview</div><div class="line">COPYFILES: ... 1 entries (SRC_COPY)</div><div class="line">COPYFILES:     ... directory &apos;.../android/tutorial-1-camerapreview&apos; with 5 files</div><div class="line">COPYFILES: All files are up-to-date.</div><div class="line">[100%] Built target example-tutorial-1-camerapreview_copy_src</div><div class="line">Scanning dependencies of target example-tutorial-1-camerapreview</div><div class="line">[100%] Updating Android project at /fullpath/opencv-3.4.1/samples/android/tutorial-1-camerapreview. SDK target: android-19</div><div class="line">[100%] Generating example-tutorial-1-camerapreview-debug.apk</div><div class="line"></div><div class="line">BUILD SUCCESSFUL</div><div class="line">Total time: 6 seconds</div><div class="line">[100%] Built target example-tutorial-1-camerapreview</div><div class="line">[100%] Copy project sources: example-tutorial-2-mixedprocessing</div><div class="line">COPYFILES: ... 1 entries (SRC_COPY)</div><div class="line">COPYFILES:     ... directory &apos;.../android/tutorial-2-mixedprocessing&apos; with 5 files</div><div class="line">COPYFILES: All files are up-to-date.</div><div class="line">[100%] Built target example-tutorial-2-mixedprocessing_copy_src</div><div class="line">[100%] Built target mixed_sample</div><div class="line">Scanning dependencies of target example-tutorial-2-mixedprocessing</div><div class="line">[100%] Updating Android project at /fullpath/opencv-3.4.1/samples/android/tutorial-2-mixedprocessing. SDK target: android-19</div><div class="line">[100%] Generating example-tutorial-2-mixedprocessing-debug.apk</div><div class="line"></div><div class="line">BUILD SUCCESSFUL</div><div class="line">Total time: 6 seconds</div><div class="line">[100%] Built target example-tutorial-2-mixedprocessing</div><div class="line">[100%] Copy project sources: example-tutorial-3-cameracontrol</div><div class="line">COPYFILES: ... 1 entries (SRC_COPY)</div><div class="line">COPYFILES:     ... directory &apos;.../android/tutorial-3-cameracontrol&apos; with 6 files</div><div class="line">COPYFILES: All files are up-to-date.</div><div class="line">[100%] Built target example-tutorial-3-cameracontrol_copy_src</div><div class="line">Scanning dependencies of target example-tutorial-3-cameracontrol</div><div class="line">[100%] Updating Android project at /fullpath/opencv-3.4.1/samples/android/tutorial-3-cameracontrol. SDK target: android-19</div><div class="line">[100%] Generating example-tutorial-3-cameracontrol-debug.apk</div><div class="line"></div><div class="line">BUILD SUCCESSFUL</div><div class="line">Total time: 6 seconds</div><div class="line">[100%] Built target example-tutorial-3-cameracontrol</div><div class="line"></div><div class="line"></div><div class="line">~$ make install</div></pre></td></tr></table></figure>
+<p>运行完成<strong>make install</strong>后,所有相关的库文件都会安装到<strong>/fullpath/opencv3-android-ndk</strong>,目录如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">opencv3-android-ndk$ tree -L 3</div><div class="line">.</div><div class="line">├── apk</div><div class="line">│   └── readme.txt</div><div class="line">├── LICENSE</div><div class="line">├── README.android</div><div class="line">└── sdk</div><div class="line">    ├── build.gradle</div><div class="line">    ├── etc</div><div class="line">    │   ├── haarcascades</div><div class="line">    │   ├── lbpcascades</div><div class="line">    │   ├── valgrind_3rdparty.supp</div><div class="line">    │   └── valgrind.supp</div><div class="line">    ├── java</div><div class="line">    │   ├── AndroidManifest.xml</div><div class="line">    │   ├── gen</div><div class="line">    │   ├── lint.xml</div><div class="line">    │   ├── project.properties</div><div class="line">    │   ├── res</div><div class="line">    │   └── src</div><div class="line">    └── native</div><div class="line">        ├── 3rdparty</div><div class="line">        ├── jni</div><div class="line">        ├── libs</div><div class="line">        └── staticlibs</div><div class="line"></div><div class="line">14 directories, 9 files</div></pre></td></tr></table></figure></p>
+<h3 id="Android-Studio集成OpenCV-测试"><a href="#Android-Studio集成OpenCV-测试" class="headerlink" title="Android Studio集成OpenCV 测试"></a>Android Studio集成OpenCV 测试</h3><p>这里可以直接导入一个OpenCV Samples工程做测试,我编译安装完上述SDK后,使用了<code>samples/tutorial-1-camerapreview</code>这个工程做测试,正常情况下,app会通过opencv 打开摄像头.</p>
+<h4 id="原有工程-添加OpenCV支持"><a href="#原有工程-添加OpenCV支持" class="headerlink" title="原有工程,添加OpenCV支持"></a>原有工程,添加OpenCV支持</h4><ul>
+<li>创建一个支持C++的Android 工程</li>
+<li>导入模块, <strong>File-&gt;New-&gt;Import Module</strong>  ,选择<strong>/fullpath/opencv3-android-ndk</strong> ,这里我把它命名为<strong>:opencv_sdk</strong>, Finish.</li>
+<li>如果IDE 没有报错,</li>
+<li>进入 <strong>File&gt;Project Structure</strong>. 选择<strong>app</strong> ,点击<strong>Dependencides</strong>,点击<code>+</code>-&gt;<code>3 Module dependency</code>-&gt;<code>模块名</code>,</li>
+<li>等几分钟,IDE就会处理完导入库的操作.</li>
+<li>如果在<strong>File&gt;Project Structure</strong>没有看到一个新的模块名<code>opencv_sdk</code>,但是它的目录已经复制到工程目录的根目录下了,就在<strong>settings.gradle</strong>里的<code>include</code>后面加上如: <strong>include ‘:app’,’opencv_sdk’</strong></li>
+</ul>
+<p>因为我本次使用的是<strong>Android-Studio 3.1</strong>的版本,要把<strong>build.gradle</strong>里的修改成 <strong>26</strong>以上,不然会出错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 27</div><div class="line">    //buildToolsVersion &quot;27.0.3&quot; // not needed since com.android.tools.build:gradle:3.0.0</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 14</div><div class="line">        targetSdkVersion 26</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  [...]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>导入模块后,IDE会把opencv 相关复制工程根目录下,目录名为<strong>opencv_sdk</strong>.导入后Android 工程目录如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">~$ tree -L 1</div><div class="line">.</div><div class="line">├── app</div><div class="line">├── build.gradle</div><div class="line">├── gradle</div><div class="line">├── gradle.properties</div><div class="line">├── gradlew</div><div class="line">├── gradlew.bat</div><div class="line">├── local.properties</div><div class="line">├── opencv3_android.iml</div><div class="line">├── opencv_sdk</div><div class="line">└── settings.gradle</div><div class="line"></div><div class="line">~$ tree app  -L 4</div><div class="line">app</div><div class="line">├── app.iml</div><div class="line">├── build.gradle</div><div class="line">├── CMakeLists.txt</div><div class="line">├── libs</div><div class="line">├── proguard-rules.pro</div><div class="line">└── src</div><div class="line">    ├── androidTest</div><div class="line">    │   └── java</div><div class="line">    │       └── com</div><div class="line">    ├── main</div><div class="line">    │   ├── AndroidManifest.xml</div><div class="line">    │   ├── cpp</div><div class="line">    │   │   └── native-lib.cpp</div><div class="line">    │   ├── java</div><div class="line">    │   │   └── com</div><div class="line">    │   └── res</div><div class="line">    │       ├── drawable</div><div class="line">    │       ├── drawable-v24</div><div class="line">    │       ├── layout</div><div class="line">    │       ├── menu</div><div class="line">    │       ├── mipmap-anydpi-v26</div><div class="line">    │       ├── mipmap-hdpi</div><div class="line">    │       ├── mipmap-mdpi</div><div class="line">    │       ├── mipmap-xhdpi</div><div class="line">    │       ├── mipmap-xxhdpi</div><div class="line">    │       ├── mipmap-xxxhdpi</div><div class="line">    │       ├── raw</div><div class="line">    │       └── values</div><div class="line">    └── test</div><div class="line">        └── java</div><div class="line">            └── com</div><div class="line"></div><div class="line">25 directories, 6 files</div><div class="line"></div><div class="line">~$ tree opencv_sdk  -L 3</div><div class="line">opencv_sdk</div><div class="line">├── build.gradle</div><div class="line">├── etc</div><div class="line">│   ├── haarcascades</div><div class="line">│   │   ├── haarcascade_eye_tree_eyeglasses.xml</div><div class="line">│   │   ├── haarcascade_eye.xml</div><div class="line">│   │   ├── haarcascade_frontalcatface_extended.xml</div><div class="line">│   │   ├── haarcascade_frontalcatface.xml</div><div class="line">│   │   ├── haarcascade_frontalface_alt2.xml</div><div class="line">│   │   ├── haarcascade_frontalface_alt_tree.xml</div><div class="line">│   │   ├── haarcascade_frontalface_alt.xml</div><div class="line">│   │   ├── haarcascade_frontalface_default.xml</div><div class="line">│   │   ├── haarcascade_fullbody.xml</div><div class="line">│   │   ├── haarcascade_lefteye_2splits.xml</div><div class="line">│   │   ├── haarcascade_licence_plate_rus_16stages.xml</div><div class="line">│   │   ├── haarcascade_lowerbody.xml</div><div class="line">│   │   ├── haarcascade_profileface.xml</div><div class="line">│   │   ├── haarcascade_righteye_2splits.xml</div><div class="line">│   │   ├── haarcascade_russian_plate_number.xml</div><div class="line">│   │   ├── haarcascade_smile.xml</div><div class="line">│   │   └── haarcascade_upperbody.xml</div><div class="line">│   ├── lbpcascades</div><div class="line">│   │   ├── lbpcascade_frontalcatface.xml</div><div class="line">│   │   ├── lbpcascade_frontalface_improved.xml</div><div class="line">│   │   ├── lbpcascade_frontalface.xml</div><div class="line">│   │   ├── lbpcascade_profileface.xml</div><div class="line">│   │   └── lbpcascade_silverware.xml</div><div class="line">│   ├── valgrind_3rdparty.supp</div><div class="line">│   └── valgrind.supp</div><div class="line">├── java</div><div class="line">│   ├── AndroidManifest.xml</div><div class="line">│   ├── gen</div><div class="line">│   ├── lint.xml</div><div class="line">│   ├── project.properties</div><div class="line">│   ├── res</div><div class="line">│   │   └── values</div><div class="line">│   └── src</div><div class="line">│       └── org</div><div class="line">├── native</div><div class="line">│   ├── 3rdparty</div><div class="line">│   │   └── libs</div><div class="line">│   ├── jni</div><div class="line">│   │   ├── abi-armeabi-v7a</div><div class="line">│   │   ├── android.toolchain.cmake</div><div class="line">│   │   ├── include</div><div class="line">│   │   ├── OpenCV-armeabi-v7a.mk</div><div class="line">│   │   ├── OpenCVConfig.cmake</div><div class="line">│   │   ├── OpenCVConfig-version.cmake</div><div class="line">│   │   └── OpenCV.mk</div><div class="line">│   ├── libs</div><div class="line">│   │   └── armeabi-v7a</div><div class="line">│   └── staticlibs</div><div class="line">│       └── armeabi-v7a</div><div class="line">└── opencv_sdk.iml</div><div class="line"></div><div class="line">19 directories, 34 files</div></pre></td></tr></table></figure>
+<h4 id="纯JNI-C-开发-调用OPENCV"><a href="#纯JNI-C-开发-调用OPENCV" class="headerlink" title="纯JNI C++开发,调用OPENCV"></a>纯JNI C++开发,调用OPENCV</h4><ul>
+<li>如果我们要在Android 工程里的使用JNI直接调用opencv的API函数,如上面工程 <strong>src/main/cpp/native-lib.cpp</strong>.<br>需要在<strong>app/build.gradle</strong> 的 <code>android</code>结点里添加相关路径:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">android &#123;</div><div class="line">    </div><div class="line">    [...]</div><div class="line">    externalNativeBuild &#123;</div><div class="line">        cmake &#123;</div><div class="line">            path &quot;CMakeLists.txt&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    sourceSets &#123;</div><div class="line">        main &#123;</div><div class="line">            jni.srcDirs = [jni.srcDirs,&apos;../opencv_sdk/native/jni/include&apos;]</div><div class="line">            jniLibs.srcDirs = [jniLibs.srcDirs,&apos;../opencv_sdk/native/3rdparty/libs&apos;,&apos;../opencv_sdk/native/libs&apos;]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>app/CMakeLists.txt</code>里要包含如下信息:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">set(pathToOpenCV $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/../open_sdk )</div><div class="line">include_directories($&#123;pathToOpenCV&#125;/native/jni/include) # Not needed for CMake &gt;= 2.8.11</div><div class="line"></div><div class="line">set(CMAKE_VERBOSE_MAKEFILE on)</div><div class="line">set(CMAKE_CXX_FLAGS &quot;$&#123;CMAKE_CXX_FLAGS&#125; -std=gnu++11&quot;)</div><div class="line">add_library( lib_opencv STATIC IMPORTED )</div><div class="line">set_target_properties(lib_opencv PROPERTIES IMPORTED_LOCATION</div><div class="line">                        $&#123;pathToOpenCV&#125;/native/libs/$&#123;ANDROID_ABI&#125;/libopencv_java3.so)</div><div class="line">target_link_libraries( # Specifies the target library.</div><div class="line">                       native-lib</div><div class="line"></div><div class="line">                       # Links the target library to the log library</div><div class="line">                       # included in the NDK.</div><div class="line">                       $&#123;log-lib&#125;</div><div class="line">                       lib_opencv   # 要加上这lib_opencv 才能链接到opencv的库.</div><div class="line">                       )</div></pre></td></tr></table></figure>
+<ul>
+<li><p>添加上述路径之后,就可以在<strong>src/main/cpp/native-lib.cpp</strong> 里添加<code>#include &lt;opencv2/opencv.hpp&gt;</code>.</p>
+</li>
+<li><p>上述JNI方式开发就是写原生的C++代码调用API,编译成功后会生成<code>.so</code>的文件,通过JNI方式加载这个库文件,或者升级更新这个库文件,不需要修改Android的文件.但是不能像PC下那样使用,如:<strong>imshow(),namedWindow(),createTrackBar(),waitKey()</strong>,这些函数是不能用.</p>
+</li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/Android错误集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/02/Android错误集/" itemprop="url">
+                  Android错误集
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-02 21:24:42" itemprop="dateCreated datePublished" datetime="2018-05-02T21:24:42+08:00">2018-05-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-05-04 10:12:35" itemprop="dateModified" datetime="2018-05-04T10:12:35+08:00">2018-05-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found.</div><div class="line">Message&#123;kind=ERROR, text=error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</div></pre></td></tr></table></figure>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ul>
+<li>修改<strong>app</strong>下的build.gradle</li>
+<li>把<strong>dependences</strong> 里改成 <code>implementation &#39;com.android.support:appcompat-v7:27.1.0&#39;</code></li>
+<li>同时修改成<strong>compileSdkVersion 26</strong>,<strong>targetSdkVersion 26</strong>,要大于等于<strong>26</strong>的版本.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 27</div><div class="line">    buildToolsVersion &quot;27.0.3&quot; // not needed since com.android.tools.build:gradle:3.0.0</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 14</div><div class="line">        targetSdkVersion 26</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  [...]</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"> 	[...]</div><div class="line">    implementation &apos;com.android.support:appcompat-v7:27.1.1&apos;</div><div class="line">    implementation &apos;com.android.support:design:27.1.1&apos;</div><div class="line">    implementation &apos;com.android.support:recyclerview-v7:27.1.1&apos;</div><div class="line">    [...]</div><div class="line">&#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/Linux-下翻墙指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -441,437 +822,6 @@
 <h4 id="polipo-代理服务"><a href="#polipo-代理服务" class="headerlink" title="polipo 代理服务"></a>polipo 代理服务</h4><p>polipo 可以代理TOR的连接,就是把其它程序的代理指本机IP,端口8123</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">socksParentProxy = localhost:9050</div><div class="line">proxyAddress = 0.0.0.0</div><div class="line">dnsNameServer = 127.0.0.1</div><div class="line"><span class="built_in">log</span>Syslog = <span class="literal">true</span></div><div class="line"><span class="built_in">log</span>File = /var/<span class="built_in">log</span>/polipo/polipo.log</div></pre></td></tr></table></figure>
 <h4 id="本机的服务"><a href="#本机的服务" class="headerlink" title="本机的服务"></a>本机的服务</h4><p>运下上述的服务之后,查看本机树莓派生上的服务是否正常运行起来的,正常情况应包含如下字段:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ netstat -tnlp</div><div class="line">tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 0.0.0.0:8123            0.0.0.0:*               LISTEN      648/polipo      </div><div class="line">tcp        0      0 127.0.0.1:9040          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 127.0.0.1:8788          0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      2053/dnsmasq    </div><div class="line">tcp        0      0 127.0.0.1:16823         0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp6       0      0 :::8787                 :::*                    LISTEN      19220/lantern-2.2.5</div></pre></td></tr></table></figure></p>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/codeblocks与STM32的开发环境配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/imgs/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/29/codeblocks与STM32的开发环境配置/" itemprop="url">
-                  codeblocks与STM32的开发环境配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-04-29 23:01:26" itemprop="dateCreated datePublished" datetime="2018-04-29T23:01:26+08:00">2018-04-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2016-12-14 22:25:00" itemprop="dateModified" datetime="2016-12-14T22:25:00+08:00">2016-12-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="软件硬件配置"><a href="#软件硬件配置" class="headerlink" title="软件硬件配置"></a>软件硬件配置</h3><ul>
-<li><a href="http://www.st.com/stm32f4-discovery" target="_blank" rel="external">STM32F4 Discovery</a></li>
-<li><a href="http://codeblocks.org/downloads" target="_blank" rel="external">Codeblocks 16.01</a></li>
-<li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
-<li><a href="https://github.com/texane/stlink" target="_blank" rel="external">STLink</a></li>
-<li><a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="external">GCC ARM Embedded</a></li>
-</ul>
-<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><ul>
-<li>这里省略下载编译opencd 环节。</li>
-<li>openocd 安装在/usr/local下</li>
-<li>/usr/local/bin/openocd</li>
-<li>配置文件目录</li>
-<li><p>/usr/local/share/openocd/</p>
-</li>
-<li><p>在当前用户目录下创建一个<code>.openocd</code>目录</p>
-</li>
-<li><p>添加下面三行到~/.openocd/openocd.cfg</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/interface/stlink-v2.cfg]  </div><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/target/stm32f4x.cfg]  </div><div class="line">reset_config srst_only srst_nogate</div></pre></td></tr></table></figure>
-<ul>
-<li>连接STM32F4开发板，运行/usr/local/bin/openocd</li>
-<li>正常会出现下面信息</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">michael@debian:~$ /usr/<span class="built_in">local</span>/bin/openocd  </div><div class="line">Open On-Chip Debugger 0.10.0-dev-00146-g332023f (2015-12-05-18:09)  </div><div class="line">Licensed under GNU GPL v2   </div><div class="line">For bug reports, <span class="built_in">read</span>   </div><div class="line">  http://openocd.org/doc/doxygen/bugs.html  </div><div class="line">  Info : auto-selecting first available session transport <span class="string">"hla_swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.  </div><div class="line">  Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD   </div><div class="line">  adapter speed: 2000 kHz   </div><div class="line">  adapter_nsrst_delay: 100   </div><div class="line">  none separate   </div><div class="line">  srst_only separate srst_nogate srst_open_drain connect_deassert_srst   </div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz  </div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz  </div><div class="line">  Info : clock speed 1800 kHz  </div><div class="line">  Info : STLINK v2 JTAG v24 API v2 SWIM v0 VID 0x0483 PID 0x3748  </div><div class="line">  Info : using stlink api v2  </div><div class="line">  Info : Target voltage: 2.881129  </div><div class="line">  Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints</div></pre></td></tr></table></figure>
-<h3 id="STLink-驱动安装"><a href="#STLink-驱动安装" class="headerlink" title="STLink 驱动安装"></a>STLink 驱动安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ git <span class="built_in">clone</span> https://github.com/texane/stlink.git </div><div class="line">$ <span class="built_in">cd</span> STLink</div><div class="line">$ \./authorgen.sh</div><div class="line">$ \./configure --prefix=/opt/STLink</div><div class="line">$ make &amp;&amp; sudo make install</div><div class="line">$ sudo cp 49-stlinkv2.rules /etc/udev/rules.d/49-stlinkv2.rules</div></pre></td></tr></table></figure>
-<ul>
-<li>通过lsusb命令找出开板板的ID</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">Bus 001 Device 002: ID 0483:3748 STMicroelectronics ST-LINK/V2</div><div class="line">Bus 003 Device 010: ID 174c:5106 ASMedia Technology Inc. Transcend StoreJet 25M3</div></pre></td></tr></table></figure>
-<ul>
-<li>修改<code>/etc/udev/rules.d/49-stlinkv2.rules</code>,注意  ATTRS{idProduct}==<strong>“3748”</strong></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ cat /etc/udev/rules.d/49-stlinkv2.rules </div><div class="line"><span class="comment"># stm32 discovery boards, with onboard st/linkv2</span></div><div class="line"><span class="comment"># ie, STM32L, STM32F4.</span></div><div class="line"><span class="comment"># STM32VL has st/linkv1, which is quite different</span></div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"0483"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"3748"</span>, \</div><div class="line">    MODE:=<span class="string">"0666"</span>, \</div><div class="line">    SYMLINK+=<span class="string">"stlinkv2_%n"</span>,OWNER=<span class="string">"michael"</span></div><div class="line"><span class="comment"># If you share your linux system with other users, or just don't like the</span></div><div class="line"><span class="comment"># idea of write permission for everybody, you can replace MODE:="0666" with</span></div><div class="line"><span class="comment"># OWNER:="yourusername" to create the device owned by you, or with</span></div><div class="line"><span class="comment"># GROUP:="somegroupname" and mange access using standard unix groups.</span></div></pre></td></tr></table></figure>
-<h3 id="刷新系统规则"><a href="#刷新系统规则" class="headerlink" title="刷新系统规则"></a>刷新系统规则</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ sudo udevadm control --reload-rules</div><div class="line">$ sudo udevadm trigger</div></pre></td></tr></table></figure>
-<h3 id="GCC-ARM-Embedded"><a href="#GCC-ARM-Embedded" class="headerlink" title="GCC ARM Embedded"></a>GCC ARM Embedded</h3><ul>
-<li>下载GCC工具链解压到<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3</code>,并且把<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3/bin</code> 添加系统环境变量里面</li>
-</ul>
-<h4 id="Codeblocks-配置"><a href="#Codeblocks-配置" class="headerlink" title="Codeblocks 配置"></a>Codeblocks 配置</h4><ul>
-<li>安装相应平台的codeblocks二进制包。</li>
-<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt=""></li>
-</ul>
-<h4 id="编译器的全局设置"><a href="#编译器的全局设置" class="headerlink" title="编译器的全局设置"></a>编译器的全局设置</h4><ul>
-<li>设置ARM工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt=""></li>
-</ul>
-<ul>
-<li>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt=""></li>
-</ul>
-<ul>
-<li>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt=""></li>
-</ul>
-<h4 id="STM32工程设置"><a href="#STM32工程设置" class="headerlink" title="STM32工程设置"></a>STM32工程设置</h4><ul>
-<li><p>这里是针对STM32F4 Discovery开发板，工程设置的一些参数</p>
-</li>
-<li><p>编译选项设置，如下图所示。  </p>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>设置基于特定CPU的CFLAGS  参数。<strong> -mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99 </strong></li>
-</ul>
-</blockquote>
-<p><img src="/imgs/project_options.png" alt=""></p>
-<ul>
-<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt=""></p>
-</li>
-<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt=""></p>
-</li>
-</ul>
-<ul>
-<li>工程头文件查找目录,库文件查找目录。</li>
-</ul>
-<p><img src="/imgs/project_inc.png" alt=""><br><img src="/imgs/project_search_link.png" alt=""></p>
-<ul>
-<li><p>结合openocd 自动烧写bin文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt=""></p>
-</li>
-<li><p>工程中的自动烧写脚本文件。</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/expect    </span></div><div class="line">spawn telnet localhost 4444  </div><div class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span>   </div><div class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset halt\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset run\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"exit\r"</span>  </div><div class="line">interact</div></pre></td></tr></table></figure>
-<p><img src="/imgs/project_shfile.png" alt=""></p>
-<ul>
-<li>因为GCC工具链与Keil的链接文件是一样，必须在下面这个LD文件上修改，不能使用Keil版本的链接文件。</li>
-</ul>
-<pre><code class="sh">/*
-*****************************************************************************
-**
-**  File        : stm32_flash.ld
-**
-**  Abstract    : Linker script <span class="keyword">for</span> STM32F407VG Device with
-**                1024KByte FLASH, 192KByte RAM
-**
-**                Set heap size, stack size and stack location according
-**                to application requirements.
-**
-**                Set memory bank area and size <span class="keyword">if</span> external memory is used.
-**
-**  Target      : STMicroelectronics STM32
-**
-**  Environment : Atollic TrueSTUDIO(R)
-**
-**  Distribution: The file is distributed “as is,” without any warranty
-**                of any kind.
-**
-**  (c)Copyright Atollic AB.
-**  You may use this file as-is or modify it according to the needs of your
-**  project. Distribution of this file (unmodified or modified) is not
-**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the
-**  rights to distribute the assembled, compiled &amp; linked contents of this
-**  file as part of an application binary file, provided that it is built
-**  using the Atollic TrueSTUDIO(R) toolchain.
-**
-*****************************************************************************
-*/
-/* Entry Point */
-ENTRY(Reset_Handler)
-/* Highest address of the user mode stack */
-_estack = 0x20020000;    /* end of 128K RAM on AHB bus*/
-/* Generate a link error <span class="keyword">if</span> heap and stack don<span class="string">'t fit into RAM */
-_Min_Heap_Size = 0;      /* required amount of heap  */
-_Min_Stack_Size = 0x400; /* required amount of stack */
-
-/* Specify the memory areas */
-MEMORY
-{
-    FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
-        RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K
-        MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
-    }
-    /* Define output sections */
-    SECTIONS
-{
-    /* The startup code goes first into FLASH */
-.isr_vector :
-    {
-        . = ALIGN(4);
-        KEEP(*(.isr_vector)) /* Startup code */
-        . = ALIGN(4);
-    } &gt;FLASH
-    /* The program code and other data goes into FLASH */
-.text :
-    {
-        . = ALIGN(4);
-        *(.text)           /* .text sections (code) */
-        *(.text*)          /* .text* sections (code) */
-        *(.rodata)         /* .rodata sections (constants, strings, etc.) */
-        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
-        *(.glue_7)         /* glue arm to thumb code */
-        *(.glue_7t)        /* glue thumb to arm code */
-        *(.eh_frame)
-        KEEP (*(.init))
-        KEEP (*(.fini))
-        . = ALIGN(4);
-        _etext = .;        /* define a global symbols at end of code */
-        _exit = .;
-    } &gt;FLASH
-.ARM.extab   :
-    { *(.ARM.extab* .gnu.linkonce.armextab.*) } &gt;FLASH
-.ARM :
-    {
-        __exidx_start = .;
-        *(.ARM.exidx*)
-        __exidx_end = .;
-    } &gt;FLASH
-
-.preinit_array     :
-    {
-        PROVIDE_HIDDEN (__preinit_array_start = .);
-        KEEP (*(.preinit_array*))
-        PROVIDE_HIDDEN (__preinit_array_end = .);
-    } &gt;FLASH
-.init_array :
-    {
-        PROVIDE_HIDDEN (__init_array_start = .);
-        KEEP (*(SORT(.init_array.*)))
-        KEEP (*(.init_array*))
-        PROVIDE_HIDDEN (__init_array_end = .);
-    } &gt;FLASH
-.fini_array :
-    {
-        PROVIDE_HIDDEN (__fini_array_start = .);
-        KEEP (*(.fini_array*))
-        KEEP (*(SORT(.fini_array.*)))
-        PROVIDE_HIDDEN (__fini_array_end = .);
-    } &gt;FLASH
-
-    /* used by the startup to initialize data */
-    _sidata = .;
-
-    /* Initialized data sections goes into RAM, load LMA copy after code */
-.data :
-    AT ( _sidata )
-    {
-        . = ALIGN(4);
-        _sdata = .;        /* create a global symbol at data start */
-        *(.data)           /* .data sections */
-        *(.data*)          /* .data* sections */
-
-        . = ALIGN(4);
-        _edata = .;        /* define a global symbol at data end */
-    } &gt;RAM
-
-    /* Uninitialized data section */
-    . = ALIGN(4);
-.bss :
-    {
-        /* This is used by the startup in order to initialize the .bss secion */
-        _sbss = .;         /* define a global symbol at bss start */
-        __bss_start__ = _sbss;
-        *(.bss)
-        *(.bss*)
-        *(COMMON)
-
-        . = ALIGN(4);
-        _ebss = .;         /* define a global symbol at bss end */
-        __bss_end__ = _ebss;
-    } &gt;RAM
-
-    /* User_heap_stack section, used to check that there is enough RAM left */
-._user_heap_stack :
-    {
-        . = ALIGN(4);
-        PROVIDE ( end = . );
-        PROVIDE ( _end = . );
-        . = . + _Min_Heap_Size;
-        . = . + _Min_Stack_Size;
-        . = ALIGN(4);
-    } &gt;RAM
-
-    /* MEMORY_bank1 section, code must be located here explicitly            */
-    /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
-.memory_b1_text :
-    {
-        *(.mb1text)        /* .mb1text sections (code) */
-        *(.mb1text*)       /* .mb1text* sections (code)  */
-        *(.mb1rodata)      /* read-only data (constants) */
-        *(.mb1rodata*)
-    } &gt;MEMORY_B1
-
-    /* Remove information from the standard libraries */
-/DISCARD/ :
-    {
-
-        libc.a ( * )
-        libm.a ( * )
-        libgcc.a ( * )
-    }
-
-.ARM.attributes 0 :
-    { *(.ARM.attributes) }
-}</span>
-</code></pre>
-<h3 id="编译下载"><a href="#编译下载" class="headerlink" title="编译下载"></a>编译下载</h3><ul>
-<li>完成上述设置，每次编译完成后都会自动telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
-<li>最终运行的效果如下图<br><img src="/imgs/img project_build.png" alt=""></li>
-</ul>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
@@ -1193,7 +1143,7 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-04-29 23:00:57" itemprop="dateModified" datetime="2018-04-29T23:00:57+08:00">2018-04-29</time>
+                <time title="修改时间：2018-05-02 18:07:02" itemprop="dateModified" datetime="2018-05-02T18:07:02+08:00">2018-05-02</time>
               
             
           </span>
@@ -1250,7 +1200,7 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
 <h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><ul>
 <li>详细安装参照<a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a> README.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.5.6 版本</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.6.5 版本</div></pre></td></tr></table></figure>
 <h3 id="编译OpenCV3"><a href="#编译OpenCV3" class="headerlink" title="编译OpenCV3"></a>编译OpenCV3</h3><ul>
 <li>如果要编译 extra_modules ,要与opencv是同版本号,不然会出现奇奇怪怪的编译错误,这里都选<code>3.4.1</code>版本号</li>
 </ul>
@@ -1274,25 +1224,6 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
 </li>
 </ul>
 <hr>
-<h3 id="编译Android-版本"><a href="#编译Android-版本" class="headerlink" title="编译Android 版本."></a>编译Android 版本.</h3><h5 id="本段说明链接"><a href="#本段说明链接" class="headerlink" title="本段说明链接"></a><a href="https://ricky.moe/2017/07/03/opencv-contrib-for-android/" target="_blank" rel="external">本段说明链接</a></h5><p>OpenCV整套代码是基于C和C++实现的，在Android上调用存在两种方式：</p>
-<ul>
-<li>Java Native代码实现</li>
-<li>C++ NDK代码实现<br>其中Java Native代码实现是直接通过Java OpenCV API编写算法实现部分，相对应的特点在于：</li>
-</ul>
-<ul>
-<li>环境搭建简单：直接引入官方OpenCV-for-Android的对应jar包即可</li>
-<li>代码维护繁琐：由于OpenCV-for-Android的Java API与C++不完全相同，任何算法的更新都需要重写 =&gt; 在存在Windows、iOS等多平台更新时比较麻烦</li>
-<li>运行效率低：Java代码会在内部进行C++翻译，运行时性能损耗较大</li>
-</ul>
-<h5 id="而直接采用C-代码导入的方式的特点在于："><a href="#而直接采用C-代码导入的方式的特点在于：" class="headerlink" title="而直接采用C++代码导入的方式的特点在于："></a>而直接采用C++代码导入的方式的特点在于：</h5><ul>
-<li>环境搭建复杂：往往需要现自行编译对应的库，再进行NDK、Cmakelists和build.gradle的配置</li>
-<li>代码维护简单：由于直接采用C++实现算法部分，与其他平台的兼容性极好，能与Android程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可</li>
-<li>运行效率高：不存在内部执行时的代码转换问题，性能最好</li>
-<li>总结来看，Java Native代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建C++ NDK方式。</li>
-</ul>
-<hr>
-<h5 id="编译参数"><a href="#编译参数" class="headerlink" title="编译参数"></a>编译参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">~$ export ANDROID_NDK=/fullpath/Android/Sdk/ndk-bundle</div><div class="line">~$ cmake</div><div class="line">	-D ANDDROID_ABI=armeabi-v7a</div><div class="line">    -D ANDROID_FUNCTION_LEVEL_LINKING=ON</div><div class="line">    -D ANDROID_NATIVE_API_LEVEL=19</div><div class="line">    -D ANDROID_NDK_HOST_X64=ON</div><div class="line">    -D ANDROID_NDK_NOEXECSTACK=ON</div><div class="line">    -D ANDROID_STL=gnustl_static</div><div class="line">    -D BUILD_JPEG=ON</div><div class="line">    -D BUILD_PNG=ON</div><div class="line">    -D BUILD_PACKAGE=ON</div><div class="line">    -D CMAKE_TOOLCHAIN_FILE=/fullpath/opencv-3.4.1/platforms/android/android.toolchain.cmake</div><div class="line">    -D ANDROID_SDK=/fullpath/Android/Sdk</div><div class="line">    -D ANDROID_FORCE_ARM_BUILD=OFF</div><div class="line">    -D ANDROID_NO_UNDEFINED=ON</div><div class="line">    -D BUILD_ANDROID=ON</div><div class="line">    -D BUILD_ANDROID_EXAMPLES=ON</div><div class="line">    -D OPENCV_EXTRA_MODULES_PATH=/fullpath/opencv_contrib-3.4.1/modules  ../</div><div class="line"></div><div class="line">[...]</div><div class="line">--     Linker flags (Release):      -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now    </div><div class="line">--     Linker flags (Debug):        -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now    </div><div class="line">--     ccache:                      NO</div><div class="line">--     Precompiled headers:         NO</div><div class="line">--     Extra dependencies:          z dl m log</div><div class="line">--     3rdparty dependencies:       libcpufeatures libprotobuf libjpeg libwebp libpng libtiff libjasper IlmImf tegra_hal</div><div class="line">-- </div><div class="line">--   OpenCV modules:</div><div class="line">--     To be built:                 aruco bgsegm bioinspired calib3d ccalib core datasets dnn dnn_objdetect dpm face features2d flann fuzzy hfs highgui img_hash imgcodecs imgproc java_bindings_generator line_descriptor ml objdetect optflow phase_unwrapping photo plot python_bindings_generator reg rgbd saliency shape stereo stitching structured_light superres surface_matching text tracking ts video videoio videostab xfeatures2d ximgproc xobjdetect xphoto</div><div class="line">--     Disabled:                    js world</div><div class="line">--     Disabled by dependency:      -</div><div class="line">--     Unavailable:                 cnn_3dobj cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev cvv dnn_modern freetype hdf java matlab ovis python2 python3 sfm viz</div><div class="line">--     Applications:                tests perf_tests</div><div class="line">--     Documentation:               NO</div><div class="line">--     Non-free algorithms:         NO</div><div class="line">-- </div><div class="line">--   Android: </div><div class="line">--     Android ABI:                 armeabi-v7a</div><div class="line">--     STL type:                    gnustl_static</div><div class="line">--     Native API level:            android-19</div><div class="line">--     SDK target:                  android_sdk_target_status-NOTFOUND</div><div class="line">--     Android NDK:                 /home/michael/Android/Sdk/ndk-bundle (toolchain: arm-linux-androideabi-4.9)</div><div class="line">--     android tool:                NO</div><div class="line">-- </div><div class="line">--   GUI: </div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        z (ver 1.2.3)</div><div class="line">--     JPEG:                        build (ver 90)</div><div class="line">--     WEBP:                        build (ver encoder: 0x020e)</div><div class="line">--     PNG:                         build (ver 1.6.34)</div><div class="line">--     TIFF:                        build (ver 42 - 4.0.9)</div><div class="line">--     JPEG 2000:                   build (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">--   Install to:                    /fullpath/opencv-3.4.1/build-android/install</div><div class="line"></div><div class="line"></div><div class="line">~$ make -j4</div><div class="line">~$ make install</div></pre></td></tr></table></figure>
-<h3 id="Android-Studio集成OpenCV-测试"><a href="#Android-Studio集成OpenCV-测试" class="headerlink" title="Android Studio集成OpenCV 测试"></a>Android Studio集成OpenCV 测试</h3><p>关于Android Studio如何使用OpenCV编译库的问题，网上已经有很多文章阐述得很详细了，例如:<br><a href="https://www.jianshu.com/p/e90da53c4bb5" target="_blank" rel="external">Android Studio集成OpenCV</a></p>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
@@ -2509,186 +2440,11 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/imgs/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/21/工作中的一些Bash-shell测试脚本/" itemprop="url">
-                  工作中的一些Bash shell测试脚本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-12-21 21:24:01" itemprop="dateCreated datePublished" datetime="2016-12-21T21:24:01+08:00">2016-12-21</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-29 23:06:12" itemprop="dateModified" datetime="2018-04-29T23:06:12+08:00">2018-04-29</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>　<em>*做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.</em></em></p>
-<h3 id="提取TOP命令中的数据"><a href="#提取TOP命令中的数据" class="headerlink" title="提取TOP命令中的数据"></a>提取TOP命令中的数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$ cat grep_pid.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">srvdir=<span class="string">"/root/netty_srv_dir/"</span></div><div class="line"></div><div class="line"><span class="comment">##　分类统计top输出的CPU与内存数据</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | head -n1 | awk <span class="string">'&#123;printf "\nCPU min:%4s\t", $9&#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | awk <span class="string">'&#123;sum+=$9;n++&#125;END&#123;printf "avg: %4s\t", sum /n &#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | tail -n1 | awk <span class="string">'&#123;printf " max:%4s\n", $9&#125;'</span></div><div class="line"><span class="comment">## print MEM</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k10 -n | tail -n1 | awk <span class="string">'&#123;printf "MEM: %4s\n",$10&#125;'</span></div><div class="line">cat <span class="variable">$srvdir</span><span class="variable">$1</span>.log &gt; <span class="variable">$1bak</span>.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.log</div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | sort -k 3 |tail -n1 | awk -F";" 'BEGIN&#123;print "Bytes Out\tBytes In\tPackets Out\tPackets In"&#125;&#123; printf "%sKB/s\t%sKB/s\t%sKB/s\t%sKB/s\n", $3 / 1000,$4/1000,$6/1000,$7/1000&#125;' </span></div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | awk 'BEGIN &#123;FS =";";print "BOut\tBin\tPOut\tPin"&#125;&#123;if(NF==16)&#123; if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t",$3&#125;;if($4&gt;1000)&#123;printf "%sKB/s\n",$4/1000&#125;else&#123;printf "%sb/s\n",$4&#125;&#125;&#125;' 18028.net </span></div><div class="line">cat /proc/net/sockstat | grep <span class="string">"TCP"</span> | awk <span class="string">'&#123;print $1,$9&#125;'</span></div><div class="line">awk <span class="string">'BEGIN&#123;print "\nBytesOut\t\tByteIn\t\tPacketsOut\tPacketsIn"&#125;'</span></div><div class="line"></div><div class="line"><span class="comment">## 分类统计bwn-ng输出的CSV格式数据.</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 3 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t\t",$3&#125;&#125;&#125;'</span>  </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 4 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($4&gt;1000)&#123;printf "%sKB/s\t",$4/1000&#125;else&#123;printf "%sb/s\t\t",$4&#125;&#125;&#125;'</span> </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 6 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($6&gt;1000)&#123;printf "%sKB/s\t",$6/1000&#125;else&#123;printf "%sb/s\t\t",$6&#125;&#125;&#125;'</span> </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 7 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($7&gt;1000)&#123;printf "%sKB/s\n",$7/1000&#125;else&#123;printf "%sb/s\n",$7&#125;&#125;&#125;'</span> </div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.net</div></pre></td></tr></table></figure>
-<h3 id="自动批量回答yes"><a href="#自动批量回答yes" class="headerlink" title="自动批量回答yes"></a>自动批量回答yes</h3><ul>
-<li>这里是一个自动登录的脚本,因为每个服务器第一次连接都会提示要接受一个证书.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/expect -f</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> timeout 10</div><div class="line"></div><div class="line"><span class="built_in">set</span> num [lindex <span class="variable">$argv</span> 0]</div><div class="line"></div><div class="line">spawn ssh -b 172.168.<span class="variable">$num</span>.10 root@172.168.<span class="variable">$num</span>.100</div><div class="line">expect &#123;</div><div class="line"><span class="string">"*yes/no"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue&#125;</div><div class="line">&#125;</div><div class="line">expect <span class="string">"#*"</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">send <span class="string">"eof\r"</span></div><div class="line">expect eof</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>###　循环测试脚本</p>
-<ul>
-<li>这个脚本根据<code>camera_client.py</code>运行打印出``done”表示该程序运行结束,在while里把它清除掉.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@debian-t6:~<span class="comment"># cat test_loop.sh </span></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">srv=<span class="string">"192.168.25.100"</span></div><div class="line">python camera_client.py dev -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;</div><div class="line">dpid=$!</div><div class="line"><span class="built_in">echo</span> <span class="variable">$dpid</span></div><div class="line"><span class="keyword">done</span>=<span class="string">"done&gt;"</span></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span>; </div><div class="line"><span class="keyword">do</span></div><div class="line">    grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;&amp; <span class="built_in">kill</span> -9 <span class="variable">$dpid</span> &amp;&amp; <span class="built_in">break</span> || sleep 1</div><div class="line"><span class="keyword">done</span>  </div><div class="line">cat camera.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</div></pre></td></tr></table></figure>
-<h3 id="开启服务器与数据收集脚本"><a href="#开启服务器与数据收集脚本" class="headerlink" title="开启服务器与数据收集脚本"></a>开启服务器与数据收集脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ cat test_start_srv.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">## 设置系统的文件句柄数限制</span></div><div class="line"><span class="built_in">ulimit</span> -Hn 20000500</div><div class="line"><span class="built_in">ulimit</span> -Sn 20000500</div><div class="line"><span class="comment">#cd netty_srv_dir</span></div><div class="line"></div><div class="line"><span class="comment">## 清除上次运行的,``bwn-ng, top``命令.</span></div><div class="line">pkill bwm-ng</div><div class="line">pkill top</div><div class="line">srv=<span class="string">"asio_p2p_srv"</span></div><div class="line"><span class="comment">## 清除上次运行的服务器的进程</span></div><div class="line">pkill <span class="variable">$srv</span></div><div class="line"><span class="comment">##  服务已经运行,它的pid赋于给SPID变量,并保存在192.168.25.100机器上的/root/srv.pid里</span></div><div class="line"><span class="variable">$srv</span> &amp;  SPID=$!</div><div class="line">ssh -t root@192.168.25.100 <span class="string">"echo <span class="variable">$SPID</span> &gt; srv.pid"</span></div><div class="line"></div><div class="line"><span class="comment">## bwm-ng 监控网卡eth1的流量,并输出CSV格式到以SPID变量名,.net为后缀的文件名里.　它的pid赋于给NPID变量</span></div><div class="line">bwm-ng -o csv -T rate -I eth1 -F  <span class="variable">$SPID</span>.net &amp; NPID=$!</div><div class="line"><span class="comment">## top 只输出SPID的pid的信息,并重定向pid.log的文件名中.</span></div><div class="line">top -p <span class="variable">$SPID</span> -b &gt; <span class="variable">$SPID</span>.log  &amp;</div></pre></td></tr></table></figure>
-<h3 id="服务器测试脚本"><a href="#服务器测试脚本" class="headerlink" title="服务器测试脚本"></a>服务器测试脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># cat start_srv.py </span></div><div class="line">import paramiko</div><div class="line">import select</div><div class="line">ssh = paramiko.SSHClient()</div><div class="line">SRV = <span class="string">"192.168.25.100"</span></div><div class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</div><div class="line">mykey = paramiko.RSAKey.from_private_key_file(<span class="string">"/root/.ssh/id_rsa"</span>)</div><div class="line">ssh.connect(<span class="string">"%s"</span> % SRV,username=<span class="string">"root"</span>,pkey=mykey)</div><div class="line">ssh.exec_command(<span class="string">"pkill test_start_srv"</span>)</div><div class="line">stdin,stdout,stderr = ssh.exec_command(<span class="string">"/root/test_start_srv.sh"</span>)</div><div class="line"><span class="keyword">while</span> not stdout.channel.exit_status_ready():</div><div class="line">    <span class="keyword">if</span> stdout.channel.recv_ready():</div><div class="line">        rl,wl,xl = select.select([stdout.channel],[],[],0.0)</div><div class="line">        <span class="keyword">if</span> len(rl )&gt; 0:</div><div class="line">            <span class="built_in">print</span> stdout.channel.recv(1024)</div><div class="line">            <span class="built_in">break</span></div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> cat test_devices_only.sh </div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">pid=`python start_srv.py`</div><div class="line"></div><div class="line">./test_camera_client.sh $1</div><div class="line">ssh -t root@192.168.25.100 &quot;/root/grep_pid.sh $pid &amp;&amp; pkill test_start_srv &amp;&amp; pkill socket_srv&quot;</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">cat test_app_dev.sh</div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">test_one()&#123;</div><div class="line">    tt=$200</div><div class="line">    ## 中止远程服务器的之前进程名.</div><div class="line">    ssh -t root@192.168.25.100 &quot;pkill test_start_srv &amp;&amp; pkill socket_srv&quot;</div><div class="line">    pid=`python start_srv.py`</div><div class="line">    srv=&quot;192.168.25.100&quot;</div><div class="line">    </div><div class="line">    ## 开启一种类型的客户端 ,DEV</div><div class="line">    python camera_client.py dev -H $srv -f $1 &amp;</div><div class="line">    dpid=$!</div><div class="line">    while true; </div><div class="line">    do</div><div class="line">       ## 等到DEV输出done,开记另一种类型的客户端,APP </div><div class="line">       grep &quot;done&quot; camera.log &amp;&amp; python camera_client.py app -H $srv -f $1 &amp;&amp; break || sleep 2</div><div class="line">    done  </div><div class="line"></div><div class="line">    ## 上面两种类型的客户端运行完成之后,把各类数据分类增量重定向到相应的文件名中.</div><div class="line">    cat camera.log &gt;&gt; $1.log</div><div class="line">    echo &quot;&quot; &gt; camera.log</div><div class="line">    pkill &quot;python&quot;</div><div class="line">    </div><div class="line">    ssh -t root@192.168.25.100 &quot;pkill test_start_srv &amp;&amp; pkill socket_srv &amp;&amp; /root/grep_pid.sh $pid&quot; &gt;&gt; $1.log</div><div class="line">    echo ---------------------------------------------------------------</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">run_ten_test()</div><div class="line">&#123;</div><div class="line">    test_one $1 $2 &gt;&gt; $1.log</div><div class="line">    echo &quot;$1 test result&quot; &gt;&gt; $1.result</div><div class="line">    ## 分类累计,DEV,APP输出的日志数据,并做平均计算.</div><div class="line">    grep &quot;DEV Run Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;Dev Run Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;DEV Avg Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;Dev Avg Time: %s\n&quot;, sum / n&#125;&apos;  &gt;&gt; $1.result</div><div class="line">    grep &quot;APP Run Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;APP Run Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;APP Avg Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;APP Avg Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    </div><div class="line">    ## 分类统计出top 输出的内存与CPU的总数与平均数值</div><div class="line">    grep &quot;CPU&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;AVG CPU: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;MEM&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;AVG MEM: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    echo &quot;$1 test result---------------------------------------------------------&quot; &gt;&gt; $1.result</div><div class="line">&#125;</div><div class="line">test_all()</div><div class="line">&#123;</div><div class="line">    ext=&quot;0000.txt&quot;</div><div class="line">    pre=&quot;user_&quot;</div><div class="line">        for i in `seq 1 6`;</div><div class="line">        do </div><div class="line">            echo &quot;start test $pre$i$ext&quot;</div><div class="line">            test_one $pre$i$ext $i</div><div class="line">            echo &quot;test $pre$i$ext done&quot; </div><div class="line">            echo &quot;wait 30 seconds&quot;</div><div class="line">            sleep 30</div><div class="line">        done</div><div class="line">&#125;</div><div class="line">test_all</div></pre></td></tr></table></figure>
-<h3 id="复制目录-并生成二进制文件"><a href="#复制目录-并生成二进制文件" class="headerlink" title="复制目录,并生成二进制文件"></a>复制目录,并生成二进制文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cat ./rsync_openresty.sh </div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">LUAJIT=/usr/<span class="built_in">local</span>/openresty/luajit/bin/luajit</div><div class="line">ORG=openresty-china</div><div class="line">BYTECODE=openresty-byte</div><div class="line"></div><div class="line"><span class="comment">## 清除旧的目录</span></div><div class="line">rm -rf <span class="variable">$&#123;BYTECODE&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## 用find 把目录找出来,替换ORG到BYTECODE.</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find <span class="variable">$&#123;ORG&#125;</span> -type d`;<span class="keyword">do</span> </div><div class="line">     mkdir -p <span class="string">"<span class="variable">$&#123;i/"$&#123;ORG&#125;</span>"</span>/<span class="string">"<span class="variable">$&#123;BYTECODE&#125;</span>"</span>&#125;<span class="string">"</span></div><div class="line">done</div><div class="line"></div><div class="line">## 用find 把*.lua结尾的文件找来,并使用LUAJIT编译成字节码,输出到BYTECODE的相应目录下</div><div class="line">for i in `find <span class="variable">$&#123;ORG&#125;</span> -iname "*.lua<span class="string">"`;do </span></div><div class="line">    <span class="variable">$&#123;LUAJIT&#125;</span> -b <span class="variable">$i</span> "<span class="variable">$&#123;i/"$&#123;ORG&#125;</span><span class="string">"/"</span><span class="variable">$&#123;BYTECODE&#125;</span><span class="string">"&#125;"</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">cp <span class="variable">$&#123;ORG&#125;</span>/conf/* <span class="variable">$&#123;BYTECODE&#125;</span>/conf</div><div class="line"></div><div class="line">rsync --exclude=<span class="string">"*.git"</span> --exclude=<span class="string">"*.sh"</span> --exclude=<span class="string">"config.lua"</span> --exclude=<span class="string">"*.conf"</span> <span class="_">-a</span> <span class="variable">$&#123;BYTECODE&#125;</span>/* root@exmaple.com:/home/www/test_openresty</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2735,7 +2491,7 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2803,7 +2559,11 @@ mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queu
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

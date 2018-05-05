@@ -458,6 +458,11 @@ Linux 下的超级终端工具minicom 是命令行的工具不像windows下的�
 <li>一个很简单的处理当前目录下所有文件的转换.还可以把它写的更通用灵活.</li>
 </ul>
 <hr>
+<h3 id="批量清除文件名中的特定字符串"><a href="#批量清除文件名中的特定字符串" class="headerlink" title="批量清除文件名中的特定字符串"></a>批量清除文件名中的特定字符串</h3><ul>
+<li>有时从网站下载一些文件,资源经会把自已的名字或者网址加在文件名如: <code>电影名_[www.xxx.com].mkv</code>,这样的格式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">TMP_IFS=$IFS</div><div class="line">IFS=$(echo -en &quot;\n\b&quot;)</div><div class="line">sub1=&quot;www\.xxx\.com&quot;</div><div class="line">sub2=&quot;www\.bbb\.com&quot;</div><div class="line">sub3=&quot;www\.ccc\.com&quot;</div><div class="line">#sub4=&quot;[(]www.ddd.com[)]&quot;  # 例如:  fname-(www.ddd.com).pdf, sed -re &quot;s/$sub4//g&quot;</div><div class="line"></div><div class="line">for fname in `ls`;</div><div class="line">do</div><div class="line">	string=$(echo $fname)</div><div class="line">	if [[ $string = *$&#123;sub1&#125;* || $string = *$&#123;sub2&#125;* || $string = *$&#123;sub3&#125;*  || $string = *$&#123;sub4&#125;* ]];</div><div class="line">	then</div><div class="line">    	nstring=$(echo $s | sed -e &quot;s/$&#123;sub1&#125;//g&quot; -e &quot;s/$sub2//g&quot; -e &quot;s/$sub3//g&quot; -e &quot;s/\(()\)//g/&quot; -e &quot;s/\[[]\]//g&quot; )</div><div class="line">      </div><div class="line">        echo $nstring</div><div class="line">        mv $f $nstring</div><div class="line">    fi</div><div class="line">done</div><div class="line"></div><div class="line">IFS=$TMP_IFS</div></pre></td></tr></table></figure>
+<hr>
 <h3 id="Linux-下-wireless-WPA加密连接"><a href="#Linux-下-wireless-WPA加密连接" class="headerlink" title="Linux 下 wireless  WPA加密连接"></a>Linux 下 wireless  WPA加密连接</h3><ul>
 <li><p>确保安装了wpasupplicant</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install wpasupplicant.</div></pre></td></tr></table></figure>
@@ -528,8 +533,8 @@ Linux 下的超级终端工具minicom 是命令行的工具不像windows下的�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/26/常见编译问题-不定期更新/" rel="next" title="常见编译问题,不定期更新.">
-                <i class="fa fa-chevron-left"></i> 常见编译问题,不定期更新.
+              <a href="/2016/08/06/为Radeon驱动编译Mesa-GLX支持/" rel="next" title="为Radeon驱动编译Mesa-GLX支持">
+                <i class="fa fa-chevron-left"></i> 为Radeon驱动编译Mesa-GLX支持
               </a>
             
           </div>
@@ -538,8 +543,8 @@ Linux 下的超级终端工具minicom 是命令行的工具不像windows下的�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" rel="prev" title="vsftpd FTP服务器与django前端共用sqlite3数据库的示例">
-                vsftpd FTP服务器与django前端共用sqlite3数据库的示例 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/26/常见编译问题-不定期更新/" rel="prev" title="常见编译问题,不定期更新.">
+                常见编译问题,不定期更新. <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -745,7 +750,7 @@ Linux 下的超级终端工具minicom 是命令行的工具不像windows下的�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#minicom-使用"><span class="nav-number">1.</span> <span class="nav-text">minicom 使用　</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AT命令"><span class="nav-number">1.1.</span> <span class="nav-text">AT命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#esptool升级固件"><span class="nav-number">2.</span> <span class="nav-text">esptool升级固件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换GBK文本文件的问题"><span class="nav-number">3.</span> <span class="nav-text">转换GBK文本文件的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-下-wireless-WPA加密连接"><span class="nav-number">4.</span> <span class="nav-text">Linux 下 wireless  WPA加密连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-下是使用蓝牙串口通信"><span class="nav-number">5.</span> <span class="nav-text">Linux 下是使用蓝牙串口通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配对蓝牙"><span class="nav-number">5.1.</span> <span class="nav-text">配对蓝牙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动边接RFCOMM串口"><span class="nav-number">5.2.</span> <span class="nav-text">手动边接RFCOMM串口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Systemctl-启动服务超时设置"><span class="nav-number">6.</span> <span class="nav-text">Linux Systemctl 启动服务超时设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BOSSAC-烧写Arduino-DUE无法找到设备"><span class="nav-number">7.</span> <span class="nav-text">BOSSAC 烧写Arduino-DUE无法找到设备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法"><span class="nav-number">7.1.</span> <span class="nav-text">处理方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">8.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#minicom-使用"><span class="nav-number">1.</span> <span class="nav-text">minicom 使用　</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AT命令"><span class="nav-number">1.1.</span> <span class="nav-text">AT命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#esptool升级固件"><span class="nav-number">2.</span> <span class="nav-text">esptool升级固件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换GBK文本文件的问题"><span class="nav-number">3.</span> <span class="nav-text">转换GBK文本文件的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量清除文件名中的特定字符串"><span class="nav-number">4.</span> <span class="nav-text">批量清除文件名中的特定字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-下-wireless-WPA加密连接"><span class="nav-number">5.</span> <span class="nav-text">Linux 下 wireless  WPA加密连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-下是使用蓝牙串口通信"><span class="nav-number">6.</span> <span class="nav-text">Linux 下是使用蓝牙串口通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配对蓝牙"><span class="nav-number">6.1.</span> <span class="nav-text">配对蓝牙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动边接RFCOMM串口"><span class="nav-number">6.2.</span> <span class="nav-text">手动边接RFCOMM串口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Systemctl-启动服务超时设置"><span class="nav-number">7.</span> <span class="nav-text">Linux Systemctl 启动服务超时设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BOSSAC-烧写Arduino-DUE无法找到设备"><span class="nav-number">8.</span> <span class="nav-text">BOSSAC 烧写Arduino-DUE无法找到设备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法"><span class="nav-number">8.1.</span> <span class="nav-text">处理方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">9.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
             
 
           </div>

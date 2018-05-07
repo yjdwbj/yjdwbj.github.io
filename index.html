@@ -276,6 +276,253 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/Linux-下翻墙指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/07/Linux-下翻墙指南/" itemprop="url">
+                  Linux 下翻墙指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-07 15:41:08" itemprop="dateCreated datePublished" datetime="2018-05-07T15:41:08+08:00">2018-05-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-05-14 00:00:00" itemprop="dateModified" datetime="2018-05-14T00:00:00+08:00">2018-05-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>参考链接:</strong></p>
+<ul>
+<li><a href="https://getlantern.org" target="_blank" rel="external">lantern(蓝灯)</a></li>
+<li><a href="https://www.torproject.org" target="_blank" rel="external">tor</a></li>
+<li><a href="http://vpngate.net" target="_blank" rel="external">vpngate</a></li>
+<li><a href="https://www.psiphon3.com/en/index.html" target="_blank" rel="external">赛风</a></li>
+<li><a href="https://www.shadowsocks.org/en/index.html" target="_blank" rel="external">ShadowSocks</a></li>
+</ul>
+<p>在国内做为一个程序员,翻墙是一门必不可少的技能,至少对于我来说是这样子的,我很多的知识经验来源于<a href="https://www.google.com.hk" target="_blank" rel="external">google</a>学习到的.</p>
+<p><strong>vpngate</strong></p>
+<p>分布式VPN,日本人开发的,曾经一段时间很快很稳定后来被封了,只支持window平台,好久没有关注它了</p>
+<p><strong>赛风</strong></p>
+<p>赛风是windows下很好的工具.带宽速度一般,但是免费可靠,缺点是不支持linux,在linux有一个基于python的客户,偶尔能用,早有终止开发了,配置很复杂.</p>
+<p><strong>lantern</strong></p>
+<p>lantern(蓝灯)是近年来新起的一个工具,支持多平台,有收费与免费版,开源安全可靠.</p>
+<p><strong>tor</strong></p>
+<p>洋萄头是很老牌的一个工具,它的功能不是翻墙,是隐藏自已,就是所谓的<code>暗网</code>.<br>这里只讲述在Linux如何翻墙的,我是用一台树莓派做翻墙工具,24小时在线.</p>
+<p><strong>ShadowSocks</strong><br>它其实就是一个代理工具,方便一些有虚拟在国外或连接一些名费的服务器.</p>
+<h3 id="Lantern-蓝灯"><a href="#Lantern-蓝灯" class="headerlink" title="Lantern(蓝灯)"></a>Lantern(蓝灯)</h3><p>直接按照官网教程先安装一些系统工具,git,go,make,docker,工具.这里以编译lantern 2.2.5为例.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># build lantern for raspberry pi</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> -xe</div><div class="line"></div><div class="line"><span class="comment">#VERSION=$&#123;1:?version is empty&#125;</span></div><div class="line">VERSION=2.2.5</div><div class="line"></div><div class="line">git <span class="built_in">clone</span> https://github.com/getlantern/lantern.git</div><div class="line"><span class="built_in">cd</span> lantern</div><div class="line"></div><div class="line">VERSION=<span class="variable">$VERSION</span> HEADLESS=<span class="literal">true</span> make docker-linux-arm</div><div class="line">mv lantern_linux_arm lantern-<span class="variable">$VERSION</span>-armv7h</div><div class="line"></div><div class="line">sed -i <span class="string">'s/GOARM=7/GOARM=6/'</span> Makefile</div><div class="line"></div><div class="line">VERSION=<span class="variable">$VERSION</span> HEADLESS=<span class="literal">true</span> make docker-linux-arm</div><div class="line">mv lantern_linux_arm lantern-<span class="variable">$VERSION</span>-armv6h</div><div class="line"></div><div class="line">mkdir -p lantern/&#123;DEBIAN,lib/systemd/system,usr/bin&#125;/</div><div class="line">cp lantern-<span class="variable">$VERSION</span>-armv6h lantern/usr/bin/lantern</div><div class="line">cat &gt; lantern/DEBIAN/control &lt;&lt;_EOF_</div><div class="line">Package: lantern</div><div class="line">Version: <span class="variable">$VERSION</span>-1</div><div class="line">Maintainer: noreply@easypi.info</div><div class="line">Homepage: https://getlantern.org</div><div class="line">Architecture: armhf</div><div class="line">Priority: optional</div><div class="line">Section: net</div><div class="line">Description: Open Internet <span class="keyword">for</span> Everyone</div><div class="line">_EOF_</div><div class="line">cat &gt; lantern/lib/systemd/system/lantern.service &lt;&lt;_EOF_</div><div class="line">[Unit]</div><div class="line">Description=Open Internet <span class="keyword">for</span> Everyone</div><div class="line">Documentation=https://getlantern.org</div><div class="line">After=network.target</div><div class="line">[Service]</div><div class="line">ExecStart=/usr/bin/lantern -addr=0.0.0.0:8787</div><div class="line">StandardOutput=null</div><div class="line">StandardError=null</div><div class="line">Restart=always</div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div><div class="line">_EOF_</div><div class="line">dpkg -b lantern lantern_<span class="variable">$VERSION</span>-1_armhf.deb</div><div class="line"></div><div class="line">sudo mv lantern-<span class="variable">$VERSION</span>-armv[67]h lantern_<span class="variable">$VERSION</span>-1_armhf.deb ..</div><div class="line"><span class="built_in">cd</span> ..</div><div class="line">sudo chmod a+rw lantern-<span class="variable">$VERSION</span>-armv[67]h lantern_<span class="variable">$VERSION</span>-1_armhf.deb</div></pre></td></tr></table></figure>
+<ul>
+<li>最终在lantern目录会生成.deb文件.lantern-2.2.5-armv7h,lantern-2.2.5-armv6h是树莓派下可执行的文件.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ file lantern-2.2.5-armv6h </div><div class="line">lantern-2.2.5-armv6h: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, stripped</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>把lantern 运行起来,在软件或浏览器中设置代理项指向树莓派生的IP地址,端口8787,就可以看google,facebook…..</li>
+</ul>
+<h3 id="TOR"><a href="#TOR" class="headerlink" title="TOR"></a>TOR</h3><ul>
+<li><p>在各种Linux发行版的软件库里都有tor的安装直接安装就行了.这里的polipo,dnsmasq 不是必需的.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># apt-get install tor obfsproxy polipo dnsmasq</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>为tor建一个普通用户,使用root用户会报错也不建议使用.在普通用户下的家目录里创建一个名为torrc的配置文件.内容如下.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">SocksPort 9050 <span class="comment"># Default: Bind to localhost:9050 for local connections.</span></div><div class="line">SocksPolicy accept 127.0.0.1/32</div><div class="line">SocksPolicy reject *</div><div class="line">ClientOnly 1</div><div class="line">VirtualAddrNetwork 10.192.0.0/16</div><div class="line">DNSPort 9053</div><div class="line">DNSListenAddress  127.0.0.1</div><div class="line">AutomapHostsOnResolve 1</div><div class="line">AutomapHostsSuffixes .onion,.exit</div><div class="line">TransPort 9040</div><div class="line">Log notice file ~/tor/notices.log　　<span class="comment"># log日志途径</span></div><div class="line">RunAsDaemon 1</div><div class="line">ClientTransportPlugin  obfs2,obfs3 <span class="built_in">exec</span> /usr/bin/obfsproxy --managed</div><div class="line">UseBridges 1</div><div class="line">Bridge obfs3 192.36.31.133:42292 BD93F5439A71F8303BFDBF82066A11A6795596ED</div><div class="line">Bridge obfs3 194.132.208.198:28340 61258900CFD7BE034E938DC338C2F7197E2881AE</div><div class="line">Bridge obfs3 95.215.44.119:44527 1F1C600CE1E854E18123422EAD9267A5943815A4</div><div class="line">Bridge obfs3 163.172.161.87:34827 70C720468D057BBF9F59081506D660CE87CA4AD0</div><div class="line">Bridge obfs3 192.36.31.90:43445 78E6001D9B8B58122E8EAD0E9CF7E21D8595885C</div><div class="line">Bridge obfs3 23.252.105.31:3443 CDAE9FD7710761D1914182F62B1B47F2FBF1FDE1</div><div class="line">Bridge obfs3 192.36.31.245:42808 9D0091413CB15261A90A3256B752258CC509D5B8</div><div class="line">Bridge obfs3 37.218.246.101:35072 42F4F371DE858E634CEBB487759228838D791B66</div><div class="line">Bridge obfs3 84.39.34.97:27322 6FBE4B8B9E43D1114DEA26E82D6AC9EFEB407EB0</div><div class="line">Bridge obfs3 78.46.188.239:37356 5A2D2F4158D0453E00C7C176978D3F41D69C45DB</div><div class="line">Bridge obfs3 194.132.208.242:1287 988131F4E85BC3F07B78FCC8C5F8108440DBB9F1</div><div class="line">Bridge obfs3 194.132.208.107:9751 E2FCCB85809EE9B4747CADB86F8F3FD97389DB4C</div><div class="line">Bridge obfs3 52.207.232.222:45808 C32CF82A13BB9B6C746CE8E7D3CD873F876BAB65</div><div class="line">Bridge obfs3 192.36.31.144:54443 8C68078CCF04D2BD2CC110EF05336FF26020F8E5</div><div class="line">Bridge obfs3 95.247.9.235:45870 73DF00295D046C40B52F6CE7098EFD6799DCBA9E</div><div class="line">Bridge obfs3 192.241.211.52:41657 0BF680354EE20E1BBD385595C59B2824FFD6412D</div><div class="line">Bridge obfs3 45.79.190.81:38127 85DB43C92C5D83DAC3919D1EC751ECC5CE2A1240</div><div class="line">Bridge obfs3 205.185.120.120:35676 2D7DB306E8D7C750E18519DF362C5B54A36A1652</div></pre></td></tr></table></figure>
+<p>上面的<code>obfs3</code>时效性不保,需要不定时去<strong><a href="https://bridges.torproject.org/bridges?transport=obfs3" target="_blank" rel="external">BrideDB</a></strong>更新.<br>现在可以运行一下tor,如果遇错按照错误提示解决.如果无错,就如下面运行在后台了.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ tor <span class="_">-f</span> torcc</div><div class="line">Sep 12 23:46:18.865 [notice] Tor v0.2.7.6 running on Linux with Libevent 2.0.21-stable, OpenSSL 1.0.1t and Zlib 1.2.8.</div><div class="line">Sep 12 23:46:18.872 [notice] Tor can<span class="string">'t help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning</span></div><div class="line">Sep 12 23:46:18.881 [notice] Read configuration file "/home/user/torrc".</div><div class="line">Sep 12 23:46:19.156 [notice] Opening Socks listener on 127.0.0.1:9050</div><div class="line">Sep 12 23:46:19.171 [notice] Opening DNS listener on 127.0.0.1:9053</div><div class="line">Sep 12 23:46:19.183 [notice] Opening Transparent pf/netfilter listener on 127.0.0.1:9040</div></pre></td></tr></table></figure></p>
+<ul>
+<li>现在可以通过TOR查询DNS,国内的DNS对外网污染的很严重,都是张冠李戴的解析. 如果无错,下面显示解析正确的结果.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tor-resolve www.google.com</div><div class="line">216.58.208.36</div></pre></td></tr></table></figure>
+<h4 id="dnsmasq"><a href="#dnsmasq" class="headerlink" title="dnsmasq"></a>dnsmasq</h4><ul>
+<li>通过dnsmasq 来为本机或者LAN局域网提供高效DNS缓存服务,这里的dnsmasq是通过TOR连接去查询,是未经ISP污染的结果.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/dnsmasq.conf  | grep -v <span class="string">'^#'</span> | grep -v <span class="string">'^$'</span></div><div class="line">resolv-file=/etc/resolv.dnsmasq.conf</div><div class="line">no-resolv</div><div class="line">server=127.0.0.1<span class="comment">#9053</span></div><div class="line">listen-address=127.0.0.1,192.168.10.1</div><div class="line">no-dhcp-interface=eth0</div><div class="line">dhcp-range=192.168.10.100,192.168.10.150,12h</div><div class="line">dhcp-option=3,192.168.10.1</div><div class="line">dhcp-option=option:dns-server,192.168.10.1,8.8.8.8</div></pre></td></tr></table></figure>
+<ul>
+<li>本机的resolv.conf 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/resolv.conf</div><div class="line"># Generated by resolvconf</div><div class="line">nameserver 127.0.0.1</div><div class="line">nameserver 8.8.8.8</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="polipo-代理服务"><a href="#polipo-代理服务" class="headerlink" title="polipo 代理服务"></a>polipo 代理服务</h4><p>polipo 可以代理TOR的连接,就是把其它程序的代理指本机IP,端口8123</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">socksParentProxy = localhost:9050</div><div class="line">proxyAddress = 0.0.0.0</div><div class="line">dnsNameServer = 127.0.0.1</div><div class="line"><span class="built_in">log</span>Syslog = <span class="literal">true</span></div><div class="line"><span class="built_in">log</span>File = /var/<span class="built_in">log</span>/polipo/polipo.log</div></pre></td></tr></table></figure>
+<h4 id="本机的服务"><a href="#本机的服务" class="headerlink" title="本机的服务"></a>本机的服务</h4><p>运下上述的服务之后,查看本机树莓派生上的服务是否正常运行起来的,正常情况应包含如下字段:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ netstat -tnlp</div><div class="line">tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 0.0.0.0:8123            0.0.0.0:*               LISTEN      648/polipo      </div><div class="line">tcp        0      0 127.0.0.1:9040          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 127.0.0.1:8788          0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      2053/dnsmasq    </div><div class="line">tcp        0      0 127.0.0.1:16823         0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp6       0      0 :::8787                 :::*                    LISTEN      19220/lantern-2.2.5</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="ShadowSocks"><a href="#ShadowSocks" class="headerlink" title="ShadowSocks"></a>ShadowSocks</h3><ul>
+<li>各平台详细安装可以看<a href="https://www.shadowsocks.org/en/download/clients.html" target="_blank" rel="external">这里</a>.</li>
+<li>Linux python 安装</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">~$ pip install shadowsocks</div><div class="line">Collecting shadowsocks</div><div class="line">  Downloading https://files.pythonhosted.org/packages/02/1e/e3a5135255d06813aca6631da31768d44f63692480af3a1621818008eb4a/shadowsocks-2.8.2.tar.gz</div><div class="line">Building wheels for collected packages: shadowsocks</div><div class="line">  Running setup.py bdist_wheel for shadowsocks ... done</div><div class="line">  Stored in directory: /home/michael/.cache/pip/wheels/5e/8d/b6/3e2243a7e116984b2c3597c122c29abcfeac77daa260079e88</div><div class="line">Successfully built shadowsocks</div><div class="line">Installing collected packages: shadowsocks</div><div class="line"></div><div class="line">~$ sudo apt-get install shadowsocks-libev</div></pre></td></tr></table></figure>
+<ul>
+<li>直接命令行方式运行如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">$ sslocal</div><div class="line">ERROR: config not specified</div><div class="line">usage: sslocal [OPTION]...</div><div class="line">A fast tunnel proxy that helps you bypass firewalls.</div><div class="line"></div><div class="line">You can supply configurations via either config file or command line arguments.</div><div class="line"></div><div class="line">Proxy options:</div><div class="line">  -c CONFIG              path to config file</div><div class="line">  -s SERVER_ADDR         server address</div><div class="line">  -p SERVER_PORT         server port, default: 8388</div><div class="line">  -b LOCAL_ADDR          local binding address, default: 127.0.0.1</div><div class="line">  -l LOCAL_PORT          local port, default: 1080</div><div class="line">  -k PASSWORD            password</div><div class="line">  -m METHOD              encryption method, default: aes-256-cfb</div><div class="line">  -t TIMEOUT             timeout in seconds, default: 300</div><div class="line">  --fast-open            use TCP_FASTOPEN, requires Linux 3.7+</div><div class="line"></div><div class="line">General options:</div><div class="line">  -h, --help             show this help message and exit</div><div class="line">  -d start/stop/restart  daemon mode</div><div class="line">  --pid-file PID_FILE    pid file for daemon mode</div><div class="line">  --log-file LOG_FILE    log file for daemon mode</div><div class="line">  --user USER            username to run as</div><div class="line">  -v, -vv                verbose mode</div><div class="line">  -q, -qq                quiet mode, only show warnings/errors</div><div class="line">  --version              show version information</div><div class="line"></div><div class="line">Online help: &lt;https://github.com/shadowsocks/shadowsocks&gt;</div><div class="line"></div><div class="line">~$ sslocal  -s s1.l3l.bid -p 2048 -k forgoogle -m aes-256-cfb</div></pre></td></tr></table></figure>
+<ul>
+<li>如果出现下面的错误:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2018-05-07 15:22:14 INFO     loading libcrypto from libcrypto.so.1.1</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/home/michael/.pyenv/versions/py3dev/bin/sslocal&quot;, line 11, in &lt;module&gt;</div><div class="line">    sys.exit(main())</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/local.py&quot;, line 39, in main</div><div class="line">    config = shell.get_config(True)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/shell.py&quot;, line 262, in get_config</div><div class="line">    check_config(config, is_local)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/shell.py&quot;, line 124, in check_config</div><div class="line">    encrypt.try_cipher(config[&apos;password&apos;], config[&apos;method&apos;])</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/encrypt.py&quot;, line 44, in try_cipher</div><div class="line">    Encryptor(key, method)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/encrypt.py&quot;, line 83, in __init__</div><div class="line">    random_string(self._method_info[1]))</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/encrypt.py&quot;, line 109, in get_cipher</div><div class="line">    return m[2](method, key, iv, op)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/crypto/openssl.py&quot;, line 76, in __init__</div><div class="line">    load_openssl()</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/crypto/openssl.py&quot;, line 52, in load_openssl</div><div class="line">    libcrypto.EVP_CIPHER_CTX_cleanup.argtypes = (c_void_p,)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/lib/python3.6/ctypes/__init__.py&quot;, line 361, in __getattr__</div><div class="line">    func = self.__getitem__(name)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/lib/python3.6/ctypes/__init__.py&quot;, line 366, in __getitem__</div><div class="line">    func = self._FuncPtr((name_or_ordinal, self))</div><div class="line">AttributeError: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup</div></pre></td></tr></table></figure>
+<p>这个问题是由于在openssl1.1.0版本中，废弃了EVP_CIPHER_CTX_cleanup函数，如官网中所说：</p>
+<p>EVP_CIPHER_CTX was made opaque in OpenSSL 1.1.0. As a result, EVP_CIPHER_CTX_reset() appeared and EVP_CIPHER_CTX_cleanup() disappeared. EVP_CIPHER_CTX_init() remains as an alias for EVP_CIPHER_CTX_reset().<br>在<code>openssl.py</code>里把所有的<strong>EVP_CIPHER_CTX_cleanup</strong>函数替换成<code>EVP_CIPHER_CTX_reset</code>.</p>
+<ul>
+<li>如果是使用CONFIG的方式如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;my_server_ip&quot;,</div><div class="line">    &quot;server_port&quot;:8388,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;password&quot;:&quot;barfoo!&quot;,</div><div class="line">    &quot;timeout&quot;:600,</div><div class="line">    &quot;method&quot;:&quot;chacha20-ietf-poly1305&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>一些免费SS资源</strong><br><a href="https://github.com/max2max/freess" target="_blank" rel="external">https://github.com/max2max/freess</a><br><a href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" target="_blank" rel="external">自建ss服务器教程</a><br><a href="https://freessr.win/" target="_blank" rel="external">https://freessr.win/</a></p>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/为Android编译OpenCV3-SDK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -598,230 +845,6 @@
 <li>同时修改成<strong>compileSdkVersion 26</strong>,<strong>targetSdkVersion 26</strong>,要大于等于<strong>26</strong>的版本.</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 27</div><div class="line">    buildToolsVersion &quot;27.0.3&quot; // not needed since com.android.tools.build:gradle:3.0.0</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 14</div><div class="line">        targetSdkVersion 26</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  [...]</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"> 	[...]</div><div class="line">    implementation &apos;com.android.support:appcompat-v7:27.1.1&apos;</div><div class="line">    implementation &apos;com.android.support:design:27.1.1&apos;</div><div class="line">    implementation &apos;com.android.support:recyclerview-v7:27.1.1&apos;</div><div class="line">    [...]</div><div class="line">&#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/Linux-下翻墙指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/imgs/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/29/Linux-下翻墙指南/" itemprop="url">
-                  Linux 下翻墙指南
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-04-29 23:02:22" itemprop="dateCreated datePublished" datetime="2018-04-29T23:02:22+08:00">2018-04-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2016-09-14 00:00:00" itemprop="dateModified" datetime="2016-09-14T00:00:00+08:00">2016-09-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>参考链接:</strong></p>
-<ul>
-<li><a href="https://getlantern.org" target="_blank" rel="external">lantern(蓝灯)</a></li>
-<li><a href="https://www.torproject.org" target="_blank" rel="external">tor</a></li>
-<li><a href="http://vpngate.net" target="_blank" rel="external">vpngate</a></li>
-<li><a href="https://www.psiphon3.com/en/index.html" target="_blank" rel="external">赛风</a></li>
-</ul>
-<p>在国内做为一个程序员,翻墙是一门必不可少的技能,至少对于我来说是这样子的,我很多的知识经验来源于<a href="https://www.google.com.hk" target="_blank" rel="external">google</a>学习到的.</p>
-<p><strong>vpngate</strong></p>
-<p>分布式VPN,日本人开发的,曾经一段时间很快很稳定后来被封了,只支持window平台,好久没有关注它了</p>
-<p><strong>赛风</strong></p>
-<p>赛风是windows下很好的工具.带宽速度一般,但是免费可靠,缺点是不支持linux,在linux有一个基于python的客户,偶尔能用,早有终止开发了,配置很复杂.</p>
-<p><strong>lantern</strong></p>
-<p>lantern(蓝灯)是近年来新起的一个工具,支持多平台,有收费与免费版,开源安全可靠.</p>
-<p><strong>tor</strong></p>
-<p>洋萄头是很老牌的一个工具,它的功能不是翻墙,是隐藏自已,就是所谓的<code>暗网</code>.<br>这里只讲述在Linux如何翻墙的,我是用一台树莓派做翻墙工具,24小时在线.</p>
-<h4 id="Lantern-蓝灯"><a href="#Lantern-蓝灯" class="headerlink" title="Lantern(蓝灯)"></a>Lantern(蓝灯)</h4><p>直接按照官网教程先安装一些系统工具,git,go,make,docker,工具.这里以编译lantern 2.2.5为例.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># build lantern for raspberry pi</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> -xe</div><div class="line"></div><div class="line"><span class="comment">#VERSION=$&#123;1:?version is empty&#125;</span></div><div class="line">VERSION=2.2.5</div><div class="line"></div><div class="line">git <span class="built_in">clone</span> https://github.com/getlantern/lantern.git</div><div class="line"><span class="built_in">cd</span> lantern</div><div class="line"></div><div class="line">VERSION=<span class="variable">$VERSION</span> HEADLESS=<span class="literal">true</span> make docker-linux-arm</div><div class="line">mv lantern_linux_arm lantern-<span class="variable">$VERSION</span>-armv7h</div><div class="line"></div><div class="line">sed -i <span class="string">'s/GOARM=7/GOARM=6/'</span> Makefile</div><div class="line"></div><div class="line">VERSION=<span class="variable">$VERSION</span> HEADLESS=<span class="literal">true</span> make docker-linux-arm</div><div class="line">mv lantern_linux_arm lantern-<span class="variable">$VERSION</span>-armv6h</div><div class="line"></div><div class="line">mkdir -p lantern/&#123;DEBIAN,lib/systemd/system,usr/bin&#125;/</div><div class="line">cp lantern-<span class="variable">$VERSION</span>-armv6h lantern/usr/bin/lantern</div><div class="line">cat &gt; lantern/DEBIAN/control &lt;&lt;_EOF_</div><div class="line">Package: lantern</div><div class="line">Version: <span class="variable">$VERSION</span>-1</div><div class="line">Maintainer: noreply@easypi.info</div><div class="line">Homepage: https://getlantern.org</div><div class="line">Architecture: armhf</div><div class="line">Priority: optional</div><div class="line">Section: net</div><div class="line">Description: Open Internet <span class="keyword">for</span> Everyone</div><div class="line">_EOF_</div><div class="line">cat &gt; lantern/lib/systemd/system/lantern.service &lt;&lt;_EOF_</div><div class="line">[Unit]</div><div class="line">Description=Open Internet <span class="keyword">for</span> Everyone</div><div class="line">Documentation=https://getlantern.org</div><div class="line">After=network.target</div><div class="line">[Service]</div><div class="line">ExecStart=/usr/bin/lantern -addr=0.0.0.0:8787</div><div class="line">StandardOutput=null</div><div class="line">StandardError=null</div><div class="line">Restart=always</div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div><div class="line">_EOF_</div><div class="line">dpkg -b lantern lantern_<span class="variable">$VERSION</span>-1_armhf.deb</div><div class="line"></div><div class="line">sudo mv lantern-<span class="variable">$VERSION</span>-armv[67]h lantern_<span class="variable">$VERSION</span>-1_armhf.deb ..</div><div class="line"><span class="built_in">cd</span> ..</div><div class="line">sudo chmod a+rw lantern-<span class="variable">$VERSION</span>-armv[67]h lantern_<span class="variable">$VERSION</span>-1_armhf.deb</div></pre></td></tr></table></figure>
-<ul>
-<li>最终在lantern目录会生成.deb文件.lantern-2.2.5-armv7h,lantern-2.2.5-armv6h是树莓派下可执行的文件.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ file lantern-2.2.5-armv6h </div><div class="line">lantern-2.2.5-armv6h: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, stripped</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>把lantern 运行起来,在软件或浏览器中设置代理项指向树莓派生的IP地址,端口8787,就可以看google,facebook…..</li>
-</ul>
-<h3 id="TOR"><a href="#TOR" class="headerlink" title="TOR"></a>TOR</h3><ul>
-<li><p>在各种Linux发行版的软件库里都有tor的安装直接安装就行了.这里的polipo,dnsmasq 不是必需的.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># apt-get install tor obfsproxy polipo dnsmasq</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>为tor建一个普通用户,使用root用户会报错也不建议使用.在普通用户下的家目录里创建一个名为torrc的配置文件.内容如下.</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">SocksPort 9050 <span class="comment"># Default: Bind to localhost:9050 for local connections.</span></div><div class="line">SocksPolicy accept 127.0.0.1/32</div><div class="line">SocksPolicy reject *</div><div class="line">ClientOnly 1</div><div class="line">VirtualAddrNetwork 10.192.0.0/16</div><div class="line">DNSPort 9053</div><div class="line">DNSListenAddress  127.0.0.1</div><div class="line">AutomapHostsOnResolve 1</div><div class="line">AutomapHostsSuffixes .onion,.exit</div><div class="line">TransPort 9040</div><div class="line">Log notice file ~/tor/notices.log　　<span class="comment"># log日志途径</span></div><div class="line">RunAsDaemon 1</div><div class="line">ClientTransportPlugin  obfs2,obfs3 <span class="built_in">exec</span> /usr/bin/obfsproxy --managed</div><div class="line">UseBridges 1</div><div class="line">Bridge obfs3 192.36.31.133:42292 BD93F5439A71F8303BFDBF82066A11A6795596ED</div><div class="line">Bridge obfs3 194.132.208.198:28340 61258900CFD7BE034E938DC338C2F7197E2881AE</div><div class="line">Bridge obfs3 95.215.44.119:44527 1F1C600CE1E854E18123422EAD9267A5943815A4</div><div class="line">Bridge obfs3 163.172.161.87:34827 70C720468D057BBF9F59081506D660CE87CA4AD0</div><div class="line">Bridge obfs3 192.36.31.90:43445 78E6001D9B8B58122E8EAD0E9CF7E21D8595885C</div><div class="line">Bridge obfs3 23.252.105.31:3443 CDAE9FD7710761D1914182F62B1B47F2FBF1FDE1</div><div class="line">Bridge obfs3 192.36.31.245:42808 9D0091413CB15261A90A3256B752258CC509D5B8</div><div class="line">Bridge obfs3 37.218.246.101:35072 42F4F371DE858E634CEBB487759228838D791B66</div><div class="line">Bridge obfs3 84.39.34.97:27322 6FBE4B8B9E43D1114DEA26E82D6AC9EFEB407EB0</div><div class="line">Bridge obfs3 78.46.188.239:37356 5A2D2F4158D0453E00C7C176978D3F41D69C45DB</div><div class="line">Bridge obfs3 194.132.208.242:1287 988131F4E85BC3F07B78FCC8C5F8108440DBB9F1</div><div class="line">Bridge obfs3 194.132.208.107:9751 E2FCCB85809EE9B4747CADB86F8F3FD97389DB4C</div><div class="line">Bridge obfs3 52.207.232.222:45808 C32CF82A13BB9B6C746CE8E7D3CD873F876BAB65</div><div class="line">Bridge obfs3 192.36.31.144:54443 8C68078CCF04D2BD2CC110EF05336FF26020F8E5</div><div class="line">Bridge obfs3 95.247.9.235:45870 73DF00295D046C40B52F6CE7098EFD6799DCBA9E</div><div class="line">Bridge obfs3 192.241.211.52:41657 0BF680354EE20E1BBD385595C59B2824FFD6412D</div><div class="line">Bridge obfs3 45.79.190.81:38127 85DB43C92C5D83DAC3919D1EC751ECC5CE2A1240</div><div class="line">Bridge obfs3 205.185.120.120:35676 2D7DB306E8D7C750E18519DF362C5B54A36A1652</div></pre></td></tr></table></figure>
-<p>上面的<code>obfs3</code>时效性不保,需要不定时去<strong><a href="https://bridges.torproject.org/bridges?transport=obfs3" target="_blank" rel="external">BrideDB</a></strong>更新.<br>现在可以运行一下tor,如果遇错按照错误提示解决.如果无错,就如下面运行在后台了.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ tor <span class="_">-f</span> torcc</div><div class="line">Sep 12 23:46:18.865 [notice] Tor v0.2.7.6 running on Linux with Libevent 2.0.21-stable, OpenSSL 1.0.1t and Zlib 1.2.8.</div><div class="line">Sep 12 23:46:18.872 [notice] Tor can<span class="string">'t help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning</span></div><div class="line">Sep 12 23:46:18.881 [notice] Read configuration file "/home/user/torrc".</div><div class="line">Sep 12 23:46:19.156 [notice] Opening Socks listener on 127.0.0.1:9050</div><div class="line">Sep 12 23:46:19.171 [notice] Opening DNS listener on 127.0.0.1:9053</div><div class="line">Sep 12 23:46:19.183 [notice] Opening Transparent pf/netfilter listener on 127.0.0.1:9040</div></pre></td></tr></table></figure></p>
-<ul>
-<li>现在可以通过TOR查询DNS,国内的DNS对外网污染的很严重,都是张冠李戴的解析. 如果无错,下面显示解析正确的结果.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tor-resolve www.google.com</div><div class="line">216.58.208.36</div></pre></td></tr></table></figure>
-<h4 id="dnsmasq"><a href="#dnsmasq" class="headerlink" title="dnsmasq"></a>dnsmasq</h4><ul>
-<li>通过dnsmasq 来为本机或者LAN局域网提供高效DNS缓存服务,这里的dnsmasq是通过TOR连接去查询,是未经ISP污染的结果.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/dnsmasq.conf  | grep -v <span class="string">'^#'</span> | grep -v <span class="string">'^$'</span></div><div class="line">resolv-file=/etc/resolv.dnsmasq.conf</div><div class="line">no-resolv</div><div class="line">server=127.0.0.1<span class="comment">#9053</span></div><div class="line">listen-address=127.0.0.1,192.168.10.1</div><div class="line">no-dhcp-interface=eth0</div><div class="line">dhcp-range=192.168.10.100,192.168.10.150,12h</div><div class="line">dhcp-option=3,192.168.10.1</div><div class="line">dhcp-option=option:dns-server,192.168.10.1,8.8.8.8</div></pre></td></tr></table></figure>
-<ul>
-<li>本机的resolv.conf 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/resolv.conf</div><div class="line"># Generated by resolvconf</div><div class="line">nameserver 127.0.0.1</div><div class="line">nameserver 8.8.8.8</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="polipo-代理服务"><a href="#polipo-代理服务" class="headerlink" title="polipo 代理服务"></a>polipo 代理服务</h4><p>polipo 可以代理TOR的连接,就是把其它程序的代理指本机IP,端口8123</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">socksParentProxy = localhost:9050</div><div class="line">proxyAddress = 0.0.0.0</div><div class="line">dnsNameServer = 127.0.0.1</div><div class="line"><span class="built_in">log</span>Syslog = <span class="literal">true</span></div><div class="line"><span class="built_in">log</span>File = /var/<span class="built_in">log</span>/polipo/polipo.log</div></pre></td></tr></table></figure>
-<h4 id="本机的服务"><a href="#本机的服务" class="headerlink" title="本机的服务"></a>本机的服务</h4><p>运下上述的服务之后,查看本机树莓派生上的服务是否正常运行起来的,正常情况应包含如下字段:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ netstat -tnlp</div><div class="line">tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 0.0.0.0:8123            0.0.0.0:*               LISTEN      648/polipo      </div><div class="line">tcp        0      0 127.0.0.1:9040          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 127.0.0.1:8788          0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      2053/dnsmasq    </div><div class="line">tcp        0      0 127.0.0.1:16823         0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp6       0      0 :::8787                 :::*                    LISTEN      19220/lantern-2.2.5</div></pre></td></tr></table></figure></p>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>

@@ -1500,6 +1500,15 @@
 <h3 id="BOSSAC-烧写Arduino-DUE无法找到设备"><a href="#BOSSAC-烧写Arduino-DUE无法找到设备" class="headerlink" title="BOSSAC 烧写Arduino-DUE无法找到设备"></a>BOSSAC 烧写Arduino-DUE无法找到设备</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">./bossac -i <span class="_">-d</span> --port=ttyACM0 -U <span class="literal">false</span> <span class="_">-e</span> -w -v -b ./nuttx.bin -R</div><div class="line"></div><div class="line"></div><div class="line">Set binary mode</div><div class="line">Send auto-baud</div><div class="line">Set binary mode</div><div class="line">No device found on /dev/ttyACM0</div></pre></td></tr></table></figure>
 <h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stty -F /dev/ttyACM0 speed 1200 cs8 -cstopb -parenb</div></pre></td></tr></table></figure>
 <hr>
+<h3 id="Virt-Manager-虚拟机无法启动"><a href="#Virt-Manager-虚拟机无法启动" class="headerlink" title="Virt-Manager 虚拟机无法启动"></a>Virt-Manager 虚拟机无法启动</h3><ul>
+<li>有时KVM框架虚拟机系统无法启动,错误如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Error starting domain: Requested operation is not valid: network &apos;default&apos; is not active</div><div class="line"></div><div class="line">Traceback (most recent call last):</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<ul>
+<li>通过如下命令启动网络即可.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ sudo virsh net-list --all </div><div class="line"> Name                 State      Autostart     Persistent</div><div class="line">----------------------------------------------------------</div><div class="line"> default              inactive   no            yes</div><div class="line"></div><div class="line">~$ sudo virsh net-start default</div><div class="line">Network default started</div></pre></td></tr></table></figure>
+<hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>

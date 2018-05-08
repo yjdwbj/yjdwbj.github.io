@@ -1509,6 +1509,16 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ sudo virsh net-list --all </div><div class="line"> Name                 State      Autostart     Persistent</div><div class="line">----------------------------------------------------------</div><div class="line"> default              inactive   no            yes</div><div class="line"></div><div class="line">~$ sudo virsh net-start default</div><div class="line">Network default started</div></pre></td></tr></table></figure>
 <hr>
+<h3 id="创建Debian-Live-USB系统盘"><a href="#创建Debian-Live-USB系统盘" class="headerlink" title="创建Debian Live USB系统盘"></a>创建Debian Live USB系统盘</h3><ul>
+<li>如果想要试用Linux,又不想安装它,可以把它烧写到U盘里,做为启动盘或者系统恢复盘.</li>
+<li><a href="http://mirrors.163.com/debian-cd" target="_blank" rel="external"><code>Debian 国内镜像下载链接</code></a></li>
+<li><strong>注意:</strong> 这里一定要选择<code>live</code>标志的iso镜像下载.在windows下面要先下载一个叫<a href="http://launchpad.net/win32-image-writer/0.2/0.2/+download/win32diskimager-RELEASE-0.2-r23-win32.zip" target="_blank" rel="external"><code>Win32DiskImager</code></a>的烧写工具,Linux 就很简单使用下面命令就能完成:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ ls  debian-live-9.4.0-amd64-mate.iso </div><div class="line">debian-live-9.4.0-amd64-mate.iso</div><div class="line">$ sudo dd if=debian-live-9.4.0-amd64-mate.iso of=/dev/sdc1 </div><div class="line">4002944+0 records in</div><div class="line">4002944+0 records out</div><div class="line">2049507328 bytes (2.0 GB, 1.9 GiB) copied, 7.39192 s, 277 MB/s</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>严重注意</strong> 这里的<code>/dev/sdc1</code>一要是你想要格式华的U盘,如果这里是当前硬盘,或者是有重要资料的盘符,就会直接覆盖它,找不回来.<strong>注意,注意,注意</strong></li>
+</ul>
+<hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>

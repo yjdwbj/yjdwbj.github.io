@@ -2290,7 +2290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yjdwbj">
@@ -2309,8 +2309,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
-                  debian 安装mate桌面与设置多屏
+                <a class="post-title-link" href="/2016/05/29/codeblocks与STM32的开发环境配置/" itemprop="url">
+                  codeblocks与STM32的开发环境配置
                 </a>
               
             
@@ -2353,7 +2353,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
+                <time title="修改时间：2016-12-14 22:25:00" itemprop="dateModified" datetime="2016-12-14T22:25:00+08:00">2016-12-14</time>
               
             
           </span>
@@ -2370,7 +2370,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
 
                 
                 
@@ -2406,58 +2406,262 @@
       
         
           
-            <ul>
-<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
+            <h3 id="软件硬件配置"><a href="#软件硬件配置" class="headerlink" title="软件硬件配置"></a>软件硬件配置</h3><ul>
+<li><a href="http://www.st.com/stm32f4-discovery" target="_blank" rel="external">STM32F4 Discovery</a></li>
+<li><a href="http://codeblocks.org/downloads" target="_blank" rel="external">Codeblocks 16.01</a></li>
+<li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
+<li><a href="https://github.com/texane/stlink" target="_blank" rel="external">STLink</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="external">GCC ARM Embedded</a></li>
+</ul>
+<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><ul>
+<li>这里省略下载编译opencd 环节。</li>
+<li>openocd 安装在/usr/local下</li>
+<li>/usr/local/bin/openocd</li>
+<li>配置文件目录</li>
+<li><p>/usr/local/share/openocd/</p>
 </li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
+<li><p>在当前用户目录下创建一个<code>.openocd</code>目录</p>
+</li>
+<li><p>添加下面三行到~/.openocd/openocd.cfg</p>
 </li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/interface/stlink-v2.cfg]  </div><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/target/stm32f4x.cfg]  </div><div class="line">reset_config srst_only srst_nogate</div></pre></td></tr></table></figure>
 <ul>
-<li><p><strong>安装MATE相关的软件包:</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
+<li>连接STM32F4开发板，运行/usr/local/bin/openocd</li>
+<li>正常会出现下面信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">michael@debian:~$ /usr/<span class="built_in">local</span>/bin/openocd  </div><div class="line">Open On-Chip Debugger 0.10.0-dev-00146-g332023f (2015-12-05-18:09)  </div><div class="line">Licensed under GNU GPL v2   </div><div class="line">For bug reports, <span class="built_in">read</span>   </div><div class="line">  http://openocd.org/doc/doxygen/bugs.html  </div><div class="line">  Info : auto-selecting first available session transport <span class="string">"hla_swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.  </div><div class="line">  Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD   </div><div class="line">  adapter speed: 2000 kHz   </div><div class="line">  adapter_nsrst_delay: 100   </div><div class="line">  none separate   </div><div class="line">  srst_only separate srst_nogate srst_open_drain connect_deassert_srst   </div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz  </div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz  </div><div class="line">  Info : clock speed 1800 kHz  </div><div class="line">  Info : STLINK v2 JTAG v24 API v2 SWIM v0 VID 0x0483 PID 0x3748  </div><div class="line">  Info : using stlink api v2  </div><div class="line">  Info : Target voltage: 2.881129  </div><div class="line">  Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints</div></pre></td></tr></table></figure>
+<h3 id="STLink-驱动安装"><a href="#STLink-驱动安装" class="headerlink" title="STLink 驱动安装"></a>STLink 驱动安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ git <span class="built_in">clone</span> https://github.com/texane/stlink.git </div><div class="line">$ <span class="built_in">cd</span> STLink</div><div class="line">$ \./authorgen.sh</div><div class="line">$ \./configure --prefix=/opt/STLink</div><div class="line">$ make &amp;&amp; sudo make install</div><div class="line">$ sudo cp 49-stlinkv2.rules /etc/udev/rules.d/49-stlinkv2.rules</div></pre></td></tr></table></figure>
+<ul>
+<li>通过lsusb命令找出开板板的ID</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">Bus 001 Device 002: ID 0483:3748 STMicroelectronics ST-LINK/V2</div><div class="line">Bus 003 Device 010: ID 174c:5106 ASMedia Technology Inc. Transcend StoreJet 25M3</div></pre></td></tr></table></figure>
+<ul>
+<li>修改<code>/etc/udev/rules.d/49-stlinkv2.rules</code>,注意  ATTRS{idProduct}==<strong>“3748”</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ cat /etc/udev/rules.d/49-stlinkv2.rules </div><div class="line"><span class="comment"># stm32 discovery boards, with onboard st/linkv2</span></div><div class="line"><span class="comment"># ie, STM32L, STM32F4.</span></div><div class="line"><span class="comment"># STM32VL has st/linkv1, which is quite different</span></div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"0483"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"3748"</span>, \</div><div class="line">    MODE:=<span class="string">"0666"</span>, \</div><div class="line">    SYMLINK+=<span class="string">"stlinkv2_%n"</span>,OWNER=<span class="string">"michael"</span></div><div class="line"><span class="comment"># If you share your linux system with other users, or just don't like the</span></div><div class="line"><span class="comment"># idea of write permission for everybody, you can replace MODE:="0666" with</span></div><div class="line"><span class="comment"># OWNER:="yourusername" to create the device owned by you, or with</span></div><div class="line"><span class="comment"># GROUP:="somegroupname" and mange access using standard unix groups.</span></div></pre></td></tr></table></figure>
+<h3 id="刷新系统规则"><a href="#刷新系统规则" class="headerlink" title="刷新系统规则"></a>刷新系统规则</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ sudo udevadm control --reload-rules</div><div class="line">$ sudo udevadm trigger</div></pre></td></tr></table></figure>
+<h3 id="GCC-ARM-Embedded"><a href="#GCC-ARM-Embedded" class="headerlink" title="GCC ARM Embedded"></a>GCC ARM Embedded</h3><ul>
+<li>下载GCC工具链解压到<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3</code>,并且把<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3/bin</code> 添加系统环境变量里面</li>
+</ul>
+<h4 id="Codeblocks-配置"><a href="#Codeblocks-配置" class="headerlink" title="Codeblocks 配置"></a>Codeblocks 配置</h4><ul>
+<li>安装相应平台的codeblocks二进制包。</li>
+<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt=""></li>
+</ul>
+<h4 id="编译器的全局设置"><a href="#编译器的全局设置" class="headerlink" title="编译器的全局设置"></a>编译器的全局设置</h4><ul>
+<li>设置ARM工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt=""></li>
+</ul>
+<ul>
+<li>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt=""></li>
+</ul>
+<ul>
+<li>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt=""></li>
+</ul>
+<h4 id="STM32工程设置"><a href="#STM32工程设置" class="headerlink" title="STM32工程设置"></a>STM32工程设置</h4><ul>
+<li><p>这里是针对STM32F4 Discovery开发板，工程设置的一些参数</p>
 </li>
-<li><p>安装FVWM相关软件包:</p>
+<li><p>编译选项设置，如下图所示。  </p>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
-<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
-<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
+<blockquote>
 <ul>
-<li>代码轻量</li>
-<li>符合标准 (如 PAM, logind, 等)</li>
-<li>为用户提供一个良好的界面。</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
-</li>
+<li>设置基于特定CPU的CFLAGS  参数。<strong> -mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99 </strong></li>
 </ul>
 </blockquote>
+<p><img src="/imgs/project_options.png" alt=""></p>
 <ul>
-<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
+<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt=""></p>
+</li>
+<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt=""></p>
 </li>
 </ul>
 <ul>
-<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
+<li>工程头文件查找目录,库文件查找目录。</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
-<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
-<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
-<li>获取屏幕的信息如下图所示.</li>
-</ul>
-<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
+<p><img src="/imgs/project_inc.png" alt=""><br><img src="/imgs/project_search_link.png" alt=""></p>
 <ul>
-<li><ul>
-<li>通过命令行设置.</li>
-</ul>
+<li><p>结合openocd 自动烧写bin文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt=""></p>
+</li>
+<li><p>工程中的自动烧写脚本文件。</p>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/expect    </span></div><div class="line">spawn telnet localhost 4444  </div><div class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span>   </div><div class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset halt\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset run\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"exit\r"</span>  </div><div class="line">interact</div></pre></td></tr></table></figure>
+<p><img src="/imgs/project_shfile.png" alt=""></p>
 <ul>
-<li>最后效果图如下.</li>
+<li>因为GCC工具链与Keil的链接文件是一样，必须在下面这个LD文件上修改，不能使用Keil版本的链接文件。</li>
 </ul>
-<p><img src="/imgs/xrandr_example.png" alt=""></p>
-<ul>
-<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
+<pre><code class="sh">/*
+*****************************************************************************
+**
+**  File        : stm32_flash.ld
+**
+**  Abstract    : Linker script <span class="keyword">for</span> STM32F407VG Device with
+**                1024KByte FLASH, 192KByte RAM
+**
+**                Set heap size, stack size and stack location according
+**                to application requirements.
+**
+**                Set memory bank area and size <span class="keyword">if</span> external memory is used.
+**
+**  Target      : STMicroelectronics STM32
+**
+**  Environment : Atollic TrueSTUDIO(R)
+**
+**  Distribution: The file is distributed “as is,” without any warranty
+**                of any kind.
+**
+**  (c)Copyright Atollic AB.
+**  You may use this file as-is or modify it according to the needs of your
+**  project. Distribution of this file (unmodified or modified) is not
+**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the
+**  rights to distribute the assembled, compiled &amp; linked contents of this
+**  file as part of an application binary file, provided that it is built
+**  using the Atollic TrueSTUDIO(R) toolchain.
+**
+*****************************************************************************
+*/
+/* Entry Point */
+ENTRY(Reset_Handler)
+/* Highest address of the user mode stack */
+_estack = 0x20020000;    /* end of 128K RAM on AHB bus*/
+/* Generate a link error <span class="keyword">if</span> heap and stack don<span class="string">'t fit into RAM */
+_Min_Heap_Size = 0;      /* required amount of heap  */
+_Min_Stack_Size = 0x400; /* required amount of stack */
+
+/* Specify the memory areas */
+MEMORY
+{
+    FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
+        RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K
+        MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
+    }
+    /* Define output sections */
+    SECTIONS
+{
+    /* The startup code goes first into FLASH */
+.isr_vector :
+    {
+        . = ALIGN(4);
+        KEEP(*(.isr_vector)) /* Startup code */
+        . = ALIGN(4);
+    } &gt;FLASH
+    /* The program code and other data goes into FLASH */
+.text :
+    {
+        . = ALIGN(4);
+        *(.text)           /* .text sections (code) */
+        *(.text*)          /* .text* sections (code) */
+        *(.rodata)         /* .rodata sections (constants, strings, etc.) */
+        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
+        *(.glue_7)         /* glue arm to thumb code */
+        *(.glue_7t)        /* glue thumb to arm code */
+        *(.eh_frame)
+        KEEP (*(.init))
+        KEEP (*(.fini))
+        . = ALIGN(4);
+        _etext = .;        /* define a global symbols at end of code */
+        _exit = .;
+    } &gt;FLASH
+.ARM.extab   :
+    { *(.ARM.extab* .gnu.linkonce.armextab.*) } &gt;FLASH
+.ARM :
+    {
+        __exidx_start = .;
+        *(.ARM.exidx*)
+        __exidx_end = .;
+    } &gt;FLASH
+
+.preinit_array     :
+    {
+        PROVIDE_HIDDEN (__preinit_array_start = .);
+        KEEP (*(.preinit_array*))
+        PROVIDE_HIDDEN (__preinit_array_end = .);
+    } &gt;FLASH
+.init_array :
+    {
+        PROVIDE_HIDDEN (__init_array_start = .);
+        KEEP (*(SORT(.init_array.*)))
+        KEEP (*(.init_array*))
+        PROVIDE_HIDDEN (__init_array_end = .);
+    } &gt;FLASH
+.fini_array :
+    {
+        PROVIDE_HIDDEN (__fini_array_start = .);
+        KEEP (*(.fini_array*))
+        KEEP (*(SORT(.fini_array.*)))
+        PROVIDE_HIDDEN (__fini_array_end = .);
+    } &gt;FLASH
+
+    /* used by the startup to initialize data */
+    _sidata = .;
+
+    /* Initialized data sections goes into RAM, load LMA copy after code */
+.data :
+    AT ( _sidata )
+    {
+        . = ALIGN(4);
+        _sdata = .;        /* create a global symbol at data start */
+        *(.data)           /* .data sections */
+        *(.data*)          /* .data* sections */
+
+        . = ALIGN(4);
+        _edata = .;        /* define a global symbol at data end */
+    } &gt;RAM
+
+    /* Uninitialized data section */
+    . = ALIGN(4);
+.bss :
+    {
+        /* This is used by the startup in order to initialize the .bss secion */
+        _sbss = .;         /* define a global symbol at bss start */
+        __bss_start__ = _sbss;
+        *(.bss)
+        *(.bss*)
+        *(COMMON)
+
+        . = ALIGN(4);
+        _ebss = .;         /* define a global symbol at bss end */
+        __bss_end__ = _ebss;
+    } &gt;RAM
+
+    /* User_heap_stack section, used to check that there is enough RAM left */
+._user_heap_stack :
+    {
+        . = ALIGN(4);
+        PROVIDE ( end = . );
+        PROVIDE ( _end = . );
+        . = . + _Min_Heap_Size;
+        . = . + _Min_Stack_Size;
+        . = ALIGN(4);
+    } &gt;RAM
+
+    /* MEMORY_bank1 section, code must be located here explicitly            */
+    /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
+.memory_b1_text :
+    {
+        *(.mb1text)        /* .mb1text sections (code) */
+        *(.mb1text*)       /* .mb1text* sections (code)  */
+        *(.mb1rodata)      /* read-only data (constants) */
+        *(.mb1rodata*)
+    } &gt;MEMORY_B1
+
+    /* Remove information from the standard libraries */
+/DISCARD/ :
+    {
+
+        libc.a ( * )
+        libm.a ( * )
+        libgcc.a ( * )
+    }
+
+.ARM.attributes 0 :
+    { *(.ARM.attributes) }
+}</span>
+</code></pre>
+<h3 id="编译下载"><a href="#编译下载" class="headerlink" title="编译下载"></a>编译下载</h3><ul>
+<li>完成上述设置，每次编译完成后都会自动telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
+<li>最终运行的效果如下图<br><img src="/imgs/img project_build.png" alt=""></li>
 </ul>
-<p><img src="/imgs/arandr.png" alt=""></p>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>

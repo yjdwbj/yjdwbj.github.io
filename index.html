@@ -732,7 +732,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-04-29 23:02:56" itemprop="dateModified" datetime="2018-04-29T23:02:56+08:00">2018-04-29</time>
+                <time title="修改时间：2018-05-19 11:41:52" itemprop="dateModified" datetime="2018-05-19T11:41:52+08:00">2018-05-19</time>
               
             
           </span>
@@ -796,20 +796,18 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LuCI &gt; 1. Collections &gt; luci</div><div class="line">LuCI &gt; 2. Modules &gt; Translations &gt; Chinese (zh-cn)</div></pre></td></tr></table></figure>
 </li>
 </ul>
+<h3 id="添加USB-WIFI-Atheros-AR9170-AR9101-支持-非必需"><a href="#添加USB-WIFI-Atheros-AR9170-AR9101-支持-非必需" class="headerlink" title="添加USB WIFI [Atheros AR9170+AR9101] 支持(非必需)"></a>添加USB WIFI [Atheros AR9170+AR9101] 支持(非必需)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 001 Device 003: ID 0846:9001 NetGear, Inc. WN111(v2) RangeMax Next Wireless [Atheros AR9170+AR9101]</div></pre></td></tr></table></figure>
+<ul>
+<li>支持<code>WN111(v2)</code>网卡的选项, <strong>Kernel modules -&gt; Wirless Drivers</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-*- kmod-ath...................................... Atheros common driver part --&gt;</div><div class="line">	[*]   Force Atheros drivers to respect the user&apos;s regdomain settings </div><div class="line">    [*]   Atheros wireless debugging  # 这里为可选.</div><div class="line">	[*]   Enable DFS support</div><div class="line">    [*]   Atheros spectral scan support</div><div class="line">[...]</div><div class="line">#下面这两项为必选</div><div class="line">&lt;*&gt; kmod-ath9k-htc........................ Atheros 802.11n USB device support </div><div class="line">&lt;*&gt; kmod-carl9170....................... Driver for Atheros AR9170 USB sticks</div></pre></td></tr></table></figure>
 <h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><pre><code>$ make -j1 V=s  # 可以详细输出编译日志
 
 $ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/
 $ ssh root@192.168.199.1
 $ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware
 reboot
-</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 用此固件测试联想的<strong>newifi y1</strong> 路由器会出现2.4G WIFI 能连接上但是无法上网的问题.<strong><a href="http://www.right.com.cn/forum/thread-191416-1-1.html" target="_blank" rel="external">相关论坛</a></strong> , <strong><a href="http://jg192.f3322.net:82/wordpress/index.php/2017/05/25/%E4%BC%98%E9%85%B7%E8%B7%AF%E7%94%B1%E5%AE%9D%E7%9B%B8%E5%85%B3/" target="_blank" rel="external">优酷路由宝相关</a></strong>,<a href="https://openwrt.io/docs/build-firmware/" target="_blank" rel="external">openwrt.io</a></p>
-<h5 id="错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2"><a href="#错误-ieee80211-phy3-rt2x00queue-write-tx-frame-Error-Dropping-frame-due-to-full-tx-queue-2" class="headerlink" title="错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2"></a>错误 ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</h5><pre><code class="bash">
-mt7620 cc openwrt 15.05.1 无线客户端多了报错:ieee80211 phy0: rt2x00queue_write_tx_frame: Error – Dropping frame due to full tx queue 2的处理办法：
-/openwrt/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7620/linux-3.18.xx/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c文件里
-修改:<span class="keyword">case</span> QID_AC_BK:
-– queue-&gt;<span class="built_in">limit</span> = 64;
-+ queue-&gt;<span class="built_in">limit</span> = 128;
-</code></pre>
+</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 另外要注的是,如果要使用2.4G 11N的模式,一定把<strong>Allow legacy 802.11b rates </strong>默认勾选去掉,不然会出现<strong>能连接不能上网</strong>的问题,它位于UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的AP里的<strong>Allow legacy 802.11b rates </strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G里如果不把上面这个勾选去掉,内核会一直报错<strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</p>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>

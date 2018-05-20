@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="VSCode
+安装VSCode
+因为vscode是支持跨平台,多语言,易配置的免费IDE工具,所以安装是很简的.我这里以Linux Debian系统为例.
+
+插件与扩展
+安装插件也是很简单,当然要确保电脑是可以上网的,选中VSCode主窗口按下组合快捷键Ctrl+Shift+P,就会出现下图的界面:
+
+ 输入:Ext就会有自动补全的选项,选择的项如图所示,确认之后就会在左边Docker出现一个查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visual Studio Code使用笔记">
+<meta property="og:url" content="http://yoursite.com/2018/05/19/Visual-Studio-Code使用笔记/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="VSCode
+安装VSCode
+因为vscode是支持跨平台,多语言,易配置的免费IDE工具,所以安装是很简的.我这里以Linux Debian系统为例.
+
+插件与扩展
+安装插件也是很简单,当然要确保电脑是可以上网的,选中VSCode主窗口按下组合快捷键Ctrl+Shift+P,就会出现下图的界面:
+
+ 输入:Ext就会有自动补全的选项,选择的项如图所示,确认之后就会在左边Docker出现一个查询">
+<meta property="og:image" content="http://yoursite.com/imgs/extinstall.png">
+<meta property="og:image" content="http://yoursite.com/imgs/extsearch.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2018-05-20T00:56:55.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Visual Studio Code使用笔记">
+<meta name="twitter:description" content="VSCode
+安装VSCode
+因为vscode是支持跨平台,多语言,易配置的免费IDE工具,所以安装是很简的.我这里以Linux Debian系统为例.
+
+插件与扩展
+安装插件也是很简单,当然要确保电脑是可以上网的,选中VSCode主窗口按下组合快捷键Ctrl+Shift+P,就会出现下图的界面:
+
+ 输入:Ext就会有自动补全的选项,选择的项如图所示,确认之后就会在左边Docker出现一个查询">
+<meta name="twitter:image" content="http://yoursite.com/imgs/extinstall.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/19/Visual-Studio-Code使用笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Visual Studio Code使用笔记 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise 博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/Visual-Studio-Code使用笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Visual Studio Code使用笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-19 22:40:11" itemprop="dateCreated datePublished" datetime="2018-05-19T22:40:11+08:00">2018-05-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-05-20 08:56:55" itemprop="dateModified" datetime="2018-05-20T08:56:55+08:00">2018-05-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://code.visualstudio.com/" target="_blank" rel="external">VSCode</a></p>
+<h3 id="安装VSCode"><a href="#安装VSCode" class="headerlink" title="安装VSCode"></a>安装VSCode</h3><ul>
+<li>因为vscode是支持跨平台,多语言,易配置的免费IDE工具,所以安装是很简的.我这里以<code>Linux Debian</code>系统为例.</li>
+</ul>
+<h5 id="插件与扩展"><a href="#插件与扩展" class="headerlink" title="插件与扩展"></a>插件与扩展</h5><ul>
+<li>安装插件也是很简单,当然要确保电脑是可以上网的,选中VSCode主窗口按下组合快捷键<code>Ctrl+Shift+P</code>,就会出现下图的界面:</li>
+</ul>
+<p><img src="/imgs/extinstall.png" alt="extinstall"> 输入:<code>Ext</code>就会有自动补全的选项,选择的项如图所示,确认之后就会在左边Docker出现一个查询列表,在这里输入一些关键字进行查询,没有安装的插件,会在右下端有绿色高亮显示<font color="green"><code>install</code></font>安装按钮.如下图所示:<br><img src="/imgs/extsearch.png" alt="extsearch"></p>
+<h3 id="C-C-工程开发-CMake"><a href="#C-C-工程开发-CMake" class="headerlink" title="C/C++ 工程开发(CMake)"></a>C/C++ 工程开发(CMake)</h3><ul>
+<li>安装了的插件有:<ul>
+<li>ms-vscode.cpptools</li>
+<li>mitaki28.vscode-clang</li>
+<li>twxs.cmake</li>
+<li>vector-of-bool.cmake-tools</li>
+<li>webfreak.debug</li>
+</ul>
+</li>
+</ul>
+<h4 id="创建CMakeLists-txt"><a href="#创建CMakeLists-txt" class="headerlink" title="创建CMakeLists.txt"></a>创建CMakeLists.txt</h4><ul>
+<li>首先新建一个空目录,使用VSCode打开这个目录,同时我个人喜欢把编译目录也建在这个目录下,名为<code>build</code>.用VSCode新建一个名为<code>CMakeLists.txt</code>的文件加入如下基本行:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">project(chapter3)</div><div class="line">cmake_minimum_required(VERSION 3.0)</div><div class="line">aux_source_directory(. DIR_ROOT_SRCS)</div><div class="line"></div><div class="line">#下面这三行不是必须,这三行只是为了使用非标准路径的OpenCV库.</div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include)</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib)</div><div class="line">find_package(OpenCV 3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5)</div><div class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;DIR_ROOT_SRCS&#125;)</div><div class="line">target_link_libraries($&#123;PROJECT_NAME&#125; $&#123;OpenCV_LIBS&#125;)</div></pre></td></tr></table></figure>
+<h4 id="创建c-cpp-properties-json文件"><a href="#创建c-cpp-properties-json文件" class="headerlink" title="创建c_cpp_properties.json文件"></a>创建c_cpp_properties.json文件</h4><ul>
+<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>C/Cpp: Edit Configurations ...</code>确定,就会进入一个新的名为<code>c_cpp_properties.json</code>的文件编辑状态,输入如下内容:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;configurations&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;Linux&quot;,</div><div class="line">            </div><div class="line">            &quot;browse&quot;: &#123;</div><div class="line">            // 这个path是为在开发中自动补齐头文件名</div><div class="line">                &quot;path&quot;: [</div><div class="line">                    &quot;/fullpath/opencv-build-3.x-qt5/include&quot;,</div><div class="line">                    &quot;$&#123;workspaceFolder&#125;&quot;</div><div class="line">                ],</div><div class="line">                &quot;limitSymbolsToIncludedHeaders&quot;: true</div><div class="line">            &#125;,</div><div class="line">            &quot;includePath&quot;: [</div><div class="line">                &quot;/fullpath/opencv-build-3.x-qt5/include&quot;,</div><div class="line">                &quot;$&#123;workspaceFolder&#125;/**&quot;</div><div class="line">            ],</div><div class="line">            &quot;defines&quot;: [],</div><div class="line">            &quot;compilerPath&quot;: &quot;/usr/bin/clang&quot;,</div><div class="line">            &quot;cStandard&quot;: &quot;c11&quot;,</div><div class="line">            &quot;cppStandard&quot;: &quot;c++17&quot;,</div><div class="line">            &quot;intelliSenseMode&quot;: &quot;clang-x64&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;version&quot;: 4</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="创建tasks-json文件"><a href="#创建tasks-json文件" class="headerlink" title="创建tasks.json文件"></a>创建tasks.json文件</h4><ul>
+<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>Tasks: Configure Default Build Tasks</code>,或者从工具栏的<code>Tasks-&gt;Configure Default Build Task ...</code>,就会出现一个下拉列表,选择<strong>Other</strong>,就会进入一个新的名为<code>tasks.json</code>的文件编辑状态,填入如下内容.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123;</div><div class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</div><div class="line">    // for the documentation about the tasks.json format</div><div class="line">    &quot;version&quot;: &quot;2.0.0&quot;,</div><div class="line">    &quot;tasks&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;label&quot;: &quot;cmake&quot;,</div><div class="line">            &quot;type&quot;: &quot;shell&quot;,</div><div class="line">            &quot;command&quot;: &quot;cd build &amp;&amp; cmake ../&quot;,</div><div class="line">            &quot;group&quot;: &#123;</div><div class="line">                &quot;kind&quot;: &quot;build&quot;,</div><div class="line">                &quot;isDefault&quot;: true</div><div class="line">            &#125;,</div><div class="line">            &quot;presentation&quot;: &#123;</div><div class="line">                &quot;echo&quot;: true,</div><div class="line">                &quot;reveal&quot;: &quot;always&quot;,</div><div class="line">                &quot;focus&quot;: false,</div><div class="line">                &quot;panel&quot;: &quot;shared&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;problemMatcher&quot;: []</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &quot;label&quot;: &quot;make&quot;,</div><div class="line">            &quot;type&quot;: &quot;shell&quot;,</div><div class="line">            &quot;command&quot;: &quot;cd build &amp;&amp; make&quot;,</div><div class="line">            &quot;group&quot;: &#123;</div><div class="line">                &quot;kind&quot;: &quot;build&quot;,</div><div class="line">                &quot;isDefault&quot;: true</div><div class="line">            &#125;,</div><div class="line">            &quot;presentation&quot;: &#123;</div><div class="line">                &quot;echo&quot;: true,</div><div class="line">                &quot;reveal&quot;: &quot;always&quot;,</div><div class="line">                &quot;focus&quot;: false,</div><div class="line">                &quot;panel&quot;: &quot;shared&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;problemMatcher&quot;: []</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="创建程序主文件"><a href="#创建程序主文件" class="headerlink" title="创建程序主文件"></a>创建程序主文件</h4><ul>
+<li>新建一个名为<code>main.cpp</code>的文件如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;opencv2/core.hpp&gt;</div><div class="line">#include &lt;opencv2/highgui.hpp&gt;</div><div class="line">#include &lt;opencv2/imgproc.hpp&gt;</div><div class="line"></div><div class="line">using namespace std;</div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc,char *argv[])</div><div class="line">&#123;</div><div class="line">    cv::Mat srcImage = cv::imread(&quot;../../images/hand1.jpg&quot;);</div><div class="line">    cv::imshow(&quot;bitwise_add&quot;,bitImage);</div><div class="line">    cv::waitKey(0);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="创建Debug-launc-json"><a href="#创建Debug-launc-json" class="headerlink" title="创建Debug launc.json"></a>创建Debug launc.json</h4><ul>
+<li>组合快捷键<code>Ctrl+Shift+D</code> 下拉选择<code>Add Configurations...</code>-&gt;选择<code>C++(GDB/LLDB)</code>,就会进入一个新的名为<code>launch.json</code>的文件编辑状态,文件如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // Use IntelliSense to learn about possible attributes.</div><div class="line">    // Hover to view descriptions of existing attributes.</div><div class="line">    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</div><div class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</div><div class="line">    &quot;configurations&quot;: [</div><div class="line"></div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;(gdb) Launch&quot;,</div><div class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</div><div class="line">            &quot;request&quot;: &quot;launch&quot;,</div><div class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/build/chapter3&quot;,</div><div class="line">            &quot;args&quot;: [],</div><div class="line">            &quot;stopAtEntry&quot;: false,</div><div class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</div><div class="line">            &quot;environment&quot;: [],</div><div class="line">            &quot;externalConsole&quot;: true,</div><div class="line">            &quot;MIMode&quot;: &quot;gdb&quot;,</div><div class="line">            //这一行是为了在调试前编译一次工程.</div><div class="line">            &quot;preLaunchTask&quot;: &quot;make&quot;,</div><div class="line">            &quot;setupCommands&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,</div><div class="line">                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,</div><div class="line">                    &quot;ignoreFailures&quot;: true</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &#123; </div><div class="line">            &quot;name&quot;: &quot;(gdb) Attach&quot;,</div><div class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</div><div class="line">            &quot;request&quot;: &quot;attach&quot;,</div><div class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/build/chapter1&quot;,</div><div class="line">            &quot;processId&quot;: &quot;$&#123;command:pickProcess&#125;&quot;,</div><div class="line">            &quot;MIMode&quot;: &quot;gdb&quot;,</div><div class="line">            &quot;setupCommands&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,</div><div class="line">                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,</div><div class="line">                    &quot;ignoreFailures&quot;: true</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h4><ul>
+<li>现在就可以用组合快捷键<code>Ctrl+Shift+B</code>先运行<code>cmake</code>再运行<code>make</code>就能生成出目标文件了.</li>
+<li>用<code>F9</code>在源文件里下断点,<code>F5</code>运行GDB调试.</li>
+<li>工程的目录结构如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~/opencv_chapter3$ ls -a</div><div class="line">.  ..  build  CMakeLists.txt  main.cpp  .vscode</div><div class="line">~/opencv_chapter3$ tree .vscode/</div><div class="line">.vscode/</div><div class="line">├── c_cpp_properties.json</div><div class="line">├── launch.json</div><div class="line">└── tasks.json</div><div class="line"></div><div class="line">0 directories, 3 files</div></pre></td></tr></table></figure>
+<ul>
+<li>显而易见的,在根目录下有一个<code>.vscode</code>的隐藏目录,里面有我刚创建的三个文件.</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>这里只是关于<code>VSCode</code>的最基本使用流程,后续会加上其它语言,其它平台的使用笔记进来.初步使用的感觉与效率都很适合我,我以前使用的<code>Qt Creator</code>时间比较长,总体来讲,使用难度曲线不高. </li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CMake-OpenCV-VSCode/" rel="tag"># CMake,OpenCV,VSCode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/02/Android错误集/" rel="next" title="Android错误集">
+                <i class="fa fa-chevron-left"></i> Android错误集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/imgs/avatar.jpg"
+                alt="yjdwbj" />
+            
+              <p class="site-author-name" itemprop="name">yjdwbj</p>
+              <p class="site-description motion-element" itemprop="description">最是人间留不住,朱颜辞镜花辞树</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yjdwbj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yjdwbj@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/yjdwbj" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装VSCode"><span class="nav-number">1.</span> <span class="nav-text">安装VSCode</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#插件与扩展"><span class="nav-number">1.0.1.</span> <span class="nav-text">插件与扩展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-C-工程开发-CMake"><span class="nav-number">2.</span> <span class="nav-text">C/C++ 工程开发(CMake)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建CMakeLists-txt"><span class="nav-number">2.1.</span> <span class="nav-text">创建CMakeLists.txt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建c-cpp-properties-json文件"><span class="nav-number">2.2.</span> <span class="nav-text">创建c_cpp_properties.json文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建tasks-json文件"><span class="nav-number">2.3.</span> <span class="nav-text">创建tasks.json文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建程序主文件"><span class="nav-number">2.4.</span> <span class="nav-text">创建程序主文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Debug-launc-json"><span class="nav-number">2.5.</span> <span class="nav-text">创建Debug launc.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试运行"><span class="nav-number">2.6.</span> <span class="nav-text">测试运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

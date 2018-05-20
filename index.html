@@ -276,6 +276,231 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/Visual-Studio-Code使用笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/19/Visual-Studio-Code使用笔记/" itemprop="url">
+                  Visual Studio Code使用笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-19 22:40:11" itemprop="dateCreated datePublished" datetime="2018-05-19T22:40:11+08:00">2018-05-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-05-20 08:56:55" itemprop="dateModified" datetime="2018-05-20T08:56:55+08:00">2018-05-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://code.visualstudio.com/" target="_blank" rel="external">VSCode</a></p>
+<h3 id="安装VSCode"><a href="#安装VSCode" class="headerlink" title="安装VSCode"></a>安装VSCode</h3><ul>
+<li>因为vscode是支持跨平台,多语言,易配置的免费IDE工具,所以安装是很简的.我这里以<code>Linux Debian</code>系统为例.</li>
+</ul>
+<h5 id="插件与扩展"><a href="#插件与扩展" class="headerlink" title="插件与扩展"></a>插件与扩展</h5><ul>
+<li>安装插件也是很简单,当然要确保电脑是可以上网的,选中VSCode主窗口按下组合快捷键<code>Ctrl+Shift+P</code>,就会出现下图的界面:</li>
+</ul>
+<p><img src="/imgs/extinstall.png" alt="extinstall"> 输入:<code>Ext</code>就会有自动补全的选项,选择的项如图所示,确认之后就会在左边Docker出现一个查询列表,在这里输入一些关键字进行查询,没有安装的插件,会在右下端有绿色高亮显示<font color="green"><code>install</code></font>安装按钮.如下图所示:<br><img src="/imgs/extsearch.png" alt="extsearch"></p>
+<h3 id="C-C-工程开发-CMake"><a href="#C-C-工程开发-CMake" class="headerlink" title="C/C++ 工程开发(CMake)"></a>C/C++ 工程开发(CMake)</h3><ul>
+<li>安装了的插件有:<ul>
+<li>ms-vscode.cpptools</li>
+<li>mitaki28.vscode-clang</li>
+<li>twxs.cmake</li>
+<li>vector-of-bool.cmake-tools</li>
+<li>webfreak.debug</li>
+</ul>
+</li>
+</ul>
+<h4 id="创建CMakeLists-txt"><a href="#创建CMakeLists-txt" class="headerlink" title="创建CMakeLists.txt"></a>创建CMakeLists.txt</h4><ul>
+<li>首先新建一个空目录,使用VSCode打开这个目录,同时我个人喜欢把编译目录也建在这个目录下,名为<code>build</code>.用VSCode新建一个名为<code>CMakeLists.txt</code>的文件加入如下基本行:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">project(chapter3)</div><div class="line">cmake_minimum_required(VERSION 3.0)</div><div class="line">aux_source_directory(. DIR_ROOT_SRCS)</div><div class="line"></div><div class="line">#下面这三行不是必须,这三行只是为了使用非标准路径的OpenCV库.</div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include)</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib)</div><div class="line">find_package(OpenCV 3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5)</div><div class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;DIR_ROOT_SRCS&#125;)</div><div class="line">target_link_libraries($&#123;PROJECT_NAME&#125; $&#123;OpenCV_LIBS&#125;)</div></pre></td></tr></table></figure>
+<h4 id="创建c-cpp-properties-json文件"><a href="#创建c-cpp-properties-json文件" class="headerlink" title="创建c_cpp_properties.json文件"></a>创建c_cpp_properties.json文件</h4><ul>
+<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>C/Cpp: Edit Configurations ...</code>确定,就会进入一个新的名为<code>c_cpp_properties.json</code>的文件编辑状态,输入如下内容:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;configurations&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;Linux&quot;,</div><div class="line">            </div><div class="line">            &quot;browse&quot;: &#123;</div><div class="line">            // 这个path是为在开发中自动补齐头文件名</div><div class="line">                &quot;path&quot;: [</div><div class="line">                    &quot;/fullpath/opencv-build-3.x-qt5/include&quot;,</div><div class="line">                    &quot;$&#123;workspaceFolder&#125;&quot;</div><div class="line">                ],</div><div class="line">                &quot;limitSymbolsToIncludedHeaders&quot;: true</div><div class="line">            &#125;,</div><div class="line">            &quot;includePath&quot;: [</div><div class="line">                &quot;/fullpath/opencv-build-3.x-qt5/include&quot;,</div><div class="line">                &quot;$&#123;workspaceFolder&#125;/**&quot;</div><div class="line">            ],</div><div class="line">            &quot;defines&quot;: [],</div><div class="line">            &quot;compilerPath&quot;: &quot;/usr/bin/clang&quot;,</div><div class="line">            &quot;cStandard&quot;: &quot;c11&quot;,</div><div class="line">            &quot;cppStandard&quot;: &quot;c++17&quot;,</div><div class="line">            &quot;intelliSenseMode&quot;: &quot;clang-x64&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;version&quot;: 4</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="创建tasks-json文件"><a href="#创建tasks-json文件" class="headerlink" title="创建tasks.json文件"></a>创建tasks.json文件</h4><ul>
+<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>Tasks: Configure Default Build Tasks</code>,或者从工具栏的<code>Tasks-&gt;Configure Default Build Task ...</code>,就会出现一个下拉列表,选择<strong>Other</strong>,就会进入一个新的名为<code>tasks.json</code>的文件编辑状态,填入如下内容.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123;</div><div class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</div><div class="line">    // for the documentation about the tasks.json format</div><div class="line">    &quot;version&quot;: &quot;2.0.0&quot;,</div><div class="line">    &quot;tasks&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;label&quot;: &quot;cmake&quot;,</div><div class="line">            &quot;type&quot;: &quot;shell&quot;,</div><div class="line">            &quot;command&quot;: &quot;cd build &amp;&amp; cmake ../&quot;,</div><div class="line">            &quot;group&quot;: &#123;</div><div class="line">                &quot;kind&quot;: &quot;build&quot;,</div><div class="line">                &quot;isDefault&quot;: true</div><div class="line">            &#125;,</div><div class="line">            &quot;presentation&quot;: &#123;</div><div class="line">                &quot;echo&quot;: true,</div><div class="line">                &quot;reveal&quot;: &quot;always&quot;,</div><div class="line">                &quot;focus&quot;: false,</div><div class="line">                &quot;panel&quot;: &quot;shared&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;problemMatcher&quot;: []</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &quot;label&quot;: &quot;make&quot;,</div><div class="line">            &quot;type&quot;: &quot;shell&quot;,</div><div class="line">            &quot;command&quot;: &quot;cd build &amp;&amp; make&quot;,</div><div class="line">            &quot;group&quot;: &#123;</div><div class="line">                &quot;kind&quot;: &quot;build&quot;,</div><div class="line">                &quot;isDefault&quot;: true</div><div class="line">            &#125;,</div><div class="line">            &quot;presentation&quot;: &#123;</div><div class="line">                &quot;echo&quot;: true,</div><div class="line">                &quot;reveal&quot;: &quot;always&quot;,</div><div class="line">                &quot;focus&quot;: false,</div><div class="line">                &quot;panel&quot;: &quot;shared&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;problemMatcher&quot;: []</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="创建程序主文件"><a href="#创建程序主文件" class="headerlink" title="创建程序主文件"></a>创建程序主文件</h4><ul>
+<li>新建一个名为<code>main.cpp</code>的文件如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;opencv2/core.hpp&gt;</div><div class="line">#include &lt;opencv2/highgui.hpp&gt;</div><div class="line">#include &lt;opencv2/imgproc.hpp&gt;</div><div class="line"></div><div class="line">using namespace std;</div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc,char *argv[])</div><div class="line">&#123;</div><div class="line">    cv::Mat srcImage = cv::imread(&quot;../../images/hand1.jpg&quot;);</div><div class="line">    cv::imshow(&quot;bitwise_add&quot;,bitImage);</div><div class="line">    cv::waitKey(0);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="创建Debug-launc-json"><a href="#创建Debug-launc-json" class="headerlink" title="创建Debug launc.json"></a>创建Debug launc.json</h4><ul>
+<li>组合快捷键<code>Ctrl+Shift+D</code> 下拉选择<code>Add Configurations...</code>-&gt;选择<code>C++(GDB/LLDB)</code>,就会进入一个新的名为<code>launch.json</code>的文件编辑状态,文件如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // Use IntelliSense to learn about possible attributes.</div><div class="line">    // Hover to view descriptions of existing attributes.</div><div class="line">    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</div><div class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</div><div class="line">    &quot;configurations&quot;: [</div><div class="line"></div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;(gdb) Launch&quot;,</div><div class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</div><div class="line">            &quot;request&quot;: &quot;launch&quot;,</div><div class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/build/chapter3&quot;,</div><div class="line">            &quot;args&quot;: [],</div><div class="line">            &quot;stopAtEntry&quot;: false,</div><div class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</div><div class="line">            &quot;environment&quot;: [],</div><div class="line">            &quot;externalConsole&quot;: true,</div><div class="line">            &quot;MIMode&quot;: &quot;gdb&quot;,</div><div class="line">            //这一行是为了在调试前编译一次工程.</div><div class="line">            &quot;preLaunchTask&quot;: &quot;make&quot;,</div><div class="line">            &quot;setupCommands&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,</div><div class="line">                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,</div><div class="line">                    &quot;ignoreFailures&quot;: true</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &#123; </div><div class="line">            &quot;name&quot;: &quot;(gdb) Attach&quot;,</div><div class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</div><div class="line">            &quot;request&quot;: &quot;attach&quot;,</div><div class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/build/chapter1&quot;,</div><div class="line">            &quot;processId&quot;: &quot;$&#123;command:pickProcess&#125;&quot;,</div><div class="line">            &quot;MIMode&quot;: &quot;gdb&quot;,</div><div class="line">            &quot;setupCommands&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,</div><div class="line">                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,</div><div class="line">                    &quot;ignoreFailures&quot;: true</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h4><ul>
+<li>现在就可以用组合快捷键<code>Ctrl+Shift+B</code>先运行<code>cmake</code>再运行<code>make</code>就能生成出目标文件了.</li>
+<li>用<code>F9</code>在源文件里下断点,<code>F5</code>运行GDB调试.</li>
+<li>工程的目录结构如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~/opencv_chapter3$ ls -a</div><div class="line">.  ..  build  CMakeLists.txt  main.cpp  .vscode</div><div class="line">~/opencv_chapter3$ tree .vscode/</div><div class="line">.vscode/</div><div class="line">├── c_cpp_properties.json</div><div class="line">├── launch.json</div><div class="line">└── tasks.json</div><div class="line"></div><div class="line">0 directories, 3 files</div></pre></td></tr></table></figure>
+<ul>
+<li>显而易见的,在根目录下有一个<code>.vscode</code>的隐藏目录,里面有我刚创建的三个文件.</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>这里只是关于<code>VSCode</code>的最基本使用流程,后续会加上其它语言,其它平台的使用笔记进来.初步使用的感觉与效率都很适合我,我以前使用的<code>Qt Creator</code>时间比较长,总体来讲,使用难度曲线不高. </li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/Android错误集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2226,181 +2451,6 @@ reboot
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/imgs/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/21/工作中的一些Bash-shell测试脚本/" itemprop="url">
-                  工作中的一些Bash shell测试脚本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-12-21 21:24:01" itemprop="dateCreated datePublished" datetime="2016-12-21T21:24:01+08:00">2016-12-21</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-29 23:06:12" itemprop="dateModified" datetime="2018-04-29T23:06:12+08:00">2018-04-29</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>　<em>*做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.</em></em></p>
-<h3 id="提取TOP命令中的数据"><a href="#提取TOP命令中的数据" class="headerlink" title="提取TOP命令中的数据"></a>提取TOP命令中的数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$ cat grep_pid.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">srvdir=<span class="string">"/root/netty_srv_dir/"</span></div><div class="line"></div><div class="line"><span class="comment">##　分类统计top输出的CPU与内存数据</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | head -n1 | awk <span class="string">'&#123;printf "\nCPU min:%4s\t", $9&#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | awk <span class="string">'&#123;sum+=$9;n++&#125;END&#123;printf "avg: %4s\t", sum /n &#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | tail -n1 | awk <span class="string">'&#123;printf " max:%4s\n", $9&#125;'</span></div><div class="line"><span class="comment">## print MEM</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k10 -n | tail -n1 | awk <span class="string">'&#123;printf "MEM: %4s\n",$10&#125;'</span></div><div class="line">cat <span class="variable">$srvdir</span><span class="variable">$1</span>.log &gt; <span class="variable">$1bak</span>.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.log</div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | sort -k 3 |tail -n1 | awk -F";" 'BEGIN&#123;print "Bytes Out\tBytes In\tPackets Out\tPackets In"&#125;&#123; printf "%sKB/s\t%sKB/s\t%sKB/s\t%sKB/s\n", $3 / 1000,$4/1000,$6/1000,$7/1000&#125;' </span></div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | awk 'BEGIN &#123;FS =";";print "BOut\tBin\tPOut\tPin"&#125;&#123;if(NF==16)&#123; if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t",$3&#125;;if($4&gt;1000)&#123;printf "%sKB/s\n",$4/1000&#125;else&#123;printf "%sb/s\n",$4&#125;&#125;&#125;' 18028.net </span></div><div class="line">cat /proc/net/sockstat | grep <span class="string">"TCP"</span> | awk <span class="string">'&#123;print $1,$9&#125;'</span></div><div class="line">awk <span class="string">'BEGIN&#123;print "\nBytesOut\t\tByteIn\t\tPacketsOut\tPacketsIn"&#125;'</span></div><div class="line"></div><div class="line"><span class="comment">## 分类统计bwn-ng输出的CSV格式数据.</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 3 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t\t",$3&#125;&#125;&#125;'</span>  </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 4 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($4&gt;1000)&#123;printf "%sKB/s\t",$4/1000&#125;else&#123;printf "%sb/s\t\t",$4&#125;&#125;&#125;'</span> </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 6 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($6&gt;1000)&#123;printf "%sKB/s\t",$6/1000&#125;else&#123;printf "%sb/s\t\t",$6&#125;&#125;&#125;'</span> </div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 7 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($7&gt;1000)&#123;printf "%sKB/s\n",$7/1000&#125;else&#123;printf "%sb/s\n",$7&#125;&#125;&#125;'</span> </div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.net</div></pre></td></tr></table></figure>
-<h3 id="自动批量回答yes"><a href="#自动批量回答yes" class="headerlink" title="自动批量回答yes"></a>自动批量回答yes</h3><ul>
-<li>这里是一个自动登录的脚本,因为每个服务器第一次连接都会提示要接受一个证书.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/expect -f</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> timeout 10</div><div class="line"></div><div class="line"><span class="built_in">set</span> num [lindex <span class="variable">$argv</span> 0]</div><div class="line"></div><div class="line">spawn ssh -b 172.168.<span class="variable">$num</span>.10 root@172.168.<span class="variable">$num</span>.100</div><div class="line">expect &#123;</div><div class="line"><span class="string">"*yes/no"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue&#125;</div><div class="line">&#125;</div><div class="line">expect <span class="string">"#*"</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">send <span class="string">"eof\r"</span></div><div class="line">expect eof</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>###　循环测试脚本</p>
-<ul>
-<li>这个脚本根据<code>camera_client.py</code>运行打印出``done”表示该程序运行结束,在while里把它清除掉.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@debian-t6:~<span class="comment"># cat test_loop.sh </span></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">srv=<span class="string">"192.168.25.100"</span></div><div class="line">python camera_client.py dev -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;</div><div class="line">dpid=$!</div><div class="line"><span class="built_in">echo</span> <span class="variable">$dpid</span></div><div class="line"><span class="keyword">done</span>=<span class="string">"done&gt;"</span></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span>; </div><div class="line"><span class="keyword">do</span></div><div class="line">    grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;&amp; <span class="built_in">kill</span> -9 <span class="variable">$dpid</span> &amp;&amp; <span class="built_in">break</span> || sleep 1</div><div class="line"><span class="keyword">done</span>  </div><div class="line">cat camera.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</div></pre></td></tr></table></figure>
-<h3 id="开启服务器与数据收集脚本"><a href="#开启服务器与数据收集脚本" class="headerlink" title="开启服务器与数据收集脚本"></a>开启服务器与数据收集脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ cat test_start_srv.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">## 设置系统的文件句柄数限制</span></div><div class="line"><span class="built_in">ulimit</span> -Hn 20000500</div><div class="line"><span class="built_in">ulimit</span> -Sn 20000500</div><div class="line"><span class="comment">#cd netty_srv_dir</span></div><div class="line"></div><div class="line"><span class="comment">## 清除上次运行的,``bwn-ng, top``命令.</span></div><div class="line">pkill bwm-ng</div><div class="line">pkill top</div><div class="line">srv=<span class="string">"asio_p2p_srv"</span></div><div class="line"><span class="comment">## 清除上次运行的服务器的进程</span></div><div class="line">pkill <span class="variable">$srv</span></div><div class="line"><span class="comment">##  服务已经运行,它的pid赋于给SPID变量,并保存在192.168.25.100机器上的/root/srv.pid里</span></div><div class="line"><span class="variable">$srv</span> &amp;  SPID=$!</div><div class="line">ssh -t root@192.168.25.100 <span class="string">"echo <span class="variable">$SPID</span> &gt; srv.pid"</span></div><div class="line"></div><div class="line"><span class="comment">## bwm-ng 监控网卡eth1的流量,并输出CSV格式到以SPID变量名,.net为后缀的文件名里.　它的pid赋于给NPID变量</span></div><div class="line">bwm-ng -o csv -T rate -I eth1 -F  <span class="variable">$SPID</span>.net &amp; NPID=$!</div><div class="line"><span class="comment">## top 只输出SPID的pid的信息,并重定向pid.log的文件名中.</span></div><div class="line">top -p <span class="variable">$SPID</span> -b &gt; <span class="variable">$SPID</span>.log  &amp;</div></pre></td></tr></table></figure>
-<h3 id="服务器测试脚本"><a href="#服务器测试脚本" class="headerlink" title="服务器测试脚本"></a>服务器测试脚本</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># cat start_srv.py </span></div><div class="line">import paramiko</div><div class="line">import select</div><div class="line">ssh = paramiko.SSHClient()</div><div class="line">SRV = <span class="string">"192.168.25.100"</span></div><div class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</div><div class="line">mykey = paramiko.RSAKey.from_private_key_file(<span class="string">"/root/.ssh/id_rsa"</span>)</div><div class="line">ssh.connect(<span class="string">"%s"</span> % SRV,username=<span class="string">"root"</span>,pkey=mykey)</div><div class="line">ssh.exec_command(<span class="string">"pkill test_start_srv"</span>)</div><div class="line">stdin,stdout,stderr = ssh.exec_command(<span class="string">"/root/test_start_srv.sh"</span>)</div><div class="line"><span class="keyword">while</span> not stdout.channel.exit_status_ready():</div><div class="line">    <span class="keyword">if</span> stdout.channel.recv_ready():</div><div class="line">        rl,wl,xl = select.select([stdout.channel],[],[],0.0)</div><div class="line">        <span class="keyword">if</span> len(rl )&gt; 0:</div><div class="line">            <span class="built_in">print</span> stdout.channel.recv(1024)</div><div class="line">            <span class="built_in">break</span></div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> cat test_devices_only.sh </div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">pid=`python start_srv.py`</div><div class="line"></div><div class="line">./test_camera_client.sh $1</div><div class="line">ssh -t root@192.168.25.100 &quot;/root/grep_pid.sh $pid &amp;&amp; pkill test_start_srv &amp;&amp; pkill socket_srv&quot;</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">cat test_app_dev.sh</div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">test_one()&#123;</div><div class="line">    tt=$200</div><div class="line">    ## 中止远程服务器的之前进程名.</div><div class="line">    ssh -t root@192.168.25.100 &quot;pkill test_start_srv &amp;&amp; pkill socket_srv&quot;</div><div class="line">    pid=`python start_srv.py`</div><div class="line">    srv=&quot;192.168.25.100&quot;</div><div class="line">    </div><div class="line">    ## 开启一种类型的客户端 ,DEV</div><div class="line">    python camera_client.py dev -H $srv -f $1 &amp;</div><div class="line">    dpid=$!</div><div class="line">    while true; </div><div class="line">    do</div><div class="line">       ## 等到DEV输出done,开记另一种类型的客户端,APP </div><div class="line">       grep &quot;done&quot; camera.log &amp;&amp; python camera_client.py app -H $srv -f $1 &amp;&amp; break || sleep 2</div><div class="line">    done  </div><div class="line"></div><div class="line">    ## 上面两种类型的客户端运行完成之后,把各类数据分类增量重定向到相应的文件名中.</div><div class="line">    cat camera.log &gt;&gt; $1.log</div><div class="line">    echo &quot;&quot; &gt; camera.log</div><div class="line">    pkill &quot;python&quot;</div><div class="line">    </div><div class="line">    ssh -t root@192.168.25.100 &quot;pkill test_start_srv &amp;&amp; pkill socket_srv &amp;&amp; /root/grep_pid.sh $pid&quot; &gt;&gt; $1.log</div><div class="line">    echo ---------------------------------------------------------------</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">run_ten_test()</div><div class="line">&#123;</div><div class="line">    test_one $1 $2 &gt;&gt; $1.log</div><div class="line">    echo &quot;$1 test result&quot; &gt;&gt; $1.result</div><div class="line">    ## 分类累计,DEV,APP输出的日志数据,并做平均计算.</div><div class="line">    grep &quot;DEV Run Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;Dev Run Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;DEV Avg Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;Dev Avg Time: %s\n&quot;, sum / n&#125;&apos;  &gt;&gt; $1.result</div><div class="line">    grep &quot;APP Run Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;APP Run Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;APP Avg Time&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;APP Avg Time: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    </div><div class="line">    ## 分类统计出top 输出的内存与CPU的总数与平均数值</div><div class="line">    grep &quot;CPU&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;AVG CPU: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    grep &quot;MEM&quot; $1.log | awk &apos;&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf &quot;AVG MEM: %s\n&quot;, sum / n&#125;&apos; &gt;&gt; $1.result</div><div class="line">    echo &quot;$1 test result---------------------------------------------------------&quot; &gt;&gt; $1.result</div><div class="line">&#125;</div><div class="line">test_all()</div><div class="line">&#123;</div><div class="line">    ext=&quot;0000.txt&quot;</div><div class="line">    pre=&quot;user_&quot;</div><div class="line">        for i in `seq 1 6`;</div><div class="line">        do </div><div class="line">            echo &quot;start test $pre$i$ext&quot;</div><div class="line">            test_one $pre$i$ext $i</div><div class="line">            echo &quot;test $pre$i$ext done&quot; </div><div class="line">            echo &quot;wait 30 seconds&quot;</div><div class="line">            sleep 30</div><div class="line">        done</div><div class="line">&#125;</div><div class="line">test_all</div></pre></td></tr></table></figure>
-<h3 id="复制目录-并生成二进制文件"><a href="#复制目录-并生成二进制文件" class="headerlink" title="复制目录,并生成二进制文件"></a>复制目录,并生成二进制文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cat ./rsync_openresty.sh </div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">LUAJIT=/usr/<span class="built_in">local</span>/openresty/luajit/bin/luajit</div><div class="line">ORG=openresty-china</div><div class="line">BYTECODE=openresty-byte</div><div class="line"></div><div class="line"><span class="comment">## 清除旧的目录</span></div><div class="line">rm -rf <span class="variable">$&#123;BYTECODE&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## 用find 把目录找出来,替换ORG到BYTECODE.</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find <span class="variable">$&#123;ORG&#125;</span> -type d`;<span class="keyword">do</span> </div><div class="line">     mkdir -p <span class="string">"<span class="variable">$&#123;i/"$&#123;ORG&#125;</span>"</span>/<span class="string">"<span class="variable">$&#123;BYTECODE&#125;</span>"</span>&#125;<span class="string">"</span></div><div class="line">done</div><div class="line"></div><div class="line">## 用find 把*.lua结尾的文件找来,并使用LUAJIT编译成字节码,输出到BYTECODE的相应目录下</div><div class="line">for i in `find <span class="variable">$&#123;ORG&#125;</span> -iname "*.lua<span class="string">"`;do </span></div><div class="line">    <span class="variable">$&#123;LUAJIT&#125;</span> -b <span class="variable">$i</span> "<span class="variable">$&#123;i/"$&#123;ORG&#125;</span><span class="string">"/"</span><span class="variable">$&#123;BYTECODE&#125;</span><span class="string">"&#125;"</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">cp <span class="variable">$&#123;ORG&#125;</span>/conf/* <span class="variable">$&#123;BYTECODE&#125;</span>/conf</div><div class="line"></div><div class="line">rsync --exclude=<span class="string">"*.git"</span> --exclude=<span class="string">"*.sh"</span> --exclude=<span class="string">"config.lua"</span> --exclude=<span class="string">"*.conf"</span> <span class="_">-a</span> <span class="variable">$&#123;BYTECODE&#125;</span>/* root@exmaple.com:/home/www/test_openresty</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2452,7 +2502,7 @@ reboot
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2524,7 +2574,9 @@ reboot
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

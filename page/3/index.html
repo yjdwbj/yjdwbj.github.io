@@ -276,233 +276,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/imgs/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
-                  debian 安装mate桌面与设置多屏
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
-</li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
-</li>
-</ul>
-<ul>
-<li><p><strong>安装MATE相关的软件包:</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装FVWM相关软件包:</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
-<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
-<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
-<ul>
-<li>代码轻量</li>
-<li>符合标准 (如 PAM, logind, 等)</li>
-<li>为用户提供一个良好的界面。</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
-<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
-<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
-<li>获取屏幕的信息如下图所示.</li>
-</ul>
-<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
-<ul>
-<li><ul>
-<li>通过命令行设置.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
-<ul>
-<li>最后效果图如下.</li>
-</ul>
-<p><img src="/imgs/xrandr_example.png" alt=""></p>
-<ul>
-<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
-</ul>
-<p><img src="/imgs/arandr.png" alt=""></p>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -875,6 +648,233 @@ MEMORY
 <li>完成上述设置，每次编译完成后都会自动telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
 <li>最终运行的效果如下图<br><img src="/imgs/img project_build.png" alt=""></li>
 </ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
+                  debian 安装mate桌面与设置多屏
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
+</li>
+<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
+</li>
+</ul>
+<ul>
+<li><p><strong>安装MATE相关的软件包:</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装FVWM相关软件包:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
+<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
+<ul>
+<li>代码轻量</li>
+<li>符合标准 (如 PAM, logind, 等)</li>
+<li>为用户提供一个良好的界面。</li>
+<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
+<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
+<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
+<li>获取屏幕的信息如下图所示.</li>
+</ul>
+<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
+<ul>
+<li><ul>
+<li>通过命令行设置.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
+<ul>
+<li>最后效果图如下.</li>
+</ul>
+<p><img src="/imgs/xrandr_example.png" alt=""></p>
+<ul>
+<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
+</ul>
+<p><img src="/imgs/arandr.png" alt=""></p>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>

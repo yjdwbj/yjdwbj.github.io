@@ -276,6 +276,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/07/为树莓派交叉编译FFMPEG程序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/07/07/为树莓派交叉编译FFMPEG程序/" itemprop="url">
+                  为树莓派交叉编译FFMPEG工具
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2016-07-07T00:00:00+08:00">2016-07-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 00:00:00" itemprop="dateModified" datetime="2016-12-14T00:00:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="0x1-下载Raspberrypi-的工具链"><a href="#0x1-下载Raspberrypi-的工具链" class="headerlink" title="0x1 下载Raspberrypi 的工具链"></a>0x1 下载Raspberrypi 的工具链</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span>  https://github.com/raspberrypi/tools.git</div><div class="line">$ <span class="built_in">cd</span> tools</div></pre></td></tr></table></figure>
+<ul>
+<li><code>tools</code>目录结构如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">├── arm-bcm2708</div><div class="line">│   ├── arm-bcm2708hardfp-linux-gnueabi</div><div class="line">│   ├── arm-bcm2708-linux-gnueabi</div><div class="line">│   ├── arm-rpi-4.9.3-linux-gnueabihf</div><div class="line">│   ├── gcc-linaro-arm-linux-gnueabihf-raspbian</div><div class="line">│   └── gcc-linaro-arm-linux-gnueabihf-raspbian-x64</div><div class="line">├── armstubs</div><div class="line">├── configs</div><div class="line">├── mkimage</div><div class="line">├── pkg</div><div class="line">├── test_code</div><div class="line">└── usbboot</div></pre></td></tr></table></figure>
+<ul>
+<li>因为我的操作系统是<code>debian x86_64</code> ,所以我要使用 <code>gcc-linaro-arm-linux-gnueabihf-raspbian-x64</code> 下面的工具链程序.设置环境变量<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:tools$/home/user/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin </div><div class="line">$ <span class="built_in">export</span> CC=arm-linux-gnueabihf-gcc </div><div class="line">$ <span class="built_in">export</span> GCC=<span class="variable">$CC</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="0x2-编译ffmpeg依赖软件包"><a href="#0x2-编译ffmpeg依赖软件包" class="headerlink" title="0x2 编译ffmpeg依赖软件包"></a>0x2 编译ffmpeg依赖软件包</h3><ul>
+<li>下面先要编译安装一些依赖的库,这里用到的<code>x264,libmp3lame</code>,编译的过程出现任何问题,要查看<code>config.log</code>分析处理解决.假设编译安装的目是<code>/home/user</code> 具体可以自己更改.</li>
+</ul>
+<h4 id="x264"><a href="#x264" class="headerlink" title="x264"></a>x264</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$  git <span class="built_in">clone</span> http://git.videolan.org/git/x264.git</div><div class="line">$ <span class="built_in">cd</span> x264 &amp;&amp; mkdir build-rpi &amp;&amp; <span class="built_in">cd</span> build-rpi</div><div class="line">$ ../configure --enable-static --enable-shared --cross-prefix=arm-linux-gnueabihf- --host=arm-linux --prefix=/home/user/</div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h4 id="libmp3lame"><a href="#libmp3lame" class="headerlink" title="libmp3lame"></a>libmp3lame</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/gypified/libmp3lame</div><div class="line">$ <span class="built_in">cd</span> libmp3lame &amp;&amp; mkdir build-rpi &amp;&amp; build-rpi</div><div class="line">$ ../configure --host=arm-linux --prefix=/home/user</div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<ul>
+<li>编译完成后的<code>/home/user</code> 目录结构如下: <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ tree user </div><div class="line">user </div><div class="line">├── bin</div><div class="line">│   ├── lame</div><div class="line">│   └── x264</div><div class="line">├── include</div><div class="line">│   ├── lame</div><div class="line">│   │   └── lame.h</div><div class="line">│   ├── x264_config.h</div><div class="line">│   └── x264.h</div><div class="line">├── lib</div><div class="line">│   ├── libmp3lame.a</div><div class="line">│   ├── libmp3lame.la</div><div class="line">│   ├── libmp3lame.so -&gt; libmp3lame.so.0.0.0</div><div class="line">│   ├── libmp3lame.so.0 -&gt; libmp3lame.so.0.0.0</div><div class="line">│   ├── libmp3lame.so.0.0.0</div><div class="line">│   ├── libx264.a</div><div class="line">│   ├── libx264.so -&gt; libx264.so.148</div><div class="line">│   ├── libx264.so.148</div><div class="line">│   └── pkgconfig</div><div class="line">│       └── x264.pc</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="0x3-下载并编译FFMPEG"><a href="#0x3-下载并编译FFMPEG" class="headerlink" title="0x3 下载并编译FFMPEG"></a>0x3 下载并编译FFMPEG</h3><ul>
+<li><p>这里最好新建一个目录用来编译,防止在当前目录下编译污染了当前目录.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://git.ffmpeg.org/ffmpeg.git</div><div class="line">$ <span class="built_in">cd</span> ffmpeg &amp;&amp; mkdir build-rpi &amp;&amp; <span class="built_in">cd</span> build-rpi</div><div class="line">$ ../configure --arch=armel --target-os=linux --enable-gpl --enable-libx264 --enable-nonfree</div><div class="line">  --enable-cross-compile --cross-prefix=arm-linux-gnueabihf-</div><div class="line">  --enable-libmp3lame --enable-encoder=png --enable-decoder=png </div><div class="line">  --enable-encoder=libx264 --enable-encoder=ljpeg --enable-zlib </div><div class="line">  --enable-bzlib --enable-muxer=mp4 --enable-muxer=avi --enable-muxer=avi</div><div class="line">  --enable-muxer=h264 --enable-parser=png --enable-parser=h264 --enable-parser=bmp </div><div class="line">  --extra-cflags=-I/home/user/include --extra-ldflags=-L/home/user/lib</div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果不出问题出问题会在编译目录下出现以下二进制文件:<code>ffserver,ffprobe,ffmpeg</code> ,使用file 测试一下文件类型如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ file ffmpeg</div><div class="line">ffmpeg: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, </div><div class="line">interpreter /lib/ld-linux-armhf.so.3, <span class="keyword">for</span> GNU/Linux 2.6.26, BuildID[sha1]=ec3417b6de5c9d89fe351048f6718a0857e760ff, stripped</div></pre></td></tr></table></figure>
+</li>
+<li><p>把上述三个文件复制到树莓派的机器下就可以直接运行了.</p>
+</li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/27/在Windows-环境下编译Qt静态库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1330,7 +1515,7 @@ MEMORY
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

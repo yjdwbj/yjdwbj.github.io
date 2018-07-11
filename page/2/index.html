@@ -1837,6 +1837,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/imgs/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
+                  常见编译问题,不定期更新.
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
+<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
+<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
+<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li><p>Linux 下要定义成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
+</li>
+<li><p>MinGW 下要定义成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/使用的一些常见问题-不定期更新/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2080,197 +2271,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install acpi-support</div><div class="line">~$ sudo mkswap /dev/sdb1</div><div class="line">~$ sudo swapon /dev/sdb1</div><div class="line"># 确保下面这两个文件里有这些行.</div><div class="line">~$ sudo cat /etc/fstab  | grep &quot;swap&quot;</div><div class="line">/dev/sdb1       none    swap    pri=1      0       0</div><div class="line">~$ sudo cat /etc/default/grub | grep &quot;resume&quot;</div><div class="line">GRUB_CMDLINE_LINUX=&quot;resume=/dev/sdb1&quot;</div><div class="line"></div><div class="line">#这一操作很重要.</div><div class="line">~$ sudo update-grub</div><div class="line"></div><div class="line">~$ cat /proc/acpi/wakeup </div><div class="line">Device	S-state	  Status   Sysfs node</div><div class="line">PB31	  S4	*disabled  pci:0000:00:03.1</div><div class="line">PB32	  S4	*disabled</div><div class="line">PB33	  S4	*disabled  pci:0000:00:03.3</div><div class="line">PB34	  S4	*disabled</div><div class="line">SBAZ	  S4	*disabled  pci:0000:00:14.2</div><div class="line">PS2K	  S3	*disabled</div><div class="line">PS2M	  S3	*disabled</div><div class="line">ECIR	  S4	*disabled</div><div class="line">P0PC	  S4	*disabled  pci:0000:00:14.4</div><div class="line">OHC1	  S4	*disabled  pci:0000:00:12.0</div><div class="line">EHC1	  S4	*disabled  pci:0000:00:12.2</div><div class="line">OHC2	  S4	*disabled  pci:0000:00:13.0</div><div class="line">EHC2	  S4	*disabled  pci:0000:00:13.2</div><div class="line">OHC3	  S4	*disabled</div><div class="line">EHC3	  S4	*disabled</div><div class="line">OHC4	  S4	*disabled  pci:0000:00:14.5</div><div class="line">XHC0	  S4	*disabled  pci:0000:00:10.0</div><div class="line">XHC1	  S4	*disabled  pci:0000:00:10.1</div><div class="line">PE20	  S4	*disabled</div><div class="line">PE21	  S4	*disabled</div><div class="line">PE22	  S4	*disabled</div><div class="line">PE23	  S4	*disabled</div><div class="line">PWRB	  S3	*enabled   platform:PNP0C0C:00</div><div class="line"></div><div class="line"># 上面是一些如何唤醒休眠的设备, 休眠中是可以通过移动鼠标或者键盘来唤醒,但是我这里把它们都关闭,让它只能通过电源按钮(PWRB)唤醒系统.</div><div class="line"></div><div class="line">~$  grep &quot;echo&quot; /etc/rc.local </div><div class="line">echo &quot;EHC1&quot; &gt; /proc/acpi/wakeup</div><div class="line">echo &quot;EHC2&quot; &gt; /proc/acpi/wakeup</div><div class="line">echo &quot;XHC&quot;  &gt; /proc/acpi/wakeup</div></pre></td></tr></table></figure>
 <ul>
 <li>通过上面设置,系统休眠与唤醒都很符合我的预期.</li>
-</ul>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/imgs/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
-                  常见编译问题,不定期更新.
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
-<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
-<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
-<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li><p>Linux 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
-</li>
-<li><p>MinGW 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
 </ul>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>

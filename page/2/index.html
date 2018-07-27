@@ -285,6 +285,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Windows下WinDDK驱动开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/19/Windows下WinDDK驱动开发/" itemprop="url">
+                  Windows下WinDDK驱动开发
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-19 20:50:06" itemprop="dateCreated datePublished" datetime="2017-04-19T20:50:06+08:00">2017-04-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-04-29 23:03:34" itemprop="dateModified" datetime="2018-04-29T23:03:34+08:00">2018-04-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="WinDDK"><a href="#WinDDK" class="headerlink" title="WinDDK"></a>WinDDK</h3><ul>
+<li>初始化 DDK</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\</div><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\bin&gt;setenv.bat C:\W<span class="keyword">in</span>DDK\7600.16385.1 fre WXP</div><div class="line">OACR monitor running already</div></pre></td></tr></table></figure>
+<ul>
+<li><code>WinDDK</code>包自带了很多开发示例代码，可以直接编译，经过上一步设置了环境变量，如果在根目录下直接运行<code>build</code>,或者<code>bcz</code>就会把所有的示例全部编译出来。如下面只编译一个示例如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui&gt;bcz</div><div class="line">BUILD: Compile and Link <span class="keyword">for</span> x86</div><div class="line">BUILD: Start time: Thu Apr 06 13:02:47 2017</div><div class="line">BUILD: Examining c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui directory <span class="keyword">for</span></div><div class="line"> files to compile.</div><div class="line">    c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui Auto-cleaning queue <span class="keyword">for</span> <span class="string">'W</span></div><div class="line">DKSamples:x86fre' (5 of 5 file(s) removed)</div><div class="line">Invalidating OACR warning <span class="built_in">log</span> <span class="keyword">for</span> <span class="string">'WDKSamples:x86fre'</span></div><div class="line">BUILD: rmdir /q/s .obj\src\<span class="built_in">print</span>\monitors\localui</div><div class="line">BUILD: Compiling c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui directory</div><div class="line">Configuring OACR <span class="keyword">for</span> <span class="string">'WDKSamples:x86fre'</span> - &lt;OACR on&gt;</div><div class="line">_NT_TARGET_VERSION SET TO WINXP</div><div class="line">Precompiling - precomp.h</div><div class="line">Compiling - localui.c</div><div class="line">Compiling - util.c</div><div class="line">Compiling - dialogs.c</div><div class="line">Compiling - config.c</div><div class="line">Compiling - mem.c</div><div class="line">Compiling - generating code...</div><div class="line">Building Library - .obj\src\<span class="built_in">print</span>\monitors\localui\objfre_wxp_x86\i386\ddklocalu</div><div class="line">i.lib</div><div class="line">BUILD: Linking <span class="keyword">for</span> c:\winddk\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui directory</div><div class="line">_NT_TARGET_VERSION SET TO WINXP</div><div class="line">Compiling resources - localui.rc</div><div class="line">_NT_TARGET_VERSION SET TO WINXP</div><div class="line">Linking Executable - .obj\src\<span class="built_in">print</span>\monitors\localui\objfre_wxp_x86\i386\ddkloca</div><div class="line">lui.dll</div><div class="line">BUILD: Finish time: Thu Apr 06 13:02:48 2017</div><div class="line">BUILD: Done</div><div class="line"></div><div class="line">    10 files compiled</div><div class="line">    1 library built</div><div class="line">    1 executable built</div><div class="line"></div><div class="line">C:\W<span class="keyword">in</span>DDK\7600.16385.1\src\<span class="built_in">print</span>\monitors\localui&gt;</div></pre></td></tr></table></figure>
+<h3 id="使用QT开发windows驱动"><a href="#使用QT开发windows驱动" class="headerlink" title="使用QT开发windows驱动"></a>使用QT开发windows驱动</h3><p>&emsp;&emsp;本人也是从使用VC++6.0 MFC开始入门做开发，后来接触并使用GTK，wxWidgets,QT做过一些开发,现在来说对MFC的东西很抵触，.NET与VB没有用过不好说，但是使用QT,wxWidgets做图形界面还是比较快捷的（对于本人来说）。如果是纯软件，我一般都喜欢在Linux下用QT开发，交叉编译出一个静态exe放到windows下发布。但是如果是WINDOWS驱动开发，那就肯定只能在WINDOWS做开发了，vs2010 实在用不习惯，我还是装了Qt来折腾，Qt加MinGW做驱动开发,主要是要用到Qt的图形界面,还有一些QT处理字符串的功能.</p>
+<p>&emsp;&emsp;之前开发都没有注意windows入口函数的问题exe的入口函数<code>WinMain</code>,DLL的入口函数<code>DllMain</code>，通过这次开发了解一些winAPI的功能，和一些需要注意的事项.</p>
+<p>&emsp;&emsp;Windows 开发动态库都是使用def文件做导出的，以前c/c++都是用　<code>__declspec(dllexport)</code>直接声明在函数头文件，如果使用MinGW GCC的编译器就会出现一个问题，可以参考<a href="http://www.willus.com/mingw/yongweiwu_stdcall.html" target="_blank" rel="external"><code>这里</code></a>，比如：要导出DllMain这个函数，它就会变成<code>DllMain@12</code>这样的符号，所以肯是加载不了这个dll的，在使用VC＋＋6.0时会有一个工具叫做<code>dependency walker</code>查看dll的依赖那些DLL，导出了那些函数符号名，到vs2010就不自带了，现在要去单独下载。<a href="http://www.dependencywalker.com/" target="_blank" rel="external"><code>下载地址</code></a>。使用def文件声明就没有这个问题了。如QT工程设置如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">QMAKE_LFLAGS += $<span class="variable">$PWD</span>/<span class="built_in">print</span>-mon.def</div><div class="line">DEFINES += _UNICODE _UNICODE STRICT</div></pre></td></tr></table></figure>
+<p>def 文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">LIBRARY        print-mon</div><div class="line">;DESCRIPTION    &apos;Redirected Port Monitor for Windows NT 5.0&apos;</div><div class="line">;DATA        MULTIPLE SHARED</div><div class="line">EXPORTS</div><div class="line">                DllMain</div><div class="line">                InitializePrintMonitor2</div><div class="line">;                InitializePrintMonitorUI</div></pre></td></tr></table></figure></p>
+<h3 id="开发遇到的问题"><a href="#开发遇到的问题" class="headerlink" title="开发遇到的问题"></a>开发遇到的问题</h3><ul>
+<li>下面是我要开发一个打印机的监视器，参照MSDN API文档开发。</li>
+</ul>
+<h4 id="库版本差异问题"><a href="#库版本差异问题" class="headerlink" title="库版本差异问题"></a>库版本差异问题</h4><p>&emsp;&emsp;Qt的自带的人MinGW的库文件如<code>winspool.a</code>是没有导出<code>XcvDataW</code>这个函数的，所以在链接时会出错，只是链接时出错， 不是运行时。这里有两个办法可以解决。</p>
+<ol>
+<li>我在Linux下交叉编译过Qt5.8,GCC-5.4，我用<code>nm</code>查看了一下<code>winspool.a</code>是有导出<code>XcvDataW</code>这个函数的，我尝试把拿过来，要QT里指定链接它<code>LIBS +=-L$$PWD/lib -lwinspool</code>,竟然编译通过，而且注意了，我windows下的MinGW GCC是5.3,也是可以编译链接的。</li>
+<li>下面这种是常用的，就是直接加载驱动程序文件，通过API取得它的函数入口地址如：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//定义函数指针</span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">BOOL</span> <span class="params">(WINAPI *pfnXcvData)</span><span class="params">(HANDLE hXcv, LPCWSTR pszDataName,</span></span></div><div class="line">                                  PBYTE pInputData, DWORD cbInputData,</div><div class="line">                                  PBYTE pOutputData, DWORD cbOutputData, PDWORD pcbOutputNeeded,</div><div class="line">                                  PDWORD pdwStatus);</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">HINSTANCE hInstance = LoadLibrary(TEXT(<span class="string">"winspool.drv"</span>));</div><div class="line"><span class="keyword">if</span> (hInstance != <span class="literal">NULL</span>) &#123;</div><div class="line">    pfnXcvData fpXcvData = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">    <span class="comment">//取得函数地址</span></div><div class="line">    fpXcvData = (pfnXcvData)GetProcAddress(hInstance, <span class="string">"XcvDataW"</span>);</div><div class="line">    <span class="keyword">if</span> (fpXcvData != <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="comment">//传入参数调用函数。</span></div><div class="line">        rc = fpXcvData(hXcv, <span class="string">L"AddPort"</span>,(PBYTE)pOut,</div><div class="line">                       (wcslen(pOut) + <span class="number">1</span>)*<span class="keyword">sizeof</span>(WCHAR),</div><div class="line">                       dwOutputData, <span class="number">0</span>, &amp;dwNeeded, &amp;dwStatus);</div><div class="line">    &#125;</div><div class="line">    FreeLibrary(hInstance);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="字符串的问题"><a href="#字符串的问题" class="headerlink" title="字符串的问题"></a>字符串的问题</h4><ul>
+<li>使用Qt+MinGW还有一个问题就是字符串转换的问题，被这个问题困了四五天。举例说明，<br>还是用<code>XcvData</code>这个函数举例，它的接口定义来自<a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff564255(v=vs.85" target="_blank" rel="external">MSDN</a>.aspx)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">BOOL <span class="title">XcvData</span><span class="params">(</span></span></div><div class="line">  _In_      HANDLE hXcv,</div><div class="line">  _In_      PCTSTR pszDataName,</div><div class="line">  _In_opt_  PBYTE  pInputData,</div><div class="line">            DWORD  cbInputData,   <span class="comment">//这里这度必须是WCHAR的长度，(wcslen(pOut) + 1)*sizeof(WCHAR)</span></div><div class="line">  _Out_opt_ PBYTE  pOutputData,</div><div class="line">            DWORD  cbOutputData,</div><div class="line">  _Out_     PDWORD pcbOutputNeeded,</div><div class="line">  _Out_opt_ PDWORD pdwStatus</div><div class="line">);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">size_t cbSize =sizeof(PWSTR) * 6;</div><div class="line">PWSTR pOut = (PWSTR)AllocSplMem(cbSize);</div><div class="line">StringCbCopy((PWSTR)pOut,cbSize,L&quot;Net3:&quot;);</div><div class="line">pOut[5] = NULL;</div><div class="line"></div><div class="line"></div><div class="line">pfnXcvData fpXcvData = NULL;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">rc = XcvData(hXcv, L&quot;AddPort&quot;,(PBYTE)pOut,</div><div class="line">                   // 原来把面直接写成常数6,该函数执行成功，就是不返回下一步，调试其它一切正常，最后才把它改成用WCHAR的长度就OK了。</div><div class="line">                   (wcslen(pOut) + 1)*sizeof(WCHAR),</div><div class="line">                   dwOutputData, 0, &amp;dwNeeded, &amp;dwStatus);</div></pre></td></tr></table></figure>
+<p>所以总结一句，<code>魔鬼在细节</code>,windows开发，WCHAR等宽字符问题一定要注意。比如PBYTE转QString ，尝试了很多次都不成功，最后找到方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PBYTE pInputData = &quot;Abc dddd&quot;;</div><div class="line">QString::fromUtf16(reinterpret_cast&lt;const unsigned short*&gt;(pInputData));</div><div class="line"></div><div class="line"></div><div class="line">QString t = &quot;abc&quot;;</div><div class="line"># QString 转 LPCWSTR</div><div class="line">LPCWSTR  tmp = (LPCWSTR)t.utf16();</div></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>Windows 下开发驱动肯定少不了<a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff557573.aspx" target="_blank" rel="external"><code>MSDN</code></a>,调试要用到<code>GetLastError</code> 的API去取得<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx" target="_blank" rel="external"><code>错误码</code></a>,重复性r 的操作最好还是用脚本来处理，比如：我开发调试一个打印监视器的驱动，每次要重启Spooler服务才能替换新的程序。写一个如下脚本省事又不出错：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@<span class="built_in">echo</span> on</div><div class="line"><span class="built_in">echo</span> %1</div><div class="line"><span class="built_in">set</span> TARGET=<span class="string">"C:\WINDOWS\system32\print-mon_i686.dll"</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> UITARGET=<span class="string">"C:\WINDOWS\system32\netmonui_i686.dll"</span></div><div class="line"></div><div class="line">sc stop Spooler</div><div class="line">;这个ping只是用来延时的</div><div class="line">ping 8.8.8.8 -n1 -w 5 &gt;nul</div><div class="line">IF EXIST  %TARGET%  del /f %TARGET%</div><div class="line">IF EXIST  %UITARGET% del /f %UITARGET%</div><div class="line">copy %1\netmon\debug\<span class="built_in">print</span>-mon_i686.dll %TARGET%</div><div class="line">copy %1\ui\debug\netmonui_i686.dll %UITARGET%</div><div class="line">sc start Spooler</div><div class="line"></div><div class="line">;一次不成功，再运行一次保险</div><div class="line"></div><div class="line">sc stop Spooler</div><div class="line">ping 8.8.8.8 -n1 -w 5 &gt;nul</div><div class="line">IF EXIST  %TARGET%  del /f %TARGET%</div><div class="line">IF EXIST  %UITARGET% del /f %UITARGET%</div><div class="line">copy %1\netmon\debug\<span class="built_in">print</span>-mon_i686.dll %TARGET%</div><div class="line">copy %1\ui\debug\netmonui_i686.dll %UITARGET%</div><div class="line">sc start Spooler</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/栽剪FFMPEG做GIF录屏工具/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2378,197 +2586,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
-                  常见编译问题,不定期更新.
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
-<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
-<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
-<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li><p>Linux 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
-</li>
-<li><p>MinGW 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2620,7 +2637,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2698,7 +2715,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

@@ -103,52 +103,43 @@
 
 
   <meta name="description" content="相关链接
+
 OpenOCD
 SAM-BA
 JTAG 相关Wiki
-elftosb
-imx-bootlets
-Arm None Toolchain
-Linaro Toolchain
 
 
 
-OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get install libhidapi-dev libhidapi-libus">
+OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get install libhidapi-dev libhidapi-libusb0  # CMSIS-DAP 必需要安装HIDAPI~ cd build~ ../configure --en">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下使用JLink与OpenOCD配合嵌入式开发">
 <meta property="og:url" content="http://yoursite.com/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
 <meta property="og:description" content="相关链接
+
 OpenOCD
 SAM-BA
 JTAG 相关Wiki
-elftosb
-imx-bootlets
-Arm None Toolchain
-Linaro Toolchain
 
 
 
-OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get install libhidapi-dev libhidapi-libus">
+OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get install libhidapi-dev libhidapi-libusb0  # CMSIS-DAP 必需要安装HIDAPI~ cd build~ ../configure --en">
 <meta property="og:image" content="http://yoursite.com/imgs/sam-ba-connector.png">
 <meta property="og:image" content="http://yoursite.com/imgs/sam-ba-main.png">
 <meta property="og:image" content="http://yoursite.com/imgs/sam-ba-no-lock.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2018-07-05T14:31:49.023Z">
+<meta property="og:updated_time" content="2018-08-03T04:17:31.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下使用JLink与OpenOCD配合嵌入式开发">
 <meta name="twitter:description" content="相关链接
+
 OpenOCD
 SAM-BA
 JTAG 相关Wiki
-elftosb
-imx-bootlets
-Arm None Toolchain
-Linaro Toolchain
 
 
 
-OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get install libhidapi-dev libhidapi-libus">
+OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get install libhidapi-dev libhidapi-libusb0  # CMSIS-DAP 必需要安装HIDAPI~ cd build~ ../configure --en">
 <meta name="twitter:image" content="http://yoursite.com/imgs/sam-ba-connector.png">
 
 
@@ -382,7 +373,7 @@ OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get instal
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-07-05 22:31:49" itemprop="dateModified" datetime="2018-07-05T22:31:49+08:00">2018-07-05</time>
+                <time title="修改时间：2018-08-03 12:17:31" itemprop="dateModified" datetime="2018-08-03T12:17:31+08:00">2018-08-03</time>
               
             
           </span>
@@ -416,52 +407,60 @@ OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get instal
 
       
         <ul>
-<li>相关链接<ul>
+<li><p>相关链接</p>
+<ul>
 <li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
 <li><a href="http://www.microchip.com/developmenttools/ProductDetails/atmel%20sam-ba%20in-system%20programmer" target="_blank" rel="external">SAM-BA</a></li>
 <li><a href="http://www.armadeus.org/wiki/index.php?title=JTAG" target="_blank" rel="external">JTAG 相关Wiki</a></li>
-<li><a href="http://repository.timesys.com/buildsources/e/elftosb/elftosb-10.12.01/" target="_blank" rel="external">elftosb</a></li>
-<li><a href="http://repository.timesys.com/buildsources/i/imx-bootlets/imx-bootlets-10.12.01" target="_blank" rel="external">imx-bootlets</a></li>
-<li><a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" target="_blank" rel="external">Arm None Toolchain</a></li>
-<li><a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="external">Linaro Toolchain</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="OpenOCD使用"><a href="#OpenOCD使用" class="headerlink" title="OpenOCD使用"></a>OpenOCD使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">~ apt-get install libhidapi-dev libhidapi-libusb0  # CMSIS-DAP 必需要安装HIDAPI</div><div class="line">~ cd build</div><div class="line">~ ../configure --enable-cmsis-dap</div><div class="line"></div><div class="line">libjaylink configuration summary:</div><div class="line"> - Package version ................ 0.1.0</div><div class="line"> - Library version ................ 0:0:0</div><div class="line"> - Installation prefix ............ /usr/local</div><div class="line"> - Building on .................... x86_64-pc-linux-gnu</div><div class="line"> - Building for ................... x86_64-pc-linux-gnu</div><div class="line">[...]</div><div class="line">OpenOCD configuration summary</div><div class="line">--------------------------------------------------</div><div class="line">MPSSE mode of FTDI based devices        yes (auto)</div><div class="line">ST-Link JTAG Programmer                 yes (auto)</div><div class="line">TI ICDI JTAG Programmer                 yes (auto)</div><div class="line">Keil ULINK JTAG Programmer              yes (auto)</div><div class="line">Altera USB-Blaster II Compatible        yes (auto)</div><div class="line">Versaloon-Link JTAG Programmer          yes (auto)</div><div class="line">OSBDM (JTAG only) Programmer            yes (auto)</div><div class="line">eStick/opendous JTAG Programmer         yes (auto)</div><div class="line">Andes JTAG Programmer                   yes (auto)</div><div class="line">USBProg JTAG Programmer                 yes (auto)</div><div class="line">Raisonance RLink JTAG Programmer        yes (auto)</div><div class="line">Olimex ARM-JTAG-EW Programmer           yes (auto)</div><div class="line">CMSIS-DAP Compliant Debugger            yes (auto)</div><div class="line">Altera USB-Blaster Compatible           yes (auto)</div><div class="line">ASIX Presto Adapter                     yes (auto)</div><div class="line">OpenJTAG Adapter                        yes (auto)</div><div class="line">SEGGER J-Link Programmer                yes (auto)</div></pre></td></tr></table></figure>
-<h5 id="CMSIS-DAP-连接"><a href="#CMSIS-DAP-连接" class="headerlink" title="CMSIS-DAP 连接"></a>CMSIS-DAP 连接</h5><ul>
+<h1 id="OpenOCD安装"><a href="#OpenOCD安装" class="headerlink" title="OpenOCD安装"></a>OpenOCD安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">~ apt-get install libhidapi-dev libhidapi-libusb0  <span class="comment"># CMSIS-DAP 必需要安装HIDAPI</span></div><div class="line">~ <span class="built_in">cd</span> build</div><div class="line">~ ../configure --enable-cmsis-dap</div><div class="line"></div><div class="line">libjaylink configuration summary:</div><div class="line"> - Package version ................ 0.1.0</div><div class="line"> - Library version ................ 0:0:0</div><div class="line"> - Installation prefix ............ /usr/<span class="built_in">local</span></div><div class="line"> - Building on .................... x86_64-pc-linux-gnu</div><div class="line"> - Building <span class="keyword">for</span> ................... x86_64-pc-linux-gnu</div><div class="line">[...]</div><div class="line">OpenOCD configuration summary</div><div class="line">--------------------------------------------------</div><div class="line">MPSSE mode of FTDI based devices        yes (auto)</div><div class="line">ST-Link JTAG Programmer                 yes (auto)</div><div class="line">TI ICDI JTAG Programmer                 yes (auto)</div><div class="line">Keil ULINK JTAG Programmer              yes (auto)</div><div class="line">Altera USB-Blaster II Compatible        yes (auto)</div><div class="line">Versaloon-Link JTAG Programmer          yes (auto)</div><div class="line">OSBDM (JTAG only) Programmer            yes (auto)</div><div class="line">eStick/opendous JTAG Programmer         yes (auto)</div><div class="line">Andes JTAG Programmer                   yes (auto)</div><div class="line">USBProg JTAG Programmer                 yes (auto)</div><div class="line">Raisonance RLink JTAG Programmer        yes (auto)</div><div class="line">Olimex ARM-JTAG-EW Programmer           yes (auto)</div><div class="line">CMSIS-DAP Compliant Debugger            yes (auto)</div><div class="line">Altera USB-Blaster Compatible           yes (auto)</div><div class="line">ASIX Presto Adapter                     yes (auto)</div><div class="line">OpenJTAG Adapter                        yes (auto)</div><div class="line">SEGGER J-Link Programmer                yes (auto)</div></pre></td></tr></table></figure>
+<h1 id="OpenOCD使用"><a href="#OpenOCD使用" class="headerlink" title="OpenOCD使用"></a>OpenOCD使用</h1><h2 id="CMSIS-DAP-连接"><a href="#CMSIS-DAP-连接" class="headerlink" title="CMSIS-DAP 连接"></a>CMSIS-DAP 连接</h2><ul>
 <li>查看USB的信息</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">[...]</div><div class="line">Bus 001 Device 007: ID 03eb:2111 Atmel Corp. </div><div class="line">[...]</div><div class="line"></div><div class="line">~$ lsusb -v -s 001:007 | grep &quot;iSerial&quot;</div><div class="line">  iSerial                 3 ATML1803040200001055</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">[...]</div><div class="line">Bus 001 Device 007: ID 03eb:2111 Atmel Corp. </div><div class="line">[...]</div><div class="line"></div><div class="line">~$ lsusb -v <span class="_">-s</span> 001:007 | grep <span class="string">"iSerial"</span></div><div class="line">  iSerial                 3 ATML1803040200001055</div></pre></td></tr></table></figure>
 <ul>
 <li>添加udev规则</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/udev/rules.d/49-cmsis-dap.rules </div><div class="line">SUBSYSTEMS==&quot;usb&quot;, ATTRS&#123;idVendor&#125;==&quot;03eb&quot;, ATTRS&#123;idProduct&#125;==&quot;2111&quot;, MODE:=&quot;0666&quot;, OWNER=&quot;user&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/udev/rules.d/49-cmsis-dap.rules </div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"03eb"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"2111"</span>, MODE:=<span class="string">"0666"</span>, OWNER=<span class="string">"user"</span></div></pre></td></tr></table></figure>
 <ul>
 <li>更新udev,创建一个openocd 连接配置文件</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ sudo udevadm trigger</div><div class="line">$ cat atmel_sam4s_xplained_pro.cfg </div><div class="line">interface cmsis-dap</div><div class="line">cmsis_dap_vid_pid 0x03eb 0x2111</div><div class="line">cmsis_dap_serial ATML1803040200001055</div><div class="line">set CHIPNAME ATSAM4SD32C</div><div class="line">source [find board/atmel_sam4s_xplained_pro.cfg]</div><div class="line"></div><div class="line">$ openocd -f atmel_sam4s_xplained_pro.cfg</div></pre></td></tr></table></figure>
-<h4 id="JLink-恢复"><a href="#JLink-恢复" class="headerlink" title="JLink 恢复"></a>JLink 恢复</h4><ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ sudo udevadm trigger</div><div class="line">~$ cat atmel_sam4s_xplained_pro.cfg </div><div class="line">interface cmsis-dap</div><div class="line">cmsis_dap_vid_pid 0x03eb 0x2111</div><div class="line">cmsis_dap_serial ATML1803040200001055</div><div class="line"><span class="built_in">set</span> CHIPNAME ATSAM4SD32C</div><div class="line"><span class="built_in">source</span> [find board/atmel_sam4s_xplained_pro.cfg]</div><div class="line"></div><div class="line">~$ openocd <span class="_">-f</span> atmel_sam4s_xplained_pro.cfg</div></pre></td></tr></table></figure>
+<h2 id="J-Link使用"><a href="#J-Link使用" class="headerlink" title="J-Link使用"></a>J-Link使用</h2><ul>
+<li>假如是J-Link硬件,目标板是<code>STM32F103ZET6</code>带有20Pin的JTAG接口,就直接命令行连接就可以了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ openocd <span class="_">-f</span> interface/jlink.cfg <span class="_">-f</span> target/stm32f1x.cfg</div></pre></td></tr></table></figure>
+<h2 id="J-Link-OB使用"><a href="#J-Link-OB使用" class="headerlink" title="J-Link-OB使用"></a>J-Link-OB使用</h2><ul>
+<li>假如是某宝30元左右,三线JLink-OB硬件,目标板是<code>STM32F103ZET6</code>带有<strong>SWD</strong>接口,就要用一个配置文件来连接了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">~$ cat jlink-swd.cfg </div><div class="line"><span class="built_in">source</span> [find interface/jlink.cfg]</div><div class="line">transport select swd</div><div class="line"><span class="built_in">source</span> [find target/stm32f1x.cfg]</div><div class="line"></div><div class="line">~$ openocd <span class="_">-f</span> jlink-swd.cfg</div></pre></td></tr></table></figure>
+<h1 id="JLink-恢复"><a href="#JLink-恢复" class="headerlink" title="JLink 恢复"></a>JLink 恢复</h1><ul>
 <li>因为某宝上面几十元的JLink在使用大于<code>5.0</code>以上的驱动时,如果不升级是没有问题的.如果选择了自动升级固件,就会提示错误,并且无法使,这时只能重新刷写旧版本的固件才能使用.</li>
 </ul>
-<h5 id="擦除固件"><a href="#擦除固件" class="headerlink" title="擦除固件"></a>擦除固件</h5><ul>
+<h2 id="擦除固件"><a href="#擦除固件" class="headerlink" title="擦除固件"></a>擦除固件</h2><ul>
 <li>如下图所示,打开盖板,会看到两排排针,一个写着<strong><code>erase</code></strong>,一个写着<strong><code>TST</code></strong>.先把<strong><code>earse</code></strong>短接,上电10秒以上,断开<code>erase</code>,短接<code>TST</code></li>
 <li>上电几秒,再继开短接.重新上电系统会出现如下设备</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 009 Device 106: ID 03eb:6124 Atmel Corp. at91sam SAMBA bootloader</div></pre></td></tr></table></figure>
-<h5 id="SAM-BA烧写"><a href="#SAM-BA烧写" class="headerlink" title="SAM-BA烧写"></a>SAM-BA烧写</h5><ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 009 Device 106: ID 03eb:6124 Atmel Corp. at91sam SAMBA bootloader</div></pre></td></tr></table></figure>
+<h2 id="SAM-BA烧写"><a href="#SAM-BA烧写" class="headerlink" title="SAM-BA烧写"></a>SAM-BA烧写</h2><ul>
 <li>sam-ba 是atmel的一个烧写工具,有Linux版与windows版,因为它是用QT开发的,所以两个平台的操作界面与流程是一样的,可以从参考链接下载, 我这里用的Linux</li>
-<li><p>运行sam-ba就会自动识别芯片,Jlink的主控芯片就是<code>AT91SAM7S64</code>, 如图所示<br><img src="/imgs/sam-ba-connector.png" alt=""></p>
-</li>
-<li><p>连接之后会出现如下图所示,不用修用参数,直接选一个正解的固件文件,按<code>Send File</code>就可以.<br><img src="/imgs/sam-ba-main.png" alt=""></p>
-</li>
-<li><p>烧写过程中会现对话框,要选择<code>UnLock it</code>,选择<code>Yes</code>才能烧写,后一次问你要不要<code>Lock it</code>锁定,选择<code>No</code>这样JLink才可以自动升级.<br><img src="/imgs/sam-ba-no-lock.png" alt=""></p>
-</li>
+<li>运行sam-ba就会自动识别芯片,Jlink的主控芯片就是<code>AT91SAM7S64</code>, 如图所示</li>
 </ul>
-<h5 id="使用JLink原生驱动与工具"><a href="#使用JLink原生驱动与工具" class="headerlink" title="使用JLink原生驱动与工具"></a>使用JLink原生驱动与工具</h5><ul>
+<p><img src="/imgs/sam-ba-connector.png" alt="connector"></p>
+<ul>
+<li>连接之后会出现如下图所示,不用修用参数,直接选一个正解的固件文件,按<code>Send File</code>就可以.</li>
+</ul>
+<p><img src="/imgs/sam-ba-main.png" alt="main"></p>
+<ul>
+<li>烧写过程中会现对话框,要选择<code>UnLock it</code>,选择<code>Yes</code>才能烧写,后一次问你要不要<code>Lock it</code>锁定,选择<code>No</code>这样JLink才可以自动升级.</li>
+</ul>
+<p><img src="/imgs/sam-ba-no-lock.png" alt="sam-ba-no-lock"></p>
+<h1 id="使用JLink原生驱动与工具"><a href="#使用JLink原生驱动与工具" class="headerlink" title="使用JLink原生驱动与工具"></a>使用JLink原生驱动与工具</h1><ul>
 <li>使用它的原生驱动会比使用OpenOCD要好很多,比如<code>JLinkGDBServer.exe</code>运行起来会监听<code>localhost</code>的端口,如要想从其它IP来访问不可能,在这里就要使用<strong>端口转发</strong>.下面就是把<code>localhost</code>的<code>2331,2332,2333</code>分别映射为<code>8888,8889,8890</code>供局域网内使用.它本身也是可以支持<code>0.0.0.0.0</code>地址监听.</li>
 </ul>
-<h5 id="windows-端口转发"><a href="#windows-端口转发" class="headerlink" title="windows 端口转发"></a>windows 端口转发</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface ipv6 install</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8889 listenaddress=192.168.1.235 connectport=2332 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8890 listenaddress=192.168.1.235 connectport=2333 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy show v4tov4</div><div class="line"></div><div class="line">侦听 IPv4:                 连接到 IPv4:</div><div class="line"></div><div class="line">地址            端口        地址            端口</div><div class="line">--------------- ----------  --------------- ----------</div><div class="line">192.168.1.235   8888        127.0.0.1       2331</div><div class="line">192.168.1.235   8889        127.0.0.1       2332</div><div class="line">192.168.1.235   8890        127.0.0.1       2333</div></pre></td></tr></table></figure>
-<hr>
+<h2 id="windows-端口转发"><a href="#windows-端口转发" class="headerlink" title="windows 端口转发"></a>windows 端口转发</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface ipv6 install</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8889 listenaddress=192.168.1.235 connectport=2332 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8890 listenaddress=192.168.1.235 connectport=2333 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy show v4tov4</div><div class="line"></div><div class="line">侦听 IPv4:                 连接到 IPv4:</div><div class="line"></div><div class="line">地址            端口        地址            端口</div><div class="line">--------------- ----------  --------------- ----------</div><div class="line">192.168.1.235   8888        127.0.0.1       2331</div><div class="line">192.168.1.235   8889        127.0.0.1       2332</div><div class="line">192.168.1.235   8890        127.0.0.1       2333</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
@@ -673,7 +672,7 @@ OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get instal
                     
                       
                     
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -728,7 +727,7 @@ OpenOCD使用123456789101112131415161718192021222324252627282930~ apt-get instal
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenOCD使用"><span class="nav-number">1.</span> <span class="nav-text">OpenOCD使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CMSIS-DAP-连接"><span class="nav-number">1.0.1.</span> <span class="nav-text">CMSIS-DAP 连接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JLink-恢复"><span class="nav-number">1.1.</span> <span class="nav-text">JLink 恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#擦除固件"><span class="nav-number">1.1.1.</span> <span class="nav-text">擦除固件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SAM-BA烧写"><span class="nav-number">1.1.2.</span> <span class="nav-text">SAM-BA烧写</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用JLink原生驱动与工具"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用JLink原生驱动与工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#windows-端口转发"><span class="nav-number">1.1.4.</span> <span class="nav-text">windows 端口转发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">2.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenOCD安装"><span class="nav-number">1.</span> <span class="nav-text">OpenOCD安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenOCD使用"><span class="nav-number">2.</span> <span class="nav-text">OpenOCD使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMSIS-DAP-连接"><span class="nav-number">2.1.</span> <span class="nav-text">CMSIS-DAP 连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J-Link使用"><span class="nav-number">2.2.</span> <span class="nav-text">J-Link使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J-Link-OB使用"><span class="nav-number">2.3.</span> <span class="nav-text">J-Link-OB使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JLink-恢复"><span class="nav-number">3.</span> <span class="nav-text">JLink 恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#擦除固件"><span class="nav-number">3.1.</span> <span class="nav-text">擦除固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SAM-BA烧写"><span class="nav-number">3.2.</span> <span class="nav-text">SAM-BA烧写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用JLink原生驱动与工具"><span class="nav-number">4.</span> <span class="nav-text">使用JLink原生驱动与工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-端口转发"><span class="nav-number">4.1.</span> <span class="nav-text">windows 端口转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">4.1.1.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

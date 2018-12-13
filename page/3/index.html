@@ -285,6 +285,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" itemprop="url">
+                  vsftpd FTP服务器与django前端共用sqlite3数据库的示例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-04T00:00:00+08:00">2016-09-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:18:00" itemprop="dateModified" datetime="2016-12-14T22:18:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>本示例接合vsftpd与Django共用Sqlite3(不限于<code>sqlite3,Mysql,Postgresql</code>)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容,</li>
+<li>Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.</li>
+</ul>
+<h3 id="Vsftpd"><a href="#Vsftpd" class="headerlink" title="Vsftpd"></a>Vsftpd</h3><ul>
+<li><p>这里使用<code>vsftpd-3.0.2</code>版本,这里要对它的源做一小修改,确保每一个用户登录成功之后自动创建一个名为用户名目录.这个目录专属于这个用户,用户上传下载也只限于这个目录下.</p>
+</li>
+<li><p>源代码位置在<code>vsftpd-3.0.2/twoprocess.c</code> 里的　<code>common_do_login</code> 函数中.如下面代码片段.</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="number">385</span>    <span class="keyword">static</span> <span class="keyword">void</span></div><div class="line"><span class="number">386</span>  common_do_login(<span class="keyword">struct</span> vsf_session* p_sess, <span class="keyword">const</span> <span class="keyword">struct</span> mystr* p_user_str,</div><div class="line"><span class="number">387</span>                  <span class="keyword">int</span> do_chroot, <span class="keyword">int</span> anon)</div><div class="line"><span class="number">388</span>  &#123;</div><div class="line"><span class="number">389</span>      <span class="keyword">int</span> was_anon = anon;</div><div class="line"><span class="number">390</span>      <span class="keyword">const</span> <span class="keyword">struct</span> mystr* p_orig_user_str = p_user_str;</div><div class="line"><span class="number">391</span>      <span class="keyword">int</span> newpid;</div><div class="line"><span class="number">392</span>      vsf_sysutil_install_null_sighandler(kVSFSysUtilSigCHLD);</div><div class="line"><span class="number">393</span>      <span class="comment">/* Tells the pre-login child all is OK (it may exit in response) */</span></div><div class="line"><span class="number">394</span>      priv_sock_send_result(p_sess-&gt;parent_fd, PRIV_SOCK_RESULT_OK);</div><div class="line"><span class="number">395</span>      <span class="keyword">if</span> (!p_sess-&gt;control_use_ssl)</div><div class="line"><span class="number">396</span>      &#123;</div><div class="line"><span class="number">397</span>          (<span class="keyword">void</span>) vsf_sysutil_wait();</div><div class="line"><span class="number">398</span>      &#125;</div><div class="line"><span class="number">399</span>      <span class="keyword">else</span></div><div class="line"><span class="number">400</span>      &#123;</div><div class="line"><span class="number">401</span>          p_sess-&gt;ssl_slave_active = <span class="number">1</span>;</div><div class="line"><span class="number">402</span>      &#125;</div><div class="line"><span class="number">403</span>      <span class="comment">/* Handle loading per-user config options */</span></div><div class="line"><span class="number">404</span>      handle_per_user_config(p_user_str);</div><div class="line"><span class="number">405</span>      <span class="comment">/* Set this before we fork */</span></div><div class="line"><span class="number">406</span>      p_sess-&gt;is_anonymous = anon;</div><div class="line"><span class="number">407</span>      priv_sock_close(p_sess);</div><div class="line"><span class="number">408</span>      priv_sock_init(p_sess);</div><div class="line"><span class="number">409</span>      vsf_sysutil_install_sighandler(kVSFSysUtilSigCHLD, handle_sigchld, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line"><span class="number">410</span>      <span class="keyword">if</span> (tunable_isolate_network &amp;&amp; !tunable_port_promiscuous)</div><div class="line"><span class="number">411</span>      &#123;</div><div class="line"><span class="number">412</span>          newpid = vsf_sysutil_fork_newnet();</div><div class="line"><span class="number">413</span>      &#125;</div><div class="line"><span class="number">414</span>      <span class="keyword">else</span></div><div class="line"><span class="number">415</span>      &#123;</div><div class="line"><span class="number">416</span>          newpid = vsf_sysutil_fork();</div><div class="line"><span class="number">417</span>      &#125;</div><div class="line"><span class="number">418</span>      <span class="keyword">if</span> (newpid == <span class="number">0</span>)</div><div class="line"><span class="number">419</span>      &#123;</div><div class="line"><span class="number">420</span>          <span class="keyword">struct</span> mystr guest_user_str = INIT_MYSTR;</div><div class="line"><span class="number">421</span>          <span class="keyword">struct</span> mystr chroot_str = INIT_MYSTR;</div><div class="line"><span class="number">422</span>          <span class="keyword">struct</span> mystr chdir_str = INIT_MYSTR;</div><div class="line"><span class="number">423</span>          <span class="keyword">struct</span> mystr userdir_str = INIT_MYSTR;</div><div class="line"><span class="number">424</span>          <span class="keyword">unsigned</span> <span class="keyword">int</span> secutil_option = VSF_SECUTIL_OPTION_USE_GROUPS |</div><div class="line"><span class="number">425</span>                                        VSF_SECUTIL_OPTION_NO_PROCS;</div><div class="line"><span class="number">426</span>          <span class="comment">/* Child - drop privs and start proper FTP! */</span></div><div class="line"><span class="number">427</span>          <span class="comment">/* This PR_SET_PDEATHSIG doesn't work for all possible process tree setups.</span></div><div class="line">428           * The other cases are taken care of by a shutdown() of the command</div><div class="line">429           * connection in our SIGTERM handler.</div><div class="line">430           */</div><div class="line"><span class="number">431</span>          vsf_set_die_if_parent_dies();</div><div class="line"><span class="number">432</span>          priv_sock_set_child_context(p_sess);</div><div class="line"><span class="number">433</span>          <span class="keyword">if</span> (tunable_guest_enable &amp;&amp; !anon)</div><div class="line"><span class="number">434</span>          &#123;</div><div class="line"><span class="number">435</span>              p_sess-&gt;is_guest = <span class="number">1</span>;</div><div class="line"><span class="number">436</span>              <span class="comment">/* Remap to the guest user */</span></div><div class="line"><span class="number">437</span>              <span class="keyword">if</span> (tunable_guest_username)</div><div class="line"><span class="number">438</span>              &#123;</div><div class="line"><span class="number">439</span>                  str_alloc_text(&amp;guest_user_str, tunable_guest_username);</div><div class="line"><span class="number">440</span>              &#125;</div><div class="line"><span class="number">441</span>              p_user_str = &amp;guest_user_str;</div><div class="line"><span class="number">442</span>              <span class="keyword">if</span> (!tunable_virtual_use_local_privs)</div><div class="line"><span class="number">443</span>              &#123;</div><div class="line"><span class="number">444</span>                  anon = <span class="number">1</span>;</div><div class="line"><span class="number">445</span>                  do_chroot = <span class="number">1</span>;</div><div class="line"><span class="number">446</span>              &#125;</div><div class="line"><span class="number">447</span>          &#125;</div><div class="line"><span class="number">448</span>          <span class="keyword">if</span> (do_chroot)</div><div class="line"><span class="number">449</span>          &#123;</div><div class="line"><span class="number">450</span>              secutil_option |= VSF_SECUTIL_OPTION_CHROOT;</div><div class="line"><span class="number">451</span>          &#125;</div><div class="line"><span class="number">452</span>          <span class="keyword">if</span> (!anon)</div><div class="line"><span class="number">453</span>          &#123;</div><div class="line"><span class="number">454</span>              secutil_option |= VSF_SECUTIL_OPTION_CHANGE_EUID;</div><div class="line"><span class="number">455</span>          &#125;</div><div class="line"><span class="number">456</span>          <span class="keyword">if</span> (!was_anon &amp;&amp; tunable_allow_writeable_chroot)</div><div class="line"><span class="number">457</span>          &#123;</div><div class="line"><span class="number">458</span>              secutil_option |= VSF_SECUTIL_OPTION_ALLOW_WRITEABLE_ROOT;</div><div class="line"><span class="number">459</span>          &#125;</div><div class="line"><span class="number">460</span>          calculate_chdir_dir(was_anon, &amp;userdir_str, &amp;chroot_str, &amp;chdir_str,</div><div class="line"><span class="number">461</span>                              p_user_str, p_orig_user_str);</div><div class="line"><span class="number">462</span>  </div><div class="line"><span class="number">463</span>  </div><div class="line">             <span class="comment">/* 通过我的调式这里加下面这一句,用户通过FTP端户登录成功就会创建它自已的目录*/</span></div><div class="line"><span class="number">464</span>          str_mkdir(&amp;chroot_str, <span class="number">0777</span>);</div><div class="line"><span class="number">465</span>  </div><div class="line"><span class="number">466</span>          chown(str_getbuf(&amp;chroot_str),p_sess-&gt;guest_user_uid,p_sess-&gt;guest_user_uid);</div><div class="line"><span class="number">467</span>  </div><div class="line"><span class="number">468</span>  </div><div class="line"><span class="number">469</span>          vsf_secutil_change_credentials(p_user_str, &amp;userdir_str, &amp;chroot_str,</div><div class="line"><span class="number">470</span>                                         <span class="number">0</span>, secutil_option);</div><div class="line"><span class="number">471</span>          <span class="keyword">if</span> (!str_isempty(&amp;chdir_str))</div><div class="line"><span class="number">472</span>          &#123;</div><div class="line"><span class="number">473</span>              (<span class="keyword">void</span>) str_chdir(&amp;chdir_str);</div><div class="line"><span class="number">474</span>          &#125;</div><div class="line"><span class="number">475</span>          str_free(&amp;guest_user_str);</div><div class="line"><span class="number">476</span>          str_free(&amp;chroot_str);</div><div class="line"><span class="number">477</span>          str_free(&amp;chdir_str);</div><div class="line"><span class="number">478</span>          str_free(&amp;userdir_str);</div><div class="line"><span class="number">479</span>          p_sess-&gt;is_anonymous = anon;</div><div class="line"><span class="number">480</span>          seccomp_sandbox_init();</div><div class="line"><span class="number">481</span>          seccomp_sandbox_setup_postlogin(p_sess);</div><div class="line"><span class="number">482</span>          seccomp_sandbox_lockdown();</div><div class="line"><span class="number">483</span>  </div><div class="line"><span class="number">484</span>          process_post_login(p_sess);</div><div class="line"><span class="number">485</span>          bug(<span class="string">"should not get here: common_do_login"</span>);</div><div class="line"><span class="number">486</span>      &#125;</div><div class="line"><span class="number">487</span>      <span class="comment">/* Parent */</span></div><div class="line"><span class="number">488</span>      priv_sock_set_parent_context(p_sess);</div><div class="line"><span class="number">489</span>      <span class="keyword">if</span> (tunable_ssl_enable)</div><div class="line"><span class="number">490</span>      &#123;</div><div class="line"><span class="number">491</span>          ssl_comm_channel_set_producer_context(p_sess);</div><div class="line"><span class="number">492</span>      &#125;</div><div class="line"><span class="number">493</span>      <span class="comment">/* The seccomp sandbox lockdown for the priv parent is done inside here */</span></div><div class="line"><span class="number">494</span>      vsf_priv_parent_postlogin(p_sess);</div><div class="line"><span class="number">495</span>      bug(<span class="string">"should not get here in common_do_login"</span>);</div><div class="line"><span class="number">496</span>  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>参照<code>vsftpd-3.0.2/INSTALL</code>　直接编译安装.</li>
+</ul>
+<h3 id="配置vsftpd"><a href="#配置vsftpd" class="headerlink" title="配置vsftpd"></a>配置vsftpd</h3><ul>
+<li><code>/etc/vsftpd.conf</code> 修改如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">grep -v &apos;^#&apos; /etc/vsftpd.conf </div><div class="line">cmds_allowed=ABOR,CWD,LIST,NLST,PWD,QUIT,RETR,SIZE,TYPE,USER,ACCT,CDUP,MODE,SYST,FEAT,PASV</div><div class="line">listen=YES</div><div class="line">listen_ipv6=NO</div><div class="line">anonymous_enable=NO</div><div class="line">local_enable=YES</div><div class="line">write_enable=NO</div><div class="line"></div><div class="line">dirmessage_enable=YES</div><div class="line">use_localtime=YES</div><div class="line">xferlog_enable=NO</div><div class="line">connect_from_port_20=YES</div><div class="line">idle_session_timeout=600</div><div class="line">data_connection_timeout=120</div><div class="line">nopriv_user=vsftpd</div><div class="line">chroot_local_user=YES</div><div class="line">pam_service_name=vsftpd</div><div class="line">user_sub_token=$USER</div><div class="line">guest_enable=YES</div><div class="line">guest_username=vsftpd</div><div class="line">local_root=/opt/data/ftproot/$USER #所有用户目录会在这个目录下.</div><div class="line">chroot_local_user=YES</div><div class="line">allow_writeable_chroot=YES</div><div class="line">chroot_list_enable=NO</div><div class="line">virtual_use_local_privs=YES</div><div class="line">file_open_mode=0770</div><div class="line">anon_mkdir_write_enable=NO</div><div class="line">ssl_enable=NO</div><div class="line">max_per_ip=65536</div><div class="line">log_ftp_protocol=YES</div></pre></td></tr></table></figure>
+<ul>
+<li><code>/etc/pam.d/vsftpd</code> 修改如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># Standard behaviour for ftpd(8).</div><div class="line">#auth   required    pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed</div><div class="line"></div><div class="line"># Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.</div><div class="line"></div><div class="line"># Standard pam includes</div><div class="line">#@include common-account</div><div class="line">#@include common-session</div><div class="line">#@include common-auth</div><div class="line">#auth   required    pam_shells.so</div><div class="line"># 如果使用其它数据库如:postgresql ,把pam_sqlite3.so替换掉</div><div class="line">auth        required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so </div><div class="line">account     required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</div><div class="line">password    required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</div></pre></td></tr></table></figure>
+<h3 id="pam-sqlite-0-3"><a href="#pam-sqlite-0-3" class="headerlink" title="pam_sqlite-0.3"></a>pam_sqlite-0.3</h3><ul>
+<li>在github上找到两个项目<strong><a href="https://github.com/sangeeths/libpam-sqlite" target="_blank" rel="external">libpam-sqlite</a>,<a href="https://github.com/dtjm/pam_sqlite3" target="_blank" rel="external">dtjm/pam_sqlite3</a></strong>是关于pam_sqlite3认证的,两个项目都很老了,</li>
+<li>这两个代码应该是大同小异,我没有对比,这里用是用libpam-sqlite.也修了源码才可以使用.<code>pam_sqlite3</code>没有测试,应该也是可以的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git@github.com:sangeeths/libpam-sqlite.git</div></pre></td></tr></table></figure>
+<ul>
+<li>这里的修改不一定是通用的可能要根据调试结果来决定,我这里修改是为了迎合后面的<code>Django</code>项目登录认证的.修改的源代如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">~/libpam-sqlite<span class="comment"># git diff</span></div><div class="line">diff --git a/pam_sqlite3.c b/pam_sqlite3.c</div><div class="line">index 565ce30..f2545a4 100644</div><div class="line">--- a/pam_sqlite3.c</div><div class="line">+++ b/pam_sqlite3.c</div><div class="line">@@ -455,7 +455,9 @@ static int auth_verify_password(const char *un,</div><div class="line">     &#125;</div><div class="line">     </div><div class="line">     /* get the encrypted password from the database */</div><div class="line">+    //const char *stored_pwd = (char*)sqlite3_column_text(stmt, 0);</div><div class="line">     const char *stored_pwd = (char *)sqlite3_column_text(stmt, 0);</div><div class="line">+    stored_pwd = stored_pwd +7; // skip the crypt$$</div><div class="line"> </div><div class="line">     result = PAM_AUTH_ERR;</div><div class="line">     switch(options-&gt;pw_type) &#123;</div><div class="line">@@ -581,7 +583,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,</div><div class="line">     /* <span class="keyword">if</span> new password is required <span class="keyword">then</span> newtok_column = <span class="string">'y'</span> or <span class="string">'1'</span> */</div><div class="line">     <span class="keyword">if</span>(options-&gt;newtok_column || options-&gt;sql_check_newtok) &#123;</div><div class="line">         query = format_query(options-&gt;sql_check_newtok ? options-&gt;sql_check_newtok :</div><div class="line">-                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='1')"</span>,</div><div class="line">+                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='0')"</span>,</div><div class="line">                 options, un, NULL);</div><div class="line">         DBGLOG(<span class="string">"query: %s"</span>, query);</div></pre></td></tr></table></figure>
+<ul>
+<li>参照源码目录下的<code>README</code>编译与设置</li>
+</ul>
+<h4 id="pam-sqlite-conf"><a href="#pam-sqlite-conf" class="headerlink" title="pam_sqlite.conf"></a>pam_sqlite.conf</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cat</span> /etc/pam_sqlite.conf </div><div class="line">database = /opt/data/db.sqlite3</div><div class="line">table = ftp_ftpuser </div><div class="line">user_column = email</div><div class="line">pwd_column = password</div><div class="line">newtok_column = is_staff</div><div class="line">pw_type = crypt</div></pre></td></tr></table></figure>
+<h3 id="Django配置"><a href="#Django配置" class="headerlink" title="Django配置"></a>Django配置</h3><p>####　Sqlite3表结构</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqlite&gt; .schema ftp_ftpuser</div><div class="line">CREATE TABLE <span class="string">"ftp_ftpuser"</span> (<span class="string">"password"</span> varchar(128) NOT NULL, <span class="string">"last_login"</span> datetime NULL, <span class="string">"is_superuser"</span> bool NOT NULL, <span class="string">"name"</span> varchar(256) NOT NULL, <span class="string">"email"</span> varchar(254) NOT NULL PRIMARY KEY, <span class="string">"phone_num"</span> varchar(15) NOT NULL, <span class="string">"reg_ip"</span> char(39) NOT NULL, <span class="string">"is_active"</span> bool NOT NULL, <span class="string">"is_staff"</span> bool NOT NULL, <span class="string">"date_joined"</span> datetime NOT NULL, <span class="string">"last_ip"</span> char(39) NOT NULL);</div><div class="line">CREATE UNIQUE INDEX <span class="string">"ftp_ftpuser_name_2294ce6a_uniq"</span> ON <span class="string">"ftp_ftpuser"</span> (<span class="string">"name"</span>, <span class="string">"email"</span>);</div></pre></td></tr></table></figure>
+<h4 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h4><ul>
+<li>在Django项目里的<code>settings.py</code> 添加如下代码片段.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Application definition</span></div><div class="line">PASSWORD_HASHERS = (</div><div class="line">            <span class="string">'django.contrib.auth.hashers.CryptPasswordHasher'</span>,</div><div class="line">            )</div><div class="line"></div><div class="line">DATABASES = &#123;</div><div class="line">    <span class="string">'default'</span>: &#123;</div><div class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</div><div class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),  <span class="comment">#这里的**db.sqlite3** 应该与**/etc/pam_sqlite.conf**里对应</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Password validation</span></div><div class="line"><span class="comment"># https://docs.djangoproject.com/en/1.9/ref/settings/#authassword-validators</span></div><div class="line"></div><div class="line">AUTH_PASSWORD_VALIDATORS = [</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">]</div><div class="line"></div><div class="line"><span class="comment">#AUTHENTICATION_BACKENDS = ['ftp.auth.CustomBackEnd']</span></div><div class="line">AUTH_USER_MODEL=<span class="string">'ftp.FtpUser'</span></div><div class="line">MEDIA_ROOT=<span class="string">'/opt/data/ftproot'</span>  <span class="comment">#这里的路径与vsftpd.conf是对应的.这里Django 程序创建的目录就会在这个目录下面</span></div></pre></td></tr></table></figure>
+<ul>
+<li>Django 程序创建目录的代码片段如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">def get_upload_dir(req,filename):</div><div class="line">    tname  = req.target_name</div><div class="line">    pname = tname.product_name</div><div class="line">    fdir = <span class="string">'/'</span>.join([settings.MEDIA_ROOT,pname.ftp_user.email,pname.name,tname.name,req.ver_name])</div><div class="line">    <span class="comment">#fdir = '/'.join([settings.MEDIA_ROOT,product.ftp_user.email,req.name.name,req.target_name.target_name,req.ver_name])</span></div><div class="line">    fdir = unicode(fdir)</div><div class="line">    <span class="keyword">if</span> os.path.exists(fdir):</div><div class="line">        try:</div><div class="line">            os.makedirs(fdir)</div><div class="line">        except OSError:</div><div class="line">            pass</div><div class="line">    filepath = <span class="string">'/'</span>.join([fdir,req.file_name.name])</div><div class="line">    <span class="keyword">if</span> os.path.isfile(filepath):</div><div class="line">        os.remove(filepath)</div><div class="line"><span class="built_in">return</span> filepath</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>这里的数据库表结构都是通过Django的模型创建的,通过Django端注册用户,设置相应权限(如是否允许该用户登录等.),FTP端就可以使用该用户登录服务器进行下载.具体应用要根据需求灵活改变,这里只是做了一个简单示例,</li>
+<li>也没有添加SSL加密连接.后续加入SSL支持.</li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/使用的一些常见问题-不定期更新/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -401,137 +607,366 @@
       
         
           
-            <h3 id="minicom-使用"><a href="#minicom-使用" class="headerlink" title="minicom 使用　"></a>minicom 使用　</h3><ul>
-<li><p>Linux 下的超级终端工具<code>minicom</code> 是命令行的工具不像windows下的串口工具那么直观,但是使用习惯了就一样.</p>
+            <h1 id="PulseAudio-设置与应用"><a href="#PulseAudio-设置与应用" class="headerlink" title="PulseAudio 设置与应用"></a>PulseAudio 设置与应用</h1><ul>
+<li>安装如下包,具体安装可参考<a href="https://wiki.archlinux.org/index.php/PulseAudio_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="external">这里</a>&gt;)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">~$ dpkg <span class="_">-l</span> | grep <span class="string">"pulseaudio"</span></div><div class="line">ii  gstreamer1.0-pulseaudio:amd64                     1.10.4-1                                    amd64        GStreamer plugin <span class="keyword">for</span> PulseAudio</div><div class="line">ii  pulseaudio                                        10.0-1+deb9u1                               amd64        PulseAudio sound server</div><div class="line">ii  pulseaudio-dlna                                   0.5.2-1                                     all          Stream audio to DLNA devices and Chromecasts</div><div class="line">ii  pulseaudio-module-bluetooth                       10.0-1+deb9u1                               amd64        Bluetooth module <span class="keyword">for</span> PulseAudio sound server</div><div class="line">ii  pulseaudio-module-gconf                           10.0-1+deb9u1                               amd64        GConf module <span class="keyword">for</span> PulseAudio sound server</div><div class="line">ii  pulseaudio-module-jack                            10.0-1+deb9u1                               amd64        jackd modules <span class="keyword">for</span> PulseAudio sound server</div><div class="line">ii  pulseaudio-utils                                  10.0-1+deb9u1                               amd64        Command line tools <span class="keyword">for</span> the PulseAudio sound server</div><div class="line">ii  alsa-tools                                        1.1.3-1                                     amd64        Console based ALSA utilities <span class="keyword">for</span> specific hardware</div><div class="line">ii  alsa-utils                                        1.1.3-1                                     amd64        Utilities <span class="keyword">for</span> configuring and using ALSA</div><div class="line">ii  alsamixergui                                      0.9.0rc2-1-10                               amd64        graphical soundcard mixer <span class="keyword">for</span> ALSA soundcard driver</div></pre></td></tr></table></figure>
+<ul>
+<li>添加这一行<strong>load-module module-alsa-sink device=hw:1,0
+</strong>到<code>/etc/pulse/default.pa</code>里面.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/pulse/daemon.conf</div><div class="line">daemonize = yes</div><div class="line">allow-module-loading = yes</div><div class="line">system-instance = yes</div></pre></td></tr></table></figure>
+<ul>
+<li>把下面的输出转到 PulseAudio.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">~$ cat ~/.asoundrc</div><div class="line">pcm.pulse &#123;</div><div class="line">        <span class="built_in">type</span> pulse</div><div class="line">&#125;</div><div class="line">ctl.pulse &#123;</div><div class="line">        <span class="built_in">type</span> pulse</div><div class="line">&#125;</div><div class="line">pcm.!default &#123;</div><div class="line">        <span class="built_in">type</span> pulse</div><div class="line">&#125;</div><div class="line">ctl.!default &#123;</div><div class="line">        <span class="built_in">type</span> pulse</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>启动,停止 PulseAudio</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ pulseaudio --kill</div><div class="line">~$ pulseaudio --start</div><div class="line"></div><div class="line">~$ aplay <span class="_">-l</span></div><div class="line">**** List of PLAYBACK Hardware Devices ****</div><div class="line">card 0: HDMI [HDA ATI HDMI], device 3: HDMI 0 [HDMI 0]</div><div class="line">  Subdevices: 1/1</div><div class="line">  Subdevice <span class="comment">#0: subdevice #0</span></div><div class="line">card 1: Generic [HD-Audio Generic], device 0: ALC887-VD Analog [ALC887-VD Analog]</div><div class="line">  Subdevices: 0/1</div><div class="line">  Subdevice <span class="comment">#0: subdevice #0</span></div><div class="line">card 1: Generic [HD-Audio Generic], device 1: ALC887-VD Digital [ALC887-VD Digital]</div><div class="line">  Subdevices: 1/1</div><div class="line">  Subdevice <span class="comment">#0: subdevice #0</span></div></pre></td></tr></table></figure>
+<ul>
+<li>如果出现任何问题,仔细查看系统日志解决.</li>
+</ul>
+<hr>
+<h1 id="minicom-使用"><a href="#minicom-使用" class="headerlink" title="minicom 使用"></a>minicom 使用</h1><ul>
+<li><p>Linux 下的超级终端工具<code>minicom</code> 是命令行的工具不像 windows 下的串口工具那么直观,但是使用习惯了就一样.</p>
 </li>
-<li><p>初次使用minicom除了一些串口的常规设置,跟其它串口工具都是一样的.</p>
+<li><p>初次使用 minicom 除了一些串口的常规设置,跟其它串口工具都是一样的.</p>
 </li>
-<li><p>在当前Shell下输入 <code>minicom -s</code> 会出现如下界面:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">+-----[configuration]------+                                     </div><div class="line">| Filenames and paths      |                                     </div><div class="line">| File transfer protocols  |                                     </div><div class="line">| Serial port setup        |                                     </div><div class="line">| Modem and dialing        |                                     </div><div class="line">| Screen and keyboard      |</div><div class="line">| Save setup as dfl        |</div><div class="line">| Save setup as..          |</div><div class="line">| Exit                     |</div><div class="line">| Exit from Minicom        |</div><div class="line">+--------------------------+</div></pre></td></tr></table></figure>
-</li>
-<li><p>选择<code>Serial port setup</code> 设置串口参数:</p>
+<li>在当前 Shell 下输入 <code>minicom -s</code> 会出现如下界面:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+-----[configuration]------+</div><div class="line">| Filenames and paths      |</div><div class="line">| File transfer protocols  |</div><div class="line">| Serial port setup        |</div><div class="line">| Modem and dialing        |</div><div class="line">| Screen and keyboard      |</div><div class="line">| Save setup as dfl        |</div><div class="line">| Save setup as..          |</div><div class="line">| Exit                     |</div><div class="line">| Exit from Minicom        |</div><div class="line">+--------------------------+</div></pre></td></tr></table></figure>
+<ul>
+<li>选择<code>Serial port setup</code> 设置串口参数:</li>
+</ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+-----------------------------------------------------------------------+</div><div class="line">| A -    Serial Device      : /dev/ttyUSB5                              |</div><div class="line">| B - Lockfile Location     : /var/lock                                 |</div><div class="line">| C -   Callin Program      :                                           |</div><div class="line">| D -  Callout Program      :                                           |</div><div class="line">| E -    Bps/Par/Bits       : 115200 8N1                                |</div><div class="line">| F - Hardware Flow Control : No                                        |</div><div class="line">| G - Software Flow Control : No                                        |</div><div class="line">|                                                                       |</div><div class="line">|    Change <span class="built_in">which</span> setting?                                              |</div><div class="line">+-----------------------------------------------------------------------+</div></pre></td></tr></table></figure>
-</li>
+<ul>
 <li><p>设置完成回车返回到一个菜单.选择<code>Save setup as dfl</code> 保存退出.</p>
 </li>
-<li><p>我一般使用minicom 的参数去连接.例如:</p>
+<li><p>我一般使用 minicom 的参数去连接.例如:</p>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$  minicom -o -b 115200 -D /dev/ttyUSB5</div></pre></td></tr></table></figure>
-<h4 id="AT命令"><a href="#AT命令" class="headerlink" title="AT命令"></a>AT命令</h4><ul>
-<li>一般图形串口工具都有一项,发送新行或者<code>**newline**</code>这个选项.在连接一些硬件串口时发送AT命令时,这个是必选的.</li>
-<li><p>但是在minicom就只能用组合快捷键来替换了.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$  minicom -o -b 115200 -D /dev/ttyUSB5</div></pre></td></tr></table></figure>
+<h2 id="AT-命令"><a href="#AT-命令" class="headerlink" title="AT 命令"></a>AT 命令</h2><ul>
+<li>一般图形串口工具都有一项,发送新行或者<code>**newline**</code>这个选项.在连接一些硬件串口时发送 AT 命令时,这个是必选的.</li>
+<li><p>但是在 minicom 就只能用组合快捷键来替换了.</p>
 </li>
-<li><p>在minicom 里发送AT命令如:<code>AT+OK</code> 直接回车,它是不会有反应的,必须还要加一个<code>ctrl+j</code>,才能提交,这个问题也是困扰了我很久.</p>
+<li><p>在 minicom 里发送 AT 命令如:<code>AT+OK</code> 直接回车,它是不会有反应的,必须还要加一个<code>ctrl+j</code>,才能提交,这个问题也是困扰了我很久.</p>
 </li>
 </ul>
-<h3 id="esptool升级固件"><a href="#esptool升级固件" class="headerlink" title="esptool升级固件"></a>esptool升级固件</h3><ul>
+<h1 id="esptool-升级固件"><a href="#esptool-升级固件" class="headerlink" title="esptool 升级固件"></a>esptool 升级固件</h1><ul>
 <li>参考链接:</li>
-</ul>
-<ul>
 <li><a href="http://wiki.ai-thinker.com/doku.php/utils/esp_bin_download" target="_blank" rel="external">ESP8266 Tools</a></li>
 <li><a href="https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes" target="_blank" rel="external">ESP8266 Wiki</a></li>
 <li><a href="http://wiki.ai-thinker.com/doku.php/release/esp8266_sdk_release" target="_blank" rel="external">ESP8266 SDK</a></li>
-<li><a href="http://cms.35g.tw/coding/%e4%bd%bf%e7%94%a8arduino%e6%9b%b4%e6%96%b0esp8266-firmware" target="_blank" rel="external">使用Arduino更新ESP8266 firmware</a></li>
+<li><a href="http://cms.35g.tw/coding/%e4%bd%bf%e7%94%a8arduino%e6%9b%b4%e6%96%b0esp8266-firmware" target="_blank" rel="external">使用 Arduino 更新 ESP8266 firmware</a></li>
 </ul>
-<p>ESP-01　为例.　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">GPIO0 --&gt; GND</div><div class="line">GPIO2 --&gt; 3V3</div><div class="line">CH_PD --&gt; 3V3</div><div class="line">RST   --&gt; 3V3 </div><div class="line">VCC   --&gt; 3V3</div><div class="line">GND   --&gt; GND</div><div class="line">TX    --&gt; UART(RX)</div><div class="line">RX    --&gt; UART(TX)</div></pre></td></tr></table></figure></p>
+<p>ESP-01 　为例.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">GPIO0 --&gt; GND</div><div class="line">GPIO2 --&gt; 3V3</div><div class="line">CH_PD --&gt; 3V3</div><div class="line">RST   --&gt; 3V3</div><div class="line">VCC   --&gt; 3V3</div><div class="line">GND   --&gt; GND</div><div class="line">TX    --&gt; UART(RX)</div><div class="line">RX    --&gt; UART(TX)</div></pre></td></tr></table></figure>
 <ul>
-<li><p><a href="https://github.com/themadinventor/esptool" target="_blank" rel="external">esptool工具</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ esptool.py   -p /dev/ttyUSB5 write_flash --flash_mode dio --flash_size 8m 0x0 AiThinker_ESP8266_DIO_8M_8M_20160615_V1.5.4.bin</div></pre></td></tr></table></figure>
-</li>
-<li><p>这个升级问题折腾了我很久,今天总算是升级成功.它们的文档很杂,图与板子上的名称又不全部对应.</p>
-</li>
+<li><a href="https://github.com/themadinventor/esptool" target="_blank" rel="external">esptool 工具</a></li>
 </ul>
-<h3 id="转换GBK文本文件的问题"><a href="#转换GBK文本文件的问题" class="headerlink" title="转换GBK文本文件的问题"></a>转换GBK文本文件的问题</h3><ul>
-<li>有时在Linux下打开GBK编码的文件会出现乱码,优其是一些在window下载打包的源码压缩包,源码文件全都是GBK编码.在Linux下用一些文本编辑器打开全是乱码,有些甚至连目录都是乱码.</li>
-<li>下面记录一个shell脚本批量转换成UTF8格式的文件.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ cat convert.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> `find . -type f`;<span class="keyword">do</span> </div><div class="line">    org=$(file <span class="variable">$f</span>)</div><div class="line">    string=$(<span class="built_in">echo</span> <span class="variable">$org</span> | grep <span class="string">"ISO-8859"</span>) ;</div><div class="line">    <span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$string</span>"</span> ]; <span class="keyword">then</span> </div><div class="line">        infile=$(<span class="built_in">echo</span> <span class="variable">$string</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $1&#125;'</span>);</div><div class="line">        <span class="comment">#echo $infile</span></div><div class="line">        iconv <span class="_">-f</span> GBK -t UTF8 <span class="variable">$infile</span> &gt; 1;</div><div class="line">        mv 1 <span class="variable">$infile</span>;</div><div class="line">    <span class="keyword">fi</span> ;</div><div class="line"><span class="keyword">done</span></div><div class="line">IFS=<span class="variable">$TMP_IFS</span></div></pre></td></tr></table></figure>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ esptool.py   -p /dev/ttyUSB5 write_flash --flash_mode dio --flash_size 8m 0x0 AiThinker_ESP8266_DIO_8M_8M_20160615_V1.5.4.bin</div></pre></td></tr></table></figure>
+<ul>
+<li>这个升级问题折腾了我很久,今天总算是升级成功.它们的文档很杂,图与板子上的名称又不全部对应.</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> `find  . \( -iname <span class="string">"*.txt"</span> -o -iname <span class="string">"*.c"</span> -o -iname <span class="string">"*.h"</span> \)`;<span class="keyword">do</span> </div><div class="line">    iconv <span class="_">-f</span> GBK -t UTF8 -c <span class="variable">$f</span> &gt; 1; mv 1 <span class="variable">$f</span>;</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h1 id="转换-GBK-文本文件的问题"><a href="#转换-GBK-文本文件的问题" class="headerlink" title="转换 GBK 文本文件的问题"></a>转换 GBK 文本文件的问题</h1><ul>
+<li>有时在 Linux 下打开 GBK 编码的文件会出现乱码,优其是一些在 window 下载打包的源码压缩包,源码文件全都是 GBK 编码.在 Linux 下用一些文本编辑器打开全是乱码,有些甚至连目录都是乱码.</li>
+<li>下面记录一个 shell 脚本批量转换成 UTF8 格式的文件.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ cat convert.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> `find . -type f`;<span class="keyword">do</span></div><div class="line">    org=$(file <span class="variable">$f</span>)</div><div class="line">    string=$(<span class="built_in">echo</span> <span class="variable">$org</span> | grep <span class="string">"ISO-8859"</span>) ;</div><div class="line">    <span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$string</span>"</span> ]; <span class="keyword">then</span></div><div class="line">        infile=$(<span class="built_in">echo</span> <span class="variable">$string</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $1&#125;'</span>);</div><div class="line">        <span class="comment">#echo $infile</span></div><div class="line">        iconv <span class="_">-f</span> GBK -t UTF8 <span class="variable">$infile</span> &gt; 1;</div><div class="line">        mv 1 <span class="variable">$infile</span>;</div><div class="line">    <span class="keyword">fi</span> ;</div><div class="line"><span class="keyword">done</span></div><div class="line">IFS=<span class="variable">$TMP_IFS</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> `find  . \( -iname <span class="string">"*.txt"</span> -o -iname <span class="string">"*.c"</span> -o -iname <span class="string">"*.h"</span> \)`;<span class="keyword">do</span></div><div class="line">    iconv <span class="_">-f</span> GBK -t UTF8 -c <span class="variable">$f</span> &gt; 1; mv 1 <span class="variable">$f</span>;</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 <ul>
 <li>在转换文件时,有时候路径中会包含空格,如果不按照上面的方式设置<code>IFS</code>变量,脚本就会出错在有空格的地方分隔,认为是两个文件.上面这个脚本只是</li>
 <li>一个很简单的处理当前目录下所有文件的转换.还可以把它写的更通用灵活.</li>
 </ul>
 <hr>
-<h3 id="批量清除文件名中的特定字符串"><a href="#批量清除文件名中的特定字符串" class="headerlink" title="批量清除文件名中的特定字符串"></a>批量清除文件名中的特定字符串</h3><ul>
+<h1 id="批量清除文件名中的特定字符串"><a href="#批量清除文件名中的特定字符串" class="headerlink" title="批量清除文件名中的特定字符串"></a>批量清除文件名中的特定字符串</h1><ul>
 <li>有时从网站下载一些文件,资源经会把自已的名字或者网址加在文件名如: <code>电影名_[www.xxx.com].mkv</code>,这样的格式</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">TMP_IFS=$IFS</div><div class="line">IFS=$(echo -en &quot;\n\b&quot;)</div><div class="line">sub1=&quot;www\.xxx\.com&quot;</div><div class="line">sub2=&quot;www\.bbb\.com&quot;</div><div class="line">sub3=&quot;www\.ccc\.com&quot;</div><div class="line">#sub4=&quot;[(]www.ddd.com[)]&quot;  # 例如:  fname-(www.ddd.com).pdf, sed -re &quot;s/$sub4//g&quot;</div><div class="line"></div><div class="line"></div><div class="line"># 例如:匹配 538081 SCALA学习手册.pdf  556997 Scala函数式编.pdf 这样的文件名,删除前面的6个数字</div><div class="line">#  </div><div class="line"># reg=&apos;^([0-9]&#123;6&#125;)&apos;</div><div class="line"># for fname in `ls`;do</div><div class="line">#	string=$(echo $fname)</div><div class="line">#    if [[ $string =~ $reg ]];</div><div class="line">#    then </div><div class="line">#    	nstr=$(echo $string | sed -r &quot;s/$&#123;reg&#125;//g&quot;)</div><div class="line">#        echo $nstr </div><div class="line">#        mv $fname $nstr </div><div class="line">#    fi</div><div class="line">#  done</div><div class="line">#</div><div class="line">#</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">for fname in `ls`;</div><div class="line">do</div><div class="line">	string=$(echo $fname)</div><div class="line">	if [[ $string = *$&#123;sub1&#125;* || $string = *$&#123;sub2&#125;* || $string = *$&#123;sub3&#125;*  || $string = *$&#123;sub4&#125;* ]];</div><div class="line">	then</div><div class="line">    	nstring=$(echo $s | sed -e &quot;s/$&#123;sub1&#125;//g&quot; -e &quot;s/$sub2//g&quot; -e &quot;s/$sub3//g&quot; -e &quot;s/\(()\)//g/&quot; -e &quot;s/\[[]\]//g&quot; )</div><div class="line">      </div><div class="line">        echo $nstring</div><div class="line">        mv $f $nstring</div><div class="line">    fi</div><div class="line">done</div><div class="line"></div><div class="line">IFS=$TMP_IFS</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line">sub1=<span class="string">"www\.xxx\.com"</span></div><div class="line">sub2=<span class="string">"www\.bbb\.com"</span></div><div class="line">sub3=<span class="string">"www\.ccc\.com"</span></div><div class="line"><span class="comment">#sub4="[(]www.ddd.com[)]"  # 例如:  fname-(www.ddd.com).pdf, sed -re "s/$sub4//g"</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 例如:匹配 538081 SCALA学习手册.pdf  556997 Scala函数式编.pdf 这样的文件名,删除前面的6个数字</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># reg='^([0-9]&#123;6&#125;)'</span></div><div class="line"><span class="comment"># for fname in `ls`;do</span></div><div class="line"><span class="comment">#	string=$(echo $fname)</span></div><div class="line"><span class="comment">#    if [[ $string =~ $reg ]];</span></div><div class="line"><span class="comment">#    then</span></div><div class="line"><span class="comment">#    	nstr=$(echo $string | sed -r "s/$&#123;reg&#125;//g")</span></div><div class="line"><span class="comment">#        echo $nstr</span></div><div class="line"><span class="comment">#        mv $fname $nstr</span></div><div class="line"><span class="comment">#    fi</span></div><div class="line"><span class="comment">#  done</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> `ls`;</div><div class="line"><span class="keyword">do</span></div><div class="line">	string=$(<span class="built_in">echo</span> <span class="variable">$fname</span>)</div><div class="line">	<span class="keyword">if</span> [[ <span class="variable">$string</span> = *<span class="variable">$&#123;sub1&#125;</span>* || <span class="variable">$string</span> = *<span class="variable">$&#123;sub2&#125;</span>* || <span class="variable">$string</span> = *<span class="variable">$&#123;sub3&#125;</span>*  || <span class="variable">$string</span> = *<span class="variable">$&#123;sub4&#125;</span>* ]];</div><div class="line">	<span class="keyword">then</span></div><div class="line">    	nstring=$(<span class="built_in">echo</span> <span class="variable">$s</span> | sed <span class="_">-e</span> <span class="string">"s/<span class="variable">$&#123;sub1&#125;</span>//g"</span> <span class="_">-e</span> <span class="string">"s/<span class="variable">$sub2</span>//g"</span> <span class="_">-e</span> <span class="string">"s/<span class="variable">$sub3</span>//g"</span> <span class="_">-e</span> <span class="string">"s/\(()\)//g/"</span> <span class="_">-e</span> <span class="string">"s/\[[]\]//g"</span> )</div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="variable">$nstring</span></div><div class="line">        mv <span class="variable">$f</span> <span class="variable">$nstring</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">IFS=<span class="variable">$TMP_IFS</span></div></pre></td></tr></table></figure>
 <hr>
-<h3 id="Linux-下-wireless-WPA加密连接"><a href="#Linux-下-wireless-WPA加密连接" class="headerlink" title="Linux 下 wireless  WPA加密连接"></a>Linux 下 wireless  WPA加密连接</h3><ul>
-<li><p>确保安装了wpasupplicant</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install wpasupplicant.</div></pre></td></tr></table></figure>
-</li>
-<li><p>创建 /etc/wpa_supplicant.conf 或者从 <strong>/usr/share/doc/wpa_supplicant/examples/wpa_supplicant.conf.gz</strong> 复制 </p>
+<h1 id="Linux-下-wireless-WPA-加密连接"><a href="#Linux-下-wireless-WPA-加密连接" class="headerlink" title="Linux 下 wireless WPA 加密连接"></a>Linux 下 wireless WPA 加密连接</h1><ul>
+<li>确保安装了 wpasupplicant</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install wpasupplicant.</div></pre></td></tr></table></figure>
+<ul>
+<li><p>创建 /etc/wpa_supplicant.conf 或者从 <strong>/usr/share/doc/wpa_supplicant/examples/wpa_supplicant.conf.gz</strong> 复制</p>
 </li>
 <li><p>例如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">network=&#123;</div><div class="line">    ssid=&quot;ssid_name&quot;</div><div class="line">    psk=&quot;password&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>手动命令行连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -Dwext</div><div class="line">$ sudo dhclient wlan0</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<hr>
-<h3 id="Linux-下是使用蓝牙串口通信"><a href="#Linux-下是使用蓝牙串口通信" class="headerlink" title="Linux 下是使用蓝牙串口通信"></a>Linux 下是使用蓝牙串口通信</h3><ul>
-<li>Linux 下使用蓝牙工具要安装<code>bluez</code>软件,有一个图形配置程序<code>blueman</code>,使用会报一些Python与Dbus的错误,还是直接修改配置文件解决使用问题.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/bluetooth/rfcomm.conf </div><div class="line">rfcomm0 &#123;</div><div class="line">        <span class="built_in">bind</span> yes;</div><div class="line">        device 00:15:83:00:43:AB</div><div class="line">        channel 0;</div><div class="line">        comment <span class="string">"Serial Port"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">rfcomm1 &#123;</div><div class="line">    <span class="built_in">bind</span> yes;</div><div class="line">    device 00:14:01:22:14:49;</div><div class="line">    channel 1;</div><div class="line">    connment <span class="string">"Serial Port 1"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="配对蓝牙"><a href="#配对蓝牙" class="headerlink" title="配对蓝牙"></a>配对蓝牙</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ bluetoothctl </div><div class="line">[NEW] Controller 00:02:5B:0A:59:3A debian-0 [default]</div><div class="line">[NEW] Device 00:14:01:22:14:49 lcy</div><div class="line">[bluetooth]# power on</div><div class="line">Changing power on succeeded</div><div class="line">[bluetooth]# agent on</div><div class="line">Agent registered</div><div class="line">[bluetooth]# pair 00:14:01:22:14:49</div><div class="line">Attempting to pair with 00:14:01:22:14:49</div><div class="line">[CHG] Device 00:14:01:22:14:49 Connected: yes</div><div class="line">Request PIN code</div><div class="line">[agent] Enter PIN code: 1234</div><div class="line">[CHG] Device 00:14:01:22:14:49 Paired: yes</div><div class="line">Pairing successful</div><div class="line">[CHG] Device 00:14:01:22:14:49 Connected: no</div></pre></td></tr></table></figure>
-<h4 id="手动边接RFCOMM串口"><a href="#手动边接RFCOMM串口" class="headerlink" title="手动边接RFCOMM串口"></a>手动边接RFCOMM串口</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> sudo rfcomm connect /dev/rfcomm0 00:14:01:22:14:49 1</div><div class="line">Connected /dev/rfcomm0 to 00:14:01:22:14:49 on channel 1</div><div class="line">Press CTRL-C <span class="keyword">for</span> hangup</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">network=&#123;</div><div class="line">    ssid=<span class="string">"ssid_name"</span></div><div class="line">    psk=<span class="string">"password"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>运行上面的命令无错,就可以使用minicom 连接它了,<code>sudo minicom  -o -b 115200 -D /dev/rfcomm0</code></li>
+<li>手动命令行连接</li>
 </ul>
-<h4 id="蓝牙错误"><a href="#蓝牙错误" class="headerlink" title="蓝牙错误"></a>蓝牙错误</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$ systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: &quot;Running&quot;</div><div class="line">michael@debian:/etc/init.d$ sudo systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: &quot;Running&quot;</div><div class="line"></div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Failed to obtain handles for &quot;Service Changed&quot; characteristic</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Sap driver initialization failed.</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: sap-server: Operation not permitted (1)</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSource</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSink</div><div class="line">Jun 20 14:42:00 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:43:36 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Main process exited, code=killed, status=9/KILL</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Unit entered failed state.</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Failed with result &apos;signal&apos;.</div></pre></td></tr></table></figure>
-<h3 id="Linux-Systemctl-启动服务超时设置"><a href="#Linux-Systemctl-启动服务超时设置" class="headerlink" title="Linux Systemctl 启动服务超时设置"></a>Linux Systemctl 启动服务超时设置</h3><ul>
-<li>下面用一个网络连接服务为示例,如果网络配置是DHCP,刚好网络没有提供DHCP服务,这时该服务程序会重试(默认)两分钟才会报错,这里可以设置成5到10秒,快速跳过该服务启动.</li>
-<li>在文件/lib/systemd/system/networking.service.d/network-pre.conf里添加下面两行:<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[Service]</div><div class="line">TimeoutStartSec=15</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="安装IBus输入法框架"><a href="#安装IBus输入法框架" class="headerlink" title="安装IBus输入法框架"></a>安装IBus输入法框架</h3><ul>
-<li>IBus (“Intelligent Input Bus”) 是一个 输入法框架，一个输入非英语字符的系统。IBus 的功能与 SCIM 和 UIM 类似。在Debian下面有一个问题,如果不安装<code>ibus-gtk3,ibus-gtk</code>就会出现<strong>wxWidgets</strong>框架下的文本输入框无法使用<code>Back Space,Arrown keys</code>这些按键.<a href="https://wiki.archlinux.org/index.php/IBus_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="external">安装指导</a>)</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">~$ dpkg <span class="_">-l</span> | grep <span class="string">"ibus"</span> </div><div class="line">ii  gir1.2-ibus-1.0:amd64                             1.5.14-3                                    amd64        Intelligent Input Bus - introspection data</div><div class="line">ii  ibus                                              1.5.14-3                                    amd64        Intelligent Input Bus - core</div><div class="line">ii  ibus-gtk:amd64                                    1.5.14-3                                    amd64        Intelligent Input Bus - GTK+2 support</div><div class="line">ii  ibus-gtk3:amd64                                   1.5.14-3                                    amd64        Intelligent Input Bus - GTK+3 support</div><div class="line">ii  ibus-qt4                                          1.3.3-1                                     amd64        qt-immodule <span class="keyword">for</span> ibus (QT4) (plugin)</div><div class="line">ii  ibus-table                                        1.9.14-3                                    all          table engine <span class="keyword">for</span> IBus</div><div class="line">ii  ibus-table-wubi                                   1.8.2-2                                     all          ibus-table input method: Wubi</div><div class="line">ii  libgusb-dev                                       0.2.9-1+b1                                  amd64        GLib wrapper around libusb1 - development files</div><div class="line">ii  libgusb2:amd64                                    0.2.9-1+b1                                  amd64        GLib wrapper around libusb1</div><div class="line">ii  libhidapi-libusb0:amd64                           0.8.0~rc1+git20140818.d17db57+dfsg-1        amd64        Multi-Platform library <span class="keyword">for</span> communication with HID devices (libusb backend)</div><div class="line">ii  libibus-1.0-5:amd64                               1.5.14-3                                    amd64        Intelligent Input Bus - shared library</div><div class="line">ii  libibus-1.0-dev:amd64                             1.5.14-3                                    amd64        Intelligent Input Bus - development file</div><div class="line">ii  libibus-qt1                                       1.3.3-1                                     amd64        qt-immodule <span class="keyword">for</span> ibus (QT4) (library)</div><div class="line"></div><div class="line">~$ cat ~/.xinitrc </div><div class="line"><span class="built_in">export</span> GTK_IM_MODULE=ibus</div><div class="line"><span class="built_in">export</span> QT_IM_MODULE=ibus</div><div class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">"@im=ibus"</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ sudo wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -Dwext</div><div class="line">~$ sudo dhclient wlan0</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="BOSSAC-烧写Arduino-DUE无法找到设备"><a href="#BOSSAC-烧写Arduino-DUE无法找到设备" class="headerlink" title="BOSSAC 烧写Arduino-DUE无法找到设备"></a>BOSSAC 烧写Arduino-DUE无法找到设备</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">./bossac -i <span class="_">-d</span> --port=ttyACM0 -U <span class="literal">false</span> <span class="_">-e</span> -w -v -b ./nuttx.bin -R</div><div class="line"></div><div class="line"></div><div class="line">Set binary mode</div><div class="line">Send auto-baud</div><div class="line">Set binary mode</div><div class="line">No device found on /dev/ttyACM0</div></pre></td></tr></table></figure>
-<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stty -F /dev/ttyACM0 speed 1200 cs8 -cstopb -parenb</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="Virt-Manager-虚拟机无法启动"><a href="#Virt-Manager-虚拟机无法启动" class="headerlink" title="Virt-Manager 虚拟机无法启动"></a>Virt-Manager 虚拟机无法启动</h3><ul>
-<li>有时KVM框架虚拟机系统无法启动,错误如下:</li>
+<h1 id="Linux-下是使用蓝牙串口通信"><a href="#Linux-下是使用蓝牙串口通信" class="headerlink" title="Linux 下是使用蓝牙串口通信"></a>Linux 下是使用蓝牙串口通信</h1><ul>
+<li>Linux 下使用蓝牙工具要安装<code>bluez</code>软件,有一个图形配置程序<code>blueman</code>,使用会报一些 Python 与 Dbus 的错误,还是直接修改配置文件解决使用问题.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Error starting domain: Requested operation is not valid: network &apos;default&apos; is not active</div><div class="line"></div><div class="line">Traceback (most recent call last):</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/bluetooth/rfcomm.conf</div><div class="line">rfcomm0 &#123;</div><div class="line">        <span class="built_in">bind</span> yes;</div><div class="line">        device 00:15:83:00:43:AB</div><div class="line">        channel 0;</div><div class="line">        comment <span class="string">"Serial Port"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">rfcomm1 &#123;</div><div class="line">    <span class="built_in">bind</span> yes;</div><div class="line">    device 00:14:01:22:14:49;</div><div class="line">    channel 1;</div><div class="line">    connment <span class="string">"Serial Port 1"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="配对蓝牙"><a href="#配对蓝牙" class="headerlink" title="配对蓝牙"></a>配对蓝牙</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ bluetoothctl</div><div class="line">[NEW] Controller 00:02:5B:0A:59:3A debian-0 [default]</div><div class="line">[NEW] Device 00:14:01:22:14:49 lcy</div><div class="line">[bluetooth]<span class="comment"># power on</span></div><div class="line">Changing power on succeeded</div><div class="line">[bluetooth]<span class="comment"># agent on</span></div><div class="line">Agent registered</div><div class="line">[bluetooth]<span class="comment"># pair 00:14:01:22:14:49</span></div><div class="line">Attempting to pair with 00:14:01:22:14:49</div><div class="line">[CHG] Device 00:14:01:22:14:49 Connected: yes</div><div class="line">Request PIN code</div><div class="line">[agent] Enter PIN code: 1234</div><div class="line">[CHG] Device 00:14:01:22:14:49 Paired: yes</div><div class="line">Pairing successful</div><div class="line">[CHG] Device 00:14:01:22:14:49 Connected: no</div></pre></td></tr></table></figure>
+<h2 id="手动边接-RFCOMM-串口"><a href="#手动边接-RFCOMM-串口" class="headerlink" title="手动边接 RFCOMM 串口"></a>手动边接 RFCOMM 串口</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> sudo rfcomm connect /dev/rfcomm0 00:14:01:22:14:49 1</div><div class="line">Connected /dev/rfcomm0 to 00:14:01:22:14:49 on channel 1</div><div class="line">Press CTRL-C <span class="keyword">for</span> hangup</div></pre></td></tr></table></figure>
+<ul>
+<li>运行上面的命令无错,就可以使用 minicom 连接它了,<code>sudo minicom -o -b 115200 -D /dev/rfcomm0</code></li>
+</ul>
+<h2 id="蓝牙错误"><a href="#蓝牙错误" class="headerlink" title="蓝牙错误"></a>蓝牙错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$ systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: <span class="string">"Running"</span></div><div class="line">michael@debian:/etc/init.d$ sudo systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: <span class="string">"Running"</span></div><div class="line"></div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Failed to obtain handles <span class="keyword">for</span> <span class="string">"Service Changed"</span> characteristic</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Sap driver initialization failed.</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: sap-server: Operation not permitted (1)</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSource</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSink</div><div class="line">Jun 20 14:42:00 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:43:36 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Main process exited, code=killed, status=9/KILL</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Unit entered failed state.</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Failed with result <span class="string">'signal'</span>.</div></pre></td></tr></table></figure>
+<h1 id="Linux-Systemctl-启动服务超时设置"><a href="#Linux-Systemctl-启动服务超时设置" class="headerlink" title="Linux Systemctl 启动服务超时设置"></a>Linux Systemctl 启动服务超时设置</h1><ul>
+<li>下面用一个网络连接服务为示例,如果网络配置是 DHCP,刚好网络没有提供 DHCP 服务,这时该服务程序会重试(默认)两分钟才会报错,这里可以设置成 5 到 10 秒,快速跳过该服务启动.</li>
+<li>在文件/lib/systemd/system/networking.service.d/network-pre.conf 里添加下面两行:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[Service]</div><div class="line">TimeoutStartSec=15</div></pre></td></tr></table></figure>
+<h1 id="安装-IBus-输入法框架"><a href="#安装-IBus-输入法框架" class="headerlink" title="安装 IBus 输入法框架"></a>安装 IBus 输入法框架</h1><ul>
+<li>IBus (“Intelligent Input Bus”) 是一个 输入法框架，一个输入非英语字符的系统。IBus 的功能与 SCIM 和 UIM 类似。在 Debian 下面有一个问题,如果不安装<code>ibus-gtk3,ibus-gtk</code>就会出现<strong>wxWidgets</strong>框架下的文本输入框无法使用<code>Back Space,Arrown keys</code>这些按键.<a href="https://wiki.archlinux.org/index.php/IBus_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="external">安装指导</a>&gt;)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">~$ dpkg <span class="_">-l</span> | grep <span class="string">"ibus"</span></div><div class="line">ii  gir1.2-ibus-1.0:amd64                             1.5.14-3                                    amd64        Intelligent Input Bus - introspection data</div><div class="line">ii  ibus                                              1.5.14-3                                    amd64        Intelligent Input Bus - core</div><div class="line">ii  ibus-gtk:amd64                                    1.5.14-3                                    amd64        Intelligent Input Bus - GTK+2 support</div><div class="line">ii  ibus-gtk3:amd64                                   1.5.14-3                                    amd64        Intelligent Input Bus - GTK+3 support</div><div class="line">ii  ibus-qt4                                          1.3.3-1                                     amd64        qt-immodule <span class="keyword">for</span> ibus (QT4) (plugin)</div><div class="line">ii  ibus-table                                        1.9.14-3                                    all          table engine <span class="keyword">for</span> IBus</div><div class="line">ii  ibus-table-wubi                                   1.8.2-2                                     all          ibus-table input method: Wubi</div><div class="line">ii  libgusb-dev                                       0.2.9-1+b1                                  amd64        GLib wrapper around libusb1 - development files</div><div class="line">ii  libgusb2:amd64                                    0.2.9-1+b1                                  amd64        GLib wrapper around libusb1</div><div class="line">ii  libhidapi-libusb0:amd64                           0.8.0~rc1+git20140818.d17db57+dfsg-1        amd64        Multi-Platform library <span class="keyword">for</span> communication with HID devices (libusb backend)</div><div class="line">ii  libibus-1.0-5:amd64                               1.5.14-3                                    amd64        Intelligent Input Bus - shared library</div><div class="line">ii  libibus-1.0-dev:amd64                             1.5.14-3                                    amd64        Intelligent Input Bus - development file</div><div class="line">ii  libibus-qt1                                       1.3.3-1                                     amd64        qt-immodule <span class="keyword">for</span> ibus (QT4) (library)</div><div class="line"></div><div class="line">~$ cat ~/.xinitrc</div><div class="line"><span class="built_in">export</span> GTK_IM_MODULE=ibus</div><div class="line"><span class="built_in">export</span> QT_IM_MODULE=ibus</div><div class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">"@im=ibus"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>如果要配置<code>locales</code>,方法如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install locales</div><div class="line">~$ sudo dpkg-reconfigure locales</div><div class="line">~$ sudo locale-gen</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="BOSSAC-烧写-Arduino-DUE-无法找到设备"><a href="#BOSSAC-烧写-Arduino-DUE-无法找到设备" class="headerlink" title="BOSSAC 烧写 Arduino-DUE 无法找到设备"></a>BOSSAC 烧写 Arduino-DUE 无法找到设备</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">./bossac -i <span class="_">-d</span> --port=ttyACM0 -U <span class="literal">false</span> <span class="_">-e</span> -w -v -b ./nuttx.bin -R</div><div class="line"></div><div class="line"></div><div class="line">Set binary mode</div><div class="line">Send auto-baud</div><div class="line">Set binary mode</div><div class="line">No device found on /dev/ttyACM0</div></pre></td></tr></table></figure>
+<h2 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stty -F /dev/ttyACM0 speed 1200 cs8 -cstopb -parenb</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="Virt-Manager-虚拟机无法启动"><a href="#Virt-Manager-虚拟机无法启动" class="headerlink" title="Virt-Manager 虚拟机无法启动"></a>Virt-Manager 虚拟机无法启动</h1><ul>
+<li>有时 KVM 框架虚拟机系统无法启动,错误如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Error starting domain: Requested operation is not valid: network <span class="string">'default'</span> is not active</div><div class="line"></div><div class="line">Traceback (most recent call last):</div><div class="line">[...]</div></pre></td></tr></table></figure>
 <ul>
 <li>通过如下命令启动网络即可.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ sudo virsh net-list --all </div><div class="line"> Name                 State      Autostart     Persistent</div><div class="line">----------------------------------------------------------</div><div class="line"> default              inactive   no            yes</div><div class="line"></div><div class="line">~$ sudo virsh net-start default</div><div class="line">Network default started</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ sudo virsh net-list --all</div><div class="line"> Name                 State      Autostart     Persistent</div><div class="line">----------------------------------------------------------</div><div class="line"> default              inactive   no            yes</div><div class="line"></div><div class="line">~$ sudo virsh net-start default</div><div class="line">Network default started</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="Virt-Manager-使用OpenvSwitch-交换机"><a href="#Virt-Manager-使用OpenvSwitch-交换机" class="headerlink" title="Virt-Manager 使用OpenvSwitch 交换机"></a>Virt-Manager 使用OpenvSwitch 交换机</h3><ul>
-<li>使用OpenvSwitch的网络服务启动会有延迟一分钟左右.</li>
+<h2 id="Virt-Manager-使用-OpenvSwitch-交换机"><a href="#Virt-Manager-使用-OpenvSwitch-交换机" class="headerlink" title="Virt-Manager 使用 OpenvSwitch 交换机"></a>Virt-Manager 使用 OpenvSwitch 交换机</h2><ul>
+<li>使用 OpenvSwitch 的网络服务启动会有延迟一分钟左右.</li>
 </ul>
-<h4 id="安装OpenvSwitch"><a href="#安装OpenvSwitch" class="headerlink" title="安装OpenvSwitch"></a>安装OpenvSwitch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ dpkg -l | grep &quot;openvswitch&quot;</div><div class="line">ii  openvswitch-common                                2.6.2~pre+git20161223-3                     amd64        Open vSwitch common components</div><div class="line">ii  openvswitch-switch                                2.6.2~pre+git20161223-3                     amd64        Open vSwitch switch implementations</div></pre></td></tr></table></figure>
-<h4 id="创建桥接端口"><a href="#创建桥接端口" class="headerlink" title="创建桥接端口"></a>创建桥接端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">~$ sudo ovs-vsctl add-br ovsbr0</div><div class="line">~$ sudo ovs-vsctl add-port ovsbr0 eth0</div><div class="line">~$ sudo ovs-vsctl show</div><div class="line">dbeec575-be91-48b6-bffa-0894b0fa24dd</div><div class="line">    Bridge &quot;ovsbr0&quot;</div><div class="line">        Port &quot;ovsbr0&quot;</div><div class="line">            Interface &quot;ovsbr0&quot;</div><div class="line">                type: internal</div><div class="line">        Port &quot;vnet0&quot;</div><div class="line">            Interface &quot;vnet0&quot;</div><div class="line">        Port &quot;eth0&quot;</div><div class="line">            Interface &quot;eth0&quot;</div><div class="line">    ovs_version: &quot;2.6.2&quot;</div><div class="line"></div><div class="line">~$ sudo ip addr del 192.168.1.100 dev eth0</div><div class="line">~$ sudo ip addr add 192.168.1.100 dev ovsbr0</div></pre></td></tr></table></figure>
-<h4 id="修改网卡启动配置"><a href="#修改网卡启动配置" class="headerlink" title="修改网卡启动配置"></a>修改网卡启动配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">~$ cat /etc/network/interfaces</div><div class="line">[...]</div><div class="line"></div><div class="line">auto eth0</div><div class="line">iface eth0 inet manual</div><div class="line">    up ip link set dev $IFACE up</div><div class="line">    down ip link set dev $IFACE down</div><div class="line"></div><div class="line"></div><div class="line">auto ovsbr0</div><div class="line">iface ovsbr0 inet static</div><div class="line">    up ip link set dev $IFACE up</div><div class="line">    down ip link set dev $IFACE down</div><div class="line">    address 192.168.1.100</div><div class="line">    netmask 255.255.255.0</div><div class="line">    gateway 192.168.1.1</div><div class="line"></div><div class="line">[...]</div></pre></td></tr></table></figure>
-<h4 id="创建Virt-Manager桥接网络"><a href="#创建Virt-Manager桥接网络" class="headerlink" title="创建Virt-Manager桥接网络"></a>创建Virt-Manager桥接网络</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">~$ sudo cp /etc/libvirt/qemu/networks/&#123;default.xml,ovsbr0.xml&#125;</div><div class="line"></div><div class="line"># 把内容修改成如下所示</div><div class="line">~$ cat /etc/libvirt/qemu/networks/ovsbr0.xml</div><div class="line">&lt;!--</div><div class="line">WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE</div><div class="line">OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:</div><div class="line">  virsh net-edit ovsbr0</div><div class="line">or other application using the libvirt API.</div><div class="line">--&gt;</div><div class="line"></div><div class="line">&lt;network&gt;</div><div class="line">  &lt;name&gt;ovsbr0&lt;/name&gt;</div><div class="line">  &lt;uuid&gt;fc0b3bb1-c273-49dc-b469-153dc4c452e2&lt;/uuid&gt;</div><div class="line">  &lt;forward mode=&apos;bridge&apos;/&gt;</div><div class="line">  &lt;bridge name=&apos;ovsbr0&apos;/&gt;</div><div class="line">  &lt;virtualport type=&apos;openvswitch&apos;/&gt;</div><div class="line">&lt;/network&gt;</div><div class="line"></div><div class="line">~$ sudo virsh net-define /etc/libvirt/qemu/networks/ovsbr0.xml</div><div class="line">~$ sudo virsh net-create /etc/libvirt/qemu/networks/ovsbr0.xml</div><div class="line"></div><div class="line">~$ sudo virsh net-list --all</div><div class="line"> Name                 State      Autostart     Persistent</div><div class="line">----------------------------------------------------------</div><div class="line"> default              active     yes           yes</div><div class="line"> ovsbr0               inactive     no           yes</div><div class="line"></div><div class="line">~$ sudo virsh net-autostart ovsbr0</div></pre></td></tr></table></figure>
-<h4 id="设置虚拟机的网络"><a href="#设置虚拟机的网络" class="headerlink" title="设置虚拟机的网络"></a>设置虚拟机的网络</h4><ul>
-<li>现在KVM虚拟机就有<code>default</code>,<code>ovsbr0</code>两个网络,添加一个连接到<code>OpenvSwitch</code>上的网卡如下图所示:</li>
+<h2 id="安装-OpenvSwitch"><a href="#安装-OpenvSwitch" class="headerlink" title="安装 OpenvSwitch"></a>安装 OpenvSwitch</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ dpkg <span class="_">-l</span> | grep <span class="string">"openvswitch"</span></div><div class="line">ii  openvswitch-common                                2.6.2~pre+git20161223-3                     amd64        Open vSwitch common components</div><div class="line">ii  openvswitch-switch                                2.6.2~pre+git20161223-3                     amd64        Open vSwitch switch implementations</div></pre></td></tr></table></figure>
+<h2 id="创建桥接端口"><a href="#创建桥接端口" class="headerlink" title="创建桥接端口"></a>创建桥接端口</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">~$ sudo ovs-vsctl add-br ovsbr0</div><div class="line">~$ sudo ovs-vsctl add-port ovsbr0 eth0</div><div class="line">~$ sudo ovs-vsctl show</div><div class="line">dbeec575-be91-48b6-bffa-0894b0fa24dd</div><div class="line">    Bridge <span class="string">"ovsbr0"</span></div><div class="line">        Port <span class="string">"ovsbr0"</span></div><div class="line">            Interface <span class="string">"ovsbr0"</span></div><div class="line">                <span class="built_in">type</span>: internal</div><div class="line">        Port <span class="string">"vnet0"</span></div><div class="line">            Interface <span class="string">"vnet0"</span></div><div class="line">        Port <span class="string">"eth0"</span></div><div class="line">            Interface <span class="string">"eth0"</span></div><div class="line">    ovs_version: <span class="string">"2.6.2"</span></div><div class="line"></div><div class="line">~$ sudo ip addr del 192.168.1.100 dev eth0</div><div class="line">~$ sudo ip addr add 192.168.1.100 dev ovsbr0</div></pre></td></tr></table></figure>
+<h2 id="修改网卡启动配置"><a href="#修改网卡启动配置" class="headerlink" title="修改网卡启动配置"></a>修改网卡启动配置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/network/interfaces</div><div class="line">[...]</div><div class="line"></div><div class="line">auto eth0</div><div class="line">iface eth0 inet manual</div><div class="line">    up ip link <span class="built_in">set</span> dev <span class="variable">$IFACE</span> up</div><div class="line">    down ip link <span class="built_in">set</span> dev <span class="variable">$IFACE</span> down</div><div class="line"></div><div class="line"></div><div class="line">auto ovsbr0</div><div class="line">iface ovsbr0 inet static</div><div class="line">    up ip link <span class="built_in">set</span> dev <span class="variable">$IFACE</span> up</div><div class="line">    down ip link <span class="built_in">set</span> dev <span class="variable">$IFACE</span> down</div><div class="line">    address 192.168.1.100</div><div class="line">    netmask 255.255.255.0</div><div class="line">    gateway 192.168.1.1</div><div class="line"></div><div class="line">[...]</div></pre></td></tr></table></figure>
+<h2 id="创建-Virt-Manager-桥接网络"><a href="#创建-Virt-Manager-桥接网络" class="headerlink" title="创建 Virt-Manager 桥接网络"></a>创建 Virt-Manager 桥接网络</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">~$ sudo cp /etc/libvirt/qemu/networks/&#123;default.xml,ovsbr0.xml&#125;</div><div class="line"></div><div class="line"><span class="comment"># 把内容修改成如下所示</span></div><div class="line">~$ cat /etc/libvirt/qemu/networks/ovsbr0.xml</div><div class="line">&lt;!--</div><div class="line">WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE</div><div class="line">OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:</div><div class="line">  virsh net-edit ovsbr0</div><div class="line">or other application using the libvirt API.</div><div class="line">--&gt;</div><div class="line"></div><div class="line">&lt;network&gt;</div><div class="line">  &lt;name&gt;ovsbr0&lt;/name&gt;</div><div class="line">  &lt;uuid&gt;<span class="built_in">fc</span>0b3bb1-c273-49dc-b469-153dc4c452e2&lt;/uuid&gt;</div><div class="line">  &lt;forward mode=<span class="string">'bridge'</span>/&gt;</div><div class="line">  &lt;bridge name=<span class="string">'ovsbr0'</span>/&gt;</div><div class="line">  &lt;virtualport <span class="built_in">type</span>=<span class="string">'openvswitch'</span>/&gt;</div><div class="line">&lt;/network&gt;</div><div class="line"></div><div class="line">~$ sudo virsh net-define /etc/libvirt/qemu/networks/ovsbr0.xml</div><div class="line">~$ sudo virsh net-create /etc/libvirt/qemu/networks/ovsbr0.xml</div><div class="line"></div><div class="line">~$ sudo virsh net-list --all</div><div class="line"> Name                 State      Autostart     Persistent</div><div class="line">----------------------------------------------------------</div><div class="line"> default              active     yes           yes</div><div class="line"> ovsbr0               inactive     no           yes</div><div class="line"></div><div class="line">~$ sudo virsh net-autostart ovsbr0</div></pre></td></tr></table></figure>
+<h2 id="设置虚拟机的网络"><a href="#设置虚拟机的网络" class="headerlink" title="设置虚拟机的网络"></a>设置虚拟机的网络</h2><ul>
+<li>现在 KVM 虚拟机就有<code>default</code>,<code>ovsbr0</code>两个网络,添加一个连接到<code>OpenvSwitch</code>上的网卡如下图所示:</li>
 </ul>
-<p><img src="/imgs/ovsbr0.png" alt=""></p>
+<p><img src="/imgs/ovsbr0.png" alt="ovsbr0"></p>
 <hr>
-<h3 id="创建Debian-Live-USB系统盘"><a href="#创建Debian-Live-USB系统盘" class="headerlink" title="创建Debian Live USB系统盘"></a>创建Debian Live USB系统盘</h3><ul>
-<li>如果想要试用Linux,又不想安装它,可以把它烧写到U盘里,做为启动盘或者系统恢复盘.</li>
+<h1 id="创建-Debian-Live-USB-系统盘"><a href="#创建-Debian-Live-USB-系统盘" class="headerlink" title="创建 Debian Live USB 系统盘"></a>创建 Debian Live USB 系统盘</h1><ul>
+<li>如果想要试用 Linux,又不想安装它,可以把它烧写到 U 盘里,做为启动盘或者系统恢复盘.</li>
 <li><a href="http://mirrors.163.com/debian-cd" target="_blank" rel="external"><code>Debian 国内镜像下载链接</code></a></li>
-<li><strong>注意:</strong> 这里一定要选择<code>live</code>标志的iso镜像下载.在windows下面要先下载一个叫<a href="http://launchpad.net/win32-image-writer/0.2/0.2/+download/win32diskimager-RELEASE-0.2-r23-win32.zip" target="_blank" rel="external"><code>Win32DiskImager</code></a>的烧写工具,Linux 就很简单使用下面命令就能完成:</li>
+<li><strong>注意:</strong> 这里一定要选择<code>live</code>标志的 iso 镜像下载.在 windows 下面要先下载一个叫<a href="http://launchpad.net/win32-image-writer/0.2/0.2/+download/win32diskimager-RELEASE-0.2-r23-win32.zip" target="_blank" rel="external"><code>Win32DiskImager</code></a>的烧写工具,Linux 就很简单使用下面命令就能完成:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ ls  debian-live-9.4.0-amd64-mate.iso </div><div class="line">debian-live-9.4.0-amd64-mate.iso</div><div class="line">$ sudo dd if=debian-live-9.4.0-amd64-mate.iso of=/dev/sdc1 </div><div class="line">4002944+0 records in</div><div class="line">4002944+0 records out</div><div class="line">2049507328 bytes (2.0 GB, 1.9 GiB) copied, 7.39192 s, 277 MB/s</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ ls  debian-live-9.4.0-amd64-mate.iso</div><div class="line">debian-live-9.4.0-amd64-mate.iso</div><div class="line">$ sudo dd <span class="keyword">if</span>=debian-live-9.4.0-amd64-mate.iso of=/dev/sdc1</div><div class="line">4002944+0 records <span class="keyword">in</span></div><div class="line">4002944+0 records out</div><div class="line">2049507328 bytes (2.0 GB, 1.9 GiB) copied, 7.39192 s, 277 MB/s</div></pre></td></tr></table></figure>
 <ul>
-<li><strong>严重注意</strong> 这里的<code>/dev/sdc1</code>一要是你想要格式华的U盘,如果这里是当前硬盘,或者是有重要资料的盘符,就会直接覆盖它,找不回来.<strong>注意,注意,注意</strong></li>
+<li><strong>严重注意</strong> 这里的<code>/dev/sdc1</code>一要是你想要格式华的 U 盘,如果这里是当前硬盘,或者是有重要资料的盘符,就会直接覆盖它,找不回来.<strong>注意,注意,注意</strong></li>
 </ul>
 <hr>
-<h3 id="开启Debian-Hibernate功能"><a href="#开启Debian-Hibernate功能" class="headerlink" title="开启Debian Hibernate功能"></a>开启Debian Hibernate功能</h3><ul>
+<h1 id="开启-Debian-Hibernate-功能"><a href="#开启-Debian-Hibernate-功能" class="headerlink" title="开启 Debian Hibernate 功能"></a>开启 Debian Hibernate 功能</h1><ul>
 <li>有时工作进行到一个阶段,不想系统重启之后,再费时间来打开与配置环境.开启系统休眠功能非常有用.先要确保有一个<code>swap</code>分区,最好是两倍与系统内存的大小.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install acpi-support pm-utils</div><div class="line">~$ sudo mkswap /dev/sdb1</div><div class="line">~$ sudo swapon /dev/sdb1</div><div class="line"># 确保下面这两个文件里有这些行.</div><div class="line">~$ sudo cat /etc/fstab  | grep &quot;swap&quot;</div><div class="line">/dev/sdb1       none    swap    pri=1      0       0</div><div class="line">~$ sudo cat /etc/default/grub | grep &quot;resume&quot;</div><div class="line">GRUB_CMDLINE_LINUX=&quot;resume=/dev/sdb1&quot;</div><div class="line"></div><div class="line">#这一操作很重要.</div><div class="line">~$ sudo update-grub</div><div class="line"></div><div class="line">~$ cat /proc/acpi/wakeup </div><div class="line">Device	S-state	  Status   Sysfs node</div><div class="line">PB31	  S4	*disabled  pci:0000:00:03.1</div><div class="line">PB32	  S4	*disabled</div><div class="line">PB33	  S4	*disabled  pci:0000:00:03.3</div><div class="line">PB34	  S4	*disabled</div><div class="line">SBAZ	  S4	*disabled  pci:0000:00:14.2</div><div class="line">PS2K	  S3	*disabled</div><div class="line">PS2M	  S3	*disabled</div><div class="line">ECIR	  S4	*disabled</div><div class="line">P0PC	  S4	*disabled  pci:0000:00:14.4</div><div class="line">OHC1	  S4	*disabled  pci:0000:00:12.0</div><div class="line">EHC1	  S4	*disabled  pci:0000:00:12.2</div><div class="line">OHC2	  S4	*disabled  pci:0000:00:13.0</div><div class="line">EHC2	  S4	*disabled  pci:0000:00:13.2</div><div class="line">OHC3	  S4	*disabled</div><div class="line">EHC3	  S4	*disabled</div><div class="line">OHC4	  S4	*disabled  pci:0000:00:14.5</div><div class="line">XHC0	  S4	*disabled  pci:0000:00:10.0</div><div class="line">XHC1	  S4	*disabled  pci:0000:00:10.1</div><div class="line">PE20	  S4	*disabled</div><div class="line">PE21	  S4	*disabled</div><div class="line">PE22	  S4	*disabled</div><div class="line">PE23	  S4	*disabled</div><div class="line">PWRB	  S3	*enabled   platform:PNP0C0C:00</div><div class="line"></div><div class="line"># 上面是一些如何唤醒休眠的设备, 休眠中是可以通过移动鼠标或者键盘来唤醒,但是我这里把它们都关闭,让它只能通过电源按钮(PWRB)唤醒系统.</div><div class="line"></div><div class="line">~$  grep &quot;echo&quot; /etc/rc.local </div><div class="line">echo &quot;EHC1&quot; &gt; /proc/acpi/wakeup</div><div class="line">echo &quot;EHC2&quot; &gt; /proc/acpi/wakeup</div><div class="line">echo &quot;XHC&quot;  &gt; /proc/acpi/wakeup</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install acpi-support pm-utils</div><div class="line">~$ sudo mkswap /dev/sdb1</div><div class="line">~$ sudo swapon /dev/sdb1</div><div class="line"><span class="comment"># 确保下面这两个文件里有这些行.</span></div><div class="line">~$ sudo cat /etc/fstab  | grep <span class="string">"swap"</span></div><div class="line">/dev/sdb1       none    swap    pri=1      0       0</div><div class="line"></div><div class="line">~$ blkid</div><div class="line">[...]</div><div class="line">/dev/sdb3: UUID=<span class="string">"ae170b9d-832a-46a7-beca-5fb7c9329b1b"</span> TYPE=<span class="string">"swap"</span> PARTUUID=<span class="string">"6daebe63-03"</span></div><div class="line">~$ sudo cat /etc/default/grub | grep <span class="string">"resume"</span></div><div class="line">GRUB_CMDLINE_LINUX=<span class="string">"resume=UUID=ae170b9d-832a-46a7-beca-5fb7c9329b1b"</span></div><div class="line"></div><div class="line">~<span class="variable">$cat</span> /etc/initramfs-tools/conf.d/resume</div><div class="line">RESUME=UUID=ae170b9d-832a-46a7-beca-5fb7c9329b1b</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#这一操作很重要.</span></div><div class="line">~$  update-initramfs -u -k `uname -r`  <span class="comment">## 更新当前内核的启动镜像.</span></div><div class="line">~$ sudo update-grub</div><div class="line"></div><div class="line">~$ cat /proc/acpi/wakeup</div><div class="line">Device	S-state	  Status   Sysfs node</div><div class="line">PB31	  S4	*disabled  pci:0000:00:03.1</div><div class="line">PB32	  S4	*disabled</div><div class="line">PB33	  S4	*disabled  pci:0000:00:03.3</div><div class="line">PB34	  S4	*disabled</div><div class="line">SBAZ	  S4	*disabled  pci:0000:00:14.2</div><div class="line">PS2K	  S3	*disabled</div><div class="line">PS2M	  S3	*disabled</div><div class="line">ECIR	  S4	*disabled</div><div class="line">P0PC	  S4	*disabled  pci:0000:00:14.4</div><div class="line">OHC1	  S4	*disabled  pci:0000:00:12.0</div><div class="line">EHC1	  S4	*disabled  pci:0000:00:12.2</div><div class="line">OHC2	  S4	*disabled  pci:0000:00:13.0</div><div class="line">EHC2	  S4	*disabled  pci:0000:00:13.2</div><div class="line">OHC3	  S4	*disabled</div><div class="line">EHC3	  S4	*disabled</div><div class="line">OHC4	  S4	*disabled  pci:0000:00:14.5</div><div class="line">XHC0	  S4	*disabled  pci:0000:00:10.0</div><div class="line">XHC1	  S4	*disabled  pci:0000:00:10.1</div><div class="line">PE20	  S4	*disabled</div><div class="line">PE21	  S4	*disabled</div><div class="line">PE22	  S4	*disabled</div><div class="line">PE23	  S4	*disabled</div><div class="line">PWRB	  S3	*enabled   platform:PNP0C0C:00</div><div class="line"></div><div class="line"><span class="comment"># 上面是一些如何唤醒休眠的设备, 休眠中是可以通过移动鼠标或者键盘来唤醒,但是我这里把它们都关闭,让它只能通过电源按钮(PWRB)唤醒系统.</span></div><div class="line"></div><div class="line">~$  grep <span class="string">"echo"</span> /etc/rc.local</div><div class="line">[...]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> OHC1 EHC1 OHC2 EHC2 OHC4 XHC0 XHC1;</div><div class="line"><span class="keyword">do</span></div><div class="line">cat /proc/acpi/wakeup  | grep <span class="string">"<span class="variable">$i</span>"</span> | grep <span class="string">"enabled"</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"<span class="variable">$i</span>"</span> &gt; /proc/acpi/wakeup</div><div class="line"><span class="keyword">done</span></div><div class="line">[...]</div></pre></td></tr></table></figure>
 <ul>
-<li>通过上面设置,系统休眠与唤醒都很符合我的预期.还有一种方法是使用一个交换文件,不需要一个独立的分区,请<a href="https://wiki.debian.org/Hibernation/Hibernate_Without_Swap_Partition" target="_blank" rel="external">参考这里</a></li>
+<li><p>测试休眠功能<code>echo disk &gt; /sys/power/state</code>,或者运行<code>pm-hibernate</code>进行休眠.</p>
+</li>
+<li><p>通过上面设置,系统休眠与唤醒都很符合我的预期.还有一种方法是使用一个交换文件,不需要一个独立的分区,请<a href="https://wiki.debian.org/Hibernation/Hibernate_Without_Swap_Partition" target="_blank" rel="external">参考这里</a></p>
+</li>
+</ul>
+<h1 id="程序找不到链接库位置"><a href="#程序找不到链接库位置" class="headerlink" title="程序找不到链接库位置"></a>程序找不到链接库位置</h1><ul>
+<li>Python ImportError,这种错误是因为在<code>PYTHONPATH</code>路径中找不相就的模块.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ ./modes_rx</div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"./modes_rx"</span>, line 27, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">    import air_modes</div><div class="line">ImportError: No module named air_modes</div><div class="line"></div><div class="line">~$ PYTHONPATH=../lib/python2.7/dist-packages　./modes_rx    <span class="comment">#指定的环境变量对了就可以了.</span></div></pre></td></tr></table></figure>
+<ul>
+<li>本地库链接错误</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">~$ ldd /usr/<span class="built_in">local</span>/bin/rtl_tcp</div><div class="line">	linux-vdso.so.1 (0x00007fff3d3eb000)</div><div class="line">	librtlsdr.so.0 =&gt; not found　　<span class="comment">#　默认位置/lib/x86_64-linux-gnu找不该库.</span></div><div class="line">	libusb-1.0.so.0 =&gt; /lib/x86_64-linux-gnu/libusb-1.0.so.0 (0x00007f3d0b328000)</div><div class="line">	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f3d0b108000)</div><div class="line">	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3d0ad68000)</div><div class="line">	libudev.so.1 =&gt; /lib/x86_64-linux-gnu/libudev.so.1 (0x00007f3d0b6d8000)</div><div class="line">	/lib64/ld-linux-x86-64.so.2 (0x00007f3d0b548000)</div><div class="line">	librt.so.1 =&gt; /lib/x86_64-linux-gnu/librt.so.1 (0x00007f3d0ab60000)</div><div class="line"></div><div class="line">~$ ls  /usr/<span class="built_in">local</span>/lib/librtlsdr.so.0　　<span class="comment">#　这个位置有这个库</span></div><div class="line">/usr/<span class="built_in">local</span>/lib/librtlsdr.so.0</div></pre></td></tr></table></figure>
+<ul>
+<li>上面的错误有两种方法可以解决.１,把<code>/usr/local/lib</code>加入到<code>/etc/ld.so.conf</code>里,再执行一次<code>ldconfig</code>就可以链接这个库了.2,使用<code>LD_LIBRARY_PATH</code>环境变量指位置,这样运行:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">~$ LD_LIBRARY_PATH=/usr/<span class="built_in">local</span>/lib  rtl_tcp</div><div class="line">Found 1 device(s).</div><div class="line">Found Rafael Micro R820T tuner</div><div class="line">Using ezcap USB 2.0 DVB-T/DAB/FM dongle</div><div class="line">Tuned to 100000000 Hz.</div><div class="line">listening...</div><div class="line">Use the device argument <span class="string">'rtl_tcp=127.0.0.1:1234'</span> <span class="keyword">in</span> OsmoSDR (gr-osmosdr) <span class="built_in">source</span></div><div class="line">to receive samples <span class="keyword">in</span> GRC and control rtl_tcp parameters (frequency, gain, ...).</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line"></div><div class="line"># 谢谢打赏支持</div><div class="line"></div><div class="line">- 您的打赏将会鼓励我写出更多的博客。</div><div class="line">- 微信二维码:</div><div class="line"></div><div class="line">&lt;img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/&gt;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
+                  常见编译问题,不定期更新.
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
+<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
+<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
+<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li><p>Linux 下要定义成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
+</li>
+<li><p>MinGW 下要定义成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
@@ -1233,6 +1668,233 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
+                  debian 安装mate桌面与设置多屏
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
+</li>
+<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
+</li>
+</ul>
+<ul>
+<li><p><strong>安装MATE相关的软件包:</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装FVWM相关软件包:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
+<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
+<ul>
+<li>代码轻量</li>
+<li>符合标准 (如 PAM, logind, 等)</li>
+<li>为用户提供一个良好的界面。</li>
+<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
+<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
+<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
+<li>获取屏幕的信息如下图所示.</li>
+</ul>
+<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
+<ul>
+<li><ul>
+<li>通过命令行设置.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
+<ul>
+<li>最后效果图如下.</li>
+</ul>
+<p><img src="/imgs/xrandr_example.png" alt=""></p>
+<ul>
+<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
+</ul>
+<p><img src="/imgs/arandr.png" alt=""></p>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1664,233 +2326,6 @@ MEMORY
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
-                  debian 安装mate桌面与设置多屏
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
-</li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
-</li>
-</ul>
-<ul>
-<li><p><strong>安装MATE相关的软件包:</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装FVWM相关软件包:</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
-<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
-<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
-<ul>
-<li>代码轻量</li>
-<li>符合标准 (如 PAM, logind, 等)</li>
-<li>为用户提供一个良好的界面。</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
-<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
-<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
-<li>获取屏幕的信息如下图所示.</li>
-</ul>
-<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
-<ul>
-<li><ul>
-<li>通过命令行设置.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
-<ul>
-<li>最后效果图如下.</li>
-</ul>
-<p><img src="/imgs/xrandr_example.png" alt=""></p>
-<ul>
-<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
-</ul>
-<p><img src="/imgs/arandr.png" alt=""></p>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/about/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2081,7 +2516,7 @@ MEMORY
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

@@ -285,6 +285,331 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/RTL-SDR的一些玩法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/12/RTL-SDR的一些玩法/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-12 12:18:40" itemprop="dateCreated datePublished" datetime="2018-08-12T12:18:40+08:00">2018-08-12</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>FM 收音机功能</p>
+<p><a href="https://osmocom.org/projects/rtl-sdr/wiki/Rtl-sdr" target="_blank" rel="external">https://osmocom.org/projects/rtl-sdr/wiki/Rtl-sdr</a></p>
+<p><a href="https://gnss-sdr.org/docs/tutorials/gnss-sdr-operation-realtek-rtl2832u-usb-dongle-dvb-t-receiver/" target="_blank" rel="external">https://gnss-sdr.org/docs/tutorials/gnss-sdr-operation-realtek-rtl2832u-usb-dongle-dvb-t-receiver/</a></p>
+<p><a href="https://gnss-sdr.org/" target="_blank" rel="external">https://gnss-sdr.org/</a></p>
+<p><a href="http://www.freebuf.com/articles/wireless/121961.html" target="_blank" rel="external">http://www.freebuf.com/articles/wireless/121961.html</a></p>
+<p><a href="https://cn0xroot.com/2016/12/09/gsm-hacking%EF%BC%9Athe-application-of-silent-sms-in-technical-investigation/" target="_blank" rel="external">https://cn0xroot.com/2016/12/09/gsm-hacking%EF%BC%9Athe-application-of-silent-sms-in-technical-investigation/</a></p>
+<p><a href="http://sdr-x.github.io/rtl-sdr-rtl2832%E7%94%B5%E8%A7%86%E6%A3%92%E8%B7%9F%E8%B8%AA%E9%A3%9E%E6%9C%BAstep-by-step%E6%95%99%E7%A8%8B(tutorial-ADS-B-aircraft-tracking-by-rtl-sdr-rtl2832-gr-air-modes)/" target="_blank" rel="external">http://sdr-x.github.io/rtl-sdr-rtl2832%E7%94%B5%E8%A7%86%E6%A3%92%E8%B7%9F%E8%B8%AA%E9%A3%9E%E6%9C%BAstep-by-step%E6%95%99%E7%A8%8B(tutorial-ADS-B-aircraft-tracking-by-rtl-sdr-rtl2832-gr-air-modes)/</a></p>
+<p><a href="https://kb.ettus.com/Implementation_of_an_ADS-B/Mode-S_Receiver_in_GNU_Radio" target="_blank" rel="external">https://kb.ettus.com/Implementation_of_an_ADS-B/Mode-S_Receiver_in_GNU_Radio</a></p>
+<p><a href="https://cn0xroot.com/2017/01/10/iot-mode-fuzzing-with-openbt/" target="_blank" rel="external">https://cn0xroot.com/2017/01/10/iot-mode-fuzzing-with-openbt/</a></p>
+<p><a href="http://git.gnumonks.org/airprobe/" target="_blank" rel="external">http://git.gnumonks.org/airprobe/</a></p>
+<p><a href="https://live.osgeo.org/en/overview/gpsprune_overview.html" target="_blank" rel="external">https://live.osgeo.org/en/overview/gpsprune_overview.html</a></p>
+<p><a href="https://github.com/merbanan/rtl_433" target="_blank" rel="external">https://github.com/merbanan/rtl_433</a><br><a href="https://wiki.gnuradio.org/index.php/Main_Page" target="_blank" rel="external">https://wiki.gnuradio.org/index.php/Main_Page</a></p>
+<p><a href="https://www.hackrf.net/hackrf%E4%B8%8Egnuradio%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" target="_blank" rel="external">HackRF 与 gnuradio 入门</a></p>
+<h2 id="rtl-sdr"><a href="#rtl-sdr" class="headerlink" title="rtl-sdr"></a>rtl-sdr</h2><ul>
+<li><a href="http://rtlsdr.org/" target="_blank" rel="external">rtlsdr.org</a></li>
+<li><a href="https://github.com/steve-m/librtlsdr" target="_blank" rel="external">librtlsdr</a></li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>直接安装方式如下,也可以通过源码编译最新版,<a href="https://osmocom.org/projects/rtl-sdr/wiki/Rtl-sdr" target="_blank" rel="external">源码编译请看这里]</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install rtl-sdr</div><div class="line"></div><div class="line">~$ rtl_eeprom</div><div class="line">Found 1 device(s):</div><div class="line">  0:  Generic RTL2832U OEM</div><div class="line"></div><div class="line">Using device 0: Generic RTL2832U OEM</div><div class="line">Found Rafael Micro R820T tuner</div><div class="line"></div><div class="line">Current configuration:</div><div class="line">__________________________________________</div><div class="line">Vendor ID:		0x0bda</div><div class="line">Product ID:		0x2838</div><div class="line">Manufacturer:		Realtek</div><div class="line">Product:		RTL2838UHIDIR</div><div class="line">Serial number:		00000001</div><div class="line">Serial number enabled:	yes</div><div class="line">IR endpoint enabled:	yes</div><div class="line">Remote wakeup enabled:	no</div></pre></td></tr></table></figure>
+<h3 id="收音机功能"><a href="#收音机功能" class="headerlink" title="收音机功能"></a>收音机功能</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ rtl_fm <span class="_">-f</span> 87.0e6 -M wbfm <span class="_">-s</span> 200000 -r 48000 - | aplay -r 48 <span class="_">-f</span> S16_LE</div><div class="line">Found 1 device(s):</div><div class="line">  0:  Realtek, RTL2838UHIDIR, SN: 00000001</div><div class="line"></div><div class="line">Using device 0: Generic RTL2832U OEM</div><div class="line">Found Rafael Micro R820T tuner</div><div class="line">Tuner gain <span class="built_in">set</span> to automatic.</div><div class="line">Tuned to 87216000 Hz.</div><div class="line">Oversampling input by: 6x.</div><div class="line">Oversampling output by: 1x.</div><div class="line">Buffer size: 6.83ms</div><div class="line">Sampling at 1200000 S/s.</div><div class="line">Output at 200000 Hz.</div><div class="line">Playing raw data <span class="string">'stdin'</span> : Signed 16 bit Little Endian, Rate 48000 Hz, Mono</div></pre></td></tr></table></figure>
+<h2 id="GNSS-SDR-使用"><a href="#GNSS-SDR-使用" class="headerlink" title="GNSS_SDR 使用"></a>GNSS_SDR 使用</h2><p>*　<a href="https://github.com/gnss-sdr/gnss-sdr" target="_blank" rel="external">gnss-sdr　github</a></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>源码编译安装,请参照<code>README.md</code>进行.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h2 id="gr-air-modes-使用"><a href="#gr-air-modes-使用" class="headerlink" title="gr-air-modes 使用"></a>gr-air-modes 使用</h2><h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li>这里请参照该项目的<code>README.md</code>指导安装.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ git <span class="built_in">clone</span> https://github.com/bistromath/gr-air-modes</div><div class="line">~$ <span class="built_in">cd</span> gr-air-modes &amp;&amp; mkdir build</div><div class="line">~$ <span class="built_in">cd</span> build</div><div class="line">~$ cmake ../</div></pre></td></tr></table></figure>
+<p>###　收集飞行数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">~$ modes_rx <span class="_">-s</span> osmocom -t 1234 -r 2.4e6 --kml air-tracker.kml</div><div class="line">linux; GNU C++ version 6.3.0 20170221; Boost_106200; UHD_003.009.005-0-unknown</div><div class="line"></div><div class="line">gr-osmosdr 0.1.4 (0.1.4) gnuradio 3.7.10</div><div class="line">built-in <span class="built_in">source</span> types: file osmosdr fcd rtl rtl_tcp uhd miri hackrf bladerf rfspace airspy soapy redpitaya</div><div class="line">Cannot connect to server socket err = No such file or directory</div><div class="line">Cannot connect to server request channel</div><div class="line">jack server is not running or cannot be started</div><div class="line">JackShmReadWritePtr::~JackShmReadWritePtr - Init not <span class="keyword">done</span> <span class="keyword">for</span> 4294967295, skipping unlock</div><div class="line">JackShmReadWritePtr::~JackShmReadWritePtr - Init not <span class="keyword">done</span> <span class="keyword">for</span> 4294967295, skipping unlock</div><div class="line">Found Rafael Micro R820T tuner</div><div class="line">Using device <span class="comment">#0 Realtek RTL2838UHIDIR SN: 00000001</span></div><div class="line">Found Rafael Micro R820T tuner</div><div class="line">[R82XX] PLL not locked!</div><div class="line">[R82XX] PLL not locked!</div><div class="line">Gain is 33</div><div class="line">Rate is 2400000</div><div class="line">(-26 0.06682075) Type 17 BDS0,9-1 (track report) from 780d1c with velocity 458kt heading 268 VS -64</div><div class="line">(-40 0.07617875) No handler <span class="keyword">for</span> message <span class="built_in">type</span> 24 from 19f157</div><div class="line">(-38 0.15085075) Type 0 (short A-A surveillance) from adae05 at 4375ft (speed &lt;75kt)</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<h3 id="读取飞行数据"><a href="#读取飞行数据" class="headerlink" title="读取飞行数据"></a>读取飞行数据</h3><h4 id="gpsprune"><a href="#gpsprune" class="headerlink" title="gpsprune"></a>gpsprune</h4><ul>
+<li>Debian 系统可以通过系统直接安装.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install gpsprune -y</div><div class="line">[...]</div><div class="line"></div><div class="line">~$ gpsprune</div></pre></td></tr></table></figure>
+<ul>
+<li>通过<code>File--&gt;Open File</code>,打开对话框,找到并选择<code>air-tracker.kml</code>文件,就会看到如下图所示的界面,一些蓝色的线条与点,把上面的<code>小地球</code>点亮就会加载地图进来.</li>
+</ul>
+<p><img src="/imgs/rtl-sdr/gpsprune.png" alt="gpsprune]"></p>
+<h4 id="Google-Earth"><a href="#Google-Earth" class="headerlink" title="Google Earth"></a>Google Earth</h4><ul>
+<li>从谷歌网站去下载地图软件,这里是需要<code>科学上网</code>才能下载与使用的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ sudo dpkg -i google-earth-pro-stable_current_amd64.deb</div></pre></td></tr></table></figure>
+<ul>
+<li>打开软件<code>Add--&gt;Network Link</code>如下图所示,打开对话框,找到并选择<code>air-tracker.kml</code>文件.</li>
+</ul>
+<p><img src="/imgs/rtl-sdr/add-link.png" alt="add-link"></p>
+<ul>
+<li>可以根据需要,设置<code>Refresh</code>,如:自动刷新…</li>
+</ul>
+<p><img src="/imgs/rtl-sdr/google-map.png" alt="google-map.png"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/蓝牙开发相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/11/蓝牙开发相关/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-11 18:34:53" itemprop="dateCreated datePublished" datetime="2018-08-11T18:34:53+08:00">2018-08-11</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install wireshark wireshark-dev  libwireshark-dev</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/使用Heroku进行开发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -348,7 +673,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-07-27 13:19:19" itemprop="dateModified" datetime="2018-07-27T13:19:19+08:00">2018-07-27</time>
+                <time title="修改时间：2018-12-13 21:42:52" itemprop="dateModified" datetime="2018-12-13T21:42:52+08:00">2018-12-13</time>
               
             
           </span>
@@ -387,43 +712,58 @@
 <li><a href="https://www.heroku.com/" target="_blank" rel="external">官网</a></li>
 <li><p><a href="https://snapcraft.io/" target="_blank" rel="external">snapcraft</a></p>
 </li>
-<li><p>Heroku 是 Salesforce 旗下云服务商，提供方便便捷的各种云服务，如服务器，数据库，监控，计算等等,Heroku平台的灵活性极高且支持多种编程语言。若想把程序部署到Heroku上,开发者要使用Git把程序推送到Heroku的Git服务器上。并且他提供了免费版本.对于个使用,搞一些小程序还是可以满足使用的.</p>
+<li><p>Heroku 是 Salesforce 旗下云服务商，提供方便便捷的各种云服务，如服务器，数据库，监控，计算等等,Heroku 平台的灵活性极高且支持多种编程语言。若想把程序部署到 Heroku 上,开发者要使用 Git 把程序推送到 Heroku 的 Git 服务器上。并且他提供了免费版本.对于个使用,搞一些小程序还是可以满足使用的.</p>
 </li>
 </ul>
-<h3 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h3><ul>
-<li><p>这里直接下载一个独立包使用,也可以使用<code>snap</code>安装.</p>
+<h1 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h1><ul>
+<li>这里直接下载一个独立包使用,也可以使用<code>snap</code>安装.</li>
+</ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ wget -c https://cli-assets.heroku.com/heroku-linux-x64.tar.xz</div></pre></td></tr></table></figure>
-</li>
-<li><p>登录Heroku</p>
-</li>
+<ul>
+<li>登录 Heroku</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">~$ heroku login</div><div class="line">heroku: Enter your login credentials</div><div class="line">Email: yjdwbj@gmail.com</div><div class="line">Password: ***************</div><div class="line">Logged <span class="keyword">in</span> as yjdwbj@gmail.com</div></pre></td></tr></table></figure>
 <ul>
-<li>添加SSH公钥</li>
+<li>添加 SSH 公钥</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ heroku keys:add</div><div class="line">Found an SSH public key at /home/michael/.ssh/id_rsa.pub</div><div class="line">? Would you like to upload it to Heroku? Yes</div><div class="line">Uploading /home/michael/.ssh/id_rsa.pub SSH key... <span class="keyword">done</span></div></pre></td></tr></table></figure>
-<h4 id="创建App项目"><a href="#创建App项目" class="headerlink" title="创建App项目"></a>创建App项目</h4><ul>
-<li>创建项目有两种方,一是登录Heroku 网站创建,二是是使用Heroku Toolbelt命令创建.</li>
+<h1 id="创建-App-项目"><a href="#创建-App-项目" class="headerlink" title="创建 App 项目"></a>创建 App 项目</h1><ul>
+<li>创建项目有两种方,一是登录<a href="https://www.heroku.com/" target="_blank" rel="external">Heroku</a>网站创建,二是可以使用<code>Heroku Toolbelt</code> 命令创建.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ heroku create lcy-web-srv</div><div class="line">Creating ⬢ lcy-web-srv... <span class="keyword">done</span></div><div class="line">https://lcy-web-srv.herokuapp.com/ | https://git.heroku.com/lcy-web-srv.git</div><div class="line">~ $ heroku apps</div><div class="line">=== yjdwbj@gmail.com Apps</div><div class="line">app-srv-test</div><div class="line">lcy-web-srv</div></pre></td></tr></table></figure>
-<h4 id="创建PostgreSQL数据库"><a href="#创建PostgreSQL数据库" class="headerlink" title="创建PostgreSQL数据库"></a>创建PostgreSQL数据库</h4><ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ heroku create lcy-web-srv</div><div class="line">Creating ⬢ lcy-web-srv... <span class="keyword">done</span></div><div class="line">https://lcy-web-srv.herokuapp.com/ | https://git.heroku.com/lcy-web-srv.git</div><div class="line">~ $ heroku apps</div><div class="line">=== xxxxxx@gmail.com Apps</div><div class="line">app-srv-test</div><div class="line">lcy-web-srv</div></pre></td></tr></table></figure>
+<h1 id="创建-PostgreSQL-数据库"><a href="#创建-PostgreSQL-数据库" class="headerlink" title="创建 PostgreSQL 数据库"></a>创建 PostgreSQL 数据库</h1><ul>
 <li><a href="https://elements.heroku.com/addons/heroku-postgresql" target="_blank" rel="external">Heroku Postgres</a></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">~$ heroku addons:create heroku-postgresql:hobby-dev --version=9.6 --app=lcy-web-srv</div><div class="line">Creating heroku-postgresql:hobby-dev on ⬢ lcy-web-srv... free</div><div class="line">Database has been created and is available</div><div class="line"> ! This database is empty. If upgrading, you can transfer</div><div class="line"> ! data from another database with pg:copy</div><div class="line">Created postgresql-solid-87926 as DATABASE_URL</div><div class="line">Use heroku addons:docs heroku-postgresql to view documentation</div><div class="line"></div><div class="line">~$ heroku config <span class="_">-s</span> <span class="_">-a</span> lcy-web-srv</div><div class="line">DATABASE_URL=<span class="string">'postgres://qxovwdfmkapqxx:efd80xxfb7d017ea8d7826435d15d7c3891cc1c7ae9722c497b5c3fee031ed89@ec2-174-129-227-116.compute-1.amazonaws.com:5432/dbbu4a5s4mleid'</span></div><div class="line">~$ heroku pg:info <span class="_">-a</span> lcy-web-srv</div><div class="line">=== DATABASE_URL</div><div class="line">Plan:                  Hobby-dev</div><div class="line">Status:                Available</div><div class="line">Connections:           ?/20</div><div class="line">PG Version:            ?</div><div class="line">Created:               2018-07-25 10:23 UTC</div><div class="line">Data Size:             0 B</div><div class="line">Tables:                0</div><div class="line">Rows:                  0/10000 (In compliance) - refreshing</div><div class="line">Fork/Follow:           Unsupported</div><div class="line">Rollback:              Unsupported</div><div class="line">Continuous Protection: Off</div><div class="line">Add-on:                postgresql-solid-87926</div></pre></td></tr></table></figure>
-<h3 id="创建Redis数据库"><a href="#创建Redis数据库" class="headerlink" title="创建Redis数据库"></a>创建Redis数据库</h3><ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">~$ heroku addons:create heroku-postgresql:hobby-dev --version=9.6 --app=lcy-web-srv</div><div class="line">Creating heroku-postgresql:hobby-dev on ⬢ lcy-web-srv... free</div><div class="line">Database has been created and is available</div><div class="line"> ! This database is empty. If upgrading, you can transfer</div><div class="line"> ! data from another database with pg:copy</div><div class="line">Created postgresql-solid-87926 as DATABASE_URL</div><div class="line">Use heroku addons:docs heroku-postgresql to view documentation</div><div class="line"></div><div class="line">~$ heroku config <span class="_">-s</span> <span class="_">-a</span> lcy-web-srv</div><div class="line">DATABASE_URL=<span class="string">'postgres://qxovwdfmkapqxx:xxx0xxfb7d017ea8d7826435d15d7c3891cc1c7ae9722c497b5c3fee031ed89@ec2-174-129-227-116.compute-1.amazonaws.com:5432/dbbu4a5s4mleid'</span></div><div class="line">~$ heroku pg:info <span class="_">-a</span> lcy-web-srv</div><div class="line">=== DATABASE_URL</div><div class="line">Plan:                  Hobby-dev</div><div class="line">Status:                Available</div><div class="line">Connections:           ?/20</div><div class="line">PG Version:            ?</div><div class="line">Created:               2018-07-25 10:23 UTC</div><div class="line">Data Size:             0 B</div><div class="line">Tables:                0</div><div class="line">Rows:                  0/10000 (In compliance) - refreshing</div><div class="line">Fork/Follow:           Unsupported</div><div class="line">Rollback:              Unsupported</div><div class="line">Continuous Protection: Off</div><div class="line">Add-on:                postgresql-solid-87926</div></pre></td></tr></table></figure>
+<h1 id="创建-Redis-数据库"><a href="#创建-Redis-数据库" class="headerlink" title="创建 Redis 数据库"></a>创建 Redis 数据库</h1><ul>
 <li><a href="https://elements.heroku.com/addons/heroku-redis" target="_blank" rel="external">Heroku Redis</a> 安装需要绑定一张信用卡.这里就创建了.</li>
 </ul>
-<h3 id="使用Pipenv创建Django项目"><a href="#使用Pipenv创建Django项目" class="headerlink" title="使用Pipenv创建Django项目"></a>使用Pipenv创建Django项目</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">~$ mkdir Heroku-Dir &amp;&amp; <span class="built_in">cd</span> Heroku-Dir</div><div class="line">~$ sudo pip3 install pipenv  <span class="comment">#　使用python3安装,python2的支持快到了.</span></div><div class="line">Collecting pipenv</div><div class="line">  Using cached </div><div class="line">  [...]</div><div class="line">Collecting virtualenv-clone&gt;=0.2.5 (from pipenv)</div><div class="line">  Using cached https://files.pythonhosted.org/packages/6d/c2/dccb5ccf599e0c5d1eea6acbd058af7a71384f9740179db67a9182a24798/virtualenv_clone-0.3.0-py2.py3-none-any.whl</div><div class="line">Installing collected packages: virtualenv, setuptools, certifi, pip, virtualenv-clone, pipenv</div><div class="line">Successfully installed certifi-2018.4.16 pip-18.0 pipenv-2018.7.1 setuptools-40.0.0 virtualenv-16.0.0 virtualenv-clone-0.3.0</div><div class="line"></div><div class="line">~$ mkdir lcy-web-srv &amp;&amp; <span class="built_in">cd</span> lcy-web-srv</div><div class="line">~$ $ pipenv --three</div><div class="line">Creating a virtualenv <span class="keyword">for</span> this project...</div><div class="line">Pipfile: /home/michael/Heroku-Dir/lcy-web-srv/Pipfile</div><div class="line">[...]</div><div class="line">Virtualenv location: /home/michael/.local/share/virtualenvs/lcy-web-srv-3zhvmAj6</div><div class="line">Creating a Pipfile <span class="keyword">for</span> this project...</div><div class="line"></div><div class="line">~$ pipenv shell  <span class="comment">#激活Python3虚拟环境</span></div><div class="line">Launching subshell <span class="keyword">in</span> virtual environment…</div><div class="line"> . /home/michael/.local/share/virtualenvs/lcy-web-srv-3zhvmAj6/bin/activate</div><div class="line">michael@debian:~/Heroku-Dir/lcy-web-srv$  . /home/michael/.local/share/virtualenvs/lcy-web-srv-3zhvmAj6/bin/activate</div><div class="line">(lcy-web-srv-3zhvmAj6) michael@debian:~/Heroku-Dir/lcy-web-srv$ </div><div class="line"></div><div class="line">~$ pipenv install django</div></pre></td></tr></table></figure>
-<ul>
-<li>安装Django模版工程</li>
+<h1 id="使用-Pipenv-创建-Django-项目"><a href="#使用-Pipenv-创建-Django-项目" class="headerlink" title="使用 Pipenv 创建 Django 项目"></a>使用 Pipenv 创建 Django 项目</h1><h2 id="Pyenv-使用"><a href="#Pyenv-使用" class="headerlink" title="Pyenv 使用"></a>Pyenv 使用</h2><p>-　<a href="https://github.com/pyenv" target="_blank" rel="external">github 位置</a></p>
+<p>-　使用命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#安装3.6.6 与2.7.24两个版本</span></div><div class="line">~$ pyenv install 3.6.6 2.7.24</div><div class="line"><span class="comment">#列出当前系统安装的版本.</span></div><div class="line">~$ pyenv  versions</div><div class="line">  system</div><div class="line">  2.7.13</div><div class="line">  2.7.13/envs/py2dev</div><div class="line">  3.6.6</div><div class="line">  3.6.6/envs/py3dev</div><div class="line">  py2dev</div><div class="line">* py3dev (<span class="built_in">set</span> by PYENV_VERSION environment variable)</div><div class="line"><span class="comment"># 安装pyenv-virtualenv插件</span></div><div class="line">~$ git <span class="built_in">clone</span> https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv</div><div class="line">~$ <span class="built_in">echo</span> <span class="string">'eval "$(pyenv virtualenv-init -)"'</span> &gt;&gt; ~/.bash_profile</div><div class="line"><span class="comment">#创一个python3.6.6版本的虚拟环境名为py3dev</span></div><div class="line">~$ pyenv virtualenv 3.6.6 py3dev</div><div class="line"><span class="comment">#激活虚拟环境</span></div><div class="line">~$ pyenv activate py3dev <span class="comment"># pyenv deactivate 是退出虚拟环境.</span></div><div class="line"><span class="comment">#　列出已有的虚拟环境路径</span></div><div class="line">~$ pyenv virtualenvs</div><div class="line">  2.7.13/envs/py2dev (created from /home/michael/.pyenv/versions/2.7.13)</div><div class="line">  3.6.6/envs/py3dev (created from /home/michael/.pyenv/versions/3.6.6)</div><div class="line">  py2dev (created from /home/michael/.pyenv/versions/2.7.13)</div><div class="line">* py3dev (created from /home/michael/.pyenv/versions/3.6.6)</div></pre></td></tr></table></figure>
+<h2 id="Pipenv-使用"><a href="#Pipenv-使用" class="headerlink" title="Pipenv 使用"></a>Pipenv 使用</h2><ul>
+<li><a href="https://pipenv.readthedocs.io/en/latest/" target="_blank" rel="external">pipenv doc</a></li>
+<li><a href="https://github.com/pypa/pipenv" target="_blank" rel="external">github</a></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">~$ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld</div><div class="line">~$ <span class="built_in">cd</span> helloworld </div><div class="line">~$ git init</div><div class="line">~$ git add -A</div><div class="line">~$ git commit -am <span class="string">"Initial commit"</span></div><div class="line">~$ heroku git:remote <span class="_">-a</span> lcy-web-srv</div><div class="line"><span class="built_in">set</span> git remote heroku to https://git.heroku.com/lcy-web-srv.git</div><div class="line">~$ git push heroku master</div><div class="line">Counting objects: 13, done.</div><div class="line">Delta compression using up to 4 threads.</div><div class="line">Compressing objects: 100% (9/9), done.</div><div class="line">[...]</div><div class="line">remote:        https://lcy-web-srv.herokuapp.com/ deployed to Heroku</div><div class="line">remote: </div><div class="line">remote: Verifying deploy... done.</div><div class="line">To https://git.heroku.com/lcy-web-srv.git</div><div class="line"> * [new branch]      master -&gt; master</div><div class="line"> <span class="comment">#Django合并操作.</span></div><div class="line">~$ heroku run python manage.py migrate </div><div class="line">Running python manage.py migrate on ⬢ lcy-web-srv... up, run.6377 (Free)</div><div class="line">/app/.heroku/python/lib/python3.6/site-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; <span class="keyword">in</span> order to keep installing from binary please use <span class="string">"pip install psycopg2-binary"</span> instead. For details see: &lt;http://initd.org/psycopg/docs/install.html<span class="comment">#binary-install-from-pypi&gt;.</span></div><div class="line"></div><div class="line">Operations to perform:</div><div class="line">  Apply all migrations: admin, auth, contenttypes, sessions</div><div class="line">Running migrations:</div><div class="line">  Applying contenttypes.0001_initial... OK</div><div class="line">  Applying auth.0001_initial... OK</div><div class="line">  [...]</div><div class="line">  Applying sessions.0001_initial... OK</div><div class="line"></div><div class="line">~$ pip install django_heroku dj-database-url <span class="comment">#在Pipenv中通过pip安装依赖包.</span></div><div class="line">~$ python manage.py migrate　 <span class="comment">#在本地中创建基本认证表项.　　</span></div><div class="line">Operations to perform:</div><div class="line">  Apply all migrations: admin, auth, contenttypes, sessions</div><div class="line">Running migrations:</div><div class="line">  Applying contenttypes.0001_initial... OK</div><div class="line">  [...]</div><div class="line">  Applying sessions.0001_initial... OK</div><div class="line"></div><div class="line">~$ python manage.py createsuperuser    <span class="comment">#本地创建一个超级用户.</span></div><div class="line">Username (leave blank to use <span class="string">'michael'</span>): xxx   </div><div class="line">Email address: xxxxx@gmail.com</div><div class="line">Password: </div><div class="line">Password (again): </div><div class="line">Superuser created successfully.</div><div class="line"></div><div class="line">~$ heroku run python manage.py createsuperuser    <span class="comment">#在Heroku的项目中创建一个超级用户.</span></div><div class="line">Username (leave blank to use <span class="string">'michael'</span>): xxx   </div><div class="line">Email address: xxxxx@gmail.com</div><div class="line">Password: </div><div class="line">Password (again): </div><div class="line">Superuser created successfully.</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 进入上述激活的pyenv环境安装pipenv</span></div><div class="line">(py3dev) ~$ pip install pipenv</div><div class="line">~$　<span class="built_in">echo</span> <span class="string">'export PIPENV_VENV_IN_PROJECT=1'</span> &gt;&gt; ~/.bash_profile</div><div class="line"></div><div class="line"><span class="comment"># 初始一个python3的环境</span></div><div class="line">~$ mkdir pipenv3</div><div class="line">~$ <span class="built_in">cd</span> pipenv3 &amp;&amp; pipenv --three</div><div class="line"><span class="comment"># 安装软件包</span></div><div class="line">~$　pipenv install django</div><div class="line"><span class="comment"># 查看包的依赖关系</span></div><div class="line">~$ pipenv graph</div><div class="line"><span class="comment"># 如果从git服务器克隆源码下来,里面有Pipfile与Pipfile.lock,就可以直接使用下面命令安装环境</span></div><div class="line">~$ pipenv install  <span class="comment"># 如果想要安装Pipfile.lock中固定的版本号,加上 --ignore-pipfile选项.</span></div><div class="line"><span class="comment">#　如果之前项目是用requirements.txt来管理.就用下面命令安装环境.</span></div><div class="line">~$ pipenv install <span class="_">-f</span> path/to/requirements.txt</div></pre></td></tr></table></figure>
+<h2 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">~$ mkdir Heroku-Dir &amp;&amp; <span class="built_in">cd</span> Heroku-Dir</div><div class="line">~$ sudo pip3 install pipenv  <span class="comment">#　使用python3安装,python2的支持快到了.</span></div><div class="line">Collecting pipenv</div><div class="line">  Using cached</div><div class="line">  [...]</div><div class="line">Collecting virtualenv-clone&gt;=0.2.5 (from pipenv)</div><div class="line">  Using cached https://files.pythonhosted.org/packages/6d/c2/dccb5ccf599e0c5d1eea6acbd058af7a71384f9740179db67a9182a24798/virtualenv_clone-0.3.0-py2.py3-none-any.whl</div><div class="line">Installing collected packages: virtualenv, setuptools, certifi, pip, virtualenv-clone, pipenv</div><div class="line">Successfully installed certifi-2018.4.16 pip-18.0 pipenv-2018.7.1 setuptools-40.0.0 virtualenv-16.0.0 virtualenv-clone-0.3.0</div><div class="line"></div><div class="line">~$ mkdir lcy-web-srv &amp;&amp; <span class="built_in">cd</span> lcy-web-srv</div><div class="line">~$ $ pipenv --three</div><div class="line">Creating a virtualenv <span class="keyword">for</span> this project...</div><div class="line">Pipfile: /home/michael/Heroku-Dir/lcy-web-srv/Pipfile</div><div class="line">[...]</div><div class="line">Virtualenv location: /home/michael/.local/share/virtualenvs/lcy-web-srv-3zhvmAj6</div><div class="line">Creating a Pipfile <span class="keyword">for</span> this project...</div><div class="line"></div><div class="line">~$ pipenv shell  <span class="comment">#激活Python3虚拟环境</span></div><div class="line">Launching subshell <span class="keyword">in</span> virtual environment…</div><div class="line"> . /home/michael/.local/share/virtualenvs/lcy-web-srv-3zhvmAj6/bin/activate</div><div class="line">michael@debian:~/Heroku-Dir/lcy-web-srv$  . /home/michael/.local/share/virtualenvs/lcy-web-srv-3zhvmAj6/bin/activate</div><div class="line">(lcy-web-srv-3zhvmAj6) michael@debian:~/Heroku-Dir/lcy-web-srv$</div><div class="line"></div><div class="line">~$ pipenv install django</div></pre></td></tr></table></figure>
+<h1 id="安装-Django-模版工程"><a href="#安装-Django-模版工程" class="headerlink" title="安装 Django 模版工程"></a>安装 Django 模版工程</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">~$ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld</div><div class="line">~$ <span class="built_in">cd</span> helloworld</div><div class="line">~$ git init</div><div class="line">~$ git add -A</div><div class="line">~$ git commit -am <span class="string">"Initial commit"</span></div><div class="line">~$ heroku git:remote <span class="_">-a</span> lcy-web-srv</div><div class="line"><span class="built_in">set</span> git remote heroku to https://git.heroku.com/lcy-web-srv.git</div><div class="line">~$ git push heroku master</div><div class="line">Counting objects: 13, done.</div><div class="line">Delta compression using up to 4 threads.</div><div class="line">Compressing objects: 100% (9/9), done.</div><div class="line">[...]</div><div class="line">remote:        https://lcy-web-srv.herokuapp.com/ deployed to Heroku</div><div class="line">remote:</div><div class="line">remote: Verifying deploy... done.</div><div class="line">To https://git.heroku.com/lcy-web-srv.git</div><div class="line"> * [new branch]      master -&gt; master</div><div class="line"> <span class="comment">#Django合并操作.</span></div><div class="line">~$ heroku run python manage.py migrate</div><div class="line">Running python manage.py migrate on ⬢ lcy-web-srv... up, run.6377 (Free)</div><div class="line">/app/.heroku/python/lib/python3.6/site-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; <span class="keyword">in</span> order to keep installing from binary please use <span class="string">"pip install psycopg2-binary"</span> instead. For details see: &lt;http://initd.org/psycopg/docs/install.html<span class="comment">#binary-install-from-pypi&gt;.</span></div><div class="line"></div><div class="line">Operations to perform:</div><div class="line">  Apply all migrations: admin, auth, contenttypes, sessions</div><div class="line">Running migrations:</div><div class="line">  Applying contenttypes.0001_initial... OK</div><div class="line">  Applying auth.0001_initial... OK</div><div class="line">  [...]</div><div class="line">  Applying sessions.0001_initial... OK</div><div class="line"></div><div class="line">~$ pip install django_heroku dj-database-url <span class="comment">#在Pipenv中通过pip安装依赖包.</span></div><div class="line">~$ python manage.py migrate　 <span class="comment">#在本地中创建基本认证表项.</span></div><div class="line">Operations to perform:</div><div class="line">  Apply all migrations: admin, auth, contenttypes, sessions</div><div class="line">Running migrations:</div><div class="line">  Applying contenttypes.0001_initial... OK</div><div class="line">  [...]</div><div class="line">  Applying sessions.0001_initial... OK</div><div class="line"></div><div class="line">~$ python manage.py createsuperuser    <span class="comment">#本地创建一个超级用户.</span></div><div class="line">Username (leave blank to use <span class="string">'michael'</span>): xxx</div><div class="line">Email address: xxxxx@gmail.com</div><div class="line">Password:</div><div class="line">Password (again):</div><div class="line">Superuser created successfully.</div><div class="line"></div><div class="line">~$ heroku run python manage.py createsuperuser    <span class="comment">#在Heroku的项目中创建一个超级用户.</span></div><div class="line">Username (leave blank to use <span class="string">'michael'</span>): xxx</div><div class="line">Email address: xxxxx@gmail.com</div><div class="line">Password:</div><div class="line">Password (again):</div><div class="line">Superuser created successfully.</div></pre></td></tr></table></figure>
 <ul>
-<li>通过上述操作,一个带数据库后台的<code>Django</code>项目成功布署到Heroku上面运行.能过公共域名访问<code>https://lcy-web-srv.herokuapp.com/admin/</code>,输入正确的用户名与密码就可以登录到<code>Djangot</code>后台管理了.</li>
+<li>通过上述操作,一个带数据库后台的<code>Django</code>项目成功布署到 Heroku 上面运行.能过公共域名访问<code>https://lcy-web-srv.herokuapp.com/admin/</code>,输入正确的用户名与密码就可以登录到<code>Djangot</code>后台管理了.</li>
+</ul>
+<hr>
+<ul>
+<li><strong>注意</strong>,如果不是用上面这个模版创建的要项目,要在项目根目录下创建<code>Procfile</code>,它里面只有一行内容<code>web: gunicorn .wsgi</code>.</li>
+<li><strong>注意</strong>,还要在根目下添加一个<code>Pipfile</code>文件.内容如下:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[[source]]</div><div class="line"></div><div class="line">url = <span class="string">"https://pypi.python.org/simple"</span></div><div class="line">verify_ssl = true</div><div class="line">name = <span class="string">"pypi"</span></div><div class="line"></div><div class="line"></div><div class="line">[requires]</div><div class="line">python_version = <span class="string">"3.6"</span></div><div class="line"></div><div class="line"></div><div class="line">[packages]</div><div class="line"></div><div class="line"><span class="string">"psycopg2-binary"</span> = <span class="string">"*"</span></div><div class="line">django-heroku = <span class="string">"*"</span></div><div class="line">gunicorn = <span class="string">"*"</span></div><div class="line"></div><div class="line"></div><div class="line">[dev-packages]</div></pre></td></tr></table></figure>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django.core.exceptions.ImproperlyConfigured: You&apos;re using the staticfiles app without having set the STATIC_ROOT setting to a filesystem path.</div></pre></td></tr></table></figure>
+<ul>
+<li>如果出现上述错误,在<code>settings.py</code>加入<code>PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))</code>,<code>STATIC_ROOT = os.path.join(PROJECT_DIR, &#39;static&#39;)</code>两行.或者设置<code>heroku config:set DISABLE_COLLECTSTATIC=1</code></li>
 </ul>
 <hr>
 <h4 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h4><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>您的打赏将会鼓励我写出更多的博客。</li>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
@@ -1029,7 +1369,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-08-06 23:23:41" itemprop="dateModified" datetime="2018-08-06T23:23:41+08:00">2018-08-06</time>
+                <time title="修改时间：2018-08-07 20:34:58" itemprop="dateModified" datetime="2018-08-07T20:34:58+08:00">2018-08-07</time>
               
             
           </span>
@@ -1113,7 +1453,7 @@
 <ul>
 <li>ToolChain设置</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">  Toolchain <span class="built_in">type</span> (External toolchain)  ---&gt;</div><div class="line">  *** Toolchain External Options ***</div><div class="line">  Toolchain (Custom toolchain)  ---&gt;</div><div class="line">  Toolchain origin (Pre-installed toolchain)  ---&gt;</div><div class="line">  (/linaro-toolchain/gcc-linaro-5.5.0-2017.10-x86_64_arm-linux-gnueabi) Toolchain path </div><div class="line">  ($(ARCH)-linux-gnueabi) Toolchain prefix</div><div class="line">  External toolchain gcc version (5.x)  ---&gt;</div><div class="line">  External toolchain kernel headers series (4.0.x)  ---&gt;</div><div class="line">  External toolchain C library (glibc/eglibc)  ---&gt;</div><div class="line">  [*] Toolchain has SSP support?</div><div class="line">  [*] Toolchain has RPC support?</div><div class="line">  [*] Toolchain has C++ support?</div><div class="line">[...]</div><div class="line">  System configuration -&gt; Run a getty (login prompt ) after boot</div><div class="line"></div><div class="line">  │ │           --- Run a getty (login prompt) after boot                                         │ │ </div><div class="line">  │ │           (ttyAMA0) TTY port                                                                │ │ </div><div class="line">  │ │                 Baudrate (115200)  ---&gt;                                                     │ │ </div><div class="line">  │ │           (vt100) TERM environment variable                                                 │ │ </div><div class="line">  │ │           ()    other options to pass to getty                                              │ │ </div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">  Target packages -&gt; Networking applications</div><div class="line">  │ │           [*] dropbear                                                                      │ │ </div><div class="line">  │ │           [*]   client programs                                                             │ │ </div><div class="line">  │ │           [*]   <span class="built_in">disable</span> reverse DNS lookups                                                 │ │ </div><div class="line">  │ │           [*]   optimize <span class="keyword">for</span> size                                                           │ │ </div><div class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to wtmp                                                 │ │ </div><div class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to lastlog                                              │ │</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#　如果下载文件需代理的通下面命令修改.</span></div><div class="line">BR2_WGET=<span class="string">"wget --passive-ftp -nd -t 3 -e use_proxy=yes -e http_proxy=192.168.1.235:4444 -e https_proxy=192.168.1.235:4444"</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">  Toolchain <span class="built_in">type</span> (External toolchain)  ---&gt;</div><div class="line">  *** Toolchain External Options ***</div><div class="line">  Toolchain (Custom toolchain)  ---&gt;</div><div class="line">  Toolchain origin (Pre-installed toolchain)  ---&gt;</div><div class="line">  (/linaro-toolchain/gcc-linaro-5.5.0-2017.10-x86_64_arm-linux-gnueabi) Toolchain path </div><div class="line">  ($(ARCH)-linux-gnueabi) Toolchain prefix</div><div class="line">  External toolchain gcc version (5.x)  ---&gt;</div><div class="line">  External toolchain kernel headers series (4.0.x)  ---&gt;</div><div class="line">  External toolchain C library (glibc/eglibc)  ---&gt;</div><div class="line">  [*] Toolchain has SSP support?</div><div class="line">  [*] Toolchain has RPC support?</div><div class="line">  [*] Toolchain has C++ support?</div><div class="line">[...]</div><div class="line">  System configuration -&gt; Run a getty (login prompt ) after boot</div><div class="line"></div><div class="line">  │ │           --- Run a getty (login prompt) after boot                                         │ │ </div><div class="line">  │ │           (ttyAMA0) TTY port                                                                │ │ </div><div class="line">  │ │                 Baudrate (115200)  ---&gt;                                                     │ │ </div><div class="line">  │ │           (vt100) TERM environment variable                                                 │ │ </div><div class="line">  │ │           ()    other options to pass to getty                                              │ │ </div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">  Target packages -&gt; Networking applications</div><div class="line">  │ │           [*] dropbear                                                                      │ │ </div><div class="line">  │ │           [*]   client programs                                                             │ │ </div><div class="line">  │ │           [*]   <span class="built_in">disable</span> reverse DNS lookups                                                 │ │ </div><div class="line">  │ │           [*]   optimize <span class="keyword">for</span> size                                                           │ │ </div><div class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to wtmp                                                 │ │ </div><div class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to lastlog                                              │ │</div><div class="line"></div><div class="line"> Target packages -&gt; Hardware handling</div><div class="line">       [*] evtest</div><div class="line">       [*] spi-tools</div><div class="line">       [*] lm-sensors</div><div class="line">       [*] i2c-tools</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#　如果下载文件需代理的通下面命令修改.</span></div><div class="line">BR2_WGET=<span class="string">"wget --passive-ftp -nd -t 3 -e use_proxy=yes -e http_proxy=192.168.1.235:4444 -e https_proxy=192.168.1.235:4444"</span></div></pre></td></tr></table></figure>
 <ul>
 <li>如果外部交叉编译工具链出现,少库的错误,还是选择使用<code>BuildRoot</code>编译的工具链吧.整个编译完成之后<code>build-imx28evk</code>目录如下:</li>
 </ul>
@@ -2199,7 +2539,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-05-19 11:41:52" itemprop="dateModified" datetime="2018-05-19T11:41:52+08:00">2018-05-19</time>
+                <time title="修改时间：2018-08-10 23:53:18" itemprop="dateModified" datetime="2018-08-10T23:53:18+08:00">2018-08-10</time>
               
             
           </span>
@@ -2252,7 +2592,7 @@
       
         
           
-            <p><a href="https://github.com/openwrt/openwrt" target="_blank" rel="external">OpenWrt官方仓库</a></p>
+            <p><a href="https://github.com/openwrt/openwrt" target="_blank" rel="external">OpenWrt官方仓库</a><br><a href="breed.hackpascal.net">Breed Bootloader不死uboot</a></p>
 <h4 id="获取源码并安状可用的Feeds"><a href="#获取源码并安状可用的Feeds" class="headerlink" title="获取源码并安状可用的Feeds"></a>获取源码并安状可用的Feeds</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git clone git://git.openwrt.org/openwrt.git</div><div class="line">$ cd openwrt</div><div class="line">$ ./scripts/feeds update -a</div><div class="line">$ ./scripts/feeds install -a</div></pre></td></tr></table></figure>
 <h4 id="编译固件-配置与编译"><a href="#编译固件-配置与编译" class="headerlink" title="编译固件,配置与编译"></a>编译固件,配置与编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make defconfig</div><div class="line">$ make prereq</div><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
 <h3 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h3><ul>
@@ -2275,451 +2615,6 @@ $ ssh root@192.168.199.1
 $ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware
 reboot
 </code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为192.168.1.1 , 密码:无. 另外要注的是,如果要使用2.4G 11N的模式,一定把<strong>Allow legacy 802.11b rates </strong>默认勾选去掉,不然会出现<strong>能连接不能上网</strong>的问题,它位于UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的AP里的<strong>Allow legacy 802.11b rates </strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G里如果不把上面这个勾选去掉,内核会一直报错<strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</p>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/基于QT5编译OpenCV3-支持Python3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/28/基于QT5编译OpenCV3-支持Python3/" itemprop="url">
-                  基于QT5编译OpenCV3,支持Python3
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-04-28 10:47:15" itemprop="dateCreated datePublished" datetime="2018-04-28T10:47:15+08:00">2018-04-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-05-24 12:06:30" itemprop="dateModified" datetime="2018-05-24T12:06:30+08:00">2018-05-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[相关链接]<br><a href="https://github.com/opencv/opencv" target="_blank" rel="external">Github opencv</a><br><a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="external">opencv_contrib</a><br><a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a></p>
-<h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><ul>
-<li>详细安装参照<a href="https://github.com/pyenv/pyenv" target="_blank" rel="external">pyenv</a> README.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv</div><div class="line">$ echo &apos;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ echo &apos;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div><div class="line">$ exec &quot;$SHELL&quot;</div><div class="line">$ pyenv install 3.6.5  # 安装python 3.6.5 版本</div></pre></td></tr></table></figure>
-<h3 id="编译OpenCV3"><a href="#编译OpenCV3" class="headerlink" title="编译OpenCV3"></a>编译OpenCV3</h3><ul>
-<li>如果要编译 extra_modules ,要与opencv是同版本号,不然会出现奇奇怪怪的编译错误,这里都选<code>3.4.1</code>版本号</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ wget -c https://github.com/opencv/opencv_contrib/archive/3.4.1.tar.gz</div><div class="line">$ tar xvf 3.4.1.tar.gz</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/opencv/opencv</div><div class="line">$ git checout -b 3.4.1   <span class="comment"># checkout 一个 Release 版本.</span></div><div class="line"><span class="comment"># 或者下载源码包 </span></div><div class="line">$ wget -c https://github.com/opencv/opencv/archive/3.4.1.tar.gz</div><div class="line">$ <span class="built_in">cd</span> opencv &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</div><div class="line">$ cmake</div><div class="line">	-D CMAKE_PREFIX_PATH=/fullpath/Qt5.7/5.7/gcc_64   <span class="comment"># 本机 QT5 的安装位置</span></div><div class="line">    -D CMAKE_INSTALL_PREFIX=/fullpath/opencv-build-3.x-qt5-py3</div><div class="line">    -D WITH_QT=ON    <span class="comment"># QT 与 GTK 只能二选 一</span></div><div class="line">    -D WITH_V4L=ON</div><div class="line">    -D BUILD_TESTS=OFF</div><div class="line">    -D WITH_TBB=ON</div><div class="line">    -D INSTALL_C_EXAMPLES=ON</div><div class="line">    -D INSTALL_PYTHON_EXAMPLES=ON</div><div class="line">    -D WITH_OPENMP=ON</div><div class="line">    -D WITH_OPENEXR=ON</div><div class="line">    -D WITH_UNICAP=ON</div><div class="line">    -D BUILD_PYTHON_SUPPORT=ON</div><div class="line">    -D BUILD_opencv_python3=ON</div><div class="line">    -D PYTHON_DEFAULT_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">    -D PYTHON_INCLUDE_DIRS=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/include/python3.6m</div><div class="line">    -D PYTHON_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6</div><div class="line">    -D PYTHON_LIBRARY=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0</div><div class="line">    -D WITH_OPENGL=ON ../</div><div class="line">    </div><div class="line">[...]</div><div class="line">--   GUI: </div><div class="line">--     QT:                          YES (ver 5.7.0)</div><div class="line">--       QT OpenGL support:         YES (Qt5::OpenGL 5.7.0)</div><div class="line">--     GTK+:                        NO</div><div class="line">--     OpenGL support:              YES (/usr/lib/x86_64-linux-gnu/libGLU.so /usr/<span class="built_in">local</span>/lib/libGL.so)</div><div class="line">--     VTK support:                 YES (ver 6.3.0)</div><div class="line">-- </div><div class="line">--   Media I/O: </div><div class="line">--     ZLib:                        /usr/lib/x86_64-linux-gnu/libz.so (ver 1.2.8)</div><div class="line">--     JPEG:                        /usr/lib/x86_64-linux-gnu/libjpeg.so (ver )</div><div class="line">--     WEBP:                        /usr/lib/x86_64-linux-gnu/libwebp.so (ver encoder: 0x0209)</div><div class="line">--     PNG:                         /usr/lib/x86_64-linux-gnu/libpng.so (ver 1.6.28)</div><div class="line">--     TIFF:                        /usr/lib/x86_64-linux-gnu/libtiff.so (ver 42 / 4.0.8)</div><div class="line">--     JPEG 2000:                   /usr/lib/x86_64-linux-gnu/libjasper.so (ver 1.900.1)</div><div class="line">--     OpenEXR:                     build (ver 1.7.1)</div><div class="line">-- </div><div class="line">--   Video I/O:</div><div class="line">--     DC1394:                      NO</div><div class="line">--     FFMPEG:                      YES</div><div class="line">--       avcodec:                   YES (ver 57.89.100)</div><div class="line">--       avformat:                  YES (ver 57.71.100)</div><div class="line">--       avutil:                    YES (ver 55.58.100)</div><div class="line">--       swscale:                   YES (ver 4.6.100)</div><div class="line">--       avresample:                YES (ver 3.5.0)</div><div class="line">--     GStreamer:                   NO</div><div class="line">--     UniCap:                      NO</div><div class="line">--     UniCap ucil:                 NO</div><div class="line">--     libv4l/libv4l2:              NO</div><div class="line">--     v4l/v4l2:                    linux/videodev.h linux/videodev2.h</div><div class="line">--     gPhoto2:                     YES</div><div class="line">-- </div><div class="line">--   Parallel framework:            OpenMP</div><div class="line">-- </div><div class="line">--   Trace:                         YES (with Intel ITT)</div><div class="line">-- </div><div class="line">--   Other third-party libraries:</div><div class="line">--     Intel IPP:                   2017.0.3 [2017.0.3]</div><div class="line">--            at:                   /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippicv_lnx</div><div class="line">--     Intel IPP IW:                sources (2017.0.3)</div><div class="line">--               at:                /fullpath/opencv-3.4.1/build-qt5-py3/3rdparty/ippicv/ippiw_lnx</div><div class="line">--     Lapack:                      NO</div><div class="line">--     Eigen:                       YES (ver 3.3.2)</div><div class="line">--     Custom HAL:                  NO</div><div class="line">--     Protobuf:                    build (3.5.1)</div><div class="line">-- </div><div class="line">--   NVIDIA CUDA:                   NO</div><div class="line">-- </div><div class="line">--   OpenCL:                        YES (no extra features)</div><div class="line">--     Include path:                /fullpath/opencv-3.4.1/3rdparty/include/opencl/1.2</div><div class="line">--     Link libraries:              Dynamic load</div><div class="line">-- </div><div class="line">--   Python 3:</div><div class="line">--     Interpreter:                 /home/michael/.pyenv/shims/python3 (ver 3.6.5)</div><div class="line">--     Libraries:                   /home/michael/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0 (ver 3.6.5)</div><div class="line">--     numpy:                       /home/michael/.pyenv/versions/3.6.5/lib/python3.6/site-packages/numpy/core/include (ver 1.14.2)</div><div class="line">--     packages path:               lib/python3.6/site-packages</div><div class="line">-- </div><div class="line">--   Python (<span class="keyword">for</span> build):            /home/michael/.pyenv/versions/3.6.5/bin/python3.6m</div><div class="line">[...]</div><div class="line"></div><div class="line">$ make -j4</div><div class="line">$ make install</div></pre></td></tr></table></figure>
-<h3 id="ERROR"><a href="#ERROR" class="headerlink" title="ERROR"></a>ERROR</h3><p>CMake Error at /home/michael/3TB-DISK/SOFT-LIBRAR/opencv_contrib/modules/datasets/CMakeLists.txt:5 (ocv_append_source_files_cxx_compiler_options):<br>  Unknown CMake command “ocv_append_source_files_cxx_compiler_options”.</p>
-<p>– Configuring incomplete, errors occurred!</p>
-<h3 id="QtCreator-创建工程测试"><a href="#QtCreator-创建工程测试" class="headerlink" title="QtCreator 创建工程测试"></a>QtCreator 创建工程测试</h3><ul>
-<li>可以创建qmake 或者 cmake 的工程,这里以cmake 为例.</li>
-<li><p>CMakeLists.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">project(cmake_opencv3)</div><div class="line">cmake_minimum_required(VERSION 2.8)</div><div class="line">aux_source_directory(. SRC_LIST)</div><div class="line">add_subdirectory(utils)</div><div class="line">add_executable($&#123;PROJECT_NAME&#125; $&#123;SRC_LIST&#125; utils/multipleimagewindow.cpp)</div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include  )</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib )</div><div class="line">find_package( OpenCV  3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5 )</div><div class="line">MESSAGE(&quot;OpenCV version :  $&#123;OpenCV_VERSION&#125; &quot;)</div><div class="line">MESSAGE(&quot;source list :  $&#123;SRC_LIST&#125; &quot;)</div><div class="line">#add_definitions(-DDISABLE_OPENCV_24_COMPATIBILITY)</div><div class="line">target_link_libraries(cmake_opencv3 $&#123;OpenCV_LIBS&#125; )</div></pre></td></tr></table></figure>
-</li>
-<li><p>main.cpp</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;opencv2/opencv.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line">using namespace cv;</div><div class="line">using namespace std;</div><div class="line">int main(int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">	 Mat img = imread(<span class="string">"1.jpg"</span>);</div><div class="line">	 namedWindow(<span class="string">"test"</span>);</div><div class="line">     imshow(<span class="string">"test"</span>,img);</div><div class="line">     <span class="built_in">wait</span>Key(100);</div><div class="line">     <span class="built_in">return</span> 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用Python3-测试OpenCV-库"><a href="#使用Python3-测试OpenCV-库" class="headerlink" title="使用Python3 测试OpenCV 库"></a>使用Python3 测试OpenCV 库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">~$ pyenv global 3.5.6</div><div class="line">~$ git clone https://github.com/pyenv/pyenv-virtualenv ~/.pyenv/plugins/pyenv-virtualenv</div><div class="line">source ~/.bashrc</div><div class="line">~$ mkdir virtual_env</div><div class="line">~$ cd virtual_env/</div><div class="line">~/virtual_env$ pyenv virtualenv pycv3dev</div><div class="line">Using base prefix &apos;/home/michael/.pyenv/versions/3.6.5&apos;</div><div class="line">New python executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python3.6</div><div class="line">Also creating executable in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/bin/python</div><div class="line">Installing setuptools, pip, wheel...done.</div><div class="line">Requirement already satisfied: setuptools in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line">Requirement already satisfied: pip in /home/michael/.pyenv/versions/3.6.5/envs/pycv3dev/lib/python3.6/site-packages</div><div class="line"></div><div class="line">~/virtual_env$ pyenv activate pycv3dev </div><div class="line">pyenv-virtualenv: prompt changing will be removed from future release. configure `export PYENV_VIRTUALENV_DISABLE_PROMPT=1&apos; to simulate the behavior.</div><div class="line">(pycv3dev) ~/virtual_env$ pip install  matplotlib jupyter</div><div class="line">[...]</div><div class="line"></div><div class="line">(pycv3dev) ~/virtual_env$ jupyter notebook   # 使用jupyter 运行一个网页版notebook,不是必须的,也可以用ipython 运行.</div><div class="line">[I 10:25:24.424 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret</div><div class="line">[I 10:25:24.753 NotebookApp] Serving notebooks from local directory: /home/michael</div><div class="line">[I 10:25:24.753 NotebookApp] 0 active kernels</div><div class="line">[I 10:25:24.753 NotebookApp] The Jupyter Notebook is running at:</div><div class="line">[I 10:25:24.753 NotebookApp] http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:24.753 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</div><div class="line">[C 10:25:24.754 NotebookApp] </div><div class="line">    </div><div class="line">    Copy/paste this URL into your browser when you connect for the first time,</div><div class="line">    to login with a token:</div><div class="line">        http://localhost:8888/?token=7d4657c804326fc3e4bad99509cd69b55cd39b7383c26936</div><div class="line">[I 10:25:25.334 NotebookApp] Accepting one-time-token-authenticated connection from ::1</div><div class="line">[23504:23541:0428/102525.341812:ERROR:browser_gpu_channel_host_factory.cc(103)] Failed to launch GPU process.</div><div class="line">Created new window in existing browser session.</div></pre></td></tr></table></figure>
-<ul>
-<li><p>使用浏览器打开<strong><a href="http://localhost:8888/tree" target="_blank" rel="external">http://localhost:8888/tree</a></strong>,并且创建一个python3 的notebook</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import matplotlib.pyplot as plt</div><div class="line">import sys</div><div class="line">sys.path.append(&apos;/fullpath/opencv-build-3.x-qt5-py3/lib/python3.6/site-packages&apos;)</div><div class="line">import cv2</div><div class="line">img = cv2.imread(&quot;1.jpg&quot;)</div><div class="line">plt.imshow(img)</div></pre></td></tr></table></figure>
-</li>
-<li><p>如果没有出错,会出现一张图片.</p>
-</li>
-</ul>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Windows下编译一些开源基础库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/19/Windows下编译一些开源基础库/" itemprop="url">
-                  Windows下编译一些开源基础库
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-19 21:09:29" itemprop="dateCreated datePublished" datetime="2017-04-19T21:09:29+08:00">2017-04-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-04-29 23:03:49" itemprop="dateModified" datetime="2018-04-29T23:03:49+08:00">2018-04-29</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Windows下-Perl运行环境"><a href="#Windows下-Perl运行环境" class="headerlink" title="Ｗindows下　Perl运行环境"></a>Ｗindows下　Perl运行环境</h3><p><a href="https://www.perl.org/get.html" target="_blank" rel="external"><strong>Perl</strong></a>脚本语言在windows下有三个实现可以用，一般网上会建议安装<a href="https://www.activestate.com/activeperl/downloads" target="_blank" rel="external"><strong>ActivePerl</strong></a>的免费社区版本，我在winxp下安装不成功选了另一个<a href="http://dwimperl.com/windows.html" target="_blank" rel="external"><strong>DWIN Perl</strong></a>,还有一个<a href="http://strawberryperl.com/" target="_blank" rel="external"><strong>StrawberryPerl</strong></a>没有试过.</p>
-<ul>
-<li>默认安装在<code>C:\Dwimperl</code>,完成之后把它添加到环境变量，或者运行它自带的脚本<code>C:\Dwimperl\update_env.pl.bat</code>.</li>
-</ul>
-<h3 id="Cygwin-MinGW-MSYS"><a href="#Cygwin-MinGW-MSYS" class="headerlink" title="Cygwin,MinGW,MSYS"></a>Cygwin,MinGW,MSYS</h3><p>windows下一些GNU工具套装介绍，摘自网络。</p>
-<ol>
-<li><a href="http://www.mingw.org/" target="_blank" rel="external"><strong>MinGW</strong></a>是windows版本的gcc集合，不需要依赖中间层。</li>
-<li>MSYS是小型的linux的环境的模拟，可以与MinGW结合来模拟linux环境下使用MinGW的gcc,但是好久都不更新了，现在网有一个<a href="http://www.msys2.org/" target="_blank" rel="external"><strong>MSYS2</strong></a>,但是这两个环境在winxp下安装不成功，之前是可以安装msys.。</li>
-<li><a href="http://www.cygwin.com/" target="_blank" rel="external"><strong>Cygwin</strong></a>是功能强大的linux环境，由于有cygwin1.dll实现了底层的windows api到linux api的转化。所以在Cygwin里开发就相当于在linux上开发，对于开发人员来说就相当于调用linux类型的api，所以这样开发的程序也可以直接移植到linux上。但是如果这样的程序要在windows上执行的话，运行时必须要cygwin1.dll支持。</li>
-</ol>
-<h3 id="安装Qt-MinGW版本的IDE"><a href="#安装Qt-MinGW版本的IDE" class="headerlink" title="安装Qt ＭinGW版本的IDE"></a>安装Qt ＭinGW版本的IDE</h3><ul>
-<li>本人还是喜欢使用Qt来现在界面程，惟一缺点就是生成静态库的执行程序有比较大,Qt在win下面有两个版本，<code>GCC,MSVC</code>.我下面要做的编译基础库都是基于QT安装自带的MinGW　GCC，这样在QT中再调用这些库就不会出现一些奇奇怪怪的问题了。</li>
-</ul>
-<h3 id="Zlib"><a href="#Zlib" class="headerlink" title="Zlib"></a>Zlib</h3><h4 id="MinGW编译"><a href="#MinGW编译" class="headerlink" title="MinGW编译"></a>MinGW编译</h4><p>下截<a href="http://zlib.net/zlib-1.2.11.tar.gz" target="_blank" rel="external"><code>zlib</code></a>最新版本，解压到出来。打开一个命令行窗口，执行Ｑt MinGW环境脚本<code>C:\WINDOWS\system32\cmd.exe /A /Q /K C:\Qt\Qt5.7.1\5.7\mingw53_32\bin\qtenv2.bat</code>,一般装完Ｑt 会有指向这个脚本的快捷方式，点击运行即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D:\zlib-1.2.11\zlib-1.2.11&gt;mingw32-make <span class="_">-f</span> win32/Makefile.gcc</div><div class="line">gcc  -O3 -Wall -c -o adler32.o adler32.c</div><div class="line">gcc  -O3 -Wall -c -o compress.o compress.c</div><div class="line">gcc  -O3 -Wall -c -o crc32.o crc32.c</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">strip example_d.exe</div><div class="line">gcc  -o minigzip_d.exe minigzip.o libz.dll.a</div><div class="line">strip minigzip_d.exe</div></pre></td></tr></table></figure>
-<p>按上面编译成功后，会当前目录下生成zlib1.dll,libz.dll.a ,libz等库文件，把这些库文件与头文件复到一个目录，包含并链接它们就可以了。</p>
-<h4 id="MSVC编译"><a href="#MSVC编译" class="headerlink" title="MSVC编译"></a>MSVC编译</h4><h4 id="x86-32bit"><a href="#x86-32bit" class="headerlink" title="x86 32bit"></a>x86 32bit</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D:\SourceBuild\zlib-1.2.11&gt;vcvarsall.bat</div><div class="line">Setting environment <span class="keyword">for</span> using Microsoft Visual Studio 2010 x86 tools.</div><div class="line">D:\SourceBuild\zlib-1.2.11&gt;nmake /f win32/Makefile.msc</div><div class="line"></div><div class="line">Microsoft (R) 程序维护实用工具 10.00.30319.01 版</div><div class="line">版权所有(C) Microsoft Corporation。保留所有权利。</div><div class="line"></div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\adler32.c</div><div class="line">adler32.c</div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\compress.c</div><div class="line">compress.c</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">fest -outputresource:example_d.exe;1</div><div class="line">        link -nologo -debug -incremental:no -opt:ref -out:minigzip_d.exe minigzi</div><div class="line">p.obj zdll.lib</div><div class="line">        <span class="keyword">if</span> exist minigzip_d.exe.manifest  mt -nologo -manifest minigzip_d.exe.ma</div><div class="line">nifest -outputresource:minigzip_d.exe;1</div></pre></td></tr></table></figure>
-<p>编译完成后会生成zlib.lib,zlib1.dll等一些文件。</p>
-<h4 id="x86-amd64"><a href="#x86-amd64" class="headerlink" title="x86_amd64"></a>x86_amd64</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\zlib-1.2.11&gt;vcvarsx86_amd64.bat</div><div class="line">Setting environment <span class="keyword">for</span> using Microsoft Visual Studio 2010 x64 cross tools.</div><div class="line"></div><div class="line"></div><div class="line">D:\SourceBuild\zlib-1.2.11&gt;nmake /f win32/Makefile.msc</div><div class="line"></div><div class="line">Microsoft (R) 程序维护实用工具 10.00.30319.01 版</div><div class="line">版权所有(C) Microsoft Corporation。保留所有权利。</div><div class="line"></div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\adler32.c</div><div class="line">adler32.c</div><div class="line">        cl -c -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -nologo -MD</div><div class="line"> -W3 -O2 -Oy- -Zi -Fd<span class="string">"zlib"</span>  .\compress.c</div><div class="line">compress.c</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">fest -outputresource:example_d.exe;1</div><div class="line">        link -nologo -debug -incremental:no -opt:ref -out:minigzip_d.exe minigzi</div><div class="line">p.obj zdll.lib</div><div class="line">        <span class="keyword">if</span> exist minigzip_d.exe.manifest  mt -nologo -manifest minigzip_d.exe.ma</div><div class="line">nifest -outputresource:minigzip_d.exe;1</div></pre></td></tr></table></figure>
-<h3 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h3><ul>
-<li>下载<a href="https://www.openssl.org/source/openssl-1.1.0e.tar.gz" target="_blank" rel="external"><code>openssl-1.1.0e</code></a>,解压出来，仔细阅读里面<code>NOTES.WIN</code>,<code>INSTALL</code>这两个文本文档，里面有详细的编译安装说明。里面调用<code>nmake</code>native 编译的，要确保机器安装了<code>Visual Stduio</code>开发环境，winxp 最高只能安装vs2010.这里没有找到使用MinGW编译的方法只能使用nmake来编译，开发启<code>zlib</code>支持就只能使用zlib的<code>MSVC</code>的编译版本。</li>
-<li>编译前先初始化MSVC的环境变量，有分<code>x86</code>与<code>x86_amd64</code>,确保<code>C:\Program Files\Microsoft Visual Studio 10.0\VC</code>加入用户的<code>PATH</code>变量里面。打开一个新命令行窗口执行：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\openssl-1.1.0e&gt;vcvarsall.bat</div><div class="line">Setting environment <span class="keyword">for</span> using Microsoft Visual Studio 2010 x86 tools.</div><div class="line"></div><div class="line">D:\SourceBuild\openssl-1.1.0e&gt; perl Configure VC-WIN32</div><div class="line">Configuring OpenSSL version 1.1.0e (0x1010005fL)</div><div class="line">    no-asan         [default]  OPENSSL_NO_ASAN</div><div class="line">    no-crypto-mdebug [default]  OPENSSL_NO_CRYPTO_MDEBUG</div><div class="line">    no-crypto-mdebug-backtrace [default]  OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE</div><div class="line">    no-ec_nistp_64_gcc_128 [default]  OPENSSL_NO_EC_NISTP_64_GCC_128</div><div class="line">    no-egd          [default]  OPENSSL_NO_EGD</div><div class="line">    no-fuzz-afl     [default]  OPENSSL_NO_FUZZ_AFL</div><div class="line">    no-fuzz-libfuzzer [default]  OPENSSL_NO_FUZZ_LIBFUZZER</div><div class="line">    no-heartbeats   [default]  OPENSSL_NO_HEARTBEATS</div><div class="line">    no-md2          [default]  OPENSSL_NO_MD2 (skip dir)</div><div class="line">    no-msan         [default]  OPENSSL_NO_MSAN</div><div class="line">    no-rc5          [default]  OPENSSL_NO_RC5 (skip dir)</div><div class="line">    no-sctp         [default]  OPENSSL_NO_SCTP</div><div class="line">    no-ssl-trace    [default]  OPENSSL_NO_SSL_TRACE</div><div class="line">    no-ssl3         [default]  OPENSSL_NO_SSL3</div><div class="line">    no-ssl3-method  [default]  OPENSSL_NO_SSL3_METHOD</div><div class="line">    no-ubsan        [default]  OPENSSL_NO_UBSAN</div><div class="line">    no-unit-test    [default]  OPENSSL_NO_UNIT_TEST</div><div class="line">    no-weak-ssl-ciphers [default]  OPENSSL_NO_WEAK_SSL_CIPHERS</div><div class="line">    no-zlib         [default]</div><div class="line">    no-zlib-dynamic [default]</div><div class="line">Configuring <span class="keyword">for</span> VC-WIN32</div><div class="line">CC            =cl</div><div class="line">CFLAG         =-W3 -wd4090 -Gs0 -GF -Gy -nologo -DOPENSSL_SYS_WIN32 -DWIN32_LEAN</div><div class="line">_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE -DUNICODE -D_UNICODE /MD /O2</div><div class="line">[...]</div><div class="line"></div><div class="line">D:\SourceBuild\openssl-1.1.0e&gt;nmake </div><div class="line">[...]</div><div class="line"></div><div class="line">D:\SourceBuild\openssl-1.1.0e&gt;nmake <span class="built_in">test</span></div><div class="line">[...]</div></pre></td></tr></table></figure>
-<h4 id="C-ares"><a href="#C-ares" class="headerlink" title="C-ares"></a>C-ares</h4><ul>
-<li>下载<a href="https://c-ares.haxx.se/download/c-ares-1.12.0.tar.gz" target="_blank" rel="external"><code>C-ares-1.12</code></a>,查看了它自带<code>README</code>，通过命令行使用<code>nmake</code>安装不成功，通过它的vc目录下的VC工程,要用vs2010IDE打开就可以编译在成功。生成了<br>cares.lib,cares.dll.</li>
-</ul>
-<h4 id="Curl"><a href="#Curl" class="headerlink" title="Curl"></a>Curl</h4><ul>
-<li><p>下载<a href="https://curl.haxx.se/download/curl-7.53.1.zip" target="_blank" rel="external"><code>curl-7.53.1</code></a>,解压出来，仔细阅读它的文档。<code>winbuild/BUILD.WINDOWS.txt</code>文档详细说明了如何编译安装。</p>
-</li>
-<li><p>根据文档指示，如果依赖一些其它库要在它的同级目录新建如下结构的目录结构</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">If you wish to support zlib, openssl, c-ares, ssh2, you will have to download</div><div class="line">  them separately and copy them to the deps directory as shown below:</div><div class="line">  </div><div class="line">  somedirectory</div><div class="line">   |_curl-src</div><div class="line">   | |_winbuild</div><div class="line">   |</div><div class="line">   |_deps</div><div class="line">     |_ lib</div><div class="line">     |_ include</div><div class="line">     |_ bin</div></pre></td></tr></table></figure>
-<ul>
-<li>目录结构如下</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\deps&gt;tree /?</div><div class="line">以图形显示驱动器或路径的文件夹结构。</div><div class="line"></div><div class="line">TREE [drive:][path] [/F] [/A]</div><div class="line"></div><div class="line">   /F   显示每个文件夹中文件的名称。</div><div class="line">   /A   使用 ASCII 字符，而不使用扩展字符。</div><div class="line"></div><div class="line"></div><div class="line">D:\SourceBuild\deps&gt;tree /F</div><div class="line">卷 新加卷 的文件夹 PATH 列表</div><div class="line">卷序列号码为 0006EE44 E462:E6DB</div><div class="line">D:.</div><div class="line">├─include</div><div class="line">│  │  ares.h</div><div class="line">│  │  ares_build.h</div><div class="line">│  │  ares_rules.h</div><div class="line">│  │  ares_version.h</div><div class="line">│  │  zconf.h</div><div class="line">│  │  zlib.h</div><div class="line">│  │</div><div class="line">│  ├─internal</div><div class="line">│  │      bio.h</div><div class="line">│  │      comp.h</div><div class="line">│  │      conf.h</div><div class="line">│  │      constant_time_locl.h</div><div class="line">│  │      dane.h</div><div class="line">│  │      dso.h</div><div class="line">│  │      err.h</div><div class="line">│  │      numbers.h</div><div class="line">│  │      o_dir.h</div><div class="line">│  │      o_str.h</div><div class="line">│  │      thread_once.h</div><div class="line">│  │</div><div class="line">│  └─openssl</div><div class="line">│          aes.h</div><div class="line">│          asn1.h</div><div class="line">│          asn1t.h</div><div class="line">│          asn1_mac.h</div><div class="line">│          async.h</div><div class="line">│          [...]      </div><div class="line">│          x509v3.h</div><div class="line">│          x509_vfy.h</div><div class="line">│          __DECC_INCLUDE_EPILOGUE.H</div><div class="line">│          __DECC_INCLUDE_PROLOGUE.H</div><div class="line">│</div><div class="line">└─lib</div><div class="line">        cares.dll</div><div class="line">        cares.lib</div><div class="line">        libcrypto-1_1.dll</div><div class="line">        libcrypto.lib</div><div class="line">        libssl-1_1.dll</div><div class="line">        libssl.lib</div><div class="line">        zdll.lib</div><div class="line">        zlib.h</div><div class="line">        zlib.lib</div><div class="line">        zlib1.dll</div></pre></td></tr></table></figure>
-<ul>
-<li>因为这个版本的CURL依赖openssl时，会连接<code>libeay32.lib,ssleay32.lib</code>.这里要在脚本文件<code>\winbuild\MakefileBuild.vc</code>里把它改成<code>libssl.lib,libcrypto.lib</code>.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\curl-7.53.1\winbuild&gt;nmake /f Makefile.vc mode=dll vc=10 with_ssl</div><div class="line">=dll with_cares=dll with_zlib=dll machine=x86</div></pre></td></tr></table></figure>
-<ul>
-<li>如果不出错就会产生几个新的文件夹如下：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\curl-7.53.1\builds&gt;tree</div><div class="line">卷 新加卷 的文件夹 PATH 列表</div><div class="line">卷序列号码为 0006EE44 E462:E6DB</div><div class="line">D:.</div><div class="line">├─libcurl-vc10-x86-release-dll-ssl-dll-cares-dll-zlib-dll-ipv6-sspi</div><div class="line">│  ├─bin</div><div class="line">│  ├─include</div><div class="line">│  │  └─curl</div><div class="line">│  └─lib</div><div class="line">├─libcurl-vc10-x86-release-dll-ssl-dll-cares-dll-zlib-dll-ipv6-sspi-obj-curl</div><div class="line">└─libcurl-vc10-x86-release-dll-ssl-dll-cares-dll-zlib-dll-ipv6-sspi-obj-lib</div><div class="line">    ├─vauth</div><div class="line">    └─vtls</div></pre></td></tr></table></figure>
-<h4 id="MinGW-编译-CURL"><a href="#MinGW-编译-CURL" class="headerlink" title="MinGW 编译 CURL"></a>MinGW 编译 CURL</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">D:\SourceBuild\curl-7.53.1&gt;mkdir mingwbuild</div><div class="line">D:\SourceBuild\curl-7.53.1&gt;<span class="built_in">cd</span> mingwbuild</div><div class="line">D:\SourceBuild\curl-7.53.1\mingwbuild&gt;cmake -G <span class="string">"MinGW Makefiles"</span> ../</div><div class="line">D:\SourceBuild\curl-7.53.1\mingwbuild&gt;mingw32-make</div></pre></td></tr></table></figure>
-<ul>
-<li>会在当前目录下生成库文件与一些测试程序。</li>
-</ul>
-<hr>
-<h3 id="MXE环境下交叉编译一些库"><a href="#MXE环境下交叉编译一些库" class="headerlink" title="MXE环境下交叉编译一些库"></a>MXE环境下交叉编译一些库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> mxe</div><div class="line">mxe$ make MXE_TARGETS=<span class="string">"i686-w64-mingw32.shared"</span> curl libwebsockets</div><div class="line"></div><div class="line">$ <span class="built_in">cd</span> ~/mxe/download_src/c-ares-1.12.0/build$</div><div class="line">$ <span class="built_in">export</span> CROSS_COMPILER=i686-w64-mingw32.shared- </div><div class="line">$ ../configure  --prefix=/path/mxe/usr/i686-w64-mingw32.shared --host=i686-w64-mingw32</div><div class="line">$ make &amp;&amp; make install </div><div class="line">$ ls /path/mxe/usr/i686-w64-mingw32.shared/lib/libcares.*</div><div class="line">/path/mxe/usr/i686-w64-mingw32.shared/lib/libcares.dll.a  /path/mxe/usr/i686-w64-mingw32.shared/lib/libcares.la</div></pre></td></tr></table></figure>
-<h4 id="mosquitto"><a href="#mosquitto" class="headerlink" title="mosquitto"></a>mosquitto</h4><ul>
-<li>下载<a href="http://mosquitto.org/files/source/mosquitto-1.4.11.tar.gz" target="_blank" rel="external"><code>Mosquitto-1.4.11</code></a>,解压出来，看了一下它的<code>readme-windows.txt</code>在winxp 下编译安装不成功，不管是MSVC还是MinGW.我根据错误提示做了一些源代码的修改，使用Ｑt MinGW还有MXE环境下编译成功了。修改如下：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div></pre></td><td class="code"><pre><div class="line">$ diff -r mosquitto-1.4.11 mosquitto-1.4.11-lcy-changed</div><div class="line">Only <span class="keyword">in</span> mosquitto-1.4.11-lcy-changed: build</div><div class="line">diff -r mosquitto-1.4.11/config.mk mosquitto-1.4.11-lcy-changed/config.mk</div><div class="line">68c68</div><div class="line">&lt; WITH_WEBSOCKETS:=no</div><div class="line">---</div><div class="line">&gt; WITH_WEBSOCKETS:=yes</div><div class="line">diff -r mosquitto-1.4.11/lib/CMakeLists.txt mosquitto-1.4.11-lcy-changed/lib/CMakeLists.txt</div><div class="line">7,8c7,12</div><div class="line">&lt; 		<span class="built_in">set</span> (PTHREAD_LIBRARIES C:\\pthreads\\Pre-built.2\\lib\\x86\\pthreadVC2.lib)</div><div class="line">&lt; 		<span class="built_in">set</span> (PTHREAD_INCLUDE_DIR C:\\pthreads\\Pre-built.2\\include)</div><div class="line">---</div><div class="line">&gt;     <span class="keyword">if</span> (MINGW)</div><div class="line">&gt;       <span class="built_in">set</span> (PTHREAD_LIBRARIES -lpthread)</div><div class="line">&gt;     <span class="keyword">else</span> ( MINGW)</div><div class="line">&gt; 		  <span class="built_in">set</span> (PTHREAD_LIBRARIES C:\\pthreads\\Pre-built.2\\lib\\x86\\pthreadVC2.lib)</div><div class="line">&gt; 		  <span class="built_in">set</span> (PTHREAD_INCLUDE_DIR C:\\pthreads\\Pre-built.2\\include)</div><div class="line">&gt;     endif (MINGW)</div><div class="line">diff -r mosquitto-1.4.11/lib/mosquitto_internal.h mosquitto-1.4.11-lcy-changed/lib/mosquitto_internal.h</div><div class="line">20a21</div><div class="line">&gt; <span class="comment">#include &lt;stdint.h&gt;</span></div><div class="line">diff -r mosquitto-1.4.11/lib/net_mosq.c mosquitto-1.4.11-lcy-changed/lib/net_mosq.c</div><div class="line">29a30</div><div class="line">&gt; <span class="comment">#define AI_ADDRCONFIG 0x400</span></div><div class="line">diff -r mosquitto-1.4.11/lib/time_mosq.c mosquitto-1.4.11-lcy-changed/lib/time_mosq.c</div><div class="line">45,47c45,48</div><div class="line">&lt; 		<span class="keyword">if</span>(vi.dwMajorVersion &gt; 5)&#123;</div><div class="line">&lt; 			tick64 = <span class="literal">true</span>;</div><div class="line">&lt; 		&#125;</div><div class="line">---</div><div class="line">&gt; 		<span class="keyword">if</span>(vi.dwMajorVersion &gt; 5 )</div><div class="line">&gt;     &#123;</div><div class="line">&gt;       tick64 = <span class="literal">true</span>;</div><div class="line">&gt;     &#125;</div><div class="line">56c57</div><div class="line">&lt; 		<span class="built_in">return</span> GetTickCount64()/1000;</div><div class="line">---</div><div class="line">&gt; 		<span class="built_in">return</span> GetTickCount()/1000;</div><div class="line">diff -r mosquitto-1.4.11/lib/tls_mosq.c mosquitto-1.4.11-lcy-changed/lib/tls_mosq.c</div><div class="line">21a22</div><div class="line">&gt; <span class="comment"># include &lt;windows.h&gt;</span></div><div class="line">118,119c119,128</div><div class="line">&lt; 	ipv6_ok = InetPton(AF_INET6, hostname, &amp;ipv6_addr);</div><div class="line">&lt; 	ipv4_ok = InetPton(AF_INET, hostname, &amp;ipv4_addr);</div><div class="line">---</div><div class="line">&gt;   typedef INT (WSAAPI *ptrInetPton)( INT     Family, PCTSTR pszAddrString, PVOID  pAddrBuf);</div><div class="line">&gt;   HMODULE  h = LoadLibrary(L<span class="string">"ws2_32.dll"</span>);</div><div class="line">&gt;   ptrInetPton  func = (ptrInetPton)GetProcAddress(h,<span class="string">"InetPtonW"</span>);</div><div class="line">&gt; </div><div class="line">&gt; 	ipv6_ok = func(AF_INET6, hostname, &amp;ipv6_addr);</div><div class="line">&gt; 	ipv4_ok = func(AF_INET, hostname, &amp;ipv4_addr);</div><div class="line">&gt;   FreeLibrary(h); h = NULL;</div><div class="line">&gt; </div><div class="line">&gt; 	//ipv6_ok = InetPton(AF_INET6, hostname, &amp;ipv6_addr);</div><div class="line">&gt; 	//ipv4_ok = InetPton(AF_INET, hostname, &amp;ipv4_addr);</div><div class="line">diff -r mosquitto-1.4.11/src/conf.c mosquitto-1.4.11-lcy-changed/src/conf.c</div><div class="line">33a34</div><div class="line">&gt; <span class="comment">#define AI_ADDRCONFIG 0x400</span></div><div class="line">diff -r mosquitto-1.4.11/src/loop.c mosquitto-1.4.11-lcy-changed/src/loop.c</div><div class="line">27a28,107</div><div class="line">&gt; <span class="comment">#include &lt;windows.h&gt;</span></div><div class="line">&gt; <span class="comment">#if (_WIN32_WINNT &lt; 0x0600)</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment">#define POLLIN 0x0001</span></div><div class="line">&gt; <span class="comment">#define POLLPRI 0x0002</span></div><div class="line">&gt; <span class="comment">#define POLLOUT 0x0004</span></div><div class="line">&gt; <span class="comment">#define POLLERR 0x0008</span></div><div class="line">&gt; <span class="comment">#define POLLHUP 0x0010</span></div><div class="line">&gt; <span class="comment">#define POLLNVAL 0x0020</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment">#ifdef FD_SETSIZE</span></div><div class="line">&gt; <span class="comment">#undef FD_SETSIZE</span></div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment">#define FD_SETSIZE 1000</span></div><div class="line">&gt; </div><div class="line">&gt; struct pollfd &#123;</div><div class="line">&gt;   SOCKET fd;</div><div class="line">&gt;   short events;</div><div class="line">&gt;   short revents;</div><div class="line">&gt; &#125;;</div><div class="line">&gt; </div><div class="line">&gt; </div><div class="line">&gt; int mingw_poll(struct pollfd *fds, unsigned int nfds, int timo)</div><div class="line">&gt; &#123;</div><div class="line">&gt;     struct timeval timeout, *toptr;</div><div class="line">&gt;     fd_set ifds, ofds, efds, *ip, *op;</div><div class="line">&gt;     int i, rc;</div><div class="line">&gt; </div><div class="line">&gt;     /* Set up the file-descriptor sets <span class="keyword">in</span> ifds, ofds and efds. */</div><div class="line">&gt;     FD_ZERO(&amp;ifds);</div><div class="line">&gt;     FD_ZERO(&amp;ofds);</div><div class="line">&gt;     FD_ZERO(&amp;efds);</div><div class="line">&gt;     <span class="keyword">for</span> (i = 0, op = ip = 0; i &lt; nfds; ++i) &#123;</div><div class="line">&gt;         fds[i].revents = 0;</div><div class="line">&gt;         <span class="keyword">if</span>(fds[i].events &amp; (POLLIN|POLLPRI)) &#123;</div><div class="line">&gt;             ip = &amp;ifds;</div><div class="line">&gt;             FD_SET(fds[i].fd, ip);</div><div class="line">&gt;         &#125;</div><div class="line">&gt;         <span class="keyword">if</span>(fds[i].events &amp; POLLOUT) &#123;</div><div class="line">&gt;             op = &amp;ofds;</div><div class="line">&gt;             FD_SET(fds[i].fd, op);</div><div class="line">&gt;         &#125;</div><div class="line">&gt;         FD_SET(fds[i].fd, &amp;efds);</div><div class="line">&gt;     &#125; </div><div class="line">&gt; </div><div class="line">&gt;     /* Set up the timeval structure <span class="keyword">for</span> the timeout parameter */</div><div class="line">&gt;     <span class="keyword">if</span>(timo &lt; 0) &#123;</div><div class="line">&gt;         toptr = 0;</div><div class="line">&gt;     &#125; <span class="keyword">else</span> &#123;</div><div class="line">&gt;         toptr = &amp;timeout;</div><div class="line">&gt;         timeout.tv_sec = timo / 1000;</div><div class="line">&gt;         timeout.tv_usec = (timo - timeout.tv_sec * 1000) * 1000;</div><div class="line">&gt;     &#125;</div><div class="line">&gt; </div><div class="line">&gt;     //kWarning()&lt;&lt;QString(<span class="string">"Entering select() sec=%1 usec=%2 ip=%3 op=%4"</span>).arg(timeout.tv_sec).arg(timeout.tv_usec).arg((long)ip).arg((long)op);</div><div class="line">&gt; </div><div class="line">&gt;     rc = select(0, ip, op, &amp;efds, toptr);</div><div class="line">&gt; </div><div class="line">&gt;     //kWarning()&lt;&lt;<span class="string">"Exiting select rc="</span>&lt;&lt;rc;</div><div class="line">&gt; </div><div class="line">&gt;     <span class="keyword">if</span>(rc &lt;= 0)</div><div class="line">&gt;         <span class="built_in">return</span> rc;</div><div class="line">&gt; </div><div class="line">&gt;     <span class="keyword">if</span>(rc &gt; 0) &#123;</div><div class="line">&gt;         <span class="keyword">for</span> (i = 0; i &lt; nfds; ++i) &#123;</div><div class="line">&gt;             int fd = fds[i].fd;</div><div class="line">&gt;             <span class="keyword">if</span>(fds[i].events &amp; (POLLIN|POLLPRI) &amp;&amp; FD_ISSET(fd, &amp;ifds))</div><div class="line">&gt;                 fds[i].revents |= POLLIN;</div><div class="line">&gt;             <span class="keyword">if</span>(fds[i].events &amp; POLLOUT &amp;&amp; FD_ISSET(fd, &amp;ofds))</div><div class="line">&gt;                 fds[i].revents |= POLLOUT;</div><div class="line">&gt;             <span class="keyword">if</span>(FD_ISSET(fd, &amp;efds))</div><div class="line">&gt;                 /* Some error was detected ... should be some way to know. */</div><div class="line">&gt;                 fds[i].revents |= POLLHUP;</div><div class="line">&gt;             //kWarning()&lt;&lt;QString(<span class="string">"%1 %2 %3 revent = %4"</span>).arg(FD_ISSET(fd, &amp;ifds)).arg(FD_ISSET(fd, &amp;ofds)).arg(FD_ISSET(fd, &amp;efds)).arg(fds[i].revents);</div><div class="line">&gt;         &#125;</div><div class="line">&gt;     &#125;</div><div class="line">&gt;     <span class="built_in">return</span> rc;</div><div class="line">&gt; &#125;</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">354c434,435</div><div class="line">&lt; 		fdcount = WSAPoll(pollfds, pollfd_index, 100);</div><div class="line">---</div><div class="line">&gt; 		//fdcount = WSAPoll(pollfds, pollfd_index, 100);</div><div class="line">&gt; 		fdcount = mingw_poll(pollfds, pollfd_index, 100);</div><div class="line">diff -r mosquitto-1.4.11/src/net.c mosquitto-1.4.11-lcy-changed/src/net.c</div><div class="line">26a27</div><div class="line">&gt; <span class="comment">#include &lt;windows.h&gt;</span></div><div class="line">516a518,523</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; </div><div class="line">&gt; typedef PCTSTR (WSAAPI *ptrInetNtop)( INT     Family, PVOID  pAddr, PTSTR  pStringBuf, size_t StringBufSize);</div><div class="line">&gt;   HMODULE  h = LoadLibrary(L<span class="string">"ws2_32.dll"</span>);</div><div class="line">&gt;   ptrInetNtop  func = (ptrInetNtop)GetProcAddress(h,<span class="string">"InetNtop"</span>);</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">520a528,531</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; 			<span class="keyword">if</span>(func(AF_INET, &amp;((struct sockaddr_in *)&amp;addr)-&gt;sin_addr.s_addr, buf, len))&#123;</div><div class="line">&gt; 				<span class="built_in">return</span> 0;</div><div class="line">&gt; <span class="comment">#else</span></div><div class="line">522a534</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">524a537,540</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; 			<span class="keyword">if</span>(func(AF_INET6, &amp;((struct sockaddr_in6 *)&amp;addr)-&gt;sin6_addr.s6_addr, buf, len))&#123;</div><div class="line">&gt; 				<span class="built_in">return</span> 0;</div><div class="line">&gt; <span class="comment">#else</span></div><div class="line">526a543</div><div class="line">&gt; <span class="comment">#endif</span></div><div class="line">529a547,549</div><div class="line">&gt; <span class="comment">#ifdef WIN32</span></div><div class="line">&gt; FreeLibrary(h);</div></pre></td></tr></table></figure>
-<ul>
-<li><p>MXE编译参数如下，要先安装OPENSSL</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmake -DCMAKE_SHARED_LIBRARY_LINK_C_FLAGS=<span class="string">""</span> -DCMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS=<span class="string">""</span> -DWIN32=ON -DMINGW=ON -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=i686-w64-mingw32.shared-gcc  -DOPENSSL_ROOT_DIR=/path/usr/i686-w64-mingw32.shared ..</div></pre></td></tr></table></figure>
-</li>
-<li><p>Qt MinGW 编译</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed&gt; mkdir build</div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed&gt; cd build</div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed\build&gt;cmake -G &quot;MinGW Makefiles&quot; ..</div><div class="line">-- The C compiler identification is GNU 5.3.0</div><div class="line">-- The CXX compiler identification is GNU 5.3.0</div><div class="line">-- Check for working C compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/gcc.exe</div><div class="line">-- Check for working C compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/gcc.exe --</div><div class="line">works</div><div class="line">-- Detecting C compiler ABI info</div><div class="line">-- Detecting C compiler ABI info - done</div><div class="line">-- Detecting C compile features</div><div class="line">-- Detecting C compile features - done</div><div class="line">-- Check for working CXX compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/g++.exe</div><div class="line">-- Check for working CXX compiler: C:/Qt/Qt5.7.1/Tools/mingw530_32/bin/g++.exe -</div><div class="line">- works</div><div class="line">-- Detecting CXX compiler ABI info</div><div class="line">-- Detecting CXX compiler ABI info - done</div><div class="line">-- Detecting CXX compile features</div><div class="line">-- Detecting CXX compile features - done</div><div class="line">-- Found OpenSSL: C:/Dwimperl/c/lib/libssleay32.a (found version &quot;1.0.0d&quot;)</div><div class="line">CMake Warning at lib/CMakeLists.txt:73 (message):</div><div class="line">  c-ares library not found.</div><div class="line"></div><div class="line"></div><div class="line">-- Looking for getaddrinfo_a in anl</div><div class="line">-- Looking for getaddrinfo_a in anl - not found</div><div class="line">-- Configuring done</div><div class="line">-- Generating done</div><div class="line">-- Build files have been written to: D:/SourceBuild/mosquitto-1.4.11-lcy-changed</div><div class="line">/build</div><div class="line"></div><div class="line">D:\SourceBuild\mosquitto-1.4.11-lcy-changed\build&gt; mingw32-make</div><div class="line"></div><div class="line">[...]</div></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>上面提到这些库都是可以通过MSVC或者MinGW可以编译出来，一整套的编译环境加上一大堆的依赖库，还要应对一些编译器带来的错误，一般是不会像上面这样一个一个的去编译，更好的方法是使用MXE去编译上面这些库,但是依赖的动态库文件会比较多。</li>
-</ul>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。  </li>
 <li>微信二维码:</li>
@@ -2814,7 +2709,7 @@ reboot
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

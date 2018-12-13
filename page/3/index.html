@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yjdwbj">
@@ -304,8 +304,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" itemprop="url">
-                  vsftpd FTP服务器与django前端共用sqlite3数据库的示例
+                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
+                  常见编译问题,不定期更新.
                 </a>
               
             
@@ -331,7 +331,7 @@
                 
               
 
-              <time title="创建时间：2016-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-04T00:00:00+08:00">2016-09-04</time>
+              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
             
 
             
@@ -348,11 +348,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2016-12-14 22:18:00" itemprop="dateModified" datetime="2016-12-14T22:18:00+08:00">2016-12-14</time>
+                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -383,54 +401,21 @@
       
         
           
-            <ul>
-<li>本示例接合vsftpd与Django共用Sqlite3(不限于<code>sqlite3,Mysql,Postgresql</code>)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容,</li>
-<li>Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.</li>
+            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
 </ul>
-<h3 id="Vsftpd"><a href="#Vsftpd" class="headerlink" title="Vsftpd"></a>Vsftpd</h3><ul>
-<li><p>这里使用<code>vsftpd-3.0.2</code>版本,这里要对它的源做一小修改,确保每一个用户登录成功之后自动创建一个名为用户名目录.这个目录专属于这个用户,用户上传下载也只限于这个目录下.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
+<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
+<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
+<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li><p>Linux 下要定义成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
 </li>
-<li><p>源代码位置在<code>vsftpd-3.0.2/twoprocess.c</code> 里的　<code>common_do_login</code> 函数中.如下面代码片段.</p>
+<li><p>MinGW 下要定义成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
 </li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="number">385</span>    <span class="keyword">static</span> <span class="keyword">void</span></div><div class="line"><span class="number">386</span>  common_do_login(<span class="keyword">struct</span> vsf_session* p_sess, <span class="keyword">const</span> <span class="keyword">struct</span> mystr* p_user_str,</div><div class="line"><span class="number">387</span>                  <span class="keyword">int</span> do_chroot, <span class="keyword">int</span> anon)</div><div class="line"><span class="number">388</span>  &#123;</div><div class="line"><span class="number">389</span>      <span class="keyword">int</span> was_anon = anon;</div><div class="line"><span class="number">390</span>      <span class="keyword">const</span> <span class="keyword">struct</span> mystr* p_orig_user_str = p_user_str;</div><div class="line"><span class="number">391</span>      <span class="keyword">int</span> newpid;</div><div class="line"><span class="number">392</span>      vsf_sysutil_install_null_sighandler(kVSFSysUtilSigCHLD);</div><div class="line"><span class="number">393</span>      <span class="comment">/* Tells the pre-login child all is OK (it may exit in response) */</span></div><div class="line"><span class="number">394</span>      priv_sock_send_result(p_sess-&gt;parent_fd, PRIV_SOCK_RESULT_OK);</div><div class="line"><span class="number">395</span>      <span class="keyword">if</span> (!p_sess-&gt;control_use_ssl)</div><div class="line"><span class="number">396</span>      &#123;</div><div class="line"><span class="number">397</span>          (<span class="keyword">void</span>) vsf_sysutil_wait();</div><div class="line"><span class="number">398</span>      &#125;</div><div class="line"><span class="number">399</span>      <span class="keyword">else</span></div><div class="line"><span class="number">400</span>      &#123;</div><div class="line"><span class="number">401</span>          p_sess-&gt;ssl_slave_active = <span class="number">1</span>;</div><div class="line"><span class="number">402</span>      &#125;</div><div class="line"><span class="number">403</span>      <span class="comment">/* Handle loading per-user config options */</span></div><div class="line"><span class="number">404</span>      handle_per_user_config(p_user_str);</div><div class="line"><span class="number">405</span>      <span class="comment">/* Set this before we fork */</span></div><div class="line"><span class="number">406</span>      p_sess-&gt;is_anonymous = anon;</div><div class="line"><span class="number">407</span>      priv_sock_close(p_sess);</div><div class="line"><span class="number">408</span>      priv_sock_init(p_sess);</div><div class="line"><span class="number">409</span>      vsf_sysutil_install_sighandler(kVSFSysUtilSigCHLD, handle_sigchld, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line"><span class="number">410</span>      <span class="keyword">if</span> (tunable_isolate_network &amp;&amp; !tunable_port_promiscuous)</div><div class="line"><span class="number">411</span>      &#123;</div><div class="line"><span class="number">412</span>          newpid = vsf_sysutil_fork_newnet();</div><div class="line"><span class="number">413</span>      &#125;</div><div class="line"><span class="number">414</span>      <span class="keyword">else</span></div><div class="line"><span class="number">415</span>      &#123;</div><div class="line"><span class="number">416</span>          newpid = vsf_sysutil_fork();</div><div class="line"><span class="number">417</span>      &#125;</div><div class="line"><span class="number">418</span>      <span class="keyword">if</span> (newpid == <span class="number">0</span>)</div><div class="line"><span class="number">419</span>      &#123;</div><div class="line"><span class="number">420</span>          <span class="keyword">struct</span> mystr guest_user_str = INIT_MYSTR;</div><div class="line"><span class="number">421</span>          <span class="keyword">struct</span> mystr chroot_str = INIT_MYSTR;</div><div class="line"><span class="number">422</span>          <span class="keyword">struct</span> mystr chdir_str = INIT_MYSTR;</div><div class="line"><span class="number">423</span>          <span class="keyword">struct</span> mystr userdir_str = INIT_MYSTR;</div><div class="line"><span class="number">424</span>          <span class="keyword">unsigned</span> <span class="keyword">int</span> secutil_option = VSF_SECUTIL_OPTION_USE_GROUPS |</div><div class="line"><span class="number">425</span>                                        VSF_SECUTIL_OPTION_NO_PROCS;</div><div class="line"><span class="number">426</span>          <span class="comment">/* Child - drop privs and start proper FTP! */</span></div><div class="line"><span class="number">427</span>          <span class="comment">/* This PR_SET_PDEATHSIG doesn't work for all possible process tree setups.</span></div><div class="line">428           * The other cases are taken care of by a shutdown() of the command</div><div class="line">429           * connection in our SIGTERM handler.</div><div class="line">430           */</div><div class="line"><span class="number">431</span>          vsf_set_die_if_parent_dies();</div><div class="line"><span class="number">432</span>          priv_sock_set_child_context(p_sess);</div><div class="line"><span class="number">433</span>          <span class="keyword">if</span> (tunable_guest_enable &amp;&amp; !anon)</div><div class="line"><span class="number">434</span>          &#123;</div><div class="line"><span class="number">435</span>              p_sess-&gt;is_guest = <span class="number">1</span>;</div><div class="line"><span class="number">436</span>              <span class="comment">/* Remap to the guest user */</span></div><div class="line"><span class="number">437</span>              <span class="keyword">if</span> (tunable_guest_username)</div><div class="line"><span class="number">438</span>              &#123;</div><div class="line"><span class="number">439</span>                  str_alloc_text(&amp;guest_user_str, tunable_guest_username);</div><div class="line"><span class="number">440</span>              &#125;</div><div class="line"><span class="number">441</span>              p_user_str = &amp;guest_user_str;</div><div class="line"><span class="number">442</span>              <span class="keyword">if</span> (!tunable_virtual_use_local_privs)</div><div class="line"><span class="number">443</span>              &#123;</div><div class="line"><span class="number">444</span>                  anon = <span class="number">1</span>;</div><div class="line"><span class="number">445</span>                  do_chroot = <span class="number">1</span>;</div><div class="line"><span class="number">446</span>              &#125;</div><div class="line"><span class="number">447</span>          &#125;</div><div class="line"><span class="number">448</span>          <span class="keyword">if</span> (do_chroot)</div><div class="line"><span class="number">449</span>          &#123;</div><div class="line"><span class="number">450</span>              secutil_option |= VSF_SECUTIL_OPTION_CHROOT;</div><div class="line"><span class="number">451</span>          &#125;</div><div class="line"><span class="number">452</span>          <span class="keyword">if</span> (!anon)</div><div class="line"><span class="number">453</span>          &#123;</div><div class="line"><span class="number">454</span>              secutil_option |= VSF_SECUTIL_OPTION_CHANGE_EUID;</div><div class="line"><span class="number">455</span>          &#125;</div><div class="line"><span class="number">456</span>          <span class="keyword">if</span> (!was_anon &amp;&amp; tunable_allow_writeable_chroot)</div><div class="line"><span class="number">457</span>          &#123;</div><div class="line"><span class="number">458</span>              secutil_option |= VSF_SECUTIL_OPTION_ALLOW_WRITEABLE_ROOT;</div><div class="line"><span class="number">459</span>          &#125;</div><div class="line"><span class="number">460</span>          calculate_chdir_dir(was_anon, &amp;userdir_str, &amp;chroot_str, &amp;chdir_str,</div><div class="line"><span class="number">461</span>                              p_user_str, p_orig_user_str);</div><div class="line"><span class="number">462</span>  </div><div class="line"><span class="number">463</span>  </div><div class="line">             <span class="comment">/* 通过我的调式这里加下面这一句,用户通过FTP端户登录成功就会创建它自已的目录*/</span></div><div class="line"><span class="number">464</span>          str_mkdir(&amp;chroot_str, <span class="number">0777</span>);</div><div class="line"><span class="number">465</span>  </div><div class="line"><span class="number">466</span>          chown(str_getbuf(&amp;chroot_str),p_sess-&gt;guest_user_uid,p_sess-&gt;guest_user_uid);</div><div class="line"><span class="number">467</span>  </div><div class="line"><span class="number">468</span>  </div><div class="line"><span class="number">469</span>          vsf_secutil_change_credentials(p_user_str, &amp;userdir_str, &amp;chroot_str,</div><div class="line"><span class="number">470</span>                                         <span class="number">0</span>, secutil_option);</div><div class="line"><span class="number">471</span>          <span class="keyword">if</span> (!str_isempty(&amp;chdir_str))</div><div class="line"><span class="number">472</span>          &#123;</div><div class="line"><span class="number">473</span>              (<span class="keyword">void</span>) str_chdir(&amp;chdir_str);</div><div class="line"><span class="number">474</span>          &#125;</div><div class="line"><span class="number">475</span>          str_free(&amp;guest_user_str);</div><div class="line"><span class="number">476</span>          str_free(&amp;chroot_str);</div><div class="line"><span class="number">477</span>          str_free(&amp;chdir_str);</div><div class="line"><span class="number">478</span>          str_free(&amp;userdir_str);</div><div class="line"><span class="number">479</span>          p_sess-&gt;is_anonymous = anon;</div><div class="line"><span class="number">480</span>          seccomp_sandbox_init();</div><div class="line"><span class="number">481</span>          seccomp_sandbox_setup_postlogin(p_sess);</div><div class="line"><span class="number">482</span>          seccomp_sandbox_lockdown();</div><div class="line"><span class="number">483</span>  </div><div class="line"><span class="number">484</span>          process_post_login(p_sess);</div><div class="line"><span class="number">485</span>          bug(<span class="string">"should not get here: common_do_login"</span>);</div><div class="line"><span class="number">486</span>      &#125;</div><div class="line"><span class="number">487</span>      <span class="comment">/* Parent */</span></div><div class="line"><span class="number">488</span>      priv_sock_set_parent_context(p_sess);</div><div class="line"><span class="number">489</span>      <span class="keyword">if</span> (tunable_ssl_enable)</div><div class="line"><span class="number">490</span>      &#123;</div><div class="line"><span class="number">491</span>          ssl_comm_channel_set_producer_context(p_sess);</div><div class="line"><span class="number">492</span>      &#125;</div><div class="line"><span class="number">493</span>      <span class="comment">/* The seccomp sandbox lockdown for the priv parent is done inside here */</span></div><div class="line"><span class="number">494</span>      vsf_priv_parent_postlogin(p_sess);</div><div class="line"><span class="number">495</span>      bug(<span class="string">"should not get here in common_do_login"</span>);</div><div class="line"><span class="number">496</span>  &#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>参照<code>vsftpd-3.0.2/INSTALL</code>　直接编译安装.</li>
-</ul>
-<h3 id="配置vsftpd"><a href="#配置vsftpd" class="headerlink" title="配置vsftpd"></a>配置vsftpd</h3><ul>
-<li><code>/etc/vsftpd.conf</code> 修改如下:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">grep -v &apos;^#&apos; /etc/vsftpd.conf </div><div class="line">cmds_allowed=ABOR,CWD,LIST,NLST,PWD,QUIT,RETR,SIZE,TYPE,USER,ACCT,CDUP,MODE,SYST,FEAT,PASV</div><div class="line">listen=YES</div><div class="line">listen_ipv6=NO</div><div class="line">anonymous_enable=NO</div><div class="line">local_enable=YES</div><div class="line">write_enable=NO</div><div class="line"></div><div class="line">dirmessage_enable=YES</div><div class="line">use_localtime=YES</div><div class="line">xferlog_enable=NO</div><div class="line">connect_from_port_20=YES</div><div class="line">idle_session_timeout=600</div><div class="line">data_connection_timeout=120</div><div class="line">nopriv_user=vsftpd</div><div class="line">chroot_local_user=YES</div><div class="line">pam_service_name=vsftpd</div><div class="line">user_sub_token=$USER</div><div class="line">guest_enable=YES</div><div class="line">guest_username=vsftpd</div><div class="line">local_root=/opt/data/ftproot/$USER #所有用户目录会在这个目录下.</div><div class="line">chroot_local_user=YES</div><div class="line">allow_writeable_chroot=YES</div><div class="line">chroot_list_enable=NO</div><div class="line">virtual_use_local_privs=YES</div><div class="line">file_open_mode=0770</div><div class="line">anon_mkdir_write_enable=NO</div><div class="line">ssl_enable=NO</div><div class="line">max_per_ip=65536</div><div class="line">log_ftp_protocol=YES</div></pre></td></tr></table></figure>
-<ul>
-<li><code>/etc/pam.d/vsftpd</code> 修改如下:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># Standard behaviour for ftpd(8).</div><div class="line">#auth   required    pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed</div><div class="line"></div><div class="line"># Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.</div><div class="line"></div><div class="line"># Standard pam includes</div><div class="line">#@include common-account</div><div class="line">#@include common-session</div><div class="line">#@include common-auth</div><div class="line">#auth   required    pam_shells.so</div><div class="line"># 如果使用其它数据库如:postgresql ,把pam_sqlite3.so替换掉</div><div class="line">auth        required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so </div><div class="line">account     required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</div><div class="line">password    required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</div></pre></td></tr></table></figure>
-<h3 id="pam-sqlite-0-3"><a href="#pam-sqlite-0-3" class="headerlink" title="pam_sqlite-0.3"></a>pam_sqlite-0.3</h3><ul>
-<li>在github上找到两个项目<strong><a href="https://github.com/sangeeths/libpam-sqlite" target="_blank" rel="external">libpam-sqlite</a>,<a href="https://github.com/dtjm/pam_sqlite3" target="_blank" rel="external">dtjm/pam_sqlite3</a></strong>是关于pam_sqlite3认证的,两个项目都很老了,</li>
-<li>这两个代码应该是大同小异,我没有对比,这里用是用libpam-sqlite.也修了源码才可以使用.<code>pam_sqlite3</code>没有测试,应该也是可以的.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git@github.com:sangeeths/libpam-sqlite.git</div></pre></td></tr></table></figure>
-<ul>
-<li>这里的修改不一定是通用的可能要根据调试结果来决定,我这里修改是为了迎合后面的<code>Django</code>项目登录认证的.修改的源代如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">~/libpam-sqlite<span class="comment"># git diff</span></div><div class="line">diff --git a/pam_sqlite3.c b/pam_sqlite3.c</div><div class="line">index 565ce30..f2545a4 100644</div><div class="line">--- a/pam_sqlite3.c</div><div class="line">+++ b/pam_sqlite3.c</div><div class="line">@@ -455,7 +455,9 @@ static int auth_verify_password(const char *un,</div><div class="line">     &#125;</div><div class="line">     </div><div class="line">     /* get the encrypted password from the database */</div><div class="line">+    //const char *stored_pwd = (char*)sqlite3_column_text(stmt, 0);</div><div class="line">     const char *stored_pwd = (char *)sqlite3_column_text(stmt, 0);</div><div class="line">+    stored_pwd = stored_pwd +7; // skip the crypt$$</div><div class="line"> </div><div class="line">     result = PAM_AUTH_ERR;</div><div class="line">     switch(options-&gt;pw_type) &#123;</div><div class="line">@@ -581,7 +583,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,</div><div class="line">     /* <span class="keyword">if</span> new password is required <span class="keyword">then</span> newtok_column = <span class="string">'y'</span> or <span class="string">'1'</span> */</div><div class="line">     <span class="keyword">if</span>(options-&gt;newtok_column || options-&gt;sql_check_newtok) &#123;</div><div class="line">         query = format_query(options-&gt;sql_check_newtok ? options-&gt;sql_check_newtok :</div><div class="line">-                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='1')"</span>,</div><div class="line">+                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='0')"</span>,</div><div class="line">                 options, un, NULL);</div><div class="line">         DBGLOG(<span class="string">"query: %s"</span>, query);</div></pre></td></tr></table></figure>
-<ul>
-<li>参照源码目录下的<code>README</code>编译与设置</li>
-</ul>
-<h4 id="pam-sqlite-conf"><a href="#pam-sqlite-conf" class="headerlink" title="pam_sqlite.conf"></a>pam_sqlite.conf</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cat</span> /etc/pam_sqlite.conf </div><div class="line">database = /opt/data/db.sqlite3</div><div class="line">table = ftp_ftpuser </div><div class="line">user_column = email</div><div class="line">pwd_column = password</div><div class="line">newtok_column = is_staff</div><div class="line">pw_type = crypt</div></pre></td></tr></table></figure>
-<h3 id="Django配置"><a href="#Django配置" class="headerlink" title="Django配置"></a>Django配置</h3><p>####　Sqlite3表结构</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqlite&gt; .schema ftp_ftpuser</div><div class="line">CREATE TABLE <span class="string">"ftp_ftpuser"</span> (<span class="string">"password"</span> varchar(128) NOT NULL, <span class="string">"last_login"</span> datetime NULL, <span class="string">"is_superuser"</span> bool NOT NULL, <span class="string">"name"</span> varchar(256) NOT NULL, <span class="string">"email"</span> varchar(254) NOT NULL PRIMARY KEY, <span class="string">"phone_num"</span> varchar(15) NOT NULL, <span class="string">"reg_ip"</span> char(39) NOT NULL, <span class="string">"is_active"</span> bool NOT NULL, <span class="string">"is_staff"</span> bool NOT NULL, <span class="string">"date_joined"</span> datetime NOT NULL, <span class="string">"last_ip"</span> char(39) NOT NULL);</div><div class="line">CREATE UNIQUE INDEX <span class="string">"ftp_ftpuser_name_2294ce6a_uniq"</span> ON <span class="string">"ftp_ftpuser"</span> (<span class="string">"name"</span>, <span class="string">"email"</span>);</div></pre></td></tr></table></figure>
-<h4 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h4><ul>
-<li>在Django项目里的<code>settings.py</code> 添加如下代码片段.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Application definition</span></div><div class="line">PASSWORD_HASHERS = (</div><div class="line">            <span class="string">'django.contrib.auth.hashers.CryptPasswordHasher'</span>,</div><div class="line">            )</div><div class="line"></div><div class="line">DATABASES = &#123;</div><div class="line">    <span class="string">'default'</span>: &#123;</div><div class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</div><div class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),  <span class="comment">#这里的**db.sqlite3** 应该与**/etc/pam_sqlite.conf**里对应</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Password validation</span></div><div class="line"><span class="comment"># https://docs.djangoproject.com/en/1.9/ref/settings/#authassword-validators</span></div><div class="line"></div><div class="line">AUTH_PASSWORD_VALIDATORS = [</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">]</div><div class="line"></div><div class="line"><span class="comment">#AUTHENTICATION_BACKENDS = ['ftp.auth.CustomBackEnd']</span></div><div class="line">AUTH_USER_MODEL=<span class="string">'ftp.FtpUser'</span></div><div class="line">MEDIA_ROOT=<span class="string">'/opt/data/ftproot'</span>  <span class="comment">#这里的路径与vsftpd.conf是对应的.这里Django 程序创建的目录就会在这个目录下面</span></div></pre></td></tr></table></figure>
-<ul>
-<li>Django 程序创建目录的代码片段如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">def get_upload_dir(req,filename):</div><div class="line">    tname  = req.target_name</div><div class="line">    pname = tname.product_name</div><div class="line">    fdir = <span class="string">'/'</span>.join([settings.MEDIA_ROOT,pname.ftp_user.email,pname.name,tname.name,req.ver_name])</div><div class="line">    <span class="comment">#fdir = '/'.join([settings.MEDIA_ROOT,product.ftp_user.email,req.name.name,req.target_name.target_name,req.ver_name])</span></div><div class="line">    fdir = unicode(fdir)</div><div class="line">    <span class="keyword">if</span> os.path.exists(fdir):</div><div class="line">        try:</div><div class="line">            os.makedirs(fdir)</div><div class="line">        except OSError:</div><div class="line">            pass</div><div class="line">    filepath = <span class="string">'/'</span>.join([fdir,req.file_name.name])</div><div class="line">    <span class="keyword">if</span> os.path.isfile(filepath):</div><div class="line">        os.remove(filepath)</div><div class="line"><span class="built_in">return</span> filepath</div></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>这里的数据库表结构都是通过Django的模型创建的,通过Django端注册用户,设置相应权限(如是否允许该用户登录等.),FTP端就可以使用该用户登录服务器进行下载.具体应用要根据需求灵活改变,这里只是做了一个简单示例,</li>
-<li>也没有添加SSL加密连接.后续加入SSL支持.</li>
 </ul>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
@@ -783,197 +768,6 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">~$ LD_LIBRARY_PATH=/usr/<span class="built_in">local</span>/lib  rtl_tcp</div><div class="line">Found 1 device(s).</div><div class="line">Found Rafael Micro R820T tuner</div><div class="line">Using ezcap USB 2.0 DVB-T/DAB/FM dongle</div><div class="line">Tuned to 100000000 Hz.</div><div class="line">listening...</div><div class="line">Use the device argument <span class="string">'rtl_tcp=127.0.0.1:1234'</span> <span class="keyword">in</span> OsmoSDR (gr-osmosdr) <span class="built_in">source</span></div><div class="line">to receive samples <span class="keyword">in</span> GRC and control rtl_tcp parameters (frequency, gain, ...).</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line"></div><div class="line"># 谢谢打赏支持</div><div class="line"></div><div class="line">- 您的打赏将会鼓励我写出更多的博客。</div><div class="line">- 微信二维码:</div><div class="line"></div><div class="line">&lt;img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/&gt;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
-                  常见编译问题,不定期更新.
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
-<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
-<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
-<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li><p>Linux 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
-</li>
-<li><p>MinGW 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
           
         
@@ -2516,7 +2310,7 @@ MEMORY
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

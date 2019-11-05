@@ -285,6 +285,429 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/" itemprop="url">
+                  Linux下编译静态MinGW环境,编译windows平台Qt程序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-13 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-13T00:00:00+08:00">2016-09-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-09-15 00:00:00" itemprop="dateModified" datetime="2016-09-15T00:00:00+08:00">2016-09-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Qt/" itemprop="url" rel="index"><span itemprop="name">Qt</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>参考链接:</li>
+<li><a href="http://mxe.cc" target="_blank" rel="external">MXE</a>.<br>&gt;<br>大多数程序都是在windows平台下开发的程序.windows 在现实中也是绕不过的一个系统平台,做为受过几年VC,MFC”虐待”的程序员,在做为一个程序员之前是一位Linux重度使用者,受够了MFC之后一直想要找一个框架替换,<br>使用过GTK,wxWidgets,Qt,最后还是Qt用得多一些.我认为程序跨平台应该是一个基本标准,同一份代码不需改动,或者改动极少,放在不同的平台下编译就能使用.不同平台,同样的界面,同样的操作,同样的体验.<br>这里要讲的是我如何在Linux 下开发跨平台的Qt程序,如何在linux开发windows程序.<br>&gt;</li>
+</ul>
+<h3 id="MXE-M-cross-environment"><a href="#MXE-M-cross-environment" class="headerlink" title="MXE (M cross environment)"></a>MXE (M cross environment)</h3><ul>
+<li>MXE 真的是一个了不起的项目,详情请查看上面链接,非常详细.因为MXE就是在Linux下静态编译的跨平台环境,不需要你一步一步繁杂的编译工具链,直接按教程一键make就下载安装好,但是对Linux的操作熟悉会更加好排错.</li>
+</ul>
+<h4 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h4><ul>
+<li>尽量查看<a href="http://mxe.cc/#tutorial" target="_blank" rel="external">英文教程</a>,这里简单记录一在<code>debian8 x86_64</code>下的安装过程.遇到问题找<a href="https://www.google.com.hk" target="_blank" rel="external">google</a>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">apt-get install \</div><div class="line">    autoconf automake autopoint bash bison bzip2 flex gettext\</div><div class="line">    git g++ gperf intltool libffi-dev libgdk-pixbuf2.0-dev \</div><div class="line">    libtool libltdl-dev libssl-dev libxml-parser-perl make \</div><div class="line">    openssl p7zip-full patch perl pkg-config python ruby scons \</div><div class="line">    sed unzip wget xz-utils g++-multilib libc6-dev-i386 libtool-bin</div></pre></td></tr></table></figure>
+<h4 id="获取最新版本"><a href="#获取最新版本" class="headerlink" title="获取最新版本"></a>获取最新版本</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /opt</div><div class="line">$ git <span class="built_in">clone</span> https://github.com/mxe/mxe.git</div><div class="line">$ make MXE_TARGETS=<span class="string">'x86_64-w64-mingw32.static i686-w64-mingw32.static'</span> qt5</div></pre></td></tr></table></figure>
+<ul>
+<li>如果中间不出错,安装完成如下. <code>i686-w64-mingw32.static</code>目录下就在如:我电脑系统64位下编译32位的exe, 而<code>x86_64-w64-mingw32.static</code>就是编译生成64位的exe.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ls</span>  /opt/mxe/usr/</div><div class="line">bin  i686-w64-mingw32.static  include  installed  lib  libexec  share  x86_64-unknown-linux-gnu  x86_64-w64-mingw32.static</div></pre></td></tr></table></figure>
+<h3 id="设置Qt"><a href="#设置Qt" class="headerlink" title="设置Qt"></a>设置Qt</h3><ul>
+<li><p><a href="http://mxe.cc/#tutorial" target="_blank" rel="external">英文教程</a>有详细教程如何使用,如:(autotools,CMake,Makefile,QT…),这里贴图记录一下在<code>QtCreator</code> 下的设置.</p>
+</li>
+<li><p>设置编译器</p>
+
+</li>
+<li><p>设置Qt版本</p>
+
+</li>
+<li><p>添加Qt Kit</p>
+
+</li>
+<li><p>现在就可以在<code>Qt Creator</code>里的工程下添加这个Kit里了,因为这里只是静态编了Release版本,如果指定为Debug配置,编译会出错的.</p>
+</li>
+</ul>
+<p>###　一些Qt 工程问题</p>
+<p><strong>Linux GL 链接库错误.</strong></p>
+<ul>
+<li>如果在Linux遇到链接系统下的GL库出错,只要在.pro 加入<code>QMAKE_LIBS_OPENGL -= -lGL</code>,重新qmake,编译.</li>
+</ul>
+<p><strong>Release版本加入调试符号</strong></p>
+<ul>
+<li>在实际开发有遇到这种问题,在Linux的编译Debug,Release调试与运行都没有错误,但是在windows平台下运就崩溃出错,这时调试最有效的调试手段是是加入调试符号信息,在windows下运行GDB加载该程序,查看出错的原因.pro \</li>
+<li>在.pro中在加如下三行,重新<code>qmake</code>,编译.带调试信息的exe会长到几十M.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">QMAKE_CXXFLAGS_RELEASE += -g </div><div class="line">QMAKE_CFLAGS_RELEASE += -g</div><div class="line">QMAKE_LFLAGS_RELEASE =</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/" itemprop="url">
+                  vsftpd FTP服务器与django前端共用sqlite3数据库的示例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-04T00:00:00+08:00">2016-09-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:18:00" itemprop="dateModified" datetime="2016-12-14T22:18:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>本示例接合vsftpd与Django共用Sqlite3(不限于<code>sqlite3,Mysql,Postgresql</code>)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容,</li>
+<li>Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.</li>
+</ul>
+<h3 id="Vsftpd"><a href="#Vsftpd" class="headerlink" title="Vsftpd"></a>Vsftpd</h3><ul>
+<li><p>这里使用<code>vsftpd-3.0.2</code>版本,这里要对它的源做一小修改,确保每一个用户登录成功之后自动创建一个名为用户名目录.这个目录专属于这个用户,用户上传下载也只限于这个目录下.</p>
+</li>
+<li><p>源代码位置在<code>vsftpd-3.0.2/twoprocess.c</code> 里的　<code>common_do_login</code> 函数中.如下面代码片段.</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="number">385</span>    <span class="keyword">static</span> <span class="keyword">void</span></div><div class="line"><span class="number">386</span>  common_do_login(<span class="keyword">struct</span> vsf_session* p_sess, <span class="keyword">const</span> <span class="keyword">struct</span> mystr* p_user_str,</div><div class="line"><span class="number">387</span>                  <span class="keyword">int</span> do_chroot, <span class="keyword">int</span> anon)</div><div class="line"><span class="number">388</span>  &#123;</div><div class="line"><span class="number">389</span>      <span class="keyword">int</span> was_anon = anon;</div><div class="line"><span class="number">390</span>      <span class="keyword">const</span> <span class="keyword">struct</span> mystr* p_orig_user_str = p_user_str;</div><div class="line"><span class="number">391</span>      <span class="keyword">int</span> newpid;</div><div class="line"><span class="number">392</span>      vsf_sysutil_install_null_sighandler(kVSFSysUtilSigCHLD);</div><div class="line"><span class="number">393</span>      <span class="comment">/* Tells the pre-login child all is OK (it may exit in response) */</span></div><div class="line"><span class="number">394</span>      priv_sock_send_result(p_sess-&gt;parent_fd, PRIV_SOCK_RESULT_OK);</div><div class="line"><span class="number">395</span>      <span class="keyword">if</span> (!p_sess-&gt;control_use_ssl)</div><div class="line"><span class="number">396</span>      &#123;</div><div class="line"><span class="number">397</span>          (<span class="keyword">void</span>) vsf_sysutil_wait();</div><div class="line"><span class="number">398</span>      &#125;</div><div class="line"><span class="number">399</span>      <span class="keyword">else</span></div><div class="line"><span class="number">400</span>      &#123;</div><div class="line"><span class="number">401</span>          p_sess-&gt;ssl_slave_active = <span class="number">1</span>;</div><div class="line"><span class="number">402</span>      &#125;</div><div class="line"><span class="number">403</span>      <span class="comment">/* Handle loading per-user config options */</span></div><div class="line"><span class="number">404</span>      handle_per_user_config(p_user_str);</div><div class="line"><span class="number">405</span>      <span class="comment">/* Set this before we fork */</span></div><div class="line"><span class="number">406</span>      p_sess-&gt;is_anonymous = anon;</div><div class="line"><span class="number">407</span>      priv_sock_close(p_sess);</div><div class="line"><span class="number">408</span>      priv_sock_init(p_sess);</div><div class="line"><span class="number">409</span>      vsf_sysutil_install_sighandler(kVSFSysUtilSigCHLD, handle_sigchld, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line"><span class="number">410</span>      <span class="keyword">if</span> (tunable_isolate_network &amp;&amp; !tunable_port_promiscuous)</div><div class="line"><span class="number">411</span>      &#123;</div><div class="line"><span class="number">412</span>          newpid = vsf_sysutil_fork_newnet();</div><div class="line"><span class="number">413</span>      &#125;</div><div class="line"><span class="number">414</span>      <span class="keyword">else</span></div><div class="line"><span class="number">415</span>      &#123;</div><div class="line"><span class="number">416</span>          newpid = vsf_sysutil_fork();</div><div class="line"><span class="number">417</span>      &#125;</div><div class="line"><span class="number">418</span>      <span class="keyword">if</span> (newpid == <span class="number">0</span>)</div><div class="line"><span class="number">419</span>      &#123;</div><div class="line"><span class="number">420</span>          <span class="keyword">struct</span> mystr guest_user_str = INIT_MYSTR;</div><div class="line"><span class="number">421</span>          <span class="keyword">struct</span> mystr chroot_str = INIT_MYSTR;</div><div class="line"><span class="number">422</span>          <span class="keyword">struct</span> mystr chdir_str = INIT_MYSTR;</div><div class="line"><span class="number">423</span>          <span class="keyword">struct</span> mystr userdir_str = INIT_MYSTR;</div><div class="line"><span class="number">424</span>          <span class="keyword">unsigned</span> <span class="keyword">int</span> secutil_option = VSF_SECUTIL_OPTION_USE_GROUPS |</div><div class="line"><span class="number">425</span>                                        VSF_SECUTIL_OPTION_NO_PROCS;</div><div class="line"><span class="number">426</span>          <span class="comment">/* Child - drop privs and start proper FTP! */</span></div><div class="line"><span class="number">427</span>          <span class="comment">/* This PR_SET_PDEATHSIG doesn't work for all possible process tree setups.</span></div><div class="line">428           * The other cases are taken care of by a shutdown() of the command</div><div class="line">429           * connection in our SIGTERM handler.</div><div class="line">430           */</div><div class="line"><span class="number">431</span>          vsf_set_die_if_parent_dies();</div><div class="line"><span class="number">432</span>          priv_sock_set_child_context(p_sess);</div><div class="line"><span class="number">433</span>          <span class="keyword">if</span> (tunable_guest_enable &amp;&amp; !anon)</div><div class="line"><span class="number">434</span>          &#123;</div><div class="line"><span class="number">435</span>              p_sess-&gt;is_guest = <span class="number">1</span>;</div><div class="line"><span class="number">436</span>              <span class="comment">/* Remap to the guest user */</span></div><div class="line"><span class="number">437</span>              <span class="keyword">if</span> (tunable_guest_username)</div><div class="line"><span class="number">438</span>              &#123;</div><div class="line"><span class="number">439</span>                  str_alloc_text(&amp;guest_user_str, tunable_guest_username);</div><div class="line"><span class="number">440</span>              &#125;</div><div class="line"><span class="number">441</span>              p_user_str = &amp;guest_user_str;</div><div class="line"><span class="number">442</span>              <span class="keyword">if</span> (!tunable_virtual_use_local_privs)</div><div class="line"><span class="number">443</span>              &#123;</div><div class="line"><span class="number">444</span>                  anon = <span class="number">1</span>;</div><div class="line"><span class="number">445</span>                  do_chroot = <span class="number">1</span>;</div><div class="line"><span class="number">446</span>              &#125;</div><div class="line"><span class="number">447</span>          &#125;</div><div class="line"><span class="number">448</span>          <span class="keyword">if</span> (do_chroot)</div><div class="line"><span class="number">449</span>          &#123;</div><div class="line"><span class="number">450</span>              secutil_option |= VSF_SECUTIL_OPTION_CHROOT;</div><div class="line"><span class="number">451</span>          &#125;</div><div class="line"><span class="number">452</span>          <span class="keyword">if</span> (!anon)</div><div class="line"><span class="number">453</span>          &#123;</div><div class="line"><span class="number">454</span>              secutil_option |= VSF_SECUTIL_OPTION_CHANGE_EUID;</div><div class="line"><span class="number">455</span>          &#125;</div><div class="line"><span class="number">456</span>          <span class="keyword">if</span> (!was_anon &amp;&amp; tunable_allow_writeable_chroot)</div><div class="line"><span class="number">457</span>          &#123;</div><div class="line"><span class="number">458</span>              secutil_option |= VSF_SECUTIL_OPTION_ALLOW_WRITEABLE_ROOT;</div><div class="line"><span class="number">459</span>          &#125;</div><div class="line"><span class="number">460</span>          calculate_chdir_dir(was_anon, &amp;userdir_str, &amp;chroot_str, &amp;chdir_str,</div><div class="line"><span class="number">461</span>                              p_user_str, p_orig_user_str);</div><div class="line"><span class="number">462</span>  </div><div class="line"><span class="number">463</span>  </div><div class="line">             <span class="comment">/* 通过我的调式这里加下面这一句,用户通过FTP端户登录成功就会创建它自已的目录*/</span></div><div class="line"><span class="number">464</span>          str_mkdir(&amp;chroot_str, <span class="number">0777</span>);</div><div class="line"><span class="number">465</span>  </div><div class="line"><span class="number">466</span>          chown(str_getbuf(&amp;chroot_str),p_sess-&gt;guest_user_uid,p_sess-&gt;guest_user_uid);</div><div class="line"><span class="number">467</span>  </div><div class="line"><span class="number">468</span>  </div><div class="line"><span class="number">469</span>          vsf_secutil_change_credentials(p_user_str, &amp;userdir_str, &amp;chroot_str,</div><div class="line"><span class="number">470</span>                                         <span class="number">0</span>, secutil_option);</div><div class="line"><span class="number">471</span>          <span class="keyword">if</span> (!str_isempty(&amp;chdir_str))</div><div class="line"><span class="number">472</span>          &#123;</div><div class="line"><span class="number">473</span>              (<span class="keyword">void</span>) str_chdir(&amp;chdir_str);</div><div class="line"><span class="number">474</span>          &#125;</div><div class="line"><span class="number">475</span>          str_free(&amp;guest_user_str);</div><div class="line"><span class="number">476</span>          str_free(&amp;chroot_str);</div><div class="line"><span class="number">477</span>          str_free(&amp;chdir_str);</div><div class="line"><span class="number">478</span>          str_free(&amp;userdir_str);</div><div class="line"><span class="number">479</span>          p_sess-&gt;is_anonymous = anon;</div><div class="line"><span class="number">480</span>          seccomp_sandbox_init();</div><div class="line"><span class="number">481</span>          seccomp_sandbox_setup_postlogin(p_sess);</div><div class="line"><span class="number">482</span>          seccomp_sandbox_lockdown();</div><div class="line"><span class="number">483</span>  </div><div class="line"><span class="number">484</span>          process_post_login(p_sess);</div><div class="line"><span class="number">485</span>          bug(<span class="string">"should not get here: common_do_login"</span>);</div><div class="line"><span class="number">486</span>      &#125;</div><div class="line"><span class="number">487</span>      <span class="comment">/* Parent */</span></div><div class="line"><span class="number">488</span>      priv_sock_set_parent_context(p_sess);</div><div class="line"><span class="number">489</span>      <span class="keyword">if</span> (tunable_ssl_enable)</div><div class="line"><span class="number">490</span>      &#123;</div><div class="line"><span class="number">491</span>          ssl_comm_channel_set_producer_context(p_sess);</div><div class="line"><span class="number">492</span>      &#125;</div><div class="line"><span class="number">493</span>      <span class="comment">/* The seccomp sandbox lockdown for the priv parent is done inside here */</span></div><div class="line"><span class="number">494</span>      vsf_priv_parent_postlogin(p_sess);</div><div class="line"><span class="number">495</span>      bug(<span class="string">"should not get here in common_do_login"</span>);</div><div class="line"><span class="number">496</span>  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>参照<code>vsftpd-3.0.2/INSTALL</code>　直接编译安装.</li>
+</ul>
+<h3 id="配置vsftpd"><a href="#配置vsftpd" class="headerlink" title="配置vsftpd"></a>配置vsftpd</h3><ul>
+<li><code>/etc/vsftpd.conf</code> 修改如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">grep -v &apos;^#&apos; /etc/vsftpd.conf </div><div class="line">cmds_allowed=ABOR,CWD,LIST,NLST,PWD,QUIT,RETR,SIZE,TYPE,USER,ACCT,CDUP,MODE,SYST,FEAT,PASV</div><div class="line">listen=YES</div><div class="line">listen_ipv6=NO</div><div class="line">anonymous_enable=NO</div><div class="line">local_enable=YES</div><div class="line">write_enable=NO</div><div class="line"></div><div class="line">dirmessage_enable=YES</div><div class="line">use_localtime=YES</div><div class="line">xferlog_enable=NO</div><div class="line">connect_from_port_20=YES</div><div class="line">idle_session_timeout=600</div><div class="line">data_connection_timeout=120</div><div class="line">nopriv_user=vsftpd</div><div class="line">chroot_local_user=YES</div><div class="line">pam_service_name=vsftpd</div><div class="line">user_sub_token=$USER</div><div class="line">guest_enable=YES</div><div class="line">guest_username=vsftpd</div><div class="line">local_root=/opt/data/ftproot/$USER #所有用户目录会在这个目录下.</div><div class="line">chroot_local_user=YES</div><div class="line">allow_writeable_chroot=YES</div><div class="line">chroot_list_enable=NO</div><div class="line">virtual_use_local_privs=YES</div><div class="line">file_open_mode=0770</div><div class="line">anon_mkdir_write_enable=NO</div><div class="line">ssl_enable=NO</div><div class="line">max_per_ip=65536</div><div class="line">log_ftp_protocol=YES</div></pre></td></tr></table></figure>
+<ul>
+<li><code>/etc/pam.d/vsftpd</code> 修改如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># Standard behaviour for ftpd(8).</div><div class="line">#auth   required    pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed</div><div class="line"></div><div class="line"># Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.</div><div class="line"></div><div class="line"># Standard pam includes</div><div class="line">#@include common-account</div><div class="line">#@include common-session</div><div class="line">#@include common-auth</div><div class="line">#auth   required    pam_shells.so</div><div class="line"># 如果使用其它数据库如:postgresql ,把pam_sqlite3.so替换掉</div><div class="line">auth        required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so </div><div class="line">account     required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</div><div class="line">password    required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</div></pre></td></tr></table></figure>
+<h3 id="pam-sqlite-0-3"><a href="#pam-sqlite-0-3" class="headerlink" title="pam_sqlite-0.3"></a>pam_sqlite-0.3</h3><ul>
+<li>在github上找到两个项目<strong><a href="https://github.com/sangeeths/libpam-sqlite" target="_blank" rel="external">libpam-sqlite</a>,<a href="https://github.com/dtjm/pam_sqlite3" target="_blank" rel="external">dtjm/pam_sqlite3</a></strong>是关于pam_sqlite3认证的,两个项目都很老了,</li>
+<li>这两个代码应该是大同小异,我没有对比,这里用是用libpam-sqlite.也修了源码才可以使用.<code>pam_sqlite3</code>没有测试,应该也是可以的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git@github.com:sangeeths/libpam-sqlite.git</div></pre></td></tr></table></figure>
+<ul>
+<li>这里的修改不一定是通用的可能要根据调试结果来决定,我这里修改是为了迎合后面的<code>Django</code>项目登录认证的.修改的源代如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">~/libpam-sqlite<span class="comment"># git diff</span></div><div class="line">diff --git a/pam_sqlite3.c b/pam_sqlite3.c</div><div class="line">index 565ce30..f2545a4 100644</div><div class="line">--- a/pam_sqlite3.c</div><div class="line">+++ b/pam_sqlite3.c</div><div class="line">@@ -455,7 +455,9 @@ static int auth_verify_password(const char *un,</div><div class="line">     &#125;</div><div class="line">     </div><div class="line">     /* get the encrypted password from the database */</div><div class="line">+    //const char *stored_pwd = (char*)sqlite3_column_text(stmt, 0);</div><div class="line">     const char *stored_pwd = (char *)sqlite3_column_text(stmt, 0);</div><div class="line">+    stored_pwd = stored_pwd +7; // skip the crypt$$</div><div class="line"> </div><div class="line">     result = PAM_AUTH_ERR;</div><div class="line">     switch(options-&gt;pw_type) &#123;</div><div class="line">@@ -581,7 +583,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,</div><div class="line">     /* <span class="keyword">if</span> new password is required <span class="keyword">then</span> newtok_column = <span class="string">'y'</span> or <span class="string">'1'</span> */</div><div class="line">     <span class="keyword">if</span>(options-&gt;newtok_column || options-&gt;sql_check_newtok) &#123;</div><div class="line">         query = format_query(options-&gt;sql_check_newtok ? options-&gt;sql_check_newtok :</div><div class="line">-                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='1')"</span>,</div><div class="line">+                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='0')"</span>,</div><div class="line">                 options, un, NULL);</div><div class="line">         DBGLOG(<span class="string">"query: %s"</span>, query);</div></pre></td></tr></table></figure>
+<ul>
+<li>参照源码目录下的<code>README</code>编译与设置</li>
+</ul>
+<h4 id="pam-sqlite-conf"><a href="#pam-sqlite-conf" class="headerlink" title="pam_sqlite.conf"></a>pam_sqlite.conf</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cat</span> /etc/pam_sqlite.conf </div><div class="line">database = /opt/data/db.sqlite3</div><div class="line">table = ftp_ftpuser </div><div class="line">user_column = email</div><div class="line">pwd_column = password</div><div class="line">newtok_column = is_staff</div><div class="line">pw_type = crypt</div></pre></td></tr></table></figure>
+<h3 id="Django配置"><a href="#Django配置" class="headerlink" title="Django配置"></a>Django配置</h3><p>####　Sqlite3表结构</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqlite&gt; .schema ftp_ftpuser</div><div class="line">CREATE TABLE <span class="string">"ftp_ftpuser"</span> (<span class="string">"password"</span> varchar(128) NOT NULL, <span class="string">"last_login"</span> datetime NULL, <span class="string">"is_superuser"</span> bool NOT NULL, <span class="string">"name"</span> varchar(256) NOT NULL, <span class="string">"email"</span> varchar(254) NOT NULL PRIMARY KEY, <span class="string">"phone_num"</span> varchar(15) NOT NULL, <span class="string">"reg_ip"</span> char(39) NOT NULL, <span class="string">"is_active"</span> bool NOT NULL, <span class="string">"is_staff"</span> bool NOT NULL, <span class="string">"date_joined"</span> datetime NOT NULL, <span class="string">"last_ip"</span> char(39) NOT NULL);</div><div class="line">CREATE UNIQUE INDEX <span class="string">"ftp_ftpuser_name_2294ce6a_uniq"</span> ON <span class="string">"ftp_ftpuser"</span> (<span class="string">"name"</span>, <span class="string">"email"</span>);</div></pre></td></tr></table></figure>
+<h4 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h4><ul>
+<li>在Django项目里的<code>settings.py</code> 添加如下代码片段.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Application definition</span></div><div class="line">PASSWORD_HASHERS = (</div><div class="line">            <span class="string">'django.contrib.auth.hashers.CryptPasswordHasher'</span>,</div><div class="line">            )</div><div class="line"></div><div class="line">DATABASES = &#123;</div><div class="line">    <span class="string">'default'</span>: &#123;</div><div class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</div><div class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),  <span class="comment">#这里的**db.sqlite3** 应该与**/etc/pam_sqlite.conf**里对应</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Password validation</span></div><div class="line"><span class="comment"># https://docs.djangoproject.com/en/1.9/ref/settings/#authassword-validators</span></div><div class="line"></div><div class="line">AUTH_PASSWORD_VALIDATORS = [</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</div><div class="line">    &#125;,</div><div class="line">]</div><div class="line"></div><div class="line"><span class="comment">#AUTHENTICATION_BACKENDS = ['ftp.auth.CustomBackEnd']</span></div><div class="line">AUTH_USER_MODEL=<span class="string">'ftp.FtpUser'</span></div><div class="line">MEDIA_ROOT=<span class="string">'/opt/data/ftproot'</span>  <span class="comment">#这里的路径与vsftpd.conf是对应的.这里Django 程序创建的目录就会在这个目录下面</span></div></pre></td></tr></table></figure>
+<ul>
+<li>Django 程序创建目录的代码片段如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">def get_upload_dir(req,filename):</div><div class="line">    tname  = req.target_name</div><div class="line">    pname = tname.product_name</div><div class="line">    fdir = <span class="string">'/'</span>.join([settings.MEDIA_ROOT,pname.ftp_user.email,pname.name,tname.name,req.ver_name])</div><div class="line">    <span class="comment">#fdir = '/'.join([settings.MEDIA_ROOT,product.ftp_user.email,req.name.name,req.target_name.target_name,req.ver_name])</span></div><div class="line">    fdir = unicode(fdir)</div><div class="line">    <span class="keyword">if</span> os.path.exists(fdir):</div><div class="line">        try:</div><div class="line">            os.makedirs(fdir)</div><div class="line">        except OSError:</div><div class="line">            pass</div><div class="line">    filepath = <span class="string">'/'</span>.join([fdir,req.file_name.name])</div><div class="line">    <span class="keyword">if</span> os.path.isfile(filepath):</div><div class="line">        os.remove(filepath)</div><div class="line"><span class="built_in">return</span> filepath</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>这里的数据库表结构都是通过Django的模型创建的,通过Django端注册用户,设置相应权限(如是否允许该用户登录等.),FTP端就可以使用该用户登录服务器进行下载.具体应用要根据需求灵活改变,这里只是做了一个简单示例,</li>
+<li>也没有添加SSL加密连接.后续加入SSL支持.</li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -406,20 +829,19 @@
 <li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
-<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
+<h4 id="编译-gcc-texi-出错如下"><a href="#编译-gcc-texi-出错如下" class="headerlink" title="编译 gcc texi 出错如下:"></a>编译 gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
 <h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
 <h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
 <h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li><p>Linux 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
-</li>
-<li><p>MinGW 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
+<li>Linux 下要定义成</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
+<ul>
+<li>MinGW 下要定义成</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
@@ -688,6 +1110,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ sudo wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -Dwext</div><div class="line">~$ sudo dhclient wlan0</div></pre></td></tr></table></figure>
 <hr>
 <h1 id="Linux-下是使用蓝牙串口通信"><a href="#Linux-下是使用蓝牙串口通信" class="headerlink" title="Linux 下是使用蓝牙串口通信"></a>Linux 下是使用蓝牙串口通信</h1><ul>
+<li>如果是自编译内核要确保<code>RFCOMM protocol support (BT_RFCOMM)</code>是编译成模块的，而不能直接编入内核或者不编。</li>
 <li>Linux 下使用蓝牙工具要安装<code>bluez</code>软件,有一个图形配置程序<code>blueman</code>,使用会报一些 Python 与 Dbus 的错误,还是直接修改配置文件解决使用问题.</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/bluetooth/rfcomm.conf</div><div class="line">rfcomm0 &#123;</div><div class="line">        <span class="built_in">bind</span> yes;</div><div class="line">        device 00:15:83:00:43:AB</div><div class="line">        channel 0;</div><div class="line">        comment <span class="string">"Serial Port"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">rfcomm1 &#123;</div><div class="line">    <span class="built_in">bind</span> yes;</div><div class="line">    device 00:14:01:22:14:49;</div><div class="line">    channel 1;</div><div class="line">    connment <span class="string">"Serial Port 1"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -695,6 +1118,7 @@
 <h2 id="手动边接-RFCOMM-串口"><a href="#手动边接-RFCOMM-串口" class="headerlink" title="手动边接 RFCOMM 串口"></a>手动边接 RFCOMM 串口</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> sudo rfcomm connect /dev/rfcomm0 00:14:01:22:14:49 1</div><div class="line">Connected /dev/rfcomm0 to 00:14:01:22:14:49 on channel 1</div><div class="line">Press CTRL-C <span class="keyword">for</span> hangup</div></pre></td></tr></table></figure>
 <ul>
 <li>运行上面的命令无错,就可以使用 minicom 连接它了,<code>sudo minicom -o -b 115200 -D /dev/rfcomm0</code></li>
+<li>如果运行图形配置向导，要先运行<code>blueman-applet</code>再运行<code>blueman-manager</code>,就可以配置了。</li>
 </ul>
 <h2 id="蓝牙错误"><a href="#蓝牙错误" class="headerlink" title="蓝牙错误"></a>蓝牙错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$ systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: <span class="string">"Running"</span></div><div class="line">michael@debian:/etc/init.d$ sudo systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: <span class="string">"Running"</span></div><div class="line"></div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Failed to obtain handles <span class="keyword">for</span> <span class="string">"Service Changed"</span> characteristic</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Sap driver initialization failed.</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: sap-server: Operation not permitted (1)</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSource</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSink</div><div class="line">Jun 20 14:42:00 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:43:36 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Main process exited, code=killed, status=9/KILL</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Unit entered failed state.</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Failed with result <span class="string">'signal'</span>.</div></pre></td></tr></table></figure>
 <h1 id="Linux-Systemctl-启动服务超时设置"><a href="#Linux-Systemctl-启动服务超时设置" class="headerlink" title="Linux Systemctl 启动服务超时设置"></a>Linux Systemctl 启动服务超时设置</h1><ul>
@@ -754,7 +1178,10 @@
 </li>
 <li><p>通过上面设置,系统休眠与唤醒都很符合我的预期.还有一种方法是使用一个交换文件,不需要一个独立的分区,请<a href="https://wiki.debian.org/Hibernation/Hibernate_Without_Swap_Partition" target="_blank" rel="external">参考这里</a></p>
 </li>
+<li><p>如果上述设置能休眠不能关机,就是休眠后马上又重启了,<a href="https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#System_does_not_power_off_when_hibernating" target="_blank" rel="external">参照这里</a>需要如下设置:</p>
+</li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/etc/systemd/sleep.conf.d/hibernatemode.conf</div><div class="line"></div><div class="line">[Sleep]</div><div class="line">HibernateMode=shutdown</div></pre></td></tr></table></figure>
 <h1 id="程序找不到链接库位置"><a href="#程序找不到链接库位置" class="headerlink" title="程序找不到链接库位置"></a>程序找不到链接库位置</h1><ul>
 <li>Python ImportError,这种错误是因为在<code>PYTHONPATH</code>路径中找不相就的模块.</li>
 </ul>
@@ -1586,8 +2013,8 @@
 <li><a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="external">GCC ARM Embedded</a></li>
 </ul>
 <h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><ul>
-<li>这里省略下载编译opencd 环节。</li>
-<li>openocd 安装在/usr/local下</li>
+<li>这里省略下载编译 opencd 环节。</li>
+<li>openocd 安装在/usr/local 下</li>
 <li>/usr/local/bin/openocd</li>
 <li>配置文件目录</li>
 <li><p>/usr/local/share/openocd/</p>
@@ -1597,246 +2024,74 @@
 <li><p>添加下面三行到~/.openocd/openocd.cfg</p>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/interface/stlink-v2.cfg]  </div><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/target/stm32f4x.cfg]  </div><div class="line">reset_config srst_only srst_nogate</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/interface/stlink-v2.cfg]</div><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/target/stm32f4x.cfg]</div><div class="line">reset_config srst_only srst_nogate</div></pre></td></tr></table></figure>
 <ul>
-<li>连接STM32F4开发板，运行/usr/local/bin/openocd</li>
+<li>连接 STM32F4 开发板，运行/usr/local/bin/openocd</li>
 <li>正常会出现下面信息</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">michael@debian:~$ /usr/<span class="built_in">local</span>/bin/openocd  </div><div class="line">Open On-Chip Debugger 0.10.0-dev-00146-g332023f (2015-12-05-18:09)  </div><div class="line">Licensed under GNU GPL v2   </div><div class="line">For bug reports, <span class="built_in">read</span>   </div><div class="line">  http://openocd.org/doc/doxygen/bugs.html  </div><div class="line">  Info : auto-selecting first available session transport <span class="string">"hla_swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.  </div><div class="line">  Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD   </div><div class="line">  adapter speed: 2000 kHz   </div><div class="line">  adapter_nsrst_delay: 100   </div><div class="line">  none separate   </div><div class="line">  srst_only separate srst_nogate srst_open_drain connect_deassert_srst   </div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz  </div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz  </div><div class="line">  Info : clock speed 1800 kHz  </div><div class="line">  Info : STLINK v2 JTAG v24 API v2 SWIM v0 VID 0x0483 PID 0x3748  </div><div class="line">  Info : using stlink api v2  </div><div class="line">  Info : Target voltage: 2.881129  </div><div class="line">  Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints</div></pre></td></tr></table></figure>
-<h3 id="STLink-驱动安装"><a href="#STLink-驱动安装" class="headerlink" title="STLink 驱动安装"></a>STLink 驱动安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ git <span class="built_in">clone</span> https://github.com/texane/stlink.git </div><div class="line">$ <span class="built_in">cd</span> STLink</div><div class="line">$ \./authorgen.sh</div><div class="line">$ \./configure --prefix=/opt/STLink</div><div class="line">$ make &amp;&amp; sudo make install</div><div class="line">$ sudo cp 49-stlinkv2.rules /etc/udev/rules.d/49-stlinkv2.rules</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">michael@debian:~$ /usr/<span class="built_in">local</span>/bin/openocd</div><div class="line">Open On-Chip Debugger 0.10.0-dev-00146-g332023f (2015-12-05-18:09)</div><div class="line">Licensed under GNU GPL v2</div><div class="line">For bug reports, <span class="built_in">read</span></div><div class="line">  http://openocd.org/doc/doxygen/bugs.html</div><div class="line">  Info : auto-selecting first available session transport <span class="string">"hla_swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.</div><div class="line">  Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD</div><div class="line">  adapter speed: 2000 kHz</div><div class="line">  adapter_nsrst_delay: 100</div><div class="line">  none separate</div><div class="line">  srst_only separate srst_nogate srst_open_drain connect_deassert_srst</div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz</div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz</div><div class="line">  Info : clock speed 1800 kHz</div><div class="line">  Info : STLINK v2 JTAG v24 API v2 SWIM v0 VID 0x0483 PID 0x3748</div><div class="line">  Info : using stlink api v2</div><div class="line">  Info : Target voltage: 2.881129</div><div class="line">  Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints</div></pre></td></tr></table></figure>
+<h3 id="STLink-驱动安装"><a href="#STLink-驱动安装" class="headerlink" title="STLink 驱动安装"></a>STLink 驱动安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">～$ git <span class="built_in">clone</span> https://github.com/texane/stlink.git</div><div class="line">～$ <span class="built_in">cd</span> STLink</div><div class="line">～$ ./authorgen.sh</div><div class="line">～$ ./configure --prefix=/opt/STLink</div><div class="line">～$ make &amp;&amp; sudo make install</div><div class="line">～$ sudo cp 49-stlinkv2.rules /etc/udev/rules.d/49-stlinkv2.rules</div></pre></td></tr></table></figure>
 <ul>
-<li>通过lsusb命令找出开板板的ID</li>
+<li>通过 lsusb 命令找出开板板的 ID</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">Bus 001 Device 002: ID 0483:3748 STMicroelectronics ST-LINK/V2</div><div class="line">Bus 003 Device 010: ID 174c:5106 ASMedia Technology Inc. Transcend StoreJet 25M3</div></pre></td></tr></table></figure>
 <ul>
-<li>修改<code>/etc/udev/rules.d/49-stlinkv2.rules</code>,注意  ATTRS{idProduct}==<strong>“3748”</strong></li>
+<li>修改<code>/etc/udev/rules.d/49-stlinkv2.rules</code>,注意 ATTRS{idProduct}==<strong>“3748”</strong></li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ cat /etc/udev/rules.d/49-stlinkv2.rules </div><div class="line"><span class="comment"># stm32 discovery boards, with onboard st/linkv2</span></div><div class="line"><span class="comment"># ie, STM32L, STM32F4.</span></div><div class="line"><span class="comment"># STM32VL has st/linkv1, which is quite different</span></div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"0483"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"3748"</span>, \</div><div class="line">    MODE:=<span class="string">"0666"</span>, \</div><div class="line">    SYMLINK+=<span class="string">"stlinkv2_%n"</span>,OWNER=<span class="string">"michael"</span></div><div class="line"><span class="comment"># If you share your linux system with other users, or just don't like the</span></div><div class="line"><span class="comment"># idea of write permission for everybody, you can replace MODE:="0666" with</span></div><div class="line"><span class="comment"># OWNER:="yourusername" to create the device owned by you, or with</span></div><div class="line"><span class="comment"># GROUP:="somegroupname" and mange access using standard unix groups.</span></div></pre></td></tr></table></figure>
-<h3 id="刷新系统规则"><a href="#刷新系统规则" class="headerlink" title="刷新系统规则"></a>刷新系统规则</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ sudo udevadm control --reload-rules</div><div class="line">$ sudo udevadm trigger</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ cat /etc/udev/rules.d/49-stlinkv2.rules</div><div class="line"><span class="comment"># stm32 discovery boards, with onboard st/linkv2</span></div><div class="line"><span class="comment"># ie, STM32L, STM32F4.</span></div><div class="line"><span class="comment"># STM32VL has st/linkv1, which is quite different</span></div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"0483"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"3748"</span>, \</div><div class="line">    MODE:=<span class="string">"0666"</span>, \</div><div class="line">    SYMLINK+=<span class="string">"stlinkv2_%n"</span>,OWNER=<span class="string">"michael"</span></div><div class="line"><span class="comment"># If you share your linux system with other users, or just don't like the</span></div><div class="line"><span class="comment"># idea of write permission for everybody, you can replace MODE:="0666" with</span></div><div class="line"><span class="comment"># OWNER:="yourusername" to create the device owned by you, or with</span></div><div class="line"><span class="comment"># GROUP:="somegroupname" and mange access using standard unix groups.</span></div></pre></td></tr></table></figure>
+<h3 id="刷新系统规则"><a href="#刷新系统规则" class="headerlink" title="刷新系统规则"></a>刷新系统规则</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">~$ sudo udevadm control --reload-rules</div><div class="line">~$ sudo udevadm trigger</div></pre></td></tr></table></figure>
 <h3 id="GCC-ARM-Embedded"><a href="#GCC-ARM-Embedded" class="headerlink" title="GCC ARM Embedded"></a>GCC ARM Embedded</h3><ul>
-<li>下载GCC工具链解压到<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3</code>,并且把<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3/bin</code> 添加系统环境变量里面</li>
+<li>下载 GCC 工具链解压到<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3</code>,并且把<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3/bin</code> 添加系统环境变量里面</li>
 </ul>
 <h4 id="Codeblocks-配置"><a href="#Codeblocks-配置" class="headerlink" title="Codeblocks 配置"></a>Codeblocks 配置</h4><ul>
-<li>安装相应平台的codeblocks二进制包。</li>
-<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt=""></li>
+<li>安装相应平台的 codeblocks 二进制包。</li>
+<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt="codecompletion.png"></li>
 </ul>
 <h4 id="编译器的全局设置"><a href="#编译器的全局设置" class="headerlink" title="编译器的全局设置"></a>编译器的全局设置</h4><ul>
-<li>设置ARM工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt=""></li>
-</ul>
-<ul>
-<li>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt=""></li>
-</ul>
-<ul>
-<li>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt=""></li>
-</ul>
-<h4 id="STM32工程设置"><a href="#STM32工程设置" class="headerlink" title="STM32工程设置"></a>STM32工程设置</h4><ul>
-<li><p>这里是针对STM32F4 Discovery开发板，工程设置的一些参数</p>
+<li><p>设置 ARM 工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt="compiler_settings.png"></p>
 </li>
-<li><p>编译选项设置，如下图所示。  </p>
+<li><p>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt="compiler_settings_inc.png"></p>
+</li>
+<li><p>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt="compiler_settings_lib.png"></p>
 </li>
 </ul>
-<blockquote>
-<ul>
-<li>设置基于特定CPU的CFLAGS  参数。<strong> -mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99 </strong></li>
-</ul>
-</blockquote>
-<p><img src="/imgs/project_options.png" alt=""></p>
-<ul>
-<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt=""></p>
+<h4 id="STM32-工程设置"><a href="#STM32-工程设置" class="headerlink" title="STM32 工程设置"></a>STM32 工程设置</h4><ul>
+<li><p>这里是针对 STM32F4 Discovery 开发板，工程设置的一些参数</p>
 </li>
-<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt=""></p>
+<li><p>编译选项设置，如下图所示。</p>
+</li>
+<li><p>设置基于特定 CPU 的 CFLAGS 参数。<strong>-mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99</strong></p>
 </li>
 </ul>
+<p><img src="/imgs/project_options.png" alt="project_options.png"></p>
 <ul>
-<li>工程头文件查找目录,库文件查找目录。</li>
+<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt="project_define.png"></p>
+</li>
+<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt="project_link.png"></p>
+</li>
+<li><p>工程头文件查找目录,库文件查找目录。</p>
+</li>
 </ul>
-<p><img src="/imgs/project_inc.png" alt=""><br><img src="/imgs/project_search_link.png" alt=""></p>
+<p><img src="/imgs/project_inc.png" alt="project_inc.png"><br><img src="/imgs/project_search_link.png" alt="project_search_link.png"></p>
 <ul>
-<li><p>结合openocd 自动烧写bin文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt=""></p>
+<li><p>结合 openocd 自动烧写 bin 文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt="project_shell.png"></p>
 </li>
 <li><p>工程中的自动烧写脚本文件。</p>
 </li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/expect    </span></div><div class="line">spawn telnet localhost 4444  </div><div class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span>   </div><div class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset halt\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"reset run\r"</span>  </div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span>  </div><div class="line">send <span class="string">"exit\r"</span>  </div><div class="line">interact</div></pre></td></tr></table></figure>
-<p><img src="/imgs/project_shfile.png" alt=""></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/expect</span></div><div class="line">spawn telnet localhost 4444</div><div class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span></div><div class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];</div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"reset halt\r"</span></div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span></div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"reset run\r"</span></div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">interact</div></pre></td></tr></table></figure>
+<p><img src="/imgs/project_shfile.png" alt="project_shfile.png"></p>
 <ul>
-<li>因为GCC工具链与Keil的链接文件是一样，必须在下面这个LD文件上修改，不能使用Keil版本的链接文件。</li>
+<li>因为 GCC 工具链与 Keil 的链接文件是一样，必须在下面这个 LD 文件上修改，不能使用 Keil 版本的链接文件。</li>
 </ul>
-<pre><code class="sh">/*
-*****************************************************************************
-**
-**  File        : stm32_flash.ld
-**
-**  Abstract    : Linker script <span class="keyword">for</span> STM32F407VG Device with
-**                1024KByte FLASH, 192KByte RAM
-**
-**                Set heap size, stack size and stack location according
-**                to application requirements.
-**
-**                Set memory bank area and size <span class="keyword">if</span> external memory is used.
-**
-**  Target      : STMicroelectronics STM32
-**
-**  Environment : Atollic TrueSTUDIO(R)
-**
-**  Distribution: The file is distributed “as is,” without any warranty
-**                of any kind.
-**
-**  (c)Copyright Atollic AB.
-**  You may use this file as-is or modify it according to the needs of your
-**  project. Distribution of this file (unmodified or modified) is not
-**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the
-**  rights to distribute the assembled, compiled &amp; linked contents of this
-**  file as part of an application binary file, provided that it is built
-**  using the Atollic TrueSTUDIO(R) toolchain.
-**
-*****************************************************************************
-*/
-/* Entry Point */
-ENTRY(Reset_Handler)
-/* Highest address of the user mode stack */
-_estack = 0x20020000;    /* end of 128K RAM on AHB bus*/
-/* Generate a link error <span class="keyword">if</span> heap and stack don<span class="string">'t fit into RAM */
-_Min_Heap_Size = 0;      /* required amount of heap  */
-_Min_Stack_Size = 0x400; /* required amount of stack */
-
-/* Specify the memory areas */
-MEMORY
-{
-    FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
-        RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K
-        MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
-    }
-    /* Define output sections */
-    SECTIONS
-{
-    /* The startup code goes first into FLASH */
-.isr_vector :
-    {
-        . = ALIGN(4);
-        KEEP(*(.isr_vector)) /* Startup code */
-        . = ALIGN(4);
-    } &gt;FLASH
-    /* The program code and other data goes into FLASH */
-.text :
-    {
-        . = ALIGN(4);
-        *(.text)           /* .text sections (code) */
-        *(.text*)          /* .text* sections (code) */
-        *(.rodata)         /* .rodata sections (constants, strings, etc.) */
-        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
-        *(.glue_7)         /* glue arm to thumb code */
-        *(.glue_7t)        /* glue thumb to arm code */
-        *(.eh_frame)
-        KEEP (*(.init))
-        KEEP (*(.fini))
-        . = ALIGN(4);
-        _etext = .;        /* define a global symbols at end of code */
-        _exit = .;
-    } &gt;FLASH
-.ARM.extab   :
-    { *(.ARM.extab* .gnu.linkonce.armextab.*) } &gt;FLASH
-.ARM :
-    {
-        __exidx_start = .;
-        *(.ARM.exidx*)
-        __exidx_end = .;
-    } &gt;FLASH
-
-.preinit_array     :
-    {
-        PROVIDE_HIDDEN (__preinit_array_start = .);
-        KEEP (*(.preinit_array*))
-        PROVIDE_HIDDEN (__preinit_array_end = .);
-    } &gt;FLASH
-.init_array :
-    {
-        PROVIDE_HIDDEN (__init_array_start = .);
-        KEEP (*(SORT(.init_array.*)))
-        KEEP (*(.init_array*))
-        PROVIDE_HIDDEN (__init_array_end = .);
-    } &gt;FLASH
-.fini_array :
-    {
-        PROVIDE_HIDDEN (__fini_array_start = .);
-        KEEP (*(.fini_array*))
-        KEEP (*(SORT(.fini_array.*)))
-        PROVIDE_HIDDEN (__fini_array_end = .);
-    } &gt;FLASH
-
-    /* used by the startup to initialize data */
-    _sidata = .;
-
-    /* Initialized data sections goes into RAM, load LMA copy after code */
-.data :
-    AT ( _sidata )
-    {
-        . = ALIGN(4);
-        _sdata = .;        /* create a global symbol at data start */
-        *(.data)           /* .data sections */
-        *(.data*)          /* .data* sections */
-
-        . = ALIGN(4);
-        _edata = .;        /* define a global symbol at data end */
-    } &gt;RAM
-
-    /* Uninitialized data section */
-    . = ALIGN(4);
-.bss :
-    {
-        /* This is used by the startup in order to initialize the .bss secion */
-        _sbss = .;         /* define a global symbol at bss start */
-        __bss_start__ = _sbss;
-        *(.bss)
-        *(.bss*)
-        *(COMMON)
-
-        . = ALIGN(4);
-        _ebss = .;         /* define a global symbol at bss end */
-        __bss_end__ = _ebss;
-    } &gt;RAM
-
-    /* User_heap_stack section, used to check that there is enough RAM left */
-._user_heap_stack :
-    {
-        . = ALIGN(4);
-        PROVIDE ( end = . );
-        PROVIDE ( _end = . );
-        . = . + _Min_Heap_Size;
-        . = . + _Min_Stack_Size;
-        . = ALIGN(4);
-    } &gt;RAM
-
-    /* MEMORY_bank1 section, code must be located here explicitly            */
-    /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
-.memory_b1_text :
-    {
-        *(.mb1text)        /* .mb1text sections (code) */
-        *(.mb1text*)       /* .mb1text* sections (code)  */
-        *(.mb1rodata)      /* read-only data (constants) */
-        *(.mb1rodata*)
-    } &gt;MEMORY_B1
-
-    /* Remove information from the standard libraries */
-/DISCARD/ :
-    {
-
-        libc.a ( * )
-        libm.a ( * )
-        libgcc.a ( * )
-    }
-
-.ARM.attributes 0 :
-    { *(.ARM.attributes) }
-}</span>
-</code></pre>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">*****************************************************************************</div><div class="line">**</div><div class="line">**  File        : stm32_flash.ld</div><div class="line">**</div><div class="line">**  Abstract    : Linker script <span class="keyword">for</span> STM32F407VG Device with</div><div class="line">**                1024KByte FLASH, 192KByte RAM</div><div class="line">**</div><div class="line">**                Set heap size, stack size and stack location according</div><div class="line">**                to application requirements.</div><div class="line">**</div><div class="line">**                Set memory bank area and size <span class="keyword">if</span> external memory is used.</div><div class="line">**</div><div class="line">**  Target      : STMicroelectronics STM32</div><div class="line">**</div><div class="line">**  Environment : Atollic TrueSTUDIO(R)</div><div class="line">**</div><div class="line">**  Distribution: The file is distributed “as is,” without any warranty</div><div class="line">**                of any kind.</div><div class="line">**</div><div class="line">**  (c)Copyright Atollic AB.</div><div class="line">**  You may use this file as-is or modify it according to the needs of your</div><div class="line">**  project. Distribution of this file (unmodified or modified) is not</div><div class="line">**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the</div><div class="line">**  rights to distribute the assembled, compiled &amp; linked contents of this</div><div class="line">**  file as part of an application binary file, provided that it is built</div><div class="line">**  using the Atollic TrueSTUDIO(R) toolchain.</div><div class="line">**</div><div class="line">*****************************************************************************</div><div class="line">*/</div><div class="line">/* Entry Point */</div><div class="line">ENTRY(Reset_Handler)</div><div class="line">/* Highest address of the user mode stack */</div><div class="line">_estack = 0x20020000;    /* end of 128K RAM on AHB bus*/</div><div class="line">/* Generate a link error <span class="keyword">if</span> heap and stack don\<span class="string">'t fit into RAM */</span></div><div class="line">_Min_Heap_Size = 0;      /* required amount of heap  */</div><div class="line">_Min_Stack_Size = 0x400; /* required amount of stack */</div><div class="line"></div><div class="line">/* Specify the memory areas */</div><div class="line">MEMORY</div><div class="line">&#123;</div><div class="line">    FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K</div><div class="line">        RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K</div><div class="line">        MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K</div><div class="line">    &#125;</div><div class="line">    /* Define output sections */</div><div class="line">    SECTIONS</div><div class="line">&#123;</div><div class="line">    /* The startup code goes first into FLASH */</div><div class="line">.isr_vector :</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        KEEP(*(.isr_vector)) /* Startup code */</div><div class="line">        . = ALIGN(4);</div><div class="line">    &#125; &gt;FLASH</div><div class="line">    /* The program code and other data goes into FLASH */</div><div class="line">.text :</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        *(.text)           /* .text sections (code) */</div><div class="line">        *(.text*)          /* .text* sections (code) */</div><div class="line">        *(.rodata)         /* .rodata sections (constants, strings, etc.) */</div><div class="line">        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */</div><div class="line">        *(.glue_7)         /* glue arm to thumb code */</div><div class="line">        *(.glue_7t)        /* glue thumb to arm code */</div><div class="line">        *(.eh_frame)</div><div class="line">        KEEP (*(.init))</div><div class="line">        KEEP (*(.fini))</div><div class="line">        . = ALIGN(4);</div><div class="line">        _etext = .;        /* define a global symbols at end of code */</div><div class="line">        _exit = .;</div><div class="line">    &#125; &gt;FLASH</div><div class="line">.ARM.extab   :</div><div class="line">    &#123; *(.ARM.extab* .gnu.linkonce.armextab.*) &#125; &gt;FLASH</div><div class="line">.ARM :</div><div class="line">    &#123;</div><div class="line">        __exidx_start = .;</div><div class="line">        *(.ARM.exidx*)</div><div class="line">        __exidx_end = .;</div><div class="line">    &#125; &gt;FLASH</div><div class="line"></div><div class="line">.preinit_array     :</div><div class="line">    &#123;</div><div class="line">        PROVIDE_HIDDEN (__preinit_array_start = .);</div><div class="line">        KEEP (*(.preinit_array*))</div><div class="line">        PROVIDE_HIDDEN (__preinit_array_end = .);</div><div class="line">    &#125; &gt;FLASH</div><div class="line">.init_array :</div><div class="line">    &#123;</div><div class="line">        PROVIDE_HIDDEN (__init_array_start = .);</div><div class="line">        KEEP (*(SORT(.init_array.*)))</div><div class="line">        KEEP (*(.init_array*))</div><div class="line">        PROVIDE_HIDDEN (__init_array_end = .);</div><div class="line">    &#125; &gt;FLASH</div><div class="line">.fini_array :</div><div class="line">    &#123;</div><div class="line">        PROVIDE_HIDDEN (__fini_array_start = .);</div><div class="line">        KEEP (*(.fini_array*))</div><div class="line">        KEEP (*(SORT(.fini_array.*)))</div><div class="line">        PROVIDE_HIDDEN (__fini_array_end = .);</div><div class="line">    &#125; &gt;FLASH</div><div class="line"></div><div class="line">    /* used by the startup to initialize data */</div><div class="line">    _sidata = .;</div><div class="line"></div><div class="line">    /* Initialized data sections goes into RAM, load LMA copy after code */</div><div class="line">.data :</div><div class="line">    AT ( _sidata )</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        _sdata = .;        /* create a global symbol at data start */</div><div class="line">        *(.data)           /* .data sections */</div><div class="line">        *(.data*)          /* .data* sections */</div><div class="line"></div><div class="line">        . = ALIGN(4);</div><div class="line">        _edata = .;        /* define a global symbol at data end */</div><div class="line">    &#125; &gt;RAM</div><div class="line"></div><div class="line">    /* Uninitialized data section */</div><div class="line">    . = ALIGN(4);</div><div class="line">.bss :</div><div class="line">    &#123;</div><div class="line">        /* This is used by the startup in order to initialize the .bss secion */</div><div class="line">        _sbss = .;         /* define a global symbol at bss start */</div><div class="line">        __bss_start__ = _sbss;</div><div class="line">        *(.bss)</div><div class="line">        *(.bss*)</div><div class="line">        *(COMMON)</div><div class="line"></div><div class="line">        . = ALIGN(4);</div><div class="line">        _ebss = .;         /* define a global symbol at bss end */</div><div class="line">        __bss_end__ = _ebss;</div><div class="line">    &#125; &gt;RAM</div><div class="line"></div><div class="line">    /* User_heap_stack section, used to check that there is enough RAM left */</div><div class="line">._user_heap_stack :</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        PROVIDE ( end = . );</div><div class="line">        PROVIDE ( _end = . );</div><div class="line">        . = . + _Min_Heap_Size;</div><div class="line">        . = . + _Min_Stack_Size;</div><div class="line">        . = ALIGN(4);</div><div class="line">    &#125; &gt;RAM</div><div class="line"></div><div class="line">    /* MEMORY_bank1 section, code must be located here explicitly            */</div><div class="line">    /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */</div><div class="line">.memory_b1_text :</div><div class="line">    &#123;</div><div class="line">        *(.mb1text)        /* .mb1text sections (code) */</div><div class="line">        *(.mb1text*)       /* .mb1text* sections (code)  */</div><div class="line">        *(.mb1rodata)      /* read-only data (constants) */</div><div class="line">        *(.mb1rodata*)</div><div class="line">    &#125; &gt;MEMORY_B1</div><div class="line"></div><div class="line">    /* Remove information from the standard libraries */</div><div class="line">/DISCARD/ :</div><div class="line">    &#123;</div><div class="line"></div><div class="line">        libc.a ( * )</div><div class="line">        libm.a ( * )</div><div class="line">        libgcc.a ( * )</div><div class="line">    &#125;</div><div class="line"></div><div class="line">.ARM.attributes 0 :</div><div class="line">    &#123; *(.ARM.attributes) &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="编译下载"><a href="#编译下载" class="headerlink" title="编译下载"></a>编译下载</h3><ul>
-<li>完成上述设置，每次编译完成后都会自动telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
-<li>最终运行的效果如下图<br><img src="/imgs/img project_build.png" alt=""></li>
+<li>完成上述设置，每次编译完成后都会自动 telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
+<li>最终运行的效果如下图<br><img src="/imgs/project_build.png" alt="project_build.png"></li>
 </ul>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>您的打赏将会鼓励我写出更多的博客。</li>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
@@ -2010,47 +2265,41 @@ MEMORY
         
           
             <ul>
-<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为Linux用户提供一个有吸引力的和直观的桌面. </p>
+<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.</p>
 </li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>: </p>
+<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>:</p>
 </li>
 </ul>
+<h1 id="安装-MATE-相关的软件包"><a href="#安装-MATE-相关的软件包" class="headerlink" title="安装 MATE 相关的软件包:"></a>安装 MATE 相关的软件包:</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64</span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64</div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common</div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common</div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse</div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager</div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager</div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor</div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common</div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
 <ul>
-<li><p><strong>安装MATE相关的软件包:</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64 </span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64 </div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common </div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common </div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse </div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager </div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager </div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor </div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common </div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装FVWM相关软件包:</p>
-</li>
+<li>安装 FVWM 相关软件包:</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
-<h3 id="安装Lightdm"><a href="#安装Lightdm" class="headerlink" title="安装Lightdm"></a>安装Lightdm</h3><blockquote>
-<p> LightDM 是一个跨桌面环境的显示管理器，其目的是为X窗口系统提供一个标准的显示管理器。它的特点有:</p>
-<ul>
-<li>代码轻量</li>
+<h1 id="安装-Lightdm"><a href="#安装-Lightdm" class="headerlink" title="安装 Lightdm"></a>安装 Lightdm</h1><ul>
+<li><p>LightDM 是一个跨桌面环境的显示管理器，其目的是为 X 窗口系统提供一个标准的显示管理器。它的特点有:</p>
+</li>
+<li><p>代码轻量</p>
+</li>
 <li>符合标准 (如 PAM, logind, 等)</li>
 <li>为用户提供一个良好的界面。</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
-</li>
+<li>跨桌面（用户可以使用各种各样的桌面环境）.</li>
 </ul>
-</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
 <ul>
-<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
-</li>
+<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :</li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
 <ul>
 <li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
-<h3 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h3><ul>
+<h1 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h1><ul>
 <li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
 <li>获取屏幕的信息如下图所示.</li>
 </ul>
 <p><img src="/imgs/xrandr_cmd.png" alt=""></p>
 <ul>
-<li><ul>
 <li>通过命令行设置.</li>
-</ul>
-</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
 <ul>
@@ -2058,12 +2307,11 @@ MEMORY
 </ul>
 <p><img src="/imgs/xrandr_example.png" alt=""></p>
 <ul>
-<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个HDMI的显示的图.</li>
+<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个 HDMI 的显示的图.</li>
 </ul>
 <p><img src="/imgs/arandr.png" alt=""></p>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h2 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h2><ul>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
@@ -2310,7 +2558,7 @@ MEMORY
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2394,7 +2642,11 @@ MEMORY
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -2453,7 +2705,7 @@ MEMORY
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

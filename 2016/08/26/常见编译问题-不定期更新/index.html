@@ -402,20 +402,19 @@
 <li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
-<h4 id="编译gcc-texi-出错如下"><a href="#编译gcc-texi-出错如下" class="headerlink" title="编译gcc texi 出错如下:"></a>编译gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
+<h4 id="编译-gcc-texi-出错如下"><a href="#编译-gcc-texi-出错如下" class="headerlink" title="编译 gcc texi 出错如下:"></a>编译 gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
 <h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
 <h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
 <h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li><p>Linux 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
-</li>
-<li><p>MinGW 下要定义成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
+<li>Linux 下要定义成</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
+<ul>
+<li>MinGW 下要定义成</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
@@ -542,7 +541,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -626,7 +625,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -681,7 +684,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-编译出错"><span class="nav-number">1.</span> <span class="nav-text">GCC 编译出错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法"><span class="nav-number">1.1.</span> <span class="nav-text">处理方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译gcc-texi-出错如下"><span class="nav-number">1.2.</span> <span class="nav-text">编译gcc texi 出错如下:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法-1"><span class="nav-number">1.3.</span> <span class="nav-text">处理方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-函数定义错误"><span class="nav-number">2.</span> <span class="nav-text">C++ 函数定义错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法-2"><span class="nav-number">2.1.</span> <span class="nav-text">处理方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">3.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-编译出错"><span class="nav-number">1.</span> <span class="nav-text">GCC 编译出错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法"><span class="nav-number">1.1.</span> <span class="nav-text">处理方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译-gcc-texi-出错如下"><span class="nav-number">1.2.</span> <span class="nav-text">编译 gcc texi 出错如下:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法-1"><span class="nav-number">1.3.</span> <span class="nav-text">处理方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-函数定义错误"><span class="nav-number">2.</span> <span class="nav-text">C++ 函数定义错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方法-2"><span class="nav-number">2.1.</span> <span class="nav-text">处理方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">3.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
             
 
           </div>
@@ -701,7 +704,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

@@ -502,6 +502,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ sudo wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -Dwext</div><div class="line">~$ sudo dhclient wlan0</div></pre></td></tr></table></figure>
 <hr>
 <h1 id="Linux-下是使用蓝牙串口通信"><a href="#Linux-下是使用蓝牙串口通信" class="headerlink" title="Linux 下是使用蓝牙串口通信"></a>Linux 下是使用蓝牙串口通信</h1><ul>
+<li>如果是自编译内核要确保<code>RFCOMM protocol support (BT_RFCOMM)</code>是编译成模块的，而不能直接编入内核或者不编。</li>
 <li>Linux 下使用蓝牙工具要安装<code>bluez</code>软件,有一个图形配置程序<code>blueman</code>,使用会报一些 Python 与 Dbus 的错误,还是直接修改配置文件解决使用问题.</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/bluetooth/rfcomm.conf</div><div class="line">rfcomm0 &#123;</div><div class="line">        <span class="built_in">bind</span> yes;</div><div class="line">        device 00:15:83:00:43:AB</div><div class="line">        channel 0;</div><div class="line">        comment <span class="string">"Serial Port"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">rfcomm1 &#123;</div><div class="line">    <span class="built_in">bind</span> yes;</div><div class="line">    device 00:14:01:22:14:49;</div><div class="line">    channel 1;</div><div class="line">    connment <span class="string">"Serial Port 1"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -509,6 +510,7 @@
 <h2 id="手动边接-RFCOMM-串口"><a href="#手动边接-RFCOMM-串口" class="headerlink" title="手动边接 RFCOMM 串口"></a>手动边接 RFCOMM 串口</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> sudo rfcomm connect /dev/rfcomm0 00:14:01:22:14:49 1</div><div class="line">Connected /dev/rfcomm0 to 00:14:01:22:14:49 on channel 1</div><div class="line">Press CTRL-C <span class="keyword">for</span> hangup</div></pre></td></tr></table></figure>
 <ul>
 <li>运行上面的命令无错,就可以使用 minicom 连接它了,<code>sudo minicom -o -b 115200 -D /dev/rfcomm0</code></li>
+<li>如果运行图形配置向导，要先运行<code>blueman-applet</code>再运行<code>blueman-manager</code>,就可以配置了。</li>
 </ul>
 <h2 id="蓝牙错误"><a href="#蓝牙错误" class="headerlink" title="蓝牙错误"></a>蓝牙错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$ systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: <span class="string">"Running"</span></div><div class="line">michael@debian:/etc/init.d$ sudo systemctl status bluetooth</div><div class="line">● bluetooth.service - Bluetooth service</div><div class="line">   Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; vendor preset: enabled)</div><div class="line">   Active: failed (Result: signal) since Wed 2018-06-20 14:54:03 CST; 5min ago</div><div class="line">     Docs: man:bluetoothd(8)</div><div class="line"> Main PID: 772 (code=killed, signal=KILL)</div><div class="line">   Status: <span class="string">"Running"</span></div><div class="line"></div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Failed to obtain handles <span class="keyword">for</span> <span class="string">"Service Changed"</span> characteristic</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Sap driver initialization failed.</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: sap-server: Operation not permitted (1)</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSource</div><div class="line">Jun 20 14:41:29 debian bluetoothd[772]: Endpoint registered: sender=:1.67 path=/MediaEndpoint/A2DPSink</div><div class="line">Jun 20 14:42:00 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:43:36 debian bluetoothd[772]: vendor 0x0 product: 0x0</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Main process exited, code=killed, status=9/KILL</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Unit entered failed state.</div><div class="line">Jun 20 14:54:03 debian systemd[1]: bluetooth.service: Failed with result <span class="string">'signal'</span>.</div></pre></td></tr></table></figure>
 <h1 id="Linux-Systemctl-启动服务超时设置"><a href="#Linux-Systemctl-启动服务超时设置" class="headerlink" title="Linux Systemctl 启动服务超时设置"></a>Linux Systemctl 启动服务超时设置</h1><ul>
@@ -568,7 +570,10 @@
 </li>
 <li><p>通过上面设置,系统休眠与唤醒都很符合我的预期.还有一种方法是使用一个交换文件,不需要一个独立的分区,请<a href="https://wiki.debian.org/Hibernation/Hibernate_Without_Swap_Partition" target="_blank" rel="external">参考这里</a></p>
 </li>
+<li><p>如果上述设置能休眠不能关机,就是休眠后马上又重启了,<a href="https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#System_does_not_power_off_when_hibernating" target="_blank" rel="external">参照这里</a>需要如下设置:</p>
+</li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/etc/systemd/sleep.conf.d/hibernatemode.conf</div><div class="line"></div><div class="line">[Sleep]</div><div class="line">HibernateMode=shutdown</div></pre></td></tr></table></figure>
 <h1 id="程序找不到链接库位置"><a href="#程序找不到链接库位置" class="headerlink" title="程序找不到链接库位置"></a>程序找不到链接库位置</h1><ul>
 <li>Python ImportError,这种错误是因为在<code>PYTHONPATH</code>路径中找不相就的模块.</li>
 </ul>
@@ -705,7 +710,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -789,7 +794,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -864,7 +873,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="参考链接
+STM32CubeMX
+
+
+
+STM32CubeMX
+STM32CubeMX这个页面里的Tools&amp;amp;Software包含开发工具与嵌入式工具两大部分。
+
+
+
+
+
+开发工具STM32CubeIDE
+STM32CubeIDE是的 ST 的官方 IDE 工具，下载后会得到一个很大 zip 包，解压后会有SetupSTM32CubeMX-5.4.0.app，SetupSTM32Cube">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32CubeMX使用指南">
+<meta property="og:url" content="http://yoursite.com/2019/11/09/STM32CubeMX使用指南/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="参考链接
+STM32CubeMX
+
+
+
+STM32CubeMX
+STM32CubeMX这个页面里的Tools&amp;amp;Software包含开发工具与嵌入式工具两大部分。
+
+
+
+
+
+开发工具STM32CubeIDE
+STM32CubeIDE是的 ST 的官方 IDE 工具，下载后会得到一个很大 zip 包，解压后会有SetupSTM32CubeMX-5.4.0.app，SetupSTM32Cube">
+<meta property="og:image" content="http://yoursite.com/imgs/STM32CubeMX -devtools.png">
+<meta property="og:image" content="http://yoursite.com/imgs/STM32CubeMX -Embedded.png">
+<meta property="og:image" content="http://yoursite.com/imgs/STM32CubeMX -Embedded1.png">
+<meta property="og:image" content="http://yoursite.com/imgs/STM32CubeMX -Embedded2.png">
+<meta property="og:image" content="http://yoursite.com/imgs/STM32CubeMX.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2019-11-09T14:29:52.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STM32CubeMX使用指南">
+<meta name="twitter:description" content="参考链接
+STM32CubeMX
+
+
+
+STM32CubeMX
+STM32CubeMX这个页面里的Tools&amp;amp;Software包含开发工具与嵌入式工具两大部分。
+
+
+
+
+
+开发工具STM32CubeIDE
+STM32CubeIDE是的 ST 的官方 IDE 工具，下载后会得到一个很大 zip 包，解压后会有SetupSTM32CubeMX-5.4.0.app，SetupSTM32Cube">
+<meta name="twitter:image" content="http://yoursite.com/imgs/STM32CubeMX -devtools.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/09/STM32CubeMX使用指南/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>STM32CubeMX使用指南 | Sunrise 博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-78826582-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-78826582-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise 博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/STM32CubeMX使用指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">STM32CubeMX使用指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-09 21:25:18 / 修改时间：22:29:52" itemprop="dateCreated datePublished" datetime="2019-11-09T21:25:18+08:00">2019-11-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>参考链接<ul>
+<li><a href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.license=1573251790793.product=STM32CubeMX.version=5.4.0.html#tools-software" target="_blank" rel="external">STM32CubeMX</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h1><ul>
+<li><a href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.license=1573251790793.product=STM32CubeMX.version=5.4.0.html#tools-software" target="_blank" rel="external">STM32CubeMX</a>这个页面里的<code>Tools&amp;Software</code>包含开发工具与嵌入式工具两大部分。</li>
+<li><img src="/imgs/STM32CubeMX -devtools.png" alt="STM32CubeMX -devtools.png"></li>
+<li><img src="/imgs/STM32CubeMX -Embedded.png" alt="STM32CubeMX -Embedded.png"></li>
+<li><img src="/imgs/STM32CubeMX -Embedded1.png" alt="STM32CubeMX -Embedded.png"></li>
+<li><img src="/imgs/STM32CubeMX -Embedded2.png" alt="STM32CubeMX -Embedded.png"></li>
+</ul>
+<h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><h3 id="STM32CubeIDE"><a href="#STM32CubeIDE" class="headerlink" title="STM32CubeIDE"></a>STM32CubeIDE</h3><ul>
+<li><a href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-ides/stm32cubeide.html" target="_blank" rel="external">STM32CubeIDE</a>是的 ST 的官方 IDE 工具，下载后会得到一个很大 zip 包，解压后会有<code>SetupSTM32CubeMX-5.4.0.app，SetupSTM32CubeMX-5.4.0.exe，SetupSTM32CubeMX-5.4.0.linux</code>三个项目，其中<code>SetupSTM32CubeMX-5.4.0.linux</code>就是 Linux 下的安装脚本。Linux 安装后运行截图如下：</li>
+<li><img src="/imgs/STM32CubeMX.png" alt="STM32CubeMX.png"></li>
+<li>如上图所示，可以安装相应的嵌入式的软件，就是各种 MCU 的库文件，模版文件，也可以通过手动下载，如：<a href="https://my.st.com/content/my_st_com/en/products/embedded-software/mcu-mpu-embedded-software/stm32-embedded-software/stm32cube-mcu-mpu-packages/stm32cubef7.html" target="_blank" rel="external">STM32Cube MCU Package for STM32F7 series </a></li>
+<li>也可以通过<a href="https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-ides/stm32cubeide.html" target="_blank" rel="external">这里</a>这种几只平台的发行版本包。</li>
+</ul>
+<h3 id="STSW-STM32095-Eclipse-插件"><a href="#STSW-STM32095-Eclipse-插件" class="headerlink" title="STSW-STM32095 Eclipse 插件"></a>STSW-STM32095 Eclipse 插件</h3><ul>
+<li>下载<a href="https://www.st.com/en/development-tools/stsw-stm32095.html#overview" target="_blank" rel="external">STSW-STM32095</a>到本地，打开 Eclipse,进入<code>Help--&gt;Installl New Software... --&gt; 点击 Add --&gt; 在Name里输入一个名字，--&gt; 点击 Archive... --&gt; 选择刚才下载的en.stsw-stm32095.zip --&gt; 确定</code>进行安装。</li>
+<li>安装完成后，在 Eclipse 里可以通过右上角的图标打开 STM32CubeMX 的 Perspective, 也可以通过菜单栏<code>Windows--&gt;Perspective--&gt;Open Perspective--&gt;Other</code> 选择`STM32CubeMX 打开，打开的界面如同上面的 STM32CubeIDE 原生界面。</li>
+</ul>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/stm32-Linux-嵌入式/" rel="tag"># stm32,Linux,嵌入式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/05/搭建基于Dokku的PaaS平台/" rel="next" title="搭建基于Dokku的PaaS平台">
+                <i class="fa fa-chevron-left"></i> 搭建基于Dokku的PaaS平台
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4"
+                alt="yjdwbj" />
+            
+              <p class="site-author-name" itemprop="name">yjdwbj</p>
+              <p class="site-description motion-element" itemprop="description">最是人间留不住,朱颜辞镜花辞树</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yjdwbj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yjdwbj@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/yjdwbj" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32CubeMX"><span class="nav-number">1.</span> <span class="nav-text">STM32CubeMX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发工具"><span class="nav-number">1.1.</span> <span class="nav-text">开发工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeIDE"><span class="nav-number">1.1.1.</span> <span class="nav-text">STM32CubeIDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STSW-STM32095-Eclipse-插件"><span class="nav-number">1.1.2.</span> <span class="nav-text">STSW-STM32095 Eclipse 插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">2.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

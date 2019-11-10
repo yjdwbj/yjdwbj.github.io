@@ -285,6 +285,253 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/14/Linux-下翻墙指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/14/Linux-下翻墙指南/" itemprop="url">
+                  Linux 下翻墙指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-14 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-14T00:00:00+08:00">2016-09-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-05-02 00:00:00" itemprop="dateModified" datetime="2017-05-02T00:00:00+08:00">2017-05-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>参考链接:</strong></p>
+<ul>
+<li><a href="https://getlantern.org" target="_blank" rel="external">lantern(蓝灯)</a></li>
+<li><a href="https://www.torproject.org" target="_blank" rel="external">tor</a></li>
+<li><a href="http://vpngate.net" target="_blank" rel="external">vpngate</a></li>
+<li><a href="https://www.psiphon3.com/en/index.html" target="_blank" rel="external">赛风</a></li>
+<li><a href="https://www.shadowsocks.org/en/index.html" target="_blank" rel="external">ShadowSocks</a></li>
+</ul>
+<p>在国内做为一个程序员,翻墙是一门必不可少的技能,至少对于我来说是这样子的,我很多的知识经验来源于<a href="https://www.google.com.hk" target="_blank" rel="external">google</a>学习到的.</p>
+<p><strong>vpngate</strong></p>
+<p>分布式VPN,日本人开发的,曾经一段时间很快很稳定后来被封了,只支持window平台,好久没有关注它了</p>
+<p><strong>赛风</strong></p>
+<p>赛风是windows下很好的工具.带宽速度一般,但是免费可靠,缺点是不支持linux,在linux有一个基于python的客户,偶尔能用,早有终止开发了,配置很复杂.</p>
+<p><strong>lantern</strong></p>
+<p>lantern(蓝灯)是近年来新起的一个工具,支持多平台,有收费与免费版,开源安全可靠.</p>
+<p><strong>tor</strong></p>
+<p>洋萄头是很老牌的一个工具,它的功能不是翻墙,是隐藏自已,就是所谓的<code>暗网</code>.<br>这里只讲述在Linux如何翻墙的,我是用一台树莓派做翻墙工具,24小时在线.</p>
+<p><strong>ShadowSocks</strong><br>它其实就是一个代理工具,方便一些有虚拟在国外或连接一些名费的服务器.</p>
+<h3 id="Lantern-蓝灯"><a href="#Lantern-蓝灯" class="headerlink" title="Lantern(蓝灯)"></a>Lantern(蓝灯)</h3><p>直接按照官网教程先安装一些系统工具,git,go,make,docker,工具.这里以编译lantern 2.2.5为例.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># build lantern for raspberry pi</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> -xe</div><div class="line"></div><div class="line"><span class="comment">#VERSION=$&#123;1:?version is empty&#125;</span></div><div class="line">VERSION=2.2.5</div><div class="line"></div><div class="line">git <span class="built_in">clone</span> https://github.com/getlantern/lantern.git</div><div class="line"><span class="built_in">cd</span> lantern</div><div class="line"></div><div class="line">VERSION=<span class="variable">$VERSION</span> HEADLESS=<span class="literal">true</span> make docker-linux-arm</div><div class="line">mv lantern_linux_arm lantern-<span class="variable">$VERSION</span>-armv7h</div><div class="line"></div><div class="line">sed -i <span class="string">'s/GOARM=7/GOARM=6/'</span> Makefile</div><div class="line"></div><div class="line">VERSION=<span class="variable">$VERSION</span> HEADLESS=<span class="literal">true</span> make docker-linux-arm</div><div class="line">mv lantern_linux_arm lantern-<span class="variable">$VERSION</span>-armv6h</div><div class="line"></div><div class="line">mkdir -p lantern/&#123;DEBIAN,lib/systemd/system,usr/bin&#125;/</div><div class="line">cp lantern-<span class="variable">$VERSION</span>-armv6h lantern/usr/bin/lantern</div><div class="line">cat &gt; lantern/DEBIAN/control &lt;&lt;_EOF_</div><div class="line">Package: lantern</div><div class="line">Version: <span class="variable">$VERSION</span>-1</div><div class="line">Maintainer: noreply@easypi.info</div><div class="line">Homepage: https://getlantern.org</div><div class="line">Architecture: armhf</div><div class="line">Priority: optional</div><div class="line">Section: net</div><div class="line">Description: Open Internet <span class="keyword">for</span> Everyone</div><div class="line">_EOF_</div><div class="line">cat &gt; lantern/lib/systemd/system/lantern.service &lt;&lt;_EOF_</div><div class="line">[Unit]</div><div class="line">Description=Open Internet <span class="keyword">for</span> Everyone</div><div class="line">Documentation=https://getlantern.org</div><div class="line">After=network.target</div><div class="line">[Service]</div><div class="line">ExecStart=/usr/bin/lantern -addr=0.0.0.0:8787</div><div class="line">StandardOutput=null</div><div class="line">StandardError=null</div><div class="line">Restart=always</div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div><div class="line">_EOF_</div><div class="line">dpkg -b lantern lantern_<span class="variable">$VERSION</span>-1_armhf.deb</div><div class="line"></div><div class="line">sudo mv lantern-<span class="variable">$VERSION</span>-armv[67]h lantern_<span class="variable">$VERSION</span>-1_armhf.deb ..</div><div class="line"><span class="built_in">cd</span> ..</div><div class="line">sudo chmod a+rw lantern-<span class="variable">$VERSION</span>-armv[67]h lantern_<span class="variable">$VERSION</span>-1_armhf.deb</div></pre></td></tr></table></figure>
+<ul>
+<li>最终在lantern目录会生成.deb文件.lantern-2.2.5-armv7h,lantern-2.2.5-armv6h是树莓派下可执行的文件.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ file lantern-2.2.5-armv6h </div><div class="line">lantern-2.2.5-armv6h: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, stripped</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>把lantern 运行起来,在软件或浏览器中设置代理项指向树莓派生的IP地址,端口8787,就可以看google,facebook…..</li>
+</ul>
+<h3 id="TOR"><a href="#TOR" class="headerlink" title="TOR"></a>TOR</h3><ul>
+<li><p>在各种Linux发行版的软件库里都有tor的安装直接安装就行了.这里的polipo,dnsmasq 不是必需的.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># apt-get install tor obfsproxy polipo dnsmasq</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>为tor建一个普通用户,使用root用户会报错也不建议使用.在普通用户下的家目录里创建一个名为torrc的配置文件.内容如下.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">SocksPort 9050 <span class="comment"># Default: Bind to localhost:9050 for local connections.</span></div><div class="line">SocksPolicy accept 127.0.0.1/32</div><div class="line">SocksPolicy reject *</div><div class="line">ClientOnly 1</div><div class="line">VirtualAddrNetwork 10.192.0.0/16</div><div class="line">DNSPort 9053</div><div class="line">DNSListenAddress  127.0.0.1</div><div class="line">AutomapHostsOnResolve 1</div><div class="line">AutomapHostsSuffixes .onion,.exit</div><div class="line">TransPort 9040</div><div class="line">Log notice file ~/tor/notices.log　　<span class="comment"># log日志途径</span></div><div class="line">RunAsDaemon 1</div><div class="line">ClientTransportPlugin  obfs2,obfs3 <span class="built_in">exec</span> /usr/bin/obfsproxy --managed</div><div class="line">UseBridges 1</div><div class="line">Bridge obfs3 192.36.31.133:42292 BD93F5439A71F8303BFDBF82066A11A6795596ED</div><div class="line">Bridge obfs3 194.132.208.198:28340 61258900CFD7BE034E938DC338C2F7197E2881AE</div><div class="line">Bridge obfs3 95.215.44.119:44527 1F1C600CE1E854E18123422EAD9267A5943815A4</div><div class="line">Bridge obfs3 163.172.161.87:34827 70C720468D057BBF9F59081506D660CE87CA4AD0</div><div class="line">Bridge obfs3 192.36.31.90:43445 78E6001D9B8B58122E8EAD0E9CF7E21D8595885C</div><div class="line">Bridge obfs3 23.252.105.31:3443 CDAE9FD7710761D1914182F62B1B47F2FBF1FDE1</div><div class="line">Bridge obfs3 192.36.31.245:42808 9D0091413CB15261A90A3256B752258CC509D5B8</div><div class="line">Bridge obfs3 37.218.246.101:35072 42F4F371DE858E634CEBB487759228838D791B66</div><div class="line">Bridge obfs3 84.39.34.97:27322 6FBE4B8B9E43D1114DEA26E82D6AC9EFEB407EB0</div><div class="line">Bridge obfs3 78.46.188.239:37356 5A2D2F4158D0453E00C7C176978D3F41D69C45DB</div><div class="line">Bridge obfs3 194.132.208.242:1287 988131F4E85BC3F07B78FCC8C5F8108440DBB9F1</div><div class="line">Bridge obfs3 194.132.208.107:9751 E2FCCB85809EE9B4747CADB86F8F3FD97389DB4C</div><div class="line">Bridge obfs3 52.207.232.222:45808 C32CF82A13BB9B6C746CE8E7D3CD873F876BAB65</div><div class="line">Bridge obfs3 192.36.31.144:54443 8C68078CCF04D2BD2CC110EF05336FF26020F8E5</div><div class="line">Bridge obfs3 95.247.9.235:45870 73DF00295D046C40B52F6CE7098EFD6799DCBA9E</div><div class="line">Bridge obfs3 192.241.211.52:41657 0BF680354EE20E1BBD385595C59B2824FFD6412D</div><div class="line">Bridge obfs3 45.79.190.81:38127 85DB43C92C5D83DAC3919D1EC751ECC5CE2A1240</div><div class="line">Bridge obfs3 205.185.120.120:35676 2D7DB306E8D7C750E18519DF362C5B54A36A1652</div></pre></td></tr></table></figure>
+<p>上面的<code>obfs3</code>时效性不保,需要不定时去<strong><a href="https://bridges.torproject.org/bridges?transport=obfs3" target="_blank" rel="external">BrideDB</a></strong>更新.<br>现在可以运行一下tor,如果遇错按照错误提示解决.如果无错,就如下面运行在后台了.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ tor <span class="_">-f</span> torcc</div><div class="line">Sep 12 23:46:18.865 [notice] Tor v0.2.7.6 running on Linux with Libevent 2.0.21-stable, OpenSSL 1.0.1t and Zlib 1.2.8.</div><div class="line">Sep 12 23:46:18.872 [notice] Tor can<span class="string">'t help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning</span></div><div class="line">Sep 12 23:46:18.881 [notice] Read configuration file "/home/user/torrc".</div><div class="line">Sep 12 23:46:19.156 [notice] Opening Socks listener on 127.0.0.1:9050</div><div class="line">Sep 12 23:46:19.171 [notice] Opening DNS listener on 127.0.0.1:9053</div><div class="line">Sep 12 23:46:19.183 [notice] Opening Transparent pf/netfilter listener on 127.0.0.1:9040</div></pre></td></tr></table></figure></p>
+<ul>
+<li>现在可以通过TOR查询DNS,国内的DNS对外网污染的很严重,都是张冠李戴的解析. 如果无错,下面显示解析正确的结果.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tor-resolve www.google.com</div><div class="line">216.58.208.36</div></pre></td></tr></table></figure>
+<h4 id="dnsmasq"><a href="#dnsmasq" class="headerlink" title="dnsmasq"></a>dnsmasq</h4><ul>
+<li>通过dnsmasq 来为本机或者LAN局域网提供高效DNS缓存服务,这里的dnsmasq是通过TOR连接去查询,是未经ISP污染的结果.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/dnsmasq.conf  | grep -v <span class="string">'^#'</span> | grep -v <span class="string">'^$'</span></div><div class="line">resolv-file=/etc/resolv.dnsmasq.conf</div><div class="line">no-resolv</div><div class="line">server=127.0.0.1<span class="comment">#9053</span></div><div class="line">listen-address=127.0.0.1,192.168.10.1</div><div class="line">no-dhcp-interface=eth0</div><div class="line">dhcp-range=192.168.10.100,192.168.10.150,12h</div><div class="line">dhcp-option=3,192.168.10.1</div><div class="line">dhcp-option=option:dns-server,192.168.10.1,8.8.8.8</div></pre></td></tr></table></figure>
+<ul>
+<li>本机的resolv.conf 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/resolv.conf</div><div class="line"># Generated by resolvconf</div><div class="line">nameserver 127.0.0.1</div><div class="line">nameserver 8.8.8.8</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="polipo-代理服务"><a href="#polipo-代理服务" class="headerlink" title="polipo 代理服务"></a>polipo 代理服务</h4><p>polipo 可以代理TOR的连接,就是把其它程序的代理指本机IP,端口8123</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">socksParentProxy = localhost:9050</div><div class="line">proxyAddress = 0.0.0.0</div><div class="line">dnsNameServer = 127.0.0.1</div><div class="line"><span class="built_in">log</span>Syslog = <span class="literal">true</span></div><div class="line"><span class="built_in">log</span>File = /var/<span class="built_in">log</span>/polipo/polipo.log</div></pre></td></tr></table></figure>
+<h4 id="本机的服务"><a href="#本机的服务" class="headerlink" title="本机的服务"></a>本机的服务</h4><p>运下上述的服务之后,查看本机树莓派生上的服务是否正常运行起来的,正常情况应包含如下字段:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ netstat -tnlp</div><div class="line">tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 0.0.0.0:8123            0.0.0.0:*               LISTEN      648/polipo      </div><div class="line">tcp        0      0 127.0.0.1:9040          0.0.0.0:*               LISTEN      1498/tor        </div><div class="line">tcp        0      0 127.0.0.1:8788          0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      2053/dnsmasq    </div><div class="line">tcp        0      0 127.0.0.1:16823         0.0.0.0:*               LISTEN      19220/lantern-2.2.5</div><div class="line">tcp6       0      0 :::8787                 :::*                    LISTEN      19220/lantern-2.2.5</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="ShadowSocks"><a href="#ShadowSocks" class="headerlink" title="ShadowSocks"></a>ShadowSocks</h3><ul>
+<li>各平台详细安装可以看<a href="https://www.shadowsocks.org/en/download/clients.html" target="_blank" rel="external">这里</a>.</li>
+<li>Linux python 安装</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">~$ pip install shadowsocks</div><div class="line">Collecting shadowsocks</div><div class="line">  Downloading https://files.pythonhosted.org/packages/02/1e/e3a5135255d06813aca6631da31768d44f63692480af3a1621818008eb4a/shadowsocks-2.8.2.tar.gz</div><div class="line">Building wheels for collected packages: shadowsocks</div><div class="line">  Running setup.py bdist_wheel for shadowsocks ... done</div><div class="line">  Stored in directory: /home/michael/.cache/pip/wheels/5e/8d/b6/3e2243a7e116984b2c3597c122c29abcfeac77daa260079e88</div><div class="line">Successfully built shadowsocks</div><div class="line">Installing collected packages: shadowsocks</div><div class="line"></div><div class="line">~$ sudo apt-get install shadowsocks-libev</div></pre></td></tr></table></figure>
+<ul>
+<li>直接命令行方式运行如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">$ sslocal</div><div class="line">ERROR: config not specified</div><div class="line">usage: sslocal [OPTION]...</div><div class="line">A fast tunnel proxy that helps you bypass firewalls.</div><div class="line"></div><div class="line">You can supply configurations via either config file or command line arguments.</div><div class="line"></div><div class="line">Proxy options:</div><div class="line">  -c CONFIG              path to config file</div><div class="line">  -s SERVER_ADDR         server address</div><div class="line">  -p SERVER_PORT         server port, default: 8388</div><div class="line">  -b LOCAL_ADDR          local binding address, default: 127.0.0.1</div><div class="line">  -l LOCAL_PORT          local port, default: 1080</div><div class="line">  -k PASSWORD            password</div><div class="line">  -m METHOD              encryption method, default: aes-256-cfb</div><div class="line">  -t TIMEOUT             timeout in seconds, default: 300</div><div class="line">  --fast-open            use TCP_FASTOPEN, requires Linux 3.7+</div><div class="line"></div><div class="line">General options:</div><div class="line">  -h, --help             show this help message and exit</div><div class="line">  -d start/stop/restart  daemon mode</div><div class="line">  --pid-file PID_FILE    pid file for daemon mode</div><div class="line">  --log-file LOG_FILE    log file for daemon mode</div><div class="line">  --user USER            username to run as</div><div class="line">  -v, -vv                verbose mode</div><div class="line">  -q, -qq                quiet mode, only show warnings/errors</div><div class="line">  --version              show version information</div><div class="line"></div><div class="line">Online help: &lt;https://github.com/shadowsocks/shadowsocks&gt;</div><div class="line"></div><div class="line">~$ sslocal  -s s1.l3l.bid -p 2048 -k forgoogle -m aes-256-cfb</div></pre></td></tr></table></figure>
+<ul>
+<li>如果出现下面的错误:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2018-05-07 15:22:14 INFO     loading libcrypto from libcrypto.so.1.1</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/home/michael/.pyenv/versions/py3dev/bin/sslocal&quot;, line 11, in &lt;module&gt;</div><div class="line">    sys.exit(main())</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/local.py&quot;, line 39, in main</div><div class="line">    config = shell.get_config(True)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/shell.py&quot;, line 262, in get_config</div><div class="line">    check_config(config, is_local)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/shell.py&quot;, line 124, in check_config</div><div class="line">    encrypt.try_cipher(config[&apos;password&apos;], config[&apos;method&apos;])</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/encrypt.py&quot;, line 44, in try_cipher</div><div class="line">    Encryptor(key, method)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/encrypt.py&quot;, line 83, in __init__</div><div class="line">    random_string(self._method_info[1]))</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/encrypt.py&quot;, line 109, in get_cipher</div><div class="line">    return m[2](method, key, iv, op)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/crypto/openssl.py&quot;, line 76, in __init__</div><div class="line">    load_openssl()</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/envs/py3dev/lib/python3.6/site-packages/shadowsocks/crypto/openssl.py&quot;, line 52, in load_openssl</div><div class="line">    libcrypto.EVP_CIPHER_CTX_cleanup.argtypes = (c_void_p,)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/lib/python3.6/ctypes/__init__.py&quot;, line 361, in __getattr__</div><div class="line">    func = self.__getitem__(name)</div><div class="line">  File &quot;/home/michael/.pyenv/versions/3.6.5/lib/python3.6/ctypes/__init__.py&quot;, line 366, in __getitem__</div><div class="line">    func = self._FuncPtr((name_or_ordinal, self))</div><div class="line">AttributeError: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup</div></pre></td></tr></table></figure>
+<p>这个问题是由于在openssl1.1.0版本中，废弃了EVP_CIPHER_CTX_cleanup函数，如官网中所说：</p>
+<p>EVP_CIPHER_CTX was made opaque in OpenSSL 1.1.0. As a result, EVP_CIPHER_CTX_reset() appeared and EVP_CIPHER_CTX_cleanup() disappeared. EVP_CIPHER_CTX_init() remains as an alias for EVP_CIPHER_CTX_reset().<br>在<code>openssl.py</code>里把所有的<strong>EVP_CIPHER_CTX_cleanup</strong>函数替换成<code>EVP_CIPHER_CTX_reset</code>.</p>
+<ul>
+<li>如果是使用CONFIG的方式如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;my_server_ip&quot;,</div><div class="line">    &quot;server_port&quot;:8388,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;password&quot;:&quot;barfoo!&quot;,</div><div class="line">    &quot;timeout&quot;:600,</div><div class="line">    &quot;method&quot;:&quot;chacha20-ietf-poly1305&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>一些免费SS资源</strong><br><a href="https://github.com/max2max/freess" target="_blank" rel="external">https://github.com/max2max/freess</a><br><a href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" target="_blank" rel="external">自建ss服务器教程</a><br><a href="https://freessr.win/" target="_blank" rel="external">https://freessr.win/</a></p>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1091,7 +1338,7 @@
 <h1 id="批量清除文件名中的特定字符串"><a href="#批量清除文件名中的特定字符串" class="headerlink" title="批量清除文件名中的特定字符串"></a>批量清除文件名中的特定字符串</h1><ul>
 <li>有时从网站下载一些文件,资源经会把自已的名字或者网址加在文件名如: <code>电影名_[www.xxx.com].mkv</code>,这样的格式</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line">sub1=<span class="string">"www\.xxx\.com"</span></div><div class="line">sub2=<span class="string">"www\.bbb\.com"</span></div><div class="line">sub3=<span class="string">"www\.ccc\.com"</span></div><div class="line"><span class="comment">#sub4="[(]www.ddd.com[)]"  # 例如:  fname-(www.ddd.com).pdf, sed -re "s/$sub4//g"</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 例如:匹配 538081 SCALA学习手册.pdf  556997 Scala函数式编.pdf 这样的文件名,删除前面的6个数字</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># reg='^([0-9]&#123;6&#125;)'</span></div><div class="line"><span class="comment"># for fname in `ls`;do</span></div><div class="line"><span class="comment">#	string=$(echo $fname)</span></div><div class="line"><span class="comment">#    if [[ $string =~ $reg ]];</span></div><div class="line"><span class="comment">#    then</span></div><div class="line"><span class="comment">#    	nstr=$(echo $string | sed -r "s/$&#123;reg&#125;//g")</span></div><div class="line"><span class="comment">#        echo $nstr</span></div><div class="line"><span class="comment">#        mv $fname $nstr</span></div><div class="line"><span class="comment">#    fi</span></div><div class="line"><span class="comment">#  done</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> `ls`;</div><div class="line"><span class="keyword">do</span></div><div class="line">	string=$(<span class="built_in">echo</span> <span class="variable">$fname</span>)</div><div class="line">	<span class="keyword">if</span> [[ <span class="variable">$string</span> = *<span class="variable">$&#123;sub1&#125;</span>* || <span class="variable">$string</span> = *<span class="variable">$&#123;sub2&#125;</span>* || <span class="variable">$string</span> = *<span class="variable">$&#123;sub3&#125;</span>*  || <span class="variable">$string</span> = *<span class="variable">$&#123;sub4&#125;</span>* ]];</div><div class="line">	<span class="keyword">then</span></div><div class="line">    	nstring=$(<span class="built_in">echo</span> <span class="variable">$s</span> | sed <span class="_">-e</span> <span class="string">"s/<span class="variable">$&#123;sub1&#125;</span>//g"</span> <span class="_">-e</span> <span class="string">"s/<span class="variable">$sub2</span>//g"</span> <span class="_">-e</span> <span class="string">"s/<span class="variable">$sub3</span>//g"</span> <span class="_">-e</span> <span class="string">"s/\(()\)//g/"</span> <span class="_">-e</span> <span class="string">"s/\[[]\]//g"</span> )</div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="variable">$nstring</span></div><div class="line">        mv <span class="variable">$f</span> <span class="variable">$nstring</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">IFS=<span class="variable">$TMP_IFS</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TMP_IFS=<span class="variable">$IFS</span></div><div class="line">IFS=$(<span class="built_in">echo</span> -en <span class="string">"\n\b"</span>)</div><div class="line">sub1=<span class="string">"www\.xxx\.com"</span></div><div class="line">sub2=<span class="string">"www\.bbb\.com"</span></div><div class="line">sub3=<span class="string">"www\.ccc\.com"</span></div><div class="line"><span class="comment">#sub4="[(]www.ddd.com[)]"  # 例如:  fname-(www.ddd.com).pdf, sed -re "s/$sub4//g"</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 例如:匹配 538081 SCALA学习手册.pdf  556997 Scala函数式编.pdf 这样的文件名,删除前面的6个数字</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># reg='^([0-9]&#123;6&#125;)'</span></div><div class="line"><span class="comment"># for fname in `ls`;do</span></div><div class="line"><span class="comment">#	string=$(echo $fname)</span></div><div class="line"><span class="comment">#    if [[ $string =~ $reg ]];</span></div><div class="line"><span class="comment">#    then</span></div><div class="line"><span class="comment">#    	nstr=$(echo $string | sed -r "s/$&#123;reg&#125;//g")</span></div><div class="line"><span class="comment">#        echo $nstr</span></div><div class="line"><span class="comment">#        mv $fname $nstr</span></div><div class="line"><span class="comment">#    fi</span></div><div class="line"><span class="comment">#  done</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> `ls`;</div><div class="line"><span class="keyword">do</span></div><div class="line">	string=$(<span class="built_in">echo</span> <span class="variable">$fname</span>)</div><div class="line">	<span class="keyword">if</span> [[ <span class="variable">$string</span> = *<span class="variable">$&#123;sub1&#125;</span>* || <span class="variable">$string</span> = *<span class="variable">$&#123;sub2&#125;</span>* || <span class="variable">$string</span> = *<span class="variable">$&#123;sub3&#125;</span>*  || <span class="variable">$string</span> = *<span class="variable">$&#123;sub4&#125;</span>* ]];</div><div class="line">	<span class="keyword">then</span></div><div class="line">    	nstring=$(<span class="built_in">echo</span> <span class="variable">$s</span> | sed <span class="_">-e</span> <span class="string">"s/<span class="variable">$&#123;sub1&#125;</span>//g"</span> <span class="_">-e</span> <span class="string">"s/<span class="variable">$sub2</span>//g"</span> <span class="_">-e</span> <span class="string">"s/<span class="variable">$sub3</span>//g"</span> <span class="_">-e</span> <span class="string">"s/\(()\)//g/"</span> <span class="_">-e</span> <span class="string">"s/\[[]\]//g"</span> )</div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="variable">$nstring</span></div><div class="line">        mv <span class="variable">$f</span> <span class="variable">$nstring</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">IFS=<span class="variable">$TMP_IFS</span></div></pre></td></tr></table></figure>
 <hr>
 <h1 id="Linux-下-wireless-WPA-加密连接"><a href="#Linux-下-wireless-WPA-加密连接" class="headerlink" title="Linux 下 wireless WPA 加密连接"></a>Linux 下 wireless WPA 加密连接</h1><ul>
 <li>确保安装了 wpasupplicant</li>
@@ -1108,6 +1355,30 @@
 <li>手动命令行连接</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ sudo wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -Dwext</div><div class="line">~$ sudo dhclient wlan0</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="RTL8169-驱动"><a href="#RTL8169-驱动" class="headerlink" title="RTL8169 驱动"></a>RTL8169 驱动</h1><ul>
+<li><a href="https://medium.com/@lgobinath/no-ethernet-connection-in-ubuntu-16-04-linux-mint-18-with-realtek-rtl8111-8168-8411-7ae2779dc9b8" target="_blank" rel="external">No Ethernet Connection in Ubuntu 16.04/Linux Mint 18 with Realtek RTL8111/8168/8411</a></li>
+<li><a href="https://askubuntu.com/questions/864444/r8168-module-not-used-by-ethernet-controller" target="_blank" rel="external">r8168 module not used by ethernet controller</a></li>
+<li><a href="https://github.com/fintecheando/r8168" target="_blank" rel="external">https://github.com/fintecheando/r8168</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">#  查看本机硬件信息.</div><div class="line">~$ lshw -c network</div><div class="line">*-network UNCLAIMED</div><div class="line">       description: Ethernet interface</div><div class="line">       product: RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller</div><div class="line">       vendor: Realtek Semiconductor Co., Ltd.</div><div class="line">       physical id: 0</div><div class="line">       bus info: pci@0000:02:00.0</div><div class="line">       [....]</div><div class="line"></div><div class="line"></div><div class="line">~$ tree r8168-8.043.02/</div><div class="line">r8168-8.043.02/</div><div class="line">├── dkms.conf</div><div class="line">├── Makefile</div><div class="line">├── r8168_asf.c</div><div class="line">├── r8168_asf.h</div><div class="line">├── r8168_dash.h</div><div class="line">├── r8168_fiber.h</div><div class="line">├── r8168.h</div><div class="line">├── r8168_n.c</div><div class="line">├── r8168_realwow.h</div><div class="line">├── rtl_eeprom.c</div><div class="line">├── rtl_eeprom.h</div><div class="line">├── rtltool.c</div><div class="line">└── rtltool.h</div><div class="line"></div><div class="line">0 directories, 13 files</div><div class="line"></div><div class="line"># 查看系统已经添加了那些dkms包.</div><div class="line">~$ cd /usr/src/</div><div class="line">lcy@debian:/usr/src$ dkms status</div><div class="line">aufs, 4.9+20161219, 4.9.0-7-amd64, x86_64: installed</div><div class="line">aufs, 4.9+20161219, 4.9.0-8-amd64, x86_64: installed</div><div class="line">nvidia, 410.48, 4.14.77-20181016-lcy-amd64, x86_64: installed</div><div class="line">r8168, 8.043.02, 4.9.0-8-amd64, x86_64: installed</div><div class="line">rtl8812au, 4.3.8.12175.20140902+dfsg, 4.14.77-20181016-lcy-amd64, x86_64: installed</div><div class="line">rtl8812au, 4.3.8.12175.20140902+dfsg, 4.9.0-8-amd64, x86_64: installed</div><div class="line"></div><div class="line"># 使用dkms编译驱动包.</div><div class="line">~$ sudo dkms build -m r8168 -v 8.043.02</div><div class="line"></div><div class="line">Kernel preparation unnecessary for this kernel.  Skipping...</div><div class="line"></div><div class="line">Building module:</div><div class="line">cleaning build area...</div><div class="line">make -j6 KERNELRELEASE=4.14.77-20181016-lcy-amd64 -C /lib/modules/4.14.77-20181016-lcy-amd64/build M=/var/lib/dkms/r8168/8.043.02/build...(bad exit status: 2)</div><div class="line">Error! Bad return status for module build on kernel: 4.14.77-20181016-lcy-amd64 (x86_64)</div><div class="line">Consult /var/lib/dkms/r8168/8.043.02/build/make.log for more information.</div><div class="line"></div><div class="line"># 查看dkms编译为什么出错.</div><div class="line">~$ cat /var/lib/dkms/r8168/8.043.02/build/make.log</div><div class="line">DKMS make.log for r8168-8.043.02 for kernel 4.14.77-20181016-lcy-amd64 (x86_64)</div><div class="line">Sat Dec 29 16:31:32 CST 2018</div><div class="line">make: Entering directory &apos;/usr/src/linux-4.14.77&apos;</div><div class="line">  AR      /var/lib/dkms/r8168/8.043.02/build/built-in.o</div><div class="line">  CC [M]  /var/lib/dkms/r8168/8.043.02/build/r8168_n.o</div><div class="line">  CC [M]  /var/lib/dkms/r8168/8.043.02/build/r8168_asf.o</div><div class="line">  CC [M]  /var/lib/dkms/r8168/8.043.02/build/rtl_eeprom.o</div><div class="line">  CC [M]  /var/lib/dkms/r8168/8.043.02/build/rtltool.o</div><div class="line">/var/lib/dkms/r8168/8.043.02/build/r8168_n.c: In function ‘rtl8168_rx_interrupt’:</div><div class="line">/var/lib/dkms/r8168/8.043.02/build/r8168_n.c:25418:28: error: ‘struct net_device’ has no member named ‘last_rx’</div><div class="line">                         dev-&gt;last_rx = jiffies;</div><div class="line">                            ^~</div><div class="line">scripts/Makefile.build:328: recipe for target &apos;/var/lib/dkms/r8168/8.043.02/build/r8168_n.o&apos; failed</div><div class="line">make[1]: *** [/var/lib/dkms/r8168/8.043.02/build/r8168_n.o] Error 1</div><div class="line">Makefile:1527: recipe for target &apos;_module_/var/lib/dkms/r8168/8.043.02/build&apos; failed</div><div class="line">make: *** [_module_/var/lib/dkms/r8168/8.043.02/build] Error 2</div><div class="line">make: Leaving directory &apos;/usr/src/linux-4.14.77&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>删除原有的系统包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get purge r8168-dkms</div><div class="line">~$ sudo sh -c ‘echo blacklist r8169 &gt;&gt; /etc/modprobe.d/blacklist.conf’</div></pre></td></tr></table></figure>
+<ul>
+<li>从<a href="https://github.com/fintecheando/r8168" target="_blank" rel="external">https://github.com/fintecheando/r8168</a>下载驱动.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">~$ git clone https://github.com/fintecheando/r8168</div><div class="line">~$ cd r8168</div><div class="line">~$ sudo ./autorun.sh</div><div class="line"># 查看内核参数</div><div class="line">~$ lsmod | grep r8168</div><div class="line">r8168                 520192  0</div><div class="line"></div><div class="line"># 查看网卡参数</div><div class="line">~$ ethtool -i eth0</div><div class="line">driver: r8168</div><div class="line">version: 8.045.08-NAPI</div><div class="line">firmware-version:</div><div class="line">expansion-rom-version:</div><div class="line">bus-info: 0000:02:00.0</div><div class="line">supports-statistics: yes</div><div class="line">supports-test: no</div><div class="line">supports-eeprom-access: no</div><div class="line">supports-register-dump: yes</div><div class="line">supports-priv-flags: no</div></pre></td></tr></table></figure>
+<h1 id="使用-hostapd-配置-WIFI-热点"><a href="#使用-hostapd-配置-WIFI-热点" class="headerlink" title="使用 hostapd 配置 WIFI 热点"></a>使用 hostapd 配置 WIFI 热点</h1><ul>
+<li><a href="http://pisarenko.net/blog/2015/02/01/beginners-guide-to-802-dot-11ac-setup/" target="_blank" rel="external">Beginners guide to a custom 802.11ac setup</a></li>
+<li><a href="https://wiki.gentoo.org/wiki/Hostapd" target="_blank" rel="external">Hostapd</a></li>
+</ul>
+<h2 id="查看网卡配置"><a href="#查看网卡配置" class="headerlink" title="查看网卡配置"></a>查看网卡配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">~$ iw list | grep &quot;Supported interface modes&quot; -A 8</div><div class="line">        Supported interface modes:</div><div class="line">                 * IBSS</div><div class="line">                 * managed</div><div class="line">                 * AP</div><div class="line">                 * monitor</div><div class="line">                 * P2P-client</div><div class="line">                 * P2P-GO</div><div class="line">        Band 1:</div><div class="line">                Capabilities: 0x1862</div><div class="line">~$ iw reg get</div><div class="line">global</div><div class="line">country 00: DFS-UNSET</div><div class="line">        (2402 - 2472 @ 40), (N/A, 20), (N/A)</div><div class="line">        (2457 - 2482 @ 20), (N/A, 20), (N/A), AUTO-BW, NO-IR</div><div class="line">        (2474 - 2494 @ 20), (N/A, 20), (N/A), NO-OFDM, NO-IR</div><div class="line">        (5170 - 5250 @ 80), (N/A, 20), (N/A), AUTO-BW, NO-IR</div><div class="line">        (5250 - 5330 @ 80), (N/A, 20), (0 ms), DFS, AUTO-BW, NO-IR</div><div class="line">        (5490 - 5730 @ 160), (N/A, 20), (0 ms), DFS, NO-IR</div><div class="line">        (5735 - 5835 @ 80), (N/A, 20), (N/A), NO-IR</div><div class="line">        (57240 - 63720 @ 2160), (N/A, 0), (N/A)</div></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install hostapd</div><div class="line">~$ cp /usr/share/doc/hostapd/examples/hostapd.config.gz /etc/hostapd/</div><div class="line">~$ gzip <span class="_">-d</span> /etc/hostapd/hostapd.conf</div></pre></td></tr></table></figure>
+<h2 id="调试配置文件错误"><a href="#调试配置文件错误" class="headerlink" title="调试配置文件错误"></a>调试配置文件错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置文件错误</span></div><div class="line">~$ hostapd /etc/hostapd/hostapd.conf</div><div class="line">Configuration file: /etc/hostapd/hostapd.conf</div><div class="line">Cannot <span class="built_in">enable</span> IEEE 802.11d without setting the country_code</div><div class="line">2 errors found <span class="keyword">in</span> configuration file <span class="string">'/etc/hostapd/hostapd.conf'</span></div><div class="line">Failed to <span class="built_in">set</span> up interface with /etc/hostapd/hostapd.conf</div><div class="line">Failed to initialize interface</div><div class="line"></div><div class="line"><span class="comment"># 缺少rfkill模块支持.</span></div><div class="line">~$ sudo hostapd -dd /etc/hostapd/hostapd.conf</div><div class="line">random: Trying to <span class="built_in">read</span> entropy from /dev/random</div><div class="line">Configuration file: /etc/hostapd/hostapd.conf</div><div class="line">ctrl_interface_group=0</div><div class="line">rfkill: Cannot open RFKILL control device</div><div class="line">nl80211: RFKILL status not available</div><div class="line"></div><div class="line"><span class="comment"># 测试wpa_support</span></div><div class="line">~$ sudo cp /usr/share/doc/wpasupplicant/examples/wpa_supplicant.conf.gz /etc/wpa_supplicant/</div><div class="line">~$ wpa_supplicant -B -i wlan0 -D wext -c /etc/wpa_supplicant/wpa_supplicant.conf</div></pre></td></tr></table></figure>
+<h2 id="5G-配置实例"><a href="#5G-配置实例" class="headerlink" title="5G 配置实例"></a>5G 配置实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">~$ grep -v -e &apos;^#&apos; -e &apos;^$&apos; /etc/hostapd/hostapd.conf</div><div class="line">interface=wlan0 # the interface used by the AP</div><div class="line">logger_syslog=0</div><div class="line">logger_syslog_level=1</div><div class="line">logger_stdout=0</div><div class="line">logger_stdout_level=1</div><div class="line">ctrl_interface=/var/run/hostapd</div><div class="line">ctrl_interface_group=0</div><div class="line">ssid=lcy</div><div class="line">country_code=US</div><div class="line">ieee80211d=1</div><div class="line">#ieee80211n=1          # 802.11n support 这一个选项有很多设备不支持,可能造成无法启动.</div><div class="line">hw_mode=a   # a simply means 5GHz</div><div class="line">channel=40  # 第40号信道</div><div class="line">beacon_int=100</div><div class="line">dtim_period=2</div><div class="line">max_num_sta=255</div><div class="line">macaddr_acl=0</div><div class="line">auth_algs=1</div><div class="line">ignore_broadcast_ssid=0</div><div class="line">wmm_enabled=1   # QoS support</div><div class="line">wmm_ac_bk_cwmin=4</div><div class="line">wmm_ac_bk_cwmax=10</div><div class="line">wmm_ac_bk_aifs=7</div><div class="line">wmm_ac_bk_txop_limit=0</div><div class="line">wmm_ac_bk_acm=0</div><div class="line">wmm_ac_be_aifs=3</div><div class="line">wmm_ac_be_cwmin=4</div><div class="line">wmm_ac_be_cwmax=10</div><div class="line">wmm_ac_be_txop_limit=0</div><div class="line">wmm_ac_be_acm=0</div><div class="line">wmm_ac_vi_aifs=2</div><div class="line">wmm_ac_vi_cwmin=3</div><div class="line">wmm_ac_vi_cwmax=4</div><div class="line">wmm_ac_vi_txop_limit=94</div><div class="line">wmm_ac_vi_acm=0</div><div class="line">wmm_ac_vo_aifs=2</div><div class="line">wmm_ac_vo_cwmin=2</div><div class="line">wmm_ac_vo_cwmax=3</div><div class="line">wmm_ac_vo_txop_limit=47</div><div class="line">wmm_ac_vo_acm=0</div><div class="line">ieee80211ac=1   # 802.11ac support</div><div class="line">vht_capab=[SHORT-GI-80][SHORT-GI-160][[VHT160-80PLUS80]][MU-BEAMFORMER][MU-BEAMFORMEE][SU-BEAMFORMER][SU-BEAMFORMEE]</div><div class="line">require_vht=0</div><div class="line">vht_oper_centr_freq_seg0_idx=40  #对应前面第40号信道.</div><div class="line">eap_server=0</div><div class="line">wpa=2   # WPA2 only</div><div class="line">wpa_psk_file=/etc/hostapd/hostapd.wpa_psk   # 这里可是密钥配置文件,要把属性改成400</div><div class="line">wpa_key_mgmt=WPA-PSK</div><div class="line">rsn_pairwise=CCMP</div></pre></td></tr></table></figure>
+<h2 id="配置主机路由"><a href="#配置主机路由" class="headerlink" title="配置主机路由"></a>配置主机路由</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># echo "net.ipv4.ip_forward=1" &gt; /etc/sysconf.ctl  # 这一行很重要.</span></div><div class="line">root<span class="comment"># iptables -t nat -I  POSTROUTING -j MASQUERADE  # 配置主机的NAT路由.确定是在第一条规则.</span></div></pre></td></tr></table></figure>
 <hr>
 <h1 id="Linux-下是使用蓝牙串口通信"><a href="#Linux-下是使用蓝牙串口通信" class="headerlink" title="Linux 下是使用蓝牙串口通信"></a>Linux 下是使用蓝牙串口通信</h1><ul>
 <li>如果是自编译内核要确保<code>RFCOMM protocol support (BT_RFCOMM)</code>是编译成模块的，而不能直接编入内核或者不编。</li>
@@ -1182,6 +1453,14 @@
 </li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/etc/systemd/sleep.conf.d/hibernatemode.conf</div><div class="line"></div><div class="line">[Sleep]</div><div class="line">HibernateMode=shutdown</div></pre></td></tr></table></figure>
+<ul>
+<li>如果不能使用界的<code>System-&gt;Shut Down-&gt;Hibernate</code>的进行休眠,但是可以直接使用<code>sudo pm-hibernate</code>.需要重装下面的包试试.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ apt-get install --reinstall pm-utils mate-power-manager-common hibernate upower</div></pre></td></tr></table></figure>
+<ul>
+<li>如果休眠后恢复系统不能使用<code>usb wifi</code>(rtl8812au) 网卡.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">~$ sudo  lshw -C network | grep <span class="string">"wlan"</span> -A +3 | grep <span class="string">"driver"</span></div><div class="line">       configuration: broadcast=yes driver=rtl8812au ip=192.168.5.190 multicast=yes wireless=IEEE 802.11</div><div class="line"><span class="comment"># 创建如下文件</span></div><div class="line">~$ sudo cat /etc/pm/config.d/unload_modules</div><div class="line">SUSPEND_MODULES=<span class="string">"<span class="variable">$SUSPEND_MODULES</span> rtl8812au"</span></div><div class="line"><span class="comment"># 创建成功,要加上运行权限.</span></div><div class="line">~$ sudo cat /etc/pm/sleep.d/10_resume_wifi</div><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> <span class="keyword">in</span></div><div class="line">  resume|thaw)</div><div class="line">    nmcli r wifi off &amp;&amp; nmcli r wifi on;</div><div class="line"><span class="keyword">esac</span></div></pre></td></tr></table></figure>
 <h1 id="程序找不到链接库位置"><a href="#程序找不到链接库位置" class="headerlink" title="程序找不到链接库位置"></a>程序找不到链接库位置</h1><ul>
 <li>Python ImportError,这种错误是因为在<code>PYTHONPATH</code>路径中找不相就的模块.</li>
 </ul>
@@ -1194,7 +1473,27 @@
 <li>上面的错误有两种方法可以解决.１,把<code>/usr/local/lib</code>加入到<code>/etc/ld.so.conf</code>里,再执行一次<code>ldconfig</code>就可以链接这个库了.2,使用<code>LD_LIBRARY_PATH</code>环境变量指位置,这样运行:</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">~$ LD_LIBRARY_PATH=/usr/<span class="built_in">local</span>/lib  rtl_tcp</div><div class="line">Found 1 device(s).</div><div class="line">Found Rafael Micro R820T tuner</div><div class="line">Using ezcap USB 2.0 DVB-T/DAB/FM dongle</div><div class="line">Tuned to 100000000 Hz.</div><div class="line">listening...</div><div class="line">Use the device argument <span class="string">'rtl_tcp=127.0.0.1:1234'</span> <span class="keyword">in</span> OsmoSDR (gr-osmosdr) <span class="built_in">source</span></div><div class="line">to receive samples <span class="keyword">in</span> GRC and control rtl_tcp parameters (frequency, gain, ...).</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line"></div><div class="line"># 谢谢打赏支持</div><div class="line"></div><div class="line">- 您的打赏将会鼓励我写出更多的博客。</div><div class="line">- 微信二维码:</div><div class="line"></div><div class="line">&lt;img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/&gt;</div></pre></td></tr></table></figure>
+<h1 id="在内核树里编译单个模块"><a href="#在内核树里编译单个模块" class="headerlink" title="在内核树里编译单个模块"></a>在内核树里编译单个模块</h1><ul>
+<li>比如,上面缺少一个<code>rfkill</code>的模块,现在可以在不重编整个内核的前提下,可以单独编译这个内核.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ cd /lib/modules/$(uname -r)/build/net/rfkill</div><div class="line">~$ sudo make -C /lib/modules/$(uname -r)/build M=`pwd` modules   # 要先在.config 把这一个模块选中为`编译`状态.</div><div class="line">make: Entering directory &apos;/usr/src/linux-4.14.77&apos;</div><div class="line">  CC [M]  /lib/modules/4.14.77-20181016-lcy-amd64/build/net/rfkill/core.o</div><div class="line">  LD [M]  /lib/modules/4.14.77-20181016-lcy-amd64/build/net/rfkill/rfkill.o</div><div class="line">  Building modules, stage 2.</div><div class="line">  MODPOST 1 modules</div><div class="line">  CC      /lib/modules/4.14.77-20181016-lcy-amd64/build/net/rfkill/rfkill.mod.o</div><div class="line">  LD [M]  /lib/modules/4.14.77-20181016-lcy-amd64/build/net/rfkill/rfkill.ko</div><div class="line">make: Leaving directory &apos;/usr/src/linux-4.14.77&apos;</div><div class="line">~$ sudo mkdir /lib/modules/$(uname -r)/kernel/net/rfkill</div><div class="line">~$ sudo cp rfkill.ko /lib/modules/$(uname -r)/kernel/net/rfkill/</div><div class="line">~$ sudo depmod -a   # 计算依赖关系</div><div class="line">~$ modprobe -v rfkill  # 加载模块.</div></pre></td></tr></table></figure>
+<h1 id="创建大于-2TB-的分区"><a href="#创建大于-2TB-的分区" class="headerlink" title="创建大于 2TB 的分区"></a>创建大于 2TB 的分区</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">~<span class="variable">$parted</span> /dev/sda</div><div class="line">WARNING: You are not superuser.  Watch out <span class="keyword">for</span> permissions.</div><div class="line">GNU Parted 3.2</div><div class="line">Using /dev/sda</div><div class="line">Welcome to GNU Parted! Type <span class="string">'help'</span> to view a list of commands.</div><div class="line">(parted) <span class="built_in">print</span></div><div class="line">Model: ATA ST2000DM008-2FR1 (scsi)</div><div class="line">Disk /dev/sda: 2000GB</div><div class="line">Sector size (logical/physical): 512B/4096B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start  End  Size  File system  Name  Flags</div><div class="line">(parted) mklabel gpt</div><div class="line">(parted) <span class="built_in">print</span></div><div class="line">Model: ATA ST2000DM008-2FR1 (scsi)</div><div class="line">Disk /dev/sda: 2000GB</div><div class="line">Sector size (logical/physical): 512B/4096B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start  End  Size  File system  Name  Flags</div><div class="line"></div><div class="line">(parted) mkpart primary 0GB 2000GB</div><div class="line"></div><div class="line">(parted) <span class="built_in">print</span></div><div class="line">Model: ATA ST2000DM008-2FR1 (scsi)</div><div class="line">Disk /dev/sda: 2000GB</div><div class="line">Sector size (logical/physical): 512B/4096B</div><div class="line">Partition Table: gpt</div><div class="line">Disk Flags:</div><div class="line"></div><div class="line">Number  Start   End     Size    File system  Name     Flags</div><div class="line"> 1      1049kB  2000GB  2000GB               primary</div><div class="line">(parted) quit</div><div class="line">~$ sudo fdisk <span class="_">-l</span> /dev/sda</div><div class="line">Disk /dev/sda: 1.8 TiB, 2000398934016 bytes, 3907029168 sectors</div><div class="line">Units: sectors of 1 * 512 = 512 bytes</div><div class="line">Sector size (logical/physical): 512 bytes / 4096 bytes</div><div class="line">I/O size (minimum/optimal): 4096 bytes / 4096 bytes</div><div class="line">Disklabel <span class="built_in">type</span>: gpt</div><div class="line">Disk identifier: 224F4012-9C49-4331-87F5-77B5CF6C28F5</div><div class="line"></div><div class="line">Device     Start        End    Sectors  Size Type</div><div class="line">/dev/sda1   2048 3907028991 3907026944  1.8T Linux filesystem</div><div class="line"></div><div class="line"></div><div class="line">~$ sudo mkfs.ext4 /dev/sda1</div><div class="line">mke2fs 1.43.4 (31-Jan-2017)</div><div class="line">/dev/sda1 contains a ext3 file system</div><div class="line">    created on Thu Aug 30 09:33:27 2018</div><div class="line">Proceed anyway? (y,N) y</div><div class="line"></div><div class="line">~$ sudo blkid</div><div class="line">/dev/sda1: UUID=<span class="string">"3d6c0885-cacf-41f8-911d-cdf4bd666a49"</span> TYPE=<span class="string">"ext4"</span> PARTLABEL=<span class="string">"primary"</span> PARTUUID=<span class="string">"daeb01c4-ceb5-4227-80d8-d70bfc266317"</span></div><div class="line">~$ cat /etc/fstab</div><div class="line"><span class="comment"># /etc/fstab: static file system information.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Use 'blkid' to print the universally unique identifier for a</span></div><div class="line"><span class="comment"># device; this may be used with UUID= as a more robust way to name devices</span></div><div class="line"><span class="comment"># that works even if disks are added and removed. See fstab(5).</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span></div><div class="line">UUID=3d6c0885-cacf-41f8-911d-cdf4bd666a49 /data       ext4    defaults  0   2</div></pre></td></tr></table></figure>
+<h1 id="Linux-下修复-屏蔽-磁盘坏块"><a href="#Linux-下修复-屏蔽-磁盘坏块" class="headerlink" title="Linux 下修复(屏蔽)磁盘坏块"></a>Linux 下修复(屏蔽)磁盘坏块</h1><ul>
+<li><a href="https://www.tecmint.com/check-linux-hard-disk-bad-sectors-bad-blocks/" target="_blank" rel="external">How to Check Bad Sectors or Bad Blocks on Hard Disk in Linux</a></li>
+<li><a href="https://mintguide.org/system/283-how-to-check-and-fix-the-disk-for-errors-and-bad-sectors-in-linux-mint.html" target="_blank" rel="external">How to check and fix the disk for errors and bad sectors </a></li>
+<li>查找坏块</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ sudo badlocks -v /dev/sdaX &gt; badsectors.txt</div><div class="line"><span class="comment"># 也可以使用Smartmontools</span></div><div class="line">~$ sudo  smartctl -H /dev/sdaX</div></pre></td></tr></table></figure>
+<ul>
+<li>修复</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">------------ Specifically <span class="keyword">for</span> ext2/ext3/ext4 file-systems ------------</div><div class="line">~$ sudo e2fsck <span class="_">-l</span> badsectors.txt /dev/sdaX</div><div class="line"></div><div class="line">OR</div><div class="line"></div><div class="line">------------ For other file-systems ------------</div><div class="line">~$ sudo fsck <span class="_">-l</span> badsectors.txt /dev/sdaX</div></pre></td></tr></table></figure>
+<h1 id="防止-etc-resolve-conf-被-DHCP-自动修改"><a href="#防止-etc-resolve-conf-被-DHCP-自动修改" class="headerlink" title="防止/etc/resolve.conf 被 DHCP 自动修改"></a>防止/etc/resolve.conf 被 DHCP 自动修改</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~# cat /etc/NetworkManager/NetworkManager.conf</div><div class="line">[main]</div><div class="line">plugins=ifupdown,keyfile</div><div class="line">dns=none</div><div class="line"></div><div class="line">[ifupdown]</div><div class="line">managed=true</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"><br>```</p>
 
           
         
@@ -2353,165 +2652,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/about/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/20/about/" itemprop="url">
-                  about
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-20T00:00:00+08:00">2016-05-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-05-22 22:27:57" itemprop="dateModified" datetime="2017-05-22T22:27:57+08:00">2017-05-22</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎访问我的博客,本博客是基于Hexo搭建.希望在此认识更多的朋友,相互学习与交流.<br><img src="/imgs/wx_shoukuan.png" width="40%" height="40%" align="center/"></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2558,7 +2703,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2646,7 +2791,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

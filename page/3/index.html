@@ -955,6 +955,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
+                  常见编译问题,不定期更新.
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
+<h4 id="编译-gcc-texi-出错如下"><a href="#编译-gcc-texi-出错如下" class="headerlink" title="编译 gcc texi 出错如下:"></a>编译 gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
+<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
+<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
+<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li>Linux 下要定义成</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
+<ul>
+<li>MinGW 下要定义成</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/使用的一些常见问题-不定期更新/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1304,196 +1494,6 @@
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"><br>```</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/26/常见编译问题-不定期更新/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/08/26/常见编译问题-不定期更新/" itemprop="url">
-                  常见编译问题,不定期更新.
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-08-26 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-26T00:00:00+08:00">2016-08-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-12-25 22:27:00" itemprop="dateModified" datetime="2017-12-25T22:27:00+08:00">2017-12-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="GCC-编译出错"><a href="#GCC-编译出错" class="headerlink" title="GCC 编译出错"></a>GCC 编译出错</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In file included from /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/cp/except.c:1008:0:</div><div class="line">cfns.gperf: In <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’:</div><div class="line">cfns.gperf:101:1: error: ‘const char* libc_name_p(const char*, unsigned int)’ redeclared inline with ‘gnu_inline’ attribute</div><div class="line">cfns.gperf:26:14: note: ‘const char* libc_name_p(const char*, unsigned int)’ previously declared here</div><div class="line">cfns.gperf: At global scope:</div><div class="line">cfns.gperf:26:14: warning: inline <span class="keyword">function</span> ‘const char* libc_name_p(const char*, unsigned int)’ used but never defined</div><div class="line">Makefile:1059: recipe <span class="keyword">for</span> target <span class="string">'cp/except.o'</span> failed</div><div class="line">make[3]: *** [cp/except.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li>添加条件宏定义到这两个文件中<strong>gcc-4.8.5/gcc/cp/cfns.{gperf,h} </strong></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">19	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   20	__inline</div><div class="line">   21	<span class="comment">#endif</span></div><div class="line">   22	static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</div><div class="line">   23	<span class="comment">#ifdef __GNUC__</span></div><div class="line">   24	__inline</div><div class="line">   25	<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></div><div class="line">   26	__attribute__ ((__gnu_inline__))</div><div class="line">   27	<span class="comment">#endif</span></div><div class="line">   28	<span class="comment">#endif</span></div><div class="line">   29	const char * libc_name_p (const char *, unsigned int);</div></pre></td></tr></table></figure>
-<h4 id="编译-gcc-texi-出错如下"><a href="#编译-gcc-texi-出错如下" class="headerlink" title="编译 gcc texi 出错如下:"></a>编译 gcc texi 出错如下:</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:88: warning: @tex should only appear at the beginning of a line</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end tex<span class="string">'</span></div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end multitable'</div><div class="line">/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5/gcc/doc/gcc.texi:208: no matching `@end titlepage<span class="string">'</span></div><div class="line">Makefile:4353: recipe for target 'doc/gcc.info<span class="string">' failed</span></div><div class="line">make[3]: *** [doc/gcc.info] Error 1</div><div class="line">make[3]: Leaving directory '/home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc<span class="string">'</span></div><div class="line">Makefile:3889: recipe for target 'all-gcc<span class="string">' failed</span></div></pre></td></tr></table></figure>
-<h4 id="处理方法-1"><a href="#处理方法-1" class="headerlink" title="处理方法"></a>处理方法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cd</span> /home/michael/3TB-DISK/Embedded-System/NuttX/buildroot/toolchain_build_arm_nofpu/gcc-4.8.5-build/gcc</div><div class="line">$ vi Makefile</div><div class="line">注释 doc: 这一行,跳过编译doc相关的东西</div></pre></td></tr></table></figure>
-<h3 id="C-函数定义错误"><a href="#C-函数定义错误" class="headerlink" title="C++ 函数定义错误"></a>C++ 函数定义错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">libxx_new.cxx:66:40: error: &apos;operator new&apos; takes type &apos;size_t&apos; (&apos;unsigned int&apos;) as first parameter [-fpermissive]</div><div class="line"> void *operator new(unsigned long nbytes)</div><div class="line">                                        ^</div><div class="line">Makefile:111: recipe for target &apos;libxx_new.o&apos; failed</div><div class="line">make[1]: *** [libxx_new.o] Error 1</div></pre></td></tr></table></figure>
-<h4 id="处理方法-2"><a href="#处理方法-2" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
-<li>Linux 下要定义成</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *operator new(size_t nbytes)</div></pre></td></tr></table></figure>
-<ul>
-<li>MinGW 下要定义成</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef CONFIG_CXX_NEWLONG</div><div class="line">void *operator new(unsigned long nbytes)</div><div class="line">#else</div><div class="line">void *operator new(unsigned int nbytes)</div><div class="line">#endif</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
           
         
@@ -2188,226 +2188,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
-                  debian 安装mate桌面与设置多屏
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.</p>
-</li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>:</p>
-</li>
-</ul>
-<h1 id="安装-MATE-相关的软件包"><a href="#安装-MATE-相关的软件包" class="headerlink" title="安装 MATE 相关的软件包:"></a>安装 MATE 相关的软件包:</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64</span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64</div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common</div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common</div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse</div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager</div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager</div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor</div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common</div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
-<ul>
-<li>安装 FVWM 相关软件包:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
-<h1 id="安装-Lightdm"><a href="#安装-Lightdm" class="headerlink" title="安装 Lightdm"></a>安装 Lightdm</h1><ul>
-<li><p>LightDM 是一个跨桌面环境的显示管理器，其目的是为 X 窗口系统提供一个标准的显示管理器。它的特点有:</p>
-</li>
-<li><p>代码轻量</p>
-</li>
-<li>符合标准 (如 PAM, logind, 等)</li>
-<li>为用户提供一个良好的界面。</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
-<ul>
-<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
-<ul>
-<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
-<h1 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h1><ul>
-<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
-<li>获取屏幕的信息如下图所示.</li>
-</ul>
-<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
-<ul>
-<li>通过命令行设置.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
-<ul>
-<li>最后效果图如下.</li>
-</ul>
-<p><img src="/imgs/xrandr_example.png" alt=""></p>
-<ul>
-<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个 HDMI 的显示的图.</li>
-</ul>
-<p><img src="/imgs/arandr.png" alt=""></p>
-<hr>
-<h2 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h2><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2611,6 +2391,226 @@
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
 <li>您的打赏将会鼓励我写出更多的博客。</li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/29/安装mate桌面与设置多屏/" itemprop="url">
+                  debian 安装mate桌面与设置多屏
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.</p>
+</li>
+<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="external">GitHub</a>:</p>
+</li>
+</ul>
+<h1 id="安装-MATE-相关的软件包"><a href="#安装-MATE-相关的软件包" class="headerlink" title="安装 MATE 相关的软件包:"></a>安装 MATE 相关的软件包:</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></div><div class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64</span></div><div class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64</div><div class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common</div><div class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common</div><div class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse</div><div class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager</div><div class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager</div><div class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor</div><div class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common</div><div class="line">mate-themes mate-utils mate-utils-common</div></pre></td></tr></table></figure>
+<ul>
+<li>安装 FVWM 相关软件包:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></div></pre></td></tr></table></figure>
+<h1 id="安装-Lightdm"><a href="#安装-Lightdm" class="headerlink" title="安装 Lightdm"></a>安装 Lightdm</h1><ul>
+<li><p>LightDM 是一个跨桌面环境的显示管理器，其目的是为 X 窗口系统提供一个标准的显示管理器。它的特点有:</p>
+</li>
+<li><p>代码轻量</p>
+</li>
+<li>符合标准 (如 PAM, logind, 等)</li>
+<li>为用户提供一个良好的界面。</li>
+<li>跨桌面（用户可以使用各种各样的桌面环境）.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></div></pre></td></tr></table></figure>
+<ul>
+<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></div><div class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</div><div class="line"></div><div class="line">  Selection    Path                      Priority   Status</div><div class="line">  ------------------------------------------------------------</div><div class="line">    0            /usr/bin/openbox-session   40        auto mode</div><div class="line">  * 1            /usr/bin/mate-session      30        manual mode</div><div class="line">    2            /usr/bin/openbox-session   40        manual mode</div></pre></td></tr></table></figure>
+<ul>
+<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></div><div class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</div><div class="line"></div><div class="line">Selection    Path                   Priority   Status</div><div class="line"> ------------------------------------------------------------</div><div class="line">* 0            /usr/bin/fvwm2          90        auto mode</div><div class="line">  1            /usr/bin/awesome        20        manual mode</div><div class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</div></pre></td></tr></table></figure>
+<h1 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h1><ul>
+<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
+<li>获取屏幕的信息如下图所示.</li>
+</ul>
+<p><img src="/imgs/xrandr_cmd.png" alt=""></p>
+<ul>
+<li>通过命令行设置.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</div></pre></td></tr></table></figure>
+<ul>
+<li>最后效果图如下.</li>
+</ul>
+<p><img src="/imgs/xrandr_example.png" alt=""></p>
+<ul>
+<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个 HDMI 的显示的图.</li>
+</ul>
+<p><img src="/imgs/arandr.png" alt=""></p>
+<hr>
+<h2 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h2><ul>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>

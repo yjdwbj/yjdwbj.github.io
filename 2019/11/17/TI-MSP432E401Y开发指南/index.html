@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="参考链接:
+
+TI 资源
+MSP432E401Y MCU LaunchPad 中文页面
+SimpleLink SDK Wi-Fi Plugin Users Guide
+SimpleLink Wi-Fi solutions
+CC31xx_&amp;amp;_CC32XX wiki
+
+TI Cloud Tools
+
+
+
+概述
+本篇基本都是参照 TI 官网的页面教程去实践学习的。所以一打开SimpleLink">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TI-MSP432E401Y开发指南">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/TI-MSP432E401Y开发指南/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="参考链接:
+
+TI 资源
+MSP432E401Y MCU LaunchPad 中文页面
+SimpleLink SDK Wi-Fi Plugin Users Guide
+SimpleLink Wi-Fi solutions
+CC31xx_&amp;amp;_CC32XX wiki
+
+TI Cloud Tools
+
+
+
+概述
+本篇基本都是参照 TI 官网的页面教程去实践学习的。所以一打开SimpleLink">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/msp432e401y_pinout.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/tre-example-import.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/msp-432-clount-device-detected.png">
+<meta property="og:image" content="http://yoursite.com/img/ti/CCS Cloud - default.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/exp432-E401Y UniFlash.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/ccs920-install.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/ccs920-resource-expolrer.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/ccsv9-res-settings.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/ccs920-tre-plugin-install.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/ccs920-prj-build-var-settings.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/ccsv9-syscfg.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2019-11-27T14:32:44.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TI-MSP432E401Y开发指南">
+<meta name="twitter:description" content="参考链接:
+
+TI 资源
+MSP432E401Y MCU LaunchPad 中文页面
+SimpleLink SDK Wi-Fi Plugin Users Guide
+SimpleLink Wi-Fi solutions
+CC31xx_&amp;amp;_CC32XX wiki
+
+TI Cloud Tools
+
+
+
+概述
+本篇基本都是参照 TI 官网的页面教程去实践学习的。所以一打开SimpleLink">
+<meta name="twitter:image" content="http://yoursite.com/imgs/ti/msp432e401y_pinout.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/TI-MSP432E401Y开发指南/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>TI-MSP432E401Y开发指南 | Sunrise 博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-78826582-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-78826582-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise 博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/TI-MSP432E401Y开发指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TI-MSP432E401Y开发指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-17 14:02:48" itemprop="dateCreated datePublished" datetime="2019-11-17T14:02:48+08:00">2019-11-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-27 22:32:44" itemprop="dateModified" datetime="2019-11-27T22:32:44+08:00">2019-11-27</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>参考链接:</p>
+<ul>
+<li><a href="http://dev.ti.com/tirex/explore" target="_blank" rel="external">TI 资源</a></li>
+<li><a href="http://www.ti.com.cn/tool/cn/MSP-EXP432E401Y" target="_blank" rel="external">MSP432E401Y MCU LaunchPad 中文页面</a></li>
+<li><a href="http://software-dl.ti.com/simplelink/esd/plugins/simplelink_sdk_wifi_plugin/2_40_00_22/exports/docs/users_guide_simplelink_sdk_wifi_plugin.html" target="_blank" rel="external">SimpleLink SDK Wi-Fi Plugin Users Guide</a></li>
+<li><a href="http://www.ti.com/wireless-connectivity/simplelink-solutions/wi-fi/overview/overview.html" target="_blank" rel="external">SimpleLink Wi-Fi solutions</a></li>
+<li><a href="http://processors.wiki.ti.com/index.php/CC31xx_&amp;_CC32xx" target="_blank" rel="external">CC31xx_&amp;_CC32XX wiki</a></li>
+<li><a href="https://www.exosite.io/" target="_blank" rel="external"></a></li>
+<li><a href="https://dev.ti.com/" target="_blank" rel="external">TI Cloud Tools</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li>本篇基本都是参照 TI 官网的页面教程去实践学习的。所以一打开<a href="http://www.ti.com.cn/tool/cn/MSP-EXP432E401Y" target="_blank" rel="external">SimpleLink™ 以太网 MSP432E401Y MCU LaunchPad™ 开发套件</a>页面，就会看到一个描述，下面很简单明确的指明开始用 LaunchPad 的步骤:<ul>
+<li>第 1 步：购买 <a href="https://www.ti.com/store/ti/en/p/product/?p=MSP-EXP432E401Y" target="_blank" rel="external">MSP-EXP432E401Y LaunchPad</a></li>
+<li>第 2 步：下载 <a href="http://www.ti.com.cn/tool/cn/simplelink-msp432-sdk" target="_blank" rel="external">MSP432 SDK</a></li>
+<li>第 3 步：<a href="http://dev.ti.com/tirex/#/?link=Software%2FSimpleLink%20MSP432E4%20SDK%2FSimpleLink%20Academy%2FLaunchPad%20Out-Of-Box%2FMSP-EXP432E401Y%20LaunchPad%20Out-Of-Box" target="_blank" rel="external">完成开箱即用</a>体验并接受 <a href="http://dev.ti.com/tirex/#/?link=Software%2FSimpleLink%20MSP432E4%20SDK%2FSimpleLink%20Academy" target="_blank" rel="external">SimpleLink Academy 培训</a></li>
+<li>SimpleLink™ 以太网 MSP432E401Y 微控制器 LaunchPad™ 开发套件是针对基于 SimpleLink™ Arm® Cortex®-M4F 的以太网 MCU 的直观评估平台。以太网 LaunchPad 开发套件通过集成以太网 MAC 和一系列有线通信接口（包括 USB-OTG、CAN、Quad-SPI (QSSI)、I2C、SPI、UART 以及其他串行协议）将重点放在 MSP432E401Y MCU 上。MSP432E4 MCU 采用了 120MHz Arm Cortex-M4F CPU、1MB 闪存、256kB SRAM 和先进的加密加速器，为开发人员提供大量的处理资源，从而实现有线和无线连接栈及处理算法，开发稳健的以太网解决方案。开发人员可利用大量 SimpleLink 无线 MCU BoosterPack™ 插件模块和 SimpleLink 软件 SDK 插件，向应用无缝添加无线连接和云集成，从而构建支持物联网且可互操作的智能工业网关应用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="开箱即用体验"><a href="#开箱即用体验" class="headerlink" title="开箱即用体验"></a>开箱即用体验</h2><ul>
+<li>这里的原教程是在<a href="http://dev.ti.com/tirex/explore" target="_blank" rel="external">TI Resource Explorer</a>里面，它的具体的路径是<code>Software--&gt; SimpleLink MSP432E4-SDK-3.30.00.22--&gt; SimpleLink Academy-3.30.01.00 --&gt; LaunchPad Out of Box Experience --&gt; MSP432E401Y LaunchPad Out of Box Experience</code></li>
+<li>这里开箱使用体验是在<a href="https://www.exosite.io/business/auth/login?redirectTo=%2F" target="_blank" rel="external">Exosite loT 云平台</a>进行的，所以要先在该平台上注册一个帐号。但是现在看来，还要付费才可以使用，所以就没有试用了。</li>
+<li><code>Pin</code>脚定义图：<br><img src="/imgs/ti/msp432e401y_pinout.png" alt="msp432e401y_pinout.png"></li>
+</ul>
+<h2 id="CC3120-BoosterPack-插件模块"><a href="#CC3120-BoosterPack-插件模块" class="headerlink" title="CC3120 BoosterPack 插件模块"></a>CC3120 BoosterPack 插件模块</h2><ul>
+<li><p>在<code>SimpleLink Academy/Overview</code>的页面里找到了这个<a href="http://dev.ti.com/tirex/#/?link=Software/SimpleLink%20SDK%20Plugins/Connectivity/SimpleLink%20SDK%20WiFi%20Plugin/SimpleLink%20Academy/LaunchPad%20Out%20of%20Box%20Experience/CC3120%20BoosterPack%20Out%20of%20Box%20Experience" target="_blank" rel="external">CC3120 BoosterPack 开箱体箱示例</a>链接，它的真实在路径是<a href="http://dev.ti.com/tirex/content/simplelink_academy_wifiplugin_2_40_00_17/modules/sdk_plugins/cc3120_boosterpack_oobe/cc3120_boosterpack_oobe.html" target="_blank" rel="external">CC3120 BoosterPack Out of Box Experience</a></p>
+</li>
+<li><p><a href="http://dev.ti.com/tirex/#/?link=Software%2FSimpleLink%20SDK%20Plugins%2FConnectivity%2FSimpleLink%20SDK%20WiFi%20Plugin%2FDocuments" target="_blank" rel="external">SimpleLink SDK Wi-Fi Plugin Documentation Overview</a>，这里选择的<code>TIREX</code>的绝对路径是<code>/Software/SimpleLink SDK Plugins/Connectivity/SimpleLinkSDKWiFiPlugin(2.40.00.22)/Examples/Development Tools/MSP432E401Y LaunchPad/Demos/ethernet_wifi_tcp_echo/</code>项目，还具体细分的不同操作系统，不同的工具平台：</p>
+<ul>
+<li>FreeRTOS<ul>
+<li>CCS Compiler</li>
+<li>GCC Compiler</li>
+<li>IAR Compiler</li>
+</ul>
+</li>
+<li>TI-RTOS<ul>
+<li>CCS Compiler</li>
+<li>GCC Compiler</li>
+<li>IAR Compiler</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果在网页中打开的上述工程，可以使用右角<code>Import</code>导入到<code>CCS Cloud</code>中，如果在桌面版的<code>CCS IDE</code>中的<code>Resource Explorer</code>上述工程可以直接导入到本地的<code>workerspace</code>目录里。<br><img src="/imgs/ti/tre-example-import.png" alt="tre-example-import.png"></li>
+</ul>
+<h1 id="TI-云工具平台"><a href="#TI-云工具平台" class="headerlink" title="TI 云工具平台"></a>TI 云工具平台</h1><ul>
+<li><p>通过浏览器打开<a href="https://dev.ti.com/" target="_blank" rel="external">https://dev.ti.com</a>会看到一个左边栏加中间一个九宫的格的工具列表。从上到下，从左到右，依次是<code>Resource Explorer,CCS Cloud,SysConfig,UniFlash,GUI Composer Gallery,BoosterPack Checker,PinMux,E2E Community</code>.<code>CCS Cloud</code>是一个网页版<code>CCS IDE</code>它可以从<code>Resource Explorer</code>导入示例工程，可以查看与编辑代码，但是不可以在线编译生成目标文件。<br><img src="/imgs/ti/msp-432-clount-device-detected.png" alt="msp-432-clount-device-detected.png"></p>
+</li>
+<li><p>CCS Cloud<br><img src="/img/ti/CCS Cloud - default.png" alt="CCS Cloud - default.png"></p>
+</li>
+<li><p>左侧边栏会提示安装<code>TI CLOUD AGENT</code>会提升使用体验。这里是使用 Firefox 浏览器，它会在浏览里安装<code>TICloudAgent Bridge</code>插件。如果是使用<code>Google Chrome</code>浏览器会提示无法安装浏览器插件，因为墙的原因。安装完插件还会提示<a href="https://dev.ti.com/ticloudagent/getInstaller?os=linux" target="_blank" rel="external">下载</a>安装<code>TI Cloud Agent Application</code>.安装完成<code>Agent</code>之后，刷新页面，侧边栏会提示安装一些必要的设备驱动，用于<code>Device detected</code>.如果它检测到支持的设备在线，会在侧边栏里显示设备的<code>ID号,Serial号</code>，以及相应的<code>Get Started!</code>导航链接，这里的连接<code>MSP-EXP432E401Y</code>会出现对应的<code>GUI Composer Gallery,Resource Expolrer,SimpleLink Acdemy</code>三个链接。</p>
+</li>
+<li>下面是使用在线版的 UniFlash.<br><img src="/imgs/ti/exp432-E401Y UniFlash.png" alt="exp432-E401Y UniFlash.png"><ul>
+<li>打开<code>Resource Expolrer --&gt; /Development/Kits and Boards/MSP432E401Y LaunchPad</code>会有该设备的详细描述，与《用户手册》等官方资料。</li>
+<li>打开<code>SimpleLink Acdemy --&gt; /Software/SimpleLink MSP432E4 SDK (3.30.00.22)/SimpleLink Academy (3.30.01.00)/Overview</code>会有进入最新的 SDK 的学院教程页面。</li>
+</ul>
+</li>
+</ul>
+<h1 id="桌面版IDE安装-CCSv9"><a href="#桌面版IDE安装-CCSv9" class="headerlink" title="桌面版IDE安装(CCSv9)"></a>桌面版<code>IDE</code>安装(CCSv9)</h1><ul>
+<li><a href="https://software-dl.ti.com/ccs/esd/documents/ccs_linux_host_support.html" target="_blank" rel="external">CCS 版本历史与支持列表</a></li>
+<li><a href="http://processors.wiki.ti.com/index.php/Category:CCS_UniFlash" target="_blank" rel="external">CCS_UniFlash</a></li>
+<li><a href="http://software-dl.ti.com/ccs/esd/uniflash/docs/v5_0/quick_start_guide/uniflash_quick_start_guide.html" target="_blank" rel="external">UniFlash 快速使用指南</a></li>
+<li><code>CCSTUDIO</code>其实也是在<code>Eclipse</code>平台上二次开发出来的，所以使用习惯都与原生<code>Eclipse IDE</code>是一样的。<a href="https://www.ti.com.cn/tool/cn/CCSTUDIO-MSP" target="_blank" rel="external">下载位置</a>需要在<code>ti.com</code>里注册一个帐号并同意它的使用条款. 也可以去<code>TI Resource Explorer</code>打开树结构位置<code>Development Tools -&gt; Integrated Development Environements -&gt; Code Composer Studio -&gt; Downloads</code>页面进行下载。</li>
+<li><a href="http://www.ti.com/tool/download/SYSCONFIG" target="_blank" rel="external">SYSCONFIG 系统配置工具</a></li>
+<li><a href="https://stackoverflow.com/questions/17431989/where-does-eclipse-store-preferences" target="_blank" rel="external">StackOverFlow Eclipse 配置文件位置</a></li>
+<li><a href="https://software-dl.ti.com/ccs/esd/training/workshop/ccsv9/ccs_simplelink-fundamentals-workshop-chinese.html" target="_blank" rel="external">使用 CCS 调试 SimpleLink LaunchPad 入门教程</a></li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><img src="/imgs/ti/ccs920-install.png" alt="ccs920-install.png"></p>
+<h2 id="安装-SDK"><a href="#安装-SDK" class="headerlink" title="安装 SDK"></a>安装 SDK</h2><h2 id="通过使用TI-Resource-Explorer安装"><a href="#通过使用TI-Resource-Explorer安装" class="headerlink" title="通过使用TI Resource Explorer安装"></a>通过使用<code>TI Resource Explorer</code>安装</h2><ul>
+<li>在 CCSv9 首面板里<code>Getting Started</code>页里有<code>Resource Explorer(Examples &amp; Docs)，New Proejct, Import Proejct</code>三个快捷链接。这里选择打开<code>Resources Explorer</code>,打开会一直显示<code>Starting TIREX ...</code>,视本机的网速快慢而定，如果偶然打开它了，最好是把自己需要用到的<code>SDK</code>全部下载到本地，防止失联。<br><img src="/imgs/ti/ccs920-resource-expolrer.png" alt="ccs920-resource-expolrer.png"></li>
+<li>打开可以设置 SDK 的下载路径，如下：<br><img src="/imgs/ti/ccsv9-res-settings.png" alt="ccsv9-res-settings.png"><br><img src="/imgs/ti/ccs920-tre-plugin-install.png" alt="ccs920-tre-plugin-install.png"></li>
+</ul>
+<h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><ul>
+<li>因为<code>Resource Explorer</code>在国内访问很不稳定，经常打不开，所以打开时可以先把这些文件下载下来，或者打包起来移到其它电脑的新系统里安装。只要在<code>Window -&gt; Preferences -&gt; Code Composer Studio -&gt; Products</code>添加要<code>SDK</code>的路径，就可以把相应的<code>SDK</code>文件安装上来了。</li>
+</ul>
+<h2 id="导入官方-CCS-示例工程"><a href="#导入官方-CCS-示例工程" class="headerlink" title="导入官方 CCS 示例工程"></a>导入官方 CCS 示例工程</h2><ul>
+<li>这里使用一个官方<code>Demo</code>来测试一下板子组件是否运行正常，<code>ethernet_wifi_tcp_echo</code>它位于<code>TIREX</code>的目录下<code>/Software/SimpleLink SDK Plugins/Connectivity/SimpleLink SDK WiFi Plugin (2.40.00.22)/Examples/Development Tools/MSP432E401Y LaunchPad/Demos/ethernet_wifi_tcp_echo/</code>，很显然这里还需要安装<code>SimpleLink SDK WiFi Plugin-2.40.00.22</code>版本的<code>SDK</code>我这里选择是<code>FreeRTOS</code>,所以还要指定 <code>FreeRTOS</code>的目录。</li>
+</ul>
+<h3 id="设置FreeRTOS目录"><a href="#设置FreeRTOS目录" class="headerlink" title="设置FreeRTOS目录"></a>设置<code>FreeRTOS</code>目录</h3><ul>
+<li>如果工程中有用到<code>FreeRTOS</code>的但是又没有指定它的路径，会报下面的错误。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**** Build Finished ****</div><div class="line">Buildfile generation error occurred..</div><div class="line">Required variable <span class="string">'FREERTOS_INSTALL_DIR'</span> cannot be resolved or is pointing to a non-existent location. See <span class="string">'Preferences &gt; CCS &gt; Build &gt; Variables'</span> page to define this variable before building this project.</div></pre></td></tr></table></figure>
+<p><img src="/imgs/ti/ccs920-prj-build-var-settings.png" alt="ccs920-prj-build-var-settings.png"></p>
+<h3 id="设置工程参数"><a href="#设置工程参数" class="headerlink" title="设置工程参数"></a>设置工程参数</h3><ul>
+<li><p><code>Syscfg</code> 配置或查看,应该是属于类似<code>STM32CubeMX</code>的工具。<br><img src="/imgs/ti/ccsv9-syscfg.png" alt="ccsv9-syscfg.png"></p>
+</li>
+<li><p>导入<code>ethernet_wifi_tcp_echo</code>到本地 CCS 里后，要详细阅读<code>ethernet_wifi_tcp_echo_MSP_EXP432E401Y_freertos_ccs/README.html</code>文档。下面是按照文档提示，需要修改<code>network_if.h</code>里的<code>SSID</code>与<code>SECURITY_KEY</code>，也就是说要把它配置成可以连接到你周围的 WIFI。</p>
+</li>
+<li><p>这下面是在工程里<code>main_freertos.c</code>添加一段测试 FreeRTOS 创建多任务的示例。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">const char *pcTextForTask1 = <span class="string">"Task 1 is running\r\n"</span>;</div><div class="line">const char *pcTextForTask2 = <span class="string">"Task 2 is running\r\n"</span>;</div><div class="line">static void vTaskFunction(void *pvParameters)</div><div class="line">&#123;</div><div class="line">    char *pcTaskName;</div><div class="line"></div><div class="line">    pcTaskName = (char*)pvParameters;</div><div class="line">    <span class="keyword">for</span>(;;)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%s"</span>,pcTaskName);</div><div class="line">        vTaskDelay(250);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(void)</div><div class="line">&#123;</div><div class="line">  /* 此处代码省略 */</div><div class="line">  ......</div><div class="line">  /* 创建测试任务*/</div><div class="line">    xTaskCreate(vTaskFunction,</div><div class="line">                <span class="string">"Task 1"</span>,</div><div class="line">                1000,</div><div class="line">                (void*)pcTextForTask1,</div><div class="line">                1,</div><div class="line">                NULL);</div><div class="line">    xTaskCreate(vTaskFunction,</div><div class="line">                    <span class="string">"Task 2"</span>,</div><div class="line">                    1000,</div><div class="line">                    (void*)pcTextForTask2,</div><div class="line">                    1,</div><div class="line">                    NULL);</div><div class="line">    vTaskStartScheduler();</div><div class="line">    <span class="built_in">return</span> (0);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>上述修改保存后，接上板子，按<code>F11</code>直接<code>Debug</code>运行，如果无错，就会在 <code>IDE</code>下方的<code>Console</code>窗口看到不断交错输出<code>Task 2 is running</code>,<code>Task 1 is running</code>信息。</p>
+</li>
+<li><p>再打开另一个终端使用<code>minicom -o -b 115200 -D /dev/ttyACM0</code>打开会看到如下信息：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[WLAN EVENT] STA Connected to the AP: lcy-y1s-2.4G , BSSID: 20:76:93:0:ac:8</div><div class="line"></div><div class="line">[NETAPP EVENT] IP acquired by the device</div><div class="line"></div><div class="line">WiFi Interface has connected to lcy-y1s-2.4G</div><div class="line"></div><div class="line">WiFi Interface IP Address is 192.168.1.115</div><div class="line"></div><div class="line">WiFi Interface connected and started</div></pre></td></tr></table></figure>
+<ul>
+<li>按文档提示，用 <code>putty</code>打开一个<code>telnet</code> 连接到<code>192.168.1.115:1000</code>端口。就会显示如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">WiFi: Creating thread clientfd = 1</div><div class="line"></div><div class="line">wifi0: start clientfd = 0x1</div></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/嵌入式，TI，Linux/" rel="tag"># 嵌入式，TI，Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/09/STM32CubeMX使用指南/" rel="next" title="STM32CubeMX使用指南">
+                <i class="fa fa-chevron-left"></i> STM32CubeMX使用指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4"
+                alt="yjdwbj" />
+            
+              <p class="site-author-name" itemprop="name">yjdwbj</p>
+              <p class="site-description motion-element" itemprop="description">最是人间留不住,朱颜辞镜花辞树</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yjdwbj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yjdwbj@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/yjdwbj" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开箱即用体验"><span class="nav-number">1.1.</span> <span class="nav-text">开箱即用体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CC3120-BoosterPack-插件模块"><span class="nav-number">1.2.</span> <span class="nav-text">CC3120 BoosterPack 插件模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TI-云工具平台"><span class="nav-number">2.</span> <span class="nav-text">TI 云工具平台</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桌面版IDE安装-CCSv9"><span class="nav-number">3.</span> <span class="nav-text">桌面版IDE安装(CCSv9)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-SDK"><span class="nav-number">3.2.</span> <span class="nav-text">安装 SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过使用TI-Resource-Explorer安装"><span class="nav-number">3.3.</span> <span class="nav-text">通过使用TI Resource Explorer安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装"><span class="nav-number">3.4.</span> <span class="nav-text">手动安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入官方-CCS-示例工程"><span class="nav-number">3.5.</span> <span class="nav-text">导入官方 CCS 示例工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置FreeRTOS目录"><span class="nav-number">3.5.1.</span> <span class="nav-text">设置FreeRTOS目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置工程参数"><span class="nav-number">3.5.2.</span> <span class="nav-text">设置工程参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

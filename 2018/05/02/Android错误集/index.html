@@ -102,17 +102,17 @@
 
 
 
-  <meta name="description" content="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.12error: style attribute &amp;apos;android:attr/keyboardNavigationCluster&amp;apos; not found.Message&amp;#123;kind=ERR">
+  <meta name="description" content="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.12error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found.Message&amp;#123;kind=ERROR, text=e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android错误集">
 <meta property="og:url" content="http://yoursite.com/2018/05/02/Android错误集/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
-<meta property="og:description" content="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.12error: style attribute &amp;apos;android:attr/keyboardNavigationCluster&amp;apos; not found.Message&amp;#123;kind=ERR">
+<meta property="og:description" content="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.12error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found.Message&amp;#123;kind=ERROR, text=e">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2018-05-04T02:12:35.840Z">
+<meta property="og:updated_time" content="2019-11-17T06:01:44.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android错误集">
-<meta name="twitter:description" content="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.12error: style attribute &amp;apos;android:attr/keyboardNavigationCluster&amp;apos; not found.Message&amp;#123;kind=ERR">
+<meta name="twitter:description" content="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.12error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found.Message&amp;#123;kind=ERROR, text=e">
 <meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
 
 
@@ -346,7 +346,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-05-04 10:12:35" itemprop="dateModified" datetime="2018-05-04T10:12:35+08:00">2018-05-04</time>
+                <time title="修改时间：2019-11-17 14:01:44" itemprop="dateModified" datetime="2019-11-17T14:01:44+08:00">2019-11-17</time>
               
             
           </span>
@@ -379,16 +379,16 @@
       
 
       
-        <h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found.</div><div class="line">Message&#123;kind=ERROR, text=error: style attribute &apos;android:attr/keyboardNavigationCluster&apos; not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</div></pre></td></tr></table></figure>
+        <h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found.</div><div class="line">Message&#123;kind=ERROR, text=error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</div></pre></td></tr></table></figure>
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ul>
-<li>修改<strong>app</strong>下的build.gradle</li>
+<li>修改<strong>app</strong>下的 build.gradle</li>
 <li>把<strong>dependences</strong> 里改成 <code>implementation &#39;com.android.support:appcompat-v7:27.1.0&#39;</code></li>
 <li>同时修改成<strong>compileSdkVersion 26</strong>,<strong>targetSdkVersion 26</strong>,要大于等于<strong>26</strong>的版本.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 27</div><div class="line">    buildToolsVersion &quot;27.0.3&quot; // not needed since com.android.tools.build:gradle:3.0.0</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 14</div><div class="line">        targetSdkVersion 26</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  [...]</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"> 	[...]</div><div class="line">    implementation &apos;com.android.support:appcompat-v7:27.1.1&apos;</div><div class="line">    implementation &apos;com.android.support:design:27.1.1&apos;</div><div class="line">    implementation &apos;com.android.support:recyclerview-v7:27.1.1&apos;</div><div class="line">    [...]</div><div class="line">&#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 27</div><div class="line">    buildToolsVersion <span class="string">"27.0.3"</span> // not needed since com.android.tools.build:gradle:3.0.0</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 14</div><div class="line">        targetSdkVersion 26</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  [...]</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"> 	[...]</div><div class="line">    implementation <span class="string">'com.android.support:appcompat-v7:27.1.1'</span></div><div class="line">    implementation <span class="string">'com.android.support:design:27.1.1'</span></div><div class="line">    implementation <span class="string">'com.android.support:recyclerview-v7:27.1.1'</span></div><div class="line">    [...]</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>您的打赏将会鼓励我写出更多的博客。</li>
 <li>微信二维码:</li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
@@ -515,7 +515,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -605,7 +605,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

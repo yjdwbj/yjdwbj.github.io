@@ -285,6 +285,471 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/27/在Windows-环境下编译Qt静态库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/27/在Windows-环境下编译Qt静态库/" itemprop="url">
+                  在Windows 环境下编译Qt静态库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-27 20:46:25 / 修改时间：00:00:00" itemprop="dateCreated datePublished" datetime="2016-06-27T20:46:25+08:00">2016-06-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Qt/" itemprop="url" rel="index"><span itemprop="name">Qt</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><a href="https://wiki.qt.io/Building_a_static_Qt_for_Windows_using_MinGW" target="_blank" rel="external">参考链接</a></li>
+<li><a href="https://wiki.qt.io/Qt_5.3_Tools_and_Versions" target="_blank" rel="external">Qt5.3 Tools and Versions</a></li>
+<li><a href="https://sourceforge.net/projects/mingw" target="_blank" rel="external">MinGW</a></li>
+<li><a href="http://source.icu-project.org/repos/icu/icu/tags/release-49-1-2" target="_blank" rel="external">ICU</a></li>
+<li><a href="https://www.activestate.com/activeperl/downloads" target="_blank" rel="external">ActivePerl</a></li>
+<li><a href="http://www.qt.io" target="_blank" rel="external">Qt</a></li>
+</ul>
+<h3 id="安装MinGW工具链环境"><a href="#安装MinGW工具链环境" class="headerlink" title="安装MinGW工具链环境"></a>安装MinGW工具链环境</h3><ul>
+<li><p>这里在Win32环境下要安装一个<code>MinGW</code>工具链,这里最好是先安装一个Qt环境,使用Qt自带的MinGW工具链,我这里是先安装一个Qt5.6的环境再用它来编译Qt5.3.2的静态库.下载并安装<code>ActivePerl</code>软件. </p>
+</li>
+<li><p>这里要用到MSYS环境,把编译<code>ICU</code>,<code>openssl</code>的gcc 都指向QT5.6.1自带的工具链GCC,这样才能保能Qt,ICU,openssl<br>  编译出来的C++二进制文是兼容的,修改<code>msys_env.bat</code>脚本如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">set path=C:\Python27;C:\Perl\bin;C:\Qt\Qt5.6.1\Tools\mingw492_32\bin;D:\mingw\bin;</div><div class="line">D:\mingw\mingw32\bin;D:\mingw\msys\1.0\bin</div><div class="line">set HOME=D:\mingw\msys\1.0</div><div class="line">bash.exe</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>fstab</code>文件,这里从<a href="http://stackoverflow.com/questions/10171761/qt-undefined-reference-to-time32" target="_blank" rel="external">StackOverFlow</a><br>看到解释</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">C:/Qt/Qt5.6.1/Tools/mingw492_32  /mingw</div><div class="line">c:/perl/Perl</div></pre></td></tr></table></figure>
+<h3 id="下载ICU"><a href="#下载ICU" class="headerlink" title="下载ICU"></a>下载ICU</h3><ul>
+<li>经过测试通过下面页下载的库是不能用来静态链接的.还是需要自已用QT的<code>mingw-GCC</code> 工具链编译源码才能用.</li>
+<li>根据链接<a href="https://wiki.qt.io/Qt_5.3_Tools_and_Versions" target="_blank" rel="external">Qt5.3 Tools and Versions</a> 下载一个合适的ICU</li>
+<li>打开<a href="http://download.qt.io/development_releases/prebuilt/icu/prebuilt/mingw/" target="_blank" rel="external">http://download.qt.io/development_releases/prebuilt/icu/prebuilt/mingw/</a> 选择下载<br><a href="http://download.qt.io/development_releases/prebuilt/icu/prebuilt/mingw/icu_53_1_mingw_builds_4_9_1_posix_seh_64_devel.7z" target="_blank" rel="external"> icu_53_1_mingw_builds_4_9_1_posix_seh_64_devel.7z</a>   </li>
+</ul>
+<h3 id="下载编译ICU"><a href="#下载编译ICU" class="headerlink" title="下载编译ICU"></a>下载编译ICU</h3><ul>
+<li><a href="http://downloads.sourceforge.net/project/icu/ICU4C/53.1/icu4c-53_1-src.zip" target="_blank" rel="external">下载ICU4C_53_1</a></li>
+<li>这里以icu-53_1为例编译 解压ICU包进入到source目录</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bash.exe-3.1$ <span class="built_in">cd</span> icu/<span class="built_in">source</span></div><div class="line">bash.exe-3.1$ ./runConfigureICU M<span class="keyword">in</span>GW --prefix=/c/icu4c53_1 --enable-static --disable-shared</div><div class="line">--enable-release --disable-debug</div><div class="line">[...]</div><div class="line">bash.exe-3.1$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h3 id="编译openssl"><a href="#编译openssl" class="headerlink" title="编译openssl"></a>编译openssl</h3><ul>
+<li>下载 <a href="https://www.openssl.org/source/openssl-1.0.1g.tar.gz" target="_blank" rel="external">https://www.openssl.org/source/openssl-1.0.1g.tar.gz</a> </li>
+<li>编译openssl 必需要有msys环境.请仔细查看解压后文件夹里的<code>INSTALL.W32</code>文档.</li>
+<li>运行<code>msys shell</code> ,切换的<code>openssl-1.0.1g</code>目录下:<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">bash.exe-3.1$  ./config --prefix=/c/openssl-1.0.1g no-asm no-shared</div><div class="line">[...]</div><div class="line">bash.exe-3.1$ make depend</div><div class="line">[...] </div><div class="line">bash.exe-3.1$ make </div><div class="line">[...]</div><div class="line">bash.exe-3.1$ make install</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="编译Qt源码"><a href="#编译Qt源码" class="headerlink" title="编译Qt源码"></a>编译Qt源码</h3><ul>
+<li>下载<a href="http://download.qt.io/archive/qt/5.3/5.3.2/single/qt-everywhere-opensource-src-5.3.2.zip" target="_blank" rel="external">Qt5.3.2</a></li>
+<li>解压文件并且修改 <code>qtbase\mkspecs\win32-g++\qmake.conf</code>  最终文件如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># qmake configuration for win32-g++</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Written for MinGW / gcc 4.6 or higher</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Cross compile example for i686-w64-mingw32-g++:</span></div><div class="line"><span class="comment">#   configure -xplatform win32-g++ -device-option CROSS_COMPILE=i686-w64-mingw32-</span></div><div class="line"><span class="comment">#</span></div><div class="line">load(device_config)</div><div class="line">MAKEFILE_GENERATOR      = MINGW</div><div class="line">QMAKE_PLATFORM          = win32 mingw</div><div class="line">CONFIG                 += debug_and_release debug_and_release_target precompile_header</div><div class="line">DEFINES                += UNICODE</div><div class="line">QMAKE_COMPILER_DEFINES += __GNUC__ WIN32</div><div class="line">QMAKE_EXT_OBJ           = .o</div><div class="line">QMAKE_EXT_RES           = _res.o</div><div class="line">QMAKE_COMPILER          = gcc</div><div class="line">QMAKE_CC                = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>gcc</div><div class="line">QMAKE_LEX               = flex</div><div class="line">QMAKE_LEXFLAGS          =</div><div class="line">QMAKE_YACC              = byacc</div><div class="line">QMAKE_YACCFLAGS         = <span class="_">-d</span></div><div class="line">QMAKE_CFLAGS            = -pipe -fno-keep-inline-dllexport</div><div class="line">QMAKE_CFLAGS_DEPS       = -M</div><div class="line">QMAKE_CFLAGS_WARN_ON    = -Wall -Wextra</div><div class="line">QMAKE_CFLAGS_WARN_OFF   = -w</div><div class="line">QMAKE_CFLAGS_RELEASE -= -O2</div><div class="line">QMAKE_CFLAGS_RELEASE += -Os -momit-leaf-frame-pointer  <span class="comment">#注意这一行</span></div><div class="line">QMAKE_CFLAGS_DEBUG      = -g</div><div class="line">QMAKE_CFLAGS_YACC       = -Wno-unused -Wno-parentheses</div><div class="line">QMAKE_CFLAGS_SPLIT_SECTIONS = -ffunction-sections</div><div class="line">QMAKE_CFLAGS_SSE2       = -msse2 -mstackrealign</div><div class="line">QMAKE_CFLAGS_SSE3       = -msse3</div><div class="line">QMAKE_CFLAGS_SSSE3      = -mssse3</div><div class="line">QMAKE_CFLAGS_SSE4_1     = -msse4.1</div><div class="line">QMAKE_CFLAGS_SSE4_2     = -msse4.2</div><div class="line">QMAKE_CFLAGS_AVX        = -mavx</div><div class="line">QMAKE_CFLAGS_AVX2       = -mavx2</div><div class="line">QMAKE_CFLAGS_IWMMXT     = -mcpu=iwmmxt</div><div class="line">QMAKE_CFLAGS_NEON       = -mfpu=neon</div><div class="line">QMAKE_CXX               = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>g++</div><div class="line">QMAKE_CXXFLAGS          = $<span class="variable">$QMAKE_CFLAGS</span></div><div class="line">QMAKE_CXXFLAGS_DEPS     = $<span class="variable">$QMAKE_CFLAGS_DEPS</span></div><div class="line">QMAKE_CXXFLAGS_WARN_ON  = $<span class="variable">$QMAKE_CFLAGS_WARN_ON</span></div><div class="line">QMAKE_CXXFLAGS_WARN_OFF = $<span class="variable">$QMAKE_CFLAGS_WARN_OFF</span></div><div class="line">QMAKE_CXXFLAGS_RELEASE  = $<span class="variable">$QMAKE_CFLAGS_RELEASE</span></div><div class="line">QMAKE_CXXFLAGS_DEBUG    = $<span class="variable">$QMAKE_CFLAGS_DEBUG</span></div><div class="line">QMAKE_CXXFLAGS_YACC     = $<span class="variable">$QMAKE_CFLAGS_YACC</span></div><div class="line">QMAKE_CXXFLAGS_THREAD   = $<span class="variable">$QMAKE_CFLAGS_THREAD</span></div><div class="line">QMAKE_CXXFLAGS_RTTI_ON  = -frtti</div><div class="line">QMAKE_CXXFLAGS_RTTI_OFF = -fno-rtti</div><div class="line">QMAKE_CXXFLAGS_EXCEPTIONS_ON = -fexceptions -mthreads</div><div class="line">QMAKE_CXXFLAGS_EXCEPTIONS_OFF = -fno-exceptions</div><div class="line">QMAKE_CXXFLAGS_CXX11    = -std=c++0x</div><div class="line">QMAKE_CXXFLAGS_SPLIT_SECTIONS = $<span class="variable">$QMAKE_CFLAGS_SPLIT_SECTIONS</span></div><div class="line">QMAKE_INCDIR            =</div><div class="line">QMAKE_RUN_CC            = $(CC) -c $(CFLAGS) $(INCPATH) -o <span class="variable">$obj</span> <span class="variable">$src</span></div><div class="line">QMAKE_RUN_CC_IMP        = $(CC) -c $(CFLAGS) $(INCPATH) -o <span class="variable">$@</span> $&lt;</div><div class="line">QMAKE_RUN_CXX           = $(CXX) -c $(CXXFLAGS) $(INCPATH) -o <span class="variable">$obj</span> <span class="variable">$src</span></div><div class="line">QMAKE_RUN_CXX_IMP       = $(CXX) -c $(CXXFLAGS) $(INCPATH) -o <span class="variable">$@</span> $&lt;</div><div class="line">QMAKE_LINK              = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>g++</div><div class="line">QMAKE_LINK_C            = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>gcc</div><div class="line">QMAKE_LFLAGS            = -static -static-libgcc <span class="comment"># 添加这一行</span></div><div class="line">QMAKE_LFLAGS_EXCEPTIONS_ON = -mthreads</div><div class="line">QMAKE_LFLAGS_EXCEPTIONS_OFF =</div><div class="line">QMAKE_LFLAGS_RELEASE    = -Wl,<span class="_">-s</span></div><div class="line">QMAKE_LFLAGS_DEBUG      =</div><div class="line">QMAKE_LFLAGS_CONSOLE    = -Wl,-subsystem,console</div><div class="line">QMAKE_LFLAGS_WINDOWS    = -Wl,-subsystem,windows</div><div class="line">QMAKE_LFLAGS_DLL        = -static</div><div class="line">QMAKE_LFLAGS_CXX11      =</div><div class="line">QMAKE_LFLAGS_GCSECTIONS = -Wl,--gc-sections</div><div class="line">QMAKE_LINK_OBJECT_MAX   = 10</div><div class="line">QMAKE_LINK_OBJECT_SCRIPT = object_script</div><div class="line">QMAKE_PREFIX_STATICLIB  = lib</div><div class="line">QMAKE_EXTENSION_STATICLIB = a</div><div class="line">QMAKE_LIBS              =</div><div class="line">QMAKE_LIBS_CORE         = -lole32 -luuid -lws2_32 -ladvapi32 -lshell32 -luser32 -lkernel32</div><div class="line">QMAKE_LIBS_GUI          = -lgdi32 -lcomdlg32 -loleaut32 -limm32 -lwinmm -lws2_32 -lole32 -luuid -luser32 -ladvapi32</div><div class="line">QMAKE_LIBS_NETWORK      = -lws2_32</div><div class="line">QMAKE_LIBS_OPENGL       = -lglu32 -lopengl32 -lgdi32 -luser32</div><div class="line">QMAKE_LIBS_OPENGL_ES2   = -llibEGL -llibGLESv2 -lgdi32 -luser32</div><div class="line">QMAKE_LIBS_OPENGL_ES2_DEBUG = -llibEGLd -llibGLESv2d -lgdi32 -luser32</div><div class="line">QMAKE_LIBS_COMPAT       = -ladvapi32 -lshell32 -lcomdlg32 -luser32 -lgdi32 -lws2_32</div><div class="line">QMAKE_LIBS_QT_ENTRY     = -lmingw32 -lqtmain</div><div class="line">!isEmpty(QMAKE_SH) &#123;</div><div class="line">    MINGW_IN_SHELL      = 1</div><div class="line">    QMAKE_DIR_SEP       = /</div><div class="line">    QMAKE_DIRLIST_SEP   = :</div><div class="line">    include(../common/shell-unix.conf)</div><div class="line">    <span class="comment"># Because install's ability to set permissions is not relevant on Windows,</span></div><div class="line">    <span class="comment"># and git's msys does not provide it to start with.</span></div><div class="line">    QMAKE_INSTALL_FILE    = cp <span class="_">-f</span></div><div class="line">    QMAKE_INSTALL_PROGRAM = cp <span class="_">-f</span></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    include(../common/shell-win32.conf)</div><div class="line">&#125;</div><div class="line">QMAKE_IDL               = midl</div><div class="line">QMAKE_LIB               = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>ar -ru</div><div class="line">QMAKE_RC                = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>windres</div><div class="line">QMAKE_STRIP             = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>strip</div><div class="line">QMAKE_STRIPFLAGS_LIB   += --strip-unneeded</div><div class="line">QMAKE_OBJCOPY           = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>objcopy</div><div class="line">QMAKE_NM                = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>nm -P</div><div class="line">load(qt_config)</div></pre></td></tr></table></figure>
+<h3 id="创建编译脚本"><a href="#创建编译脚本" class="headerlink" title="创建编译脚本"></a>创建编译脚本</h3><ul>
+<li>创建一个bat的脚本件内容如下,有些变量请按实际系统环境做相应的修改.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> RDIR=c:/Qt/Qt5.6.1</div><div class="line"><span class="built_in">set</span> VERGCC=mingw492_32</div><div class="line"><span class="built_in">set</span> PATH=C:/Python27;C:/Perl/bin;%RDIR%/5.6/%VERGCC%/bin;%RDIR%/Tools/%VERGCC%/bin;C:\icu\bin;%RDIR%/Tools/QtCreator/bin</div><div class="line"><span class="built_in">set</span> INCLUDE=%RDIR%/5.6/%VERGCC%/include;%RDIR%/Tools/%VERGCC%/include;C:\icu4c53_1\include;C:\openssl-1.0.1g\include</div><div class="line"><span class="built_in">set</span> LIB=%RDIR%/5.6/%VERGCC%/lib;%RDIR%/Tools/%VERGCC%/lib;C:\icu4c53_1\lib;C:\openssl-1.0.1g\lib</div><div class="line"><span class="built_in">set</span> SDIR=D:/qt-everywhere-opensource-src-5.3.2</div><div class="line"><span class="built_in">cd</span> %SDIR%</div><div class="line">configure.bat -mp    -platform win32-g++  -opensource -confirm-license -release </div><div class="line">-static -ltcg -c++11 -prefix <span class="string">"c:/Qt/5.3.2-static"</span> -accessibility</div><div class="line">-rtti -qt-sql-sqlite -qt-sql-odbc -plugin-sql-sqlite -plugin-sql-odbc -icu -qt-zlib -qt-libpng -qt-libjpeg </div><div class="line">-audio-backend  -opengl desktop -qml-debug -no-vcproj -no-dbus -nomake tests  </div><div class="line">-openssl -I C:/openssl-1.0.1g/include -L C:/openssl-1.0.1g/lib</div><div class="line">-nomake examples -qt-freetype -no-compile-examples -no-openvg -iconv -no-directwrite </div><div class="line">-no-iwmmxt -no-crt -skip qtwebkit  </div><div class="line">;编译 </div><div class="line">mingw32-make</div><div class="line">;安装到-prefix的变量路径中</div><div class="line">mingw32-make install</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/29/codeblocks与STM32的开发环境配置/" itemprop="url">
+                  codeblocks与STM32的开发环境配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2016-12-14 22:25:00" itemprop="dateModified" datetime="2016-12-14T22:25:00+08:00">2016-12-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="软件硬件配置"><a href="#软件硬件配置" class="headerlink" title="软件硬件配置"></a>软件硬件配置</h3><ul>
+<li><a href="http://www.st.com/stm32f4-discovery" target="_blank" rel="external">STM32F4 Discovery</a></li>
+<li><a href="http://codeblocks.org/downloads" target="_blank" rel="external">Codeblocks 16.01</a></li>
+<li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
+<li><a href="https://github.com/texane/stlink" target="_blank" rel="external">STLink</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="external">GCC ARM Embedded</a></li>
+</ul>
+<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><ul>
+<li>这里省略下载编译 opencd 环节。</li>
+<li>openocd 安装在/usr/local 下</li>
+<li>/usr/local/bin/openocd</li>
+<li>配置文件目录</li>
+<li><p>/usr/local/share/openocd/</p>
+</li>
+<li><p>在当前用户目录下创建一个<code>.openocd</code>目录</p>
+</li>
+<li><p>添加下面三行到~/.openocd/openocd.cfg</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/interface/stlink-v2.cfg]</div><div class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/target/stm32f4x.cfg]</div><div class="line">reset_config srst_only srst_nogate</div></pre></td></tr></table></figure>
+<ul>
+<li>连接 STM32F4 开发板，运行/usr/local/bin/openocd</li>
+<li>正常会出现下面信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">michael@debian:~$ /usr/<span class="built_in">local</span>/bin/openocd</div><div class="line">Open On-Chip Debugger 0.10.0-dev-00146-g332023f (2015-12-05-18:09)</div><div class="line">Licensed under GNU GPL v2</div><div class="line">For bug reports, <span class="built_in">read</span></div><div class="line">  http://openocd.org/doc/doxygen/bugs.html</div><div class="line">  Info : auto-selecting first available session transport <span class="string">"hla_swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.</div><div class="line">  Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD</div><div class="line">  adapter speed: 2000 kHz</div><div class="line">  adapter_nsrst_delay: 100</div><div class="line">  none separate</div><div class="line">  srst_only separate srst_nogate srst_open_drain connect_deassert_srst</div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz</div><div class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz</div><div class="line">  Info : clock speed 1800 kHz</div><div class="line">  Info : STLINK v2 JTAG v24 API v2 SWIM v0 VID 0x0483 PID 0x3748</div><div class="line">  Info : using stlink api v2</div><div class="line">  Info : Target voltage: 2.881129</div><div class="line">  Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints</div></pre></td></tr></table></figure>
+<h3 id="STLink-驱动安装"><a href="#STLink-驱动安装" class="headerlink" title="STLink 驱动安装"></a>STLink 驱动安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">～$ git <span class="built_in">clone</span> https://github.com/texane/stlink.git</div><div class="line">～$ <span class="built_in">cd</span> STLink</div><div class="line">～$ ./authorgen.sh</div><div class="line">～$ ./configure --prefix=/opt/STLink</div><div class="line">～$ make &amp;&amp; sudo make install</div><div class="line">～$ sudo cp 49-stlinkv2.rules /etc/udev/rules.d/49-stlinkv2.rules</div></pre></td></tr></table></figure>
+<ul>
+<li>通过 lsusb 命令找出开板板的 ID</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">Bus 001 Device 002: ID 0483:3748 STMicroelectronics ST-LINK/V2</div><div class="line">Bus 003 Device 010: ID 174c:5106 ASMedia Technology Inc. Transcend StoreJet 25M3</div></pre></td></tr></table></figure>
+<ul>
+<li>修改<code>/etc/udev/rules.d/49-stlinkv2.rules</code>,注意 ATTRS{idProduct}==<strong>“3748”</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ cat /etc/udev/rules.d/49-stlinkv2.rules</div><div class="line"><span class="comment"># stm32 discovery boards, with onboard st/linkv2</span></div><div class="line"><span class="comment"># ie, STM32L, STM32F4.</span></div><div class="line"><span class="comment"># STM32VL has st/linkv1, which is quite different</span></div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"0483"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"3748"</span>, \</div><div class="line">    MODE:=<span class="string">"0666"</span>, \</div><div class="line">    SYMLINK+=<span class="string">"stlinkv2_%n"</span>,OWNER=<span class="string">"michael"</span></div><div class="line"><span class="comment"># If you share your linux system with other users, or just don't like the</span></div><div class="line"><span class="comment"># idea of write permission for everybody, you can replace MODE:="0666" with</span></div><div class="line"><span class="comment"># OWNER:="yourusername" to create the device owned by you, or with</span></div><div class="line"><span class="comment"># GROUP:="somegroupname" and mange access using standard unix groups.</span></div></pre></td></tr></table></figure>
+<h3 id="刷新系统规则"><a href="#刷新系统规则" class="headerlink" title="刷新系统规则"></a>刷新系统规则</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">~$ sudo udevadm control --reload-rules</div><div class="line">~$ sudo udevadm trigger</div></pre></td></tr></table></figure>
+<h3 id="GCC-ARM-Embedded"><a href="#GCC-ARM-Embedded" class="headerlink" title="GCC ARM Embedded"></a>GCC ARM Embedded</h3><ul>
+<li>下载 GCC 工具链解压到<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3</code>,并且把<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3/bin</code> 添加系统环境变量里面</li>
+</ul>
+<h4 id="Codeblocks-配置"><a href="#Codeblocks-配置" class="headerlink" title="Codeblocks 配置"></a>Codeblocks 配置</h4><ul>
+<li>安装相应平台的 codeblocks 二进制包。</li>
+<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt="codecompletion.png"></li>
+</ul>
+<h4 id="编译器的全局设置"><a href="#编译器的全局设置" class="headerlink" title="编译器的全局设置"></a>编译器的全局设置</h4><ul>
+<li><p>设置 ARM 工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt="compiler_settings.png"></p>
+</li>
+<li><p>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt="compiler_settings_inc.png"></p>
+</li>
+<li><p>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt="compiler_settings_lib.png"></p>
+</li>
+</ul>
+<h4 id="STM32-工程设置"><a href="#STM32-工程设置" class="headerlink" title="STM32 工程设置"></a>STM32 工程设置</h4><ul>
+<li><p>这里是针对 STM32F4 Discovery 开发板，工程设置的一些参数</p>
+</li>
+<li><p>编译选项设置，如下图所示。</p>
+</li>
+<li><p>设置基于特定 CPU 的 CFLAGS 参数。<strong>-mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99</strong></p>
+</li>
+</ul>
+<p><img src="/imgs/project_options.png" alt="project_options.png"></p>
+<ul>
+<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt="project_define.png"></p>
+</li>
+<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt="project_link.png"></p>
+</li>
+<li><p>工程头文件查找目录,库文件查找目录。</p>
+</li>
+</ul>
+<p><img src="/imgs/project_inc.png" alt="project_inc.png"><br><img src="/imgs/project_search_link.png" alt="project_search_link.png"></p>
+<ul>
+<li><p>结合 openocd 自动烧写 bin 文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt="project_shell.png"></p>
+</li>
+<li><p>工程中的自动烧写脚本文件。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/expect</span></div><div class="line">spawn telnet localhost 4444</div><div class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span></div><div class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];</div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"reset halt\r"</span></div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span></div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"reset run\r"</span></div><div class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">interact</div></pre></td></tr></table></figure>
+<p><img src="/imgs/project_shfile.png" alt="project_shfile.png"></p>
+<ul>
+<li>因为 GCC 工具链与 Keil 的链接文件是一样，必须在下面这个 LD 文件上修改，不能使用 Keil 版本的链接文件。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">*****************************************************************************</div><div class="line">**</div><div class="line">**  File        : stm32_flash.ld</div><div class="line">**</div><div class="line">**  Abstract    : Linker script <span class="keyword">for</span> STM32F407VG Device with</div><div class="line">**                1024KByte FLASH, 192KByte RAM</div><div class="line">**</div><div class="line">**                Set heap size, stack size and stack location according</div><div class="line">**                to application requirements.</div><div class="line">**</div><div class="line">**                Set memory bank area and size <span class="keyword">if</span> external memory is used.</div><div class="line">**</div><div class="line">**  Target      : STMicroelectronics STM32</div><div class="line">**</div><div class="line">**  Environment : Atollic TrueSTUDIO(R)</div><div class="line">**</div><div class="line">**  Distribution: The file is distributed “as is,” without any warranty</div><div class="line">**                of any kind.</div><div class="line">**</div><div class="line">**  (c)Copyright Atollic AB.</div><div class="line">**  You may use this file as-is or modify it according to the needs of your</div><div class="line">**  project. Distribution of this file (unmodified or modified) is not</div><div class="line">**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the</div><div class="line">**  rights to distribute the assembled, compiled &amp; linked contents of this</div><div class="line">**  file as part of an application binary file, provided that it is built</div><div class="line">**  using the Atollic TrueSTUDIO(R) toolchain.</div><div class="line">**</div><div class="line">*****************************************************************************</div><div class="line">*/</div><div class="line">/* Entry Point */</div><div class="line">ENTRY(Reset_Handler)</div><div class="line">/* Highest address of the user mode stack */</div><div class="line">_estack = 0x20020000;    /* end of 128K RAM on AHB bus*/</div><div class="line">/* Generate a link error <span class="keyword">if</span> heap and stack don\<span class="string">'t fit into RAM */</span></div><div class="line">_Min_Heap_Size = 0;      /* required amount of heap  */</div><div class="line">_Min_Stack_Size = 0x400; /* required amount of stack */</div><div class="line"></div><div class="line">/* Specify the memory areas */</div><div class="line">MEMORY</div><div class="line">&#123;</div><div class="line">    FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K</div><div class="line">        RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K</div><div class="line">        MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K</div><div class="line">    &#125;</div><div class="line">    /* Define output sections */</div><div class="line">    SECTIONS</div><div class="line">&#123;</div><div class="line">    /* The startup code goes first into FLASH */</div><div class="line">.isr_vector :</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        KEEP(*(.isr_vector)) /* Startup code */</div><div class="line">        . = ALIGN(4);</div><div class="line">    &#125; &gt;FLASH</div><div class="line">    /* The program code and other data goes into FLASH */</div><div class="line">.text :</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        *(.text)           /* .text sections (code) */</div><div class="line">        *(.text*)          /* .text* sections (code) */</div><div class="line">        *(.rodata)         /* .rodata sections (constants, strings, etc.) */</div><div class="line">        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */</div><div class="line">        *(.glue_7)         /* glue arm to thumb code */</div><div class="line">        *(.glue_7t)        /* glue thumb to arm code */</div><div class="line">        *(.eh_frame)</div><div class="line">        KEEP (*(.init))</div><div class="line">        KEEP (*(.fini))</div><div class="line">        . = ALIGN(4);</div><div class="line">        _etext = .;        /* define a global symbols at end of code */</div><div class="line">        _exit = .;</div><div class="line">    &#125; &gt;FLASH</div><div class="line">.ARM.extab   :</div><div class="line">    &#123; *(.ARM.extab* .gnu.linkonce.armextab.*) &#125; &gt;FLASH</div><div class="line">.ARM :</div><div class="line">    &#123;</div><div class="line">        __exidx_start = .;</div><div class="line">        *(.ARM.exidx*)</div><div class="line">        __exidx_end = .;</div><div class="line">    &#125; &gt;FLASH</div><div class="line"></div><div class="line">.preinit_array     :</div><div class="line">    &#123;</div><div class="line">        PROVIDE_HIDDEN (__preinit_array_start = .);</div><div class="line">        KEEP (*(.preinit_array*))</div><div class="line">        PROVIDE_HIDDEN (__preinit_array_end = .);</div><div class="line">    &#125; &gt;FLASH</div><div class="line">.init_array :</div><div class="line">    &#123;</div><div class="line">        PROVIDE_HIDDEN (__init_array_start = .);</div><div class="line">        KEEP (*(SORT(.init_array.*)))</div><div class="line">        KEEP (*(.init_array*))</div><div class="line">        PROVIDE_HIDDEN (__init_array_end = .);</div><div class="line">    &#125; &gt;FLASH</div><div class="line">.fini_array :</div><div class="line">    &#123;</div><div class="line">        PROVIDE_HIDDEN (__fini_array_start = .);</div><div class="line">        KEEP (*(.fini_array*))</div><div class="line">        KEEP (*(SORT(.fini_array.*)))</div><div class="line">        PROVIDE_HIDDEN (__fini_array_end = .);</div><div class="line">    &#125; &gt;FLASH</div><div class="line"></div><div class="line">    /* used by the startup to initialize data */</div><div class="line">    _sidata = .;</div><div class="line"></div><div class="line">    /* Initialized data sections goes into RAM, load LMA copy after code */</div><div class="line">.data :</div><div class="line">    AT ( _sidata )</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        _sdata = .;        /* create a global symbol at data start */</div><div class="line">        *(.data)           /* .data sections */</div><div class="line">        *(.data*)          /* .data* sections */</div><div class="line"></div><div class="line">        . = ALIGN(4);</div><div class="line">        _edata = .;        /* define a global symbol at data end */</div><div class="line">    &#125; &gt;RAM</div><div class="line"></div><div class="line">    /* Uninitialized data section */</div><div class="line">    . = ALIGN(4);</div><div class="line">.bss :</div><div class="line">    &#123;</div><div class="line">        /* This is used by the startup in order to initialize the .bss secion */</div><div class="line">        _sbss = .;         /* define a global symbol at bss start */</div><div class="line">        __bss_start__ = _sbss;</div><div class="line">        *(.bss)</div><div class="line">        *(.bss*)</div><div class="line">        *(COMMON)</div><div class="line"></div><div class="line">        . = ALIGN(4);</div><div class="line">        _ebss = .;         /* define a global symbol at bss end */</div><div class="line">        __bss_end__ = _ebss;</div><div class="line">    &#125; &gt;RAM</div><div class="line"></div><div class="line">    /* User_heap_stack section, used to check that there is enough RAM left */</div><div class="line">._user_heap_stack :</div><div class="line">    &#123;</div><div class="line">        . = ALIGN(4);</div><div class="line">        PROVIDE ( end = . );</div><div class="line">        PROVIDE ( _end = . );</div><div class="line">        . = . + _Min_Heap_Size;</div><div class="line">        . = . + _Min_Stack_Size;</div><div class="line">        . = ALIGN(4);</div><div class="line">    &#125; &gt;RAM</div><div class="line"></div><div class="line">    /* MEMORY_bank1 section, code must be located here explicitly            */</div><div class="line">    /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */</div><div class="line">.memory_b1_text :</div><div class="line">    &#123;</div><div class="line">        *(.mb1text)        /* .mb1text sections (code) */</div><div class="line">        *(.mb1text*)       /* .mb1text* sections (code)  */</div><div class="line">        *(.mb1rodata)      /* read-only data (constants) */</div><div class="line">        *(.mb1rodata*)</div><div class="line">    &#125; &gt;MEMORY_B1</div><div class="line"></div><div class="line">    /* Remove information from the standard libraries */</div><div class="line">/DISCARD/ :</div><div class="line">    &#123;</div><div class="line"></div><div class="line">        libc.a ( * )</div><div class="line">        libm.a ( * )</div><div class="line">        libgcc.a ( * )</div><div class="line">    &#125;</div><div class="line"></div><div class="line">.ARM.attributes 0 :</div><div class="line">    &#123; *(.ARM.attributes) &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="编译下载"><a href="#编译下载" class="headerlink" title="编译下载"></a>编译下载</h3><ul>
+<li>完成上述设置，每次编译完成后都会自动 telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
+<li>最终运行的效果如下图<br><img src="/imgs/project_build.png" alt="project_build.png"></li>
+</ul>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。</li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -695,7 +1160,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -787,7 +1252,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -846,7 +1313,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

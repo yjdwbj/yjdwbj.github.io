@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="相关链接
+https://github.com/trojan-gfw
+Linode
+Brook
+其它教程
+
+
+
+选购VPS
+这里选择尝试使用Linode来做VPS，如果预算购的可以选择高配，一般可以选择Standard Linode plan10刀一月，像我这种穷人只选Nanodes5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码ad40d846b4e9fcb9cec7a0f3e47f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用国外VPS指南-Linode">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="相关链接
+https://github.com/trojan-gfw
+Linode
+Brook
+其它教程
+
+
+
+选购VPS
+这里选择尝试使用Linode来做VPS，如果预算购的可以选择高配，一般可以选择Standard Linode plan10刀一月，像我这种穷人只选Nanodes5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码ad40d846b4e9fcb9cec7a0f3e47f">
+<meta property="og:image" content="http://yoursite.com/../imgs/linode-vps.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2020-02-13T10:55:01.686Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用国外VPS指南-Linode">
+<meta name="twitter:description" content="相关链接
+https://github.com/trojan-gfw
+Linode
+Brook
+其它教程
+
+
+
+选购VPS
+这里选择尝试使用Linode来做VPS，如果预算购的可以选择高配，一般可以选择Standard Linode plan10刀一月，像我这种穷人只选Nanodes5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码ad40d846b4e9fcb9cec7a0f3e47f">
+<meta name="twitter:image" content="http://yoursite.com/../imgs/linode-vps.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用国外VPS指南-Linode | Sunrise 博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-78826582-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-78826582-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise 博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用国外VPS指南-Linode
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-12 09:01:19" itemprop="dateCreated datePublished" datetime="2020-02-12T09:01:19+08:00">2020-02-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-13 18:55:01" itemprop="dateModified" datetime="2020-02-13T18:55:01+08:00">2020-02-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>相关链接<ul>
+<li><a href="https://github.com/trojan-gfw" target="_blank" rel="external">https://github.com/trojan-gfw</a></li>
+<li><a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="external">Linode</a></li>
+<li><a href="https://github.com/txthinking/brook" target="_blank" rel="external">Brook</a></li>
+<li><a href="https://www.johnrosen1.com/trojan/" target="_blank" rel="external">其它教程</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="选购VPS"><a href="#选购VPS" class="headerlink" title="选购VPS"></a>选购VPS</h1><ul>
+<li>这里选择尝试使用<a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="external">Linode</a>来做VPS，如果预算购的可以选择高配，一般可以选择<code>Standard Linode plan</code>10刀一月，像我这种穷人只选<code>Nanodes</code>5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码<code>ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d</code>有优惠。</li>
+<li>这里选择安装<code>Debian 10</code>,区域就选择<code>SG</code>或<code>JP</code>,勾选<code>Private IP</code>还会有一个v4的IP,现在能供IPv4的厂商很少了，像<a href="https://www.vultr.com/" target="_blank" rel="external">Vultr</a>最便宜的VPS是2.5刀一月，只提供<code>IPv6</code>.完成之后，控制台如下图：<br><img src="../imgs/linode-vps.png" alt="vps"></li>
+<li>登录它有两种SSH方式，一是直接SSH访问：<code>ssh root@xxx.xxx.xxx.xxx</code>,这里可以使用在布署时添加RSA证书验证免密访问。二是通过Lish访问，估计它像是一个串口重定向一样的：<code>ssh -t &lt;username&gt;@lish-singapore.linode.com &lt;host-tags&gt;</code>,这里要用<a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="external">Linode</a>的用户名与密码登录，后面再输入<code>VPS</code>的用户名与密码登入<code>VPS</code>。</li>
+</ul>
+<h1 id="安装Trojan"><a href="#安装Trojan" class="headerlink" title="安装Trojan"></a>安装Trojan</h1><ul>
+<li><a href="https://github.com/trojan-gfw" target="_blank" rel="external">trojan</a>是一个代理上网工具，能帮助学习到更全面的知识,同时它的服务请求是通过标准的SSL(443)通讯的。对于新手可以去到<a href="https://github.com/johnrosen1/trojan-gfw-script" target="_blank" rel="external">Github</a>找一键安装脚本，有动手能力的可以自己编译源码与配置。</li>
+</ul>
+<h2 id="安装Nginx与Let’s-Encrypt"><a href="#安装Nginx与Let’s-Encrypt" class="headerlink" title="安装Nginx与Let’s Encrypt"></a>安装Nginx与Let’s Encrypt</h2><ul>
+<li><p>这里安装Nginx只是用它来去申请一个有安全保障，可依赖的安全证书。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># apt-get install nginx certbot -y</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>安装完成后,保障申请证书时能使用加密访问到，修改<code>/etc/nginx/sites-available/default</code>如下：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">~<span class="comment">#  cat /etc/nginx/sites-available/default</span></div><div class="line">[...]</div><div class="line">server &#123;</div><div class="line">	listen 443 default_server;</div><div class="line">	listen [::]:443 default_server;</div><div class="line">[....]</div></pre></td></tr></table></figure>
+<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><ul>
+<li>修改保存，并重启<code>Nginx</code>,使用<code>certbot</code>申请，中间按提示需要输入邮箱与域名，域名可以单独去申请绑定到这个VPS上，这里也可以使用上图<code>Reverse DNS</code>里的二级域名<code>xxx00-00.members.linode.com</code>.运行<code>certbot certonly -d xxx00-00.members.linode.com</code>是申请，运行<code>certbot renew -d xxx00-00.members.linode.com</code>是更新，具体使用查看，<code>certbot --help</code>.</li>
+<li>申请成功后，查看证书.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># ls/etc/letsencrypt/live/&lt;xxxxx&gt;.members.linode.com</span></div><div class="line">cert.pem  chain.pem  fullchain.pem  privkey.pem  README</div></pre></td></tr></table></figure>
+<h2 id="部署Trojan"><a href="#部署Trojan" class="headerlink" title="部署Trojan"></a>部署Trojan</h2><ul>
+<li><p>这里就直接下载一个最新的Release解压使使用，解压后如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># tree trojan</span></div><div class="line">trojan</div><div class="line">├── config.json</div><div class="line">├── CONTRIBUTORS.md</div><div class="line">├── examples</div><div class="line">│   ├── client.json-example</div><div class="line">│   ├── forward.json-example</div><div class="line">│   ├── nat.json-example</div><div class="line">│   ├── server.json-example</div><div class="line">│   └── trojan.service-example</div><div class="line">├── LICENSE</div><div class="line">├── README.md</div><div class="line">└── trojan</div></pre></td></tr></table></figure>
+</li>
+<li><p>这里直接从<code>examples/server.json-example</code>复制一个改名成<code>server.json</code>,具体修改的位置如下:</p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cat server.json </span></div><div class="line">&#123;</div><div class="line">    <span class="string">"run_type"</span>: <span class="string">"server"</span>,  <span class="comment"># 如果是用客服端，改成client</span></div><div class="line">    <span class="string">"local_addr"</span>: <span class="string">"0.0.0.0"</span>,</div><div class="line">    <span class="string">"local_port"</span>: 443,</div><div class="line">    <span class="string">"remote_addr"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="string">"remote_port"</span>: 80,</div><div class="line">    <span class="string">"password"</span>: [</div><div class="line">        <span class="string">"passwd1"</span>, <span class="comment"># 可以设置多个密码，可以使用任意一个访问该服务。</span></div><div class="line">        <span class="string">"passwd2"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"log_level"</span>: 1,</div><div class="line">    <span class="string">"ssl"</span>: &#123;</div><div class="line">        <span class="comment"># 下面这两行，就是使用从letsencrypt申请到的证书的完全路径。</span></div><div class="line">	      <span class="string">"cert"</span>: <span class="string">"/etc/letsencrypt/live/&lt;xxxxxx&gt;.members.linode.com/fullchain.pem"</span>,</div><div class="line">	      <span class="string">"key"</span>:<span class="string">"/etc/letsencrypt/live/&lt;xxxxx&gt;.members.linode.com/privkey.pem"</span>,</div><div class="line">        <span class="string">"key_password"</span>: <span class="string">""</span>,</div><div class="line">        <span class="string">"cipher"</span>: <span class="string">"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"</span>,</div><div class="line">        <span class="string">"cipher_tls13"</span>: <span class="string">"TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384"</span>,</div><div class="line">        <span class="string">"prefer_server_cipher"</span>: <span class="literal">true</span>,</div><div class="line">        ＃  <span class="string">"sni"</span>: <span class="string">"yourdomain"</span>, //如果客户端，会有这一行，就是服务器的域名。</div><div class="line">        <span class="string">"alpn"</span>: [</div><div class="line">            <span class="string">"http/1.1"</span></div><div class="line">        ],</div><div class="line">        <span class="string">"reuse_session"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"session_ticket"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"session_timeout"</span>: 600,</div><div class="line">        <span class="string">"plain_http_response"</span>: <span class="string">""</span>,</div><div class="line">        <span class="string">"curves"</span>: <span class="string">""</span>,</div><div class="line">        <span class="string">"dhparam"</span>: <span class="string">""</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"tcp"</span>: &#123;</div><div class="line">        <span class="string">"prefer_ipv4"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"no_delay"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"keep_alive"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"reuse_port"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"fast_open"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"fast_open_qlen"</span>: 20</div><div class="line">    &#125;,</div><div class="line">    <span class="string">"mysql"</span>: &#123;</div><div class="line">        <span class="string">"enabled"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"server_addr"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">        <span class="string">"server_port"</span>: 3306,</div><div class="line">        <span class="string">"database"</span>: <span class="string">"trojan"</span>,</div><div class="line">        <span class="string">"username"</span>: <span class="string">"trojan"</span>,</div><div class="line">        <span class="string">"password"</span>: <span class="string">""</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>现在把Nginx的SSL服务停掉，不然会无法运行<code>trojan</code>，运行<code>./trojan -c server.json</code>,如果无错，它就是成运行了。</p>
+</li>
+</ul>
+<h1 id="安装Brook"><a href="#安装Brook" class="headerlink" title="安装Brook"></a>安装Brook</h1><ul>
+<li><p>它可能是目前最灵活，但同时又保持了较高易用性的架设方法。支持多协议多模式，跨平台也比其它技术好。它是用GO语言写的，这里也是不想从源码编译，直接去下载一个最新使用。下面会是一些使用示例，最完整的还参考它的<a href="https://github.com/txthinking/brook" target="_blank" rel="external">Wiki</a></p>
+</li>
+<li><p>服务端</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ ./brook server <span class="_">-l</span> :8118 -p passwd1</div></pre></td></tr></table></figure>
+<ul>
+<li>客户端</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># ./brook client -l 127.0.0.1:4444 -i 127.0.0.1 -s &lt;serverip&gt;:8118 -p passwd1</span></div></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/VPS-Linux/" rel="tag"># VPS,Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/04/单片机入门-读写DHT11/" rel="next" title="单片机入门-读写DHT11">
+                <i class="fa fa-chevron-left"></i> 单片机入门-读写DHT11
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4"
+                alt="yjdwbj" />
+            
+              <p class="site-author-name" itemprop="name">yjdwbj</p>
+              <p class="site-description motion-element" itemprop="description">最是人间留不住,朱颜辞镜花辞树</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yjdwbj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yjdwbj@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/yjdwbj" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#选购VPS"><span class="nav-number">1.</span> <span class="nav-text">选购VPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Trojan"><span class="nav-number">2.</span> <span class="nav-text">安装Trojan</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Nginx与Let’s-Encrypt"><span class="nav-number">2.1.</span> <span class="nav-text">安装Nginx与Let’s Encrypt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请证书"><span class="nav-number">2.2.</span> <span class="nav-text">申请证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Trojan"><span class="nav-number">2.3.</span> <span class="nav-text">部署Trojan</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Brook"><span class="nav-number">3.</span> <span class="nav-text">安装Brook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -113,7 +113,7 @@
 获取源码并安状可用的 Feeds1234$ git clone git://git.openwrt.org/openwrt.git$ cd openwrt$ ./scripts/feeds update -a$ ./scripts/feeds install -a
 编译固件,配置与编译123$ make defconfig">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2019-11-05T14:04:14.083Z">
+<meta property="og:updated_time" content="2020-02-11T03:24:21.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenWrt固件编译">
 <meta name="twitter:description" content="OpenWrt 官方仓库Breed Bootloader 不死 uboot
@@ -352,7 +352,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-05 22:04:14" itemprop="dateModified" datetime="2019-11-05T22:04:14+08:00">2019-11-05</time>
+                <time title="修改时间：2020-02-11 11:24:21" itemprop="dateModified" datetime="2020-02-11T11:24:21+08:00">2020-02-11</time>
               
             
           </span>
@@ -420,6 +420,23 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-*- kmod-ath...................................... Atheros common driver part --&gt;</div><div class="line">	[*]   Force Atheros drivers to respect the user\<span class="string">'s regdomain settings</span></div><div class="line">    [*]   Atheros wireless debugging  # 这里为可选.</div><div class="line">	[*]   Enable DFS support</div><div class="line">    [*]   Atheros spectral scan support</div><div class="line">[...]</div><div class="line">#下面这两项为必选</div><div class="line">&lt;*&gt; kmod-ath9k-htc........................ Atheros 802.11n USB device support</div><div class="line">&lt;*&gt; kmod-carl9170....................... Driver for Atheros AR9170 USB sticks</div></pre></td></tr></table></figure>
 <h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ make -j1 V=s  <span class="comment"># 可以详细输出编译日志</span></div><div class="line"></div><div class="line">$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/</div><div class="line">$ ssh root@192.168.199.1</div><div class="line">$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware</div><div class="line">reboot</div></pre></td></tr></table></figure>
+<h3 id="备份，恢得"><a href="#备份，恢得" class="headerlink" title="备份，恢得"></a>备份，恢得</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># cat /proc/mtd </span></div><div class="line">dev:    size   erasesize  name</div><div class="line">mtd0: 00030000 00001000 <span class="string">"u-boot"</span></div><div class="line">mtd1: 00010000 00001000 <span class="string">"u-boot-env"</span></div><div class="line">mtd2: 00010000 00001000 <span class="string">"factory"</span></div><div class="line">mtd3: 00fb0000 00001000 <span class="string">"firmware"</span></div><div class="line">mtd4: 001a0583 00001000 <span class="string">"kernel"</span></div><div class="line">mtd5: 00e0fa7d 00001000 <span class="string">"rootfs"</span></div><div class="line">mtd6: 008c8000 00001000 <span class="string">"rootfs_data"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>备份自定义系统信息，包括新安装的软件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># dd if=/dev/mtd6 of=/mnt/overlay.bin</span></div></pre></td></tr></table></figure>
+<ul>
+<li>恢复备份设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># mtd -r write /mnt/overlay.bin rootfs_data</span></div></pre></td></tr></table></figure>
+<ul>
+<li>仅备份/恢复系统设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># sysupgrade -b /mnt/back.tar.gz</span></div><div class="line"><span class="comment"># restore</span></div><div class="line">~<span class="comment"># sysupgrade -r /mnt/back.tar.gz</span></div></pre></td></tr></table></figure>
+<ul>
+<li>恢复默认设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># rm -rf /overlay/* &amp;&amp; reboot</span></div><div class="line"><span class="comment"># or </span></div><div class="line">~<span class="comment"># mtd -r erase rootfs_data</span></div></pre></td></tr></table></figure>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为 192.168.1.1 , 密码:无. 另外要注的是,如果要使用 2.4G 11N 的模式,一定把<strong>Allow legacy 802.11b rates </strong>默认勾选去掉,不然会出现<strong>能连接不能上网</strong>的问题,它位于 UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的 AP 里的<strong>Allow legacy 802.11b rates </strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G 里如果不把上面这个勾选去掉,内核会一直报错<strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</p>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
@@ -548,7 +565,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -640,7 +657,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -695,7 +714,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取源码并安状可用的-Feeds"><span class="nav-number">1.</span> <span class="nav-text">获取源码并安状可用的 Feeds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译固件-配置与编译"><span class="nav-number">2.</span> <span class="nav-text">编译固件,配置与编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单配置"><span class="nav-number"></span> <span class="nav-text">简单配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-USB-WIFI-Atheros-AR9170-AR9101-支持-非必需"><span class="nav-number"></span> <span class="nav-text">添加 USB WIFI [Atheros AR9170+AR9101] 支持(非必需)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-刷机"><span class="nav-number"></span> <span class="nav-text">编译,刷机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number"></span> <span class="nav-text">谢谢支持</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取源码并安状可用的-Feeds"><span class="nav-number">1.</span> <span class="nav-text">获取源码并安状可用的 Feeds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译固件-配置与编译"><span class="nav-number">2.</span> <span class="nav-text">编译固件,配置与编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单配置"><span class="nav-number"></span> <span class="nav-text">简单配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-USB-WIFI-Atheros-AR9170-AR9101-支持-非必需"><span class="nav-number"></span> <span class="nav-text">添加 USB WIFI [Atheros AR9170+AR9101] 支持(非必需)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-刷机"><span class="nav-number"></span> <span class="nav-text">编译,刷机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#备份，恢得"><span class="nav-number"></span> <span class="nav-text">备份，恢得</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number"></span> <span class="nav-text">谢谢支持</span></a></div>
             
 
           </div>
@@ -715,7 +734,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

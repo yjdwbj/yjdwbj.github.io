@@ -285,6 +285,462 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/" itemprop="url">
+                  Linux下使用JLink与OpenOCD配合嵌入式开发
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-19 21:57:26" itemprop="dateCreated datePublished" datetime="2018-06-19T21:57:26+08:00">2018-06-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-03 12:17:31" itemprop="dateModified" datetime="2018-08-03T12:17:31+08:00">2018-08-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>相关链接</p>
+<ul>
+<li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
+<li><a href="http://www.microchip.com/developmenttools/ProductDetails/atmel%20sam-ba%20in-system%20programmer" target="_blank" rel="external">SAM-BA</a></li>
+<li><a href="http://www.armadeus.org/wiki/index.php?title=JTAG" target="_blank" rel="external">JTAG 相关Wiki</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="OpenOCD安装"><a href="#OpenOCD安装" class="headerlink" title="OpenOCD安装"></a>OpenOCD安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">~ apt-get install libhidapi-dev libhidapi-libusb0  <span class="comment"># CMSIS-DAP 必需要安装HIDAPI</span></div><div class="line">~ <span class="built_in">cd</span> build</div><div class="line">~ ../configure --enable-cmsis-dap</div><div class="line"></div><div class="line">libjaylink configuration summary:</div><div class="line"> - Package version ................ 0.1.0</div><div class="line"> - Library version ................ 0:0:0</div><div class="line"> - Installation prefix ............ /usr/<span class="built_in">local</span></div><div class="line"> - Building on .................... x86_64-pc-linux-gnu</div><div class="line"> - Building <span class="keyword">for</span> ................... x86_64-pc-linux-gnu</div><div class="line">[...]</div><div class="line">OpenOCD configuration summary</div><div class="line">--------------------------------------------------</div><div class="line">MPSSE mode of FTDI based devices        yes (auto)</div><div class="line">ST-Link JTAG Programmer                 yes (auto)</div><div class="line">TI ICDI JTAG Programmer                 yes (auto)</div><div class="line">Keil ULINK JTAG Programmer              yes (auto)</div><div class="line">Altera USB-Blaster II Compatible        yes (auto)</div><div class="line">Versaloon-Link JTAG Programmer          yes (auto)</div><div class="line">OSBDM (JTAG only) Programmer            yes (auto)</div><div class="line">eStick/opendous JTAG Programmer         yes (auto)</div><div class="line">Andes JTAG Programmer                   yes (auto)</div><div class="line">USBProg JTAG Programmer                 yes (auto)</div><div class="line">Raisonance RLink JTAG Programmer        yes (auto)</div><div class="line">Olimex ARM-JTAG-EW Programmer           yes (auto)</div><div class="line">CMSIS-DAP Compliant Debugger            yes (auto)</div><div class="line">Altera USB-Blaster Compatible           yes (auto)</div><div class="line">ASIX Presto Adapter                     yes (auto)</div><div class="line">OpenJTAG Adapter                        yes (auto)</div><div class="line">SEGGER J-Link Programmer                yes (auto)</div></pre></td></tr></table></figure>
+<h1 id="OpenOCD使用"><a href="#OpenOCD使用" class="headerlink" title="OpenOCD使用"></a>OpenOCD使用</h1><h2 id="CMSIS-DAP-连接"><a href="#CMSIS-DAP-连接" class="headerlink" title="CMSIS-DAP 连接"></a>CMSIS-DAP 连接</h2><ul>
+<li>查看USB的信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">[...]</div><div class="line">Bus 001 Device 007: ID 03eb:2111 Atmel Corp. </div><div class="line">[...]</div><div class="line"></div><div class="line">~$ lsusb -v <span class="_">-s</span> 001:007 | grep <span class="string">"iSerial"</span></div><div class="line">  iSerial                 3 ATML1803040200001055</div></pre></td></tr></table></figure>
+<ul>
+<li>添加udev规则</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/udev/rules.d/49-cmsis-dap.rules </div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"03eb"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"2111"</span>, MODE:=<span class="string">"0666"</span>, OWNER=<span class="string">"user"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>更新udev,创建一个openocd 连接配置文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ sudo udevadm trigger</div><div class="line">~$ cat atmel_sam4s_xplained_pro.cfg </div><div class="line">interface cmsis-dap</div><div class="line">cmsis_dap_vid_pid 0x03eb 0x2111</div><div class="line">cmsis_dap_serial ATML1803040200001055</div><div class="line"><span class="built_in">set</span> CHIPNAME ATSAM4SD32C</div><div class="line"><span class="built_in">source</span> [find board/atmel_sam4s_xplained_pro.cfg]</div><div class="line"></div><div class="line">~$ openocd <span class="_">-f</span> atmel_sam4s_xplained_pro.cfg</div></pre></td></tr></table></figure>
+<h2 id="J-Link使用"><a href="#J-Link使用" class="headerlink" title="J-Link使用"></a>J-Link使用</h2><ul>
+<li>假如是J-Link硬件,目标板是<code>STM32F103ZET6</code>带有20Pin的JTAG接口,就直接命令行连接就可以了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ openocd <span class="_">-f</span> interface/jlink.cfg <span class="_">-f</span> target/stm32f1x.cfg</div></pre></td></tr></table></figure>
+<h2 id="J-Link-OB使用"><a href="#J-Link-OB使用" class="headerlink" title="J-Link-OB使用"></a>J-Link-OB使用</h2><ul>
+<li>假如是某宝30元左右,三线JLink-OB硬件,目标板是<code>STM32F103ZET6</code>带有<strong>SWD</strong>接口,就要用一个配置文件来连接了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">~$ cat jlink-swd.cfg </div><div class="line"><span class="built_in">source</span> [find interface/jlink.cfg]</div><div class="line">transport select swd</div><div class="line"><span class="built_in">source</span> [find target/stm32f1x.cfg]</div><div class="line"></div><div class="line">~$ openocd <span class="_">-f</span> jlink-swd.cfg</div></pre></td></tr></table></figure>
+<h1 id="JLink-恢复"><a href="#JLink-恢复" class="headerlink" title="JLink 恢复"></a>JLink 恢复</h1><ul>
+<li>因为某宝上面几十元的JLink在使用大于<code>5.0</code>以上的驱动时,如果不升级是没有问题的.如果选择了自动升级固件,就会提示错误,并且无法使,这时只能重新刷写旧版本的固件才能使用.</li>
+</ul>
+<h2 id="擦除固件"><a href="#擦除固件" class="headerlink" title="擦除固件"></a>擦除固件</h2><ul>
+<li>如下图所示,打开盖板,会看到两排排针,一个写着<strong><code>erase</code></strong>,一个写着<strong><code>TST</code></strong>.先把<strong><code>earse</code></strong>短接,上电10秒以上,断开<code>erase</code>,短接<code>TST</code></li>
+<li>上电几秒,再继开短接.重新上电系统会出现如下设备</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 009 Device 106: ID 03eb:6124 Atmel Corp. at91sam SAMBA bootloader</div></pre></td></tr></table></figure>
+<h2 id="SAM-BA烧写"><a href="#SAM-BA烧写" class="headerlink" title="SAM-BA烧写"></a>SAM-BA烧写</h2><ul>
+<li>sam-ba 是atmel的一个烧写工具,有Linux版与windows版,因为它是用QT开发的,所以两个平台的操作界面与流程是一样的,可以从参考链接下载, 我这里用的Linux</li>
+<li>运行sam-ba就会自动识别芯片,Jlink的主控芯片就是<code>AT91SAM7S64</code>, 如图所示</li>
+</ul>
+<p><img src="/imgs/sam-ba-connector.png" alt="connector"></p>
+<ul>
+<li>连接之后会出现如下图所示,不用修用参数,直接选一个正解的固件文件,按<code>Send File</code>就可以.</li>
+</ul>
+<p><img src="/imgs/sam-ba-main.png" alt="main"></p>
+<ul>
+<li>烧写过程中会现对话框,要选择<code>UnLock it</code>,选择<code>Yes</code>才能烧写,后一次问你要不要<code>Lock it</code>锁定,选择<code>No</code>这样JLink才可以自动升级.</li>
+</ul>
+<p><img src="/imgs/sam-ba-no-lock.png" alt="sam-ba-no-lock"></p>
+<h1 id="使用JLink原生驱动与工具"><a href="#使用JLink原生驱动与工具" class="headerlink" title="使用JLink原生驱动与工具"></a>使用JLink原生驱动与工具</h1><ul>
+<li>使用它的原生驱动会比使用OpenOCD要好很多,比如<code>JLinkGDBServer.exe</code>运行起来会监听<code>localhost</code>的端口,如要想从其它IP来访问不可能,在这里就要使用<strong>端口转发</strong>.下面就是把<code>localhost</code>的<code>2331,2332,2333</code>分别映射为<code>8888,8889,8890</code>供局域网内使用.它本身也是可以支持<code>0.0.0.0.0</code>地址监听.</li>
+</ul>
+<h2 id="windows-端口转发"><a href="#windows-端口转发" class="headerlink" title="windows 端口转发"></a>windows 端口转发</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface ipv6 install</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8889 listenaddress=192.168.1.235 connectport=2332 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8890 listenaddress=192.168.1.235 connectport=2333 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy show v4tov4</div><div class="line"></div><div class="line">侦听 IPv4:                 连接到 IPv4:</div><div class="line"></div><div class="line">地址            端口        地址            端口</div><div class="line">--------------- ----------  --------------- ----------</div><div class="line">192.168.1.235   8888        127.0.0.1       2331</div><div class="line">192.168.1.235   8889        127.0.0.1       2332</div><div class="line">192.168.1.235   8890        127.0.0.1       2333</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
+<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/Visual-Studio-Code使用笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/19/Visual-Studio-Code使用笔记/" itemprop="url">
+                  Visual Studio Code使用笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-19 22:40:11" itemprop="dateCreated datePublished" datetime="2018-05-19T22:40:11+08:00">2018-05-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-05 22:05:15" itemprop="dateModified" datetime="2019-11-05T22:05:15+08:00">2019-11-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="external">VSCode</a></li>
+</ul>
+<h1 id="安装-VSCode"><a href="#安装-VSCode" class="headerlink" title="安装 VSCode"></a>安装 VSCode</h1><ul>
+<li>因为 vscode 是支持跨平台,多语言,易配置的免费 IDE 工具,所以安装是很简的.我这里以<code>Linux Debian</code>系统为例.</li>
+</ul>
+<h2 id="插件与扩展"><a href="#插件与扩展" class="headerlink" title="插件与扩展"></a>插件与扩展</h2><ul>
+<li>安装插件也是很简单,当然要确保电脑是可以上网的,选中 VSCode 主窗口按下组合快捷键<code>Ctrl+Shift+P</code>,就会出现下图的界面:</li>
+</ul>
+<p><img src="/imgs/extinstall.png" alt="extinstall"> 输入:<code>Ext</code>就会有自动补全的选项,选择的项如图所示,确认之后就会在左边 Docker 出现一个查询列表,在这里输入一些关键字进行查询,没有安装的插件,会在右下端有绿色高亮显示<font color="green"><code>install</code></font>安装按钮.如下图所示:<br><img src="/imgs/extsearch.png" alt="extsearch"></p>
+<h2 id="C-C-工程开发-CMake"><a href="#C-C-工程开发-CMake" class="headerlink" title="C/C++ 工程开发(CMake)"></a>C/C++ 工程开发(CMake)</h2><ul>
+<li>安装了的插件有: - ms-vscode.cpptools - mitaki28.vscode-clang - twxs.cmake - vector-of-bool.cmake-tools - webfreak.debug - ionutvmi.path-autocomplete //路径补全 - christian-kohler.path-intellisense 　//路径补全</li>
+</ul>
+<h3 id="创建-CMakeLists-txt"><a href="#创建-CMakeLists-txt" class="headerlink" title="创建 CMakeLists.txt"></a>创建 CMakeLists.txt</h3><ul>
+<li>首先新建一个空目录,使用 VSCode 打开这个目录,同时我个人喜欢把编译目录也建在这个目录下,名为<code>build</code>.用 VSCode 新建一个名为<code>CMakeLists.txt</code>的文件加入如下基本行:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">project(chapter3)</div><div class="line">cmake_minimum_required(VERSION 3.0)</div><div class="line">aux_source_directory(. DIR_ROOT_SRCS)</div><div class="line"></div><div class="line"><span class="comment">#下面这三行不是必须,这三行只是为了使用非标准路径的OpenCV库.</span></div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include)</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib)</div><div class="line">find_package(OpenCV 3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5)</div><div class="line">add_executable(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;DIR_ROOT_SRCS&#125;</span>)</div><div class="line">target_link_libraries(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</div></pre></td></tr></table></figure>
+<h3 id="创建-c-cpp-properties-json-文件"><a href="#创建-c-cpp-properties-json-文件" class="headerlink" title="创建 c_cpp_properties.json 文件"></a>创建 c_cpp_properties.json 文件</h3><ul>
+<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>C/Cpp: Edit Configurations ...</code>确定,就会进入一个新的名为<code>c_cpp_properties.json</code>的文件编辑状态,输入如下内容:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"configurations"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"Linux"</span>,</div><div class="line"></div><div class="line">            <span class="string">"browse"</span>: &#123;</div><div class="line">            // 这个path是为在开发中自动补齐头文件名</div><div class="line">                <span class="string">"path"</span>: [</div><div class="line">                    <span class="string">"/fullpath/opencv-build-3.x-qt5/include"</span>,</div><div class="line">                    <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>"</span></div><div class="line">                ],</div><div class="line">                <span class="string">"limitSymbolsToIncludedHeaders"</span>: <span class="literal">true</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"includePath"</span>: [</div><div class="line">                <span class="string">"/fullpath/opencv-build-3.x-qt5/include"</span>,</div><div class="line">                <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/**"</span></div><div class="line">            ],</div><div class="line">            <span class="string">"defines"</span>: [],</div><div class="line">            <span class="string">"compilerPath"</span>: <span class="string">"/usr/bin/clang"</span>,</div><div class="line">            <span class="string">"cStandard"</span>: <span class="string">"c11"</span>,</div><div class="line">            <span class="string">"cppStandard"</span>: <span class="string">"c++17"</span>,</div><div class="line">            <span class="string">"intelliSenseMode"</span>: <span class="string">"clang-x64"</span></div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    <span class="string">"version"</span>: 4</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建-tasks-json-文件"><a href="#创建-tasks-json-文件" class="headerlink" title="创建 tasks.json 文件"></a>创建 tasks.json 文件</h3><ul>
+<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>Tasks: Configure Default Build Tasks</code>,或者从工具栏的<code>Tasks-&gt;Configure Default Build Task ...</code>,就会出现一个下拉列表,选择<strong>Other</strong>,就会进入一个新的名为<code>tasks.json</code>的文件编辑状态,填入如下内容.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</div><div class="line">    // <span class="keyword">for</span> the documentation about the tasks.json format</div><div class="line">    <span class="string">"version"</span>: <span class="string">"2.0.0"</span>,</div><div class="line">    <span class="string">"tasks"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"label"</span>: <span class="string">"cmake"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"shell"</span>,</div><div class="line">            <span class="string">"command"</span>: <span class="string">"cd build &amp;&amp; cmake ../"</span>,</div><div class="line">            <span class="string">"group"</span>: &#123;</div><div class="line">                <span class="string">"kind"</span>: <span class="string">"build"</span>,</div><div class="line">                <span class="string">"isDefault"</span>: <span class="literal">true</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"presentation"</span>: &#123;</div><div class="line">                <span class="string">"echo"</span>: <span class="literal">true</span>,</div><div class="line">                <span class="string">"reveal"</span>: <span class="string">"always"</span>,</div><div class="line">                <span class="string">"focus"</span>: <span class="literal">false</span>,</div><div class="line">                <span class="string">"panel"</span>: <span class="string">"shared"</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"problemMatcher"</span>: []</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"label"</span>: <span class="string">"make"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"shell"</span>,</div><div class="line">            <span class="string">"command"</span>: <span class="string">"cd build &amp;&amp; make"</span>,</div><div class="line">            <span class="string">"group"</span>: &#123;</div><div class="line">                <span class="string">"kind"</span>: <span class="string">"build"</span>,</div><div class="line">                <span class="string">"isDefault"</span>: <span class="literal">true</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"presentation"</span>: &#123;</div><div class="line">                <span class="string">"echo"</span>: <span class="literal">true</span>,</div><div class="line">                <span class="string">"reveal"</span>: <span class="string">"always"</span>,</div><div class="line">                <span class="string">"focus"</span>: <span class="literal">false</span>,</div><div class="line">                <span class="string">"panel"</span>: <span class="string">"shared"</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"problemMatcher"</span>: []</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建程序主文件"><a href="#创建程序主文件" class="headerlink" title="创建程序主文件"></a>创建程序主文件</h3><ul>
+<li>新建一个名为<code>main.cpp</code>的文件如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line"><span class="comment">#include &lt;opencv2/core.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;opencv2/highgui.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;opencv2/imgproc.hpp&gt;</span></div><div class="line"></div><div class="line">using namespace std;</div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc,char *argv[])</div><div class="line">&#123;</div><div class="line">    cv::Mat srcImage = cv::imread(<span class="string">"../../images/hand1.jpg"</span>);</div><div class="line">    cv::imshow(<span class="string">"bitwise_add"</span>,bitImage);</div><div class="line">    cv::<span class="built_in">wait</span>Key(0);</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建-Debug-launch-json"><a href="#创建-Debug-launch-json" class="headerlink" title="创建 Debug launch.json"></a>创建 Debug launch.json</h3><ul>
+<li>组合快捷键<code>Ctrl+Shift+D</code> 下拉选择<code>Add Configurations...</code>-&gt;选择<code>C++(GDB/LLDB)</code>,就会进入一个新的名为<code>launch.json</code>的文件编辑状态,文件如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // Use IntelliSense to learn about possible attributes.</div><div class="line">    // Hover to view descriptions of existing attributes.</div><div class="line">    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</div><div class="line">    <span class="string">"version"</span>: <span class="string">"0.2.0"</span>,</div><div class="line">    <span class="string">"configurations"</span>: [</div><div class="line"></div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"(gdb) Launch"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"cppdbg"</span>,</div><div class="line">            <span class="string">"request"</span>: <span class="string">"launch"</span>,</div><div class="line">            <span class="string">"program"</span>: <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/build/chapter3"</span>,</div><div class="line">            <span class="string">"args"</span>: [],</div><div class="line">            <span class="string">"stopAtEntry"</span>: <span class="literal">false</span>,</div><div class="line">            <span class="string">"cwd"</span>: <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>"</span>,</div><div class="line">            <span class="string">"environment"</span>: [],</div><div class="line">            <span class="string">"externalConsole"</span>: <span class="literal">true</span>,</div><div class="line">            <span class="string">"MIMode"</span>: <span class="string">"gdb"</span>,</div><div class="line">            //这一行是为了在调试前编译一次工程.</div><div class="line">            <span class="string">"preLaunchTask"</span>: <span class="string">"make"</span>,</div><div class="line">            <span class="string">"setupCommands"</span>: [</div><div class="line">                &#123;</div><div class="line">                    <span class="string">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</div><div class="line">                    <span class="string">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</div><div class="line">                    <span class="string">"ignoreFailures"</span>: <span class="literal">true</span></div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"(gdb) Attach"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"cppdbg"</span>,</div><div class="line">            <span class="string">"request"</span>: <span class="string">"attach"</span>,</div><div class="line">            <span class="string">"program"</span>: <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/build/chapter1"</span>,</div><div class="line">            <span class="string">"processId"</span>: <span class="string">"<span class="variable">$&#123;command:pickProcess&#125;</span>"</span>,</div><div class="line">            <span class="string">"MIMode"</span>: <span class="string">"gdb"</span>,</div><div class="line">            <span class="string">"setupCommands"</span>: [</div><div class="line">                &#123;</div><div class="line">                    <span class="string">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</div><div class="line">                    <span class="string">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</div><div class="line">                    <span class="string">"ignoreFailures"</span>: <span class="literal">true</span></div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h3><ul>
+<li>现在就可以用组合快捷键<code>Ctrl+Shift+B</code>先运行<code>cmake</code>再运行<code>make</code>就能生成出目标文件了.</li>
+<li>用<code>F9</code>在源文件里下断点,<code>F5</code>运行 GDB 调试.</li>
+<li>工程的目录结构如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~/opencv_chapter3$ ls <span class="_">-a</span></div><div class="line">.  ..  build  CMakeLists.txt  main.cpp  .vscode</div><div class="line">~/opencv_chapter3$ tree .vscode/</div><div class="line">.vscode/</div><div class="line">├── c_cpp_properties.json</div><div class="line">├── launch.json</div><div class="line">└── tasks.json</div><div class="line"></div><div class="line">0 directories, 3 files</div></pre></td></tr></table></figure>
+<ul>
+<li>显而易见的,在根目录下有一个<code>.vscode</code>的隐藏目录,里面有我刚创建的三个文件.</li>
+</ul>
+<h2 id="Python-开发环境"><a href="#Python-开发环境" class="headerlink" title="Python 开发环境"></a>Python 开发环境</h2><ul>
+<li>相关的插件: - ms-python.python</li>
+</ul>
+<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><ul>
+<li>这里 python 创建工程与上面类似,只是安装完成这个<code>ms-python.python</code>插件,有可能需要手动(如果没有自动)用<code>pip</code>安装一些依赖的 python 库,如:<strong>pylint,flake8,autopep8,yapf</strong>等,注意:<strong>pylint,flake8</strong> 开启只能二选一.</li>
+</ul>
+<h3 id="相关设置"><a href="#相关设置" class="headerlink" title="相关设置"></a>相关设置</h3><h4 id="settings-json"><a href="#settings-json" class="headerlink" title="settings.json"></a>settings.json</h4><ul>
+<li>选择解释器,组合快捷键<code>Ctrl+Shift+P</code>,输入<code>Python</code>会列出所有<code>Python</code>相关的设置.选择<code>Ｐython: Selecter Interpreter</code>,选择之后也会在根目录下创建<code>.vscode/settings.json</code>,我的配置如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">    &#123;</div><div class="line">    //这里隐藏一些文件类型,不要让它在explorer上面显示.</div><div class="line">    <span class="string">"files.exclude"</span>: &#123;</div><div class="line">        <span class="string">"**/.git"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/.svn"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/.hg"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/CVS"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/*.pyc"</span>:<span class="literal">true</span>,</div><div class="line">        <span class="string">"**/.DS_Store"</span>: <span class="literal">true</span></div><div class="line">    &#125;,</div><div class="line">    //这里可以写入一个其它位置的解释器,默认就是/usr/bin/python</div><div class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"/fullpath/.pyenv/versions/py3dev/bin/python"</span>,</div><div class="line">    <span class="string">"python.autoComplete.extraPaths"</span>: [</div><div class="line">        <span class="string">"/fullpath/.pyenv/versions/py3dev/lib/python3.6/site-packages/"</span>,</div><div class="line">        <span class="string">"/fullpath/opencv-build-3.x-qt5-py3/lib/python3.6/site-packages"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"python.linting.flake8Path"</span>: <span class="string">"/fullpath/.pyenv/versions/3.6.5/envs/py3dev/bin/flake8"</span>,</div><div class="line">    <span class="string">"python.linting.pylintEnabled"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="string">"python.linting.flake8Enabled"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="string">"python.formatting.provider"</span>: <span class="string">"yapf"</span>, //格式化代码组合键:　Ctrl+Shift+I</div><div class="line">    <span class="string">"python.formatting.yapfPath"</span>: <span class="string">"/fullpath/.pyenv/versions/3.6.5/envs/py3dev/bin/yapf"</span>,</div><div class="line">    <span class="string">"python.linting.enabled"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="string">"python.linting.flake8Args"</span>: [</div><div class="line">        <span class="string">"--ignore=E501,E402,E401"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"python.linting.pylintPath"</span>: <span class="string">"/fullpath/.pyenv/versions/3.6.5/envs/py3dev/bin/pylint"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="tasks-json"><a href="#tasks-json" class="headerlink" title="tasks.json"></a>tasks.json</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</div><div class="line">    // <span class="keyword">for</span> the documentation about the tasks.json format</div><div class="line">    <span class="string">"version"</span>: <span class="string">"2.0.0"</span>,</div><div class="line">    <span class="string">"tasks"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"label"</span>: <span class="string">"echo"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"shell"</span>,</div><div class="line">            <span class="string">"command"</span>: <span class="string">"/fullpath/.pyenv/versions/py3dev/bin/python"</span>,</div><div class="line">            <span class="string">"args"</span>: [</div><div class="line">                <span class="string">"cameo.py"</span>   //当前要运行的脚本,也就是__main__ 所在的位置</div><div class="line">            ],</div><div class="line">            <span class="string">"group"</span>: &#123;</div><div class="line">                <span class="string">"kind"</span>: <span class="string">"build"</span>,</div><div class="line">                <span class="string">"isDefault"</span>: <span class="literal">true</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="安装-Arduino-开发环境"><a href="#安装-Arduino-开发环境" class="headerlink" title="安装 Arduino 开发环境"></a>安装 Arduino 开发环境</h2><ul>
+<li><p>Arduino 官方的 IDE 功能什么都好,开源库的下载管理,各种开发板的支持都很完善,就是欠缺编辑功能,如自动补全,函数定义跳转等功能.<a href="https://kig.re/2014/08/02/arduino-ide-alternatives.html" target="_blank" rel="external"><code>Choosing The Right Arduino IDE</code></a>这里有几种其它方式的 ArduinoIDE 的实现.<br>这里我就选取<code>VS Code</code>插件方式.它的安装方式都很简单如下:</p>
+</li>
+<li><p>Open VS Code and press F1 or Ctrl + Shift + P to open command palette, select Install Extension and type vscode-arduino.　 Or launch VS Code Quick Open (Ctrl + P), paste the following command, and press enter.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ext install vscode-arduino</div></pre></td></tr></table></figure>
+<ul>
+<li>使用方法与配置,直接参照<code>vscode-arduino</code>插件的<strong>Details</strong>描述就行了.注意要正确配置<code>arduino.path</code>的路径,我这里就直接指向 Arduino 官方 IDE 的目录,这样<code>vscode</code>就可以完全找到该系统安装的库与开发板的支持了.<code>settings.json</code>文件可以设置成全局用户配置,也可以设置成单独工程配置,放在工程目录<code>.vscode</code>下面.</li>
+</ul>
+<p>###　.vscode/settings.json</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"arduino.path"</span>: <span class="string">"C:/Program Files (x86)/Arduino"</span>,</div><div class="line">    <span class="string">"arduino.commandPath"</span>: <span class="string">"run-arduino.bat"</span>,</div><div class="line">    <span class="string">"arduino.additionalUrls"</span>: <span class="string">""</span>,</div><div class="line">    <span class="string">"arduino.logLevel"</span>: <span class="string">"info"</span>,</div><div class="line">    <span class="string">"arduino.enableUSBDetection"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="string">"arduino.disableTestingOpen"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="string">"arduino.skipHeaderProvider"</span>: <span class="literal">false</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="vscode-arduino-json-under-the-workspace"><a href="#vscode-arduino-json-under-the-workspace" class="headerlink" title=".vscode/arduino.json under the workspace."></a>.vscode/arduino.json under the workspace.</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"sketch"</span>: <span class="string">"example.ino"</span>,</div><div class="line">    <span class="string">"port"</span>: <span class="string">"COM5"</span>,</div><div class="line">    <span class="string">"board"</span>: <span class="string">"adafruit:samd:adafruit_feather_m0"</span>,</div><div class="line">    <span class="string">"output"</span>: <span class="string">"../build"</span>,</div><div class="line">    <span class="string">"debugger"</span>: <span class="string">"jlink"</span>,</div><div class="line">    <span class="string">"prebuild"</span>: <span class="string">"bash prebuild.sh"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="vscode-c-cpp-properties-json"><a href="#vscode-c-cpp-properties-json" class="headerlink" title=".vscode/c_cpp_properties.json"></a>.vscode/c_cpp_properties.json</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"configurations"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"Linux"</span>,</div><div class="line">            <span class="string">"includePath"</span>: [</div><div class="line">                <span class="string">"/fullpath/Arduino/libraries/Adafruit_SSD1306"</span>,</div><div class="line">                <span class="string">"/fullpath/Arduino/libraries/Adafruit_GFX_Library"</span>,</div><div class="line">                <span class="string">"/fullpath/.arduino15/packages/arduino/hardware/sam/1.6.11/cores/arduino"</span>,</div><div class="line">                <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/**"</span></div><div class="line">            ],</div><div class="line">            <span class="string">"defines"</span>: [],</div><div class="line">            <span class="string">"compilerPath"</span>: <span class="string">"/usr/bin/clang"</span>,</div><div class="line">            <span class="string">"cStandard"</span>: <span class="string">"c11"</span>,</div><div class="line">            <span class="string">"cppStandard"</span>: <span class="string">"c++17"</span>,</div><div class="line">            <span class="string">"intelliSenseMode"</span>: <span class="string">"clang-x64"</span>,</div><div class="line">            <span class="string">"browse"</span>: &#123;</div><div class="line">                <span class="string">"limitSymbolsToIncludedHeaders"</span>: <span class="literal">false</span>,</div><div class="line">                <span class="string">"path"</span>: [</div><div class="line">                    <span class="string">"/fullpath/Arduino/libraries/Adafruit_GFX_Library"</span>,</div><div class="line">                    <span class="string">"/fullpath/Arduino/libraries/Adafruit_SSD1306"</span>,</div><div class="line">                    <span class="string">"/fullpath/Arduino/libraries/STM32duino_LwIP/src"</span>,</div><div class="line">                    <span class="string">"/fullpath/arduino-1.8.3/hardware/arduino/avr/cores/arduino"</span>,</div><div class="line">                    <span class="string">"/fullpath/arduino-1.8.3/hardware/arduino/avr/libraries/SPI/src"</span>,</div><div class="line">                    <span class="string">"/fullpath/.arduino15/packages/arduino/hardware/sam/1.6.11/cores/arduino"</span></div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    <span class="string">"version"</span>: 4</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>这里只是关于<code>VSCode</code>的最基本使用流程,后续会加上其它语言,其它平台的使用笔记进来.初步使用的感觉与效率都很适合我,我以前使用的<code>Qt Creator</code>时间比较长,总体来讲,使用难度曲线不高.</li>
+</ul>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/Android错误集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -756,7 +1212,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-05 22:04:14" itemprop="dateModified" datetime="2019-11-05T22:04:14+08:00">2019-11-05</time>
+                <time title="修改时间：2020-02-11 11:24:21" itemprop="dateModified" datetime="2020-02-11T11:24:21+08:00">2020-02-11</time>
               
             
           </span>
@@ -826,6 +1282,23 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-*- kmod-ath...................................... Atheros common driver part --&gt;</div><div class="line">	[*]   Force Atheros drivers to respect the user\<span class="string">'s regdomain settings</span></div><div class="line">    [*]   Atheros wireless debugging  # 这里为可选.</div><div class="line">	[*]   Enable DFS support</div><div class="line">    [*]   Atheros spectral scan support</div><div class="line">[...]</div><div class="line">#下面这两项为必选</div><div class="line">&lt;*&gt; kmod-ath9k-htc........................ Atheros 802.11n USB device support</div><div class="line">&lt;*&gt; kmod-carl9170....................... Driver for Atheros AR9170 USB sticks</div></pre></td></tr></table></figure>
 <h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ make -j1 V=s  <span class="comment"># 可以详细输出编译日志</span></div><div class="line"></div><div class="line">$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/</div><div class="line">$ ssh root@192.168.199.1</div><div class="line">$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware</div><div class="line">reboot</div></pre></td></tr></table></figure>
+<h3 id="备份，恢得"><a href="#备份，恢得" class="headerlink" title="备份，恢得"></a>备份，恢得</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># cat /proc/mtd </span></div><div class="line">dev:    size   erasesize  name</div><div class="line">mtd0: 00030000 00001000 <span class="string">"u-boot"</span></div><div class="line">mtd1: 00010000 00001000 <span class="string">"u-boot-env"</span></div><div class="line">mtd2: 00010000 00001000 <span class="string">"factory"</span></div><div class="line">mtd3: 00fb0000 00001000 <span class="string">"firmware"</span></div><div class="line">mtd4: 001a0583 00001000 <span class="string">"kernel"</span></div><div class="line">mtd5: 00e0fa7d 00001000 <span class="string">"rootfs"</span></div><div class="line">mtd6: 008c8000 00001000 <span class="string">"rootfs_data"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>备份自定义系统信息，包括新安装的软件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># dd if=/dev/mtd6 of=/mnt/overlay.bin</span></div></pre></td></tr></table></figure>
+<ul>
+<li>恢复备份设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># mtd -r write /mnt/overlay.bin rootfs_data</span></div></pre></td></tr></table></figure>
+<ul>
+<li>仅备份/恢复系统设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># sysupgrade -b /mnt/back.tar.gz</span></div><div class="line"><span class="comment"># restore</span></div><div class="line">~<span class="comment"># sysupgrade -r /mnt/back.tar.gz</span></div></pre></td></tr></table></figure>
+<ul>
+<li>恢复默认设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># rm -rf /overlay/* &amp;&amp; reboot</span></div><div class="line"><span class="comment"># or </span></div><div class="line">~<span class="comment"># mtd -r erase rootfs_data</span></div></pre></td></tr></table></figure>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为 192.168.1.1 , 密码:无. 另外要注的是,如果要使用 2.4G 11N 的模式,一定把<strong>Allow legacy 802.11b rates </strong>默认勾选去掉,不然会出现<strong>能连接不能上网</strong>的问题,它位于 UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的 AP 里的<strong>Allow legacy 802.11b rates </strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G 里如果不把上面这个勾选去掉,内核会一直报错<strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</p>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
@@ -2014,431 +2487,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/22/安装Postgresql-XL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/22/安装Postgresql-XL/" itemprop="url">
-                  安装Postgresql-XL
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-12-22 22:17:16" itemprop="dateCreated datePublished" datetime="2016-12-22T22:17:16+08:00">2016-12-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-22 21:25:08" itemprop="dateModified" datetime="2019-03-22T21:25:08+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维/" itemprop="url" rel="index"><span itemprop="name">运维</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>一直以来的服务器开发都会使用<code>PostgreSQL</code>做为数据库.有人会问为什么不用 MySQL?这个是个人喜好.Postgresql 与 MySQL 也是一些区别的.Postgresql 有一些特性是 MySQL 没有具备的.有人会说:在中国为什么 MySQL 的使用会比 PostgreSQL 流行.可能其中一个原因是 PostgreSQL 没有服务好 PHP.PostgreSQL 与 MySQL 的连接方式有很大不同,PostgreSQL 是 fork 进程,MySQL 是线程连接.所以在高并发下 PostgreSQL 的连接数会很快被用完.这时就需要一个连接池处理客户端的连接.</li>
-<li>Pgbouncer,pgpool,<a href="http://www.postgres-xl.org" target="_blank" rel="external">PostgreSQL-XL</a></li>
-</ul>
-<h1 id="安装主机系统"><a href="#安装主机系统" class="headerlink" title="安装主机系统"></a>安装主机系统</h1><ul>
-<li>本文的系统是基于<code>Debian 8</code>,安装 qemu-kvm 虚拟机.并于一些相关的软件.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># apt-get install qemu-kvm openvswitch-&#123;switch,common&#125; libvirt-bin virtinst virt-manager</span></div><div class="line">[...]</div><div class="line"></div><div class="line"><span class="comment"># /etc/init.d/openvswitch-switch start</span></div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># ovs-vsctl show</span></div><div class="line">504bd042<span class="_">-d</span>300-4<span class="built_in">fc</span>3-be49-5609ea5df49f</div><div class="line">    Bridge <span class="string">"ovs-br0"</span></div><div class="line">        Port <span class="string">"ovs-br0"</span></div><div class="line">            Interface <span class="string">"ovs-br0"</span></div><div class="line">                <span class="built_in">type</span>: internal</div><div class="line">    ovs_version: <span class="string">"2.5.0"</span></div></pre></td></tr></table></figure>
-<h1 id="安装基础系统"><a href="#安装基础系统" class="headerlink" title="安装基础系统"></a>安装基础系统</h1><ul>
-<li>本文的做实验的虚拟机系统是基于<code>Centos 7</code>的环境. 通过<code>virsh dumpxml vhost0</code>,配置如下:</li>
-</ul>
-<ul>
-<li>两个 CPU,8G 内存,eth0 192.168.120/24, eth1 192.168.25.0/24,　 eth0 是桥接主机的 openvswitch 的虚拟网卡用作于 HostOnly 内部网络.eth1 是桥主机的物理网卡,可以连接到互联安装软件</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># virsh dumpxml vhost0</span></div><div class="line">&lt;domain <span class="built_in">type</span>=<span class="string">'kvm'</span> id=<span class="string">'53'</span>&gt;</div><div class="line">  &lt;name&gt;vhost0&lt;/name&gt;</div><div class="line">  &lt;uuid&gt;0fdbcbe7<span class="_">-f</span>7e9-443e-bf9b-7ac4a6d27612&lt;/uuid&gt;</div><div class="line">  &lt;memory unit=<span class="string">'KiB'</span>&gt;8388608&lt;/memory&gt;</div><div class="line">  &lt;currentMemory unit=<span class="string">'KiB'</span>&gt;8388608&lt;/currentMemory&gt;</div><div class="line">  &lt;vcpu placement=<span class="string">'static'</span>&gt;2&lt;/vcpu&gt;</div><div class="line">  &lt;resource&gt;</div><div class="line">    &lt;partition&gt;/machine&lt;/partition&gt;</div><div class="line">  &lt;/resource&gt;</div><div class="line">  &lt;os&gt;</div><div class="line">    &lt;<span class="built_in">type</span> arch=<span class="string">'x86_64'</span> machine=<span class="string">'pc-i440fx-xenial'</span>&gt;hvm&lt;/<span class="built_in">type</span>&gt;</div><div class="line">    &lt;boot dev=<span class="string">'hd'</span>/&gt;</div><div class="line">  &lt;/os&gt;</div><div class="line">  &lt;features&gt;</div><div class="line">    &lt;acpi/&gt;</div><div class="line">    &lt;apic/&gt;</div><div class="line">    &lt;pae/&gt;</div><div class="line">  &lt;/features&gt;</div><div class="line">  &lt;cpu mode=<span class="string">'custom'</span> match=<span class="string">'exact'</span>&gt;</div><div class="line">    &lt;model fallback=<span class="string">'allow'</span>&gt;Broadwell-noTSX&lt;/model&gt;</div><div class="line">  &lt;/cpu&gt;</div><div class="line">  &lt;clock offset=<span class="string">'utc'</span>&gt;</div><div class="line">    &lt;timer name=<span class="string">'rtc'</span> tickpolicy=<span class="string">'catchup'</span>/&gt;</div><div class="line">    &lt;timer name=<span class="string">'pit'</span> tickpolicy=<span class="string">'delay'</span>/&gt;</div><div class="line">    &lt;timer name=<span class="string">'hpet'</span> present=<span class="string">'no'</span>/&gt;</div><div class="line">  &lt;/clock&gt;</div><div class="line">  &lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt;</div><div class="line">  &lt;on_reboot&gt;restart&lt;/on_reboot&gt;</div><div class="line">  &lt;on_crash&gt;restart&lt;/on_crash&gt;</div><div class="line">  &lt;pm&gt;</div><div class="line">    &lt;<span class="built_in">suspend</span>-to-mem enabled=<span class="string">'no'</span>/&gt;</div><div class="line">    &lt;<span class="built_in">suspend</span>-to-disk enabled=<span class="string">'no'</span>/&gt;</div><div class="line">  &lt;/pm&gt;</div><div class="line">  &lt;devices&gt;</div><div class="line">    &lt;emulator&gt;/usr/bin/kvm-spice&lt;/emulator&gt;</div><div class="line">    &lt;disk <span class="built_in">type</span>=<span class="string">'file'</span> device=<span class="string">'disk'</span>&gt;</div><div class="line">      &lt;driver name=<span class="string">'qemu'</span> <span class="built_in">type</span>=<span class="string">'qcow2'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">source</span> file=<span class="string">'/data/centos7.qcow2'</span>/&gt;</div><div class="line">      &lt;backingStore/&gt;</div><div class="line">      &lt;target dev=<span class="string">'vda'</span> bus=<span class="string">'virtio'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'virtio-disk0'</span>/&gt;</div><div class="line">  &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x07'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span>/&gt;</div><div class="line">    &lt;/disk&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'usb'</span> index=<span class="string">'0'</span> model=<span class="string">'ich9-ehci1'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'usb'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x06'</span> <span class="keyword">function</span>=<span class="string">'0x7'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'usb'</span> index=<span class="string">'0'</span> model=<span class="string">'ich9-uhci1'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'usb'</span>/&gt;</div><div class="line">      &lt;master startport=<span class="string">'0'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x06'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span> multifunction=<span class="string">'on'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'usb'</span> index=<span class="string">'0'</span> model=<span class="string">'ich9-uhci2'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'usb'</span>/&gt;</div><div class="line">      &lt;master startport=<span class="string">'2'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x06'</span> <span class="keyword">function</span>=<span class="string">'0x1'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'usb'</span> index=<span class="string">'0'</span> model=<span class="string">'ich9-uhci3'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'usb'</span>/&gt;</div><div class="line">      &lt;master startport=<span class="string">'4'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x06'</span> <span class="keyword">function</span>=<span class="string">'0x2'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'pci'</span> index=<span class="string">'0'</span> model=<span class="string">'pci-root'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'pci.0'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'ide'</span> index=<span class="string">'0'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'ide'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x01'</span> <span class="keyword">function</span>=<span class="string">'0x1'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;controller <span class="built_in">type</span>=<span class="string">'virtio-serial'</span> index=<span class="string">'0'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'virtio-serial0'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x05'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span>/&gt;</div><div class="line">    &lt;/controller&gt;</div><div class="line">    &lt;interface <span class="built_in">type</span>=<span class="string">'direct'</span>&gt;</div><div class="line">      &lt;mac address=<span class="string">'52:54:00:a5:93:d5'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">source</span> dev=<span class="string">'ovs-system'</span> mode=<span class="string">'bridge'</span>/&gt;</div><div class="line">      &lt;target dev=<span class="string">'macvtap10'</span>/&gt;</div><div class="line">      &lt;model <span class="built_in">type</span>=<span class="string">'virtio'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'net0'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x03'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span>/&gt;</div><div class="line">    &lt;/interface&gt;</div><div class="line">    &lt;interface <span class="built_in">type</span>=<span class="string">'direct'</span>&gt;</div><div class="line">      &lt;mac address=<span class="string">'52:54:00:14:02:69'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">source</span> dev=<span class="string">'enp5s0'</span> mode=<span class="string">'bridge'</span>/&gt;</div><div class="line">      &lt;target dev=<span class="string">'macvtap11'</span>/&gt;</div><div class="line">      &lt;model <span class="built_in">type</span>=<span class="string">'virtio'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'net1'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x09'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span>/&gt;</div><div class="line">    &lt;/interface&gt;</div><div class="line">    &lt;console <span class="built_in">type</span>=<span class="string">'pty'</span> tty=<span class="string">'/dev/pts/18'</span>&gt;</div><div class="line">      &lt;<span class="built_in">source</span> path=<span class="string">'/dev/pts/18'</span>/&gt;</div><div class="line">      &lt;target <span class="built_in">type</span>=<span class="string">'virtio'</span> port=<span class="string">'0'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'console0'</span>/&gt;</div><div class="line">    &lt;/console&gt;</div><div class="line">    &lt;channel <span class="built_in">type</span>=<span class="string">'unix'</span>&gt;</div><div class="line">      &lt;<span class="built_in">source</span> mode=<span class="string">'bind'</span> path=<span class="string">'/var/lib/libvirt/qemu/channel/target/domain-pgsql-xl-gmt/org.qemu.guest_agent.0'</span>/&gt;</div><div class="line">      &lt;target <span class="built_in">type</span>=<span class="string">'virtio'</span> name=<span class="string">'org.qemu.guest_agent.0'</span> state=<span class="string">'disconnected'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'channel0'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'virtio-serial'</span> controller=<span class="string">'0'</span> bus=<span class="string">'0'</span> port=<span class="string">'1'</span>/&gt;</div><div class="line">    &lt;/channel&gt;</div><div class="line">    &lt;channel <span class="built_in">type</span>=<span class="string">'spicevmc'</span>&gt;</div><div class="line">      &lt;target <span class="built_in">type</span>=<span class="string">'virtio'</span> name=<span class="string">'com.redhat.spice.0'</span> state=<span class="string">'disconnected'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'channel1'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'virtio-serial'</span> controller=<span class="string">'0'</span> bus=<span class="string">'0'</span> port=<span class="string">'2'</span>/&gt;</div><div class="line">    &lt;/channel&gt;</div><div class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'tablet'</span> bus=<span class="string">'usb'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'input0'</span>/&gt;</div><div class="line">    &lt;/input&gt;</div><div class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'mouse'</span> bus=<span class="string">'ps2'</span>/&gt;</div><div class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'keyboard'</span> bus=<span class="string">'ps2'</span>/&gt;</div><div class="line">    &lt;graphics <span class="built_in">type</span>=<span class="string">'spice'</span> port=<span class="string">'5905'</span> autoport=<span class="string">'yes'</span> listen=<span class="string">'127.0.0.1'</span>&gt;</div><div class="line">      &lt;listen <span class="built_in">type</span>=<span class="string">'address'</span> address=<span class="string">'127.0.0.1'</span>/&gt;</div><div class="line">    &lt;/graphics&gt;</div><div class="line">    &lt;video&gt;</div><div class="line">      &lt;model <span class="built_in">type</span>=<span class="string">'qxl'</span> ram=<span class="string">'65536'</span> vram=<span class="string">'65536'</span> vgamem=<span class="string">'16384'</span> heads=<span class="string">'1'</span>/&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'video0'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x02'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span>/&gt;</div><div class="line">    &lt;/video&gt;</div><div class="line">    &lt;redirdev bus=<span class="string">'usb'</span> <span class="built_in">type</span>=<span class="string">'spicevmc'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'redir0'</span>/&gt;</div><div class="line">    &lt;/redirdev&gt;</div><div class="line">    &lt;redirdev bus=<span class="string">'usb'</span> <span class="built_in">type</span>=<span class="string">'spicevmc'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'redir1'</span>/&gt;</div><div class="line">    &lt;/redirdev&gt;</div><div class="line">    &lt;redirdev bus=<span class="string">'usb'</span> <span class="built_in">type</span>=<span class="string">'spicevmc'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'redir2'</span>/&gt;</div><div class="line">    &lt;/redirdev&gt;</div><div class="line">    &lt;redirdev bus=<span class="string">'usb'</span> <span class="built_in">type</span>=<span class="string">'spicevmc'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'redir3'</span>/&gt;</div><div class="line">    &lt;/redirdev&gt;</div><div class="line">    &lt;memballoon model=<span class="string">'virtio'</span>&gt;</div><div class="line">      &lt;<span class="built_in">alias</span> name=<span class="string">'balloon0'</span>/&gt;</div><div class="line">      &lt;address <span class="built_in">type</span>=<span class="string">'pci'</span> domain=<span class="string">'0x0000'</span> bus=<span class="string">'0x00'</span> slot=<span class="string">'0x08'</span> <span class="keyword">function</span>=<span class="string">'0x0'</span>/&gt;</div><div class="line">    &lt;/memballoon&gt;</div><div class="line">  &lt;/devices&gt;</div><div class="line">  &lt;seclabel <span class="built_in">type</span>=<span class="string">'dynamic'</span> model=<span class="string">'apparmor'</span> relabel=<span class="string">'yes'</span>&gt;</div><div class="line">    &lt;label&gt;libvirt-0fdbcbe7<span class="_">-f</span>7e9-443e-bf9b-7ac4a6d27612&lt;/label&gt;</div><div class="line">    &lt;imagelabel&gt;libvirt-0fdbcbe7<span class="_">-f</span>7e9-443e-bf9b-7ac4a6d27612&lt;/imagelabel&gt;</div><div class="line">  &lt;/seclabel&gt;</div><div class="line">&lt;/domain&gt;</div></pre></td></tr></table></figure>
-<h1 id="配置基础系统"><a href="#配置基础系统" class="headerlink" title="配置基础系统"></a>配置基础系统</h1><ul>
-<li>在虚拟机里安装相关的软件并配置好环境,配置好各虚拟机之间自动使用证书登录 SSH 的功能.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ip addr</span></div><div class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1</div><div class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</div><div class="line">    inet 127.0.0.1/8 scope host lo</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</div><div class="line">    link/ether 52:54:00:a5:93:d5 brd ff:ff:ff:ff:ff:ff</div><div class="line">    inet 192.168.120.20/24 brd 192.168.120.255 scope global eth0</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</div><div class="line">    link/ether 52:54:00:14:02:69 brd ff:ff:ff:ff:ff:ff</div><div class="line">    inet 192.168.25.20/24 brd 192.168.25.255 scope global eth1</div><div class="line">       valid_lft forever preferred_lft forever</div></pre></td></tr></table></figure>
-<ul>
-<li>安装如下的软件包:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// 安装编译环境</div><div class="line"><span class="comment"># yum install -y flex bison readline-devel zlib-devel openjade docbook-style-dsssl gcc git tmux libuuid libuuid-devel pcre pcre-devel openssl-devel perl curl</span></div><div class="line"></div><div class="line">// 添加用户</div><div class="line"></div><div class="line"><span class="comment"># groupadd postgres</span></div><div class="line"><span class="comment"># useradd -g postgres postgres</span></div><div class="line"><span class="comment"># mkdir /home/postgres &amp;&amp; chown postgres.postgres -R /home/postgres</span></div><div class="line"></div><div class="line">// 关闭防火墙,不然会有多问题.</div><div class="line"><span class="comment"># systemctl disable iptables.service</span></div><div class="line"><span class="comment"># iptables -F ; iptables -X</span></div><div class="line"></div><div class="line">// 关闭SELINUX,修改配置文件/etc/selinux/config，将SELINU置为disabled</div><div class="line"><span class="comment"># setenforce 0</span></div><div class="line">// OR</div><div class="line"><span class="comment"># sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config</span></div><div class="line"></div><div class="line">//预先配置好主机名与IP对应如下</div><div class="line"></div><div class="line"><span class="comment"># cat /etc/hosts</span></div><div class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</div><div class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</div><div class="line">192.168.120.19 coord1</div><div class="line">192.168.120.18 gtmproxy</div><div class="line">192.168.120.20 gtmnode</div><div class="line">192.168.120.21 node01</div><div class="line">192.168.120.22 node02</div><div class="line">192.168.120.23 node03</div></pre></td></tr></table></figure>
-<ul>
-<li>修改内核参数,系统限制,有些参数要根据需求修改</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">vm.swappiness = 0</div><div class="line">net.ipv4.neigh.default.gc_stale_time = 120</div><div class="line">net.ipv4.conf.all.rp_filter = 0</div><div class="line">net.ipv4.conf.default.rp_filter = 0</div><div class="line">net.ipv4.conf.default.arp_announce = 2</div><div class="line">net.ipv4.conf.all.arp_announce = 2</div><div class="line">net.ipv4.tcp_max_tw_buckets = 10000</div><div class="line">net.ipv4.tcp_syncookies = 0</div><div class="line">net.ipv4.tcp_max_syn_backlog = 3240000</div><div class="line">net.ipv4.tcp_synack_retries = 2</div><div class="line">net.ipv6.conf.all.disable_ipv6 = 1</div><div class="line">net.ipv6.conf.default.disable_ipv6 = 1</div><div class="line">net.ipv6.conf.lo.disable_ipv6 = 1</div><div class="line">net.ipv4.conf.lo.arp_announce = 2</div><div class="line">fs.file-max = 40000500</div><div class="line">fs.nr_open = 40000500</div><div class="line">net.ipv4.tcp_tw_reuse = 1</div><div class="line">net.ipv4.tcp_tw_recycle = 1</div><div class="line">net.ipv4.tcp_keepalive_time = 1</div><div class="line">net.ipv4.tcp_keepalive_intvl = 4</div><div class="line">net.ipv4.tcp_keepalive_probes = 3</div><div class="line">net.ipv4.tcp_fin_timeout = 5</div><div class="line">net.ipv4.tcp_mem = 768432 2097152 15242880</div><div class="line">net.ipv4.tcp_rmem = 4096 4096 33554432</div><div class="line">net.ipv4.tcp_wmem = 4096 4096 33554432</div><div class="line">net.core.somaxconn = 32768</div><div class="line">net.ipv4.ip_local_port_range = 1025 65000</div><div class="line">net.core.wmem_default = 183888608</div><div class="line">net.core.rmem_default = 183888608</div><div class="line">net.core.rmem_max = 33554432</div><div class="line">net.core.wmem_max = 33554432</div><div class="line">net.core.netdev_max_backlog = 2621244</div><div class="line">kernel.sem = 250 65536 100 2048</div><div class="line">kernel.shmmni = 655360</div><div class="line">kernel.shmmax = 34359738368</div><div class="line">kernel.msgmni = 65535</div><div class="line">kernel.msgmax = 65536</div><div class="line">kernel.msgmnb = 65536</div><div class="line">net.netfilter.nf_conntrack_max = 1000000</div><div class="line">net.nf_conntrack_max = 1000000</div><div class="line">kernel.perf_event_max_sample_rate = 6250</div><div class="line">net.ipv4.tcp_max_orphans = 1048576</div><div class="line">kernel.sched_migration_cost_ns = 5000000</div><div class="line">net.core.optmem_max = 25165824</div><div class="line">kernel.sem = 10000 2560000 10000 256</div><div class="line"></div><div class="line"><span class="comment"># ulimit -a</span></div><div class="line">core file size          (blocks, -c) 0</div><div class="line">data seg size           (kbytes, <span class="_">-d</span>) unlimited</div><div class="line">scheduling priority             (<span class="_">-e</span>) 0</div><div class="line">file size               (blocks, <span class="_">-f</span>) unlimited</div><div class="line">pending signals                 (-i) 515045</div><div class="line">max locked memory       (kbytes, <span class="_">-l</span>) 64</div><div class="line">max memory size         (kbytes, -m) unlimited</div><div class="line">open files                      (-n) 20000500</div><div class="line">pipe size            (512 bytes, -p) 8</div><div class="line">POSIX message queues     (bytes, -q) 819200</div><div class="line">real-time priority              (-r) 0</div><div class="line">stack size              (kbytes, <span class="_">-s</span>) 8192</div><div class="line">cpu time               (seconds, -t) unlimited</div><div class="line">max user processes              (-u) 515045</div><div class="line">virtual memory          (kbytes, -v) unlimited</div><div class="line">file locks                      (-x) unlimited</div></pre></td></tr></table></figure>
-<h2 id="编译-PostgreSQL-XL"><a href="#编译-PostgreSQL-XL" class="headerlink" title="编译 PostgreSQL-XL"></a>编译 PostgreSQL-XL</h2><ul>
-<li>使用 git clone clone 下载源代码<a href="http://git.postgresql.org/gitweb/?p=postgres-xl.git;a=summary" target="_blank" rel="external">postgresql-xl</a>,或者下载源码包.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># curl -O http://files.postgres-xl.org/postgres-xl-9.5r1.4.tar.gz</span></div><div class="line"><span class="comment"># tar xvf postgres-xl-9.5r1.4.tar.gz</span></div><div class="line"><span class="comment"># cd postgres-xl-9.5r1.4 &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span></div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">//默认安装在这里</div><div class="line"><span class="comment"># ls /usr/local/pgsql/</span></div><div class="line">bin  include  lib  share</div></pre></td></tr></table></figure>
-<h2 id="设置-postgres-用户的变量"><a href="#设置-postgres-用户的变量" class="headerlink" title="设置 postgres 用户的变量"></a>设置 postgres 用户的变量</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ cat .bashrc</div><div class="line"><span class="comment"># .bashrc</span></div><div class="line"><span class="comment"># User specific aliases and functions</span></div><div class="line"></div><div class="line"><span class="built_in">alias</span> rm=<span class="string">'rm -i'</span></div><div class="line"><span class="built_in">alias</span> cp=<span class="string">'cp -i'</span></div><div class="line"><span class="built_in">alias</span> mv=<span class="string">'mv -i'</span></div><div class="line"></div><div class="line"><span class="comment"># Source global definitions</span></div><div class="line"><span class="keyword">if</span> [ <span class="_">-f</span> /etc/bashrc ]; <span class="keyword">then</span></div><div class="line">        . /etc/bashrc</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="built_in">export</span> PGUSER=postgres</div><div class="line"><span class="comment"># export PGHOME=/usr/local/pgxl-9.5-stable</span></div><div class="line"><span class="built_in">export</span> PGHOME=/usr/<span class="built_in">local</span>/pgsql</div><div class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$PGHOME</span>/lib:<span class="variable">$LD_LIBRARY_PATH</span></div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/bin:<span class="variable">$PGHOME</span>/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
-<h2 id="配置-PostgreSQL-XL"><a href="#配置-PostgreSQL-XL" class="headerlink" title="配置 PostgreSQL-XL"></a>配置 PostgreSQL-XL</h2><ul>
-<li>上面的操作配置了一台虚拟机环境并且编译好了<code>Postgresql-XL</code>,现在此基础上克隆 5 台虚拟机出来,并修它们的网卡与主机名</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 确保做好SSH公钥认证登录</div><div class="line"><span class="comment"># for name in node01 node02 node03 coord1 gtmnode gtmproxy;  do &gt;     ssh $&#123;name&#125; "echo $&#123;name&#125; &gt; /etc/hostname";done</span></div></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># virsh  list</span></div><div class="line"> Id    Name                           State</div><div class="line">----------------------------------------------------</div><div class="line"> 52    pgsql-xl-coord1                 running</div><div class="line"> 53    pgsql-xl-gmtnode                running</div><div class="line"> 54    pgsql-xl-node01                 running</div><div class="line"> 55    pgsql-xl-node02                 running</div><div class="line"> 56    pgsql-xl-node03                 running</div><div class="line"> 57    pgsql-xl-gtmproxy               running</div></pre></td></tr></table></figure>
-<ul>
-<li>所有虚拟机都修改主机名与 IP,并且可以相互自动登录.现在到<code>gtmnode</code>这台机上的<code>postgres</code>用户下去部署 Postgresql-XL 集群了.</li>
-</ul>
-<ul>
-<li>使用命令<code>pgxc_ctl prepare config minimal</code>,生成默认配置文件.里面配置比较多.这里要相应的修改.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> tree /home/postgres/</div><div class="line">/home/postgres/</div><div class="line">├── pgxc_ctl</div><div class="line">│   ├── coordExtraConfig</div><div class="line">│   ├── pgxc_ctl.conf</div></pre></td></tr></table></figure>
-<ul>
-<li>这里根据前面定的虚拟机数量,做了如下修改:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">[postgres@gtmnode ~]$ cat pgxc_ctl/pgxc_ctl.conf | grep -v <span class="string">'^#'</span> | grep -v <span class="string">'^$'</span>                                                                                                                                                                                       [114/1896]</div><div class="line">pgxcInstallDir=<span class="variable">$HOME</span>/pgxc</div><div class="line">pgxcOwner=<span class="variable">$USER</span>                 <span class="comment"># owner of the Postgres-XC databaseo cluster.  Here, we use this</span></div><div class="line">                                                <span class="comment"># both as linus user and database user.  This must be</span></div><div class="line">                                                <span class="comment"># the super user of each coordinator and datanode.</span></div><div class="line">pgxcUser=<span class="variable">$pgxcOwner</span>             <span class="comment"># OS user of Postgres-XC owner</span></div><div class="line">tmpDir=/tmp                                     <span class="comment"># temporary dir used in XC servers</span></div><div class="line"><span class="built_in">local</span>TmpDir=<span class="variable">$tmpDir</span>                     <span class="comment"># temporary dir used here locally</span></div><div class="line">configBackup=n                                  <span class="comment"># If you want config file backup, specify y to this value.</span></div><div class="line">configBackupHost=pgxc-linker    <span class="comment"># host to backup config file</span></div><div class="line">configBackupDir=<span class="variable">$HOME</span>/pgxc              <span class="comment"># Backup directory</span></div><div class="line">configBackupFile=pgxc_ctl.bak   <span class="comment"># Backup file name --&gt; Need to synchronize when original changed.</span></div><div class="line">gtmMasterServer=192.168.120.20</div><div class="line">gtmMasterPort=20001</div><div class="line">gtmMasterDir=<span class="variable">$HOME</span>/pgxc/nodes/gtm</div><div class="line">gtmExtraConfig=none                     <span class="comment"># Will be added gtm.conf for both Master and Slave (done at initilization only)</span></div><div class="line">gtmMasterSpecificExtraConfig=none       <span class="comment"># Will be added to Master's gtm.conf (done at initialization only)</span></div><div class="line">gtmSlave=n                                      <span class="comment"># Specify y if you configure GTM Slave.   Otherwise, GTM slave will not be configured and</span></div><div class="line">                                                        <span class="comment"># all the following variables will be reset.</span></div><div class="line">gtmSlaveName=gtmSlave</div><div class="line">gtmSlaveServer=node12           <span class="comment"># value none means GTM slave is not available.  Give none if you don't configure GTM Slave.</span></div><div class="line">gtmSlavePort=20001                      <span class="comment"># Not used if you don't configure GTM slave.</span></div><div class="line">gtmSlaveDir=<span class="variable">$HOME</span>/pgxc/nodes/gtm        <span class="comment"># Not used if you don't configure GTM slave.</span></div><div class="line">gtmSlaveSpecificExtraConfig=none <span class="comment"># Will be added to Slave's gtm.conf (done at initialization only)</span></div><div class="line">gtmProxyDir=<span class="variable">$HOME</span>/pgxc/nodes/gtm_pxy</div><div class="line">gtmProxy=n                              <span class="comment"># Specify y if you conifugre at least one GTM proxy.   You may not configure gtm proxies</span></div><div class="line">                                                <span class="comment"># only when you dont' configure GTM slaves.</span></div><div class="line">                                                <span class="comment"># If you specify this value not to y, the following parameters will be set to default empty values.</span></div><div class="line">                                                <span class="comment"># If we find there're no valid Proxy server names (means, every servers are specified</span></div><div class="line">                                                <span class="comment"># as none), then gtmProxy value will be set to "n" and all the entries will be set to</span></div><div class="line">                                                <span class="comment"># empty values.</span></div><div class="line">gtmProxyNames=(gtm_pxy1 gtm_pxy2 gtm_pxy3 gtm_pxy4)     <span class="comment"># No used if it is not configured</span></div><div class="line">gtmProxyServers=(node06 node07 node08 node09)                   <span class="comment"># Specify none if you dont' configure it.</span></div><div class="line">gtmProxyPorts=(20001 20001 20001 20001)                         <span class="comment"># Not used if it is not configured.</span></div><div class="line">gtmProxyDirs=(<span class="variable">$gtmProxyDir</span> <span class="variable">$gtmProxyDir</span> <span class="variable">$gtmProxyDir</span> <span class="variable">$gtmProxyDir</span>)      <span class="comment"># Not used if it is not configured.</span></div><div class="line">gtmPxyExtraConfig=none          <span class="comment"># Extra configuration parameter for gtm_proxy.  Coordinator section has an example.</span></div><div class="line">gtmPxySpecificExtraConfig=(none none none none)</div><div class="line">coordMasterDir=<span class="variable">$HOME</span>/pgxc/nodes/coord</div><div class="line">coordSlaveDir=<span class="variable">$HOME</span>/pgxc/nodes/coord_slave</div><div class="line">coordArchLogDir=<span class="variable">$HOME</span>/pgxc/nodes/coord_archlog</div><div class="line">coordNames=(coord1 coord2 )             <span class="comment"># Master and slave use the same name</span></div><div class="line">coordPorts=(20004 20004 )                       <span class="comment"># Master ports</span></div><div class="line">poolerPorts=(6433 6433 )                        <span class="comment"># Master pooler ports</span></div><div class="line">coordPgHbaEntries=(192.168.120.0/24)                            <span class="comment"># Assumes that all the coordinator (master/slave) accepts</span></div><div class="line">                                                                                                <span class="comment"># the same connection</span></div><div class="line">                                                                                                <span class="comment"># This entry allows only $pgxcOwner to connect.</span></div><div class="line">                                                                                                <span class="comment"># If you'd like to setup another connection, you should</span></div><div class="line">                                                                                                <span class="comment"># supply these entries through files specified below.</span></div><div class="line">coordMasterServers=(coord1 coord2)              <span class="comment"># none means this master is not available</span></div><div class="line">coordMasterDirs=(<span class="variable">$coordMasterDir</span> <span class="variable">$coordMasterDir</span> )</div><div class="line">coordMaxWALsernder=5    <span class="comment"># max_wal_senders: needed to configure slave. If zero value is specified,</span></div><div class="line">                                                <span class="comment"># it is expected to supply this parameter explicitly by external files</span></div><div class="line">                                                <span class="comment"># specified in the following.   If you don't configure slaves, leave this value to zero.</span></div><div class="line">coordMaxWALSenders=(<span class="variable">$coordMaxWALsernder</span> <span class="variable">$coordMaxWALsernder</span> )</div><div class="line">                                                <span class="comment"># max_wal_senders configuration for each coordinator.</span></div><div class="line">                                                <span class="comment"># postgresql.conf</span></div><div class="line">cat &gt; <span class="variable">$coordExtraConfig</span> &lt;&lt;EOF</div><div class="line">log_destination = <span class="string">'stderr'</span></div><div class="line">logging_collector = on</div><div class="line">log_directory = <span class="string">'pg_log'</span></div><div class="line">listen_addresses = <span class="string">'*'</span></div><div class="line">max_connections = 100</div><div class="line">EOF</div><div class="line">coordSpecificExtraConfig=(none none none none)</div><div class="line">coordExtraPgHba=none    <span class="comment"># Extra entry for pg_hba.conf.  This file will be added to all the coordinators' pg_hba.conf</span></div><div class="line">coordSpecificExtraPgHba=(none none none none)</div><div class="line">coordAdditionalSlaves=n         <span class="comment"># Additional slave can be specified as follows: where you</span></div><div class="line">coordAdditionalSlaveSet=(cad1)          <span class="comment"># Each specifies set of slaves.   This case, two set of slaves are</span></div><div class="line">                                                                                        <span class="comment"># configured</span></div><div class="line">cad1_Sync=n                             <span class="comment"># All the slaves at "cad1" are connected with asynchronous mode.</span></div><div class="line">                                                        <span class="comment"># If not, specify "y"</span></div><div class="line">                                                        <span class="comment"># The following lines specifies detailed configuration for each</span></div><div class="line">                                                        <span class="comment"># slave tag, cad1.  You can define cad2 similarly.</span></div><div class="line">cad1_Servers=(node08 node09 node06 node07)      <span class="comment"># Hosts</span></div><div class="line">cad1_dir=<span class="variable">$HOME</span>/pgxc/nodes/coord_slave_cad1</div><div class="line">cad1_Dirs=(<span class="variable">$cad1_dir</span> <span class="variable">$cad1_dir</span> <span class="variable">$cad1_dir</span> <span class="variable">$cad1_dir</span>)</div><div class="line">cad1_ArchLogDir=<span class="variable">$HOME</span>/pgxc/nodes/coord_archlog_cad1</div><div class="line">cad1_ArchLogDirs=(<span class="variable">$cad1_ArchLogDir</span> <span class="variable">$cad1_ArchLogDir</span> <span class="variable">$cad1_ArchLogDir</span> <span class="variable">$cad1_ArchLogDir</span>)</div><div class="line">datanodeMasterDir=<span class="variable">$HOME</span>/pgxc/nodes/dn_master</div><div class="line">datanodeSlaveDir=<span class="variable">$HOME</span>/pgxc/nodes/dn_slave</div><div class="line">datanodeArchLogDir=<span class="variable">$HOME</span>/pgxc/nodes/datanode_archlog</div><div class="line">primaryDatanode=node01</div><div class="line">datanodeNames=(node01 node02 node03)</div><div class="line">datanodePorts=(5432 5432 5432 ) <span class="comment"># Master ports</span></div><div class="line">datanodePoolerPorts=(6432 6432 6432 )   <span class="comment"># Master pooler ports</span></div><div class="line">datanodePgHbaEntries=(192.168.120.0/24) <span class="comment"># Assumes that all the coordinator (master/slave) accepts</span></div><div class="line">                                                                                <span class="comment"># the same connection</span></div><div class="line">                                                                                <span class="comment"># This list sets up pg_hba.conf for $pgxcOwner user.</span></div><div class="line">                                                                                <span class="comment"># If you'd like to setup other entries, supply them</span></div><div class="line">                                                                                <span class="comment"># through extra configuration files specified below.</span></div><div class="line">datanodeMasterServers=(node01 node02 node03)    <span class="comment"># none means this master is not available.</span></div><div class="line">                                                                                                        <span class="comment"># This means that there should be the master but is down.</span></div><div class="line">                                                                                                        <span class="comment"># The cluster is not operational until the master is</span></div><div class="line">                                                                                                        <span class="comment"># recovered and ready to run.</span></div><div class="line">datanodeMasterDirs=(<span class="variable">$datanodeMasterDir</span> <span class="variable">$datanodeMasterDir</span> <span class="variable">$datanodeMasterDir</span> )</div><div class="line">datanodeMaxWalSender=5                                                          <span class="comment"># max_wal_senders: needed to configure slave. If zero value is</span></div><div class="line">                                                                                                        <span class="comment"># specified, it is expected this parameter is explicitly supplied</span></div><div class="line">                                                                                                        <span class="comment"># by external configuration files.</span></div><div class="line">                                                                                                        <span class="comment"># If you don't configure slaves, leave this value zero.</span></div><div class="line">datanodeMaxWALSenders=(<span class="variable">$datanodeMaxWalSender</span> <span class="variable">$datanodeMaxWalSender</span> <span class="variable">$datanodeMaxWalSender</span> )</div><div class="line">                                                <span class="comment"># max_wal_senders configuration for each datanode</span></div><div class="line">datanodeSlave=n                 <span class="comment"># Specify y if you configure at least one coordiantor slave.  Otherwise, the following</span></div><div class="line">                                                <span class="comment"># configuration parameters will be set to empty values.</span></div><div class="line">                                                <span class="comment"># If no effective server names are found (that is, every servers are specified as none),</span></div><div class="line">                                                <span class="comment"># then datanodeSlave value will be set to n and all the following values will be set to</span></div><div class="line">                                                <span class="comment"># empty values.</span></div><div class="line">datanodeSlaveServers=(node07 node08 node09 node06)      <span class="comment"># value none means this slave is not available</span></div><div class="line">datanodeSlavePorts=(20008 20009 20008 20009)    <span class="comment"># value none means this slave is not available</span></div><div class="line"></div><div class="line"></div><div class="line">datanodeSlavePorts=(20008 20009 20008 20009)    <span class="comment"># value none means this slave is not available</span></div><div class="line">datanodeSlavePoolerPorts=(20012 20013 20012 20013)      <span class="comment"># value none means this slave is not available</span></div><div class="line">datanodeSlaveSync=y             <span class="comment"># If datanode slave is connected in synchronized mode</span></div><div class="line">datanodeSlaveDirs=(<span class="variable">$datanodeSlaveDir</span> <span class="variable">$datanodeSlaveDir</span> <span class="variable">$datanodeSlaveDir</span> <span class="variable">$datanodeSlaveDir</span>)</div><div class="line">datanodeArchLogDirs=( <span class="variable">$datanodeArchLogDir</span> <span class="variable">$datanodeArchLogDir</span> <span class="variable">$datanodeArchLogDir</span> <span class="variable">$datanodeArchLogDir</span> )</div><div class="line">datanodeExtraConfig=none        <span class="comment"># Extra configuration file for datanodes.  This file will be added to all the</span></div><div class="line">                                                        <span class="comment"># datanodes' postgresql.conf</span></div><div class="line">datanodeSpecificExtraConfig=(none none none none)</div><div class="line">datanodeExtraPgHba=none         <span class="comment"># Extra entry for pg_hba.conf.  This file will be added to all the datanodes' postgresql.conf</span></div><div class="line">datanodeSpecificExtraPgHba=(none none none none)</div><div class="line">datanodeAdditionalSlaves=n      <span class="comment"># Additional slave can be specified as follows: where you</span></div><div class="line">                                                                                        <span class="comment"># configured</span></div><div class="line">                                                        <span class="comment"># If not, specify "y"</span></div><div class="line">                                                        <span class="comment"># The following lines specifies detailed configuration for each</span></div><div class="line">                                                        <span class="comment"># slave tag, cad1.  You can define cad2 similarly.</span></div><div class="line">walArchive=n    <span class="comment"># If you'd like to configure WAL archive, edit this section.</span></div><div class="line">                                <span class="comment"># Pgxc_ctl assumes that if you configure WAL archive, you configure it</span></div><div class="line">                                <span class="comment"># for all the coordinators and datanodes.</span></div><div class="line">                                <span class="comment"># Default is "no".   Please specify "y" here to turn it on.</span></div><div class="line">walArchiveSet=(war1 war2)</div><div class="line">war1_source=(master)    <span class="comment"># you can specify master, slave or ano other additional slaves as a source of WAL archive.</span></div><div class="line">                                        <span class="comment"># Default is the master</span></div><div class="line">wal1_source=(slave)</div><div class="line">wal1_source=(additiona_coordinator_slave_set additional_datanode_slave_set)</div><div class="line">war1_host=node10        <span class="comment"># All the nodes are backed up at the same host for a given archive set</span></div><div class="line">war1_backupdir=<span class="variable">$HOME</span>/pgxc/backup_war1</div><div class="line">wal2_source=(master)</div><div class="line">war2_host=node11</div><div class="line">war2_backupdir=<span class="variable">$HOME</span>/pgxc/backup_war2</div><div class="line">coordSlave=n</div><div class="line">coordNames=( coord1 none  )</div><div class="line">coordMasterDirs=( /home/postgres/pgxc/nodes/coord none  )</div><div class="line">coordPorts=( 20004 -1  )</div><div class="line">poolerPorts=( 6433 -1  )</div><div class="line">coordMasterServers=( coord1 none  )</div><div class="line">coordMaxWALSenders=( 5 0  )</div><div class="line">coordSlaveServers=( none none  )</div><div class="line">coordSlavePorts=( none none  )</div><div class="line">coordSlavePoolerPorts=( none none  )</div><div class="line">coordSlaveDirs=( none none  )</div><div class="line">coordArchLogDirs=( none none  )</div><div class="line">coordSpecificExtraConfig=( none none none none  )</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">### 这里在pgxc_ctl 命令中中修改的,这里的gtmProxy=y 把前的gtmProxy=n给替换掉了,</span></div><div class="line"></div><div class="line"></div><div class="line">gtmProxy=y</div><div class="line">gtmProxyNames=( gtm_pxy  )</div><div class="line">gtmProxyServers=( 192.168.120.18  )</div><div class="line">gtmProxyPorts=( 20009  )</div><div class="line">gtmProxyDirs=( <span class="variable">$HOME</span>/pgxc/nodes/gtm_pxy  )</div><div class="line">gtmPxySpecificExtraConfig=( none  )</div></pre></td></tr></table></figure>
-<ul>
-<li>请注意这里面配置的主机名要与机器一一对应上,关闭防火墙,初始化集群.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[postgres@gtmnode ~]$ pgxc_ctl init all</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line"></div><div class="line">[postgres@gtmnode ~]$ pgxc_ctl</div><div class="line">/bin/bash</div><div class="line">Installing pgxc_ctl_bash script as /home/postgres/pgxc_ctl/pgxc_ctl_bash.</div><div class="line">Installing pgxc_ctl_bash script as /home/postgres/pgxc_ctl/pgxc_ctl_bash.</div><div class="line">Reading configuration using /home/postgres/pgxc_ctl/pgxc_ctl_bash --home /home/postgres/pgxc_ctl --configuration /home/postgres/pgxc_ctl/pgxc_ctl.conf</div><div class="line">Finished reading configuration.</div><div class="line">   ******** PGXC_CTL START ***************</div><div class="line"></div><div class="line">Current directory: /home/postgres/pgxc_ctl</div><div class="line">PGXC <span class="built_in">help</span></div><div class="line">You are using pgxc_ctl, the configuration utility <span class="keyword">for</span> PGXL</div><div class="line">Type:</div><div class="line">        <span class="built_in">help</span> &lt;<span class="built_in">command</span>&gt;</div><div class="line">        <span class="built_in">where</span> &lt;<span class="built_in">command</span>&gt; is either add, Createdb, Createuser, clean,</div><div class="line">                configure, deploy, failover, init, <span class="built_in">kill</span>, <span class="built_in">log</span>, monitor,</div><div class="line">                prepare, q, reconnect, remove, <span class="built_in">set</span>, show, start,</div><div class="line">                stop or unregister</div></pre></td></tr></table></figure>
-<h2 id="调优数据库"><a href="#调优数据库" class="headerlink" title="调优数据库"></a>调优数据库</h2><ul>
-<li>这里是参考<a href="http://www.wanghengbin.com/2016/07/04/postgres-xl-presstest-optimize/" target="_blank" rel="external">Postgres XL 压力测试与性能调优</a>做的调整</li>
-</ul>
-<ul>
-<li>Coordinator 节点的 postgresql.conf</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">max_connections = 200          <span class="comment"># 允许的最大并发连接数</span></div><div class="line">max_prepared_transactions = 200       <span class="comment"># 允许的最大预提交事务数，与更新操作相关</span></div><div class="line">shared_buffers = 8GB            <span class="comment"># 用于缓存数据的内存（推荐内存的1/4)</span></div><div class="line">temp_buffers = 80MB</div><div class="line">work_mem = 100MB                <span class="comment"># 用于内部排序和一些复杂的查询的内存</span></div><div class="line">dynamic_shared_memory_type = posix</div><div class="line">max_files_per_process = 2000</div><div class="line">effective_io_concurrency = 8</div><div class="line">max_worker_processes = 64</div><div class="line">effective_cache_size = 8GB</div><div class="line">max_pool_size = 1600            <span class="comment"># Coordinator与Datanode之间的连接池的最大连接数</span></div><div class="line">pool_conn_keepalive = 600</div><div class="line">persistent_datanode_connections = on</div></pre></td></tr></table></figure>
-<ul>
-<li>Datanode 节点 postgresql.conf</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">max_connections = 1600</div><div class="line">shared_buffers = 8GB</div><div class="line">temp_buffers = 80MB</div><div class="line">dynamic_shared_memory_type = posix</div><div class="line">effective_io_concurrency = 8</div><div class="line">max_worker_processes = 32</div><div class="line">random_page_cost = 1.5</div><div class="line">effective_cache_size = 24GB</div><div class="line">max_prepared_transactions = 100</div><div class="line">persistent_datanode_connections = on</div></pre></td></tr></table></figure>
-<ul>
-<li>GtmProxy 节点 gtm_pxy.conf</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">worker_threads = 2</div><div class="line">keepalives_idle = 120</div><div class="line">keepalives_interval = 30</div><div class="line">keepalives_count = 2</div></pre></td></tr></table></figure>
-<p>Gtm 节点 gtm.conf</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">keepalives_idle = 120</div><div class="line">keepalives_interval = 30</div><div class="line">keepalives_count = 50</div></pre></td></tr></table></figure>
-<h3 id="安装-Pgbouncer-连接池"><a href="#安装-Pgbouncer-连接池" class="headerlink" title="安装 Pgbouncer 连接池"></a>安装 Pgbouncer 连接池</h3><ul>
-<li>pgbouncer 是 PostgreSQL 的一个轻量级连接池，可以给客户端提供一个统一的视图。</li>
-<li><p>pgbouncer 的作用:<br>a)pgbouncer 可以在后端数据库和前端应用间简历连接的桥梁，由 pgbouncer 去处理和后端的连接关系。<br>b)对客户端的连接进行限制，防止过多的恶意连接。</p>
-</li>
-<li><p>pgbouncer 的特点：<br>a)内存消耗低。（默认 2k/连接）<br>b)可以把不同的数据库连接到一个机器上，而对客户端保持透明。<br>c)支持在线的重行配置而无需重启。</p>
-</li>
-</ul>
-<hr>
-<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/21/工作中的一些Bash-shell测试脚本/" itemprop="url">
-                  工作中的一些Bash shell测试脚本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-12-21 21:24:01" itemprop="dateCreated datePublished" datetime="2016-12-21T21:24:01+08:00">2016-12-21</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-22 21:22:12" itemprop="dateModified" datetime="2019-03-22T21:22:12+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><strong>做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.</strong></li>
-</ul>
-<h1 id="提取-TOP-命令中的数据"><a href="#提取-TOP-命令中的数据" class="headerlink" title="提取 TOP 命令中的数据"></a>提取 TOP 命令中的数据</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$ cat grep_pid.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">srvdir=<span class="string">"/root/netty_srv_dir/"</span></div><div class="line"></div><div class="line"><span class="comment">##　分类统计top输出的CPU与内存数据</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | head -n1 | awk <span class="string">'&#123;printf "\nCPU min:%4s\t", $9&#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | awk <span class="string">'&#123;sum+=$9;n++&#125;END&#123;printf "avg: %4s\t", sum /n &#125;'</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k9 -n | tail -n1 | awk <span class="string">'&#123;printf " max:%4s\n", $9&#125;'</span></div><div class="line"><span class="comment">## print MEM</span></div><div class="line">grep <span class="_">-a</span> <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.log | sort -k10 -n | tail -n1 | awk <span class="string">'&#123;printf "MEM: %4s\n",$10&#125;'</span></div><div class="line">cat <span class="variable">$srvdir</span><span class="variable">$1</span>.log &gt; <span class="variable">$1bak</span>.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.log</div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | sort -k 3 |tail -n1 | awk -F";" 'BEGIN&#123;print "Bytes Out\tBytes In\tPackets Out\tPackets In"&#125;&#123; printf "%sKB/s\t%sKB/s\t%sKB/s\t%sKB/s\n", $3 / 1000,$4/1000,$6/1000,$7/1000&#125;'</span></div><div class="line"><span class="comment">#grep "total" $srvdir$1.net | awk 'BEGIN &#123;FS =";";print "BOut\tBin\tPOut\tPin"&#125;&#123;if(NF==16)&#123; if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t",$3&#125;;if($4&gt;1000)&#123;printf "%sKB/s\n",$4/1000&#125;else&#123;printf "%sb/s\n",$4&#125;&#125;&#125;' 18028.net</span></div><div class="line">cat /proc/net/sockstat | grep <span class="string">"TCP"</span> | awk <span class="string">'&#123;print $1,$9&#125;'</span></div><div class="line">awk <span class="string">'BEGIN&#123;print "\nBytesOut\t\tByteIn\t\tPacketsOut\tPacketsIn"&#125;'</span></div><div class="line"></div><div class="line"><span class="comment">## 分类统计bwn-ng输出的CSV格式数据.</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 3 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t\t",$3&#125;&#125;&#125;'</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 4 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($4&gt;1000)&#123;printf "%sKB/s\t",$4/1000&#125;else&#123;printf "%sb/s\t\t",$4&#125;&#125;&#125;'</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 6 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($6&gt;1000)&#123;printf "%sKB/s\t",$6/1000&#125;else&#123;printf "%sb/s\t\t",$6&#125;&#125;&#125;'</span></div><div class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 7 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($7&gt;1000)&#123;printf "%sKB/s\n",$7/1000&#125;else&#123;printf "%sb/s\n",$7&#125;&#125;&#125;'</span></div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.net</div></pre></td></tr></table></figure>
-<h1 id="自动批量回答-yes"><a href="#自动批量回答-yes" class="headerlink" title="自动批量回答 yes"></a>自动批量回答 yes</h1><ul>
-<li>这里是一个自动登录的脚本,因为每个服务器第一次连接都会提示要接受一个证书.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/expect -f</span></div><div class="line"></div><div class="line"><span class="built_in">set</span> timeout 10</div><div class="line"></div><div class="line"><span class="built_in">set</span> num [lindex <span class="variable">$argv</span> 0]</div><div class="line"></div><div class="line">spawn ssh -b 172.168.<span class="variable">$num</span>.10 root@172.168.<span class="variable">$num</span>.100</div><div class="line">expect &#123;</div><div class="line"><span class="string">"*yes/no"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue&#125;</div><div class="line">&#125;</div><div class="line">expect <span class="string">"#*"</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">send <span class="string">"eof\r"</span></div><div class="line">expect eof</div></pre></td></tr></table></figure>
-<h1 id="循环测试脚本"><a href="#循环测试脚本" class="headerlink" title="循环测试脚本"></a>循环测试脚本</h1><ul>
-<li>这个脚本根据<code>camera_client.py</code>运行打印出``done”表示该程序运行结束,在 while 里把它清除掉.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@debian-t6:~<span class="comment"># cat test_loop.sh</span></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">srv=<span class="string">"192.168.25.100"</span></div><div class="line">python camera_client.py dev -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;</div><div class="line">dpid=$!</div><div class="line"><span class="built_in">echo</span> <span class="variable">$dpid</span></div><div class="line"><span class="keyword">done</span>=<span class="string">"done&gt;"</span></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span>;</div><div class="line"><span class="keyword">do</span></div><div class="line">    grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;&amp; <span class="built_in">kill</span> -9 <span class="variable">$dpid</span> &amp;&amp; <span class="built_in">break</span> || sleep 1</div><div class="line"><span class="keyword">done</span></div><div class="line">cat camera.log</div><div class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</div></pre></td></tr></table></figure>
-<h1 id="开启服务器与数据收集脚本"><a href="#开启服务器与数据收集脚本" class="headerlink" title="开启服务器与数据收集脚本"></a>开启服务器与数据收集脚本</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ cat test_start_srv.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">## 设置系统的文件句柄数限制</span></div><div class="line"><span class="built_in">ulimit</span> -Hn 20000500</div><div class="line"><span class="built_in">ulimit</span> -Sn 20000500</div><div class="line"><span class="comment">#cd netty_srv_dir</span></div><div class="line"></div><div class="line"><span class="comment">## 清除上次运行的,``bwn-ng, top``命令.</span></div><div class="line">pkill bwm-ng</div><div class="line">pkill top</div><div class="line">srv=<span class="string">"asio_p2p_srv"</span></div><div class="line"><span class="comment">## 清除上次运行的服务器的进程</span></div><div class="line">pkill <span class="variable">$srv</span></div><div class="line"><span class="comment">##  服务已经运行,它的pid赋于给SPID变量,并保存在192.168.25.100机器上的/root/srv.pid里</span></div><div class="line"><span class="variable">$srv</span> &amp;  SPID=$!</div><div class="line">ssh -t root@192.168.25.100 <span class="string">"echo <span class="variable">$SPID</span> &gt; srv.pid"</span></div><div class="line"></div><div class="line"><span class="comment">## bwm-ng 监控网卡eth1的流量,并输出CSV格式到以SPID变量名,.net为后缀的文件名里.　它的pid赋于给NPID变量</span></div><div class="line">bwm-ng -o csv -T rate -I eth1 -F  <span class="variable">$SPID</span>.net &amp; NPID=$!</div><div class="line"><span class="comment">## top 只输出SPID的pid的信息,并重定向pid.log的文件名中.</span></div><div class="line">top -p <span class="variable">$SPID</span> -b &gt; <span class="variable">$SPID</span>.log  &amp;</div></pre></td></tr></table></figure>
-<h1 id="服务器测试脚本"><a href="#服务器测试脚本" class="headerlink" title="服务器测试脚本"></a>服务器测试脚本</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># cat start_srv.py</span></div><div class="line">import paramiko</div><div class="line">import select</div><div class="line">ssh = paramiko.SSHClient()</div><div class="line">SRV = <span class="string">"192.168.25.100"</span></div><div class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</div><div class="line">mykey = paramiko.RSAKey.from_private_key_file(<span class="string">"/root/.ssh/id_rsa"</span>)</div><div class="line">ssh.connect(<span class="string">"%s"</span> % SRV,username=<span class="string">"root"</span>,pkey=mykey)</div><div class="line">ssh.exec_command(<span class="string">"pkill test_start_srv"</span>)</div><div class="line">stdin,stdout,stderr = ssh.exec_command(<span class="string">"/root/test_start_srv.sh"</span>)</div><div class="line"><span class="keyword">while</span> not stdout.channel.exit_status_ready():</div><div class="line">    <span class="keyword">if</span> stdout.channel.recv_ready():</div><div class="line">        rl,wl,xl = select.select([stdout.channel],[],[],0.0)</div><div class="line">        <span class="keyword">if</span> len(rl )&gt; 0:</div><div class="line">            <span class="built_in">print</span> stdout.channel.recv(1024)</div><div class="line">            <span class="built_in">break</span></div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ cat test_devices_only.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">pid=`python start_srv.py`</div><div class="line"></div><div class="line">./test_camera_client.sh <span class="variable">$1</span></div><div class="line">ssh -t root@192.168.25.100 <span class="string">"/root/grep_pid.sh <span class="variable">$pid</span> &amp;&amp; pkill test_start_srv &amp;&amp; pkill socket_srv"</span></div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">~$ cat test_app_dev.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">test_one</span></span>()&#123;</div><div class="line">    tt=<span class="variable">$200</span></div><div class="line">    <span class="comment">## 中止远程服务器的之前进程名.</span></div><div class="line">    ssh -t root@192.168.25.100 <span class="string">"pkill test_start_srv &amp;&amp; pkill socket_srv"</span></div><div class="line">    pid=`python start_srv.py`</div><div class="line">    srv=<span class="string">"192.168.25.100"</span></div><div class="line"></div><div class="line">    <span class="comment">## 开启一种类型的客户端 ,DEV</span></div><div class="line">    python camera_client.py dev -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;</div><div class="line">    dpid=$!</div><div class="line">    <span class="keyword">while</span> <span class="literal">true</span>;</div><div class="line">    <span class="keyword">do</span></div><div class="line">       <span class="comment">## 等到DEV输出done,开记另一种类型的客户端,APP</span></div><div class="line">       grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> <span class="_">-f</span> <span class="variable">$1</span> &amp;&amp; <span class="built_in">break</span> || sleep 2</div><div class="line">    <span class="keyword">done</span></div><div class="line"></div><div class="line">    <span class="comment">## 上面两种类型的客户端运行完成之后,把各类数据分类增量重定向到相应的文件名中.</span></div><div class="line">    cat camera.log &gt;&gt; <span class="variable">$1</span>.log</div><div class="line">    <span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</div><div class="line">    pkill <span class="string">"python"</span></div><div class="line"></div><div class="line">    ssh -t root@192.168.25.100 <span class="string">"pkill test_start_srv &amp;&amp; pkill socket_srv &amp;&amp; /root/grep_pid.sh <span class="variable">$pid</span>"</span> &gt;&gt; <span class="variable">$1</span>.log</div><div class="line">    <span class="built_in">echo</span> ---------------------------------------------------------------</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="title">run_ten_test</span></span>()</div><div class="line">&#123;</div><div class="line">    test_one <span class="variable">$1</span> <span class="variable">$2</span> &gt;&gt; <span class="variable">$1</span>.log</div><div class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span> test result"</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">    <span class="comment">## 分类累计,DEV,APP输出的日志数据,并做平均计算.</span></div><div class="line">    grep <span class="string">"DEV Run Time"</span> <span class="variable">$1</span>.log | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "Dev Run Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">    grep <span class="string">"DEV Avg Time"</span> <span class="variable">$1</span>.log | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "Dev Avg Time: %s\n", sum / n&#125;'</span>  &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">    grep <span class="string">"APP Run Time"</span> <span class="variable">$1</span>.log | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "APP Run Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">    grep <span class="string">"APP Avg Time"</span> <span class="variable">$1</span>.log | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "APP Avg Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line"></div><div class="line">    <span class="comment">## 分类统计出top 输出的内存与CPU的总数与平均数值</span></div><div class="line">    grep <span class="string">"CPU"</span> <span class="variable">$1</span>.log | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "AVG CPU: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">    grep <span class="string">"MEM"</span> <span class="variable">$1</span>.log | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "AVG MEM: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span> test result---------------------------------------------------------"</span> &gt;&gt; <span class="variable">$1</span>.result</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="title">test_all</span></span>()</div><div class="line">&#123;</div><div class="line">    ext=<span class="string">"0000.txt"</span></div><div class="line">    pre=<span class="string">"user_"</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> `seq 1 6`;</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"start test <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span>"</span></div><div class="line">            test_one <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span> <span class="variable">$i</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"test <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span> done"</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"wait 30 seconds"</span></div><div class="line">            sleep 30</div><div class="line">        <span class="keyword">done</span></div><div class="line">&#125;</div><div class="line">test_all</div></pre></td></tr></table></figure>
-<h1 id="复制目录-并生成二进制文件"><a href="#复制目录-并生成二进制文件" class="headerlink" title="复制目录,并生成二进制文件"></a>复制目录,并生成二进制文件</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">cat ./rsync_openresty.sh</div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">LUAJIT=/usr/<span class="built_in">local</span>/openresty/luajit/bin/luajit</div><div class="line">ORG=openresty-china</div><div class="line">BYTECODE=openresty-byte</div><div class="line"></div><div class="line"><span class="comment">## 清除旧的目录</span></div><div class="line">rm -rf <span class="variable">$&#123;BYTECODE&#125;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## 用find 把目录找出来,替换ORG到BYTECODE.</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find <span class="variable">$&#123;ORG&#125;</span> -type d`;<span class="keyword">do</span></div><div class="line">     mkdir -p <span class="string">"<span class="variable">$&#123;i/"$&#123;ORG&#125;</span>"</span>/<span class="string">"<span class="variable">$&#123;BYTECODE&#125;</span>"</span>&#125;<span class="string">"</span></div><div class="line">done</div><div class="line"></div><div class="line">## 用find 把*.lua结尾的文件找来,并使用LUAJIT编译成字节码,输出到BYTECODE的相应目录下</div><div class="line">for i in `find <span class="variable">$&#123;ORG&#125;</span> -iname "*.lua<span class="string">"`;do</span></div><div class="line">    <span class="variable">$&#123;LUAJIT&#125;</span> -b <span class="variable">$i</span> "<span class="variable">$&#123;i/"$&#123;ORG&#125;</span><span class="string">"/"</span><span class="variable">$&#123;BYTECODE&#125;</span><span class="string">"&#125;"</span></div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line">cp <span class="variable">$&#123;ORG&#125;</span>/conf/* <span class="variable">$&#123;BYTECODE&#125;</span>/conf</div><div class="line"></div><div class="line">rsync --exclude=<span class="string">"*.git"</span> --exclude=<span class="string">"*.sh"</span> --exclude=<span class="string">"config.lua"</span> --exclude=<span class="string">"*.conf"</span> <span class="_">-a</span> <span class="variable">$&#123;BYTECODE&#125;</span>/* root@exmaple.com:/home/www/test_openresty</div></pre></td></tr></table></figure>
-<hr>
-<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2490,7 +2538,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2582,7 +2630,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -2641,7 +2691,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

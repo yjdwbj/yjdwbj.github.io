@@ -285,6 +285,373 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/12/使用国外VPS指南-Linode/" itemprop="url">
+                  使用国外VPS指南-Linode
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-12 09:01:19" itemprop="dateCreated datePublished" datetime="2020-02-12T09:01:19+08:00">2020-02-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-13 18:55:01" itemprop="dateModified" datetime="2020-02-13T18:55:01+08:00">2020-02-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>相关链接<ul>
+<li><a href="https://github.com/trojan-gfw" target="_blank" rel="external">https://github.com/trojan-gfw</a></li>
+<li><a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="external">Linode</a></li>
+<li><a href="https://github.com/txthinking/brook" target="_blank" rel="external">Brook</a></li>
+<li><a href="https://www.johnrosen1.com/trojan/" target="_blank" rel="external">其它教程</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="选购VPS"><a href="#选购VPS" class="headerlink" title="选购VPS"></a>选购VPS</h1><ul>
+<li>这里选择尝试使用<a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="external">Linode</a>来做VPS，如果预算购的可以选择高配，一般可以选择<code>Standard Linode plan</code>10刀一月，像我这种穷人只选<code>Nanodes</code>5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码<code>ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d</code>有优惠。</li>
+<li>这里选择安装<code>Debian 10</code>,区域就选择<code>SG</code>或<code>JP</code>,勾选<code>Private IP</code>还会有一个v4的IP,现在能供IPv4的厂商很少了，像<a href="https://www.vultr.com/" target="_blank" rel="external">Vultr</a>最便宜的VPS是2.5刀一月，只提供<code>IPv6</code>.完成之后，控制台如下图：<br><img src="../imgs/linode-vps.png" alt="vps"></li>
+<li>登录它有两种SSH方式，一是直接SSH访问：<code>ssh root@xxx.xxx.xxx.xxx</code>,这里可以使用在布署时添加RSA证书验证免密访问。二是通过Lish访问，估计它像是一个串口重定向一样的：<code>ssh -t &lt;username&gt;@lish-singapore.linode.com &lt;host-tags&gt;</code>,这里要用<a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="external">Linode</a>的用户名与密码登录，后面再输入<code>VPS</code>的用户名与密码登入<code>VPS</code>。</li>
+</ul>
+<h1 id="安装Trojan"><a href="#安装Trojan" class="headerlink" title="安装Trojan"></a>安装Trojan</h1><ul>
+<li><a href="https://github.com/trojan-gfw" target="_blank" rel="external">trojan</a>是一个代理上网工具，能帮助学习到更全面的知识,同时它的服务请求是通过标准的SSL(443)通讯的。对于新手可以去到<a href="https://github.com/johnrosen1/trojan-gfw-script" target="_blank" rel="external">Github</a>找一键安装脚本，有动手能力的可以自己编译源码与配置。</li>
+</ul>
+<h2 id="安装Nginx与Let’s-Encrypt"><a href="#安装Nginx与Let’s-Encrypt" class="headerlink" title="安装Nginx与Let’s Encrypt"></a>安装Nginx与Let’s Encrypt</h2><ul>
+<li><p>这里安装Nginx只是用它来去申请一个有安全保障，可依赖的安全证书。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># apt-get install nginx certbot -y</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>安装完成后,保障申请证书时能使用加密访问到，修改<code>/etc/nginx/sites-available/default</code>如下：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">~<span class="comment">#  cat /etc/nginx/sites-available/default</span></div><div class="line">[...]</div><div class="line">server &#123;</div><div class="line">	listen 443 default_server;</div><div class="line">	listen [::]:443 default_server;</div><div class="line">[....]</div></pre></td></tr></table></figure>
+<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><ul>
+<li>修改保存，并重启<code>Nginx</code>,使用<code>certbot</code>申请，中间按提示需要输入邮箱与域名，域名可以单独去申请绑定到这个VPS上，这里也可以使用上图<code>Reverse DNS</code>里的二级域名<code>xxx00-00.members.linode.com</code>.运行<code>certbot certonly -d xxx00-00.members.linode.com</code>是申请，运行<code>certbot renew -d xxx00-00.members.linode.com</code>是更新，具体使用查看，<code>certbot --help</code>.</li>
+<li>申请成功后，查看证书.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># ls/etc/letsencrypt/live/&lt;xxxxx&gt;.members.linode.com</span></div><div class="line">cert.pem  chain.pem  fullchain.pem  privkey.pem  README</div></pre></td></tr></table></figure>
+<h2 id="部署Trojan"><a href="#部署Trojan" class="headerlink" title="部署Trojan"></a>部署Trojan</h2><ul>
+<li><p>这里就直接下载一个最新的Release解压使使用，解压后如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># tree trojan</span></div><div class="line">trojan</div><div class="line">├── config.json</div><div class="line">├── CONTRIBUTORS.md</div><div class="line">├── examples</div><div class="line">│   ├── client.json-example</div><div class="line">│   ├── forward.json-example</div><div class="line">│   ├── nat.json-example</div><div class="line">│   ├── server.json-example</div><div class="line">│   └── trojan.service-example</div><div class="line">├── LICENSE</div><div class="line">├── README.md</div><div class="line">└── trojan</div></pre></td></tr></table></figure>
+</li>
+<li><p>这里直接从<code>examples/server.json-example</code>复制一个改名成<code>server.json</code>,具体修改的位置如下:</p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cat server.json </span></div><div class="line">&#123;</div><div class="line">    <span class="string">"run_type"</span>: <span class="string">"server"</span>,  <span class="comment"># 如果是用客服端，改成client</span></div><div class="line">    <span class="string">"local_addr"</span>: <span class="string">"0.0.0.0"</span>,</div><div class="line">    <span class="string">"local_port"</span>: 443,</div><div class="line">    <span class="string">"remote_addr"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="string">"remote_port"</span>: 80,</div><div class="line">    <span class="string">"password"</span>: [</div><div class="line">        <span class="string">"passwd1"</span>, <span class="comment"># 可以设置多个密码，可以使用任意一个访问该服务。</span></div><div class="line">        <span class="string">"passwd2"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"log_level"</span>: 1,</div><div class="line">    <span class="string">"ssl"</span>: &#123;</div><div class="line">        <span class="comment"># 下面这两行，就是使用从letsencrypt申请到的证书的完全路径。</span></div><div class="line">	      <span class="string">"cert"</span>: <span class="string">"/etc/letsencrypt/live/&lt;xxxxxx&gt;.members.linode.com/fullchain.pem"</span>,</div><div class="line">	      <span class="string">"key"</span>:<span class="string">"/etc/letsencrypt/live/&lt;xxxxx&gt;.members.linode.com/privkey.pem"</span>,</div><div class="line">        <span class="string">"key_password"</span>: <span class="string">""</span>,</div><div class="line">        <span class="string">"cipher"</span>: <span class="string">"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"</span>,</div><div class="line">        <span class="string">"cipher_tls13"</span>: <span class="string">"TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384"</span>,</div><div class="line">        <span class="string">"prefer_server_cipher"</span>: <span class="literal">true</span>,</div><div class="line">        ＃  <span class="string">"sni"</span>: <span class="string">"yourdomain"</span>, //如果客户端，会有这一行，就是服务器的域名。</div><div class="line">        <span class="string">"alpn"</span>: [</div><div class="line">            <span class="string">"http/1.1"</span></div><div class="line">        ],</div><div class="line">        <span class="string">"reuse_session"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"session_ticket"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"session_timeout"</span>: 600,</div><div class="line">        <span class="string">"plain_http_response"</span>: <span class="string">""</span>,</div><div class="line">        <span class="string">"curves"</span>: <span class="string">""</span>,</div><div class="line">        <span class="string">"dhparam"</span>: <span class="string">""</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"tcp"</span>: &#123;</div><div class="line">        <span class="string">"prefer_ipv4"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"no_delay"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"keep_alive"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"reuse_port"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"fast_open"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"fast_open_qlen"</span>: 20</div><div class="line">    &#125;,</div><div class="line">    <span class="string">"mysql"</span>: &#123;</div><div class="line">        <span class="string">"enabled"</span>: <span class="literal">false</span>,</div><div class="line">        <span class="string">"server_addr"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">        <span class="string">"server_port"</span>: 3306,</div><div class="line">        <span class="string">"database"</span>: <span class="string">"trojan"</span>,</div><div class="line">        <span class="string">"username"</span>: <span class="string">"trojan"</span>,</div><div class="line">        <span class="string">"password"</span>: <span class="string">""</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>现在把Nginx的SSL服务停掉，不然会无法运行<code>trojan</code>，运行<code>./trojan -c server.json</code>,如果无错，它就是成运行了。</p>
+</li>
+</ul>
+<h1 id="安装Brook"><a href="#安装Brook" class="headerlink" title="安装Brook"></a>安装Brook</h1><ul>
+<li><p>它可能是目前最灵活，但同时又保持了较高易用性的架设方法。支持多协议多模式，跨平台也比其它技术好。它是用GO语言写的，这里也是不想从源码编译，直接去下载一个最新使用。下面会是一些使用示例，最完整的还参考它的<a href="https://github.com/txthinking/brook" target="_blank" rel="external">Wiki</a></p>
+</li>
+<li><p>服务端</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ ./brook server <span class="_">-l</span> :8118 -p passwd1</div></pre></td></tr></table></figure>
+<ul>
+<li>客户端</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># ./brook client -l 127.0.0.1:4444 -i 127.0.0.1 -s &lt;serverip&gt;:8118 -p passwd1</span></div></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/04/单片机入门-读写DHT11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/04/单片机入门-读写DHT11/" itemprop="url">
+                  单片机入门-读写DHT11
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-04 18:06:25" itemprop="dateCreated datePublished" datetime="2020-01-04T18:06:25+08:00">2020-01-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-13 19:21:16" itemprop="dateModified" datetime="2020-02-13T19:21:16+08:00">2020-02-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="mqtt-client-订阅测试"><a href="#mqtt-client-订阅测试" class="headerlink" title="mqtt client 订阅测试"></a>mqtt client 订阅测试</h1><ul>
+<li>我们发来的数据是 temp 23, humi 35, 通过位运算（data = temp &lt;&lt; 8 | humi;）把这两个数值放入一个short数据类型里 ， data的值就是 5923，hex(5923) 就是 0x1723. 而下面我们使用 <code>mosquitto_sub</code>收到的数据是2317,也就是本地字节序与网络字节序是反的，只要把它调换一下高低字节就是正确的数据。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">~$ mosquitto_sub -h 192.168.1.100 -t <span class="string">'/lcy/cc3120/dht11'</span> -F <span class="string">'%x'</span> <span class="_">-d</span> -v </div><div class="line">Client mosqsub|12450-debian sending CONNECT</div><div class="line">Client mosqsub|12450-debian received CONNACK (0)</div><div class="line">Client mosqsub|12450-debian sending SUBSCRIBE (Mid: 1, Topic: /lcy/cc3120/dht11, QoS: 0)</div><div class="line">Client mosqsub|12450-debian received SUBACK</div><div class="line">Subscribed (mid: 1): 0</div><div class="line">Client mosqsub|12450-debian received PUBLISH (d0, q0, r1, m0, <span class="string">'/lcy/cc3120/dht11'</span>, ... (2 bytes))</div><div class="line">2317</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/TI-MSP432E401Y开发指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -348,7 +715,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-27 22:32:44" itemprop="dateModified" datetime="2019-11-27T22:32:44+08:00">2019-11-27</time>
+                <time title="修改时间：2020-01-04 22:00:03" itemprop="dateModified" datetime="2020-01-04T22:00:03+08:00">2020-01-04</time>
               
             
           </span>
@@ -386,13 +753,14 @@
             <ul>
 <li><p>参考链接:</p>
 <ul>
-<li><a href="http://dev.ti.com/tirex/explore" target="_blank" rel="external">TI 资源</a></li>
 <li><a href="http://www.ti.com.cn/tool/cn/MSP-EXP432E401Y" target="_blank" rel="external">MSP432E401Y MCU LaunchPad 中文页面</a></li>
 <li><a href="http://software-dl.ti.com/simplelink/esd/plugins/simplelink_sdk_wifi_plugin/2_40_00_22/exports/docs/users_guide_simplelink_sdk_wifi_plugin.html" target="_blank" rel="external">SimpleLink SDK Wi-Fi Plugin Users Guide</a></li>
 <li><a href="http://www.ti.com/wireless-connectivity/simplelink-solutions/wi-fi/overview/overview.html" target="_blank" rel="external">SimpleLink Wi-Fi solutions</a></li>
 <li><a href="http://processors.wiki.ti.com/index.php/CC31xx_&amp;_CC32xx" target="_blank" rel="external">CC31xx_&amp;_CC32XX wiki</a></li>
-<li><a href="https://www.exosite.io/" target="_blank" rel="external"></a></li>
+<li><a href="https://www.exosite.io/" target="_blank" rel="external">exosite</a></li>
 <li><a href="https://dev.ti.com/" target="_blank" rel="external">TI Cloud Tools</a></li>
+<li><a href="https://github.com/ARM-software/CMSIS_5" target="_blank" rel="external">CMSIS</a></li>
+<li><a href="https://github.com/ARM-software/CMSIS-FreeRTOS" target="_blank" rel="external">CMSIS-FreeRTOS</a></li>
 </ul>
 </li>
 </ul>
@@ -438,9 +806,9 @@
 </li>
 <li><p>左侧边栏会提示安装<code>TI CLOUD AGENT</code>会提升使用体验。这里是使用 Firefox 浏览器，它会在浏览里安装<code>TICloudAgent Bridge</code>插件。如果是使用<code>Google Chrome</code>浏览器会提示无法安装浏览器插件，因为墙的原因。安装完插件还会提示<a href="https://dev.ti.com/ticloudagent/getInstaller?os=linux" target="_blank" rel="external">下载</a>安装<code>TI Cloud Agent Application</code>.安装完成<code>Agent</code>之后，刷新页面，侧边栏会提示安装一些必要的设备驱动，用于<code>Device detected</code>.如果它检测到支持的设备在线，会在侧边栏里显示设备的<code>ID号,Serial号</code>，以及相应的<code>Get Started!</code>导航链接，这里的连接<code>MSP-EXP432E401Y</code>会出现对应的<code>GUI Composer Gallery,Resource Expolrer,SimpleLink Acdemy</code>三个链接。</p>
 </li>
-<li>下面是使用在线版的 UniFlash.<br><img src="/imgs/ti/exp432-E401Y UniFlash.png" alt="exp432-E401Y UniFlash.png"><ul>
+<li>下面是使用在线版的<code>UniFlash</code>.<br><img src="/imgs/ti/exp432-E401Y UniFlash.png" alt="exp432-E401Y UniFlash.png"><ul>
 <li>打开<code>Resource Expolrer --&gt; /Development/Kits and Boards/MSP432E401Y LaunchPad</code>会有该设备的详细描述，与《用户手册》等官方资料。</li>
-<li>打开<code>SimpleLink Acdemy --&gt; /Software/SimpleLink MSP432E4 SDK (3.30.00.22)/SimpleLink Academy (3.30.01.00)/Overview</code>会有进入最新的 SDK 的学院教程页面。</li>
+<li>打开<code>SimpleLink Acdemy --&gt; /Software/SimpleLink MSP432E4 SDK (3.30.00.22)/SimpleLink Academy (3.30.01.00)/Overview</code>会有进入最新的<code>SDK</code>的学院教程页面。</li>
 </ul>
 </li>
 </ul>
@@ -456,8 +824,12 @@
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><img src="/imgs/ti/ccs920-install.png" alt="ccs920-install.png"></p>
 <h2 id="安装-SDK"><a href="#安装-SDK" class="headerlink" title="安装 SDK"></a>安装 SDK</h2><h2 id="通过使用TI-Resource-Explorer安装"><a href="#通过使用TI-Resource-Explorer安装" class="headerlink" title="通过使用TI Resource Explorer安装"></a>通过使用<code>TI Resource Explorer</code>安装</h2><ul>
 <li>在 CCSv9 首面板里<code>Getting Started</code>页里有<code>Resource Explorer(Examples &amp; Docs)，New Proejct, Import Proejct</code>三个快捷链接。这里选择打开<code>Resources Explorer</code>,打开会一直显示<code>Starting TIREX ...</code>,视本机的网速快慢而定，如果偶然打开它了，最好是把自己需要用到的<code>SDK</code>全部下载到本地，防止失联。<br><img src="/imgs/ti/ccs920-resource-expolrer.png" alt="ccs920-resource-expolrer.png"></li>
-<li>打开可以设置 SDK 的下载路径，如下：<br><img src="/imgs/ti/ccsv9-res-settings.png" alt="ccsv9-res-settings.png"><br><img src="/imgs/ti/ccs920-tre-plugin-install.png" alt="ccs920-tre-plugin-install.png"></li>
+<li><p>打开可以设置 SDK 的下载路径，如下：<br><img src="/imgs/ti/ccsv9-res-settings.png" alt="ccsv9-res-settings.png"><br><img src="/imgs/ti/ccs920-tre-plugin-install.png" alt="ccs920-tre-plugin-install.png"></p>
+</li>
+<li><p>因为学习一种单片机的最好的方法是查看它官方的文档与SDK的示例，TI的官方文档与<code>SDK</code>示例非常丰富，除了线上的<code>dev.ti.com</code>可以在线查看之外，一般手动下载的<code>SDK</code>压缩包里，除了库文件之外还有文档与工具，这里是学习它最权威的资料。一个典型的<code>SDK</code>目录结构如下：</p>
+</li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">~$ simplelink_msp432e4_sdk_3_30_00_22$ tree -L 2</div><div class="line">.</div><div class="line">├── changelog.html</div><div class="line">├── docs</div><div class="line">│   ├── Documentation_Overview.html</div><div class="line">│   ├── driverlib</div><div class="line">│   ├── grlib</div><div class="line">│   ├── mbedtls</div><div class="line">│   ├── ndk</div><div class="line">│   ├── ns</div><div class="line">│   ├── simplelink_mcu_sdk</div><div class="line">│   ├── tidrivers</div><div class="line">│   ├── tiposix</div><div class="line">│   ├── tirtos</div><div class="line">│   ├── tiutils</div><div class="line">│   └── usblib</div><div class="line">├── examples</div><div class="line">│   ├── nortos</div><div class="line">│   └── rtos</div><div class="line">├── imports.mak.windows</div><div class="line">├── kernel</div><div class="line">│   ├── freertos</div><div class="line">│   ├── makefile</div><div class="line">│   ├── nortos</div><div class="line">│   └── tirtos</div><div class="line">├── license_simplelink_msp432e4_sdk_3_30_00_22.txt</div><div class="line">├── manifest_simplelink_msp432e4_sdk_3_30_00_22.html</div><div class="line">├── release_notes_simplelink_msp432e4_sdk_3_30_00_22.html</div><div class="line">├── <span class="built_in">source</span></div><div class="line">│   ├── third_party</div><div class="line">│   └── ti</div><div class="line">└── tools</div><div class="line">    ├── examples</div><div class="line">    ├── iar</div><div class="line">    ├── image_reformer</div><div class="line">    └── usblib</div></pre></td></tr></table></figure>
 <h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><ul>
 <li>因为<code>Resource Explorer</code>在国内访问很不稳定，经常打不开，所以打开时可以先把这些文件下载下来，或者打包起来移到其它电脑的新系统里安装。只要在<code>Window -&gt; Preferences -&gt; Code Composer Studio -&gt; Products</code>添加要<code>SDK</code>的路径，就可以把相应的<code>SDK</code>文件安装上来了。</li>
 </ul>
@@ -470,7 +842,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**** Build Finished ****</div><div class="line">Buildfile generation error occurred..</div><div class="line">Required variable <span class="string">'FREERTOS_INSTALL_DIR'</span> cannot be resolved or is pointing to a non-existent location. See <span class="string">'Preferences &gt; CCS &gt; Build &gt; Variables'</span> page to define this variable before building this project.</div></pre></td></tr></table></figure>
 <p><img src="/imgs/ti/ccs920-prj-build-var-settings.png" alt="ccs920-prj-build-var-settings.png"></p>
 <h3 id="设置工程参数"><a href="#设置工程参数" class="headerlink" title="设置工程参数"></a>设置工程参数</h3><ul>
-<li><p><code>Syscfg</code> 配置或查看,应该是属于类似<code>STM32CubeMX</code>的工具。<br><img src="/imgs/ti/ccsv9-syscfg.png" alt="ccsv9-syscfg.png"></p>
+<li><p><code>Syscfg</code> 配置或查看,应该是属于类似<code>STM32CubeMX</code>的工具,如果使用<code>Syscfg</code>配置，就会根据配置的参数，在工程目录下自动生成<code>Debug/syscfg/{Board.h,Board.c</code>文件,相当于把图行里配置参数自动生成代码。如果不喜欢此工具，也可以手动生成这样的板子定义文件。<br><img src="/imgs/ti/ccsv9-syscfg.png" alt="ccsv9-syscfg.png"></p>
 </li>
 <li><p>导入<code>ethernet_wifi_tcp_echo</code>到本地 CCS 里后，要详细阅读<code>ethernet_wifi_tcp_echo_MSP_EXP432E401Y_freertos_ccs/README.html</code>文档。下面是按照文档提示，需要修改<code>network_if.h</code>里的<code>SSID</code>与<code>SECURITY_KEY</code>，也就是说要把它配置成可以连接到你周围的 WIFI。</p>
 </li>
@@ -489,6 +861,21 @@
 <li>按文档提示，用 <code>putty</code>打开一个<code>telnet</code> 连接到<code>192.168.1.115:1000</code>端口。就会显示如下：</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">WiFi: Creating thread clientfd = 1</div><div class="line"></div><div class="line">wifi0: start clientfd = 0x1</div></pre></td></tr></table></figure>
+<h1 id="单片机入门"><a href="#单片机入门" class="headerlink" title="单片机入门"></a>单片机入门</h1><ul>
+<li>时钟周期<ul>
+<li>时钟周期也称为振荡周期，定义为时钟脉冲的倒数（时钟周期就是单片机外接晶振的倒数，例如12M的晶振，它的时间周期就是1/12 us），是计算机中最基本的、最小的时间单位,也称节拍脉冲或T周期。在一个时钟周期内，CPU仅完成一个最基本的动作。对于某种单片机，若采用了1MHZ的时钟频率，则时钟周期为1us；1秒(s)等于1000毫秒(ms),等于1000000微秒(us).</li>
+<li>1秒(s) = 1000毫秒(ms)<br>1毫秒(ms) = 1000微秒(us)<br>1微秒(us) = 1000纳秒(ns)<br>1纳秒(ns) = 1000皮秒(ps)<br>在8051单片机中把一个时钟周期定义为一个节拍（用P表示），二个节拍定义为一个状态周期（用S表示）。</li>
+</ul>
+</li>
+<li>机器周期<ul>
+<li>在计算机中，为了便于管理，常把一条指令的执行过程划分为若干个阶段，每一阶段完成一项工作。例如：取指令、读存储器、写存储器等，这每一项工作称为一个基本操作。完成一个基本操作所需要的时间称为机器周期。一般情况下，一个机器周期由若干个S周期（状态周期）组成。8051系列单片机的一个机器周期同6个S周期（状态周期）组成。前面已经说过一个时钟周期定义为一个节拍（用P表示），二个节拍定义为一个状态周期（用S表示），8051单片机的机器周期由6个状态周期组成，也就是说一个机器周期=6个状态周期=12个时钟周期。</li>
+</ul>
+</li>
+<li>指令周期<ul>
+<li>指令周期是执行一条指令所需要的时间，一般由若干个机器周期组成。指令不同，所需的机器周期数也不同。对于一些简单的的单字节指令，在取指令周期中，指令取出到指令寄存器后，立即译码执行，不再需要其它的机器周期。对于一些比较复杂的指令，例如：转移指令、乘法指令，则需要两个或者两个以上的机器周期。</li>
+</ul>
+</li>
+</ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
 </ul>
@@ -2484,462 +2871,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/" itemprop="url">
-                  Linux下使用JLink与OpenOCD配合嵌入式开发
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-19 21:57:26" itemprop="dateCreated datePublished" datetime="2018-06-19T21:57:26+08:00">2018-06-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-08-03 12:17:31" itemprop="dateModified" datetime="2018-08-03T12:17:31+08:00">2018-08-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>相关链接</p>
-<ul>
-<li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="external">OpenOCD</a></li>
-<li><a href="http://www.microchip.com/developmenttools/ProductDetails/atmel%20sam-ba%20in-system%20programmer" target="_blank" rel="external">SAM-BA</a></li>
-<li><a href="http://www.armadeus.org/wiki/index.php?title=JTAG" target="_blank" rel="external">JTAG 相关Wiki</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="OpenOCD安装"><a href="#OpenOCD安装" class="headerlink" title="OpenOCD安装"></a>OpenOCD安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">~ apt-get install libhidapi-dev libhidapi-libusb0  <span class="comment"># CMSIS-DAP 必需要安装HIDAPI</span></div><div class="line">~ <span class="built_in">cd</span> build</div><div class="line">~ ../configure --enable-cmsis-dap</div><div class="line"></div><div class="line">libjaylink configuration summary:</div><div class="line"> - Package version ................ 0.1.0</div><div class="line"> - Library version ................ 0:0:0</div><div class="line"> - Installation prefix ............ /usr/<span class="built_in">local</span></div><div class="line"> - Building on .................... x86_64-pc-linux-gnu</div><div class="line"> - Building <span class="keyword">for</span> ................... x86_64-pc-linux-gnu</div><div class="line">[...]</div><div class="line">OpenOCD configuration summary</div><div class="line">--------------------------------------------------</div><div class="line">MPSSE mode of FTDI based devices        yes (auto)</div><div class="line">ST-Link JTAG Programmer                 yes (auto)</div><div class="line">TI ICDI JTAG Programmer                 yes (auto)</div><div class="line">Keil ULINK JTAG Programmer              yes (auto)</div><div class="line">Altera USB-Blaster II Compatible        yes (auto)</div><div class="line">Versaloon-Link JTAG Programmer          yes (auto)</div><div class="line">OSBDM (JTAG only) Programmer            yes (auto)</div><div class="line">eStick/opendous JTAG Programmer         yes (auto)</div><div class="line">Andes JTAG Programmer                   yes (auto)</div><div class="line">USBProg JTAG Programmer                 yes (auto)</div><div class="line">Raisonance RLink JTAG Programmer        yes (auto)</div><div class="line">Olimex ARM-JTAG-EW Programmer           yes (auto)</div><div class="line">CMSIS-DAP Compliant Debugger            yes (auto)</div><div class="line">Altera USB-Blaster Compatible           yes (auto)</div><div class="line">ASIX Presto Adapter                     yes (auto)</div><div class="line">OpenJTAG Adapter                        yes (auto)</div><div class="line">SEGGER J-Link Programmer                yes (auto)</div></pre></td></tr></table></figure>
-<h1 id="OpenOCD使用"><a href="#OpenOCD使用" class="headerlink" title="OpenOCD使用"></a>OpenOCD使用</h1><h2 id="CMSIS-DAP-连接"><a href="#CMSIS-DAP-连接" class="headerlink" title="CMSIS-DAP 连接"></a>CMSIS-DAP 连接</h2><ul>
-<li>查看USB的信息</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ lsusb</div><div class="line">[...]</div><div class="line">Bus 001 Device 007: ID 03eb:2111 Atmel Corp. </div><div class="line">[...]</div><div class="line"></div><div class="line">~$ lsusb -v <span class="_">-s</span> 001:007 | grep <span class="string">"iSerial"</span></div><div class="line">  iSerial                 3 ATML1803040200001055</div></pre></td></tr></table></figure>
-<ul>
-<li>添加udev规则</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ cat /etc/udev/rules.d/49-cmsis-dap.rules </div><div class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"03eb"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"2111"</span>, MODE:=<span class="string">"0666"</span>, OWNER=<span class="string">"user"</span></div></pre></td></tr></table></figure>
-<ul>
-<li>更新udev,创建一个openocd 连接配置文件</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ sudo udevadm trigger</div><div class="line">~$ cat atmel_sam4s_xplained_pro.cfg </div><div class="line">interface cmsis-dap</div><div class="line">cmsis_dap_vid_pid 0x03eb 0x2111</div><div class="line">cmsis_dap_serial ATML1803040200001055</div><div class="line"><span class="built_in">set</span> CHIPNAME ATSAM4SD32C</div><div class="line"><span class="built_in">source</span> [find board/atmel_sam4s_xplained_pro.cfg]</div><div class="line"></div><div class="line">~$ openocd <span class="_">-f</span> atmel_sam4s_xplained_pro.cfg</div></pre></td></tr></table></figure>
-<h2 id="J-Link使用"><a href="#J-Link使用" class="headerlink" title="J-Link使用"></a>J-Link使用</h2><ul>
-<li>假如是J-Link硬件,目标板是<code>STM32F103ZET6</code>带有20Pin的JTAG接口,就直接命令行连接就可以了.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ openocd <span class="_">-f</span> interface/jlink.cfg <span class="_">-f</span> target/stm32f1x.cfg</div></pre></td></tr></table></figure>
-<h2 id="J-Link-OB使用"><a href="#J-Link-OB使用" class="headerlink" title="J-Link-OB使用"></a>J-Link-OB使用</h2><ul>
-<li>假如是某宝30元左右,三线JLink-OB硬件,目标板是<code>STM32F103ZET6</code>带有<strong>SWD</strong>接口,就要用一个配置文件来连接了.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">~$ cat jlink-swd.cfg </div><div class="line"><span class="built_in">source</span> [find interface/jlink.cfg]</div><div class="line">transport select swd</div><div class="line"><span class="built_in">source</span> [find target/stm32f1x.cfg]</div><div class="line"></div><div class="line">~$ openocd <span class="_">-f</span> jlink-swd.cfg</div></pre></td></tr></table></figure>
-<h1 id="JLink-恢复"><a href="#JLink-恢复" class="headerlink" title="JLink 恢复"></a>JLink 恢复</h1><ul>
-<li>因为某宝上面几十元的JLink在使用大于<code>5.0</code>以上的驱动时,如果不升级是没有问题的.如果选择了自动升级固件,就会提示错误,并且无法使,这时只能重新刷写旧版本的固件才能使用.</li>
-</ul>
-<h2 id="擦除固件"><a href="#擦除固件" class="headerlink" title="擦除固件"></a>擦除固件</h2><ul>
-<li>如下图所示,打开盖板,会看到两排排针,一个写着<strong><code>erase</code></strong>,一个写着<strong><code>TST</code></strong>.先把<strong><code>earse</code></strong>短接,上电10秒以上,断开<code>erase</code>,短接<code>TST</code></li>
-<li>上电几秒,再继开短接.重新上电系统会出现如下设备</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 009 Device 106: ID 03eb:6124 Atmel Corp. at91sam SAMBA bootloader</div></pre></td></tr></table></figure>
-<h2 id="SAM-BA烧写"><a href="#SAM-BA烧写" class="headerlink" title="SAM-BA烧写"></a>SAM-BA烧写</h2><ul>
-<li>sam-ba 是atmel的一个烧写工具,有Linux版与windows版,因为它是用QT开发的,所以两个平台的操作界面与流程是一样的,可以从参考链接下载, 我这里用的Linux</li>
-<li>运行sam-ba就会自动识别芯片,Jlink的主控芯片就是<code>AT91SAM7S64</code>, 如图所示</li>
-</ul>
-<p><img src="/imgs/sam-ba-connector.png" alt="connector"></p>
-<ul>
-<li>连接之后会出现如下图所示,不用修用参数,直接选一个正解的固件文件,按<code>Send File</code>就可以.</li>
-</ul>
-<p><img src="/imgs/sam-ba-main.png" alt="main"></p>
-<ul>
-<li>烧写过程中会现对话框,要选择<code>UnLock it</code>,选择<code>Yes</code>才能烧写,后一次问你要不要<code>Lock it</code>锁定,选择<code>No</code>这样JLink才可以自动升级.</li>
-</ul>
-<p><img src="/imgs/sam-ba-no-lock.png" alt="sam-ba-no-lock"></p>
-<h1 id="使用JLink原生驱动与工具"><a href="#使用JLink原生驱动与工具" class="headerlink" title="使用JLink原生驱动与工具"></a>使用JLink原生驱动与工具</h1><ul>
-<li>使用它的原生驱动会比使用OpenOCD要好很多,比如<code>JLinkGDBServer.exe</code>运行起来会监听<code>localhost</code>的端口,如要想从其它IP来访问不可能,在这里就要使用<strong>端口转发</strong>.下面就是把<code>localhost</code>的<code>2331,2332,2333</code>分别映射为<code>8888,8889,8890</code>供局域网内使用.它本身也是可以支持<code>0.0.0.0.0</code>地址监听.</li>
-</ul>
-<h2 id="windows-端口转发"><a href="#windows-端口转发" class="headerlink" title="windows 端口转发"></a>windows 端口转发</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface ipv6 install</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8889 listenaddress=192.168.1.235 connectport=2332 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8890 listenaddress=192.168.1.235 connectport=2333 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy show v4tov4</div><div class="line"></div><div class="line">侦听 IPv4:                 连接到 IPv4:</div><div class="line"></div><div class="line">地址            端口        地址            端口</div><div class="line">--------------- ----------  --------------- ----------</div><div class="line">192.168.1.235   8888        127.0.0.1       2331</div><div class="line">192.168.1.235   8889        127.0.0.1       2332</div><div class="line">192.168.1.235   8890        127.0.0.1       2333</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/Visual-Studio-Code使用笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/19/Visual-Studio-Code使用笔记/" itemprop="url">
-                  Visual Studio Code使用笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-05-19 22:40:11" itemprop="dateCreated datePublished" datetime="2018-05-19T22:40:11+08:00">2018-05-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-05 22:05:15" itemprop="dateModified" datetime="2019-11-05T22:05:15+08:00">2019-11-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><a href="https://code.visualstudio.com/" target="_blank" rel="external">VSCode</a></li>
-</ul>
-<h1 id="安装-VSCode"><a href="#安装-VSCode" class="headerlink" title="安装 VSCode"></a>安装 VSCode</h1><ul>
-<li>因为 vscode 是支持跨平台,多语言,易配置的免费 IDE 工具,所以安装是很简的.我这里以<code>Linux Debian</code>系统为例.</li>
-</ul>
-<h2 id="插件与扩展"><a href="#插件与扩展" class="headerlink" title="插件与扩展"></a>插件与扩展</h2><ul>
-<li>安装插件也是很简单,当然要确保电脑是可以上网的,选中 VSCode 主窗口按下组合快捷键<code>Ctrl+Shift+P</code>,就会出现下图的界面:</li>
-</ul>
-<p><img src="/imgs/extinstall.png" alt="extinstall"> 输入:<code>Ext</code>就会有自动补全的选项,选择的项如图所示,确认之后就会在左边 Docker 出现一个查询列表,在这里输入一些关键字进行查询,没有安装的插件,会在右下端有绿色高亮显示<font color="green"><code>install</code></font>安装按钮.如下图所示:<br><img src="/imgs/extsearch.png" alt="extsearch"></p>
-<h2 id="C-C-工程开发-CMake"><a href="#C-C-工程开发-CMake" class="headerlink" title="C/C++ 工程开发(CMake)"></a>C/C++ 工程开发(CMake)</h2><ul>
-<li>安装了的插件有: - ms-vscode.cpptools - mitaki28.vscode-clang - twxs.cmake - vector-of-bool.cmake-tools - webfreak.debug - ionutvmi.path-autocomplete //路径补全 - christian-kohler.path-intellisense 　//路径补全</li>
-</ul>
-<h3 id="创建-CMakeLists-txt"><a href="#创建-CMakeLists-txt" class="headerlink" title="创建 CMakeLists.txt"></a>创建 CMakeLists.txt</h3><ul>
-<li>首先新建一个空目录,使用 VSCode 打开这个目录,同时我个人喜欢把编译目录也建在这个目录下,名为<code>build</code>.用 VSCode 新建一个名为<code>CMakeLists.txt</code>的文件加入如下基本行:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">project(chapter3)</div><div class="line">cmake_minimum_required(VERSION 3.0)</div><div class="line">aux_source_directory(. DIR_ROOT_SRCS)</div><div class="line"></div><div class="line"><span class="comment">#下面这三行不是必须,这三行只是为了使用非标准路径的OpenCV库.</span></div><div class="line">include_directories(/fullpath/opencv-build-3.x-qt5/include)</div><div class="line">link_directories(/fullpath/opencv-build-3.x-qt5/lib)</div><div class="line">find_package(OpenCV 3.4.1 HINTS  /fullpath/opencv-build-3.x-qt5)</div><div class="line">add_executable(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;DIR_ROOT_SRCS&#125;</span>)</div><div class="line">target_link_libraries(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</div></pre></td></tr></table></figure>
-<h3 id="创建-c-cpp-properties-json-文件"><a href="#创建-c-cpp-properties-json-文件" class="headerlink" title="创建 c_cpp_properties.json 文件"></a>创建 c_cpp_properties.json 文件</h3><ul>
-<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>C/Cpp: Edit Configurations ...</code>确定,就会进入一个新的名为<code>c_cpp_properties.json</code>的文件编辑状态,输入如下内容:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"configurations"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"Linux"</span>,</div><div class="line"></div><div class="line">            <span class="string">"browse"</span>: &#123;</div><div class="line">            // 这个path是为在开发中自动补齐头文件名</div><div class="line">                <span class="string">"path"</span>: [</div><div class="line">                    <span class="string">"/fullpath/opencv-build-3.x-qt5/include"</span>,</div><div class="line">                    <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>"</span></div><div class="line">                ],</div><div class="line">                <span class="string">"limitSymbolsToIncludedHeaders"</span>: <span class="literal">true</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"includePath"</span>: [</div><div class="line">                <span class="string">"/fullpath/opencv-build-3.x-qt5/include"</span>,</div><div class="line">                <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/**"</span></div><div class="line">            ],</div><div class="line">            <span class="string">"defines"</span>: [],</div><div class="line">            <span class="string">"compilerPath"</span>: <span class="string">"/usr/bin/clang"</span>,</div><div class="line">            <span class="string">"cStandard"</span>: <span class="string">"c11"</span>,</div><div class="line">            <span class="string">"cppStandard"</span>: <span class="string">"c++17"</span>,</div><div class="line">            <span class="string">"intelliSenseMode"</span>: <span class="string">"clang-x64"</span></div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    <span class="string">"version"</span>: 4</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="创建-tasks-json-文件"><a href="#创建-tasks-json-文件" class="headerlink" title="创建 tasks.json 文件"></a>创建 tasks.json 文件</h3><ul>
-<li>组合快捷键<code>Ctrl+Shift+P</code>输入<code>Tasks: Configure Default Build Tasks</code>,或者从工具栏的<code>Tasks-&gt;Configure Default Build Task ...</code>,就会出现一个下拉列表,选择<strong>Other</strong>,就会进入一个新的名为<code>tasks.json</code>的文件编辑状态,填入如下内容.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</div><div class="line">    // <span class="keyword">for</span> the documentation about the tasks.json format</div><div class="line">    <span class="string">"version"</span>: <span class="string">"2.0.0"</span>,</div><div class="line">    <span class="string">"tasks"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"label"</span>: <span class="string">"cmake"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"shell"</span>,</div><div class="line">            <span class="string">"command"</span>: <span class="string">"cd build &amp;&amp; cmake ../"</span>,</div><div class="line">            <span class="string">"group"</span>: &#123;</div><div class="line">                <span class="string">"kind"</span>: <span class="string">"build"</span>,</div><div class="line">                <span class="string">"isDefault"</span>: <span class="literal">true</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"presentation"</span>: &#123;</div><div class="line">                <span class="string">"echo"</span>: <span class="literal">true</span>,</div><div class="line">                <span class="string">"reveal"</span>: <span class="string">"always"</span>,</div><div class="line">                <span class="string">"focus"</span>: <span class="literal">false</span>,</div><div class="line">                <span class="string">"panel"</span>: <span class="string">"shared"</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"problemMatcher"</span>: []</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"label"</span>: <span class="string">"make"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"shell"</span>,</div><div class="line">            <span class="string">"command"</span>: <span class="string">"cd build &amp;&amp; make"</span>,</div><div class="line">            <span class="string">"group"</span>: &#123;</div><div class="line">                <span class="string">"kind"</span>: <span class="string">"build"</span>,</div><div class="line">                <span class="string">"isDefault"</span>: <span class="literal">true</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"presentation"</span>: &#123;</div><div class="line">                <span class="string">"echo"</span>: <span class="literal">true</span>,</div><div class="line">                <span class="string">"reveal"</span>: <span class="string">"always"</span>,</div><div class="line">                <span class="string">"focus"</span>: <span class="literal">false</span>,</div><div class="line">                <span class="string">"panel"</span>: <span class="string">"shared"</span></div><div class="line">            &#125;,</div><div class="line">            <span class="string">"problemMatcher"</span>: []</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="创建程序主文件"><a href="#创建程序主文件" class="headerlink" title="创建程序主文件"></a>创建程序主文件</h3><ul>
-<li>新建一个名为<code>main.cpp</code>的文件如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line"><span class="comment">#include &lt;opencv2/core.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;opencv2/highgui.hpp&gt;</span></div><div class="line"><span class="comment">#include &lt;opencv2/imgproc.hpp&gt;</span></div><div class="line"></div><div class="line">using namespace std;</div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc,char *argv[])</div><div class="line">&#123;</div><div class="line">    cv::Mat srcImage = cv::imread(<span class="string">"../../images/hand1.jpg"</span>);</div><div class="line">    cv::imshow(<span class="string">"bitwise_add"</span>,bitImage);</div><div class="line">    cv::<span class="built_in">wait</span>Key(0);</div><div class="line">    <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="创建-Debug-launch-json"><a href="#创建-Debug-launch-json" class="headerlink" title="创建 Debug launch.json"></a>创建 Debug launch.json</h3><ul>
-<li>组合快捷键<code>Ctrl+Shift+D</code> 下拉选择<code>Add Configurations...</code>-&gt;选择<code>C++(GDB/LLDB)</code>,就会进入一个新的名为<code>launch.json</code>的文件编辑状态,文件如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // Use IntelliSense to learn about possible attributes.</div><div class="line">    // Hover to view descriptions of existing attributes.</div><div class="line">    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</div><div class="line">    <span class="string">"version"</span>: <span class="string">"0.2.0"</span>,</div><div class="line">    <span class="string">"configurations"</span>: [</div><div class="line"></div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"(gdb) Launch"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"cppdbg"</span>,</div><div class="line">            <span class="string">"request"</span>: <span class="string">"launch"</span>,</div><div class="line">            <span class="string">"program"</span>: <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/build/chapter3"</span>,</div><div class="line">            <span class="string">"args"</span>: [],</div><div class="line">            <span class="string">"stopAtEntry"</span>: <span class="literal">false</span>,</div><div class="line">            <span class="string">"cwd"</span>: <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>"</span>,</div><div class="line">            <span class="string">"environment"</span>: [],</div><div class="line">            <span class="string">"externalConsole"</span>: <span class="literal">true</span>,</div><div class="line">            <span class="string">"MIMode"</span>: <span class="string">"gdb"</span>,</div><div class="line">            //这一行是为了在调试前编译一次工程.</div><div class="line">            <span class="string">"preLaunchTask"</span>: <span class="string">"make"</span>,</div><div class="line">            <span class="string">"setupCommands"</span>: [</div><div class="line">                &#123;</div><div class="line">                    <span class="string">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</div><div class="line">                    <span class="string">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</div><div class="line">                    <span class="string">"ignoreFailures"</span>: <span class="literal">true</span></div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"(gdb) Attach"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"cppdbg"</span>,</div><div class="line">            <span class="string">"request"</span>: <span class="string">"attach"</span>,</div><div class="line">            <span class="string">"program"</span>: <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/build/chapter1"</span>,</div><div class="line">            <span class="string">"processId"</span>: <span class="string">"<span class="variable">$&#123;command:pickProcess&#125;</span>"</span>,</div><div class="line">            <span class="string">"MIMode"</span>: <span class="string">"gdb"</span>,</div><div class="line">            <span class="string">"setupCommands"</span>: [</div><div class="line">                &#123;</div><div class="line">                    <span class="string">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</div><div class="line">                    <span class="string">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</div><div class="line">                    <span class="string">"ignoreFailures"</span>: <span class="literal">true</span></div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h3><ul>
-<li>现在就可以用组合快捷键<code>Ctrl+Shift+B</code>先运行<code>cmake</code>再运行<code>make</code>就能生成出目标文件了.</li>
-<li>用<code>F9</code>在源文件里下断点,<code>F5</code>运行 GDB 调试.</li>
-<li>工程的目录结构如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~/opencv_chapter3$ ls <span class="_">-a</span></div><div class="line">.  ..  build  CMakeLists.txt  main.cpp  .vscode</div><div class="line">~/opencv_chapter3$ tree .vscode/</div><div class="line">.vscode/</div><div class="line">├── c_cpp_properties.json</div><div class="line">├── launch.json</div><div class="line">└── tasks.json</div><div class="line"></div><div class="line">0 directories, 3 files</div></pre></td></tr></table></figure>
-<ul>
-<li>显而易见的,在根目录下有一个<code>.vscode</code>的隐藏目录,里面有我刚创建的三个文件.</li>
-</ul>
-<h2 id="Python-开发环境"><a href="#Python-开发环境" class="headerlink" title="Python 开发环境"></a>Python 开发环境</h2><ul>
-<li>相关的插件: - ms-python.python</li>
-</ul>
-<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><ul>
-<li>这里 python 创建工程与上面类似,只是安装完成这个<code>ms-python.python</code>插件,有可能需要手动(如果没有自动)用<code>pip</code>安装一些依赖的 python 库,如:<strong>pylint,flake8,autopep8,yapf</strong>等,注意:<strong>pylint,flake8</strong> 开启只能二选一.</li>
-</ul>
-<h3 id="相关设置"><a href="#相关设置" class="headerlink" title="相关设置"></a>相关设置</h3><h4 id="settings-json"><a href="#settings-json" class="headerlink" title="settings.json"></a>settings.json</h4><ul>
-<li>选择解释器,组合快捷键<code>Ctrl+Shift+P</code>,输入<code>Python</code>会列出所有<code>Python</code>相关的设置.选择<code>Ｐython: Selecter Interpreter</code>,选择之后也会在根目录下创建<code>.vscode/settings.json</code>,我的配置如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">    &#123;</div><div class="line">    //这里隐藏一些文件类型,不要让它在explorer上面显示.</div><div class="line">    <span class="string">"files.exclude"</span>: &#123;</div><div class="line">        <span class="string">"**/.git"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/.svn"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/.hg"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/CVS"</span>: <span class="literal">true</span>,</div><div class="line">        <span class="string">"**/*.pyc"</span>:<span class="literal">true</span>,</div><div class="line">        <span class="string">"**/.DS_Store"</span>: <span class="literal">true</span></div><div class="line">    &#125;,</div><div class="line">    //这里可以写入一个其它位置的解释器,默认就是/usr/bin/python</div><div class="line">    <span class="string">"python.pythonPath"</span>: <span class="string">"/fullpath/.pyenv/versions/py3dev/bin/python"</span>,</div><div class="line">    <span class="string">"python.autoComplete.extraPaths"</span>: [</div><div class="line">        <span class="string">"/fullpath/.pyenv/versions/py3dev/lib/python3.6/site-packages/"</span>,</div><div class="line">        <span class="string">"/fullpath/opencv-build-3.x-qt5-py3/lib/python3.6/site-packages"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"python.linting.flake8Path"</span>: <span class="string">"/fullpath/.pyenv/versions/3.6.5/envs/py3dev/bin/flake8"</span>,</div><div class="line">    <span class="string">"python.linting.pylintEnabled"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="string">"python.linting.flake8Enabled"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="string">"python.formatting.provider"</span>: <span class="string">"yapf"</span>, //格式化代码组合键:　Ctrl+Shift+I</div><div class="line">    <span class="string">"python.formatting.yapfPath"</span>: <span class="string">"/fullpath/.pyenv/versions/3.6.5/envs/py3dev/bin/yapf"</span>,</div><div class="line">    <span class="string">"python.linting.enabled"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="string">"python.linting.flake8Args"</span>: [</div><div class="line">        <span class="string">"--ignore=E501,E402,E401"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"python.linting.pylintPath"</span>: <span class="string">"/fullpath/.pyenv/versions/3.6.5/envs/py3dev/bin/pylint"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="tasks-json"><a href="#tasks-json" class="headerlink" title="tasks.json"></a>tasks.json</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</div><div class="line">    // <span class="keyword">for</span> the documentation about the tasks.json format</div><div class="line">    <span class="string">"version"</span>: <span class="string">"2.0.0"</span>,</div><div class="line">    <span class="string">"tasks"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"label"</span>: <span class="string">"echo"</span>,</div><div class="line">            <span class="string">"type"</span>: <span class="string">"shell"</span>,</div><div class="line">            <span class="string">"command"</span>: <span class="string">"/fullpath/.pyenv/versions/py3dev/bin/python"</span>,</div><div class="line">            <span class="string">"args"</span>: [</div><div class="line">                <span class="string">"cameo.py"</span>   //当前要运行的脚本,也就是__main__ 所在的位置</div><div class="line">            ],</div><div class="line">            <span class="string">"group"</span>: &#123;</div><div class="line">                <span class="string">"kind"</span>: <span class="string">"build"</span>,</div><div class="line">                <span class="string">"isDefault"</span>: <span class="literal">true</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="安装-Arduino-开发环境"><a href="#安装-Arduino-开发环境" class="headerlink" title="安装 Arduino 开发环境"></a>安装 Arduino 开发环境</h2><ul>
-<li><p>Arduino 官方的 IDE 功能什么都好,开源库的下载管理,各种开发板的支持都很完善,就是欠缺编辑功能,如自动补全,函数定义跳转等功能.<a href="https://kig.re/2014/08/02/arduino-ide-alternatives.html" target="_blank" rel="external"><code>Choosing The Right Arduino IDE</code></a>这里有几种其它方式的 ArduinoIDE 的实现.<br>这里我就选取<code>VS Code</code>插件方式.它的安装方式都很简单如下:</p>
-</li>
-<li><p>Open VS Code and press F1 or Ctrl + Shift + P to open command palette, select Install Extension and type vscode-arduino.　 Or launch VS Code Quick Open (Ctrl + P), paste the following command, and press enter.</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ext install vscode-arduino</div></pre></td></tr></table></figure>
-<ul>
-<li>使用方法与配置,直接参照<code>vscode-arduino</code>插件的<strong>Details</strong>描述就行了.注意要正确配置<code>arduino.path</code>的路径,我这里就直接指向 Arduino 官方 IDE 的目录,这样<code>vscode</code>就可以完全找到该系统安装的库与开发板的支持了.<code>settings.json</code>文件可以设置成全局用户配置,也可以设置成单独工程配置,放在工程目录<code>.vscode</code>下面.</li>
-</ul>
-<p>###　.vscode/settings.json</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"arduino.path"</span>: <span class="string">"C:/Program Files (x86)/Arduino"</span>,</div><div class="line">    <span class="string">"arduino.commandPath"</span>: <span class="string">"run-arduino.bat"</span>,</div><div class="line">    <span class="string">"arduino.additionalUrls"</span>: <span class="string">""</span>,</div><div class="line">    <span class="string">"arduino.logLevel"</span>: <span class="string">"info"</span>,</div><div class="line">    <span class="string">"arduino.enableUSBDetection"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="string">"arduino.disableTestingOpen"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="string">"arduino.skipHeaderProvider"</span>: <span class="literal">false</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="vscode-arduino-json-under-the-workspace"><a href="#vscode-arduino-json-under-the-workspace" class="headerlink" title=".vscode/arduino.json under the workspace."></a>.vscode/arduino.json under the workspace.</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"sketch"</span>: <span class="string">"example.ino"</span>,</div><div class="line">    <span class="string">"port"</span>: <span class="string">"COM5"</span>,</div><div class="line">    <span class="string">"board"</span>: <span class="string">"adafruit:samd:adafruit_feather_m0"</span>,</div><div class="line">    <span class="string">"output"</span>: <span class="string">"../build"</span>,</div><div class="line">    <span class="string">"debugger"</span>: <span class="string">"jlink"</span>,</div><div class="line">    <span class="string">"prebuild"</span>: <span class="string">"bash prebuild.sh"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="vscode-c-cpp-properties-json"><a href="#vscode-c-cpp-properties-json" class="headerlink" title=".vscode/c_cpp_properties.json"></a>.vscode/c_cpp_properties.json</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"configurations"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"name"</span>: <span class="string">"Linux"</span>,</div><div class="line">            <span class="string">"includePath"</span>: [</div><div class="line">                <span class="string">"/fullpath/Arduino/libraries/Adafruit_SSD1306"</span>,</div><div class="line">                <span class="string">"/fullpath/Arduino/libraries/Adafruit_GFX_Library"</span>,</div><div class="line">                <span class="string">"/fullpath/.arduino15/packages/arduino/hardware/sam/1.6.11/cores/arduino"</span>,</div><div class="line">                <span class="string">"<span class="variable">$&#123;workspaceFolder&#125;</span>/**"</span></div><div class="line">            ],</div><div class="line">            <span class="string">"defines"</span>: [],</div><div class="line">            <span class="string">"compilerPath"</span>: <span class="string">"/usr/bin/clang"</span>,</div><div class="line">            <span class="string">"cStandard"</span>: <span class="string">"c11"</span>,</div><div class="line">            <span class="string">"cppStandard"</span>: <span class="string">"c++17"</span>,</div><div class="line">            <span class="string">"intelliSenseMode"</span>: <span class="string">"clang-x64"</span>,</div><div class="line">            <span class="string">"browse"</span>: &#123;</div><div class="line">                <span class="string">"limitSymbolsToIncludedHeaders"</span>: <span class="literal">false</span>,</div><div class="line">                <span class="string">"path"</span>: [</div><div class="line">                    <span class="string">"/fullpath/Arduino/libraries/Adafruit_GFX_Library"</span>,</div><div class="line">                    <span class="string">"/fullpath/Arduino/libraries/Adafruit_SSD1306"</span>,</div><div class="line">                    <span class="string">"/fullpath/Arduino/libraries/STM32duino_LwIP/src"</span>,</div><div class="line">                    <span class="string">"/fullpath/arduino-1.8.3/hardware/arduino/avr/cores/arduino"</span>,</div><div class="line">                    <span class="string">"/fullpath/arduino-1.8.3/hardware/arduino/avr/libraries/SPI/src"</span>,</div><div class="line">                    <span class="string">"/fullpath/.arduino15/packages/arduino/hardware/sam/1.6.11/cores/arduino"</span></div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    <span class="string">"version"</span>: 4</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>这里只是关于<code>VSCode</code>的最基本使用流程,后续会加上其它语言,其它平台的使用笔记进来.初步使用的感觉与效率都很适合我,我以前使用的<code>Qt Creator</code>时间比较长,总体来讲,使用难度曲线不高.</li>
-</ul>
-<hr>
-<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2991,7 +2922,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3083,7 +3014,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -3142,7 +3075,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

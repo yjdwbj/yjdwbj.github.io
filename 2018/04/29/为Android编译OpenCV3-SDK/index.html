@@ -419,13 +419,13 @@ C++ NDK 代码实现
 </ul>
 <p><strong> 其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于：</strong></p>
 <ul>
-<li>环境搭建简单：直接引入官方 OpenCV-for-Android 的对应 jar 包即可</li>
-<li>代码维护繁琐：由于 OpenCV-for-Android 的 Java API 与 C++不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
+<li>环境搭建简单：直接引入官方 <code>OpenCV-for-Android</code> 的对应 jar 包即可</li>
+<li>代码维护繁琐：由于<code>OpenCV-for-Android</code> 的<code>Java API</code>与<code>C++</code>不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
 <li>运行效率低：Java 代码会在内部进行 C++翻译，运行时性能损耗较大</li>
 </ul>
 <p><strong> 而直接采用 C++代码导入的方式的特点在于：</strong></p>
 <ul>
-<li>环境搭建复杂：往往需要现自行编译对应的库，再进行 NDK、Cmakelists 和 build.gradle 的配置.</li>
+<li>环境搭建复杂：往往需要现自行编译对应的库，再进行<code>NDK、Cmakelists</code>和<code>build.gradle</code>的配置.</li>
 <li>代码维护简单：由于直接采用 C++实现算法部分，与其他平台的兼容性极好，能与 Android 程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可.</li>
 <li>运行效率高：不存在内部执行时的代码转换问题，性能最好.</li>
 <li>总结来看，Java Native 代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建 C++ NDK 方式。</li>
@@ -500,6 +500,7 @@ C++ NDK 代码实现
 <hr>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -625,7 +626,7 @@ C++ NDK 代码实现
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

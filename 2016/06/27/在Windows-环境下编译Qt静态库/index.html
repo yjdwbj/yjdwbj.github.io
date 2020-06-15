@@ -459,9 +459,9 @@ Qt
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> RDIR=c:/Qt/Qt5.6.1</div><div class="line"><span class="built_in">set</span> VERGCC=mingw492_32</div><div class="line"><span class="built_in">set</span> PATH=C:/Python27;C:/Perl/bin;%RDIR%/5.6/%VERGCC%/bin;%RDIR%/Tools/%VERGCC%/bin;C:\icu\bin;%RDIR%/Tools/QtCreator/bin</div><div class="line"><span class="built_in">set</span> INCLUDE=%RDIR%/5.6/%VERGCC%/include;%RDIR%/Tools/%VERGCC%/include;C:\icu4c53_1\include;C:\openssl-1.0.1g\include</div><div class="line"><span class="built_in">set</span> LIB=%RDIR%/5.6/%VERGCC%/lib;%RDIR%/Tools/%VERGCC%/lib;C:\icu4c53_1\lib;C:\openssl-1.0.1g\lib</div><div class="line"><span class="built_in">set</span> SDIR=D:/qt-everywhere-opensource-src-5.3.2</div><div class="line"><span class="built_in">cd</span> %SDIR%</div><div class="line">configure.bat -mp    -platform win32-g++  -opensource -confirm-license -release </div><div class="line">-static -ltcg -c++11 -prefix <span class="string">"c:/Qt/5.3.2-static"</span> -accessibility</div><div class="line">-rtti -qt-sql-sqlite -qt-sql-odbc -plugin-sql-sqlite -plugin-sql-odbc -icu -qt-zlib -qt-libpng -qt-libjpeg </div><div class="line">-audio-backend  -opengl desktop -qml-debug -no-vcproj -no-dbus -nomake tests  </div><div class="line">-openssl -I C:/openssl-1.0.1g/include -L C:/openssl-1.0.1g/lib</div><div class="line">-nomake examples -qt-freetype -no-compile-examples -no-openvg -iconv -no-directwrite </div><div class="line">-no-iwmmxt -no-crt -skip qtwebkit  </div><div class="line">;编译 </div><div class="line">mingw32-make</div><div class="line">;安装到-prefix的变量路径中</div><div class="line">mingw32-make install</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者: yjdwbj@gmail.com</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -587,7 +587,7 @@ Qt
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -736,7 +736,7 @@ Qt
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MinGW工具链环境"><span class="nav-number">1.</span> <span class="nav-text">安装MinGW工具链环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载ICU"><span class="nav-number">2.</span> <span class="nav-text">下载ICU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载编译ICU"><span class="nav-number">3.</span> <span class="nav-text">下载编译ICU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译openssl"><span class="nav-number">4.</span> <span class="nav-text">编译openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译Qt源码"><span class="nav-number">5.</span> <span class="nav-text">编译Qt源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建编译脚本"><span class="nav-number">6.</span> <span class="nav-text">创建编译脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MinGW工具链环境"><span class="nav-number">1.</span> <span class="nav-text">安装MinGW工具链环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载ICU"><span class="nav-number">2.</span> <span class="nav-text">下载ICU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载编译ICU"><span class="nav-number">3.</span> <span class="nav-text">下载编译ICU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译openssl"><span class="nav-number">4.</span> <span class="nav-text">编译openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译Qt源码"><span class="nav-number">5.</span> <span class="nav-text">编译Qt源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建编译脚本"><span class="nav-number">6.</span> <span class="nav-text">创建编译脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
             
 
           </div>

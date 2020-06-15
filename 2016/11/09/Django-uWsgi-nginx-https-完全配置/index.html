@@ -467,9 +467,9 @@
 <li>在网上看到好多人声称 uWSGI 与 Nginx 会达到很高的性能,我用这种配置组合,压测的数据很难看.　 TPS 1K/sec.安装了连接池之后,虽然没有做读写分享,但是它的提升还是很大的.</li>
 </ul>
 <hr>
-<h1 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h1><ul>
-<li>您的打赏将会鼓励我写出更多的博客。</li>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -595,7 +595,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -744,7 +744,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编译-Nginx"><span class="nav-number">1.</span> <span class="nav-text">编译 Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx-配置"><span class="nav-number">1.1.</span> <span class="nav-text">nginx 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请-Let’-Encrypt-证书"><span class="nav-number">1.2.</span> <span class="nav-text">申请 Let’ Encrypt 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-NGINX-HTTPS-设置"><span class="nav-number">1.3.</span> <span class="nav-text">测试 NGINX HTTPS 设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSLScan-测试"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSLScan 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NMAP-测试"><span class="nav-number">1.3.2.</span> <span class="nav-text">NMAP 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线检测"><span class="nav-number">1.3.3.</span> <span class="nav-text">在线检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-环境"><span class="nav-number">1.4.</span> <span class="nav-text">Django 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django-关键配置"><span class="nav-number">1.4.1.</span> <span class="nav-text">Django 关键配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uWSGI-配置"><span class="nav-number">1.4.2.</span> <span class="nav-text">uWSGI 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为-Postgresql-配置连接池"><span class="nav-number">1.4.3.</span> <span class="nav-text">为 Postgresql 配置连接池</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">3.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编译-Nginx"><span class="nav-number">1.</span> <span class="nav-text">编译 Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx-配置"><span class="nav-number">1.1.</span> <span class="nav-text">nginx 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请-Let’-Encrypt-证书"><span class="nav-number">1.2.</span> <span class="nav-text">申请 Let’ Encrypt 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-NGINX-HTTPS-设置"><span class="nav-number">1.3.</span> <span class="nav-text">测试 NGINX HTTPS 设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSLScan-测试"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSLScan 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NMAP-测试"><span class="nav-number">1.3.2.</span> <span class="nav-text">NMAP 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线检测"><span class="nav-number">1.3.3.</span> <span class="nav-text">在线检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-环境"><span class="nav-number">1.4.</span> <span class="nav-text">Django 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django-关键配置"><span class="nav-number">1.4.1.</span> <span class="nav-text">Django 关键配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uWSGI-配置"><span class="nav-number">1.4.2.</span> <span class="nav-text">uWSGI 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为-Postgresql-配置连接池"><span class="nav-number">1.4.3.</span> <span class="nav-text">为 Postgresql 配置连接池</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">3.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
             
 
           </div>

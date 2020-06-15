@@ -285,6 +285,324 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/为iMX28-EVK移植Linux内核与U-Boot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/05/为iMX28-EVK移植Linux内核与U-Boot/" itemprop="url">
+                  为iMX28-EVK移植Linux内核与U-Boot
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-05 22:29:23" itemprop="dateCreated datePublished" datetime="2018-07-05T22:29:23+08:00">2018-07-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-25 08:29:02" itemprop="dateModified" datetime="2020-02-25T08:29:02+08:00">2020-02-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>相关链接<ul>
+<li><a href="http://repository.timesys.com/buildsources/e/elftosb/elftosb-10.12.01/" target="_blank" rel="external">elftosb</a></li>
+<li><a href="http://repository.timesys.com/buildsources/i/imx-bootlets/imx-bootlets-10.12.01" target="_blank" rel="external">imx-bootlets</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" target="_blank" rel="external">Arm None Toolchain</a></li>
+<li><a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="external">Linaro Toolchain</a></li>
+<li><a href="https://www.nxp.com/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx28-processors/multimedia-applications-processors-low-power-high-performance-arm9-core:i.MX280" target="_blank" rel="external">i.MX280: Multimedia Applications Processors</a></li>
+<li><a href="https://www.nxp.com/docs/en/reference-manual/MCIMX28RM.pdf" target="_blank" rel="external">i.MX28 Applications Processor Reference Manual</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="U-Boot-2017-11"><a href="#U-Boot-2017-11" class="headerlink" title="U-Boot 2017.11"></a>U-Boot 2017.11</h1><ul>
+<li>这里参照开发板原版的<code>u-boot-2009</code>修改部分源码与配置文件才可以正常启动,<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/uboot-2017.11-imx28evk.config" target="_blank" rel="external"><strong>配置文件</strong></a>,<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/patchs/u-boot-2017.11-imx28evk.patch" target="_blank" rel="external"><strong>补丁文件</strong></a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../imx28evk mx28evk_defconfig</div><div class="line">~$ <span class="built_in">cd</span> ../imx28evk</div><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- u-boot.sb</div></pre></td></tr></table></figure>
+<h1 id="tftpd-hpa-安装"><a href="#tftpd-hpa-安装" class="headerlink" title="tftpd-hpa 安装"></a>tftpd-hpa 安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ sudo apt-get install tftpd-hpa</div><div class="line">~$ cat /etc/default/tftpd-hpa</div><div class="line"><span class="comment"># /etc/default/tftpd-hpa</span></div><div class="line">TFTP_USERNAME=<span class="string">"tftp"</span></div><div class="line">TFTP_DIRECTORY=<span class="string">"/srv/tftp"</span></div><div class="line">TFTP_ADDRESS=<span class="string">"0.0.0.0:69"</span></div><div class="line">TFTP_OPTIONS=<span class="string">"-l -c -s"</span></div></pre></td></tr></table></figure>
+<h1 id="NFS-Server-配置"><a href="#NFS-Server-配置" class="headerlink" title="NFS Server 配置"></a>NFS Server 配置</h1><ul>
+<li>确保 CS 两端的 NFS 协议版本要兼容,<code>exports</code>的路径一致.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">~$　cat /proc/fs/nfsd/versions</div><div class="line">+２ +3 +4 +4.1 +4.2</div><div class="line"></div><div class="line">$ cat /etc/exports</div><div class="line"><span class="comment"># /etc/exports: the access control list for filesystems which may be exported</span></div><div class="line"><span class="comment">#		to NFS clients.  See exports(5).</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Example for NFSv2 and NFSv3:</span></div><div class="line"><span class="comment"># /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)</span></div><div class="line">/fullpath/nfs-imx28evk 192.168.1.0/24(rw,no_root_squash,subtree_check)</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="U-boot-使用"><a href="#U-boot-使用" class="headerlink" title="U-boot 使用"></a>U-boot 使用</h1><h2 id="公共变量"><a href="#公共变量" class="headerlink" title="公共变量"></a>公共变量</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">=&gt; setenv console_mainline ttyAMA0</div><div class="line">=&gt; setenv buadrate 115200</div><div class="line">=&gt; setenv tftpboot <span class="string">"tftp <span class="variable">$&#123;zImage&#125;</span> ; bootz"</span></div><div class="line">=&gt; setenv mmcfatboot <span class="string">"mmc rescan ; fatload mmc 0 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;zImage&#125;</span> ; bootz"</span></div><div class="line">=&gt; setenv mmcextboot <span class="string">"mmc rescan ; ext4load mmc 0:1 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;zImage&#125;</span> ; bootz"</span></div><div class="line">=&gt; setenv nandboot <span class="string">"mtdparts default ; nand read.jffs2 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;kerneladdr&#125;</span> <span class="variable">$&#123;kernelsize&#125;</span> ; bootz"</span></div><div class="line">=&gt; setenv zImage  zImage_dtb</div><div class="line">=&gt; setenv ipaddr 192.168.1.10</div><div class="line">=&gt; setenv serverip 192.168.1.100</div><div class="line">=&gt; setenv netmask 255.255.255.0</div><div class="line">=&gt; setenv gatewayip 192.168.1.1</div><div class="line">=&gt; setenv eth eth0</div><div class="line">=&gt; setenv hostname imx283-lcy</div><div class="line">=&gt; setenv kernelsize 0x00400000</div><div class="line">=&gt; setenv kerneladdr 0x00200000</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="NFS-ROOTFS"><a href="#NFS-ROOTFS" class="headerlink" title="NFS ROOTFS"></a>NFS ROOTFS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">=&gt; setenv nfsrootpath  /opt/nfs-imx28evk</div><div class="line">=&gt; setenv ipstatic <span class="string">"ip=<span class="variable">$&#123;ipaddr&#125;</span>:<span class="variable">$&#123;serverip&#125;</span>:<span class="variable">$&#123;gatewayip&#125;</span>:<span class="variable">$&#123;netmask&#125;</span>:<span class="variable">$&#123;hostname&#125;</span>:<span class="variable">$&#123;eth&#125;</span>:off"</span></div><div class="line">=&gt; setenv nfsargs <span class="string">"setenv bootargs consoel=<span class="variable">$&#123;console_mainline&#125;</span>,<span class="variable">$&#123;buadrate&#125;</span> root=/dev/nfs  rw nfsroot=<span class="variable">$&#123;serverip&#125;</span>:&#123;<span class="variable">$nfsrootpath</span>&#125;,v3,tcp,nolock <span class="variable">$&#123;ipstatic&#125;</span> init=/linuxrc"</span></div><div class="line">=&gt; setenv bootcmd_nfs <span class="string">"run nfsargs ; run <span class="variable">$&#123;tftpboot&#125;</span>"</span></div><div class="line">=&gt; savee</div><div class="line">=&gt; run nfs_root</div></pre></td></tr></table></figure>
+<h2 id="MMC-ROOTFS"><a href="#MMC-ROOTFS" class="headerlink" title="MMC ROOTFS"></a>MMC ROOTFS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">=&gt; setenv mmcargs <span class="string">"mmc rescan ; setenv bootargs consoel=<span class="variable">$&#123;console_mainline&#125;</span>,<span class="variable">$&#123;buadrate&#125;</span> rootfstype=ext3　 root=/dev/mmcblk0p3 rw rootwait"</span></div><div class="line">=&gt; setenv bootcmd_mmc <span class="string">"run mmcargs ; run <span class="variable">$&#123;mmcfatboot&#125;</span>"</span></div><div class="line">=&gt; savee</div><div class="line">=&gt; run bootcmd_mmc</div></pre></td></tr></table></figure>
+<h2 id="USB-Stack-ROOTFS"><a href="#USB-Stack-ROOTFS" class="headerlink" title="USB Stack ROOTFS"></a>USB Stack ROOTFS</h2><ul>
+<li>Ｕ盘的方法与 MMC 的方式是一样的.</li>
+</ul>
+<h2 id="UBIFS-ROOTFS"><a href="#UBIFS-ROOTFS" class="headerlink" title="UBIFS ROOTFS"></a>UBIFS ROOTFS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">=&gt; mtdparts</div><div class="line"></div><div class="line">device nand0 &lt;gpmi-nand&gt;, <span class="comment"># parts = 7</span></div><div class="line"> <span class="comment">#: name                size            offset          mask_flags</span></div><div class="line"> 0: boot                0x00c00000      0x00000000      0</div><div class="line"> 1: env                 0x00080000      0x00c00000      0</div><div class="line"> 2: reserve             0x00080000      0x00c80000      0</div><div class="line"> 3: bmp                 0x00200000      0x00d00000      0</div><div class="line"> 4: reserve             0x00080000      0x00f00000      0</div><div class="line"> 5: rootfs              0x04000000      0x00f80000      0</div><div class="line"> 6: opt                 0x03080000      0x04f80000      0</div><div class="line"></div><div class="line">active partition: nand0,0 - (boot) 0x00c00000 @ 0x00000000</div><div class="line"></div><div class="line">defaults:</div><div class="line">mtdids  : nand0=gpmi-nand</div><div class="line">mtdparts: mtdparts=gpmi-nand:12m(boot),512k(env),512k(reserve),2m(bmp),512k(reserve),64m(rootfs),-(opt)</div><div class="line">=&gt; ubi part rootfs</div><div class="line">ubi0: attaching mtd1</div><div class="line">ubi0: scanning is finished</div><div class="line">ubi0 warning: print_rsvd_warning: cannot reserve enough PEBs <span class="keyword">for</span> bad PEB handling, reserved 5, need 20</div><div class="line">ubi0: attached mtd1 (name <span class="string">"mtd=5"</span>, size 64 MiB)</div><div class="line">ubi0: PEB size: 131072 bytes (128 KiB), LEB size: 126976 bytes</div><div class="line">ubi0: min./max. I/O unit sizes: 2048/2048, sub-page size 2048</div><div class="line">ubi0: VID header offset: 2048 (aligned 2048), data offset: 4096</div><div class="line">ubi0: good PEBs: 512, bad PEBs: 0, corrupted PEBs: 0</div><div class="line">ubi0: user volume: 1, internal volumes: 1, max. volumes count: 128</div><div class="line">ubi0: max/mean erase counter: 2/1, WL threshold: 4096, image sequence number: 0</div><div class="line">ubi0: available PEBs: 0, total reserved PEBs: 512, PEBs reserved <span class="keyword">for</span> bad PEB handling: 5</div><div class="line"></div><div class="line">// 这里显示boot分区有坏块了吗?这个分区反复擦写的次数比较多.</div><div class="line">=&gt;ubi part boot</div><div class="line">ubi0: detaching mtd1</div><div class="line">ubi0: mtd1 is detached</div><div class="line">ubi0: attaching mtd1</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> 64 bytes</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> 64 bytes</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> 64 bytes</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> only 64 bytes, retry</div><div class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> 64 bytes</div><div class="line">ubi0: scanning is finished</div><div class="line">ubi0 error: ubi_read_volume_table: the layout volume was not found</div><div class="line">ubi0 error: ubi_attach_mtd_dev: failed to attach mtd1, error -22</div><div class="line">UBI error: cannot attach mtd1UBI error: cannot initialize UBI, error -22UBI init error 22</div><div class="line"></div><div class="line">=&gt; setenv nandargs <span class="string">"setenv bootargs console=<span class="variable">$&#123;console_mainline&#125;</span>,<span class="variable">$&#123;baudrate&#125;</span> rootfstype=ubifs ubi.mtd=5 root=ubi0:rootfs mtdparts=gpmi-nand:12m(boot),512k(env),512k(reserve),2m(bmp),512k(reserve),64m(rootfs),-(opt) <span class="variable">$&#123;ipstatic&#125;</span>"</span></div><div class="line">=&gt; setenv bootcmd_nand <span class="string">"run nandargs ; run nandboot "</span></div><div class="line">=&gt; savee</div><div class="line">=&gt; run bootcmd_nand</div></pre></td></tr></table></figure>
+<h2 id="通过网络更新-kernel"><a href="#通过网络更新-kernel" class="headerlink" title="通过网络更新 kernel"></a>通过网络更新 kernel</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">=&gt; setenv upkernel <span class="string">"tftp zImage_dtb ; nand erase clean <span class="variable">$&#123;kerneladdr&#125;</span> <span class="variable">$&#123;kernelsize&#125;</span> ; nand write.jffs2 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;kerneladdr&#125;</span> <span class="variable">$&#123;kernelsize&#125;</span>"</span></div></pre></td></tr></table></figure>
+<h2 id="通过网络更新-nand-文件系统"><a href="#通过网络更新-nand-文件系统" class="headerlink" title="通过网络更新 nand 文件系统"></a>通过网络更新 nand 文件系统</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">=&gt; setenv uprootfs <span class="string">"mtdparts default ; nand erase.part rootfs ; ubi part rootfs ; ubi create rootfs ; tftp <span class="variable">$&#123;rootfs&#125;</span> ; ubi write <span class="variable">$&#123;loadaddr&#125;</span> rootfs <span class="variable">$&#123;filesize&#125;</span>"</span></div></pre></td></tr></table></figure>
+<h1 id="imx-bootlets"><a href="#imx-bootlets" class="headerlink" title="imx-bootlets"></a>imx-bootlets</h1><ul>
+<li>imx-bootlets 可以使用开发板自带的源码,也可以从这里<a href="http://repository.timesys.com/buildsources/i/imx-bootlets/imx-bootlets-10.12.01" target="_blank" rel="external">imx-bootlets</a>下载.它只能使用<a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" target="_blank" rel="external">arm-none-eabi-</a>工具链编译,我换成<a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="external">Linaro Toolchain</a>工具链编译之后无法启动.编译中的脚本会要用到<a href="http://repository.timesys.com/buildsources/e/elftosb/elftosb-10.12.01/" target="_blank" rel="external">elftosb</a>,要先把<code>elftosb</code>编译出来.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> imx-bootlets</div><div class="line">~$ ln -svf ../linux-4.13/build_output/zImage_dtb zImage   // 链接内核到这里</div><div class="line">~$ ln -svf ../u-boot-2017-9/imx28evk/uboot uboot　　　　　　//　链接uboot到这里</div><div class="line">~$ make BOARD=iMX28_EVK ARCH=mx28 CROSS_COMPILE=arm-none-eabi- clean</div><div class="line">~$ make BOARD=iMX28_EVK ARCH=mx28 CROSS_COMPILE=arm-none-eabi-</div><div class="line">~$ ls *.bd</div><div class="line">linux.bd  linux_ivt.bd  uboot.bd  uboot_ivt.bd  updater.bd  updater_ivt.bd</div><div class="line">~$  ls *.sb</div><div class="line">imx28_ivt_linux.sb  imx28_ivt_uboot.sb  imx28_linux.sb  imx28_uboot.sb</div></pre></td></tr></table></figure>
+<h2 id="IMX280A-USB-烧写模式"><a href="#IMX280A-USB-烧写模式" class="headerlink" title="IMX280A USB 烧写模式"></a>IMX280A USB 烧写模式</h2><ul>
+<li>短接 JP4-&gt;WDG,JP6-&gt;USB, 接上<code>USB_DEV接口</code>,当然<code>POWER</code>接口也是要接上的,系统就会出现下列硬件.这里要使用<code>MfgTool</code>工具烧入,相对较麻烦一些.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 008 Device 005: ID 15a2:004f Freescale Semiconductor, Inc. i.MX28 SystemOnChip <span class="keyword">in</span> RecoveryMode</div></pre></td></tr></table></figure>
+<h2 id="IMX280-TF-烧写模式"><a href="#IMX280-TF-烧写模式" class="headerlink" title="IMX280 TF 烧写模式"></a>IMX280 TF 烧写模式</h2><ul>
+<li>EasyARM iMX280A 这块板子可以支持 TF 卡烧写模式,通过串口发现,它里面有一个小系统经过上电之后从 TF 卡中读取名为<code>imx28_ivt_uboot.sb,rootfs.tar.bz2,uImage,updater_ivt.sb</code>,当然用来烧写 TF 卡是要用官方提供的<code>cfimager.exe</code>格式化,并烧入<code>updater_ivt.sb</code>才可以.</li>
+<li>短接 JP4-&gt;WDG,JP3-&gt;USB, 接上串口打印,就会看相应的烧写日志输出了.</li>
+</ul>
+<hr>
+<h1 id="BuildRoot-文件系统"><a href="#BuildRoot-文件系统" class="headerlink" title="BuildRoot 文件系统"></a>BuildRoot 文件系统</h1><ul>
+<li>使用 BusyBox 的制作<code>rootfs</code>的方式比较老了,使用 BuildRoot 可以一站式解决嵌入式的系统移植,这里我只使用它来做<strong>rootfs</strong>的编译,<strong>kernel,u-boot</strong>这里我是单独立维护的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">export</span> TOPDIR=.</div><div class="line">~$ <span class="built_in">export</span> BASE_DIR=.</div><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../build-imx28evk freescale_imx28evk_defconfig</div><div class="line">~$ <span class="built_in">cd</span> ../build-imx28evk &amp;&amp;  make ARCH=arm CROSS_COMPILE=arm-none-eabi- menuconfig</div></pre></td></tr></table></figure>
+<ul>
+<li>ToolChain 设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">  Toolchain <span class="built_in">type</span> (External toolchain)  ---&gt;</div><div class="line">  *** Toolchain External Options ***</div><div class="line">  Toolchain (Custom toolchain)  ---&gt;</div><div class="line">  Toolchain origin (Pre-installed toolchain)  ---&gt;</div><div class="line">  (/linaro-toolchain/gcc-linaro-5.5.0-2017.10-x86_64_arm-linux-gnueabi) Toolchain path</div><div class="line">  ($(ARCH)-linux-gnueabi) Toolchain prefix</div><div class="line">  External toolchain gcc version (5.x)  ---&gt;</div><div class="line">  External toolchain kernel headers series (4.0.x)  ---&gt;</div><div class="line">  External toolchain C library (glibc/eglibc)  ---&gt;</div><div class="line">  [*] Toolchain has SSP support?</div><div class="line">  [*] Toolchain has RPC support?</div><div class="line">  [*] Toolchain has C++ support?</div><div class="line">[...]</div><div class="line">  System configuration -&gt; Run a getty (login prompt ) after boot</div><div class="line"></div><div class="line">  │ │           --- Run a getty (login prompt) after boot                                         │ │</div><div class="line">  │ │           (ttyAMA0) TTY port                                                                │ │</div><div class="line">  │ │                 Baudrate (115200)  ---&gt;                                                     │ │</div><div class="line">  │ │           (vt100) TERM environment variable                                                 │ │</div><div class="line">  │ │           ()    other options to pass to getty                                              │ │</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">  Target packages -&gt; Networking applications</div><div class="line">  │ │           [*] dropbear                                                                      │ │</div><div class="line">  │ │           [*]   client programs                                                             │ │</div><div class="line">  │ │           [*]   <span class="built_in">disable</span> reverse DNS lookups                                                 │ │</div><div class="line">  │ │           [*]   optimize <span class="keyword">for</span> size                                                           │ │</div><div class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to wtmp                                                 │ │</div><div class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to lastlog                                              │ │</div><div class="line"></div><div class="line"> Target packages -&gt; Hardware handling</div><div class="line">       [*] evtest</div><div class="line">       [*] spi-tools</div><div class="line">       [*] lm-sensors</div><div class="line">       [*] i2c-tools</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#　如果下载文件需代理的通下面命令修改.</span></div><div class="line">BR2_WGET=<span class="string">"wget --passive-ftp -nd -t 3 -e use_proxy=yes -e http_proxy=192.168.1.235:4444 -e https_proxy=192.168.1.235:4444"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>如果外部交叉编译工具链出现,少库的错误,还是选择使用<code>BuildRoot</code>编译的工具链吧.整个编译完成之后<code>build-imx28evk</code>目录如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ tree -L 1</div><div class="line">.</div><div class="line">├── build</div><div class="line">├── dl　　<span class="comment">#　软件源码下载的位置.</span></div><div class="line">├── host  <span class="comment"># 如查使用``BuildRoot``编译的工具链,这里就是工具链的位置.</span></div><div class="line">├── images　<span class="comment">#最终生成的各种镜像文件.</span></div><div class="line">├── Makefile</div><div class="line">├── staging -&gt; host/arm-buildroot-linux-gnueabi/sysroot</div><div class="line">└── target</div></pre></td></tr></table></figure>
+<ul>
+<li>参照 EasyArm imx280 的文档对 UBIFS 文件系统修改如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">　[*] tar the root filesystem</div><div class="line">│ │    Compression method (no compression)  ---&gt;</div><div class="line"></div><div class="line">[*] ubifs root filesystem</div><div class="line">│ │    (0x1f000) logical eraseblock size</div><div class="line">│ │    (0x800) minimum I/O unit size</div><div class="line">│ │    (512) maximum logical eraseblock count</div><div class="line">│ │    ubifs runtime compression (lzo)  ---&gt;</div><div class="line">│ │    Compression method (no compression)  ---&gt;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="BusyBox-配置静态编译"><a href="#BusyBox-配置静态编译" class="headerlink" title="BusyBox 配置静态编译"></a>BusyBox 配置静态编译</h2><ul>
+<li>看了很多教材,都建议把<code>BusyBox</code>编译成静态连接,就不用复制一堆的库了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- busybox-menuconfig</div><div class="line"></div><div class="line">Busybox Settings　-&gt;　[*] Build BusyBox as a static binary (no shared libs)</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="Linux-Kernel-配置"><a href="#Linux-Kernel-配置" class="headerlink" title="Linux Kernel 配置"></a>Linux Kernel 配置</h2><ul>
+<li>如果要对<code>Buildroot</code>中的<strong>Kernel</strong>做细致栽剪设置,需要使用到下面命令,但是我这里是把　<code>U-boot,Linux Kernel</code>分开维护的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- linux-menuconfig</div></pre></td></tr></table></figure>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ul>
+<li>解压<code>rootfs.tar</code>到 NFS Root 或者 U 盘,SD 卡的分区都可以,同时为<code>Dropbear</code>添加公钥登录认证.方便使用<code>SSH</code>来能登录进行交互操作.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ tree images</div><div class="line">images</div><div class="line">├── rootfs.cpio</div><div class="line">├── rootfs.ext2</div><div class="line">└── rootfs.tar</div><div class="line"></div><div class="line">~$ sudo tar xvf rootfs.tar -C /nfsroot/rootfs</div><div class="line">~<span class="comment"># cd /nfsroot/rootfs/root &amp;&amp; mkdir .ssh &amp;&amp; chmod 700 .ssh</span></div><div class="line">~<span class="comment"># cd .ssh &amp;&amp; echo "public key" &gt; authorized_keys &amp;&amp; chmod 600 authorized_keys</span></div></pre></td></tr></table></figure>
+<h2 id="UBIFS-文件系统制作"><a href="#UBIFS-文件系统制作" class="headerlink" title="UBIFS 文件系统制作"></a>UBIFS 文件系统制作</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span>  /nfsroot/</div><div class="line">~$ sudo mkfs.ubifs <span class="_">-d</span> rootfs <span class="_">-e</span> 0x1f000 -c 512 -m 0x800 -x lzo -o rootfs.ubifs</div></pre></td></tr></table></figure>
+<h2 id="UBIFS-文件烧写"><a href="#UBIFS-文件烧写" class="headerlink" title="UBIFS 文件烧写"></a>UBIFS 文件烧写</h2><ul>
+<li>下面建一条组合命令来通过 Uboot 从 SD 中读取 rootfs.ubifs 文件并烧写到 NAND 的 rootfs 分区中.从 USB 设备中也是类似.UBoot 命令中,ext4load 是从 ext3/ext4 的文件系统加载文件,fatload 是从 FAT32/FAText 文件系统中加载文件.如果从 USB 设备读取,先运行<code>usb reset</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># MMC 卡单分区</span></div><div class="line">=&gt; ls mmc 0</div><div class="line">  2616657   zImage_dtb</div><div class="line">  7618560   rootfs.ubifs</div><div class="line">   635808   imx28_ivt_uboot.sb</div><div class="line">            .Trash-1000/</div><div class="line">  2488348   zImage</div><div class="line">  4718592   rootfs.ubi</div><div class="line"></div><div class="line">  <span class="comment"># 这里是列出一张多分区的MMC卡的文件系统列表,这是第一分区的内容.</span></div><div class="line">=&gt; ls mmc 0:1</div><div class="line">&lt;DIR&gt;       1024 .</div><div class="line">&lt;DIR&gt;       1024 ..</div><div class="line">&lt;DIR&gt;      12288 lost+found</div><div class="line">             225 uEnv.txt</div><div class="line">&lt;DIR&gt;       1024 boot</div><div class="line">&lt;DIR&gt;       1024 .Trash-1000</div><div class="line">         2643950 zImage_dtb</div><div class="line">         4317184 rootfs.ubifs</div><div class="line"></div><div class="line">=&gt;setenv burnsd_rootfs <span class="string">"mtdparts default;nand erase.part rootfs;ubi part rootfs 2048;ubi create rootfs;dcache on; mmc rescan; ext4load mmc 0:3 0x82000000 rootfs.ubifs; ubi write 0x82000000 rootfs <span class="variable">$&#123;filesize&#125;</span>; "</span></div><div class="line">=&gt; saveenv</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="Linux-内核编译"><a href="#Linux-内核编译" class="headerlink" title="Linux 内核编译"></a>Linux 内核编译</h1><h2 id="Linux-下载及配置选项"><a href="#Linux-下载及配置选项" class="headerlink" title="Linux 下载及配置选项"></a>Linux 下载及配置选项</h2><ul>
+<li>我这边针对<code>EasyARM 280A</code>的开发板修改的<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/linux-4.14.51-imx28evk.config" target="_blank" rel="external"><strong>配置文件</strong></a>在这里,把它复制到编译目录里,改成<code>.config</code>就可以了.Linux 的源码部份只是改了设备树的部份,这是<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/patchs/linux-4.14.51-imx28evk.patch" target="_blank" rel="external"><strong>补丁文件</strong></a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">~$ wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.51.tar.xz</div><div class="line">~$ tar xvf linux-4.14.51.tar.xz &amp;&amp; <span class="built_in">cd</span> linux-4.14.51</div><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../imx28evk-kernel mxs_defconfig</div><div class="line"></div><div class="line"> GEN     ./Makefile</div><div class="line">  HOSTCC  scripts/kconfig/mconf.o</div><div class="line">  HOSTCC  scripts/kconfig/lxdialog/checklist.o</div><div class="line"> [...]</div><div class="line"></div><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- menuconfig</div><div class="line"></div><div class="line">Boot options -&gt; [*] Use appended device tree blob to zImage (EXPERIMENTAL)</div><div class="line">				[*]   Supplement the appended DTB with traditional ATAG information</div><div class="line">                Kernel <span class="built_in">command</span> line <span class="built_in">type</span> (Use bootloader kernel arguments <span class="keyword">if</span> available)  ---&gt;</div><div class="line">                 (console=ttyAMA0,115200n8 rootfstype=ubifs ubi.mtd=5 root=ubi0_0 rootwait=1 rw earlyprintk) Default kernel <span class="built_in">command</span> string</div><div class="line">                 Kernel <span class="built_in">command</span> line <span class="built_in">type</span> (Use bootloader kernel arguments <span class="keyword">if</span> available)  ---&gt;</div><div class="line">Kernel hacking → printk and dmesg options -&gt; [*] Enable dynamic printk() support</div><div class="line">				[*] Kernel low-level debugging <span class="built_in">functions</span> (<span class="built_in">read</span> <span class="built_in">help</span>!)</div><div class="line">                	Kernel low-level debugging port (i.MX28 Debug UART)  ---&gt;</div><div class="line">                [*] Early printk</div><div class="line">Device Drivers → Network device support → Ethernet driver support -&gt; Freescale devices -&gt; FEC ethernet controller</div></pre></td></tr></table></figure>
+<h2 id="编译内核用设备树"><a href="#编译内核用设备树" class="headerlink" title="编译内核用设备树"></a>编译内核用设备树</h2><ul>
+<li>Linux 内核３.x 以后都要使用设备树才能正常启动,可以把<code>DTB</code>附加到<code>zImage</code>后面,也可以在<code>U-Boot</code>中指定 dtb 文件路径.</li>
+<li>设备树的 patch 如下.经过测试<code>iMX280A</code>必须改成<code>pinctrl-0 = &lt;&amp;duart_pins_b&gt;</code>不然串口<strong>ttyAMA0</strong>无法输入,同时修改时要注意 IO 定义的冲突处理.这里是我修改的<code>iMX280A</code>的设备树<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/patchs/linux-4.14.51-imx28evk.patch" target="_blank" rel="external">补丁文件</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ diff -Naur ../../linux-4.14.51/arch/arm/boot/dts/imx28-evk.dts ../linux-4.14.51/arch/arm/boot/dts/imx28-evk.dts &gt; ../linux-4.14.51-imx28evk.patch</div></pre></td></tr></table></figure>
+<h2 id="设备树相关"><a href="#设备树相关" class="headerlink" title="设备树相关"></a>设备树相关</h2><ul>
+<li>这里设备树配置要参照芯片的数据手册,还有内核的文档<code>Documentation/devicetree/bindings/pinctrl/fsl,mxs-pinctrl.txt</code>,下一面给出芯片管脚与内核对应定义示例.</li>
+</ul>
+<p><img src="/imgs/imx28evk-pin.png" alt="imx28evk"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ grep <span class="_">-e</span> <span class="string">"PWM0"</span> <span class="_">-e</span> <span class="string">"PWM1"</span> ./arch/arm/boot/dts/imx28-pinfunc.h</div><div class="line"><span class="comment">#define MX28_PAD_PWM0__PWM_0				0x3100</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM1__PWM_1				0x3110</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM0__I2C1_SCL				0x3101</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM1__I2C1_SDA				0x3111</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM0__DUART_RX				0x3102</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM1__DUART_TX				0x3112</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM0__GPIO_3_16			0x3103</span></div><div class="line"><span class="comment">#define MX28_PAD_PWM1__GPIO_3_17			0x3113</span></div></pre></td></tr></table></figure>
+<p><img src="/imgs/imx28evk-pin-324.png" alt="imx28evk-pin-324"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ grep <span class="_">-e</span> <span class="string">"I2C0"</span>  ./arch/arm/boot/dts/imx28-pinfunc.h</div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__I2C0_SCL			0x3180</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__I2C0_SDA			0x3190</span></div><div class="line"><span class="comment">#define MX28_PAD_AUART0_RX__I2C0_SCL			0x3001</span></div><div class="line"><span class="comment">#define MX28_PAD_AUART0_TX__I2C0_SDA			0x3011</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__TIMROT_ROTARYA		0x3181</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__TIMROT_ROTARYB		0x3191</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__DUART_RX			0x3182</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__DUART_TX			0x3192</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__GPIO_3_24			0x3183</span></div><div class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__GPIO_3_25			0x3193</span></div></pre></td></tr></table></figure>
+<p><img src="/imgs/imx28evk-dma_apbx.png" alt="imx28evk-dma_apbx"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$ cat arch/arm/boot/dts/imx28.dtsi</div><div class="line">[...]</div><div class="line">dma_apbx: dma-apbx@80024000 &#123;</div><div class="line">				compatible = <span class="string">"fsl,imx28-dma-apbx"</span>;</div><div class="line">				reg = &lt;0x80024000 0x2000&gt;;</div><div class="line">				interrupts = &lt;78 79 66 0</div><div class="line">					      80 81 68 69</div><div class="line">					      70 71 72 73</div><div class="line">					      74 75 76 77&gt;;</div><div class="line">				interrupt-names = <span class="string">"auart4-rx"</span>, <span class="string">"auart4-tx"</span>, <span class="string">"spdif-tx"</span>, <span class="string">"empty"</span>,</div><div class="line">						  <span class="string">"saif0"</span>, <span class="string">"saif1"</span>, <span class="string">"i2c0"</span>, <span class="string">"i2c1"</span>,</div><div class="line">						  <span class="string">"auart0-rx"</span>, <span class="string">"auart0-tx"</span>, <span class="string">"auart1-rx"</span>, <span class="string">"auart1-tx"</span>,</div><div class="line">						  <span class="string">"auart2-rx"</span>, <span class="string">"auart2-tx"</span>, <span class="string">"auart3-rx"</span>, <span class="string">"auart3-tx"</span>;</div><div class="line">				<span class="comment">#dma-cells = &lt;1&gt;;</span></div><div class="line">				dma-channels = &lt;16&gt;;</div><div class="line">				clocks = &lt;&amp;clks 26&gt;;</div><div class="line">			&#125;;</div><div class="line"></div><div class="line">[...]</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> ../imx28evk-kernel &amp;&amp;  make ARCH=arm CROSS_COMPILE=arm-none-eabi- zImage modules</div><div class="line">  GEN     ./Makefile</div><div class="line">scripts/kconfig/conf  --silentoldconfig Kconfig</div><div class="line">  SYSHDR  arch/arm/include/generated/uapi/asm/unistd-common.h</div><div class="line">  SYSHDR  arch/arm/include/generated/uapi/asm/unistd-oabi.h</div><div class="line">  SYSHDR  arch/arm/include/generated/uapi/asm/unistd-eabi.h</div><div class="line">  CHK     include/config/kernel.release</div><div class="line">  [...]</div><div class="line"></div><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- imx28-evk.dtb</div><div class="line">~$ cat arch/arm/boot/zImage arch/arm/boot/dts/imx28-evk.dtb &gt; zImage_dtb</div><div class="line">  // 如果内核中有模块编译就使用下面这命令把它安装到根文件系统目录下,　make INSTALL_HDR_PATH=/nfsroot/rootfs headers_install 安装内核头文件在这里不需要,只是做一个记录.</div><div class="line"><span class="comment"># make INSTALL_MOD_PATH=/nfsroot/rootfs/ modules_install</span></div><div class="line">  INSTALL crypto/echainiv.ko</div><div class="line">  INSTALL drivers/crypto/mxs-dcp.ko</div><div class="line">  INSTALL drivers/media/usb/gspca/gspca_main.ko</div><div class="line">  DEPMOD  4.14.51_lcybuild-20180706-1017</div><div class="line"><span class="comment"># cd /nfsroot/rootfs/lib/modules &amp;&amp;   tree</span></div><div class="line">.</div><div class="line">└── 4.14.51_lcybuild-20180706-1017</div><div class="line">    ├── build -&gt; /fullpath/kernel-imx28evk-buildroot-toolchain</div><div class="line">    ├── kernel</div><div class="line">    │   ├── crypto</div><div class="line">    │   │   └── echainiv.ko</div><div class="line">    │   └── drivers</div><div class="line">    │       ├── crypto</div><div class="line">    │       │   └── mxs-dcp.ko</div><div class="line">    │       └── media</div><div class="line">    │           └── usb</div><div class="line">    │               └── gspca</div><div class="line">    │                   └── gspca_main.ko</div><div class="line">    ├── modules.alias</div><div class="line">    ├── modules.alias.bin</div><div class="line">    ├── modules.builtin</div><div class="line">    ├── modules.builtin.bin</div><div class="line">    ├── modules.dep</div><div class="line">    ├── modules.dep.bin</div><div class="line">    ├── modules.devname</div><div class="line">    ├── modules.order</div><div class="line">    ├── modules.softdep</div><div class="line">    ├── modules.symbols</div><div class="line">    ├── modules.symbols.bin</div><div class="line">    └── <span class="built_in">source</span> -&gt; /fullpath/linux-4.14.51</div></pre></td></tr></table></figure>
+<h2 id="mkimage-生成-uImage"><a href="#mkimage-生成-uImage" class="headerlink" title="mkimage 生成 uImage"></a>mkimage 生成 uImage</h2><ul>
+<li>如果要用到<code>uImage</code>文件,用下面这条命令转换出来.注意<strong>LOADADDR</strong>是变量,不同开发板定义是不一样的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mkimage -A arm -O linux -T kernel -C none <span class="_">-a</span> 0x40008000 <span class="_">-e</span> 0x40008000 -n <span class="string">"Linux-4.13.11"</span> <span class="_">-d</span> arch/arm/boot/zImage uImage</div><div class="line">Image Name:   Linux-4.13.11</div><div class="line">Created:      Fri Jun 22 12:03:38 2018</div><div class="line">Image Type:   ARM Linux Kernel Image (uncompressed)</div><div class="line">Data Size:    4280112 Bytes = 4179.80 kB = 4.08 MB</div><div class="line">Load Address: 40008000</div><div class="line">Entry Point:  40008000</div></pre></td></tr></table></figure>
+<h2 id="测试-I2C-功能"><a href="#测试-I2C-功能" class="headerlink" title="测试 I2C 功能"></a>测试 I2C 功能</h2><ul>
+<li>霍尼韦尔 HMC5883L 接线</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">iMX280A				HMC5883L</div><div class="line"></div><div class="line">SCL1	&lt;---&gt;   SCL</div><div class="line">SDA1	&lt;---&gt;   SDA</div><div class="line">GND	&lt;---&gt;   GND</div><div class="line">3.3v	&lt;---&gt;   3V3</div></pre></td></tr></table></figure>
+<ul>
+<li>HMC5883L 规格书</li>
+</ul>
+<p><img src="/imgs/hmc5883l.png" alt="hmc5883l"></p>
+<ul>
+<li>进入 iMX280A 输入下面命令检测设备.并 dump 传感器数值</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># i2cdetect -r -y 1</span></div><div class="line">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f</div><div class="line">00:          -- -- -- -- -- -- -- -- -- -- -- -- --</div><div class="line">10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1e --</div><div class="line">20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</div><div class="line">30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</div><div class="line">40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</div><div class="line">50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</div><div class="line">60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</div><div class="line">70: -- -- -- -- -- -- -- --</div><div class="line"><span class="comment"># i2cdump  -y 1 0x1e w</span></div><div class="line">     0,8  1,9  2,a  3,b  4,c  5,d  6,e  7,f</div><div class="line">00: 2010 0320 0003 1900 0119 e101 ffe1 10ff</div><div class="line">08: 0010 4803 3448 3334 1033 0000 3c00 003c</div><div class="line">10: 0000 0000 0000 0000 0000 0000 0000 0000</div><div class="line">18: 0000 0000 a500 10a5 0710 e807 10e8 0010</div><div class="line">20: 0000 0000 0000 0000 0000 0000 0000 1000</div><div class="line">28: 0010 0000 0000 0000 0000 0000 0000 0000</div><div class="line">30: 0000 0000 1400 8314 6683 5466 0054 a000</div><div class="line">[....]</div><div class="line">80: 2010 0320 0003 1900 0119 e101 ffe1 10ff</div><div class="line">88: 0010 4803 3448 3334 1033 0000 3c00 003c</div><div class="line">90: 0000 0000 0000 0000 0000 0000 0000 0000</div><div class="line">98: 0000 0000 a500 10a5 0710 e807 10e8 0010</div><div class="line">a0: 0000 0000 0000 0000 0000 0000 0000 1000</div><div class="line">a8: 0010 0000 0000 0000 0000 0000 0000 0000</div><div class="line">b0: 0000 0000 1400 8314 6683 5466 0054 a000</div><div class="line">b8: 00a0 0700 0007 0000 0000 0000 0000 0000</div><div class="line">[.....]</div></pre></td></tr></table></figure>
+<h2 id="SPI-测试"><a href="#SPI-测试" class="headerlink" title="SPI 测试"></a>SPI 测试</h2><ul>
+<li>SPI 用户空间编程,需要在内核中要开启<code>CONFIG_SPI_SPIDEV=y</code>.</li>
+<li>还需要在内核的源码中添加一项<code>{ .compatible = &quot;spidev&quot; }</code>,不然会出现<strong><code>spidev spi1.0: buggy DT: spidev listed directly in DT</code></strong>的错误.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$cat</span> ../linux-4.14.51/drivers/spi/spidev.c</div><div class="line">[....]</div><div class="line"><span class="comment">#ifdef CONFIG_OF</span></div><div class="line">static const struct of_device_id spidev_dt_ids[] = &#123;</div><div class="line">	&#123; .compatible = <span class="string">"rohm,dh2228fv"</span> &#125;,</div><div class="line">	&#123; .compatible = <span class="string">"lineartechnology,ltc2488"</span> &#125;,</div><div class="line">	&#123; .compatible = <span class="string">"ge,achc"</span> &#125;,</div><div class="line">	&#123; .compatible = <span class="string">"semtech,sx1301"</span> &#125;,</div><div class="line">	&#123; .compatible = <span class="string">"spidev"</span> &#125;,</div><div class="line">	&#123;&#125;,</div><div class="line">&#125;;</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<h2 id="下载测试代码"><a href="#下载测试代码" class="headerlink" title="下载测试代码"></a>下载测试代码</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/rm-hull/spidev-test</div><div class="line">$ <span class="built_in">cd</span> spidev-test</div><div class="line">$ gcc spidev_test.c -o spidev_test</div><div class="line"><span class="comment">#./spidev_test</span></div><div class="line">spi mode: 0</div><div class="line">bits per word: 8</div><div class="line">max speed: 500000 Hz (500 KHz)</div><div class="line">can<span class="string">'t send spi message: Invalid argument</span></div><div class="line">Aborted (core dumped)</div></pre></td></tr></table></figure>
+<ul>
+<li>MMC/SD 卡的分区类型说明</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* <span class="keyword">for</span> a card connected via a PCI card reader</div><div class="line">DISK=/dev/mmcblk0</div><div class="line">* <span class="keyword">for</span> a card connected via a USB card reader,</div><div class="line">DISK=/dev/sdX</div></pre></td></tr></table></figure>
+<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><h2 id="Root-挂载错误"><a href="#Root-挂载错误" class="headerlink" title="Root 挂载错误"></a>Root 挂载错误</h2><ul>
+<li>下面这个错误的可能性会很多,我这边使用<a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="external">Linaro Toolchain</a>工具链生成的<strong>rootfs.tar</strong>解压到 NFS 服务器里,就会出现下面错误,后来换成<code>BuildRoot</code>编译的工具就没有问题.</li>
+<li>如果是 UBIFS 文件系统挂载一定要指定<code>mtdparts</code>给 u-boot 的<code>bootargs</code>变量里面,不然找不到分区信息,就无法挂载.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">[    5.625458] Kernel panic - not syncing: Attempted to <span class="built_in">kill</span> init! exitcode=0x00000004</div><div class="line">[    5.625458]</div><div class="line">[    5.634639] CPU: 0 PID: 1 Comm: init Not tainted 4.14.51_lcybuild-20180702-0852 <span class="comment">#3</span></div><div class="line">[    5.642215] Hardware name: Freescale MXS (Device Tree)</div><div class="line">[    5.647434] [&lt;c00157bc&gt;] (unwind_backtrace) from [&lt;c0013644&gt;] (show_stack+0x10/0x14)</div><div class="line">[    5.655216] [&lt;c0013644&gt;] (show_stack) from [&lt;c001d580&gt;] (panic+0xb8/0x234)</div><div class="line">[    5.662120] [&lt;c001d580&gt;] (panic) from [&lt;c001eecc&gt;] (do_exit+0x9c8/0x9<span class="built_in">fc</span>)</div><div class="line">[    5.668843] [&lt;c001eecc&gt;] (do_exit) from [&lt;c001fa28&gt;] (do_group_exit+0x3c/0xb4)</div><div class="line">[    5.676102] [&lt;c001fa28&gt;] (do_group_exit) from [&lt;c002846c&gt;] (get_signal+0x264/0x58c)</div><div class="line">[    5.683792] [&lt;c002846c&gt;] (get_signal) from [&lt;c0012aa8&gt;] (do_signal+0xb8/0x42c)</div><div class="line">[    5.691043] [&lt;c0012aa8&gt;] (do_signal) from [&lt;c0012fdc&gt;] (do_work_pending+0xb0/0xc0)</div><div class="line">[    5.698640] [&lt;c0012fdc&gt;] (do_work_pending) from [&lt;c0010148&gt;] (slow_work_pending+0xc/0x20)</div><div class="line">[    5.706839] ---[ end Kernel panic - not syncing: Attempted to <span class="built_in">kill</span> init! exitcode=0x00000004</div><div class="line">[    5.706839]</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="u-boot-编译错误"><a href="#u-boot-编译错误" class="headerlink" title="u-boot 编译错误"></a>u-boot 编译错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gcc -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -include /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/include/libfdt_env.h -idirafter /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/include -idirafter /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/arch/arm/include -idirafter /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/include -I /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/lib/libfdt -I /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/tools -DCONFIG_SYS_TEXT_BASE=0x40000100 -DUSE_HOSTCC -D__KERNEL_STRICT_NAMES -D_GNU_SOURCE -DCONFIG_MXS   -o mxsimage.o mxsimage.c -c</div><div class="line">mxsimage.c:146:19: error: field ‘cipher_ctx’ has incomplete <span class="built_in">type</span></div><div class="line">  EVP_CIPHER_CTX   cipher_ctx;</div><div class="line">                   ^~~~~~~~~~</div><div class="line">mxsimage.c:147:15: error: field ‘md_ctx’ has incomplete <span class="built_in">type</span></div><div class="line">  EVP_MD_CTX   md_ctx;</div><div class="line">               ^~~~~~</div><div class="line">mxsimage.c: In <span class="keyword">function</span> ‘sb_postfill_image_header’:</div><div class="line">mxsimage.c:1345:13: error: storage size of ‘md_ctx’ isn’t known</div><div class="line">  EVP_MD_CTX md_ctx;</div><div class="line">             ^~~~~~</div><div class="line">mxsimage.c:1345:13: warning: unused variable ‘md_ctx’ [-Wunused-variable]</div><div class="line">mxsimage.c: In <span class="keyword">function</span> ‘sb_verify_image_header’:</div><div class="line">mxsimage.c:1638:13: error: storage size of ‘md_ctx’ isn’t known</div><div class="line">  EVP_MD_CTX md_ctx;</div><div class="line">             ^~~~~~</div><div class="line">mxsimage.c:1638:13: warning: unused variable ‘md_ctx’ [-Wunused-variable]</div></pre></td></tr></table></figure>
+<ul>
+<li>一些旧的版本编译时会出现上述错误,需修改的是把它改成指针声明.可以用这个<a href="/imgs/files/mxsimage.patch">patch</a>文件解决.</li>
+</ul>
+<hr>
+<h2 id="U-boot-加载内核错误"><a href="#U-boot-加载内核错误" class="headerlink" title="U-boot 加载内核错误"></a>U-boot 加载内核错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> Booting kernel from Legacy Image at 42000000 ...</div><div class="line">   Image Name:   Linux-4.13.11</div><div class="line">   Image Type:   ARM Linux Kernel Image (uncompressed)</div><div class="line">   Data Size:    4280112 Bytes =  4.1 MB</div><div class="line">   Load Address: 40008000</div><div class="line">   Entry Point:  40008000</div><div class="line">   Verifying Checksum ... Bad Data CRC</div><div class="line">ERROR: can<span class="string">'t get kernel image!</span></div></pre></td></tr></table></figure>
+<ul>
+<li>上面是因为启动的 uImage 在的体积大于 uboot 中的变里<code>kernelsize</code>所设定的值,设置如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">U-Boot &gt;setenv kernelsize 0x415000</div><div class="line">U-Boot &gt;save</div><div class="line">U-Boot &gt;reset</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="编译环境错误"><a href="#编译环境错误" class="headerlink" title="编译环境错误"></a>编译环境错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">You have PERL_MM_OPT defined because Perl <span class="built_in">local</span>::lib</div><div class="line">is installed on your system. Please <span class="built_in">unset</span> this variable</div><div class="line">before starting Buildroot, otherwise the compilation of</div><div class="line">Perl related packages will fail</div><div class="line">support/dependencies/dependencies.mk:25: recipe <span class="keyword">for</span> target <span class="string">'core-dependencies'</span> failed</div><div class="line">make[1]: *** [core-dependencies] Error 1</div><div class="line">Makefile:16: recipe <span class="keyword">for</span> target <span class="string">'_all'</span> failed</div><div class="line">make: *** [_all] Error 2</div></pre></td></tr></table></figure>
+<ul>
+<li>如果编译时出现上述错误,要运行下面的脚本.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">eval</span> $(perl -M<span class="built_in">local</span>::lib=--deactivate-all)</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="BusyBox-编译错误"><a href="#BusyBox-编译错误" class="headerlink" title="BusyBox 编译错误"></a>BusyBox 编译错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c: In <span class="keyword">function</span> <span class="string">'nandwrite_main'</span>:</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c:152: error: <span class="string">'MTD_FILE_MODE_RAW'</span> undeclared (first use <span class="keyword">in</span> this <span class="keyword">function</span>)</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c:152: error: (Each undeclared identifier is reported only once</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c:152: error: <span class="keyword">for</span> each <span class="keyword">function</span> it appears in.)</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/scripts/Makefile.build:197: recipe <span class="keyword">for</span> target <span class="string">'miscutils/nandwrite.o'</span> failed</div><div class="line">make[3]: *** [miscutils/nandwrite.o] Error 1</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/Makefile:742: recipe <span class="keyword">for</span> target <span class="string">'miscutils'</span> failed</div></pre></td></tr></table></figure>
+<ul>
+<li>复制/usr/include/mtd/mtd-abi.h 到 busybox/include 下面,再要 nandwrite.c 里加上<code>#include &quot;mtd-abi.h&quot;</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c: In <span class="keyword">function</span> <span class="string">'blkdiscard_main'</span>:</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c:71: error: <span class="string">'BLKSECDISCARD'</span> undeclared (first use <span class="keyword">in</span> this <span class="keyword">function</span>)</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c:71: error: (Each undeclared identifier is reported only once</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c:71: error: <span class="keyword">for</span> each <span class="keyword">function</span> it appears in.)</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/scripts/Makefile.build:197: recipe <span class="keyword">for</span> target <span class="string">'util-linux/blkdiscard.o'</span> failed</div><div class="line">make[3]: *** [util-linux/blkdiscard.o] Error 1</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/Makefile:742: recipe <span class="keyword">for</span> target <span class="string">'util-linux'</span> failed</div></pre></td></tr></table></figure>
+<ul>
+<li>可以按照上述方法添加头文件解决,它位于/usr/include/linux/fs.h 中,也可以不编译这个模块 <code>Linux System Utilities -&gt;blkidiscard</code>就不会报错了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">coreutils/lib.a(mktemp.o): In <span class="keyword">function</span> `mktemp_main<span class="string">':</span></div><div class="line">mktemp.c:(.text.mktemp_main+0x98): warning: the use of `mktemp\' is dangerous, better use `mkstemp\<span class="string">'</span></div><div class="line">util-linux/lib.a(nsenter.o): In function `nsenter_main\':</div><div class="line">nsenter.c:(.text.nsenter_main+0x1b0): undefined reference to `setns\<span class="string">'</span></div><div class="line">coreutils/lib.a(sync.o): In function `sync_main\':</div><div class="line">sync.c:(.text.sync_main+0x80): undefined reference to `syncfs\<span class="string">'</span></div><div class="line">collect2: ld returned 1 exit status</div><div class="line">Note: if build needs additional libraries, put them in CONFIG_EXTRA_LDLIBS.</div><div class="line">Example: CONFIG_EXTRA_LDLIBS="pthread dl tirpc audit pam"</div><div class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/Makefile:717: recipe for target 'busybox_unstripped<span class="string">' failed</span></div><div class="line">make[2]: *** [busybox_unstripped] Error 1</div><div class="line">Makefile:112: recipe for target '_all<span class="string">' failed</span></div><div class="line">make[1]: *** [_all] Error 2</div><div class="line">Makefile:14: recipe for target 'all<span class="string">' failed</span></div><div class="line">make: *** [all] Error 2</div></pre></td></tr></table></figure>
+<ul>
+<li>不要选择下面这两个模块</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Coreutils-&gt;sync</div><div class="line">Linux System Utilities-&gt;nsenter</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -348,7 +666,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-08-03 12:17:31" itemprop="dateModified" datetime="2018-08-03T12:17:31+08:00">2018-08-03</time>
+                <time title="修改时间：2020-02-25 08:27:18" itemprop="dateModified" datetime="2020-02-25T08:27:18+08:00">2020-02-25</time>
               
             
           </span>
@@ -439,9 +757,9 @@
 </ul>
 <h2 id="windows-端口转发"><a href="#windows-端口转发" class="headerlink" title="windows 端口转发"></a>windows 端口转发</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface ipv6 install</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8889 listenaddress=192.168.1.235 connectport=2332 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8890 listenaddress=192.168.1.235 connectport=2333 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy show v4tov4</div><div class="line"></div><div class="line">侦听 IPv4:                 连接到 IPv4:</div><div class="line"></div><div class="line">地址            端口        地址            端口</div><div class="line">--------------- ----------  --------------- ----------</div><div class="line">192.168.1.235   8888        127.0.0.1       2331</div><div class="line">192.168.1.235   8889        127.0.0.1       2332</div><div class="line">192.168.1.235   8890        127.0.0.1       2333</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -560,7 +878,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-05 22:05:15" itemprop="dateModified" datetime="2019-11-05T22:05:15+08:00">2019-11-05</time>
+                <time title="修改时间：2020-02-25 08:28:39" itemprop="dateModified" datetime="2020-02-25T08:28:39+08:00">2020-02-25</time>
               
             
           </span>
@@ -686,6 +1004,7 @@
 <hr>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -804,7 +1123,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-17 14:01:44" itemprop="dateModified" datetime="2019-11-17T14:01:44+08:00">2019-11-17</time>
+                <time title="修改时间：2020-05-17 18:10:50" itemprop="dateModified" datetime="2020-05-17T18:10:50+08:00">2020-05-17</time>
               
             
           </span>
@@ -839,17 +1158,97 @@
       
         
           
-            <h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found.</div><div class="line">Message&#123;kind=ERROR, text=error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</div></pre></td></tr></table></figure>
+            <ul>
+<li><a href="https://developer.android.com/studio/known-issues" target="_blank" rel="external">Android Studio 和 Android Gradle 插件的已知问题</a></li>
+<li><a href="https://developer.android.com/studio/intro/studio-config.html" target="_blank" rel="external">配置 Android Studio</a></li>
+<li><a href="https://developer.android.com/studio/command-line/variables" target="_blank" rel="external">Android Studio 环境变量</a></li>
+<li><a href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh_cn" target="_blank" rel="external">Android Gradle 插件版本说明</a></li>
+<li><a href="https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it" target="_blank" rel="external">Gradle for Android Developers - Getting the most of it</a></li>
+</ul>
+<h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found.</div><div class="line">Message&#123;kind=ERROR, text=error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</div></pre></td></tr></table></figure>
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ul>
 <li>修改<strong>app</strong>下的 build.gradle</li>
 <li>把<strong>dependences</strong> 里改成 <code>implementation &#39;com.android.support:appcompat-v7:27.1.0&#39;</code></li>
 <li>同时修改成<strong>compileSdkVersion 26</strong>,<strong>targetSdkVersion 26</strong>,要大于等于<strong>26</strong>的版本.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 27</div><div class="line">    buildToolsVersion <span class="string">"27.0.3"</span> // not needed since com.android.tools.build:gradle:3.0.0</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 14</div><div class="line">        targetSdkVersion 26</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  [...]</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"> 	[...]</div><div class="line">    implementation <span class="string">'com.android.support:appcompat-v7:27.1.1'</span></div><div class="line">    implementation <span class="string">'com.android.support:design:27.1.1'</span></div><div class="line">    implementation <span class="string">'com.android.support:recyclerview-v7:27.1.1'</span></div><div class="line">    [...]</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="吐血的Gradle-sync-failed"><a href="#吐血的Gradle-sync-failed" class="headerlink" title="吐血的Gradle sync failed."></a>吐血的Gradle sync failed.</h1><ul>
+<li><a href="https://appuals.com/fix-gradle-project-sync-failed/" target="_blank" rel="external">Fix: Gradle Project Sync Failed</a></li>
+<li><a href="https://medium.com/@mydogtom/tip-how-to-reuse-gradle-daemon-between-android-studio-and-terminal-df5232d63f38" target="_blank" rel="external">Tip: How to reuse Gradle daemon between Android Studio and terminal</a></li>
+<li><p><a href="https://medium.com/@mydogtom/tip-reduce-the-number-of-gradle-daemon-instances-by-using-local-distribution-56f645cf2c97" target="_blank" rel="external">Tip: Use local Gradle distribution instead of wrapper</a></p>
+</li>
+<li><p>打开Android工程时，它就自动<code>Gradle sync started</code>,在下方<code>Sync</code>终端不断显示如下信息：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line">Gradle Daemon started <span class="keyword">in</span> 950 ms</div><div class="line">Gradle Daemon started <span class="keyword">in</span> 909 ms</div><div class="line">Gradle Daemon started <span class="keyword">in</span> 848 ms</div><div class="line">Gradle Daemon started <span class="keyword">in</span> 875 ms</div><div class="line">Gradle Daemon started <span class="keyword">in</span> 871 ms</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<ul>
+<li>并且使用的内存一直不断上升，它不会因为使用内存过多而被内核<code>Kill</code>掉，内存用完之后就是使用硬盘<code>Swap</code>,直接卡死，如果恢复响应后，在<code>Event log</code>里必然显示下面信息：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Gradle sync failed: The first result from the daemon was empty. Most likely the process died immediately after connection</div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>Gradle</code>同步失败：管道无效,问题在于，<code>Gradle</code>守护进程会尝试使用<code>IPv4</code>而非<code>IPv6</code>。</p>
+</li>
+<li><p>下面是我的一个取巧的方法。<code>Android Studio</code>打开工程时，它就自动<code>Gradle Build</code>时，在终端里用下面命令<code>Kill</code>掉。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">which</span> jps</div><div class="line">/fullpath/jdk1.8.0_112/bin/jps</div><div class="line"></div><div class="line">~$ jps | grep <span class="string">"Gradle"</span> | awk <span class="string">'&#123;print $1&#125;'</span> | xargs <span class="built_in">kill</span> -9</div></pre></td></tr></table></figure>
+<ul>
+<li>通过终端去到工程目录下，使用<code>gradlew build</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">~$ ./gradlew build </div><div class="line"></div><div class="line">[...]</div><div class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 7s</div><div class="line">1 actionable task: 1 executed</div><div class="line"></div><div class="line">// 编译并打Debug包</div><div class="line">~$ ./gradlew assembleDebug</div><div class="line"></div><div class="line">// 编译并打Release的包</div><div class="line">~$ ./gradlew assembleRelease</div></pre></td></tr></table></figure>
+<ul>
+<li>如果在终端运行上面的命令，还是出现如下的错误， 是与<code>IDE</code>里的端终显示同一类的错误。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Starting a Gradle Daemon (subsequent builds will be faster)</div><div class="line">Starting a Gradle Daemon, 1 busy Daemon could not be reused, use --status <span class="keyword">for</span> details</div><div class="line">Starting a Gradle Daemon, 2 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</div><div class="line">Starting a Gradle Daemon, 3 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</div><div class="line">Starting a Gradle Daemon, 4 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</div><div class="line">Starting a Gradle Daemon, 5 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</div><div class="line">Starting a Gradle Daemon, 6 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</div><div class="line">[.....]</div></pre></td></tr></table></figure>
+<ul>
+<li>现在来记录解决这个问题步骤，代理肯定是配置的，最优先配置使用工程目录下的<code>gradle.properties</code>，其次用户目录也有一个同名文件：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ ls ~/.gradle</div><div class="line">caches  daemon  gradle.properties  kotlin-profile  native  notifications  workers  wrapper</div></pre></td></tr></table></figure>
+<ul>
+<li>根据上面终端提示<code>use --status for details</code>,可以打开<code>~/.gradle/daemon/&lt;gradle version&gt;/daemon-xxx-out.log</code>查看细节，如果里面包含如下行：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...</div><div class="line"> [ERROR] [org.gradle.internal.remote.internal.inet.TcpIncomingConnector] Cannot accept connection from remote address /192.168.1.100.</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<ul>
+<li>并且,如果本机系统有开启<code>IPv6</code>，上面的无法连接可能是Gradle 同步失败：管道无效,问题在于，Gradle 守护进程会尝试使用 IPv4 而非 IPv6。设置<code>Shell</code>环境变量：<code>export _JAVA_OPTIONS=&quot;-Djava.net.preferIPv6Addresses=true&quot;</code>再运行<code>./gradlew assembleRelease</code>尝试。<code>gradle</code>用户配置如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ cat ~/.gradle/gradle.properties</div><div class="line">[...]</div><div class="line">org.gradle.parallel=<span class="literal">true</span></div><div class="line">org.gradle.daemon=<span class="literal">true</span></div><div class="line">systemProp.https.proxyHost=127.0.0.1</div><div class="line">systemProp.https.proxyPort=8123</div><div class="line">systemProp.http.proxyHost=127.0.0.1</div><div class="line">systemProp.http.proxyPort=8123</div><div class="line">systemProp.https.nonProxyHosts=127.0.0.1|localhost|192.168.1.100</div></pre></td></tr></table></figure>
+<ul>
+<li>还有一个问题是，设置<code>Android-Studio</code>与<code>graldew</code>使用同一个<code>gradle</code>实例，可以<a href="https://stackoverflow.com/questions/39743560/how-do-i-run-the-same-gradle-daemon-for-terminal-and-android-studio" target="_blank" rel="external">参考这里</a>.</li>
+<li>解决方法 2：在<code>Android Studio</code>的<a href="https://sites.google.com/a/android.com/tools/tech-docs/configuration" target="_blank" rel="external"><code>vmoptions</code>文件</a>中，将<code>-Djava.net.preferIPv6Addresses=true</code>行更改为<code>-Djava.net.preferIPv6Addresses=true</code>。</li>
+<li>最终该问题在<code>Android Studio 3.6.3</code>版本中配置<code>Gradle Plugin 3.6.3</code>与<code>Gradle 5.6.4</code>,并通过<code>Ctrl+Alt+S --&gt; Build,Execution,Deployment --&gt; Gradle</code>把<code>Use Gradle from</code>设置成<code>Specified location</code>选择本地的<code>SDKMAN</code>安装目录的下<code>gradle/5.6.4/bin</code>,上述设置后，同步文件就正常了。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Build <span class="comment">#AI-192.7142.36.36.6392135, built on April 14, 2020</span></div><div class="line">Runtime version: 1.8.0_212-release-1586-b4-5784211 amd64</div><div class="line">VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</div><div class="line">Linux 5.5.13-20200327-lcy</div><div class="line">GC: ParNew, ConcurrentMarkSweep</div><div class="line">Memory: 1246M</div><div class="line">Cores: 4</div><div class="line">Registry: ide.new.welcome.screen.force=<span class="literal">true</span></div><div class="line">Non-Bundled Plugins: com.google.services.firebase`</div></pre></td></tr></table></figure>
+<h1 id="Android系统源码AOSP-下载。"><a href="#Android系统源码AOSP-下载。" class="headerlink" title="Android系统源码AOSP 下载。"></a>Android系统源码AOSP 下载。</h1><ul>
+<li>参考链接<ul>
+<li><a href="https://source.android.google.cn/" target="_blank" rel="external">Android 开源项目-中国区</a></li>
+<li><a href="https://source.android.google.cn/source/downloading" target="_blank" rel="external">下载源代码</a></li>
+<li><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp" target="_blank" rel="external">科大-AOSP(Android) 镜像使用帮助</a></li>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="external">清华大学开源软件镜像站</a></li>
+<li><a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="external">科大-开源软件镜像</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="同步源码"><a href="#同步源码" class="headerlink" title="同步源码"></a>同步源码</h2><h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ mkdir ~/bin</div><div class="line">~$ PATH=~/bin:<span class="variable">$PATH</span></div><div class="line">~$ curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</div><div class="line">~$ chmod a+x ~/bin/repo</div></pre></td></tr></table></figure>
+<h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ mkdir Android-AOSP &amp;&amp; <span class="built_in">cd</span> Android-AOSP</div><div class="line">~$ repo init -u https://android.googlesource.com/platform/manifest</div><div class="line">~$ repo sync</div></pre></td></tr></table></figure>
+<ul>
+<li>如果不能同步上面的官方源需要使用代理。也可以使用国内一些大学的镜像源:<a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="external">清华大学开源软件镜像站</a>,<a href="http://mirrors.ustc.edu.cn/aosp/" target="_blank" rel="external">中国科学技术大学</a>。可以一开始就使用国内镜像源，也可以把原来官方源地址替换成国内镜像源再同步,方法如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ cat .repo/manifests.git/config </div><div class="line">[core]</div><div class="line">        repositoryformatversion = 0</div><div class="line">        filemode = <span class="literal">true</span></div><div class="line">[filter <span class="string">"lfs"</span>]</div><div class="line">        smudge = git-lfs smudge --skip -- %f</div><div class="line">        process = git-lfs filter-process --skip</div><div class="line">[remote <span class="string">"origin"</span>]</div><div class="line">        <span class="comment">#url = https://android.googlesource.com/platform/manifest</span></div><div class="line">        url = https://aosp.tuna.tsinghua.edu.cn/platform/manifest</div><div class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</div><div class="line">[branch <span class="string">"default"</span>]</div><div class="line">        remote = origin</div><div class="line">        merge = refs/heads/master</div></pre></td></tr></table></figure>
+<ul>
+<li>我最终是改成<a href="https://aosp.tuna.tsinghua.edu.cn/platform/manifest" target="_blank" rel="external">清华大学</a>镜像同步完成。2020-03-16同步完成后，目录体积显示是93G。后来对比了官方<code>https://android.googlesource.com/device/</code>与本地<code>device</code>目录，好像少了一些设备目录，比如：<code>htc,samsung</code>是没有看到的。</li>
+</ul>
+<h3 id="验证Git标记"><a href="#验证Git标记" class="headerlink" title="验证Git标记"></a>验证Git标记</h3><ul>
+<li>输入<code>gpg --import</code>后粘贴下面的PGP密钥数据。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">~$ gpg --import </div><div class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</div><div class="line">Version: GnuPG v1.4.2.2 (GNU/Linux)</div><div class="line"></div><div class="line">mQGiBEnnWD4RBACt9/h4v9xnnGDou13y3dvOx6/t43LPPIxeJ8eX9WB+8LLuROSV</div><div class="line">lFhpHawsVAcFlmi7f7jdSRF+OvtZL9ShPKdLfwBJMNkU66/TZmPewS4m782ndtw7</div><div class="line">8tR1cXb197Ob8kOfQB3A9yk2XZ4ei4ZC3i6wVdqHLRxABdncwu5hOF9KXwCgkxMD</div><div class="line">u4PVgChaAJzTYJ1EG+UYBIUEAJmfearb0qRAN7dEoff0FeXsEaUA6U90sEoVks0Z</div><div class="line">wNj96SA8BL+a1OoEUUfpMhiHyLuQSftxisJxTh+2QclzDviDyaTrkANjdYY7p2cq</div><div class="line">/HMdOY7LJlHaqtXmZxXjjtw5Uc2QG8UY8aziU3IE9nTjSwCXeJnuyvoizl9/I1S5</div><div class="line">jU5SA/9WwIps4SC84ielIXiGWEqq6i6/sk4I9q1YemZF2XVVKnmI1F4iCMtNKsR4</div><div class="line">MGSa1gA8s4iQbsKNWPgp7M3a51JCVCu6l/8zTpA+uUGapw4tWCp4o0dpIvDPBEa9</div><div class="line">b/aF/ygcR8mh5hgUfpF9IpXdknOsbKCvM9lSSfRciETykZc4wrRCVGhlIEFuZHJv</div><div class="line">aWQgT3BlbiBTb3VyY2UgUHJvamVjdCA8aW5pdGlhbC1jb250cmlidXRpb25AYW5k</div><div class="line">cm9pZC5jb20+iGAEExECACAFAknnWD4CGwMGCwkIBwMCBBUCCAMEFgIDAQIeAQIX</div><div class="line">gAAKCRDorT+BmrEOeNr+AJ42Xy6tEW7r3KzrJxnRX8mij9z8tgCdFfQYiHpYngkI</div><div class="line">2t09Ed+9Bm4gmEO5Ag0ESedYRBAIAKVW1JcMBWvV/0Bo9WiByJ9WJ5swMN36/vAl</div><div class="line">QN4mWRhfzDOk/Rosdb0csAO/l8Kz0gKQPOfObtyYjvI8JMC3rmi+LIvSUT9806Up</div><div class="line">hisyEmmHv6U8gUb/xHLIanXGxwhYzjgeuAXVCsv+EvoPIHbY4L/KvP5x+oCJIDbk</div><div class="line">C2b1TvVk9PryzmE4BPIQL/NtgR1oLWm/uWR9zRUFtBnE411aMAN3qnAHBBMZzKMX</div><div class="line">LWBGWE0znfRrnczI5p49i2YZJAjyX1P2WzmScK49CV82dzLo71MnrF6fj+Udtb5+</div><div class="line">OgTg7Cow+8PRaTkJEW5Y2JIZpnRUq0CYxAmHYX79EMKHDSThf/8AAwUIAJPWsB/M</div><div class="line">pK+KMs/s3r6nJrnYLTfdZhtmQXimpoDMJg1zxmL8UfNUKiQZ6esoAWtDgpqt7Y7s</div><div class="line">KZ8laHRARonte394hidZzM5nb6hQvpPjt2OlPRsyqVxw4c/KsjADtAuKW9/d8phb</div><div class="line">N8bTyOJo856qg4oOEzKG9eeF7oaZTYBy33BTL0408sEBxiMior6b8LrZrAhkqDjA</div><div class="line">vUXRwm/fFKgpsOysxC6xi553CxBUCH2omNV6Ka1LNMwzSp9ILz8jEGqmUtkBszwo</div><div class="line">G1S8fXgE0Lq3<span class="built_in">cd</span>DM/GJ4QXP/p6LiwNF99faDMTV3+2SAOGvytOX6KjKVzKOSsfJQ</div><div class="line">hN0DlsIw8hqJc0WISQQYEQIACQUCSedYRAIbDAAKCRDorT+BmrEOeCUOAJ9qmR0l</div><div class="line">EXzeoxcdoafxqf6gZlJZlACgkWF7wi2YLW3Oa+jv2QSTlrx4KLM=</div><div class="line">=Wi5D</div><div class="line">-----END PGP PUBLIC KEY BLOCK-----</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<ul>
+<li>测试验证tag</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> device/generic/mini-emulator-arm64</div><div class="line">~$ git tag -v android-5.0.0_r1</div><div class="line">object 743dd408af5c662761bafc05eacdb18ade88cf3a</div><div class="line"><span class="built_in">type</span> commit</div><div class="line">tag android-5.0.0_r1</div><div class="line">tagger The Android Open Source Project &lt;initial-contribution@android.com&gt; 1415119682 -0800</div><div class="line"></div><div class="line">Android 5.0.0 release 1</div><div class="line">gpg: Signature made Wed 05 Nov 2014 12:48:02 AM CST</div><div class="line">gpg:                using DSA key E8AD3F819AB10E78</div><div class="line">gpg: Good signature from <span class="string">"The Android Open Source Project &lt;initial-contribution@android.com&gt;"</span> [unknown]</div><div class="line">gpg: WARNING: This key is not certified with a trusted signature!</div><div class="line">gpg:          There is no indication that the signature belongs to the owner.</div><div class="line">Primary key fingerprint: 4340 D135 70EF 945E 8381  0964 E8AD 3F81 9AB1 0E78</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。</li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -1013,13 +1412,13 @@
 </ul>
 <p><strong> 其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于：</strong></p>
 <ul>
-<li>环境搭建简单：直接引入官方 OpenCV-for-Android 的对应 jar 包即可</li>
-<li>代码维护繁琐：由于 OpenCV-for-Android 的 Java API 与 C++不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
+<li>环境搭建简单：直接引入官方 <code>OpenCV-for-Android</code> 的对应 jar 包即可</li>
+<li>代码维护繁琐：由于<code>OpenCV-for-Android</code> 的<code>Java API</code>与<code>C++</code>不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
 <li>运行效率低：Java 代码会在内部进行 C++翻译，运行时性能损耗较大</li>
 </ul>
 <p><strong> 而直接采用 C++代码导入的方式的特点在于：</strong></p>
 <ul>
-<li>环境搭建复杂：往往需要现自行编译对应的库，再进行 NDK、Cmakelists 和 build.gradle 的配置.</li>
+<li>环境搭建复杂：往往需要现自行编译对应的库，再进行<code>NDK、Cmakelists</code>和<code>build.gradle</code>的配置.</li>
 <li>代码维护简单：由于直接采用 C++实现算法部分，与其他平台的兼容性极好，能与 Android 程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可.</li>
 <li>运行效率高：不存在内部执行时的代码转换问题，性能最好.</li>
 <li>总结来看，Java Native 代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建 C++ NDK 方式。</li>
@@ -1094,6 +1493,7 @@
 <hr>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -1212,7 +1612,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-11 11:24:21" itemprop="dateModified" datetime="2020-02-11T11:24:21+08:00">2020-02-11</time>
+                <time title="修改时间：2020-04-07 20:55:30" itemprop="dateModified" datetime="2020-04-07T20:55:30+08:00">2020-04-07</time>
               
             
           </span>
@@ -1265,10 +1665,20 @@
       
         
           
-            <p><a href="https://github.com/openwrt/openwrt" target="_blank" rel="external">OpenWrt 官方仓库</a><br><a href="breed.hackpascal.net">Breed Bootloader 不死 uboot</a></p>
-<h4 id="获取源码并安状可用的-Feeds"><a href="#获取源码并安状可用的-Feeds" class="headerlink" title="获取源码并安状可用的 Feeds"></a>获取源码并安状可用的 Feeds</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git://git.openwrt.org/openwrt.git</div><div class="line">$ <span class="built_in">cd</span> openwrt</div><div class="line">$ ./scripts/feeds update <span class="_">-a</span></div><div class="line">$ ./scripts/feeds install <span class="_">-a</span></div></pre></td></tr></table></figure>
-<h4 id="编译固件-配置与编译"><a href="#编译固件-配置与编译" class="headerlink" title="编译固件,配置与编译"></a>编译固件,配置与编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make defconfig</div><div class="line">$ make prereq</div><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
-<h3 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h3><ul>
+            <ul>
+<li>参考链接<ul>
+<li><a href="https://github.com/openwrt/openwrt" target="_blank" rel="external">OpenWrt 官方仓库</a></li>
+<li><a href="breed.hackpascal.net">Breed Bootloader 不死 uboot</a></li>
+<li><a href="https://openwrt.org/docs/guide-developer/single.package" target="_blank" rel="external">How to Build a Single Package</a></li>
+<li><a href="https://openwrt.org/docs/guide-developer/quickstart-build-images" target="_blank" rel="external">Quick Image Building Guide</a></li>
+<li><a href="https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation-on-OpenWRT" target="_blank" rel="external">dnscrypt-proxy</a></li>
+<li><a href="https://swsmile.info/2019/01/30/%E3%80%90Network%E3%80%91Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%94%B1%E5%99%A8%EF%BC%88%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8mini%EF%BC%89%E8%87%AA%E5%8A%A8%E7%BF%BB%E5%A2%99/" target="_blank" rel="external">Shadowsocks + OpenWRT + dnsmasq-full + ipset + gfwList 实现路由器（小米路由器 mini）自动翻墙</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="获取源码并安装可用的-Feeds"><a href="#获取源码并安装可用的-Feeds" class="headerlink" title="获取源码并安装可用的 Feeds"></a>获取源码并安装可用的 Feeds</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git://git.openwrt.org/openwrt.git</div><div class="line">$ <span class="built_in">cd</span> openwrt</div><div class="line">$ ./scripts/feeds update <span class="_">-a</span></div><div class="line">$ ./scripts/feeds install <span class="_">-a</span></div></pre></td></tr></table></figure>
+<h1 id="编译固件-配置与编译"><a href="#编译固件-配置与编译" class="headerlink" title="编译固件,配置与编译"></a>编译固件,配置与编译</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make defconfig</div><div class="line">$ make prereq</div><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
+<h2 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h2><ul>
 <li>选择 CPU 型号</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Target System (MediaTek Ralink MIPS)  --&gt;</div><div class="line">Subtarget (MT7620 based boards) ---&gt;</div><div class="line">Target Profile (Lenovo Y1S) ---&gt;</div></pre></td></tr></table></figure>
@@ -1276,13 +1686,70 @@
 <li>LUCI 配置</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LuCI &gt; 1. Collections &gt; luci</div><div class="line">LuCI &gt; 2. Modules &gt; Translations &gt; Chinese (zh-cn)</div></pre></td></tr></table></figure>
-<h3 id="添加-USB-WIFI-Atheros-AR9170-AR9101-支持-非必需"><a href="#添加-USB-WIFI-Atheros-AR9170-AR9101-支持-非必需" class="headerlink" title="添加 USB WIFI [Atheros AR9170+AR9101] 支持(非必需)"></a>添加 USB WIFI [Atheros AR9170+AR9101] 支持(非必需)</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 001 Device 003: ID 0846:9001 NetGear, Inc. WN111(v2) RangeMax Next Wireless [Atheros AR9170+AR9101]</div></pre></td></tr></table></figure>
+<h3 id="Privoxy"><a href="#Privoxy" class="headerlink" title="Privoxy"></a>Privoxy</h3><ul>
+<li><a href="https://openwrt.org/docs/guide-user/services/proxy/privoxy" target="_blank" rel="external">proxy</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># cat /etc/config/privoxy </span></div><div class="line"></div><div class="line">config privoxy <span class="string">'privoxy'</span></div><div class="line">	option confdir <span class="string">'/etc/privoxy'</span></div><div class="line">	option logdir <span class="string">'/var/log'</span></div><div class="line">	option logfile <span class="string">'privoxy.log'</span></div><div class="line">	list filterfile <span class="string">'default.filter'</span></div><div class="line">	list actionsfile <span class="string">'match-all.action'</span></div><div class="line">	list actionsfile <span class="string">'default.action'</span></div><div class="line">	option toggle <span class="string">'1'</span></div><div class="line">	option enable_remote_toggle <span class="string">'1'</span></div><div class="line">	option enable_edit_actions <span class="string">'1'</span></div><div class="line">	option forwarded_connect_retries <span class="string">'0'</span></div><div class="line">	option keep_alive_timeout <span class="string">'300'</span></div><div class="line">	list permit_access <span class="string">'192.168.1.0/24'</span></div><div class="line">	option debug_512 <span class="string">'1'</span></div><div class="line">	option debug_4096 <span class="string">'1'</span></div><div class="line">	option debug_8192 <span class="string">'1'</span></div><div class="line">	list listen_address <span class="string">'192.168.1.1:8123'</span></div><div class="line">	<span class="comment"># 把privoxy接受来的Http转到本机的Socks5(ss-local).</span></div><div class="line">	list forward_socks5 <span class="string">'/ 127.0.0.1:1080 .'</span></div><div class="line"></div><div class="line">config system <span class="string">'system'</span></div><div class="line">	option boot_delay <span class="string">'10'</span></div></pre></td></tr></table></figure>
+<h3 id="Dynamic-DNS"><a href="#Dynamic-DNS" class="headerlink" title="Dynamic DNS"></a>Dynamic DNS</h3><ul>
+<li>这里安装动态域名，是为了通过IPv6去暴露内网的服务，或者方便远程管路由器了。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">LuCI-&gt; 3. Applications -&gt; luci-app-ddns</div><div class="line">[...]</div><div class="line">Network -&gt;</div><div class="line">  -&gt; IP Address and Names</div><div class="line">  &lt;*&gt;   ddns-scripts_cloudflare.com-v4..... CloudFlare.com API v4 (requires cURL)</div><div class="line">  &lt;*&gt;   ddns-scripts_freedns_42_pl </div><div class="line">  &lt;*&gt;   ddns-scripts_godaddy.com-v1................... GoDaddy.com (require cURL)</div><div class="line">  &lt; &gt;   ddns-scripts_no-ip_com...................... DDNS extension <span class="keyword">for</span> No-IP.com</div><div class="line">  &lt; &gt;   ddns-scripts_nsupdate................. DDNS extension using Bind nsupdate</div><div class="line">  &lt;*&gt;   ddns-scripts_route53-v1....................... Amazon AWS Route 53 API v1</div></pre></td></tr></table></figure>
+<h4 id="注册-dynv6-com"><a href="#注册-dynv6-com" class="headerlink" title="注册 dynv6.com"></a>注册 dynv6.com</h4><ul>
+<li>这里就使用<a href="https://dynv6.com" target="_blank" rel="external">dynv6.com</a>的免费域名。注册帐号-&gt;激活帐号-&gt;创建域名。测试的过程中在<code>Luci</code>里添加后参数，生成脚本有错误，下面直接改配置文件处理。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">root@OpenWrt:~<span class="comment"># cat  /etc/config/ddns </span></div><div class="line"></div><div class="line">config ddns <span class="string">'global'</span></div><div class="line">	option ddns_dateformat <span class="string">'%F %R'</span></div><div class="line">	option ddns_loglines <span class="string">'250'</span></div><div class="line">	option ddns_rundir <span class="string">'/var/run/ddns'</span></div><div class="line">	option ddns_logdir <span class="string">'/var/log/ddns'</span></div><div class="line"></div><div class="line">config service <span class="string">'myddns_ipv4'</span></div><div class="line">	option lookup_host <span class="string">'yourhost.example.com'</span></div><div class="line">	option domain <span class="string">'yourhost.example.com'</span></div><div class="line">	option username <span class="string">'your_username'</span></div><div class="line">	option password <span class="string">'your_password'</span></div><div class="line">	option interface <span class="string">'wan'</span></div><div class="line">	option ip_source <span class="string">'network'</span></div><div class="line">	option ip_network <span class="string">'wan'</span></div><div class="line">	option service_name <span class="string">'dyn.com'</span></div><div class="line">	option enabled <span class="string">'0'</span></div><div class="line"></div><div class="line">config service <span class="string">'myddns_ipv6'</span></div><div class="line">	option use_ipv6 <span class="string">'1'</span></div><div class="line">	option enabled <span class="string">'1'</span></div><div class="line">	option force_unit <span class="string">'minutes'</span></div><div class="line">	option service_name <span class="string">'dynv6.com'</span></div><div class="line">	option retry_unit <span class="string">'seconds'</span></div><div class="line">	option interface <span class="string">'pppoe-wan'</span>     <span class="comment"># 这里使用的接口是WAN_6,从ISP获取来的。这个就是把路由的IPv6的公网地址上传了。</span></div><div class="line">	option ip_interface <span class="string">'pppoe-wan'</span></div><div class="line">	option ip_source <span class="string">'interface'</span></div><div class="line">	option password <span class="string">'&lt;HTTP Tokens&gt;'</span>   <span class="comment"># dynv6.com 里生成的要Keys.</span></div><div class="line">	option check_unit <span class="string">'seconds'</span></div><div class="line">	option username <span class="string">'your_username'</span></div><div class="line">	option lookup_host <span class="string">'ipv6.dynv6.com'</span></div><div class="line">	option domain <span class="string">'xxxxx.dynv6.net'</span>   <span class="comment"># 注册的动态域名。</span></div></pre></td></tr></table></figure>
+<h1 id="dnsmasq-配置问题"><a href="#dnsmasq-配置问题" class="headerlink" title="dnsmasq 配置问题"></a>dnsmasq 配置问题</h1><ul>
+<li>开启了<code>重绑定保护</code>不能通过内网与本地访问该服务,默认拒绝解析包含私有 IP 地址的域名.如果打开了<code>no-resolv</code>，同时又不设置<code>resolv-file</code>的话，<code>dnsmasq</code>就会找不到默认的dns服务器来解析<code>xx.com</code>域名，如果你的代理服务器正好属于这类域名，将导致你无法连接到你的服务器。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">server=/.google.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.gstatic.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.googleusercontent.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.appspot.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.googlecode.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.googleapis.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.gmail.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.google-analytics.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.youtube.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.blogspot.com/127.0.0.1<span class="comment">#5053</span></div><div class="line">server=/.blogger.com/127.0.0.1<span class="comment">#5053</span></div></pre></td></tr></table></figure>
+<ul>
+<li>DNS测试，<code>https://www.dnsleaktest.com</code>,<code>http://entropy.dns-oarc.net/test/</code>,<code>https://dnssec.vs.uni-due.de/</code></li>
+</ul>
+<h4 id="转发到内网服务"><a href="#转发到内网服务" class="headerlink" title="转发到内网服务"></a>转发到内网服务</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root@OpenWrt:~<span class="comment"># cat /etc/config/firewall </span></div><div class="line">[....]</div><div class="line">config rule</div><div class="line">	option src <span class="string">'wan'</span></div><div class="line">	option name <span class="string">'camera'</span></div><div class="line">	option target <span class="string">'ACCEPT'</span></div><div class="line">	option family <span class="string">'ipv6'</span></div><div class="line">	option dest <span class="string">'lan'</span></div><div class="line">	list proto <span class="string">'tcp'</span></div><div class="line">	option dest_port <span class="string">'8888'</span></div><div class="line">	list dest_ip <span class="string">'2409:xxxx:0007:ebff:fe21:67f2'</span>  <span class="comment"># 局域网服务器IP。</span></div></pre></td></tr></table></figure>
+<ul>
+<li>如果要用到<code>IPv6端口转发</code>，要选择安装<code>Kernel Modules --&gt; Netfilter Extensions --&gt; kmod-ipt-nat6</code>,否则会有下面提示错误：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@OpenWrt:~<span class="comment"># /etc/init.d/firewall restart</span></div><div class="line">[...]</div><div class="line">* Rule <span class="string">'camera'</span></div><div class="line">     ! Skipping due to different family of ip address</div><div class="line">[...]</div><div class="line">* Running script <span class="string">'/etc/firewall.ss-rules'</span></div><div class="line">ss-rules: Skipping ipv6.  Requires ip6tables-mod-nat</div></pre></td></tr></table></figure>
+<h3 id="其它个性化配置"><a href="#其它个性化配置" class="headerlink" title="其它个性化配置"></a>其它个性化配置</h3><ul>
+<li>安装shadowsocks-libev</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">LuCI-&gt; 3. Applications -&gt; luci-app-shadowsocks-libev</div><div class="line">                     -&gt; luci-app-adblock</div><div class="line">                     -&gt; luci-app-simple-adblock</div><div class="line">                     -&gt; luci-app-https-dns-proxy </div><div class="line">                     -&gt; luci-app-shadowsocks-libev </div><div class="line">[...]</div><div class="line">Network-&gt; Web Servers/Proxies </div><div class="line">       ^  -&gt; shadowsocks-libev-ss-local</div><div class="line">          -&gt; shadowsocks-libev-ss-redir</div><div class="line">          -&gt; shadowsocks-libev-ss-rules</div><div class="line">          -&gt; shadowsocks-libev-ss-server</div><div class="line">          -&gt; shadowsocks-libev-ss-tunnel</div></pre></td></tr></table></figure>
+<ul>
+<li>使用<code>luci-app-https-dns-proxy</code>要特别意，选择后备服务器如：谷歌的｀/usr/sbin/https-dns-proxy -a 127.0.0.1 -p 5053 -b 8.8.8.8,8.8.4.4 -r <a href="https://dns.google/dns-query" target="_blank" rel="external">https://dns.google/dns-query</a> -u nobody -g nogroup -4｀，一定要有一个可用的<code>https_proxy</code>服务器，不然它会占用很高的CPU,使用<code>socks5</code>代理也不行。要在<code>/etc/config/https-dns-proxy</code>加上一行，如：<code>option proxy_server &#39;http:127.0.0.1:1080&#39;</code>,然而<code>Cloudflare</code>确运行的很好，不需要代理也行。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># nslookup openwrt.org 127.0.0.1</span></div><div class="line">Server:		127.0.0.1</div><div class="line">Address:	127.0.0.1<span class="comment">#53</span></div><div class="line"></div><div class="line">Name:      openwrt.org</div><div class="line">Address 1: 139.59.209.225</div><div class="line">Address 2: 2a03:b0c0:3:d0::1af1:1</div><div class="line"></div><div class="line">// 添加一个自定义转发查询。</div><div class="line">~<span class="comment"># uci add_list dhcp.@dnsmasq[0].server="/baidu.com/114.114.114.114"</span></div><div class="line">~<span class="comment"># uci commit dhcp</span></div><div class="line">~<span class="comment"># /etc/init.d/dnsmasq restart</span></div></pre></td></tr></table></figure>
+<ul>
+<li>添加ChinaDNS支持，<a href="https://github.com/shadowsocks/ChinaDNS" target="_blank" rel="external">参照这里ChinaDNS</a>,这个项目因为很久没有更新，所以要谨慎使用吧。首先进入到<code>openwrt</code>源码目录里,执行下面命令。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> openwrt</div><div class="line">~$ <span class="built_in">pushd</span> package</div><div class="line">~$ git <span class="built_in">clone</span> https://github.com/clowwindy/ChinaDNS.git</div><div class="line">~$ <span class="built_in">popd</span></div><div class="line">~$ make menuconfig <span class="comment"># 选择 Network/ChinaDNS，可以选择成M或者Y。</span></div><div class="line">~$ make -j </div><div class="line">~$ make V=99 package/ChinaDNS/openwrt/compile</div></pre></td></tr></table></figure>
+<h3 id="WireGuard支持"><a href="#WireGuard支持" class="headerlink" title="WireGuard支持"></a>WireGuard支持</h3><ul>
+<li>配置选择,<a href="https://chrisbuchan.co.uk/uncategorized/wireguard-setup-openwrt/" target="_blank" rel="external">Wireguard setup Openwrt</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Kernel modules -&gt; Network Support -&gt; kmod-wireguard</div><div class="line">LuCI-&gt; 3. Protocols -&gt; luci-proto-wireguard</div></pre></td></tr></table></figure>
+<ul>
+<li>安装完成后，进入到路由器Shell里生成公私钥，</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ ssh root@192.168.1.1</div><div class="line">~$ mkdir /etc/wireguard/  &amp;&amp; <span class="built_in">cd</span> /etc/wireguard</div><div class="line">~$ wg genkey | tee privatekey | wg pubkey &gt; publickey</div></pre></td></tr></table></figure>
+<ul>
+<li><p>再进入到路由器的WEB界面，这里演示的是把<code>openwrt</code>路由器做为一个客户端<code>Peer</code>示例。打开<code>Network-&gt;Interaces</code>菜单，新建一个接口，协议选择<code>WireGuard VPN</code>,输入一个名字后点击新建，<code>Private key</code>就填入上面的<code>privatekey</code>里的内容，<code>IP Addresses</code>填入一个VPN的内网地址段如:<code>172.16.0.5/24</code>,再打开<code>Peer</code>选项，添加一个<code>Peer</code>.<code>Public Key</code>是对端服务器端的<code>Public key</code>,<code>Allowed IPs</code>写入<code>172.16.0.5/24</code>,<code>Endpoint Host</code>就是对端服务器IP或域名，<code>Endpoint Port</code>默认是<code>51820</code>，<code>Persistent Keep Alive</code>建议写25如果在一个NAT后面的话，点击保成并使配置生效。</p>
+</li>
+<li><p>还要在防火墙上加一条规则: WAN口端任何源端口是51820来的访问都要接受。</p>
+</li>
+</ul>
+<h2 id="添加-USB-WIFI-Atheros-AR9170-AR9101-支持-非必需"><a href="#添加-USB-WIFI-Atheros-AR9170-AR9101-支持-非必需" class="headerlink" title="添加 USB WIFI [Atheros AR9170+AR9101] 支持(非必需)"></a>添加 USB WIFI [Atheros AR9170+AR9101] 支持(非必需)</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bus 001 Device 003: ID 0846:9001 NetGear, Inc. WN111(v2) RangeMax Next Wireless [Atheros AR9170+AR9101]</div></pre></td></tr></table></figure>
 <ul>
 <li>支持<code>WN111(v2)</code>网卡的选项, <strong>Kernel modules -&gt; Wirless Drivers</strong></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-*- kmod-ath...................................... Atheros common driver part --&gt;</div><div class="line">	[*]   Force Atheros drivers to respect the user\<span class="string">'s regdomain settings</span></div><div class="line">    [*]   Atheros wireless debugging  # 这里为可选.</div><div class="line">	[*]   Enable DFS support</div><div class="line">    [*]   Atheros spectral scan support</div><div class="line">[...]</div><div class="line">#下面这两项为必选</div><div class="line">&lt;*&gt; kmod-ath9k-htc........................ Atheros 802.11n USB device support</div><div class="line">&lt;*&gt; kmod-carl9170....................... Driver for Atheros AR9170 USB sticks</div></pre></td></tr></table></figure>
-<h3 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ make -j1 V=s  <span class="comment"># 可以详细输出编译日志</span></div><div class="line"></div><div class="line">$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/</div><div class="line">$ ssh root@192.168.199.1</div><div class="line">$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware</div><div class="line">reboot</div></pre></td></tr></table></figure>
-<h3 id="备份，恢得"><a href="#备份，恢得" class="headerlink" title="备份，恢得"></a>备份，恢得</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># cat /proc/mtd </span></div><div class="line">dev:    size   erasesize  name</div><div class="line">mtd0: 00030000 00001000 <span class="string">"u-boot"</span></div><div class="line">mtd1: 00010000 00001000 <span class="string">"u-boot-env"</span></div><div class="line">mtd2: 00010000 00001000 <span class="string">"factory"</span></div><div class="line">mtd3: 00fb0000 00001000 <span class="string">"firmware"</span></div><div class="line">mtd4: 001a0583 00001000 <span class="string">"kernel"</span></div><div class="line">mtd5: 00e0fa7d 00001000 <span class="string">"rootfs"</span></div><div class="line">mtd6: 008c8000 00001000 <span class="string">"rootfs_data"</span></div></pre></td></tr></table></figure>
+<h1 id="编译-刷机"><a href="#编译-刷机" class="headerlink" title="编译,刷机"></a>编译,刷机</h1><ul>
+<li>如果原来镜像，有选择编译了<code>Luci-&gt;Modules-&gt;luci-mode-failsafe</code>模块时，可以通过路由器界面上的<code>failsafe</code>上传更新。刷新前最好<code>下载备份(如：backup-OpenWrt-2020-03-24.tar.gz)</code>路由器的配置，如果<code>上传备份</code>文件重启之后不生效的话，可以把它解压出来是一个<code>etc</code>目录，使用<code>rsync etc route:/</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ make -j1 V=s  <span class="comment"># 可以详细输出编译日志</span></div><div class="line"></div><div class="line">$ scp bin/targets/ramips/mt7628/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin root@192.168.199.1:/tmp/</div><div class="line">$ ssh root@192.168.199.1</div><div class="line">$ mtd write /tmp/lede-ramips-mt7628-hc5661a-squashfs-sysupgrade.bin firmware</div><div class="line">reboot</div></pre></td></tr></table></figure>
+<h2 id="单独编译一个包"><a href="#单独编译一个包" class="headerlink" title="单独编译一个包"></a>单独编译一个包</h2><ul>
+<li>有时在编译openwrt时忘记勾选某个功能包时，可以在不需要重新编译整个系统时单独增量编译一个包。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> openwrt</div><div class="line">~$ make menuconfig  <span class="comment"># 用&lt;M&gt;选择需要编译的包。</span></div></pre></td></tr></table></figure>
+<h2 id="备份，恢复"><a href="#备份，恢复" class="headerlink" title="备份，恢复"></a>备份，恢复</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># cat /proc/mtd </span></div><div class="line">dev:    size   erasesize  name</div><div class="line">mtd0: 00030000 00001000 <span class="string">"u-boot"</span></div><div class="line">mtd1: 00010000 00001000 <span class="string">"u-boot-env"</span></div><div class="line">mtd2: 00010000 00001000 <span class="string">"factory"</span></div><div class="line">mtd3: 00fb0000 00001000 <span class="string">"firmware"</span></div><div class="line">mtd4: 001a0583 00001000 <span class="string">"kernel"</span></div><div class="line">mtd5: 00e0fa7d 00001000 <span class="string">"rootfs"</span></div><div class="line">mtd6: 008c8000 00001000 <span class="string">"rootfs_data"</span></div></pre></td></tr></table></figure>
 <ul>
 <li>备份自定义系统信息，包括新安装的软件</li>
 </ul>
@@ -1299,9 +1766,52 @@
 <li>恢复默认设置</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~<span class="comment"># rm -rf /overlay/* &amp;&amp; reboot</span></div><div class="line"><span class="comment"># or </span></div><div class="line">~<span class="comment"># mtd -r erase rootfs_data</span></div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>烧写好固件,路由器的网关为 192.168.1.1 , 密码:无. 另外要注的是,如果要使用 2.4G 11N 的模式,一定把<strong>Allow legacy 802.11b rates </strong>默认勾选去掉,不然会出现<strong>能连接不能上网</strong>的问题,它位于 UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的 AP 里的<strong>Allow legacy 802.11b rates </strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G 里如果不把上面这个勾选去掉,内核会一直报错<strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</p>
+<h1 id="IPv6应用支持"><a href="#IPv6应用支持" class="headerlink" title="IPv6应用支持"></a>IPv6应用支持</h1><ul>
+<li><a href="https://openwrt.org/docs/guide-user/network/ipv6/start" target="_blank" rel="external">IPv6</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/firewall/fw3_configurations/fw3_ipv6_examples" target="_blank" rel="external">fw3 IPv6 configuration examples</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/base-system/dhcp_configuration#static_leases" target="_blank" rel="external">DNS and DHCP configuration examples</a></li>
+<li><p><a href="https://openwrt.org/docs/guide-user/base-system/uci" target="_blank" rel="external">UCI系统接口</a></p>
+</li>
+<li><p>因为每一个主机都能够获得一个公共的<code>IPv6</code>的地址，可以把内部服务转发去，可以<code>P2P</code>直连，可以应用到<code>IPv4</code>中需要用<code>NAT穿透</code>的场景应用。</p>
+</li>
+</ul>
+<h2 id="IPv6-PD模式"><a href="#IPv6-PD模式" class="headerlink" title="IPv6-PD模式"></a>IPv6-PD模式</h2><ul>
+<li>在<code>pppoe</code>拨号成功，会创建一个<code>WAN_6</code>的接口，同时会从<code>ISP</code>获得一个<code>IPv6</code>公网地址与<code>IPv6-PD</code>的前缀。同时在防火墙里有几条规则是可以让内网的机器可以获得<code>ISP</code>的分配的公网地址，同时可以直接从公网<code>ping6</code>到内网的公网<code>IPv6</code>的址。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">root@OpenWrt:~<span class="comment"># uci show firewall</span></div><div class="line">[...]</div><div class="line"><span class="comment"># 允许dhcpv6协议进入到内网</span></div><div class="line">firewall.@rule[3]=rule</div><div class="line">firewall.@rule[3].name=<span class="string">'Allow-DHCPv6'</span></div><div class="line">firewall.@rule[3].src=<span class="string">'wan'</span></div><div class="line">firewall.@rule[3].proto=<span class="string">'udp'</span></div><div class="line">firewall.@rule[3].src_ip=<span class="string">'fc00::/6'</span></div><div class="line">firewall.@rule[3].dest_ip=<span class="string">'fc00::/6'</span></div><div class="line">firewall.@rule[3].dest_port=<span class="string">'546'</span></div><div class="line">firewall.@rule[3].family=<span class="string">'ipv6'</span></div><div class="line">firewall.@rule[3].target=<span class="string">'ACCEPT'</span></div><div class="line">firewall.@rule[4]=rule</div><div class="line"><span class="comment"># 允许ICMP协议进入到内网</span></div><div class="line">firewall.@rule[4].name=<span class="string">'Allow-MLD'</span></div><div class="line">firewall.@rule[4].src=<span class="string">'wan'</span></div><div class="line">firewall.@rule[4].proto=<span class="string">'icmp'</span></div><div class="line">firewall.@rule[4].src_ip=<span class="string">'fe80::/10'</span></div><div class="line">firewall.@rule[4].icmp_type=<span class="string">'130/0'</span> <span class="string">'131/0'</span> <span class="string">'132/0'</span> <span class="string">'143/0'</span></div><div class="line">firewall.@rule[4].family=<span class="string">'ipv6'</span></div><div class="line">firewall.@rule[4].target=<span class="string">'ACCEPT'</span></div><div class="line"><span class="comment"># 允许ICMPv6协议进入到内网</span></div><div class="line">firewall.@rule[5]=rule</div><div class="line">firewall.@rule[5].name=<span class="string">'Allow-ICMPv6-Input'</span></div><div class="line">firewall.@rule[5].src=<span class="string">'wan'</span></div><div class="line">firewall.@rule[5].proto=<span class="string">'icmp'</span></div><div class="line">firewall.@rule[5].icmp_type=<span class="string">'echo-request'</span> <span class="string">'echo-reply'</span> <span class="string">'destination-unreachable'</span> <span class="string">'packet-too-big'</span> <span class="string">'time-exceeded'</span> <span class="string">'bad-header'</span> <span class="string">'unknown-header-type'</span> <span class="string">'router-solicitation'</span> <span class="string">'neighbour-solicitation'</span> <span class="string">'router-advertisement'</span> <span class="string">'neighbour-advertisement'</span></div><div class="line">firewall.@rule[5].limit=<span class="string">'1000/sec'</span></div><div class="line">firewall.@rule[5].family=<span class="string">'ipv6'</span></div><div class="line">firewall.@rule[5].target=<span class="string">'ACCEPT'</span></div><div class="line"><span class="comment"># 允许ICMPv6协议进入到内网,就是可以ping到内网。</span></div><div class="line">firewall.@rule[6]=rule</div><div class="line">firewall.@rule[6].name=<span class="string">'Allow-ICMPv6-Forward'</span></div><div class="line">firewall.@rule[6].src=<span class="string">'wan'</span></div><div class="line">firewall.@rule[6].dest=<span class="string">'*'</span></div><div class="line">firewall.@rule[6].proto=<span class="string">'icmp'</span></div><div class="line">firewall.@rule[6].icmp_type=<span class="string">'echo-request'</span> <span class="string">'echo-reply'</span> <span class="string">'destination-unreachable'</span> <span class="string">'packet-too-big'</span> <span class="string">'time-exceeded'</span> <span class="string">'bad-header'</span> <span class="string">'unknown-header-type'</span></div><div class="line">firewall.@rule[6].limit=<span class="string">'1000/sec'</span></div><div class="line">firewall.@rule[6].family=<span class="string">'ipv6'</span></div><div class="line">firewall.@rule[6].target=<span class="string">'ACCEPT'</span></div><div class="line">firewall.@rule[6].enabled=<span class="string">'0'</span></div></pre></td></tr></table></figure>
+<ul>
+<li>转发内网服务,下面这条规则相当于，是开放<code>lan</code>里的所有<code>ipv6</code>的<code>8888</code>端的<code>tcp</code>访问。这条规规还可以限定<code>dest_ip</code>,但是这个<code>IPv6-PD</code>是在一定时间后或重启后动态改变的，<code>IPv6-PD</code>改变之后这条规则就失效了。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">config rule</div><div class="line">	option src <span class="string">'wan'</span></div><div class="line">	option name <span class="string">'camera'</span></div><div class="line">	option target <span class="string">'ACCEPT'</span></div><div class="line">	option family <span class="string">'ipv6'</span></div><div class="line">	option dest <span class="string">'lan'</span></div><div class="line">	list proto <span class="string">'tcp'</span></div><div class="line">	option dest_port <span class="string">'8888'</span></div></pre></td></tr></table></figure>
+<h2 id="NAT6模式"><a href="#NAT6模式" class="headerlink" title="NAT6模式"></a>NAT6模式</h2><h3 id="修改ULA前缀参数"><a href="#修改ULA前缀参数" class="headerlink" title="修改ULA前缀参数"></a>修改ULA前缀参数</h3><ul>
+<li>修改<code>ULA-Prefix</code>，这个不是必需的，只是为了与内部地址区分开来。从<code>Luci</code>界面操作就是打开<code>Network--&gt;Interfaces--&gt;Global network options--&gt;IPv6 ULA-Prefix</code>，<br>把第一个<code>fd0c:xxxx:xxxx::/48</code>这样的字串，最前面那个<code>f-&gt;d</code>.<code>uci</code>命令行接口操作如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@OpenWrt:~<span class="comment">#  uci set network.globals.ula_prefix="$(uci get network.globals.ula_prefix | sed -e "s/^./d/")"</span></div><div class="line">root@OpenWrt:~<span class="comment">#  uci commit network</span></div><div class="line">root@OpenWrt:~<span class="comment"># /etc/init.d/network restart</span></div></pre></td></tr></table></figure>
+<h3 id="修改DHCPv6参数"><a href="#修改DHCPv6参数" class="headerlink" title="修改DHCPv6参数"></a>修改DHCPv6参数</h3><ul>
+<li><p>打开<code>Interfaces-&gt;Interfaces-&gt;LAN-&gt;DHCP Server-&gt;IPv6 Settings</code>.</p>
+<ol>
+<li><code>DHCPv6-Service</code> 改选成 <code>disabled</code>.</li>
+<li><code>NDP-Proxy</code> 改选成<code>disabled</code>。</li>
+<li>勾选上<code>Always announce default router</code>。保存并应用。</li>
+</ol>
+</li>
+<li><p>uci本看显示如下所示：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">root@OpenWrt:~<span class="comment"># uci show dhcp.lan</span></div><div class="line">dhcp.lan=dhcp</div><div class="line">dhcp.lan.interface=<span class="string">'lan'</span></div><div class="line">dhcp.lan.start=<span class="string">'100'</span></div><div class="line">dhcp.lan.limit=<span class="string">'150'</span></div><div class="line">dhcp.lan.leasetime=<span class="string">'12h'</span></div><div class="line">dhcp.lan.ra=<span class="string">'server'</span></div><div class="line">dhcp.lan.ra_slaac=<span class="string">'1'</span></div><div class="line">dhcp.lan.ra_flags=<span class="string">'managed-config'</span> <span class="string">'other-config'</span></div><div class="line">dhcp.lan.ra_default=<span class="string">'1'</span></div><div class="line">dhcp.lan.dhcpv6=<span class="string">'server'</span></div><div class="line">dhcp.lan.ra_management=<span class="string">'1'</span></div></pre></td></tr></table></figure>
+<h2 id="NAT6转发脚本-用处不大"><a href="#NAT6转发脚本-用处不大" class="headerlink" title="NAT6转发脚本(用处不大)"></a>NAT6转发脚本(用处不大)</h2><ul>
+<li>它的规则与原理与nat差不多，用的是<code>ip6tables</code>。具体可以参照<a href="https://openwrt.org/docs/guide-user/network/ipv6/ipv6.nat6" target="_blank" rel="external"><strong>NAT6 and IPv6 masquerading</strong></a>官方文档。</li>
+</ul>
+<h1 id="编译其它未支持的网卡驱动-加载出错"><a href="#编译其它未支持的网卡驱动-加载出错" class="headerlink" title="编译其它未支持的网卡驱动(加载出错)"></a>编译其它未支持的网卡驱动(加载出错)</h1><ul>
+<li>这里尝式编译一个<code>Bus 001 Device 003: ID 0bda:0811 Realtek Semiconductor Corp.</code>驱动，使用的源码是<a href="https://github.com/aircrack-ng/rtl8812au" target="_blank" rel="external">aircrack-ng/rtl8812au</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">~$ git <span class="built_in">clone</span> https://github.com/aircrack-ng/rtl8812au</div><div class="line">~$ <span class="built_in">cd</span> rtl8812au</div><div class="line"></div><div class="line"><span class="comment"># 依照Makefile的文件格式，添加有如下内容在Makefile里.</span></div><div class="line">~$ cat Makefile</div><div class="line">[....]</div><div class="line">CONFIG_PLATFORM_MIPS_MT7620 = y</div><div class="line">[....]</div><div class="line">ifeq ($(CONFIG_PLATFORM_MIPS_MT7620), y)</div><div class="line">EXTRA_CFLAGS += -DCONFIG_IOCTL_CFG80211 -DRTW_USE_CFG80211_STA_EVENT</div><div class="line">ARCH := mips</div><div class="line">CROSS_COMPILE := mipsel-openwrt-linux-musl-</div><div class="line">STAGING_DIR := ./</div><div class="line">KSRC := /home/alex/test_openwrt/tmp/linux-2.6.30.9</div><div class="line">endif</div><div class="line">[.....]</div><div class="line"></div><div class="line"><span class="comment"># openwrt编译成功后，会看下面的目录 。</span></div><div class="line">~$ <span class="built_in">export</span> STAGING_DIR=/fullpath/openwrt/staging_dir</div><div class="line">~$ <span class="built_in">export</span> PATH=<span class="variable">$STAGING_DIR</span>/toolchain-mipsel_24kc_gcc-7.5.0_musl/bin:<span class="variable">$PATH</span></div><div class="line">~$ <span class="built_in">export</span> KERNEL_SRC=/fullpath/openwrt/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7620/linux-4.14.171</div><div class="line"></div><div class="line">~$  ARCH=mips CROSS_COMPILE=mipsel-openwrt-linux-musl- make KVER=4.14.171 KSRC=<span class="variable">$KERNEL_SRC</span></div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>烧写好固件,路由器的网关为<code>192.168.1.1</code> , 密码:无. 另外要注的是,如果要使用 <code>2.4G 11N</code> 的模式,一定把<strong>Allow legacy 802.11b rates </strong>默认勾选去掉,不然会出现<strong>能连接不能上网</strong>的问题,它位于 UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的 AP 里的<strong>Allow legacy 802.11b rates </strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G 里如果不把上面这个勾选去掉,内核会一直报错<strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</li>
+</ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者 yjdwbj@gmail.com</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -1420,7 +1930,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-22 21:27:49" itemprop="dateModified" datetime="2019-03-22T21:27:49+08:00">2019-03-22</time>
+                <time title="修改时间：2020-02-27 22:43:40" itemprop="dateModified" datetime="2020-02-27T22:43:40+08:00">2020-02-27</time>
               
             
           </span>
@@ -1504,6 +2014,7 @@
 <hr>
 <h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者: yjdwbj@gmail.com</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -1622,7 +2133,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-05 22:08:48" itemprop="dateModified" datetime="2019-11-05T22:08:48+08:00">2019-11-05</time>
+                <time title="修改时间：2020-02-25 08:28:53" itemprop="dateModified" datetime="2020-02-25T08:28:53+08:00">2020-02-25</time>
               
             
           </span>
@@ -1763,6 +2274,7 @@
 </ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -1881,7 +2393,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-05 22:06:11" itemprop="dateModified" datetime="2019-11-05T22:06:11+08:00">2019-11-05</time>
+                <time title="修改时间：2020-02-25 08:28:48" itemprop="dateModified" datetime="2020-02-25T08:28:48+08:00">2020-02-25</time>
               
             
           </span>
@@ -1972,6 +2484,7 @@
 <hr>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -2090,7 +2603,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-07-10 09:21:26" itemprop="dateModified" datetime="2018-07-10T09:21:26+08:00">2018-07-10</time>
+                <time title="修改时间：2020-02-25 08:30:04" itemprop="dateModified" datetime="2020-02-25T08:30:04+08:00">2020-02-25</time>
               
             
           </span>
@@ -2209,244 +2722,9 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"></div><div class="line">/* C++ 中需要导出三个函数 */</div><div class="line">extern <span class="string">"C"</span> &#123;</div><div class="line">int ffmpeg(int argc,char *argv[]) //原ffmpeg程序的入口函数</div><div class="line">int sigterm_handler(int sig); // 终止ffmpeg程序</div><div class="line">void av_log_set_callback(void (*callback)(void*, int, const char*, va_list)); // 设置日志打印的回调函数.</div><div class="line">&#125;;</div><div class="line"></div><div class="line">[...]</div><div class="line"></div><div class="line">MainWindow::MainWindow(QWidget *parent) :</div><div class="line">    QMainWindow(parent),</div><div class="line">    //out(stdout, QIODevice::WriteOnly),</div><div class="line">    ui(new Ui::MainWindow),</div><div class="line">&#123;</div><div class="line">[...]</div><div class="line"></div><div class="line">            QList&lt;QByteArray&gt; tmp;</div><div class="line">            tmp &lt;&lt; <span class="string">"ffmpeg"</span></div><div class="line">                &lt;&lt; <span class="string">"-v"</span> &lt;&lt; <span class="string">"quiet"</span>  &lt;&lt; <span class="string">"-y"</span></div><div class="line">                // Video Size 要在<span class="_">-f</span> 的前面.</div><div class="line">                &lt;&lt; <span class="string">"-video_size"</span> &lt;&lt; wsize.toLocal8Bit()</div><div class="line">                &lt;&lt; <span class="string">"-framerate"</span> &lt;&lt; <span class="string">"15"</span></div><div class="line">       <span class="comment">#if _WIN32</span></div><div class="line">                &lt;&lt; <span class="string">"-f"</span> &lt;&lt; <span class="string">"gdigrab"</span></div><div class="line">                &lt;&lt; <span class="string">"-i"</span> &lt;&lt; <span class="string">"desktop"</span></div><div class="line">                &lt;&lt; <span class="string">"-offset_x"</span> &lt;&lt; QString(<span class="string">"%1"</span>).arg(QString::number(mWindow-&gt;pos().x())).toLocal8Bit()</div><div class="line">                &lt;&lt; <span class="string">"-offset_y"</span>  &lt;&lt; QString(<span class="string">"%1"</span>).arg(QString::number(mWindow-&gt;pos().x())).toLocal8Bit()</div><div class="line">       <span class="comment">#else</span></div><div class="line">                &lt;&lt; <span class="string">"-f"</span> &lt;&lt; <span class="string">"x11grab"</span></div><div class="line">                &lt;&lt; <span class="string">"-i"</span> &lt;&lt; pos.toLocal8Bit()</div><div class="line"></div><div class="line">       <span class="comment">#endif</span></div><div class="line">                &lt;&lt; <span class="string">"-vcodec"</span> &lt;&lt; <span class="string">"huffyuv"</span></div><div class="line">                &lt;&lt; <span class="string">"-pix_fmt"</span> &lt;&lt; <span class="string">"yuv422p"</span></div><div class="line">                &lt;&lt; outputvideo;</div><div class="line"></div><div class="line">            char *argv[tmp.size()+1] = &#123;NULL&#125;;</div><div class="line">            <span class="keyword">for</span>(int i =0 ;i &lt; tmp.size() ;i++)</div><div class="line">            &#123;</div><div class="line">                argv[i] = tmp[i].data();</div><div class="line">            &#125;</div><div class="line">            ffmpeg(tmp.size(),argv);</div><div class="line">[...]</div></pre></td></tr></table></figure>
 <h4 id="录制效果图"><a href="#录制效果图" class="headerlink" title="录制效果图"></a>录制效果图</h4><p><img src="/imgs/2017-01-21-12-49-output.gif" alt=""></p>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/08/Qt的一些开发技巧/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/08/Qt的一些开发技巧/" itemprop="url">
-                  Qt的一些开发技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-08 08:14:44" itemprop="dateCreated datePublished" datetime="2017-01-08T08:14:44+08:00">2017-01-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-05 22:04:02" itemprop="dateModified" datetime="2019-11-05T22:04:02+08:00">2019-11-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Qt/" itemprop="url" rel="index"><span itemprop="name">Qt</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Lambda-匿名函数"><a href="#Lambda-匿名函数" class="headerlink" title="Lambda 匿名函数"></a>Lambda 匿名函数</h3><ul>
-<li>有时候槽函数代码辑逻辑非常简单,可以直接用下面的<code>Lambda匿名函数</code>处理信号,简捷明了.需<code>c++11</code>支持,不支持自身递归调用.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">QComboBox *cb = new QComboBox(this);</div><div class="line">QObject::connect(cb,&amp;QComboBox::currentTextChanged,[=](QString txt)&#123;</div><div class="line">                       [...]</div><div class="line">                       baseform-&gt;changeJsonValue(btn,uname,</div><div class="line">                                               baseform-&gt;mWindow-&gt;mItemMap.key(txt));</div><div class="line">                       [...]</div><div class="line">                    &#125;);</div></pre></td></tr></table></figure>
-<ul>
-<li>函数内部的匿名函数</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">void ActionList::onCustomContextMenu(const QPoint &amp;pos)</div><div class="line">&#123;</div><div class="line"></div><div class="line">  [...]</div><div class="line">  auto sawp_lambda_func = [this](int src,int dst) &#123;</div><div class="line"></div><div class="line">                QVariantList oldvals;</div><div class="line">                <span class="keyword">for</span>(int i  = 0 ; i &lt; mTable-&gt;columnCount();i++)</div><div class="line">                &#123;</div><div class="line">                    QWidget *w = mTable-&gt;cellWidget(src,i);</div><div class="line"></div><div class="line"></div><div class="line">                    <span class="keyword">if</span>(!QString::compare(w-&gt;metaObject()-&gt;className(),<span class="string">"QComboBox"</span>))</div><div class="line">                    &#123;</div><div class="line">                        oldvals.append(((QComboBox*)w)-&gt;currentText());</div><div class="line">                    &#125;<span class="keyword">else</span>&#123;</div><div class="line">                        oldvals.append(((QLineEdit*)w)-&gt;text());</div><div class="line">                    &#125;</div><div class="line">                    QObject::disconnect(w);</div><div class="line">                    mTable-&gt;removeCellWidget(src,i);</div><div class="line">                    w-&gt;deleteLater();</div><div class="line"></div><div class="line">                &#125;</div><div class="line">                mTable-&gt;removeRow(src);</div><div class="line">                [...]</div><div class="line">            &#125;;</div><div class="line"></div><div class="line"></div><div class="line">            QAction  up(QIcon(<span class="string">":/icon/icons/act_up.png"</span>)  ,</div><div class="line">                        QString(<span class="string">"上移一行"</span>),this);</div><div class="line">            QObject::connect(&amp;up,</div><div class="line">                             &amp;QAction::triggered,[=]()&#123;</div><div class="line">                    sawp_lambda_func(line,line-1);</div><div class="line">            &#125;);</div><div class="line">  [...]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="模拟事件"><a href="#模拟事件" class="headerlink" title="模拟事件"></a>模拟事件</h3><ul>
-<li>一些 GUI 的操作,需要一些事件来完成,下面模拟一个鼠标 Release 的事件</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> QMouseEvent *event = new QMouseEvent(QMouseEvent::MouseButtonRelease,QCursor::pos(),</div><div class="line">                       Qt::LeftButton,Qt::LeftButton,Qt::NoModifier);</div><div class="line">     QApplication::postEvent(this,event);</div><div class="line">[...]</div></pre></td></tr></table></figure>
-<ul>
-<li>把事件转换成对其它控件的事件</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">void NewGrid::wheelEvent(QWheelEvent *event)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(sliderOrientation == Qt::Horizontal)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(event-&gt;orientation() != Qt::Horizontal)</div><div class="line">        &#123;</div><div class="line">            QWheelEvent  *evt = new QWheelEvent(event-&gt;pos(),event-&gt;globalPos(),</div><div class="line">                             event-&gt;delta(),</div><div class="line">                             event-&gt;buttons(),</div><div class="line">                             event-&gt;modifiers(),Qt::Horizontal);</div><div class="line">            QApplication::postEvent(mainScroll-&gt;horizontalScrollBar(),evt);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="元对像-动态属性"><a href="#元对像-动态属性" class="headerlink" title="元对像,动态属性"></a>元对像,动态属性</h3><p><strong>Meta-Object System 的基本功能</strong><br>Meta Object System 的设计基于以下几个基础设施：</p>
-<ul>
-<li>QObject 类<br>作为每一个需要利用元对象系统的类的基类</li>
-<li><p>Q<em>OBJECT 宏，<br>定义在每一个类的私有数据段，用来启用元对象功能，比如，动态属性，信号和槽<br>元对象编译器 moc (the Meta Object Complier)，<br>moc 分析 C ＋＋源文件，如果它发现在一个头文件(header file)中包含 Q_OBJECT 宏定义，然后动态的生成另外一个 C++源文件，这个新的源文件包含 Q_OBJECT 的实现代码，这个新的 C++ 源文件也会被编译、链接到这个类的二进制代码中去，因为它也是这个类的完整的一部分。通常，这个新的 C++ 源文件会在以前的 C++ 源文件名前面加上 moc</em> 作为新文件的文件名。其具体过程如下图所示：<br>除了提供在对象间进行通讯的机制外，元对象系统还包含以下几种功能：</p>
-</li>
-<li><p>QObject::metaObject() 方法<br>它获得与一个类相关联的 meta-object<br>QMetaObject::className() 方法<br>在运行期间返回一个对象的类名，它不需要本地 C++编译器的 RTTI(run-time type information)支持</p>
-</li>
-<li>QObject::inherits() 方法<br>它用来判断生成一个对象类是不是从一个特定的类继承出来，当然，这必须是在 QObject 类的直接或者间接派生类当中</li>
-<li>QObject::tr() and QObject::trUtf8()<br>这两个方法为软件的国际化翻译字符串</li>
-<li><p>QObject::setProperty() and QObject::property()<br>这两个方法根据属性名动态的设置和获取属性值</p>
-</li>
-<li><p>读写属性</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">QWidget *w = new QWidget()</div><div class="line">w-&gt;<span class="built_in">set</span>Property(<span class="string">"ABC1"</span>,4);</div><div class="line">w-&gt;<span class="built_in">set</span>Property(<span class="string">"ABC2"</span>,<span class="string">"dddddd"</span>);</div><div class="line"></div><div class="line">qDebug() &lt;&lt; w-&gt;property(<span class="string">"ABC1"</span>) &lt;&lt; w-&gt;property(<span class="string">"ABC2"</span>);</div></pre></td></tr></table></figure>
-<h3 id="布署安装"><a href="#布署安装" class="headerlink" title="布署安装"></a>布署安装</h3><ul>
-<li><p>对于开发 QT 程序来说，最好布署方法就是编译成静态执行文件，只是文件大一点.如果是动态编译就会有一些动态库链接路径的问题.比较特别的它要信赖<code>platforms</code>这个文件路经 .可以通过 <strong>QCoreApplication::addLibraryPath(“C:/WINDOWS/System32”);</strong>来指定。</p>
-</li>
-<li><p><a href="https://download.qt.io/development_releases/installer-framework/2.0.3/" target="_blank" rel="external">下载安装</a></p>
-</li>
-<li><p><a href="http://doc.qt.io/qtinstallerframework/index.html" target="_blank" rel="external">参考文档</a>，从样本模版里复制一份出来做相应的修改.</p>
-</li>
-<li><p>一个安装包的目录结构如下:</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">D:\QtDev\QtInstaller\netmon-root&gt;tree /F</div><div class="line">卷 新加卷 的文件夹 PATH 列表</div><div class="line">卷序列号码为 0006EE44 E462:E6DB</div><div class="line">D:.</div><div class="line">│  build.bat</div><div class="line">│</div><div class="line">├─config</div><div class="line">│      config.xml</div><div class="line">│</div><div class="line">└─packages</div><div class="line">    └─com.vendor.product</div><div class="line">        ├─data</div><div class="line">        │  │  cares.dll</div><div class="line">        │  │  libcjson.dll</div><div class="line">        │  │  libcrypto-1_1.dll</div><div class="line">        │  │  libcurl.dll</div><div class="line">        │  │  libeay32_.dll</div><div class="line">        │  │  libgcc_s_dw2-1.dll</div><div class="line">        │  │  libmosquitto.dll</div><div class="line">        │  │  libssl-1_1.dll</div><div class="line">        │  │  libssp-0.dll</div><div class="line">        │  │  libstdc++-6.dll</div><div class="line">        │  │  libwinpthread-1.dll</div><div class="line">        │  │  libz_.dll</div><div class="line">        │  │  netmon-tray.exe</div><div class="line">        │  │  netmonui_i686.dll</div><div class="line">        │  │  <span class="built_in">print</span>-mon_i686.dll</div><div class="line">        │  │  qt.conf</div><div class="line">        │  │  Qt5Core.dll</div><div class="line">        │  │  Qt5Gui.dll</div><div class="line">        │  │  Qt5Network.dll</div><div class="line">        │  │  Qt5Widgets.dll</div><div class="line">        │  │  ssleay32_.dll</div><div class="line">        │  │</div><div class="line">        │  ├─imageformats</div><div class="line">        │  │      qdds.dll</div><div class="line">        │  │      qgif.dll</div><div class="line">        │  │      qicns.dll</div><div class="line">        │  │      qico.dll</div><div class="line">        │  │      qjpeg.dll</div><div class="line">        │  │      qsvg.dll</div><div class="line">        │  │      qtga.dll</div><div class="line">        │  │      qtiff.dll</div><div class="line">        │  │      qwbmp.dll</div><div class="line">        │  │      qwebp.dll</div><div class="line">        │  │</div><div class="line">        │  └─platforms</div><div class="line">        │          qminimal.dll</div><div class="line">        │          qoffscreen.dll</div><div class="line">        │          qwindows.dll</div><div class="line">        │</div><div class="line">        └─meta</div><div class="line">                installscript.qs</div><div class="line">                license.txt</div><div class="line">                package.xml</div><div class="line">                page.ui</div></pre></td></tr></table></figure>
-<ul>
-<li>package.xml</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">Package</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">DisplayName</span>&gt;</span>显示名字<span class="tag">&lt;/<span class="name">DisplayName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Description</span>&gt;</span>随便写一些东西<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Version</span>&gt;</span>0.1.0-1<span class="tag">&lt;/<span class="name">Version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ReleaseDate</span>&gt;</span>2017-05-11<span class="tag">&lt;/<span class="name">ReleaseDate</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Default</span>&gt;</span>script<span class="tag">&lt;/<span class="name">Default</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Script</span>&gt;</span><span class="undefined">installscript.qs</span><span class="tag">&lt;/<span class="name">Script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">UserInterfaces</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">UserInterface</span>&gt;</span>page.ui<span class="tag">&lt;/<span class="name">UserInterface</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">UserInterfaces</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Package</span>&gt;</span></div></pre></td></tr></table></figure>
-<ul>
-<li>config.xml</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">Installer</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Name</span>&gt;</span>程序名字<span class="tag">&lt;/<span class="name">Name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">Version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Title</span>&gt;</span>程序的抬头<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Publisher</span>&gt;</span>yjdwbj@gmail.com<span class="tag">&lt;/<span class="name">Publisher</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">StartMenuDir</span>&gt;</span>网络打印客户端<span class="tag">&lt;/<span class="name">StartMenuDir</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">TargetDir</span>&gt;</span>@ApplicationsDir@/NetMon<span class="tag">&lt;/<span class="name">TargetDir</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Installer</span>&gt;</span></div></pre></td></tr></table></figure>
-<ul>
-<li>isntallscript.qs</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function Component()</div><div class="line">&#123;</div><div class="line">    // constructor</div><div class="line">    component.loaded.connect(this, Component.prototype.loaded);</div><div class="line">    // 安装完成后自动连接到自动运行的函数</div><div class="line">   installer.installationFinished.connect(this,Component.prototype.InstallationFinishedAndRun);</div><div class="line">    installer.finishButtonClicked.connect(this,Component.prototype.installationFinished);</div><div class="line">   // if (!installer.addWizardPage(component, &quot;Page&quot;, QInstaller.TargetDirectory))</div><div class="line">   //     console.log(&quot;Could not add the dynamic page.&quot;);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Component.prototype.createOperations = function()</div><div class="line">&#123;</div><div class="line">    try &#123;</div><div class="line">        // call the base create operations function</div><div class="line">        component.createOperations();</div><div class="line">        component.addOperation(&quot;CreateShortcut&quot;,&quot;C:/WINDOWS/System32/netmon-tray.exe&quot;,</div><div class="line">                                &quot;@StartMenuDir@/网络打印机客户端/网络打印机客户端.lnk&quot;,&quot;@workDirectory=@TargetDir@&quot;);</div><div class="line">        component.addOperation(&quot;CreateShortcut&quot;,&quot;@TargetDir@/maintenancetool.exe&quot;,</div><div class="line">                                                        &quot;@StartMenuDir@/网络打印机客户端/卸载.lnk&quot;,&quot;@workDirectory=@TargetDir@&quot;);</div><div class="line"></div><div class="line">    &#125; catch (e) &#123;</div><div class="line">        console.log(e);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">Component.prototype.createOperationsForArchive = function(archive)</div><div class="line">&#123;</div><div class="line">    # packages\com.vendor.product\data　下面文件全部解压到system32里。</div><div class="line">    component.addOperation(&quot;Extract&quot;, archive, &quot;C:/WINDOWS/System32&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">Version:1.0 StartHTML:0000000107 EndHTML:0000006210 StartFragment:0000000471 EndFragment:0000006172</div><div class="line">Component.prototype.InstallationFinishedAndRun = function()</div><div class="line">&#123;</div><div class="line">    try &#123;</div><div class="line">        if(installer.isInstaller() &amp;&amp; installer.status == QInstaller.Success)</div><div class="line">        &#123;</div><div class="line">             installer.addWizardPageItem(component,&quot;Page&quot;,QInstaller.InstallationFinished);</div><div class="line">        &#125;</div><div class="line">    &#125; catch (e) &#123;</div><div class="line">        console.log(e);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Component.prototype.installationFinished = function()</div><div class="line">&#123;</div><div class="line">    try &#123;</div><div class="line">        if(installer.isInstaller() &amp;&amp; installer.status == QInstaller.Success)</div><div class="line">        &#123;</div><div class="line">            var isRun = component.userInterface(&quot;Page&quot;).runCheckbox.checked;</div><div class="line">            if(isRun)</div><div class="line">            &#123;</div><div class="line">                QDesktopServices.openUrl(&quot;C:/WINDOWS/System32/netmon-tray.exe&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; catch (e) &#123;</div><div class="line">     console.log(e);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Page.ui</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</div><div class="line">&lt;ui version=<span class="string">"4.0"</span>&gt;</div><div class="line"> &lt;class&gt;Page&lt;/class&gt;</div><div class="line"> &lt;widget class=<span class="string">"QWidget"</span> name=<span class="string">"Page"</span>&gt;</div><div class="line">  &lt;property name=<span class="string">"geometry"</span>&gt;</div><div class="line">   &lt;rect&gt;</div><div class="line">    &lt;x&gt;0&lt;/x&gt;</div><div class="line">    &lt;y&gt;0&lt;/y&gt;</div><div class="line">    &lt;width&gt;400&lt;/width&gt;</div><div class="line">    &lt;height&gt;300&lt;/height&gt;</div><div class="line">   &lt;/rect&gt;</div><div class="line">  &lt;/property&gt;</div><div class="line">  &lt;property name=<span class="string">"windowTitle"</span>&gt;</div><div class="line">   &lt;string&gt;Dynamic page example&lt;/string&gt;</div><div class="line">  &lt;/property&gt;</div><div class="line">  &lt;layout class=<span class="string">"QVBoxLayout"</span> name=<span class="string">"verticalLayout"</span>&gt;</div><div class="line">   &lt;item&gt;</div><div class="line">    &lt;widget class=<span class="string">"QLabel"</span> name=<span class="string">"m_pageLabel"</span>&gt;</div><div class="line">     &lt;property name=<span class="string">"alignment"</span>&gt;</div><div class="line">      &lt;<span class="built_in">set</span>&gt;Qt::AlignCenter&lt;/<span class="built_in">set</span>&gt;</div><div class="line">     &lt;/property&gt;</div><div class="line">    &lt;/widget&gt;</div><div class="line">   &lt;/item&gt;</div><div class="line">   &lt;item&gt;</div><div class="line">    &lt;widget class=<span class="string">"QCheckBox"</span> name=<span class="string">"runCheckbox"</span>&gt;</div><div class="line">     &lt;property name=<span class="string">"text"</span>&gt;</div><div class="line">     &lt;string&gt;安装完成后，运行该程序&lt;/string&gt;</div><div class="line">     &lt;/property&gt;</div><div class="line">     &lt;property name=<span class="string">"checked"</span>&gt;</div><div class="line">     &lt;bool&gt;<span class="literal">true</span>&lt;/bool&gt;</div><div class="line">     &lt;/property&gt;</div><div class="line">     &lt;property name=<span class="string">"tristate"</span>&gt;</div><div class="line">     &lt;bool&gt;<span class="literal">false</span>&lt;/bool&gt;</div><div class="line">     &lt;/property&gt;</div><div class="line">    &lt;/widget&gt;</div><div class="line">   &lt;/item&gt;</div><div class="line">  &lt;/layout&gt;</div><div class="line"> &lt;/widget&gt;</div><div class="line"> &lt;resources/&gt;</div><div class="line"> &lt;connections/&gt;</div><div class="line">&lt;/ui&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>最后这里用一行脚本来生成一键安装包文件。</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">binarycreator --offline-only -c D:\QtDev\QtInstaller\netmon-root\config\config.xml -p D:\QtDev\QtInstaller\netmon-root\packages  <span class="string">"Z:/upload/appname－测试版%DATE%－%TIME::=_%.exe"</span></div></pre></td></tr></table></figure>
-<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
-<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -2538,7 +2816,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

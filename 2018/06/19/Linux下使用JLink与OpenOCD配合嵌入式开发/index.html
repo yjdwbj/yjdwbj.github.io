@@ -128,7 +128,7 @@ OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get instal
 <meta property="og:image" content="http://yoursite.com/imgs/sam-ba-main.png">
 <meta property="og:image" content="http://yoursite.com/imgs/sam-ba-no-lock.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2018-08-03T04:17:31.313Z">
+<meta property="og:updated_time" content="2020-02-25T00:27:18.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下使用JLink与OpenOCD配合嵌入式开发">
 <meta name="twitter:description" content="相关链接
@@ -373,7 +373,7 @@ OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get instal
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-08-03 12:17:31" itemprop="dateModified" datetime="2018-08-03T12:17:31+08:00">2018-08-03</time>
+                <time title="修改时间：2020-02-25 08:27:18" itemprop="dateModified" datetime="2020-02-25T08:27:18+08:00">2020-02-25</time>
               
             
           </span>
@@ -462,9 +462,9 @@ OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get instal
 </ul>
 <h2 id="windows-端口转发"><a href="#windows-端口转发" class="headerlink" title="windows 端口转发"></a>windows 端口转发</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface ipv6 install</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8889 listenaddress=192.168.1.235 connectport=2332 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy add v4tov4 listenport=8890 listenaddress=192.168.1.235 connectport=2333 connectaddress=127.0.0.1</div><div class="line">C:\Documents and Settings\Administrator&gt;netsh interface portproxy show v4tov4</div><div class="line"></div><div class="line">侦听 IPv4:                 连接到 IPv4:</div><div class="line"></div><div class="line">地址            端口        地址            端口</div><div class="line">--------------- ----------  --------------- ----------</div><div class="line">192.168.1.235   8888        127.0.0.1       2331</div><div class="line">192.168.1.235   8889        127.0.0.1       2332</div><div class="line">192.168.1.235   8890        127.0.0.1       2333</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="谢谢打赏支持"><a href="#谢谢打赏支持" class="headerlink" title="谢谢打赏支持"></a>谢谢打赏支持</h3><ul>
-<li>您的打赏将会鼓励我写出更多的博客。  </li>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="external">联系作者</a></li>
 </ul>
 <p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
 
@@ -590,7 +590,7 @@ OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get instal
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -739,7 +739,7 @@ OpenOCD安装123456789101112131415161718192021222324252627282930~ apt-get instal
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenOCD安装"><span class="nav-number">1.</span> <span class="nav-text">OpenOCD安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenOCD使用"><span class="nav-number">2.</span> <span class="nav-text">OpenOCD使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMSIS-DAP-连接"><span class="nav-number">2.1.</span> <span class="nav-text">CMSIS-DAP 连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J-Link使用"><span class="nav-number">2.2.</span> <span class="nav-text">J-Link使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J-Link-OB使用"><span class="nav-number">2.3.</span> <span class="nav-text">J-Link-OB使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JLink-恢复"><span class="nav-number">3.</span> <span class="nav-text">JLink 恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#擦除固件"><span class="nav-number">3.1.</span> <span class="nav-text">擦除固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SAM-BA烧写"><span class="nav-number">3.2.</span> <span class="nav-text">SAM-BA烧写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用JLink原生驱动与工具"><span class="nav-number">4.</span> <span class="nav-text">使用JLink原生驱动与工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-端口转发"><span class="nav-number">4.1.</span> <span class="nav-text">windows 端口转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢打赏支持"><span class="nav-number">4.1.1.</span> <span class="nav-text">谢谢打赏支持</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenOCD安装"><span class="nav-number">1.</span> <span class="nav-text">OpenOCD安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenOCD使用"><span class="nav-number">2.</span> <span class="nav-text">OpenOCD使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMSIS-DAP-连接"><span class="nav-number">2.1.</span> <span class="nav-text">CMSIS-DAP 连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J-Link使用"><span class="nav-number">2.2.</span> <span class="nav-text">J-Link使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J-Link-OB使用"><span class="nav-number">2.3.</span> <span class="nav-text">J-Link-OB使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JLink-恢复"><span class="nav-number">3.</span> <span class="nav-text">JLink 恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#擦除固件"><span class="nav-number">3.1.</span> <span class="nav-text">擦除固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SAM-BA烧写"><span class="nav-number">3.2.</span> <span class="nav-text">SAM-BA烧写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用JLink原生驱动与工具"><span class="nav-number">4.</span> <span class="nav-text">使用JLink原生驱动与工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-端口转发"><span class="nav-number">4.1.</span> <span class="nav-text">windows 端口转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.1.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -108,7 +108,7 @@ Android Studio 环境变量
 Android Gradle 插件版本说明
 Gradle for Android Developers - Getting the most of it
 
-Android-studio 3.1 error: style attribute ‘">
+常规错误123dl.google.com:443 failed to respondC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android错误集">
 <meta property="og:url" content="http://yoursite.com/2018/05/02/Android错误集/index.html">
@@ -119,9 +119,9 @@ Android Studio 环境变量
 Android Gradle 插件版本说明
 Gradle for Android Developers - Getting the most of it
 
-Android-studio 3.1 error: style attribute ‘">
+常规错误123dl.google.com:443 failed to respondC">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2020-05-17T10:10:50.113Z">
+<meta property="og:updated_time" content="2020-12-27T03:06:30.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android错误集">
 <meta name="twitter:description" content="Android Studio 和 Android Gradle 插件的已知问题
@@ -130,7 +130,7 @@ Android Studio 环境变量
 Android Gradle 插件版本说明
 Gradle for Android Developers - Getting the most of it
 
-Android-studio 3.1 error: style attribute ‘">
+常规错误123dl.google.com:443 failed to respondC">
 <meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
 
 
@@ -364,7 +364,7 @@ Android-studio 3.1 error: style attribute ‘">
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-05-17 18:10:50" itemprop="dateModified" datetime="2020-05-17T18:10:50+08:00">2020-05-17</time>
+                <time title="修改时间：2020-12-27 11:06:30" itemprop="dateModified" datetime="2020-12-27T11:06:30+08:00">2020-12-27</time>
               
             
           </span>
@@ -404,6 +404,10 @@ Android-studio 3.1 error: style attribute ‘">
 <li><a href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh_cn" target="_blank" rel="external">Android Gradle 插件版本说明</a></li>
 <li><a href="https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it" target="_blank" rel="external">Gradle for Android Developers - Getting the most of it</a></li>
 </ul>
+<h3 id="常规错误"><a href="#常规错误" class="headerlink" title="常规错误"></a>常规错误</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dl.google.com:443 failed to respond</div><div class="line">Could not resolve com.android.tools.build:gradle:4.0.1</div><div class="line">Could not resolve all artifacts <span class="keyword">for</span> configuration <span class="string">':classpath'</span></div></pre></td></tr></table></figure>
+<ul>
+<li>上面错误，主要是目标文件不可以访问，原因有：在整个的<code>repositories</code>内找不到对应版本的目标文件，或者是网络无法访问到目标服务器。</li>
+</ul>
 <h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found.</div><div class="line">Message&#123;kind=ERROR, text=error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</div></pre></td></tr></table></figure>
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ul>
 <li>修改<strong>app</strong>下的 build.gradle</li>
@@ -434,7 +438,7 @@ Android-studio 3.1 error: style attribute ‘">
 <ul>
 <li>通过终端去到工程目录下，使用<code>gradlew build</code>.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">~$ ./gradlew build </div><div class="line"></div><div class="line">[...]</div><div class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 7s</div><div class="line">1 actionable task: 1 executed</div><div class="line"></div><div class="line">// 编译并打Debug包</div><div class="line">~$ ./gradlew assembleDebug</div><div class="line"></div><div class="line">// 编译并打Release的包</div><div class="line">~$ ./gradlew assembleRelease</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">~$ ./gradlew build</div><div class="line"></div><div class="line">[...]</div><div class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 7s</div><div class="line">1 actionable task: 1 executed</div><div class="line"></div><div class="line">// 编译并打Debug包</div><div class="line">~$ ./gradlew assembleDebug</div><div class="line"></div><div class="line">// 编译并打Release的包</div><div class="line">~$ ./gradlew assembleRelease</div></pre></td></tr></table></figure>
 <ul>
 <li>如果在终端运行上面的命令，还是出现如下的错误， 是与<code>IDE</code>里的端终显示同一类的错误。</li>
 </ul>
@@ -448,13 +452,14 @@ Android-studio 3.1 error: style attribute ‘">
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[...]</div><div class="line"> [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...</div><div class="line"> [ERROR] [org.gradle.internal.remote.internal.inet.TcpIncomingConnector] Cannot accept connection from remote address /192.168.1.100.</div><div class="line">[...]</div></pre></td></tr></table></figure>
 <ul>
-<li>并且,如果本机系统有开启<code>IPv6</code>，上面的无法连接可能是Gradle 同步失败：管道无效,问题在于，Gradle 守护进程会尝试使用 IPv4 而非 IPv6。设置<code>Shell</code>环境变量：<code>export _JAVA_OPTIONS=&quot;-Djava.net.preferIPv6Addresses=true&quot;</code>再运行<code>./gradlew assembleRelease</code>尝试。<code>gradle</code>用户配置如下：</li>
+<li>并且,如果本机系统有开启<code>IPv6</code>，上面的无法连接可能是<code>Gradle</code>同步失败：管道无效,问题在于，<code>Gradle</code> 守护进程会尝试使用<code>IPv4</code>而非<code>IPv6</code>。设置<code>Shell</code>环境变量：<code>export _JAVA_OPTIONS=&quot;-Djava.net.preferIPv6Addresses=true&quot;</code>再运行<code>./gradlew assembleRelease</code>尝试。<code>gradle</code>用户配置如下：</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ cat ~/.gradle/gradle.properties</div><div class="line">[...]</div><div class="line">org.gradle.parallel=<span class="literal">true</span></div><div class="line">org.gradle.daemon=<span class="literal">true</span></div><div class="line">systemProp.https.proxyHost=127.0.0.1</div><div class="line">systemProp.https.proxyPort=8123</div><div class="line">systemProp.http.proxyHost=127.0.0.1</div><div class="line">systemProp.http.proxyPort=8123</div><div class="line">systemProp.https.nonProxyHosts=127.0.0.1|localhost|192.168.1.100</div></pre></td></tr></table></figure>
 <ul>
+<li>把工程里的<code>gradle/wrapper/gradle-wrapper.properties</code>里的<code>distributionUrl</code>可以指成网络位置，也可以指定本地位置,如:<code>distributionUrl=file\:///home/fullpath/sdkman/archives/gradle-6.4.1.zip</code>. 如果是指定了本地的位置后，在<code>File -&gt; Project Structure -&gt; Project --&gt; Gradle Version</code>就会是空，这里就保持为空，不要选择，如果选择了一项，它就会重写<code>distributionUrl</code>为官网的网络位置， 同时要确保指向本地位置版本的<code>Gradle</code>要与<code>Bash Shell</code>内指定是同一个版本。<code>Gradle</code>的版本兼容性，参考<a href="https://developer.android.com/studio/releases/gradle-plugin?hl=cs" target="_blank" rel="external">Android Gradle plugin release notes</a></li>
 <li>还有一个问题是，设置<code>Android-Studio</code>与<code>graldew</code>使用同一个<code>gradle</code>实例，可以<a href="https://stackoverflow.com/questions/39743560/how-do-i-run-the-same-gradle-daemon-for-terminal-and-android-studio" target="_blank" rel="external">参考这里</a>.</li>
 <li>解决方法 2：在<code>Android Studio</code>的<a href="https://sites.google.com/a/android.com/tools/tech-docs/configuration" target="_blank" rel="external"><code>vmoptions</code>文件</a>中，将<code>-Djava.net.preferIPv6Addresses=true</code>行更改为<code>-Djava.net.preferIPv6Addresses=true</code>。</li>
-<li>最终该问题在<code>Android Studio 3.6.3</code>版本中配置<code>Gradle Plugin 3.6.3</code>与<code>Gradle 5.6.4</code>,并通过<code>Ctrl+Alt+S --&gt; Build,Execution,Deployment --&gt; Gradle</code>把<code>Use Gradle from</code>设置成<code>Specified location</code>选择本地的<code>SDKMAN</code>安装目录的下<code>gradle/5.6.4/bin</code>,上述设置后，同步文件就正常了。</li>
+<li>最终该问题在<code>Android Studio 3.6.3</code>版本中配置<code>Gradle Plugin 3.6.3</code>与<code>Gradle 5.6.4</code>,并通过<code>Ctrl+Alt+S --&gt; Build,Execution,Deployment --&gt; Gradle</code>把<code>Use Gradle from</code>设置成<code>Specified location</code>选择本地的<code>SDKMAN</code>安装目录的下<code>gradle/5.6.4</code>,上述设置后，再把所有的(工程|用户)<code>gradle.properties</code>加上这一行：<code>org.gradle.jvmargs=-Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv6Stack=true</code>, 先在<code>Bash shell</code>运行一次<code>./gradlew build</code>后,再去到IDE时好像同步文件就正常了。</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Build <span class="comment">#AI-192.7142.36.36.6392135, built on April 14, 2020</span></div><div class="line">Runtime version: 1.8.0_212-release-1586-b4-5784211 amd64</div><div class="line">VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</div><div class="line">Linux 5.5.13-20200327-lcy</div><div class="line">GC: ParNew, ConcurrentMarkSweep</div><div class="line">Memory: 1246M</div><div class="line">Cores: 4</div><div class="line">Registry: ide.new.welcome.screen.force=<span class="literal">true</span></div><div class="line">Non-Bundled Plugins: com.google.services.firebase`</div></pre></td></tr></table></figure>
 <h1 id="Android系统源码AOSP-下载。"><a href="#Android系统源码AOSP-下载。" class="headerlink" title="Android系统源码AOSP 下载。"></a>Android系统源码AOSP 下载。</h1><ul>
@@ -472,18 +477,54 @@ Android-studio 3.1 error: style attribute ‘">
 <ul>
 <li>如果不能同步上面的官方源需要使用代理。也可以使用国内一些大学的镜像源:<a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="external">清华大学开源软件镜像站</a>,<a href="http://mirrors.ustc.edu.cn/aosp/" target="_blank" rel="external">中国科学技术大学</a>。可以一开始就使用国内镜像源，也可以把原来官方源地址替换成国内镜像源再同步,方法如下:</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ cat .repo/manifests.git/config </div><div class="line">[core]</div><div class="line">        repositoryformatversion = 0</div><div class="line">        filemode = <span class="literal">true</span></div><div class="line">[filter <span class="string">"lfs"</span>]</div><div class="line">        smudge = git-lfs smudge --skip -- %f</div><div class="line">        process = git-lfs filter-process --skip</div><div class="line">[remote <span class="string">"origin"</span>]</div><div class="line">        <span class="comment">#url = https://android.googlesource.com/platform/manifest</span></div><div class="line">        url = https://aosp.tuna.tsinghua.edu.cn/platform/manifest</div><div class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</div><div class="line">[branch <span class="string">"default"</span>]</div><div class="line">        remote = origin</div><div class="line">        merge = refs/heads/master</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ cat .repo/manifests.git/config</div><div class="line">[core]</div><div class="line">        repositoryformatversion = 0</div><div class="line">        filemode = <span class="literal">true</span></div><div class="line">[filter <span class="string">"lfs"</span>]</div><div class="line">        smudge = git-lfs smudge --skip -- %f</div><div class="line">        process = git-lfs filter-process --skip</div><div class="line">[remote <span class="string">"origin"</span>]</div><div class="line">        <span class="comment">#url = https://android.googlesource.com/platform/manifest</span></div><div class="line">        url = https://aosp.tuna.tsinghua.edu.cn/platform/manifest</div><div class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</div><div class="line">[branch <span class="string">"default"</span>]</div><div class="line">        remote = origin</div><div class="line">        merge = refs/heads/master</div></pre></td></tr></table></figure>
 <ul>
 <li>我最终是改成<a href="https://aosp.tuna.tsinghua.edu.cn/platform/manifest" target="_blank" rel="external">清华大学</a>镜像同步完成。2020-03-16同步完成后，目录体积显示是93G。后来对比了官方<code>https://android.googlesource.com/device/</code>与本地<code>device</code>目录，好像少了一些设备目录，比如：<code>htc,samsung</code>是没有看到的。</li>
 </ul>
 <h3 id="验证Git标记"><a href="#验证Git标记" class="headerlink" title="验证Git标记"></a>验证Git标记</h3><ul>
 <li>输入<code>gpg --import</code>后粘贴下面的PGP密钥数据。</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">~$ gpg --import </div><div class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</div><div class="line">Version: GnuPG v1.4.2.2 (GNU/Linux)</div><div class="line"></div><div class="line">mQGiBEnnWD4RBACt9/h4v9xnnGDou13y3dvOx6/t43LPPIxeJ8eX9WB+8LLuROSV</div><div class="line">lFhpHawsVAcFlmi7f7jdSRF+OvtZL9ShPKdLfwBJMNkU66/TZmPewS4m782ndtw7</div><div class="line">8tR1cXb197Ob8kOfQB3A9yk2XZ4ei4ZC3i6wVdqHLRxABdncwu5hOF9KXwCgkxMD</div><div class="line">u4PVgChaAJzTYJ1EG+UYBIUEAJmfearb0qRAN7dEoff0FeXsEaUA6U90sEoVks0Z</div><div class="line">wNj96SA8BL+a1OoEUUfpMhiHyLuQSftxisJxTh+2QclzDviDyaTrkANjdYY7p2cq</div><div class="line">/HMdOY7LJlHaqtXmZxXjjtw5Uc2QG8UY8aziU3IE9nTjSwCXeJnuyvoizl9/I1S5</div><div class="line">jU5SA/9WwIps4SC84ielIXiGWEqq6i6/sk4I9q1YemZF2XVVKnmI1F4iCMtNKsR4</div><div class="line">MGSa1gA8s4iQbsKNWPgp7M3a51JCVCu6l/8zTpA+uUGapw4tWCp4o0dpIvDPBEa9</div><div class="line">b/aF/ygcR8mh5hgUfpF9IpXdknOsbKCvM9lSSfRciETykZc4wrRCVGhlIEFuZHJv</div><div class="line">aWQgT3BlbiBTb3VyY2UgUHJvamVjdCA8aW5pdGlhbC1jb250cmlidXRpb25AYW5k</div><div class="line">cm9pZC5jb20+iGAEExECACAFAknnWD4CGwMGCwkIBwMCBBUCCAMEFgIDAQIeAQIX</div><div class="line">gAAKCRDorT+BmrEOeNr+AJ42Xy6tEW7r3KzrJxnRX8mij9z8tgCdFfQYiHpYngkI</div><div class="line">2t09Ed+9Bm4gmEO5Ag0ESedYRBAIAKVW1JcMBWvV/0Bo9WiByJ9WJ5swMN36/vAl</div><div class="line">QN4mWRhfzDOk/Rosdb0csAO/l8Kz0gKQPOfObtyYjvI8JMC3rmi+LIvSUT9806Up</div><div class="line">hisyEmmHv6U8gUb/xHLIanXGxwhYzjgeuAXVCsv+EvoPIHbY4L/KvP5x+oCJIDbk</div><div class="line">C2b1TvVk9PryzmE4BPIQL/NtgR1oLWm/uWR9zRUFtBnE411aMAN3qnAHBBMZzKMX</div><div class="line">LWBGWE0znfRrnczI5p49i2YZJAjyX1P2WzmScK49CV82dzLo71MnrF6fj+Udtb5+</div><div class="line">OgTg7Cow+8PRaTkJEW5Y2JIZpnRUq0CYxAmHYX79EMKHDSThf/8AAwUIAJPWsB/M</div><div class="line">pK+KMs/s3r6nJrnYLTfdZhtmQXimpoDMJg1zxmL8UfNUKiQZ6esoAWtDgpqt7Y7s</div><div class="line">KZ8laHRARonte394hidZzM5nb6hQvpPjt2OlPRsyqVxw4c/KsjADtAuKW9/d8phb</div><div class="line">N8bTyOJo856qg4oOEzKG9eeF7oaZTYBy33BTL0408sEBxiMior6b8LrZrAhkqDjA</div><div class="line">vUXRwm/fFKgpsOysxC6xi553CxBUCH2omNV6Ka1LNMwzSp9ILz8jEGqmUtkBszwo</div><div class="line">G1S8fXgE0Lq3<span class="built_in">cd</span>DM/GJ4QXP/p6LiwNF99faDMTV3+2SAOGvytOX6KjKVzKOSsfJQ</div><div class="line">hN0DlsIw8hqJc0WISQQYEQIACQUCSedYRAIbDAAKCRDorT+BmrEOeCUOAJ9qmR0l</div><div class="line">EXzeoxcdoafxqf6gZlJZlACgkWF7wi2YLW3Oa+jv2QSTlrx4KLM=</div><div class="line">=Wi5D</div><div class="line">-----END PGP PUBLIC KEY BLOCK-----</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">~$ gpg --import</div><div class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</div><div class="line">Version: GnuPG v1.4.2.2 (GNU/Linux)</div><div class="line"></div><div class="line">mQGiBEnnWD4RBACt9/h4v9xnnGDou13y3dvOx6/t43LPPIxeJ8eX9WB+8LLuROSV</div><div class="line">lFhpHawsVAcFlmi7f7jdSRF+OvtZL9ShPKdLfwBJMNkU66/TZmPewS4m782ndtw7</div><div class="line">8tR1cXb197Ob8kOfQB3A9yk2XZ4ei4ZC3i6wVdqHLRxABdncwu5hOF9KXwCgkxMD</div><div class="line">u4PVgChaAJzTYJ1EG+UYBIUEAJmfearb0qRAN7dEoff0FeXsEaUA6U90sEoVks0Z</div><div class="line">wNj96SA8BL+a1OoEUUfpMhiHyLuQSftxisJxTh+2QclzDviDyaTrkANjdYY7p2cq</div><div class="line">/HMdOY7LJlHaqtXmZxXjjtw5Uc2QG8UY8aziU3IE9nTjSwCXeJnuyvoizl9/I1S5</div><div class="line">jU5SA/9WwIps4SC84ielIXiGWEqq6i6/sk4I9q1YemZF2XVVKnmI1F4iCMtNKsR4</div><div class="line">MGSa1gA8s4iQbsKNWPgp7M3a51JCVCu6l/8zTpA+uUGapw4tWCp4o0dpIvDPBEa9</div><div class="line">b/aF/ygcR8mh5hgUfpF9IpXdknOsbKCvM9lSSfRciETykZc4wrRCVGhlIEFuZHJv</div><div class="line">aWQgT3BlbiBTb3VyY2UgUHJvamVjdCA8aW5pdGlhbC1jb250cmlidXRpb25AYW5k</div><div class="line">cm9pZC5jb20+iGAEExECACAFAknnWD4CGwMGCwkIBwMCBBUCCAMEFgIDAQIeAQIX</div><div class="line">gAAKCRDorT+BmrEOeNr+AJ42Xy6tEW7r3KzrJxnRX8mij9z8tgCdFfQYiHpYngkI</div><div class="line">2t09Ed+9Bm4gmEO5Ag0ESedYRBAIAKVW1JcMBWvV/0Bo9WiByJ9WJ5swMN36/vAl</div><div class="line">QN4mWRhfzDOk/Rosdb0csAO/l8Kz0gKQPOfObtyYjvI8JMC3rmi+LIvSUT9806Up</div><div class="line">hisyEmmHv6U8gUb/xHLIanXGxwhYzjgeuAXVCsv+EvoPIHbY4L/KvP5x+oCJIDbk</div><div class="line">C2b1TvVk9PryzmE4BPIQL/NtgR1oLWm/uWR9zRUFtBnE411aMAN3qnAHBBMZzKMX</div><div class="line">LWBGWE0znfRrnczI5p49i2YZJAjyX1P2WzmScK49CV82dzLo71MnrF6fj+Udtb5+</div><div class="line">OgTg7Cow+8PRaTkJEW5Y2JIZpnRUq0CYxAmHYX79EMKHDSThf/8AAwUIAJPWsB/M</div><div class="line">pK+KMs/s3r6nJrnYLTfdZhtmQXimpoDMJg1zxmL8UfNUKiQZ6esoAWtDgpqt7Y7s</div><div class="line">KZ8laHRARonte394hidZzM5nb6hQvpPjt2OlPRsyqVxw4c/KsjADtAuKW9/d8phb</div><div class="line">N8bTyOJo856qg4oOEzKG9eeF7oaZTYBy33BTL0408sEBxiMior6b8LrZrAhkqDjA</div><div class="line">vUXRwm/fFKgpsOysxC6xi553CxBUCH2omNV6Ka1LNMwzSp9ILz8jEGqmUtkBszwo</div><div class="line">G1S8fXgE0Lq3<span class="built_in">cd</span>DM/GJ4QXP/p6LiwNF99faDMTV3+2SAOGvytOX6KjKVzKOSsfJQ</div><div class="line">hN0DlsIw8hqJc0WISQQYEQIACQUCSedYRAIbDAAKCRDorT+BmrEOeCUOAJ9qmR0l</div><div class="line">EXzeoxcdoafxqf6gZlJZlACgkWF7wi2YLW3Oa+jv2QSTlrx4KLM=</div><div class="line">=Wi5D</div><div class="line">-----END PGP PUBLIC KEY BLOCK-----</div><div class="line">EOF</div></pre></td></tr></table></figure>
 <ul>
 <li>测试验证tag</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> device/generic/mini-emulator-arm64</div><div class="line">~$ git tag -v android-5.0.0_r1</div><div class="line">object 743dd408af5c662761bafc05eacdb18ade88cf3a</div><div class="line"><span class="built_in">type</span> commit</div><div class="line">tag android-5.0.0_r1</div><div class="line">tagger The Android Open Source Project &lt;initial-contribution@android.com&gt; 1415119682 -0800</div><div class="line"></div><div class="line">Android 5.0.0 release 1</div><div class="line">gpg: Signature made Wed 05 Nov 2014 12:48:02 AM CST</div><div class="line">gpg:                using DSA key E8AD3F819AB10E78</div><div class="line">gpg: Good signature from <span class="string">"The Android Open Source Project &lt;initial-contribution@android.com&gt;"</span> [unknown]</div><div class="line">gpg: WARNING: This key is not certified with a trusted signature!</div><div class="line">gpg:          There is no indication that the signature belongs to the owner.</div><div class="line">Primary key fingerprint: 4340 D135 70EF 945E 8381  0964 E8AD 3F81 9AB1 0E78</div></pre></td></tr></table></figure>
+<h2 id="Android-Material组件"><a href="#Android-Material组件" class="headerlink" title="Android Material组件"></a>Android Material组件</h2><ul>
+<li>Link<ul>
+<li><a href="https://material.io/components" target="_blank" rel="external">Material Design</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Android图标资源"><a href="#Android图标资源" class="headerlink" title="Android图标资源"></a>Android图标资源</h2><ul>
+<li><p>参考链接：</p>
+<ul>
+<li><a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="external">Android-Iconics</a></li>
+<li><a href="https://google.github.io/material-design-icons/" target="_blank" rel="external">Icons for Android</a></li>
+<li><a href="https://developer.android.com/studio/write/image-asset-studio" target="_blank" rel="external">使用 Image Asset Studio 创建应用图标</a></li>
+<li><a href="https://developer.android.com/studio/write/vector-asset-studio" target="_blank" rel="external">Vector Asset Studio</a></li>
+</ul>
+</li>
+<li><p>之前开发时，还去不同网站上去下载图标下来，放到<code>app/src/main/res/drawable</code>或者是<code>`app/src/main/res/icons</code>内，其实使用<a href="https://developer.android.com/studio/write/image-asset-studio" target="_blank" rel="external">Image Asset Studio</a>是最方便的。它可以满足各种类型的图标创建，包括自适应图标。还可以使用<a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="external">Android-Iconics</a>，它集成多个图标资源在一起，比如:<code>FontAwesome</code>.</p>
+</li>
+</ul>
+<h3 id="导入PNG图标"><a href="#导入PNG图标" class="headerlink" title="导入PNG图标"></a>导入PNG图标</h3><ul>
+<li>在<code>Project</code>窗口中，选择<code>Android</code>视图，右键点击<code>res</code>文件夹，然后依次选择<code>New &gt; Image Asset</code>。<code>Icon Type</code>可以选：启动器图标，操作栏和标签页图标，通知图标。</li>
+<li>选中<code>Asset Type</code>是<code>Clip Art</code>时，点击下方的<code>Clip Art</code>就会弹出一个内置的图标列表，选择一个图标编辑后，按完成就会提示，保存到<code>app/src/main/res/drawable</code>下面。</li>
+<li>选中<code>Asset Type</code>是<code>Image</code>时,下面的<code>Path</code>可以选择一个本地位置的PNG文件，可以先把<a href="https://github.com/google/material-design-icons" target="_blank" rel="external">material-design-icons</a>同步下来，再通过该步骤编辑导入到工程去。</li>
+<li>也可以手动复制自定义的PNG文件放到工程里的<code>app/src/main/res/drawable</code>。</li>
+</ul>
+<h3 id="导入SVG图标"><a href="#导入SVG图标" class="headerlink" title="导入SVG图标"></a>导入SVG图标</h3><ul>
+<li>在<code>Project</code>窗口中，选择<code>Android</code>视图，右键点击<code>res</code>文件夹，然后依次选择<code>New &gt; Vector Asset</code>。</li>
+<li>选中<code>Asset Type</code>是<code>Clip Art</code>时，点击下方的<code>Clip Art</code>就会弹出一个内置的图标列表，选择一个图标编辑后，按完成就会提示，保存到<code>app/src/main/res/drawable</code>下面。</li>
+<li>选中<code>Asset Type</code>是<code>Local file(SVG,PSD)</code>时,下面的<code>Path</code>可以选择一个本地位置的矢量文件，可以先把<a href="https://github.com/google/material-design-icons" target="_blank" rel="external">material-design-icons</a>同步下来，再通过该步骤编辑导入到工程去。</li>
+<li>也可以手动复制自定义的SVG文件放到工程里的<code>app/src/main/res/drawable</code>。</li>
+</ul>
+<h3 id="使用Android-Material-Design-Icon-Generator插件"><a href="#使用Android-Material-Design-Icon-Generator插件" class="headerlink" title="使用Android Material Design Icon Generator插件"></a>使用<code>Android Material Design Icon Generator</code>插件</h3><ul>
+<li><p><a href="https://tutorialscache.com/how-to-use-material-design-icons-in-android/" target="_blank" rel="external">How to use Material Design icons in Android</a></p>
+</li>
+<li><p>安装完成<code>Android Material Design Icon Generator</code>后，打开<code>File -&gt; New -&gt; Material Design Icon</code>.</p>
+</li>
+</ul>
 <hr>
 <h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
 <li>微信二维码:</li>
@@ -613,7 +654,7 @@ Android-studio 3.1 error: style attribute ‘">
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -707,7 +748,17 @@ Android-studio 3.1 error: style attribute ‘">
                     
                       
                     
-                    <span class="site-state-item-count">30</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -762,7 +813,7 @@ Android-studio 3.1 error: style attribute ‘">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><span class="nav-number">1.</span> <span class="nav-text">Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方案"><span class="nav-number">1.0.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吐血的Gradle-sync-failed"><span class="nav-number"></span> <span class="nav-text">吐血的Gradle sync failed.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android系统源码AOSP-下载。"><span class="nav-number"></span> <span class="nav-text">Android系统源码AOSP 下载。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步源码"><span class="nav-number"></span> <span class="nav-text">同步源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境"><span class="nav-number">1.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载源码"><span class="nav-number">2.</span> <span class="nav-text">下载源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证Git标记"><span class="nav-number">3.</span> <span class="nav-text">验证Git标记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常规错误"><span class="nav-number">1.</span> <span class="nav-text">常规错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><span class="nav-number">2.</span> <span class="nav-text">Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方案"><span class="nav-number">2.0.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吐血的Gradle-sync-failed"><span class="nav-number"></span> <span class="nav-text">吐血的Gradle sync failed.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android系统源码AOSP-下载。"><span class="nav-number"></span> <span class="nav-text">Android系统源码AOSP 下载。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步源码"><span class="nav-number"></span> <span class="nav-text">同步源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境"><span class="nav-number">1.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载源码"><span class="nav-number">2.</span> <span class="nav-text">下载源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证Git标记"><span class="nav-number">3.</span> <span class="nav-text">验证Git标记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Material组件"><span class="nav-number"></span> <span class="nav-text">Android Material组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android图标资源"><span class="nav-number"></span> <span class="nav-text">Android图标资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入PNG图标"><span class="nav-number">1.</span> <span class="nav-text">导入PNG图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入SVG图标"><span class="nav-number">2.</span> <span class="nav-text">导入SVG图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Android-Material-Design-Icon-Generator插件"><span class="nav-number">3.</span> <span class="nav-text">使用Android Material Design Icon Generator插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
             
 
           </div>
@@ -782,7 +833,7 @@ Android-studio 3.1 error: style attribute ‘">
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

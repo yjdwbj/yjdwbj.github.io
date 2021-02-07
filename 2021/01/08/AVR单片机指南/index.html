@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="参考：
+
+Atmel AVR
+
+
+Atmel AVR系列是一种基于改进的哈佛结构、8位～32位精简指令集（Reduced Instruction Set Computing，RISC）的微控制器，由Atmel公司于1996年研发。AVR系列是首次采用闪存（Flash Memory）作为数据存储介质的单芯片微控制器之一，同时代的其它微控制器多采用一次写入可编程ROM、EPROM或是EEPROM。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVR单片机指南">
+<meta property="og:url" content="http://yoursite.com/2021/01/08/AVR单片机指南/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="参考：
+
+Atmel AVR
+
+
+Atmel AVR系列是一种基于改进的哈佛结构、8位～32位精简指令集（Reduced Instruction Set Computing，RISC）的微控制器，由Atmel公司于1996年研发。AVR系列是首次采用闪存（Flash Memory）作为数据存储介质的单芯片微控制器之一，同时代的其它微控制器多采用一次写入可编程ROM、EPROM或是EEPROM。">
+<meta property="og:image" content="http://yoursite.com/imgs/arduino-attinycore-t85.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2021-02-07T07:07:41.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AVR单片机指南">
+<meta name="twitter:description" content="参考：
+
+Atmel AVR
+
+
+Atmel AVR系列是一种基于改进的哈佛结构、8位～32位精简指令集（Reduced Instruction Set Computing，RISC）的微控制器，由Atmel公司于1996年研发。AVR系列是首次采用闪存（Flash Memory）作为数据存储介质的单芯片微控制器之一，同时代的其它微控制器多采用一次写入可编程ROM、EPROM或是EEPROM。">
+<meta name="twitter:image" content="http://yoursite.com/imgs/arduino-attinycore-t85.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/01/08/AVR单片机指南/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>AVR单片机指南 | Sunrise 博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-78826582-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-78826582-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise 博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/08/AVR单片机指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AVR单片机指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-08 22:27:27" itemprop="dateCreated datePublished" datetime="2021-01-08T22:27:27+08:00">2021-01-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-02-07 15:07:41" itemprop="dateModified" datetime="2021-02-07T15:07:41+08:00">2021-02-07</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>参考：</p>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/Atmel_AVR" target="_blank" rel="external">Atmel AVR</a></li>
+</ul>
+</li>
+<li><p>Atmel AVR系列是一种基于改进的哈佛结构、8位～32位精简指令集（Reduced Instruction Set Computing，RISC）的微控制器，由Atmel公司于1996年研发。<br>AVR系列是首次采用闪存（Flash Memory）作为数据存储介质的单芯片微控制器之一，同时代的其它微控制器多采用一次写入可编程ROM、EPROM或是EEPROM。</p>
+<p>目前AVR处理器发展了六个系列，分别是：tinyAVR，ATtiny系列；megaAVR，ATmega系列；XMEGA，ATxmega系列；Application-specific AVR，面向特殊应用<br>的AVR系列，增加LCD控制器、USB控制器、PWM等特性；FPSLIC，FPGA上的AVR核；AVR32，32位AVR系列，包含SIMD和DSP以及音视频处理特性，与ARM架构形成争。</p>
+</li>
+</ul>
+<h1 id="ATmega32U4-Arduino-pro-micro"><a href="#ATmega32U4-Arduino-pro-micro" class="headerlink" title="ATmega32U4(Arduino pro micro)"></a>ATmega32U4(Arduino pro micro)</h1><ul>
+<li><a href="https://github.com/sparkfun/Arduino_Boards" target="_blank" rel="external">sparkfun/Arduino_Boards</a></li>
+<li><a href="https://github.com/Synapseware/examples/tree/master/atmega-asm" target="_blank" rel="external">atmega-asm</a></li>
+<li><a href="https://github.com/MCUdude/MiniCore" target="_blank" rel="external">MiniCore</a></li>
+<li><a href="https://www.hackster.io/kutluhan-aktar/arduino-based-atmega32u4-mouse-and-keyboard-controller-0f75c5" target="_blank" rel="external">Arduino-Based (ATmega32U4) Mouse and Keyboard Controller</a></li>
+</ul>
+<ul>
+<li>连接<code>ICSP</code>烧写<code>bootloader</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">        (2232HIO)</div><div class="line">        FT232H              ATmega32U4</div><div class="line"></div><div class="line">    pin13 ADBUS0   &lt;------&gt;   SCK    pin15</div><div class="line">    pin14 ADBUS1   &lt;------&gt;   MOSI   pin16</div><div class="line">    pin15 ADBUS2   &lt;------&gt;   MISO   pin14</div><div class="line">    pin16 ADBUS3   &lt;------&gt;   Reset  RST</div><div class="line">            GND    &lt;------&gt;   GND</div><div class="line">          +3.3V    &lt;------&gt;   +3.3V</div><div class="line"></div><div class="line">~$ avrdude -C /etc/avrdude.conf -c UM232H -P /dev/ttyUSB0 -b 19200 -p atmega32u4  -U lfuse:r:-:i</div><div class="line"></div><div class="line">avrdude: AVR device initialized and ready to accept instructions</div><div class="line"></div><div class="line">Reading | <span class="comment">################################################## | 100% 0.01s</span></div><div class="line"></div><div class="line">avrdude: Device signature = 0x1e9587 (probably m32u4)</div><div class="line">avrdude: reading lfuse memory:</div><div class="line"></div><div class="line">Reading | <span class="comment">################################################## | 100% 0.00s</span></div><div class="line"></div><div class="line">avrdude: writing output file <span class="string">"&lt;stdout&gt;"</span></div><div class="line">:01000000FF00</div><div class="line">:00000001FF</div><div class="line"></div><div class="line">avrdude: safemode: Fuses OK (E:CB, H:D8, L:FF)</div><div class="line"></div><div class="line">avrdude done.  Thank you.</div></pre></td></tr></table></figure>
+<ul>
+<li>some of valid programmers for FTDI</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">2232HIO          = FT2232H based generic programmer</div><div class="line">4232h            = FT4232H based generic programmer</div><div class="line">ft232r           = FT232R Synchronous BitBang</div><div class="line">ft245r           = FT245R Synchronous BitBang</div><div class="line">ttl232r          = FTDI TTL232R-5V with ICSP adapter</div><div class="line">UM232H           = FT232H based module from FTDI and Glyn.com.au</div></pre></td></tr></table></figure>
+<ul>
+<li>添加<a href="https://github.com/sparkfun/Arduino_Boards" target="_blank" rel="external">sparkfun/Arduino_Boards</a>,让<code>Arduino IDE</code>支持更多的种类的板子，添加<code>URL</code>后，通过<code>Tools -&gt; Boards Manager</code> 安装<code>SparkFun AVR Boards</code>.烧写<code>SparkFun bootloader</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">~$ avrdude -C /etc/avrdude.conf -c UM232H -P /dev/ttyUSB0 -b 19200 -p m32u4  -U flash:w:.arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex</div><div class="line"></div><div class="line">avrdude: AVR device initialized and ready to accept instructions</div><div class="line"></div><div class="line">Reading | <span class="comment">################################################## | 100% 0.01s</span></div><div class="line"></div><div class="line">avrdude: Device signature = 0x1e9587 (probably m32u4)</div><div class="line">avrdude: NOTE: <span class="string">"flash"</span> memory has been specified, an erase cycle will be performed</div><div class="line">         To <span class="built_in">disable</span> this feature, specify the -D option.</div><div class="line">avrdude: erasing chip</div><div class="line">avrdude: reading input file <span class="string">".arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex"</span></div><div class="line">avrdude: input file .arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex auto detected as Intel Hex</div><div class="line">avrdude: writing flash (32762 bytes):</div><div class="line"></div><div class="line">Writing | <span class="comment">################################################## | 100% 0.00s</span></div><div class="line"></div><div class="line">avrdude: 32762 bytes of flash written</div><div class="line">avrdude: verifying flash memory against .arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex:</div><div class="line">avrdude: load data flash data from input file .arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex:</div><div class="line">avrdude: input file .arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex auto detected as Intel Hex</div><div class="line">avrdude: input file .arduino15/packages/SparkFun/hardware/avr/1.1.13/bootloaders/caterina/Caterina-promicro16.hex contains 32762 bytes</div><div class="line">avrdude: reading on-chip flash data:</div><div class="line"></div><div class="line">Reading | <span class="comment">################################################## | 100% 0.00s</span></div><div class="line"></div><div class="line">avrdude: verifying ...</div><div class="line">avrdude: 32762 bytes of flash verified</div><div class="line"></div><div class="line">avrdude: safemode: Fuses OK (E:CB, H:D8, L:FF)</div><div class="line"></div><div class="line">avrdude done.  Thank you.</div></pre></td></tr></table></figure>
+<h1 id="ATmega328p-Arduino-Pro-mini-with-CH340"><a href="#ATmega328p-Arduino-Pro-mini-with-CH340" class="headerlink" title="ATmega328p (Arduino Pro mini with CH340)"></a>ATmega328p (Arduino Pro mini with CH340)</h1><ul>
+<li>烧写好<code>bootloader</code>就可以使用<code>USB</code>在<code>Arduino IDE</code>上进行开发。</li>
+<li>选择<code>Tools -&gt; Board -&gt; Arduino Pro or Pro Mini</code>, 烧写器<code>AVRISP mkii</code>.</li>
+</ul>
+<h1 id="ATtiny85-CJMCU"><a href="#ATtiny85-CJMCU" class="headerlink" title="ATtiny85(CJMCU)"></a>ATtiny85(CJMCU)</h1><ul>
+<li><a href="https://github.com/wholder/ATTiny10IDE" target="_blank" rel="external">ATTiny10IDE</a></li>
+<li><a href="https://diyprojects.io/tutorial-program-cjmcu-attiny85-lilytiny-lilypad/" target="_blank" rel="external">Tutorial : How to program the CJMCU ATTiny85 (LilyTiny / LilyPad)</a></li>
+<li><a href="https://www.instructables.com/Digispark-DIY-The-smallest-USB-Arduino/" target="_blank" rel="external">Digispark DIY: the Smallest USB Arduino</a></li>
+<li><a href="https://learn.sparkfun.com/tutorials/tiny-avr-programmer-hookup-guide/all" target="_blank" rel="external"> Tiny AVR Programmer Hookup Guide </a></li>
+<li><a href="https://semjonov.de/docs/tips/avr/" target="_blank" rel="external">Arduino / AVR #</a></li>
+<li><a href="https://littlewire.github.io/index.html" target="_blank" rel="external">Little Wire</a></li>
+</ul>
+<h2 id="Bootloader"><a href="#Bootloader" class="headerlink" title="Bootloader"></a>Bootloader</h2><ul>
+<li><a href="https://www.embedded-creations.com/projects/attiny85-usb-bootloader-overview/details" target="_blank" rel="external">ATtiny85 USB Boot Loader: Details</a></li>
+<li><a href="https://github.com/micronucleus/micronucleus" target="_blank" rel="external">micronucleus</a>是一个可以支持跨平台的<code>USB</code>上传烧写的<code>bootloader</code>，体积在2kb以内。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">        FT232H              ATTiny85</div><div class="line"></div><div class="line">    pin13 ADBUS0   &lt;------&gt;   SCK    PB2</div><div class="line">    pin14 ADBUS1   &lt;------&gt;   MOSI   PB0</div><div class="line">    pin15 ADBUS2   &lt;------&gt;   MISO   PB1</div><div class="line">    pin16 ADBUS3   &lt;------&gt;   Reset  PB5</div><div class="line">            GND    &lt;------&gt;   GND</div><div class="line">            +5V    &lt;------&gt;   +5V</div><div class="line"></div><div class="line">~ micronucleus/firmware/releases$ avrdude -C /etc/avrdude.conf -c UM232H -P /dev/ttyUSB1 -b 19200 -p attiny85 -U flash:w:t85_default.hex -U lfuse:w:0xe2:m -U hfuse:w:0xdd:m -U efuse:w:0xfe:m</div></pre></td></tr></table></figure>
+<ul>
+<li>读取<code>熔丝位(fuse)</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ avrdude -C /etc/avrdude.conf -c UM232H -P /dev/ttyUSB1 -b 19200 -p attiny85  -U lfuse:r:-:i -v</div></pre></td></tr></table></figure>
+<ul>
+<li>接入<code>USB</code>会发现如下的设备：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">~$ lsusb</div><div class="line">[...]</div><div class="line">Bus 004 Device 007: ID 16d0:0753 MCS Digistump DigiSpark</div><div class="line">[...]</div></pre></td></tr></table></figure>
+<ul>
+<li>复制<code>micronucleus/commandline/49-micronucleus.rules</code>到系统的<code>/etc/udev/rules.d/</code>目录内。</li>
+</ul>
+<h3 id="系统控制与复位"><a href="#系统控制与复位" class="headerlink" title="系统控制与复位"></a>系统控制与复位</h3><ul>
+<li>这里要讲到关于<code>熔丝位(fuse)</code>的技术。具体的技术细节需要查看<code>Datasheet</code>的<code>20. Memory Programming</code>.可以根据文档去配置编程使能相应的字节的位。也<br>可以通过这个<a href="https://www.engbedded.com/fusecalc/" target="_blank" rel="external">https://www.engbedded.com/fusecalc/</a>配置得出三个字节去配置<code>熔丝位</code>。<code>lfuse</code>表示低<br>位，<code>hfuse</code>表示高位，<code>efuse</code>表示扩展位.</li>
+<li>在配置编程熔丝位时有几个问题要注意，比如：把<code>SPIEN,JTAGEN</code>的位设定为未编程状态，这将使芯片失去了<code>JTAG与SPI</code>接口的功能，不能重新烧写，从而以致单片<br>机锁死，出现这种情况时就需要高压(12v)并行编程方式才能将单片机的功能恢复。另一个问题是要启动地址的错误，如果没有开启单片机的<code>BOOTLOADER</code>功能， 就不<br>要设置<code>BOOTRST</code>的编程位为<code>0(已编程)</code>，否则单片机在上电时不是从<code>Flash</code>的<code>0x0000</code>开始运行的，而是转到<code>BOOT</code>区执行，从而导致单片机无法正确运行。</li>
+</ul>
+<h2 id="使用Arduino-IDE支持-ATTinyCore"><a href="#使用Arduino-IDE支持-ATTinyCore" class="headerlink" title="使用Arduino IDE支持(ATTinyCore)"></a>使用<code>Arduino IDE</code>支持(ATTinyCore)</h2><ul>
+<li><a href="https://github.com/SpenceKonde/ATTinyCore" target="_blank" rel="external">ATTinyCore</a>是让最新的<code>Arduino IDE</code>支持<code>ATTiny系列</code>的单片机，安装流程当然也就是按照<br><a href="https://github.com/SpenceKonde/ATTinyCore/blob/master/Installation.md" target="_blank" rel="external">https://github.com/SpenceKonde/ATTinyCore/blob/master/Installation.md</a>操作，在<code>Arduino IDE -&gt; File-&gt;Preferences</code>加入<code>http://drazzy.com/package_drazzy.com_index.json</code>，并<br>且更新安装<code>ATTinyCore</code>的库。之后在<code>`Arduino IDE -&gt; Tools -&gt; Board -&gt; ATTinyCore</code>里面可以选择目标的单片机。</li>
+</ul>
+<ul>
+<li>有可能<code>ATTinyCore</code>自带的<code>micronucleus</code>版本太低与<code>Attiny85</code>内烧写版本的不匹配，就会出现下面的错误，具体的版本可以查看<code>~/.arduino15/packages/ATTinyCore/tools/micronucleus/2.0a4/</code>。关于<code>ATTinyCore</code>所支持的硬件与固件配置可以查看<code>~/.arduino15/packages/ATTinyCore/hardware/avr/1.4.1/bootloaders</code>。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Warning: device with unknown new version of Micronucleus detected.</div><div class="line">This tool doesn\<span class="string">'t know how to upload to this new device. Updates may be available.</span></div><div class="line">Device reports version as: 2.4</div></pre></td></tr></table></figure>
+<ul>
+<li>关于上面的警告提示，需要更新<code>micronucleus</code>版本。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> micronucleus/commandline &amp;&amp; make</div><div class="line">~$ cp micronucleus  ~/.arduino15/packages/ATTinyCore/tools/micronucleus/2.0a4/</div></pre></td></tr></table></figure>
+<h3 id="使用Arduino上传第一个程序-blink-。"><a href="#使用Arduino上传第一个程序-blink-。" class="headerlink" title="使用Arduino上传第一个程序(blink)。"></a>使用Arduino上传第一个程序(blink)。</h3><ul>
+<li>选择主板：<code>Tools -&gt; Board -&gt; ATTinyCore -&gt; ATtiny85(Micronucleus/DigiSpark)</code></li>
+<li>烧写方式:<code>Tools -&gt; Burn Bootloader Method: &quot;Upgrade (via USB)&quot;</code></li>
+<li><p>基本上选择了正确的主板，其它参数默认就可以了，测试图如下：<br><img src="/imgs/arduino-attinycore-t85.png" alt="arduino-attinycore-t85.png"></p>
+</li>
+<li><p>测式程序是：<code>File -&gt; Examples -&gt; Built-in examples -&gt; 01.Basics -&gt; Blink</code>. 只是重定义了<code>LED_BUILTIN</code>的IO口，如下：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define LED_BUILTIN 1</span></div><div class="line"></div><div class="line">// the setup <span class="keyword">function</span> runs once when you press reset or power the board</div><div class="line">void <span class="function"><span class="title">setup</span></span>() &#123;</div><div class="line">  // initialize digital pin LED_BUILTIN as an output.</div><div class="line">  pinMode(LED_BUILTIN, OUTPUT);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// the loop <span class="keyword">function</span> runs over and over again forever</div><div class="line">void <span class="function"><span class="title">loop</span></span>() &#123;</div><div class="line">  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)</div><div class="line">  delay(1000);                       // <span class="built_in">wait</span> <span class="keyword">for</span> a second</div><div class="line">  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW</div><div class="line">  delay(1000);                       // <span class="built_in">wait</span> <span class="keyword">for</span> a second</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>烧写提示如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">Plug <span class="keyword">in</span> device now... (will timeout <span class="keyword">in</span> 60 seconds)</div><div class="line">&gt; Please plug <span class="keyword">in</span> the device ...</div><div class="line">&gt; Press CTRL+C to terminate the program.</div><div class="line">&gt; Device is found!</div><div class="line">connecting: 16% complete</div><div class="line">connecting: 22% complete</div><div class="line">connecting: 28% complete</div><div class="line">connecting: 33% complete</div><div class="line">&gt; Device has firmware version 2.4</div><div class="line">&gt; Device signature: 0x1e930b</div><div class="line">&gt; Available space <span class="keyword">for</span> user applications: 6522 bytes</div><div class="line">&gt; Suggested sleep time between sending pages: 7ms</div><div class="line">&gt; Whole page count: 102  page size: 64</div><div class="line">&gt; Erase <span class="keyword">function</span> sleep duration: 714ms</div><div class="line">parsing: 50% complete</div><div class="line">&gt; Erasing the memory ...</div><div class="line">erasing: 55% complete</div><div class="line">erasing: 60% complete</div><div class="line">erasing: 65% complete</div><div class="line">&gt; Starting to upload ...</div><div class="line">writing: 70% complete</div><div class="line">writing: 75% complete</div><div class="line">writing: 80% complete</div><div class="line">&gt; Starting the user app ...</div><div class="line">running: 100% complete</div><div class="line">&gt;&gt; Micronucleus done. Thank you!</div></pre></td></tr></table></figure>
+<h3 id="新增烧写器-UM232H为例"><a href="#新增烧写器-UM232H为例" class="headerlink" title="新增烧写器(UM232H为例)"></a>新增烧写器(UM232H为例)</h3><ul>
+<li><a href="https://arduino.github.io/arduino-cli/platform-specification/" target="_blank" rel="external">Platform specification</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">~$ tree -L 2 ~/.arduino15/packages/</div><div class="line">/home/michael/.arduino15/packages/</div><div class="line">├── arduino</div><div class="line">│   ├── hardware</div><div class="line">│   └── tools</div><div class="line">├── atmel-avr-xminis</div><div class="line">│   └── hardware</div><div class="line">├── ATTinyCore</div><div class="line">│   ├── hardware</div><div class="line">│   └── tools</div><div class="line">├── esp32</div><div class="line">│   ├── hardware</div><div class="line">│   └── tools</div><div class="line">├── SparkFun</div><div class="line">│   └── hardware</div><div class="line">└── STM32</div><div class="line">    ├── hardware</div><div class="line">    └── tools</div></pre></td></tr></table></figure>
+<ul>
+<li>在<code>~/.arduino15/packages/</code>内的各种包内结构如下,基本每一个包(package: i.e: ardunion,ATTinyCore )下面的<code>hardware\&lt;arch&gt;\&lt;version\</code>内<br>都有<code>boards.txt,programmers.txt</code>文件。</li>
+<li>而在包下面的<code>hardware\tools\</code>内包内，包含这个包所支持的工具链，如：编译器，烧写器，还有一些特定的工具等。这里以<code>avrdude</code>为例，<br>在<code>Arduino IDE</code>烧写<code>AVR</code>的板子时候，它会调用包内的<code>avrdude</code>与配置文件，如：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \</div><div class="line">-c .arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf</div></pre></td></tr></table></figure>
+<ul>
+<li>下面是让<code>ATTinyCore</code>包内的<code>Attiny85</code>通过使用<code>UM232H</code>烧写器，在<code>Arduino IDE</code>内烧写，无需其它的<code>bootloader</code>支持。</li>
+<li>首先在<code>~/.arduino15/packages/ATTinyCore/hardware/avr/1.4.1/programmers.txt</code>内，加入以下内容：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">um232h.name=UM232H as ISP</div><div class="line">um232h.communication=serial</div><div class="line">um232h.protocol=UM232H</div><div class="line">um232h.speed=19200</div><div class="line">um232h.program.protocol=UM232H</div><div class="line">um232h.program.speed=19200</div><div class="line">um232h.program.tool=avrdude</div><div class="line">um232h.program.extra_params=-P&#123;serial.port&#125; -b&#123;program.speed&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>重启<code>Arduino IDE</code>会发现，选择<code>ATTinyCore</code>包类的板子，在烧写器一栏，会看到<code>UM232H as ISP</code>. 如果在某个包类没有在定义<code>programmers.txt</code>，它就<br>会使用目标板子在<code>arduino</code>体系内所对应<code>~/.arduino15/packages/arduino/hardware/&lt;arch&gt;/&lt;version&gt;/programmers.txt</code></p>
+</li>
+<li><p>如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ .arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude -C .arduino15/packages/ATTinyCore/hardware/avr/1.4.1/avrdude.conf</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果这里的<code>.arduino15/packages/ATTinyCore/hardware/avr/1.4.1/avrdude.conf</code>文件内没有支持<code>UM232H</code>配置，<br>需要在<code>avrdude.conf</code>加入下面内容:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># UM232H module from FTDI and Glyn.com.au.</span></div><div class="line"><span class="comment"># See helix.air.net.au for detailed usage information.</span></div><div class="line"><span class="comment"># J1: Connect pin 2 and 3 for USB power.</span></div><div class="line"><span class="comment"># J2: Connect pin 2 and 3 for USB power.</span></div><div class="line"><span class="comment"># J2: Pin 7 is SCK</span></div><div class="line"><span class="comment">#   : Pin 8 is MOSI</span></div><div class="line"><span class="comment">#   : Pin 9 is MISO</span></div><div class="line"><span class="comment">#   : Pin 11 is RST</span></div><div class="line"><span class="comment">#   : Pin 6 is ground</span></div><div class="line"><span class="comment"># Use the -b flag to set the SPI clock rate eg -b 3750000 is the fastest I could get</span></div><div class="line"><span class="comment"># a 16MHz Atmega1280 to program reliably.  The 232H is conveniently 5V tolerant.</span></div><div class="line">programmer</div><div class="line">  id         = <span class="string">"UM232H"</span>;</div><div class="line">  desc       = <span class="string">"FT232H based module from FTDI and Glyn.com.au"</span>;</div><div class="line">  <span class="built_in">type</span>       = <span class="string">"avrftdi"</span>;</div><div class="line">  usbvid     = 0x0403;</div><div class="line"><span class="comment"># Note: This PID is reserved for generic 232H devices and</span></div><div class="line"><span class="comment"># should be programmed into the EEPROM</span></div><div class="line">  usbpid     = 0x6014;</div><div class="line">  usbdev     = <span class="string">"A"</span>;</div><div class="line">  usbvendor  = <span class="string">""</span>;</div><div class="line">  usbproduct = <span class="string">""</span>;</div><div class="line">  usbsn      = <span class="string">""</span>;</div><div class="line"><span class="comment">#ISP-signals</span></div><div class="line">  sck    = 0;</div><div class="line">  mosi   = 1;</div><div class="line">  miso   = 2;</div><div class="line">  reset  = 3;</div><div class="line">;</div></pre></td></tr></table></figure>
+<ul>
+<li>如在运行烧写时出现在下面错误，也就是在一些<code>avrdude.conf</code>内没有支持<code>UM232H</code>的原因之一。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">avrdude: Error: no libftdi or libusb support. Install libftdi1/libusb-1.0 or libftdi/libusb and run configure/make again.</div></pre></td></tr></table></figure>
+<ul>
+<li>这里比较简单解决办法是，使用系统的<code>/usr/bin/avrdude</code>来替换<code>.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude</code></li>
+<li>为什么<code>Arduino IDE</code>为会调用包内的工具(avrdude),因为它的路径定义如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">~$ grep <span class="string">"avrdude.path"</span> ~/.arduino15/packages/arduino/hardware/avr/1.8.3/platform.txt</div><div class="line">tools.avrdude.path=&#123;runtime.tools.avrdude.path&#125;</div><div class="line"></div><div class="line">~$ grep <span class="string">"avrdude.path"</span> ~/.arduino15/packages/ATTinyCore/hardware/avr/1.4.1/platform.txt</div><div class="line">tools.avrdude.path=&#123;runtime.tools.avrdude.path&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>最后，新增其它的种类的烧写器也是类似，如:<code>FT2232HL</code>等。这种方式，就是可以使用<code>Arduino IDE</code>生态内的软件库，所带来快速开发与测试硬件的优势利。也可<br>使用<code>Makefile</code>的方式使用<code>avrdude</code>来烧写。</li>
+</ul>
+<h2 id="AVRDude烧写"><a href="#AVRDude烧写" class="headerlink" title="AVRDude烧写"></a><code>AVRDude</code>烧写</h2><ul>
+<li><p>前面是在<code>ATTiny85</code>Flash里烧写一个<code>bootloader</code>开启<code>SELFPRGEN Self-Programming Enable</code>与<strong>SPIEN Enable Serial Program and Data<br>Downloading</strong>的功能，优点就是让它能通过<code>USB(D-: PB3/AD3,D+: PB4/AD2)</code>可以烧写程序，可以简单与<code>Arduino IDE</code>集成使用,不需要外接烧写器。缺点<br>就是要消耗2kb,但是<code>Attiny85</code>总供就只有8kb的Flash.</p>
+</li>
+<li><p>下面就是通过使用<code>UM232H</code>像烧写<code>bootloader</code>的方法去开发编程，可以完全使用8kb的空间。下面是一个简单<code>blink</code>示例。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">~ blink$ cat main.c</div><div class="line">// main.c</div><div class="line">//</div><div class="line">// A simple blinky program <span class="keyword">for</span> ATtiny85</div><div class="line">// Connect red LED at pin 2 (PB1)</div><div class="line">//</div><div class="line">// electronut.in</div><div class="line"></div><div class="line"><span class="comment">#include &lt;avr/io.h&gt;</span></div><div class="line"><span class="comment">#include &lt;util/delay.h&gt;</span></div><div class="line"></div><div class="line">int main (void)</div><div class="line">&#123;</div><div class="line">  // <span class="built_in">set</span> PB1 to be output</div><div class="line">	DDRB = 0b00000010;</div><div class="line">  <span class="keyword">while</span> (1) &#123;</div><div class="line"></div><div class="line">    // flash<span class="comment"># 1:</span></div><div class="line">    // <span class="built_in">set</span> PB1 high</div><div class="line">    PORTB = 0b00000010;</div><div class="line">    _delay_ms(20);</div><div class="line">    // <span class="built_in">set</span> PB1 low</div><div class="line">    PORTB = 0b00000000;</div><div class="line">    _delay_ms(20);</div><div class="line"></div><div class="line">    // flash<span class="comment"># 2:</span></div><div class="line">    // <span class="built_in">set</span> PB1 high</div><div class="line">    PORTB = 0b00000010;</div><div class="line">    _delay_ms(200);</div><div class="line">    // <span class="built_in">set</span> PB1 low</div><div class="line">    PORTB = 0b00000000;</div><div class="line">    _delay_ms(200);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="built_in">return</span> 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Makefile for programming the ATtiny85</span></div><div class="line"><span class="comment"># modified the one generated by CrossPack</span></div><div class="line"></div><div class="line">DEVICE      = attiny85</div><div class="line">CLOCK      = 8000000</div><div class="line">PROGRAMMER = -c UM232H</div><div class="line">OBJECTS    = main.o</div><div class="line"><span class="comment"># for ATTiny85</span></div><div class="line"><span class="comment"># see http://www.engbedded.com/fusecalc/</span></div><div class="line">FUSES       = -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m</div><div class="line"></div><div class="line"><span class="comment"># Tune the lines below only if you know what you are doing:</span></div><div class="line">AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)</div><div class="line">COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)</div><div class="line"></div><div class="line"><span class="comment"># symbolic targets:</span></div><div class="line">all:	main.hex</div><div class="line"></div><div class="line">.c.o:</div><div class="line">	$(COMPILE) -c $&lt; -o <span class="variable">$@</span></div><div class="line"></div><div class="line">.S.o:</div><div class="line">	$(COMPILE) -x assembler-with-cpp -c $&lt; -o <span class="variable">$@</span></div><div class="line"></div><div class="line">.c.s:</div><div class="line">	$(COMPILE) -S $&lt; -o <span class="variable">$@</span></div><div class="line"></div><div class="line">flash:	all</div><div class="line">	$(AVRDUDE) -U flash:w:main.hex:i</div><div class="line"></div><div class="line">fuse:</div><div class="line">	$(AVRDUDE) $(FUSES)</div><div class="line"></div><div class="line"><span class="comment"># Xcode uses the Makefile targets "", "clean" and "install"</span></div><div class="line">install: flash fuse</div><div class="line"></div><div class="line"><span class="comment"># if you use a bootloader, change the command below appropriately:</span></div><div class="line">load: all</div><div class="line">	bootloadHID main.hex</div><div class="line"></div><div class="line">clean:</div><div class="line">	rm <span class="_">-f</span> main.hex main.elf $(OBJECTS)</div><div class="line"></div><div class="line"><span class="comment"># file targets:</span></div><div class="line">main.elf: $(OBJECTS)</div><div class="line">	$(COMPILE) -o main.elf $(OBJECTS)</div><div class="line"></div><div class="line">main.hex: main.elf</div><div class="line">	rm <span class="_">-f</span> main.hex</div><div class="line">	avr-objcopy -j .text -j .data -O ihex main.elf main.hex</div><div class="line">	avr-size --format=avr --mcu=$(DEVICE) main.elf</div><div class="line"><span class="comment"># If you have an EEPROM section, you must also create a hex file for the</span></div><div class="line"><span class="comment"># EEPROM and add it to the "flash" target.</span></div><div class="line"></div><div class="line"><span class="comment"># Targets for code debugging and analysis:</span></div><div class="line">disasm:	main.elf</div><div class="line">	avr-objdump <span class="_">-d</span> main.elf</div><div class="line"></div><div class="line">cpp:</div><div class="line">	$(COMPILE) -E main.c</div></pre></td></tr></table></figure>
+<ul>
+<li><p>接线按照上面方法，因为这里是没有用使用<code>bootloader</code>,直接在<code>blink</code>目录下运行<code>make flash</code>就通过使用<code>avrdude</code>烧写到<code>flash</code>中。</p>
+</li>
+<li><p>也可以单独使用下面命令烧写。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~$ avrdude -C /etc/avrdude.conf -c UM232H -P /dev/ttyUSB1 -b 19200 -p attiny85 -U flash:w:main.hex:i</div></pre></td></tr></table></figure>
+<h2 id="开发环境-vscode"><a href="#开发环境-vscode" class="headerlink" title="开发环境(vscode)"></a>开发环境(vscode)</h2><ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Alex079.vscode-avr-helper" target="_blank" rel="external">Alex079.vscode-avr-helper</a></li>
+</ul>
+<h2 id="高压编程恢复熔丝位-fuse-锁死"><a href="#高压编程恢复熔丝位-fuse-锁死" class="headerlink" title="高压编程恢复熔丝位(fuse)锁死"></a>高压编程恢复<code>熔丝位(fuse)</code>锁死</h2><ul>
+<li><a href="https://arduinodiy.wordpress.com/2015/05/16/high-voltage-programmingunbricking-for-attiny/" target="_blank" rel="external">High Voltage programming/Unbricking for Attiny</a></li>
+<li><p><a href="https://github.com/RalphBacon/ATTiny85_Fuse_Resetter" target="_blank" rel="external">ATTiny85_Fuse_Resetter</a></p>
+</li>
+<li><p>恢复<code>熔丝位(fuse)</code>还是有一点麻烦，按照博文<a href="https://arduinodiy.wordpress.com/2015/05/16/high-voltage-programmingunbricking-for-attiny/" target="_blank" rel="external">High Voltage programming/Unbricking for Attiny</a>指导，需要有一个<code>Arduino</code>设备，或者说至少要一个有6个IO口的单片机。还需要6个1k的电阻，<br>一个(npn)的三极管，一个12V的电压源。</p>
+</li>
+<li><p>内存爆掉的问题，定义了一个<code>1024</code>的数组。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">avr-size --format=avr --mcu=attiny85 main.elf</div><div class="line">AVR Memory Usage</div><div class="line">----------------</div><div class="line">Device: attiny85</div><div class="line"></div><div class="line">Program:    2454 bytes (30.0% Full)</div><div class="line">(.text + .data + .bootloader)</div><div class="line"></div><div class="line">Data:       1043 bytes (203.7% Full)</div><div class="line">(.data + .bss + .noinit)</div></pre></td></tr></table></figure>
+<h2 id="驱动NRF24l01"><a href="#驱动NRF24l01" class="headerlink" title="驱动NRF24l01"></a>驱动<code>NRF24l01</code></h2><ul>
+<li><a href="https://nerdralph.blogspot.com/2014/01/nrf24l01-control-with-3-attiny85-pins.html" target="_blank" rel="external">nrf24l01+ control with 3 ATtiny85 pins</a></li>
+<li><a href="https://nerdralph.blogspot.com/2015/05/nrf24l01-control-with-2-mcu-pins-using.html" target="_blank" rel="external">nRF24l01 control with 2 MCU pins using time-division duplexed SPI</a></li>
+<li><a href="https://nerdralph.blogspot.com/2015/03/fastest-avr-software-spi-in-west.html" target="_blank" rel="external">Fastest AVR software SPI in the West</a></li>
+<li><a href="https://github.com/nerdralph/nerdralph" target="_blank" rel="external">nerdralph</a></li>
+<li><a href="https://www.instructables.com/ATtiny8485-SPI-Interface-Pin-Reuse/" target="_blank" rel="external">ATtiny84/85 SPI Interface Pin Reuse</a></li>
+<li><a href="https://www.gadgetronicx.com/attiny85-spi-protocol-master-slave-mode-tutorial/" target="_blank" rel="external">ATtiny85 SPI protocol – Master and Slave mode tutorial</a></li>
+</ul>
+<h2 id="驱动SSD1306"><a href="#驱动SSD1306" class="headerlink" title="驱动SSD1306"></a>驱动<code>SSD1306</code></h2><ul>
+<li><a href="http://www.technoblogy.com/show?23OS" target="_blank" rel="external">Tiny Graphics Library</a></li>
+<li><a href="http://www.technoblogy.com/list?1PM9" target="_blank" rel="external">ATtiny85 Graphics Display</a></li>
+<li><a href="https://www.studiopieters.nl/attiny85-oled-i2c/" target="_blank" rel="external">ATTiny85 – OLED (I2C)</a></li>
+<li><a href="https://github.com/trongphuongpro/ATtiny-USI-I2C-Master" target="_blank" rel="external">ATtiny-USI-I2C-Master</a></li>
+<li><a href="https://github.com/technoblogy/tiny-i2c" target="_blank" rel="external"></a></li>
+<li><a href="https://github.com/lexus2k/ssd1306" target="_blank" rel="external">lexus2k/ssd1306</a></li>
+<li><a href="https://electronics.stackexchange.com/questions/367105/send-a-single-pulse-low-high-pulse-then-stay-high" target="_blank" rel="external">Send a single pulse low/high pulse then stay high</a></li>
+<li><a href="https://exploreembedded.com/wiki/OLED_Interface_With_8051" target="_blank" rel="external">OLED_Interface_With_8051</a></li>
+<li><a href="https://iotexpert.com/debugging-ssd1306-display-problems/" target="_blank" rel="external"></a></li>
+</ul>
+<h3 id="逻辑分析仪的问题"><a href="#逻辑分析仪的问题" class="headerlink" title="逻辑分析仪的问题"></a>逻辑分析仪的问题</h3><ul>
+<li><a href="https://sigrok.org/wiki/Fx2lafw" target="_blank" rel="external">Fx2lafw</a></li>
+<li><p><a href="https://sigrok.org/wiki/PulseView" target="_blank" rel="external">PulseView</a></p>
+</li>
+<li><p>连接逻辑分析仪时，不知为何，有时会出现干扰，让程序跑飞，而断开后运行的很正常。</p>
+</li>
+</ul>
+<h3 id="字符相关"><a href="#字符相关" class="headerlink" title="字符相关"></a>字符相关</h3><ul>
+<li><a href="https://lvgl.io/tools/fontconverter" target="_blank" rel="external">fontconverter</a></li>
+<li><a href="https://jared.geek.nz/2014/jan/custom-fonts-for-microcontrollers" target="_blank" rel="external">Custom Fonts for Microcontrollers</a></li>
+<li><a href="https://github.com/vladimirgamalyan/fontbm" target="_blank" rel="external">fontbm</a></li>
+<li><a href="https://m0agx.eu/2018/02/10/making-graphics-and-fonts-for-embedded-systems/" target="_blank" rel="external">Making graphics and fonts for embedded systems</a></li>
+<li><a href="https://github.com/arturlangner/fontbuilder" target="_blank" rel="external">fontbuilder</a></li>
+<li><a href="https://mil.ufl.edu/3744/docs/lcdmanual/characterset.html" target="_blank" rel="external">LCD Character Set</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">CONFIG:    0b</div><div class="line">EN_AA:     3e</div><div class="line">EN_RXADDR: 01</div><div class="line">SETUP_AW:  02</div><div class="line">SETUP_RETR:30</div><div class="line">RF_CH:     02</div><div class="line">RF_SETUP:  05</div><div class="line">STATUS:    0e</div><div class="line">OBS_TX:    00</div><div class="line">TX_ADDR:   71917d6b</div><div class="line">CD:        00</div><div class="line">RX_PW_P0:  20</div><div class="line">RX_PW_P1:  00</div><div class="line">RX_PW_P2:  00</div><div class="line">RX_PW_P3:  00</div><div class="line">RX_PW_P4:  00</div><div class="line">RX_PW_P5:  00</div><div class="line">FIFO_STAT: 11</div><div class="line">DYNPD:     00</div><div class="line">FEATURE:   05</div></pre></td></tr></table></figure>
+<h1 id="AVR-GCC汇编相关"><a href="#AVR-GCC汇编相关" class="headerlink" title="AVR-GCC汇编相关"></a>AVR-GCC汇编相关</h1><ul>
+<li><a href="https://hackaday.io/project/1475-avr-gcc-assembler-techniques/details" target="_blank" rel="external">AVR GCC assembler techniques</a></li>
+<li><a href="https://www.nongnu.org/avr-libc/user-manual/inline_asm.html" target="_blank" rel="external">Inline Assembler Cookbook</a></li>
+<li><a href="http://www.cs.northampton.ac.uk/~yinghui/csy1014/cs1_tut_16.htm" target="_blank" rel="external">Basic Assembly Language programming</a></li>
+<li><a href="http://www.avr-asm-tutorial.net/avr_en/beginner/index.html" target="_blank" rel="external">Introduction to AVR assembler programming for beginners</a></li>
+<li><a href="http://www.avr-asm-tutorial.net/avr_en/beginner/PDETAIL.html#MCUCR" target="_blank" rel="external">MCUCR Detial</a></li>
+<li><a href="https://github.com/aagontuk/cheatsheets/blob/master/AVR_assembly_programming.md" target="_blank" rel="external"></a></li>
+</ul>
+<h2 id="GCC-asm-Statement"><a href="#GCC-asm-Statement" class="headerlink" title="GCC asm Statement"></a>GCC asm Statement</h2><ul>
+<li>Let’s start with a simple example of reading a value from port D:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">asm(<span class="string">"in %0, %1"</span> : <span class="string">"=r"</span> (value) : <span class="string">"I"</span> (_SFR_IO_ADDR(PORTD)) );</div></pre></td></tr></table></figure>
+<p>Each<code>asm</code>statement is devided by colons into (up to) four parts:</p>
+<ol>
+<li>The assembler instructions, defined as a single string constant: <code>&quot;in %0, %1&quot;</code></li>
+<li>A list of output operands, separated by commas. Our example uses just one: <code>&quot;=r&quot; (value)</code></li>
+<li>A comma separated list of input operands. Again our example uses one operand only:<br><code>&quot;I&quot; (_SFR_IO_ADDR(PORTD))</code></li>
+<li>Clobbered registers, left empty in our example.</li>
+</ol>
+<ul>
+<li>You can write assembler instructions in much the same way as you would write assembler programs. However, registers and<br>constants are used in a different way if they refer to expressions of your C program. The connection between registers<br>and C operands is specified in the second and third part of the asm instruction, the list of input and output operands,<br>respectively. The general form is</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">asm(code : output operand list : input operand list [: clobber list]);</div></pre></td></tr></table></figure>
+<ul>
+<li>In the code section, operands are referenced by a percent sign followed by a single digit. <code>%0</code> refers to the first <code>%1</code> to<br>the second operand and so forth. From the above example:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">%0 refers to <span class="string">"=r"</span> (value) and</div><div class="line">%1 refers to <span class="string">"I"</span> (_SFR_IO_ADDR(PORTD)).</div></pre></td></tr></table></figure>
+<h3 id="Input-and-Output-Operands"><a href="#Input-and-Output-Operands" class="headerlink" title="Input and Output Operands"></a>Input and Output Operands</h3><ul>
+<li><p>Each input and output operand is described by a constraint string followed by a C expression in parantheses. AVR-GCC 3.3<br>knows the following constraint characters:</p>
+</li>
+<li><p>Note</p>
+<ul>
+<li>The most up-to-date and detailed information on contraints for the avr can be found in the gcc manual.</li>
+<li>The <code>x</code> register is <code>r27:r26</code>, the <code>y</code> register is <code>r29:r28</code>, and the <code>z</code> register is <code>r31:r30</code></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Used for</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>Simple upper registers</td>
+<td>r16 to r23</td>
+</tr>
+<tr>
+<td>b</td>
+<td>Base pointer registers pairs</td>
+<td>y, z</td>
+</tr>
+<tr>
+<td>d</td>
+<td>Upper register</td>
+<td>r16 to r31</td>
+</tr>
+<tr>
+<td>e</td>
+<td>Pointer register pairs</td>
+<td>x, y, z</td>
+</tr>
+<tr>
+<td>q</td>
+<td>Stack pointer register</td>
+<td>SPH:SPL</td>
+</tr>
+<tr>
+<td>r</td>
+<td>Any register</td>
+<td>r0 to r31</td>
+</tr>
+<tr>
+<td>t</td>
+<td>Temporary register</td>
+<td>r0</td>
+</tr>
+<tr>
+<td>w</td>
+<td>Special upper register pairs</td>
+<td>r24, r26, r28, r30</td>
+</tr>
+<tr>
+<td>x</td>
+<td>Pointer register pair X</td>
+<td>x (r27:r26)</td>
+</tr>
+<tr>
+<td>y</td>
+<td>Pointer register pair Y</td>
+<td>y (r29:r28)</td>
+</tr>
+<tr>
+<td>z</td>
+<td>Pointer register pair Z</td>
+<td>z (r31:r30)</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Floating point constant</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>I</td>
+<td>6-bit positive integer constant</td>
+<td>0 to 63</td>
+</tr>
+<tr>
+<td>J</td>
+<td>6-bit negative integer constant</td>
+<td>-63 to 0</td>
+</tr>
+<tr>
+<td>K</td>
+<td>Integer constant</td>
+<td>2</td>
+</tr>
+<tr>
+<td>L</td>
+<td>Integer constant</td>
+<td>0</td>
+</tr>
+<tr>
+<td>l</td>
+<td>Lower registers</td>
+<td>r0 to r15</td>
+</tr>
+<tr>
+<td>M</td>
+<td>8-bit integer constant</td>
+<td>0 to 255</td>
+</tr>
+<tr>
+<td>N</td>
+<td>Integer constant</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>O</td>
+<td>Integer constant</td>
+<td>8, 16, 24</td>
+</tr>
+<tr>
+<td>P</td>
+<td>Integer constant</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>(GCC &gt;= 4.2.x) A memory address based on Y or Z pointer with displacementa.</td>
+<td></td>
+</tr>
+<tr>
+<td>R</td>
+<td>(GCC &gt;= 4.3.x) Integer constant.</td>
+<td>-6 to 5</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Mnemonic</th>
+<th>Constraints</th>
+<th>Mnemonic</th>
+<th>Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>adc</td>
+<td>r,r</td>
+<td>add</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>adiw</td>
+<td>w,I</td>
+<td>and</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>andi</td>
+<td>d,M</td>
+<td>asr</td>
+<td>r</td>
+</tr>
+<tr>
+<td>bclr</td>
+<td>I</td>
+<td>bld</td>
+<td>r,I</td>
+</tr>
+<tr>
+<td>brbc</td>
+<td>I,label</td>
+<td>brbs</td>
+<td>I,label</td>
+</tr>
+<tr>
+<td>bset</td>
+<td>I</td>
+<td>bst</td>
+<td>r,I</td>
+</tr>
+<tr>
+<td>cbi</td>
+<td>I,I</td>
+<td>cbr</td>
+<td>d,I</td>
+</tr>
+<tr>
+<td>com</td>
+<td>r</td>
+<td>cp</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>cpc</td>
+<td>r,r</td>
+<td>cpi</td>
+<td>d,M</td>
+</tr>
+<tr>
+<td>cpse</td>
+<td>r,r</td>
+<td>dec</td>
+<td>r</td>
+</tr>
+<tr>
+<td>elpm</td>
+<td>t,z</td>
+<td>eor</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>in</td>
+<td>r,I</td>
+<td>inc</td>
+<td>r</td>
+</tr>
+<tr>
+<td>ld</td>
+<td>r,e</td>
+<td>ldd</td>
+<td>r,b</td>
+</tr>
+<tr>
+<td>ldi</td>
+<td>d,M</td>
+<td>lds</td>
+<td>r,label</td>
+</tr>
+<tr>
+<td>lpm</td>
+<td>t,z</td>
+<td>lsl</td>
+<td>r</td>
+</tr>
+<tr>
+<td>lsr</td>
+<td>r</td>
+<td>mov</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>movw</td>
+<td>r,r</td>
+<td>mul</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>neg</td>
+<td>r</td>
+<td>or</td>
+<td>r,r</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>d,M</td>
+<td>out</td>
+<td>I,r</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>r</td>
+<td>push</td>
+<td>r</td>
+</tr>
+<tr>
+<td>rol</td>
+<td>r</td>
+<td>ror</td>
+<td>r</td>
+</tr>
+<tr>
+<td>sbc</td>
+<td>r,r</td>
+<td>sbci</td>
+<td>d,M</td>
+</tr>
+<tr>
+<td>sbi</td>
+<td>I,I</td>
+<td>sbic</td>
+<td>I,I</td>
+</tr>
+<tr>
+<td>sbiw</td>
+<td>w,I</td>
+<td>sbr</td>
+<td>d,M</td>
+</tr>
+<tr>
+<td>sbrc</td>
+<td>r,I</td>
+<td>sbrs</td>
+<td>r,I</td>
+</tr>
+<tr>
+<td>ser</td>
+<td>d</td>
+<td>st</td>
+<td>e,r</td>
+</tr>
+<tr>
+<td>std</td>
+<td>b,r</td>
+<td>sts</td>
+<td>label,r</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>r,r</td>
+<td>subi</td>
+<td>d,M</td>
+</tr>
+<tr>
+<td>swap</td>
+<td>r</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Constraint characters may be prepended by a single constraint modifier. Contraints without a modifier specify read-only<br>operands. Modifiers are:</li>
+<li>Modifier     Specifies</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">= 	Write-only operand, usually used <span class="keyword">for</span> all output operands.</div><div class="line">+ 	Read-write operand</div><div class="line">&amp; 	Register should be used <span class="keyword">for</span> output only</div></pre></td></tr></table></figure>
+<p><strong>comment</strong> In assembler programming, the term <code>clobbered registers</code> is used to denote any registers whose value may be<br>  overwritten during the course of executing an instruction or procedure.</p>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/嵌入式系统-单片机/" rel="tag"># 嵌入式系统,单片机</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/26/STM32与RTOS实践/" rel="next" title="STM32与RTOS实实践">
+                <i class="fa fa-chevron-left"></i> STM32与RTOS实实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/02/玩转FPGA-DE0-Nano/" rel="prev" title="玩转FPGA_DE0-Nano">
+                玩转FPGA_DE0-Nano <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars0.githubusercontent.com/u/321919?s=400&u=67298bd9fc3b622eaf93a6cc511a24ac878e86db&v=4"
+                alt="yjdwbj" />
+            
+              <p class="site-author-name" itemprop="name">yjdwbj</p>
+              <p class="site-description motion-element" itemprop="description">最是人间留不住,朱颜辞镜花辞树</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yjdwbj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yjdwbj@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/yjdwbj" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega32U4-Arduino-pro-micro"><span class="nav-number">1.</span> <span class="nav-text">ATmega32U4(Arduino pro micro)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega328p-Arduino-Pro-mini-with-CH340"><span class="nav-number">2.</span> <span class="nav-text">ATmega328p (Arduino Pro mini with CH340)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATtiny85-CJMCU"><span class="nav-number">3.</span> <span class="nav-text">ATtiny85(CJMCU)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootloader"><span class="nav-number">3.1.</span> <span class="nav-text">Bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统控制与复位"><span class="nav-number">3.1.1.</span> <span class="nav-text">系统控制与复位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Arduino-IDE支持-ATTinyCore"><span class="nav-number">3.2.</span> <span class="nav-text">使用Arduino IDE支持(ATTinyCore)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Arduino上传第一个程序-blink-。"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用Arduino上传第一个程序(blink)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增烧写器-UM232H为例"><span class="nav-number">3.2.2.</span> <span class="nav-text">新增烧写器(UM232H为例)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRDude烧写"><span class="nav-number">3.3.</span> <span class="nav-text">AVRDude烧写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境-vscode"><span class="nav-number">3.4.</span> <span class="nav-text">开发环境(vscode)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高压编程恢复熔丝位-fuse-锁死"><span class="nav-number">3.5.</span> <span class="nav-text">高压编程恢复熔丝位(fuse)锁死</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动NRF24l01"><span class="nav-number">3.6.</span> <span class="nav-text">驱动NRF24l01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动SSD1306"><span class="nav-number">3.7.</span> <span class="nav-text">驱动SSD1306</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑分析仪的问题"><span class="nav-number">3.7.1.</span> <span class="nav-text">逻辑分析仪的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符相关"><span class="nav-number">3.7.2.</span> <span class="nav-text">字符相关</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVR-GCC汇编相关"><span class="nav-number">4.</span> <span class="nav-text">AVR-GCC汇编相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCC-asm-Statement"><span class="nav-number">4.1.</span> <span class="nav-text">GCC asm Statement</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-and-Output-Operands"><span class="nav-number">4.1.1.</span> <span class="nav-text">Input and Output Operands</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">5.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

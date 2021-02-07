@@ -113,7 +113,7 @@ i.MX28 Applications Processor Reference Manual
 
 
 U-Boot 2017.11
-这里参照开发板原版的u-boot-2009修改部分源码与">
+Secure boot with NXP tools (">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为iMX28-EVK移植Linux内核与U-Boot">
 <meta property="og:url" content="http://yoursite.com/2018/07/05/为iMX28-EVK移植Linux内核与U-Boot/index.html">
@@ -129,13 +129,13 @@ i.MX28 Applications Processor Reference Manual
 
 
 U-Boot 2017.11
-这里参照开发板原版的u-boot-2009修改部分源码与">
+Secure boot with NXP tools (">
 <meta property="og:image" content="http://yoursite.com/imgs/imx28evk-pin.png">
 <meta property="og:image" content="http://yoursite.com/imgs/imx28evk-pin-324.png">
 <meta property="og:image" content="http://yoursite.com/imgs/imx28evk-dma_apbx.png">
 <meta property="og:image" content="http://yoursite.com/imgs/hmc5883l.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2020-02-25T00:29:02.987Z">
+<meta property="og:updated_time" content="2021-02-04T13:26:04.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为iMX28-EVK移植Linux内核与U-Boot">
 <meta name="twitter:description" content="相关链接
@@ -149,7 +149,7 @@ i.MX28 Applications Processor Reference Manual
 
 
 U-Boot 2017.11
-这里参照开发板原版的u-boot-2009修改部分源码与">
+Secure boot with NXP tools (">
 <meta name="twitter:image" content="http://yoursite.com/imgs/imx28evk-pin.png">
 
 
@@ -383,7 +383,7 @@ U-Boot 2017.11
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-25 08:29:02" itemprop="dateModified" datetime="2020-02-25T08:29:02+08:00">2020-02-25</time>
+                <time title="修改时间：2021-02-04 21:26:04" itemprop="dateModified" datetime="2021-02-04T21:26:04+08:00">2021-02-04</time>
               
             
           </span>
@@ -428,6 +428,12 @@ U-Boot 2017.11
 </li>
 </ul>
 <h1 id="U-Boot-2017-11"><a href="#U-Boot-2017-11" class="headerlink" title="U-Boot 2017.11"></a>U-Boot 2017.11</h1><ul>
+<li><a href="https://github.com/f-secure-foundry/usbarmory/wiki/Secure-boot-with-NXP-tools-(Mk-I" target="_blank" rel="external">Secure boot with NXP tools (Mk I)</a>)</li>
+<li><a href="https://boundarydevices.com/high-assurance-boot-hab-dummies/" target="_blank" rel="external">High Assurance Boot (HAB) for dummies</a></li>
+<li><a href="https://variwiki.com/index.php?title=High_Assurance_Boot" target="_blank" rel="external">i.MX High Assurance Boot (HAB) / Secure Boot</a></li>
+<li><a href="imx-code-signing-tool"></a></li>
+</ul>
+<ul>
 <li>这里参照开发板原版的<code>u-boot-2009</code>修改部分源码与配置文件才可以正常启动,<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/uboot-2017.11-imx28evk.config" target="_blank" rel="external"><strong>配置文件</strong></a>,<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/patchs/u-boot-2017.11-imx28evk.patch" target="_blank" rel="external"><strong>补丁文件</strong></a></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../imx28evk mx28evk_defconfig</div><div class="line">~$ <span class="built_in">cd</span> ../imx28evk</div><div class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- u-boot.sb</div></pre></td></tr></table></figure>
@@ -451,6 +457,9 @@ U-Boot 2017.11
 <li>imx-bootlets 可以使用开发板自带的源码,也可以从这里<a href="http://repository.timesys.com/buildsources/i/imx-bootlets/imx-bootlets-10.12.01" target="_blank" rel="external">imx-bootlets</a>下载.它只能使用<a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" target="_blank" rel="external">arm-none-eabi-</a>工具链编译,我换成<a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="external">Linaro Toolchain</a>工具链编译之后无法启动.编译中的脚本会要用到<a href="http://repository.timesys.com/buildsources/e/elftosb/elftosb-10.12.01/" target="_blank" rel="external">elftosb</a>,要先把<code>elftosb</code>编译出来.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">~$ <span class="built_in">cd</span> imx-bootlets</div><div class="line">~$ ln -svf ../linux-4.13/build_output/zImage_dtb zImage   // 链接内核到这里</div><div class="line">~$ ln -svf ../u-boot-2017-9/imx28evk/uboot uboot　　　　　　//　链接uboot到这里</div><div class="line">~$ make BOARD=iMX28_EVK ARCH=mx28 CROSS_COMPILE=arm-none-eabi- clean</div><div class="line">~$ make BOARD=iMX28_EVK ARCH=mx28 CROSS_COMPILE=arm-none-eabi-</div><div class="line">~$ ls *.bd</div><div class="line">linux.bd  linux_ivt.bd  uboot.bd  uboot_ivt.bd  updater.bd  updater_ivt.bd</div><div class="line">~$  ls *.sb</div><div class="line">imx28_ivt_linux.sb  imx28_ivt_uboot.sb  imx28_linux.sb  imx28_uboot.sb</div></pre></td></tr></table></figure>
+<h2 id="烧写系统"><a href="#烧写系统" class="headerlink" title="烧写系统"></a>烧写系统</h2><ul>
+<li><a href="https://github.com/NXPmicro/mfgtools" target="_blank" rel="external">https://github.com/NXPmicro/mfgtools</a></li>
+</ul>
 <h2 id="IMX280A-USB-烧写模式"><a href="#IMX280A-USB-烧写模式" class="headerlink" title="IMX280A USB 烧写模式"></a>IMX280A USB 烧写模式</h2><ul>
 <li>短接 JP4-&gt;WDG,JP6-&gt;USB, 接上<code>USB_DEV接口</code>,当然<code>POWER</code>接口也是要接上的,系统就会出现下列硬件.这里要使用<code>MfgTool</code>工具烧入,相对较麻烦一些.</li>
 </ul>
@@ -706,7 +715,7 @@ U-Boot 2017.11
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -800,7 +809,17 @@ U-Boot 2017.11
                     
                       
                     
-                    <span class="site-state-item-count">30</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -855,7 +874,7 @@ U-Boot 2017.11
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#U-Boot-2017-11"><span class="nav-number">1.</span> <span class="nav-text">U-Boot 2017.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tftpd-hpa-安装"><span class="nav-number">2.</span> <span class="nav-text">tftpd-hpa 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NFS-Server-配置"><span class="nav-number">3.</span> <span class="nav-text">NFS Server 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#U-boot-使用"><span class="nav-number">4.</span> <span class="nav-text">U-boot 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#公共变量"><span class="nav-number">4.1.</span> <span class="nav-text">公共变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS-ROOTFS"><span class="nav-number">4.2.</span> <span class="nav-text">NFS ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMC-ROOTFS"><span class="nav-number">4.3.</span> <span class="nav-text">MMC ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#USB-Stack-ROOTFS"><span class="nav-number">4.4.</span> <span class="nav-text">USB Stack ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-ROOTFS"><span class="nav-number">4.5.</span> <span class="nav-text">UBIFS ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过网络更新-kernel"><span class="nav-number">4.6.</span> <span class="nav-text">通过网络更新 kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过网络更新-nand-文件系统"><span class="nav-number">4.7.</span> <span class="nav-text">通过网络更新 nand 文件系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#imx-bootlets"><span class="nav-number">5.</span> <span class="nav-text">imx-bootlets</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IMX280A-USB-烧写模式"><span class="nav-number">5.1.</span> <span class="nav-text">IMX280A USB 烧写模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMX280-TF-烧写模式"><span class="nav-number">5.2.</span> <span class="nav-text">IMX280 TF 烧写模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BuildRoot-文件系统"><span class="nav-number">6.</span> <span class="nav-text">BuildRoot 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BusyBox-配置静态编译"><span class="nav-number">6.1.</span> <span class="nav-text">BusyBox 配置静态编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-配置"><span class="nav-number">6.2.</span> <span class="nav-text">Linux Kernel 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">6.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-文件系统制作"><span class="nav-number">6.4.</span> <span class="nav-text">UBIFS 文件系统制作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-文件烧写"><span class="nav-number">6.5.</span> <span class="nav-text">UBIFS 文件烧写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-内核编译"><span class="nav-number">7.</span> <span class="nav-text">Linux 内核编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-下载及配置选项"><span class="nav-number">7.1.</span> <span class="nav-text">Linux 下载及配置选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译内核用设备树"><span class="nav-number">7.2.</span> <span class="nav-text">编译内核用设备树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备树相关"><span class="nav-number">7.3.</span> <span class="nav-text">设备树相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mkimage-生成-uImage"><span class="nav-number">7.4.</span> <span class="nav-text">mkimage 生成 uImage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-I2C-功能"><span class="nav-number">7.5.</span> <span class="nav-text">测试 I2C 功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI-测试"><span class="nav-number">7.6.</span> <span class="nav-text">SPI 测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载测试代码"><span class="nav-number">7.7.</span> <span class="nav-text">下载测试代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误处理"><span class="nav-number">8.</span> <span class="nav-text">错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Root-挂载错误"><span class="nav-number">8.1.</span> <span class="nav-text">Root 挂载错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u-boot-编译错误"><span class="nav-number">8.2.</span> <span class="nav-text">u-boot 编译错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#U-boot-加载内核错误"><span class="nav-number">8.3.</span> <span class="nav-text">U-boot 加载内核错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译环境错误"><span class="nav-number">8.4.</span> <span class="nav-text">编译环境错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BusyBox-编译错误"><span class="nav-number">8.5.</span> <span class="nav-text">BusyBox 编译错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">8.5.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#U-Boot-2017-11"><span class="nav-number">1.</span> <span class="nav-text">U-Boot 2017.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tftpd-hpa-安装"><span class="nav-number">2.</span> <span class="nav-text">tftpd-hpa 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NFS-Server-配置"><span class="nav-number">3.</span> <span class="nav-text">NFS Server 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#U-boot-使用"><span class="nav-number">4.</span> <span class="nav-text">U-boot 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#公共变量"><span class="nav-number">4.1.</span> <span class="nav-text">公共变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS-ROOTFS"><span class="nav-number">4.2.</span> <span class="nav-text">NFS ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMC-ROOTFS"><span class="nav-number">4.3.</span> <span class="nav-text">MMC ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#USB-Stack-ROOTFS"><span class="nav-number">4.4.</span> <span class="nav-text">USB Stack ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-ROOTFS"><span class="nav-number">4.5.</span> <span class="nav-text">UBIFS ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过网络更新-kernel"><span class="nav-number">4.6.</span> <span class="nav-text">通过网络更新 kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过网络更新-nand-文件系统"><span class="nav-number">4.7.</span> <span class="nav-text">通过网络更新 nand 文件系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#imx-bootlets"><span class="nav-number">5.</span> <span class="nav-text">imx-bootlets</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#烧写系统"><span class="nav-number">5.1.</span> <span class="nav-text">烧写系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMX280A-USB-烧写模式"><span class="nav-number">5.2.</span> <span class="nav-text">IMX280A USB 烧写模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMX280-TF-烧写模式"><span class="nav-number">5.3.</span> <span class="nav-text">IMX280 TF 烧写模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BuildRoot-文件系统"><span class="nav-number">6.</span> <span class="nav-text">BuildRoot 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BusyBox-配置静态编译"><span class="nav-number">6.1.</span> <span class="nav-text">BusyBox 配置静态编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-配置"><span class="nav-number">6.2.</span> <span class="nav-text">Linux Kernel 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">6.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-文件系统制作"><span class="nav-number">6.4.</span> <span class="nav-text">UBIFS 文件系统制作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-文件烧写"><span class="nav-number">6.5.</span> <span class="nav-text">UBIFS 文件烧写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-内核编译"><span class="nav-number">7.</span> <span class="nav-text">Linux 内核编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-下载及配置选项"><span class="nav-number">7.1.</span> <span class="nav-text">Linux 下载及配置选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译内核用设备树"><span class="nav-number">7.2.</span> <span class="nav-text">编译内核用设备树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备树相关"><span class="nav-number">7.3.</span> <span class="nav-text">设备树相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mkimage-生成-uImage"><span class="nav-number">7.4.</span> <span class="nav-text">mkimage 生成 uImage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-I2C-功能"><span class="nav-number">7.5.</span> <span class="nav-text">测试 I2C 功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI-测试"><span class="nav-number">7.6.</span> <span class="nav-text">SPI 测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载测试代码"><span class="nav-number">7.7.</span> <span class="nav-text">下载测试代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误处理"><span class="nav-number">8.</span> <span class="nav-text">错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Root-挂载错误"><span class="nav-number">8.1.</span> <span class="nav-text">Root 挂载错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u-boot-编译错误"><span class="nav-number">8.2.</span> <span class="nav-text">u-boot 编译错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#U-boot-加载内核错误"><span class="nav-number">8.3.</span> <span class="nav-text">U-boot 加载内核错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译环境错误"><span class="nav-number">8.4.</span> <span class="nav-text">编译环境错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BusyBox-编译错误"><span class="nav-number">8.5.</span> <span class="nav-text">BusyBox 编译错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">8.5.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -875,7 +894,7 @@ U-Boot 2017.11
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

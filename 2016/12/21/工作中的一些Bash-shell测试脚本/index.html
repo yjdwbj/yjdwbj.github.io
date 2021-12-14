@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.  提取 TOP 命令中的数据1234567891011121314151617181920212223$ cat grep_pid.sh#!/bin/bashsrvdir=&quot;/root/nett">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工作中的一些Bash shell测试脚本">
+<meta property="og:url" content="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.  提取 TOP 命令中的数据1234567891011121314151617181920212223$ cat grep_pid.sh#!/bin/bashsrvdir=&quot;/root/nett">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2021-05-21T15:34:57.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工作中的一些Bash shell测试脚本">
+<meta name="twitter:description" content="做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.  提取 TOP 命令中的数据1234567891011121314151617181920212223$ cat grep_pid.sh#!/bin/bashsrvdir=&quot;/root/nett">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>工作中的一些Bash shell测试脚本 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          工作中的一些Bash shell测试脚本
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-21 21:24:01" itemprop="dateCreated datePublished" datetime="2016-12-21T21:24:01+08:00">2016-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-21 23:34:57" itemprop="dateModified" datetime="2021-05-21T23:34:57+08:00">2021-05-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><strong>做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.</strong></li>
+</ul>
+<h1 id="提取-TOP-命令中的数据"><a href="#提取-TOP-命令中的数据" class="headerlink" title="提取 TOP 命令中的数据"></a>提取 TOP 命令中的数据</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ cat grep_pid.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">srvdir=<span class="string">"/root/netty_srv_dir/"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##　分类统计top输出的CPU与内存数据</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | sort -k9 -n | head -n1 | awk <span class="string">'&#123;printf "\nCPU min:%4s\t", $9&#125;'</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum+=$9;n++&#125;END&#123;printf "avg: %4s\t", sum /n &#125;'</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | sort -k9 -n | tail -n1 | awk <span class="string">'&#123;printf " max:%4s\n", $9&#125;'</span></span><br><span class="line"><span class="comment">## print MEM</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | sort -k10 -n | tail -n1 | awk <span class="string">'&#123;printf "MEM: %4s\n",$10&#125;'</span></span><br><span class="line">cat <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> &gt; <span class="variable">$1bak</span>.<span class="built_in">log</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line"><span class="comment">#grep "total" $srvdir$1.net | sort -k 3 |tail -n1 | awk -F";" 'BEGIN&#123;print "Bytes Out\tBytes In\tPackets Out\tPackets In"&#125;&#123; printf "%sKB/s\t%sKB/s\t%sKB/s\t%sKB/s\n", $3 / 1000,$4/1000,$6/1000,$7/1000&#125;'</span></span><br><span class="line"><span class="comment">#grep "total" $srvdir$1.net | awk 'BEGIN &#123;FS =";";print "BOut\tBin\tPOut\tPin"&#125;&#123;if(NF==16)&#123; if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t",$3&#125;;if($4&gt;1000)&#123;printf "%sKB/s\n",$4/1000&#125;else&#123;printf "%sb/s\n",$4&#125;&#125;&#125;' 18028.net</span></span><br><span class="line">cat /proc/net/sockstat | grep <span class="string">"TCP"</span> | awk <span class="string">'&#123;print $1,$9&#125;'</span></span><br><span class="line">awk <span class="string">'BEGIN&#123;print "\nBytesOut\t\tByteIn\t\tPacketsOut\tPacketsIn"&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 分类统计bwn-ng输出的CSV格式数据.</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 3 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t\t",$3&#125;&#125;&#125;'</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 4 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($4&gt;1000)&#123;printf "%sKB/s\t",$4/1000&#125;else&#123;printf "%sb/s\t\t",$4&#125;&#125;&#125;'</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 6 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($6&gt;1000)&#123;printf "%sKB/s\t",$6/1000&#125;else&#123;printf "%sb/s\t\t",$6&#125;&#125;&#125;'</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 7 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($7&gt;1000)&#123;printf "%sKB/s\n",$7/1000&#125;else&#123;printf "%sb/s\n",$7&#125;&#125;&#125;'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.net</span><br></pre></td></tr></table></figure>
+<h1 id="自动批量回答-yes"><a href="#自动批量回答-yes" class="headerlink" title="自动批量回答 yes"></a>自动批量回答 yes</h1><ul>
+<li>这里是一个自动登录的脚本,因为每个服务器第一次连接都会提示要接受一个证书.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect -f</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> timeout 10</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> num [lindex <span class="variable">$argv</span> 0]</span><br><span class="line"></span><br><span class="line">spawn ssh -b 172.168.<span class="variable">$num</span>.10 root@172.168.<span class="variable">$num</span>.100</span><br><span class="line">expect &#123;</span><br><span class="line"><span class="string">"*yes/no"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue&#125;</span><br><span class="line">&#125;</span><br><span class="line">expect <span class="string">"#*"</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">send <span class="string">"eof\r"</span></span><br><span class="line">expect eof</span><br></pre></td></tr></table></figure>
+<h1 id="循环测试脚本"><a href="#循环测试脚本" class="headerlink" title="循环测试脚本"></a>循环测试脚本</h1><ul>
+<li>这个脚本根据<code>camera_client.py</code>运行打印出``done”表示该程序运行结束,在 while 里把它清除掉.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@debian-t6:~<span class="comment"># cat test_loop.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">srv=<span class="string">"192.168.25.100"</span></span><br><span class="line">python camera_client.py dev -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;</span><br><span class="line">dpid=$!</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$dpid</span></span><br><span class="line"><span class="keyword">done</span>=<span class="string">"done&gt;"</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;&amp; <span class="built_in">kill</span> -9 <span class="variable">$dpid</span> &amp;&amp; <span class="built_in">break</span> || sleep 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">cat camera.log</span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</span><br></pre></td></tr></table></figure>
+<h1 id="开启服务器与数据收集脚本"><a href="#开启服务器与数据收集脚本" class="headerlink" title="开启服务器与数据收集脚本"></a>开启服务器与数据收集脚本</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ cat test_start_srv.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 设置系统的文件句柄数限制</span></span><br><span class="line"><span class="built_in">ulimit</span> -Hn 20000500</span><br><span class="line"><span class="built_in">ulimit</span> -Sn 20000500</span><br><span class="line"><span class="comment">#cd netty_srv_dir</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 清除上次运行的,``bwn-ng, top``命令.</span></span><br><span class="line">pkill bwm-ng</span><br><span class="line">pkill top</span><br><span class="line">srv=<span class="string">"asio_p2p_srv"</span></span><br><span class="line"><span class="comment">## 清除上次运行的服务器的进程</span></span><br><span class="line">pkill <span class="variable">$srv</span></span><br><span class="line"><span class="comment">##  服务已经运行,它的pid赋于给SPID变量,并保存在192.168.25.100机器上的/root/srv.pid里</span></span><br><span class="line"><span class="variable">$srv</span> &amp;  SPID=$!</span><br><span class="line">ssh -t root@192.168.25.100 <span class="string">"echo <span class="variable">$SPID</span> &gt; srv.pid"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## bwm-ng 监控网卡eth1的流量,并输出CSV格式到以SPID变量名,.net为后缀的文件名里.　它的pid赋于给NPID变量</span></span><br><span class="line">bwm-ng -o csv -T rate -I eth1 -F  <span class="variable">$SPID</span>.net &amp; NPID=$!</span><br><span class="line"><span class="comment">## top 只输出SPID的pid的信息,并重定向pid.log的文件名中.</span></span><br><span class="line">top -p <span class="variable">$SPID</span> -b &gt; <span class="variable">$SPID</span>.<span class="built_in">log</span>  &amp;</span><br></pre></td></tr></table></figure>
+<h1 id="服务器测试脚本"><a href="#服务器测试脚本" class="headerlink" title="服务器测试脚本"></a>服务器测试脚本</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># cat start_srv.py</span></span><br><span class="line">import paramiko</span><br><span class="line">import select</span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">SRV = <span class="string">"192.168.25.100"</span></span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">mykey = paramiko.RSAKey.from_private_key_file(<span class="string">"/root/.ssh/id_rsa"</span>)</span><br><span class="line">ssh.connect(<span class="string">"%s"</span> % SRV,username=<span class="string">"root"</span>,pkey=mykey)</span><br><span class="line">ssh.exec_command(<span class="string">"pkill test_start_srv"</span>)</span><br><span class="line">stdin,stdout,stderr = ssh.exec_command(<span class="string">"/root/test_start_srv.sh"</span>)</span><br><span class="line"><span class="keyword">while</span> not stdout.channel.exit_status_ready():</span><br><span class="line">    <span class="keyword">if</span> stdout.channel.recv_ready():</span><br><span class="line">        rl,wl,xl = select.select([stdout.channel],[],[],0.0)</span><br><span class="line">        <span class="keyword">if</span> len(rl )&gt; 0:</span><br><span class="line">            <span class="built_in">print</span> stdout.channel.recv(1024)</span><br><span class="line">            <span class="built_in">break</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ cat test_devices_only.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">pid=`python start_srv.py`</span><br><span class="line"></span><br><span class="line">./test_camera_client.sh <span class="variable">$1</span></span><br><span class="line">ssh -t root@192.168.25.100 <span class="string">"/root/grep_pid.sh <span class="variable">$pid</span> &amp;&amp; pkill test_start_srv &amp;&amp; pkill socket_srv"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">~$ cat test_app_dev.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">test_one</span></span>()&#123;</span><br><span class="line">    tt=<span class="variable">$200</span></span><br><span class="line">    <span class="comment">## 中止远程服务器的之前进程名.</span></span><br><span class="line">    ssh -t root@192.168.25.100 <span class="string">"pkill test_start_srv &amp;&amp; pkill socket_srv"</span></span><br><span class="line">    pid=`python start_srv.py`</span><br><span class="line">    srv=<span class="string">"192.168.25.100"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">## 开启一种类型的客户端 ,DEV</span></span><br><span class="line">    python camera_client.py dev -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;</span><br><span class="line">    dpid=$!</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">       <span class="comment">## 等到DEV输出done,开记另一种类型的客户端,APP</span></span><br><span class="line">       grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;&amp; <span class="built_in">break</span> || sleep 2</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">## 上面两种类型的客户端运行完成之后,把各类数据分类增量重定向到相应的文件名中.</span></span><br><span class="line">    cat camera.log &gt;&gt; <span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</span><br><span class="line">    pkill <span class="string">"python"</span></span><br><span class="line"></span><br><span class="line">    ssh -t root@192.168.25.100 <span class="string">"pkill test_start_srv &amp;&amp; pkill socket_srv &amp;&amp; /root/grep_pid.sh <span class="variable">$pid</span>"</span> &gt;&gt; <span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line">    <span class="built_in">echo</span> ---------------------------------------------------------------</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">run_ten_test()</span><br><span class="line">&#123;</span><br><span class="line">    test_one <span class="variable">$1</span> <span class="variable">$2</span> &gt;&gt; <span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span> test result"</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    <span class="comment">## 分类累计,DEV,APP输出的日志数据,并做平均计算.</span></span><br><span class="line">    grep <span class="string">"DEV Run Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "Dev Run Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"DEV Avg Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "Dev Avg Time: %s\n", sum / n&#125;'</span>  &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"APP Run Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "APP Run Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"APP Avg Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "APP Avg Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 分类统计出top 输出的内存与CPU的总数与平均数值</span></span><br><span class="line">    grep <span class="string">"CPU"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "AVG CPU: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"MEM"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "AVG MEM: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span> test result---------------------------------------------------------"</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">&#125;</span><br><span class="line">test_all()</span><br><span class="line">&#123;</span><br><span class="line">    ext=<span class="string">"0000.txt"</span></span><br><span class="line">    pre=<span class="string">"user_"</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> `seq 1 6`;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"start test <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span>"</span></span><br><span class="line">            test_one <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span> <span class="variable">$i</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"test <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span> done"</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"wait 30 seconds"</span></span><br><span class="line">            sleep 30</span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line">test_all</span><br></pre></td></tr></table></figure>
+<h1 id="复制目录-并生成二进制文件"><a href="#复制目录-并生成二进制文件" class="headerlink" title="复制目录,并生成二进制文件"></a>复制目录,并生成二进制文件</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cat ./rsync_openresty.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">LUAJIT=/usr/<span class="built_in">local</span>/openresty/luajit/bin/luajit</span><br><span class="line">ORG=openresty-china</span><br><span class="line">BYTECODE=openresty-byte</span><br><span class="line"></span><br><span class="line"><span class="comment">## 清除旧的目录</span></span><br><span class="line">rm -rf <span class="variable">$&#123;BYTECODE&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 用find 把目录找出来,替换ORG到BYTECODE.</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find <span class="variable">$&#123;ORG&#125;</span> -<span class="built_in">type</span> d`;<span class="keyword">do</span></span><br><span class="line">     mkdir -p <span class="string">"<span class="variable">$&#123;i/"$&#123;ORG&#125;</span>"</span>/<span class="string">"<span class="variable">$&#123;BYTECODE&#125;</span>"</span>&#125;<span class="string">"</span></span><br><span class="line"><span class="string">done</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 用find 把*.lua结尾的文件找来,并使用LUAJIT编译成字节码,输出到BYTECODE的相应目录下</span></span><br><span class="line"><span class="string">for i in `find <span class="variable">$&#123;ORG&#125;</span> -iname "</span>*.lua<span class="string">"`;do</span></span><br><span class="line"><span class="string">    <span class="variable">$&#123;LUAJIT&#125;</span> -b <span class="variable">$i</span> "</span><span class="variable">$&#123;i/"$&#123;ORG&#125;</span><span class="string">"/"</span><span class="variable">$&#123;BYTECODE&#125;</span><span class="string">"&#125;"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">cp <span class="variable">$&#123;ORG&#125;</span>/conf/* <span class="variable">$&#123;BYTECODE&#125;</span>/conf</span><br><span class="line"></span><br><span class="line">rsync --exclude=<span class="string">"*.git"</span> --exclude=<span class="string">"*.sh"</span> --exclude=<span class="string">"config.lua"</span> --exclude=<span class="string">"*.conf"</span> -a <span class="variable">$&#123;BYTECODE&#125;</span>/* root@exmaple.com:/home/www/test_openresty</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把一个<code>N*M</code>行的转换成<code>N</code>行<code>M</code>列如：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">B</span><br><span class="line">B</span><br><span class="line">C</span><br><span class="line">C</span><br><span class="line">C</span><br><span class="line"></span><br><span class="line">~$ awk <span class="string">'&#123;a[FNR%3] = a[FNR%3] == "" ? $0 : a[FNR%3] "\t" $0&#125; END&#123;for(i=1;i&lt;=3;i++) print a[i%3]&#125;'</span></span><br><span class="line"></span><br><span class="line">A B C</span><br><span class="line">A B C</span><br><span class="line">A B C</span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者是这样</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ cat &lt;&lt;EOF | awk -F\| <span class="string">'&#123;a[FNR%4] = a[FNR%4] == "" ? $0 : a[FNR%4] "\t" $0&#125; END&#123;for(i=1;i&lt;=4;i++) print a[i%4]&#125;'</span></span><br><span class="line">&gt; ADC_CS_N|</span><br><span class="line">&gt; ADC_SADDR|</span><br><span class="line">&gt; ADC_SDAT|</span><br><span class="line">&gt; ADC_SCLK|</span><br><span class="line">&gt; PIN_A10|</span><br><span class="line">&gt; PIN_B10|</span><br><span class="line">&gt; PIN_A9|</span><br><span class="line">&gt; PIN_B14|</span><br><span class="line">&gt; Chip select|</span><br><span class="line">&gt; Digital data input|</span><br><span class="line">&gt; Digital data output|</span><br><span class="line">&gt; Digital clock input|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; EOF</span><br><span class="line">ADC_CS_N|	PIN_A10|	Chip select|	3.3V|</span><br><span class="line">ADC_SADDR|	PIN_B10|	Digital data input|	3.3V|</span><br><span class="line">ADC_SDAT|	PIN_A9|	Digital data output|	3.3V|</span><br><span class="line">ADC_SCLK|	PIN_B14|	Digital clock input|	3.3V|</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/09/Django-uWsgi-nginx-https-完全配置/" rel="prev" title="Django+uWsgi+nginx+https 完全配置">
+      <i class="fa fa-chevron-left"></i> Django+uWsgi+nginx+https 完全配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/12/22/安装Postgresql-XL/" rel="next" title="安装Postgresql-XL">
+      安装Postgresql-XL <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#提取-TOP-命令中的数据"><span class="nav-number">1.</span> <span class="nav-text">提取 TOP 命令中的数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动批量回答-yes"><span class="nav-number">2.</span> <span class="nav-text">自动批量回答 yes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环测试脚本"><span class="nav-number">3.</span> <span class="nav-text">循环测试脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启服务器与数据收集脚本"><span class="nav-number">4.</span> <span class="nav-text">开启服务器与数据收集脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器测试脚本"><span class="nav-number">5.</span> <span class="nav-text">服务器测试脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复制目录-并生成二进制文件"><span class="nav-number">6.</span> <span class="nav-text">复制目录,并生成二进制文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

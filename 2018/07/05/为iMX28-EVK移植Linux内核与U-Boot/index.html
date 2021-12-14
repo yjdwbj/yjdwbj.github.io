@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="相关链接 elftosb imx-bootlets Arm None Toolchain Linaro Toolchain i.MX280: Multimedia Applications Processors i.MX28 Applications Processor Reference Manual    U-Boot 2017.11 Secure boot with NXP tools (">
+<meta name="keywords" content="嵌入式,imx28-evk,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为iMX28-EVK移植Linux内核与U-Boot">
+<meta property="og:url" content="http://yoursite.com/2018/07/05/为iMX28-EVK移植Linux内核与U-Boot/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="相关链接 elftosb imx-bootlets Arm None Toolchain Linaro Toolchain i.MX280: Multimedia Applications Processors i.MX28 Applications Processor Reference Manual    U-Boot 2017.11 Secure boot with NXP tools (">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/imx28evk-pin.png">
+<meta property="og:image" content="http://yoursite.com/imgs/imx28evk-pin-324.png">
+<meta property="og:image" content="http://yoursite.com/imgs/imx28evk-dma_apbx.png">
+<meta property="og:image" content="http://yoursite.com/imgs/hmc5883l.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2021-02-04T13:26:04.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为iMX28-EVK移植Linux内核与U-Boot">
+<meta name="twitter:description" content="相关链接 elftosb imx-bootlets Arm None Toolchain Linaro Toolchain i.MX280: Multimedia Applications Processors i.MX28 Applications Processor Reference Manual    U-Boot 2017.11 Secure boot with NXP tools (">
+<meta name="twitter:image" content="http://yoursite.com/imgs/imx28evk-pin.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/07/05/为iMX28-EVK移植Linux内核与U-Boot/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>为iMX28-EVK移植Linux内核与U-Boot | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/为iMX28-EVK移植Linux内核与U-Boot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为iMX28-EVK移植Linux内核与U-Boot
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-05 22:29:23" itemprop="dateCreated datePublished" datetime="2018-07-05T22:29:23+08:00">2018-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-04 21:26:04" itemprop="dateModified" datetime="2021-02-04T21:26:04+08:00">2021-02-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>相关链接<ul>
+<li><a href="http://repository.timesys.com/buildsources/e/elftosb/elftosb-10.12.01/" target="_blank" rel="noopener">elftosb</a></li>
+<li><a href="http://repository.timesys.com/buildsources/i/imx-bootlets/imx-bootlets-10.12.01" target="_blank" rel="noopener">imx-bootlets</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" target="_blank" rel="noopener">Arm None Toolchain</a></li>
+<li><a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="noopener">Linaro Toolchain</a></li>
+<li><a href="https://www.nxp.com/products/processors-and-microcontrollers/applications-processors/i.mx-applications-processors/i.mx28-processors/multimedia-applications-processors-low-power-high-performance-arm9-core:i.MX280" target="_blank" rel="noopener">i.MX280: Multimedia Applications Processors</a></li>
+<li><a href="https://www.nxp.com/docs/en/reference-manual/MCIMX28RM.pdf" target="_blank" rel="noopener">i.MX28 Applications Processor Reference Manual</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="U-Boot-2017-11"><a href="#U-Boot-2017-11" class="headerlink" title="U-Boot 2017.11"></a>U-Boot 2017.11</h1><ul>
+<li><a href="https://github.com/f-secure-foundry/usbarmory/wiki/Secure-boot-with-NXP-tools-(Mk-I" target="_blank" rel="noopener">Secure boot with NXP tools (Mk I)</a>)</li>
+<li><a href="https://boundarydevices.com/high-assurance-boot-hab-dummies/" target="_blank" rel="noopener">High Assurance Boot (HAB) for dummies</a></li>
+<li><a href="https://variwiki.com/index.php?title=High_Assurance_Boot" target="_blank" rel="noopener">i.MX High Assurance Boot (HAB) / Secure Boot</a></li>
+<li><a href="imx-code-signing-tool"></a></li>
+</ul>
+<ul>
+<li>这里参照开发板原版的<code>u-boot-2009</code>修改部分源码与配置文件才可以正常启动,<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/uboot-2017.11-imx28evk.config" target="_blank" rel="noopener"><strong>配置文件</strong></a>,<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/patchs/u-boot-2017.11-imx28evk.patch" target="_blank" rel="noopener"><strong>补丁文件</strong></a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../imx28evk mx28evk_defconfig</span><br><span class="line">~$ <span class="built_in">cd</span> ../imx28evk</span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- u-boot.sb</span><br></pre></td></tr></table></figure>
+<h1 id="tftpd-hpa-安装"><a href="#tftpd-hpa-安装" class="headerlink" title="tftpd-hpa 安装"></a>tftpd-hpa 安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install tftpd-hpa</span><br><span class="line">~$ cat /etc/default/tftpd-hpa</span><br><span class="line"><span class="comment"># /etc/default/tftpd-hpa</span></span><br><span class="line">TFTP_USERNAME=<span class="string">"tftp"</span></span><br><span class="line">TFTP_DIRECTORY=<span class="string">"/srv/tftp"</span></span><br><span class="line">TFTP_ADDRESS=<span class="string">"0.0.0.0:69"</span></span><br><span class="line">TFTP_OPTIONS=<span class="string">"-l -c -s"</span></span><br></pre></td></tr></table></figure>
+<h1 id="NFS-Server-配置"><a href="#NFS-Server-配置" class="headerlink" title="NFS Server 配置"></a>NFS Server 配置</h1><ul>
+<li>确保 CS 两端的 NFS 协议版本要兼容,<code>exports</code>的路径一致.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~$　cat /proc/fs/nfsd/versions</span><br><span class="line">+２ +3 +4 +4.1 +4.2</span><br><span class="line"></span><br><span class="line">$ cat /etc/exports</span><br><span class="line"><span class="comment"># /etc/exports: the access control list for filesystems which may be exported</span></span><br><span class="line"><span class="comment">#		to NFS clients.  See exports(5).</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Example for NFSv2 and NFSv3:</span></span><br><span class="line"><span class="comment"># /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)</span></span><br><span class="line">/fullpath/nfs-imx28evk 192.168.1.0/24(rw,no_root_squash,subtree_check)</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="U-boot-使用"><a href="#U-boot-使用" class="headerlink" title="U-boot 使用"></a>U-boot 使用</h1><h2 id="公共变量"><a href="#公共变量" class="headerlink" title="公共变量"></a>公共变量</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">=&gt; setenv console_mainline ttyAMA0</span><br><span class="line">=&gt; setenv buadrate 115200</span><br><span class="line">=&gt; setenv tftpboot <span class="string">"tftp <span class="variable">$&#123;zImage&#125;</span> ; bootz"</span></span><br><span class="line">=&gt; setenv mmcfatboot <span class="string">"mmc rescan ; fatload mmc 0 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;zImage&#125;</span> ; bootz"</span></span><br><span class="line">=&gt; setenv mmcextboot <span class="string">"mmc rescan ; ext4load mmc 0:1 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;zImage&#125;</span> ; bootz"</span></span><br><span class="line">=&gt; setenv nandboot <span class="string">"mtdparts default ; nand read.jffs2 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;kerneladdr&#125;</span> <span class="variable">$&#123;kernelsize&#125;</span> ; bootz"</span></span><br><span class="line">=&gt; setenv zImage  zImage_dtb</span><br><span class="line">=&gt; setenv ipaddr 192.168.1.10</span><br><span class="line">=&gt; setenv serverip 192.168.1.100</span><br><span class="line">=&gt; setenv netmask 255.255.255.0</span><br><span class="line">=&gt; setenv gatewayip 192.168.1.1</span><br><span class="line">=&gt; setenv eth eth0</span><br><span class="line">=&gt; setenv hostname imx283-lcy</span><br><span class="line">=&gt; setenv kernelsize 0x00400000</span><br><span class="line">=&gt; setenv kerneladdr 0x00200000</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="NFS-ROOTFS"><a href="#NFS-ROOTFS" class="headerlink" title="NFS ROOTFS"></a>NFS ROOTFS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">=&gt; setenv nfsrootpath  /opt/nfs-imx28evk</span><br><span class="line">=&gt; setenv ipstatic <span class="string">"ip=<span class="variable">$&#123;ipaddr&#125;</span>:<span class="variable">$&#123;serverip&#125;</span>:<span class="variable">$&#123;gatewayip&#125;</span>:<span class="variable">$&#123;netmask&#125;</span>:<span class="variable">$&#123;hostname&#125;</span>:<span class="variable">$&#123;eth&#125;</span>:off"</span></span><br><span class="line">=&gt; setenv nfsargs <span class="string">"setenv bootargs consoel=<span class="variable">$&#123;console_mainline&#125;</span>,<span class="variable">$&#123;buadrate&#125;</span> root=/dev/nfs  rw nfsroot=<span class="variable">$&#123;serverip&#125;</span>:&#123;<span class="variable">$nfsrootpath</span>&#125;,v3,tcp,nolock <span class="variable">$&#123;ipstatic&#125;</span> init=/linuxrc"</span></span><br><span class="line">=&gt; setenv bootcmd_nfs <span class="string">"run nfsargs ; run <span class="variable">$&#123;tftpboot&#125;</span>"</span></span><br><span class="line">=&gt; savee</span><br><span class="line">=&gt; run nfs_root</span><br></pre></td></tr></table></figure>
+<h2 id="MMC-ROOTFS"><a href="#MMC-ROOTFS" class="headerlink" title="MMC ROOTFS"></a>MMC ROOTFS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">=&gt; setenv mmcargs <span class="string">"mmc rescan ; setenv bootargs consoel=<span class="variable">$&#123;console_mainline&#125;</span>,<span class="variable">$&#123;buadrate&#125;</span> rootfstype=ext3　 root=/dev/mmcblk0p3 rw rootwait"</span></span><br><span class="line">=&gt; setenv bootcmd_mmc <span class="string">"run mmcargs ; run <span class="variable">$&#123;mmcfatboot&#125;</span>"</span></span><br><span class="line">=&gt; savee</span><br><span class="line">=&gt; run bootcmd_mmc</span><br></pre></td></tr></table></figure>
+<h2 id="USB-Stack-ROOTFS"><a href="#USB-Stack-ROOTFS" class="headerlink" title="USB Stack ROOTFS"></a>USB Stack ROOTFS</h2><ul>
+<li>Ｕ盘的方法与 MMC 的方式是一样的.</li>
+</ul>
+<h2 id="UBIFS-ROOTFS"><a href="#UBIFS-ROOTFS" class="headerlink" title="UBIFS ROOTFS"></a>UBIFS ROOTFS</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">=&gt; mtdparts</span><br><span class="line"></span><br><span class="line">device nand0 &lt;gpmi-nand&gt;, <span class="comment"># parts = 7</span></span><br><span class="line"> <span class="comment">#: name                size            offset          mask_flags</span></span><br><span class="line"> 0: boot                0x00c00000      0x00000000      0</span><br><span class="line"> 1: env                 0x00080000      0x00c00000      0</span><br><span class="line"> 2: reserve             0x00080000      0x00c80000      0</span><br><span class="line"> 3: bmp                 0x00200000      0x00d00000      0</span><br><span class="line"> 4: reserve             0x00080000      0x00f00000      0</span><br><span class="line"> 5: rootfs              0x04000000      0x00f80000      0</span><br><span class="line"> 6: opt                 0x03080000      0x04f80000      0</span><br><span class="line"></span><br><span class="line">active partition: nand0,0 - (boot) 0x00c00000 @ 0x00000000</span><br><span class="line"></span><br><span class="line">defaults:</span><br><span class="line">mtdids  : nand0=gpmi-nand</span><br><span class="line">mtdparts: mtdparts=gpmi-nand:12m(boot),512k(env),512k(reserve),2m(bmp),512k(reserve),64m(rootfs),-(opt)</span><br><span class="line">=&gt; ubi part rootfs</span><br><span class="line">ubi0: attaching mtd1</span><br><span class="line">ubi0: scanning is finished</span><br><span class="line">ubi0 warning: print_rsvd_warning: cannot reserve enough PEBs <span class="keyword">for</span> bad PEB handling, reserved 5, need 20</span><br><span class="line">ubi0: attached mtd1 (name <span class="string">"mtd=5"</span>, size 64 MiB)</span><br><span class="line">ubi0: PEB size: 131072 bytes (128 KiB), LEB size: 126976 bytes</span><br><span class="line">ubi0: min./max. I/O unit sizes: 2048/2048, sub-page size 2048</span><br><span class="line">ubi0: VID header offset: 2048 (aligned 2048), data offset: 4096</span><br><span class="line">ubi0: good PEBs: 512, bad PEBs: 0, corrupted PEBs: 0</span><br><span class="line">ubi0: user volume: 1, internal volumes: 1, max. volumes count: 128</span><br><span class="line">ubi0: max/mean erase counter: 2/1, WL threshold: 4096, image sequence number: 0</span><br><span class="line">ubi0: available PEBs: 0, total reserved PEBs: 512, PEBs reserved <span class="keyword">for</span> bad PEB handling: 5</span><br><span class="line"></span><br><span class="line">// 这里显示boot分区有坏块了吗?这个分区反复擦写的次数比较多.</span><br><span class="line">=&gt;ubi part boot</span><br><span class="line">ubi0: detaching mtd1</span><br><span class="line">ubi0: mtd1 is detached</span><br><span class="line">ubi0: attaching mtd1</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 0:0, <span class="built_in">read</span> 64 bytes</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 1:0, <span class="built_in">read</span> 64 bytes</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 2:0, <span class="built_in">read</span> 64 bytes</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 warning: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> only 64 bytes, retry</span><br><span class="line">ubi0 error: ubi_io_read: error -74 (ECC error) <span class="keyword">while</span> reading 64 bytes from PEB 3:0, <span class="built_in">read</span> 64 bytes</span><br><span class="line">ubi0: scanning is finished</span><br><span class="line">ubi0 error: ubi_read_volume_table: the layout volume was not found</span><br><span class="line">ubi0 error: ubi_attach_mtd_dev: failed to attach mtd1, error -22</span><br><span class="line">UBI error: cannot attach mtd1UBI error: cannot initialize UBI, error -22UBI init error 22</span><br><span class="line"></span><br><span class="line">=&gt; setenv nandargs <span class="string">"setenv bootargs console=<span class="variable">$&#123;console_mainline&#125;</span>,<span class="variable">$&#123;baudrate&#125;</span> rootfstype=ubifs ubi.mtd=5 root=ubi0:rootfs mtdparts=gpmi-nand:12m(boot),512k(env),512k(reserve),2m(bmp),512k(reserve),64m(rootfs),-(opt) <span class="variable">$&#123;ipstatic&#125;</span>"</span></span><br><span class="line">=&gt; setenv bootcmd_nand <span class="string">"run nandargs ; run nandboot "</span></span><br><span class="line">=&gt; savee</span><br><span class="line">=&gt; run bootcmd_nand</span><br></pre></td></tr></table></figure>
+<h2 id="通过网络更新-kernel"><a href="#通过网络更新-kernel" class="headerlink" title="通过网络更新 kernel"></a>通过网络更新 kernel</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt; setenv upkernel <span class="string">"tftp zImage_dtb ; nand erase clean <span class="variable">$&#123;kerneladdr&#125;</span> <span class="variable">$&#123;kernelsize&#125;</span> ; nand write.jffs2 <span class="variable">$&#123;loadaddr&#125;</span> <span class="variable">$&#123;kerneladdr&#125;</span> <span class="variable">$&#123;kernelsize&#125;</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="通过网络更新-nand-文件系统"><a href="#通过网络更新-nand-文件系统" class="headerlink" title="通过网络更新 nand 文件系统"></a>通过网络更新 nand 文件系统</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt; setenv uprootfs <span class="string">"mtdparts default ; nand erase.part rootfs ; ubi part rootfs ; ubi create rootfs ; tftp <span class="variable">$&#123;rootfs&#125;</span> ; ubi write <span class="variable">$&#123;loadaddr&#125;</span> rootfs <span class="variable">$&#123;filesize&#125;</span>"</span></span><br></pre></td></tr></table></figure>
+<h1 id="imx-bootlets"><a href="#imx-bootlets" class="headerlink" title="imx-bootlets"></a>imx-bootlets</h1><ul>
+<li>imx-bootlets 可以使用开发板自带的源码,也可以从这里<a href="http://repository.timesys.com/buildsources/i/imx-bootlets/imx-bootlets-10.12.01" target="_blank" rel="noopener">imx-bootlets</a>下载.它只能使用<a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2" target="_blank" rel="noopener">arm-none-eabi-</a>工具链编译,我换成<a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="noopener">Linaro Toolchain</a>工具链编译之后无法启动.编译中的脚本会要用到<a href="http://repository.timesys.com/buildsources/e/elftosb/elftosb-10.12.01/" target="_blank" rel="noopener">elftosb</a>,要先把<code>elftosb</code>编译出来.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> imx-bootlets</span><br><span class="line">~$ ln -svf ../linux-4.13/build_output/zImage_dtb zImage   // 链接内核到这里</span><br><span class="line">~$ ln -svf ../u-boot-2017-9/imx28evk/uboot uboot　　　　　　//　链接uboot到这里</span><br><span class="line">~$ make BOARD=iMX28_EVK ARCH=mx28 CROSS_COMPILE=arm-none-eabi- clean</span><br><span class="line">~$ make BOARD=iMX28_EVK ARCH=mx28 CROSS_COMPILE=arm-none-eabi-</span><br><span class="line">~$ ls *.bd</span><br><span class="line">linux.bd  linux_ivt.bd  uboot.bd  uboot_ivt.bd  updater.bd  updater_ivt.bd</span><br><span class="line">~$  ls *.sb</span><br><span class="line">imx28_ivt_linux.sb  imx28_ivt_uboot.sb  imx28_linux.sb  imx28_uboot.sb</span><br></pre></td></tr></table></figure>
+<h2 id="烧写系统"><a href="#烧写系统" class="headerlink" title="烧写系统"></a>烧写系统</h2><ul>
+<li><a href="https://github.com/NXPmicro/mfgtools" target="_blank" rel="noopener">https://github.com/NXPmicro/mfgtools</a></li>
+</ul>
+<h2 id="IMX280A-USB-烧写模式"><a href="#IMX280A-USB-烧写模式" class="headerlink" title="IMX280A USB 烧写模式"></a>IMX280A USB 烧写模式</h2><ul>
+<li>短接 JP4-&gt;WDG,JP6-&gt;USB, 接上<code>USB_DEV接口</code>,当然<code>POWER</code>接口也是要接上的,系统就会出现下列硬件.这里要使用<code>MfgTool</code>工具烧入,相对较麻烦一些.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bus 008 Device 005: ID 15a2:004f Freescale Semiconductor, Inc. i.MX28 SystemOnChip <span class="keyword">in</span> RecoveryMode</span><br></pre></td></tr></table></figure>
+<h2 id="IMX280-TF-烧写模式"><a href="#IMX280-TF-烧写模式" class="headerlink" title="IMX280 TF 烧写模式"></a>IMX280 TF 烧写模式</h2><ul>
+<li>EasyARM iMX280A 这块板子可以支持 TF 卡烧写模式,通过串口发现,它里面有一个小系统经过上电之后从 TF 卡中读取名为<code>imx28_ivt_uboot.sb,rootfs.tar.bz2,uImage,updater_ivt.sb</code>,当然用来烧写 TF 卡是要用官方提供的<code>cfimager.exe</code>格式化,并烧入<code>updater_ivt.sb</code>才可以.</li>
+<li>短接 JP4-&gt;WDG,JP3-&gt;USB, 接上串口打印,就会看相应的烧写日志输出了.</li>
+</ul>
+<hr>
+<h1 id="BuildRoot-文件系统"><a href="#BuildRoot-文件系统" class="headerlink" title="BuildRoot 文件系统"></a>BuildRoot 文件系统</h1><ul>
+<li>使用 BusyBox 的制作<code>rootfs</code>的方式比较老了,使用 BuildRoot 可以一站式解决嵌入式的系统移植,这里我只使用它来做<strong>rootfs</strong>的编译,<strong>kernel,u-boot</strong>这里我是单独立维护的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">export</span> TOPDIR=.</span><br><span class="line">~$ <span class="built_in">export</span> BASE_DIR=.</span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../build-imx28evk freescale_imx28evk_defconfig</span><br><span class="line">~$ <span class="built_in">cd</span> ../build-imx28evk &amp;&amp;  make ARCH=arm CROSS_COMPILE=arm-none-eabi- menuconfig</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ToolChain 设置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">  Toolchain <span class="built_in">type</span> (External toolchain)  ---&gt;</span><br><span class="line">  *** Toolchain External Options ***</span><br><span class="line">  Toolchain (Custom toolchain)  ---&gt;</span><br><span class="line">  Toolchain origin (Pre-installed toolchain)  ---&gt;</span><br><span class="line">  (/linaro-toolchain/gcc-linaro-5.5.0-2017.10-x86_64_arm-linux-gnueabi) Toolchain path</span><br><span class="line">  ($(ARCH)-linux-gnueabi) Toolchain prefix</span><br><span class="line">  External toolchain gcc version (5.x)  ---&gt;</span><br><span class="line">  External toolchain kernel headers series (4.0.x)  ---&gt;</span><br><span class="line">  External toolchain C library (glibc/eglibc)  ---&gt;</span><br><span class="line">  [*] Toolchain has SSP support?</span><br><span class="line">  [*] Toolchain has RPC support?</span><br><span class="line">  [*] Toolchain has C++ support?</span><br><span class="line">[...]</span><br><span class="line">  System configuration -&gt; Run a getty (login prompt ) after boot</span><br><span class="line"></span><br><span class="line">  │ │           --- Run a getty (login prompt) after boot                                         │ │</span><br><span class="line">  │ │           (ttyAMA0) TTY port                                                                │ │</span><br><span class="line">  │ │                 Baudrate (115200)  ---&gt;                                                     │ │</span><br><span class="line">  │ │           (vt100) TERM environment variable                                                 │ │</span><br><span class="line">  │ │           ()    other options to pass to getty                                              │ │</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">  Target packages -&gt; Networking applications</span><br><span class="line">  │ │           [*] dropbear                                                                      │ │</span><br><span class="line">  │ │           [*]   client programs                                                             │ │</span><br><span class="line">  │ │           [*]   <span class="built_in">disable</span> reverse DNS lookups                                                 │ │</span><br><span class="line">  │ │           [*]   optimize <span class="keyword">for</span> size                                                           │ │</span><br><span class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to wtmp                                                 │ │</span><br><span class="line">  │ │           [ ]   <span class="built_in">log</span> dropbear access to lastlog                                              │ │</span><br><span class="line"></span><br><span class="line"> Target packages -&gt; Hardware handling</span><br><span class="line">       [*] evtest</span><br><span class="line">       [*] spi-tools</span><br><span class="line">       [*] lm-sensors</span><br><span class="line">       [*] i2c-tools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#　如果下载文件需代理的通下面命令修改.</span></span><br><span class="line">BR2_WGET=<span class="string">"wget --passive-ftp -nd -t 3 -e use_proxy=yes -e http_proxy=192.168.1.235:4444 -e https_proxy=192.168.1.235:4444"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果外部交叉编译工具链出现,少库的错误,还是选择使用<code>BuildRoot</code>编译的工具链吧.整个编译完成之后<code>build-imx28evk</code>目录如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ tree -L 1</span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── dl　　<span class="comment">#　软件源码下载的位置.</span></span><br><span class="line">├── host  <span class="comment"># 如查使用``BuildRoot``编译的工具链,这里就是工具链的位置.</span></span><br><span class="line">├── images　<span class="comment">#最终生成的各种镜像文件.</span></span><br><span class="line">├── Makefile</span><br><span class="line">├── staging -&gt; host/arm-buildroot-linux-gnueabi/sysroot</span><br><span class="line">└── target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参照 EasyArm imx280 的文档对 UBIFS 文件系统修改如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">　[*] tar the root filesystem</span><br><span class="line">│ │    Compression method (no compression)  ---&gt;</span><br><span class="line"></span><br><span class="line">[*] ubifs root filesystem</span><br><span class="line">│ │    (0x1f000) logical eraseblock size</span><br><span class="line">│ │    (0x800) minimum I/O unit size</span><br><span class="line">│ │    (512) maximum logical eraseblock count</span><br><span class="line">│ │    ubifs runtime compression (lzo)  ---&gt;</span><br><span class="line">│ │    Compression method (no compression)  ---&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="BusyBox-配置静态编译"><a href="#BusyBox-配置静态编译" class="headerlink" title="BusyBox 配置静态编译"></a>BusyBox 配置静态编译</h2><ul>
+<li>看了很多教材,都建议把<code>BusyBox</code>编译成静态连接,就不用复制一堆的库了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- busybox-menuconfig</span><br><span class="line"></span><br><span class="line">Busybox Settings　-&gt;　[*] Build BusyBox as a static binary (no shared libs)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Linux-Kernel-配置"><a href="#Linux-Kernel-配置" class="headerlink" title="Linux Kernel 配置"></a>Linux Kernel 配置</h2><ul>
+<li>如果要对<code>Buildroot</code>中的<strong>Kernel</strong>做细致栽剪设置,需要使用到下面命令,但是我这里是把　<code>U-boot,Linux Kernel</code>分开维护的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- linux-menuconfig</span><br></pre></td></tr></table></figure>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ul>
+<li>解压<code>rootfs.tar</code>到 NFS Root 或者 U 盘,SD 卡的分区都可以,同时为<code>Dropbear</code>添加公钥登录认证.方便使用<code>SSH</code>来能登录进行交互操作.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ tree images</span><br><span class="line">images</span><br><span class="line">├── rootfs.cpio</span><br><span class="line">├── rootfs.ext2</span><br><span class="line">└── rootfs.tar</span><br><span class="line"></span><br><span class="line">~$ sudo tar xvf rootfs.tar -C /nfsroot/rootfs</span><br><span class="line">~<span class="comment"># cd /nfsroot/rootfs/root &amp;&amp; mkdir .ssh &amp;&amp; chmod 700 .ssh</span></span><br><span class="line">~<span class="comment"># cd .ssh &amp;&amp; echo "public key" &gt; authorized_keys &amp;&amp; chmod 600 authorized_keys</span></span><br></pre></td></tr></table></figure>
+<h2 id="UBIFS-文件系统制作"><a href="#UBIFS-文件系统制作" class="headerlink" title="UBIFS 文件系统制作"></a>UBIFS 文件系统制作</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span>  /nfsroot/</span><br><span class="line">~$ sudo mkfs.ubifs -d rootfs -e 0x1f000 -c 512 -m 0x800 -x lzo -o rootfs.ubifs</span><br></pre></td></tr></table></figure>
+<h2 id="UBIFS-文件烧写"><a href="#UBIFS-文件烧写" class="headerlink" title="UBIFS 文件烧写"></a>UBIFS 文件烧写</h2><ul>
+<li>下面建一条组合命令来通过 Uboot 从 SD 中读取 rootfs.ubifs 文件并烧写到 NAND 的 rootfs 分区中.从 USB 设备中也是类似.UBoot 命令中,ext4load 是从 ext3/ext4 的文件系统加载文件,fatload 是从 FAT32/FAText 文件系统中加载文件.如果从 USB 设备读取,先运行<code>usb reset</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MMC 卡单分区</span></span><br><span class="line">=&gt; ls mmc 0</span><br><span class="line">  2616657   zImage_dtb</span><br><span class="line">  7618560   rootfs.ubifs</span><br><span class="line">   635808   imx28_ivt_uboot.sb</span><br><span class="line">            .Trash-1000/</span><br><span class="line">  2488348   zImage</span><br><span class="line">  4718592   rootfs.ubi</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 这里是列出一张多分区的MMC卡的文件系统列表,这是第一分区的内容.</span></span><br><span class="line">=&gt; ls mmc 0:1</span><br><span class="line">&lt;DIR&gt;       1024 .</span><br><span class="line">&lt;DIR&gt;       1024 ..</span><br><span class="line">&lt;DIR&gt;      12288 lost+found</span><br><span class="line">             225 uEnv.txt</span><br><span class="line">&lt;DIR&gt;       1024 boot</span><br><span class="line">&lt;DIR&gt;       1024 .Trash-1000</span><br><span class="line">         2643950 zImage_dtb</span><br><span class="line">         4317184 rootfs.ubifs</span><br><span class="line"></span><br><span class="line">=&gt;setenv burnsd_rootfs <span class="string">"mtdparts default;nand erase.part rootfs;ubi part rootfs 2048;ubi create rootfs;dcache on; mmc rescan; ext4load mmc 0:3 0x82000000 rootfs.ubifs; ubi write 0x82000000 rootfs <span class="variable">$&#123;filesize&#125;</span>; "</span></span><br><span class="line">=&gt; saveenv</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Linux-内核编译"><a href="#Linux-内核编译" class="headerlink" title="Linux 内核编译"></a>Linux 内核编译</h1><h2 id="Linux-下载及配置选项"><a href="#Linux-下载及配置选项" class="headerlink" title="Linux 下载及配置选项"></a>Linux 下载及配置选项</h2><ul>
+<li>我这边针对<code>EasyARM 280A</code>的开发板修改的<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/linux-4.14.51-imx28evk.config" target="_blank" rel="noopener"><strong>配置文件</strong></a>在这里,把它复制到编译目录里,改成<code>.config</code>就可以了.Linux 的源码部份只是改了设备树的部份,这是<a href="https://raw.githubusercontent.com/yjdwbj/iMX28-EVK-BSP/master/patchs/linux-4.14.51-imx28evk.patch" target="_blank" rel="noopener"><strong>补丁文件</strong></a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~$ wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.51.tar.xz</span><br><span class="line">~$ tar xvf linux-4.14.51.tar.xz &amp;&amp; <span class="built_in">cd</span> linux-4.14.51</span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../imx28evk-kernel mxs_defconfig</span><br><span class="line"></span><br><span class="line"> GEN     ./Makefile</span><br><span class="line">  HOSTCC  scripts/kconfig/mconf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/checklist.o</span><br><span class="line"> [...]</span><br><span class="line"></span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- menuconfig</span><br><span class="line"></span><br><span class="line">Boot options -&gt; [*] Use appended device tree blob to zImage (EXPERIMENTAL)</span><br><span class="line">				[*]   Supplement the appended DTB with traditional ATAG information</span><br><span class="line">                Kernel <span class="built_in">command</span> line <span class="built_in">type</span> (Use bootloader kernel arguments <span class="keyword">if</span> available)  ---&gt;</span><br><span class="line">                 (console=ttyAMA0,115200n8 rootfstype=ubifs ubi.mtd=5 root=ubi0_0 rootwait=1 rw earlyprintk) Default kernel <span class="built_in">command</span> string</span><br><span class="line">                 Kernel <span class="built_in">command</span> line <span class="built_in">type</span> (Use bootloader kernel arguments <span class="keyword">if</span> available)  ---&gt;</span><br><span class="line">Kernel hacking → printk and dmesg options -&gt; [*] Enable dynamic printk() support</span><br><span class="line">				[*] Kernel low-level debugging <span class="built_in">functions</span> (<span class="built_in">read</span> <span class="built_in">help</span>!)</span><br><span class="line">                	Kernel low-level debugging port (i.MX28 Debug UART)  ---&gt;</span><br><span class="line">                [*] Early printk</span><br><span class="line">Device Drivers → Network device support → Ethernet driver support -&gt; Freescale devices -&gt; FEC ethernet controller</span><br></pre></td></tr></table></figure>
+<h2 id="编译内核用设备树"><a href="#编译内核用设备树" class="headerlink" title="编译内核用设备树"></a>编译内核用设备树</h2><ul>
+<li>Linux 内核３.x 以后都要使用设备树才能正常启动,可以把<code>DTB</code>附加到<code>zImage</code>后面,也可以在<code>U-Boot</code>中指定 dtb 文件路径.</li>
+<li>设备树的 patch 如下.经过测试<code>iMX280A</code>必须改成<code>pinctrl-0 = &lt;&amp;duart_pins_b&gt;</code>不然串口<strong>ttyAMA0</strong>无法输入,同时修改时要注意 IO 定义的冲突处理.这里是我修改的<code>iMX280A</code>的设备树<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/patchs/linux-4.14.51-imx28evk.patch" target="_blank" rel="noopener">补丁文件</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ diff -Naur ../../linux-4.14.51/arch/arm/boot/dts/imx28-evk.dts ../linux-4.14.51/arch/arm/boot/dts/imx28-evk.dts &gt; ../linux-4.14.51-imx28evk.patch</span><br></pre></td></tr></table></figure>
+<h2 id="设备树相关"><a href="#设备树相关" class="headerlink" title="设备树相关"></a>设备树相关</h2><ul>
+<li>这里设备树配置要参照芯片的数据手册,还有内核的文档<code>Documentation/devicetree/bindings/pinctrl/fsl,mxs-pinctrl.txt</code>,下一面给出芯片管脚与内核对应定义示例.</li>
+</ul>
+<p><img src="/imgs/imx28evk-pin.png" alt="imx28evk"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ grep -e <span class="string">"PWM0"</span> -e <span class="string">"PWM1"</span> ./arch/arm/boot/dts/imx28-pinfunc.h</span><br><span class="line"><span class="comment">#define MX28_PAD_PWM0__PWM_0				0x3100</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM1__PWM_1				0x3110</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM0__I2C1_SCL				0x3101</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM1__I2C1_SDA				0x3111</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM0__DUART_RX				0x3102</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM1__DUART_TX				0x3112</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM0__GPIO_3_16			0x3103</span></span><br><span class="line"><span class="comment">#define MX28_PAD_PWM1__GPIO_3_17			0x3113</span></span><br></pre></td></tr></table></figure>
+<p><img src="/imgs/imx28evk-pin-324.png" alt="imx28evk-pin-324"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ grep -e <span class="string">"I2C0"</span>  ./arch/arm/boot/dts/imx28-pinfunc.h</span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__I2C0_SCL			0x3180</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__I2C0_SDA			0x3190</span></span><br><span class="line"><span class="comment">#define MX28_PAD_AUART0_RX__I2C0_SCL			0x3001</span></span><br><span class="line"><span class="comment">#define MX28_PAD_AUART0_TX__I2C0_SDA			0x3011</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__TIMROT_ROTARYA		0x3181</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__TIMROT_ROTARYB		0x3191</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__DUART_RX			0x3182</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__DUART_TX			0x3192</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SCL__GPIO_3_24			0x3183</span></span><br><span class="line"><span class="comment">#define MX28_PAD_I2C0_SDA__GPIO_3_25			0x3193</span></span><br></pre></td></tr></table></figure>
+<p><img src="/imgs/imx28evk-dma_apbx.png" alt="imx28evk-dma_apbx"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ cat arch/arm/boot/dts/imx28.dtsi</span><br><span class="line">[...]</span><br><span class="line">dma_apbx: dma-apbx@80024000 &#123;</span><br><span class="line">				compatible = <span class="string">"fsl,imx28-dma-apbx"</span>;</span><br><span class="line">				reg = &lt;0x80024000 0x2000&gt;;</span><br><span class="line">				interrupts = &lt;78 79 66 0</span><br><span class="line">					      80 81 68 69</span><br><span class="line">					      70 71 72 73</span><br><span class="line">					      74 75 76 77&gt;;</span><br><span class="line">				interrupt-names = <span class="string">"auart4-rx"</span>, <span class="string">"auart4-tx"</span>, <span class="string">"spdif-tx"</span>, <span class="string">"empty"</span>,</span><br><span class="line">						  <span class="string">"saif0"</span>, <span class="string">"saif1"</span>, <span class="string">"i2c0"</span>, <span class="string">"i2c1"</span>,</span><br><span class="line">						  <span class="string">"auart0-rx"</span>, <span class="string">"auart0-tx"</span>, <span class="string">"auart1-rx"</span>, <span class="string">"auart1-tx"</span>,</span><br><span class="line">						  <span class="string">"auart2-rx"</span>, <span class="string">"auart2-tx"</span>, <span class="string">"auart3-rx"</span>, <span class="string">"auart3-tx"</span>;</span><br><span class="line">				<span class="comment">#dma-cells = &lt;1&gt;;</span></span><br><span class="line">				dma-channels = &lt;16&gt;;</span><br><span class="line">				clocks = &lt;&amp;clks 26&gt;;</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> ../imx28evk-kernel &amp;&amp;  make ARCH=arm CROSS_COMPILE=arm-none-eabi- zImage modules</span><br><span class="line">  GEN     ./Makefile</span><br><span class="line">scripts/kconfig/conf  --silentoldconfig Kconfig</span><br><span class="line">  SYSHDR  arch/arm/include/generated/uapi/asm/unistd-common.h</span><br><span class="line">  SYSHDR  arch/arm/include/generated/uapi/asm/unistd-oabi.h</span><br><span class="line">  SYSHDR  arch/arm/include/generated/uapi/asm/unistd-eabi.h</span><br><span class="line">  CHK     include/config/kernel.release</span><br><span class="line">  [...]</span><br><span class="line"></span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- imx28-evk.dtb</span><br><span class="line">~$ cat arch/arm/boot/zImage arch/arm/boot/dts/imx28-evk.dtb &gt; zImage_dtb</span><br><span class="line">  // 如果内核中有模块编译就使用下面这命令把它安装到根文件系统目录下,　make INSTALL_HDR_PATH=/nfsroot/rootfs headers_install 安装内核头文件在这里不需要,只是做一个记录.</span><br><span class="line"><span class="comment"># make INSTALL_MOD_PATH=/nfsroot/rootfs/ modules_install</span></span><br><span class="line">  INSTALL crypto/echainiv.ko</span><br><span class="line">  INSTALL drivers/crypto/mxs-dcp.ko</span><br><span class="line">  INSTALL drivers/media/usb/gspca/gspca_main.ko</span><br><span class="line">  DEPMOD  4.14.51_lcybuild-20180706-1017</span><br><span class="line"><span class="comment"># cd /nfsroot/rootfs/lib/modules &amp;&amp;   tree</span></span><br><span class="line">.</span><br><span class="line">└── 4.14.51_lcybuild-20180706-1017</span><br><span class="line">    ├── build -&gt; /fullpath/kernel-imx28evk-buildroot-toolchain</span><br><span class="line">    ├── kernel</span><br><span class="line">    │   ├── crypto</span><br><span class="line">    │   │   └── echainiv.ko</span><br><span class="line">    │   └── drivers</span><br><span class="line">    │       ├── crypto</span><br><span class="line">    │       │   └── mxs-dcp.ko</span><br><span class="line">    │       └── media</span><br><span class="line">    │           └── usb</span><br><span class="line">    │               └── gspca</span><br><span class="line">    │                   └── gspca_main.ko</span><br><span class="line">    ├── modules.alias</span><br><span class="line">    ├── modules.alias.bin</span><br><span class="line">    ├── modules.builtin</span><br><span class="line">    ├── modules.builtin.bin</span><br><span class="line">    ├── modules.dep</span><br><span class="line">    ├── modules.dep.bin</span><br><span class="line">    ├── modules.devname</span><br><span class="line">    ├── modules.order</span><br><span class="line">    ├── modules.softdep</span><br><span class="line">    ├── modules.symbols</span><br><span class="line">    ├── modules.symbols.bin</span><br><span class="line">    └── <span class="built_in">source</span> -&gt; /fullpath/linux-4.14.51</span><br></pre></td></tr></table></figure>
+<h2 id="mkimage-生成-uImage"><a href="#mkimage-生成-uImage" class="headerlink" title="mkimage 生成 uImage"></a>mkimage 生成 uImage</h2><ul>
+<li>如果要用到<code>uImage</code>文件,用下面这条命令转换出来.注意<strong>LOADADDR</strong>是变量,不同开发板定义是不一样的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkimage -A arm -O linux -T kernel -C none -a 0x40008000 -e 0x40008000 -n <span class="string">"Linux-4.13.11"</span> -d arch/arm/boot/zImage uImage</span><br><span class="line">Image Name:   Linux-4.13.11</span><br><span class="line">Created:      Fri Jun 22 12:03:38 2018</span><br><span class="line">Image Type:   ARM Linux Kernel Image (uncompressed)</span><br><span class="line">Data Size:    4280112 Bytes = 4179.80 kB = 4.08 MB</span><br><span class="line">Load Address: 40008000</span><br><span class="line">Entry Point:  40008000</span><br></pre></td></tr></table></figure>
+<h2 id="测试-I2C-功能"><a href="#测试-I2C-功能" class="headerlink" title="测试 I2C 功能"></a>测试 I2C 功能</h2><ul>
+<li>霍尼韦尔 HMC5883L 接线</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iMX280A				HMC5883L</span><br><span class="line"></span><br><span class="line">SCL1	&lt;---&gt;   SCL</span><br><span class="line">SDA1	&lt;---&gt;   SDA</span><br><span class="line">GND	&lt;---&gt;   GND</span><br><span class="line">3.3v	&lt;---&gt;   3V3</span><br></pre></td></tr></table></figure>
+<ul>
+<li>HMC5883L 规格书</li>
+</ul>
+<p><img src="/imgs/hmc5883l.png" alt="hmc5883l"></p>
+<ul>
+<li>进入 iMX280A 输入下面命令检测设备.并 dump 传感器数值</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># i2cdetect -r -y 1</span></span><br><span class="line">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f</span><br><span class="line">00:          -- -- -- -- -- -- -- -- -- -- -- -- --</span><br><span class="line">10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1e --</span><br><span class="line">20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</span><br><span class="line">30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</span><br><span class="line">40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</span><br><span class="line">50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</span><br><span class="line">60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</span><br><span class="line">70: -- -- -- -- -- -- -- --</span><br><span class="line"><span class="comment"># i2cdump  -y 1 0x1e w</span></span><br><span class="line">     0,8  1,9  2,a  3,b  4,c  5,d  6,e  7,f</span><br><span class="line">00: 2010 0320 0003 1900 0119 e101 ffe1 10ff</span><br><span class="line">08: 0010 4803 3448 3334 1033 0000 3c00 003c</span><br><span class="line">10: 0000 0000 0000 0000 0000 0000 0000 0000</span><br><span class="line">18: 0000 0000 a500 10a5 0710 e807 10e8 0010</span><br><span class="line">20: 0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">28: 0010 0000 0000 0000 0000 0000 0000 0000</span><br><span class="line">30: 0000 0000 1400 8314 6683 5466 0054 a000</span><br><span class="line">[....]</span><br><span class="line">80: 2010 0320 0003 1900 0119 e101 ffe1 10ff</span><br><span class="line">88: 0010 4803 3448 3334 1033 0000 3c00 003c</span><br><span class="line">90: 0000 0000 0000 0000 0000 0000 0000 0000</span><br><span class="line">98: 0000 0000 a500 10a5 0710 e807 10e8 0010</span><br><span class="line">a0: 0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">a8: 0010 0000 0000 0000 0000 0000 0000 0000</span><br><span class="line">b0: 0000 0000 1400 8314 6683 5466 0054 a000</span><br><span class="line">b8: 00a0 0700 0007 0000 0000 0000 0000 0000</span><br><span class="line">[.....]</span><br></pre></td></tr></table></figure>
+<h2 id="SPI-测试"><a href="#SPI-测试" class="headerlink" title="SPI 测试"></a>SPI 测试</h2><ul>
+<li>SPI 用户空间编程,需要在内核中要开启<code>CONFIG_SPI_SPIDEV=y</code>.</li>
+<li>还需要在内核的源码中添加一项<code>{ .compatible = &quot;spidev&quot; }</code>,不然会出现<strong><code>spidev spi1.0: buggy DT: spidev listed directly in DT</code></strong>的错误.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cat</span> ../linux-4.14.51/drivers/spi/spidev.c</span><br><span class="line">[....]</span><br><span class="line"><span class="comment">#ifdef CONFIG_OF</span></span><br><span class="line">static const struct of_device_id spidev_dt_ids[] = &#123;</span><br><span class="line">	&#123; .compatible = <span class="string">"rohm,dh2228fv"</span> &#125;,</span><br><span class="line">	&#123; .compatible = <span class="string">"lineartechnology,ltc2488"</span> &#125;,</span><br><span class="line">	&#123; .compatible = <span class="string">"ge,achc"</span> &#125;,</span><br><span class="line">	&#123; .compatible = <span class="string">"semtech,sx1301"</span> &#125;,</span><br><span class="line">	&#123; .compatible = <span class="string">"spidev"</span> &#125;,</span><br><span class="line">	&#123;&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<h2 id="下载测试代码"><a href="#下载测试代码" class="headerlink" title="下载测试代码"></a>下载测试代码</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/rm-hull/spidev-test</span><br><span class="line">$ <span class="built_in">cd</span> spidev-test</span><br><span class="line">$ gcc spidev_test.c -o spidev_test</span><br><span class="line"><span class="comment">#./spidev_test</span></span><br><span class="line">spi mode: 0</span><br><span class="line">bits per word: 8</span><br><span class="line">max speed: 500000 Hz (500 KHz)</span><br><span class="line">can<span class="string">'t send spi message: Invalid argument</span></span><br><span class="line"><span class="string">Aborted (core dumped)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>MMC/SD 卡的分区类型说明</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* <span class="keyword">for</span> a card connected via a PCI card reader</span><br><span class="line">DISK=/dev/mmcblk0</span><br><span class="line">* <span class="keyword">for</span> a card connected via a USB card reader,</span><br><span class="line">DISK=/dev/sdX</span><br></pre></td></tr></table></figure>
+<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><h2 id="Root-挂载错误"><a href="#Root-挂载错误" class="headerlink" title="Root 挂载错误"></a>Root 挂载错误</h2><ul>
+<li>下面这个错误的可能性会很多,我这边使用<a href="https://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi" target="_blank" rel="noopener">Linaro Toolchain</a>工具链生成的<strong>rootfs.tar</strong>解压到 NFS 服务器里,就会出现下面错误,后来换成<code>BuildRoot</code>编译的工具就没有问题.</li>
+<li>如果是 UBIFS 文件系统挂载一定要指定<code>mtdparts</code>给 u-boot 的<code>bootargs</code>变量里面,不然找不到分区信息,就无法挂载.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[    5.625458] Kernel panic - not syncing: Attempted to <span class="built_in">kill</span> init! exitcode=0x00000004</span><br><span class="line">[    5.625458]</span><br><span class="line">[    5.634639] CPU: 0 PID: 1 Comm: init Not tainted 4.14.51_lcybuild-20180702-0852 <span class="comment">#3</span></span><br><span class="line">[    5.642215] Hardware name: Freescale MXS (Device Tree)</span><br><span class="line">[    5.647434] [&lt;c00157bc&gt;] (unwind_backtrace) from [&lt;c0013644&gt;] (show_stack+0x10/0x14)</span><br><span class="line">[    5.655216] [&lt;c0013644&gt;] (show_stack) from [&lt;c001d580&gt;] (panic+0xb8/0x234)</span><br><span class="line">[    5.662120] [&lt;c001d580&gt;] (panic) from [&lt;c001eecc&gt;] (do_exit+0x9c8/0x9fc)</span><br><span class="line">[    5.668843] [&lt;c001eecc&gt;] (do_exit) from [&lt;c001fa28&gt;] (do_group_exit+0x3c/0xb4)</span><br><span class="line">[    5.676102] [&lt;c001fa28&gt;] (do_group_exit) from [&lt;c002846c&gt;] (get_signal+0x264/0x58c)</span><br><span class="line">[    5.683792] [&lt;c002846c&gt;] (get_signal) from [&lt;c0012aa8&gt;] (do_signal+0xb8/0x42c)</span><br><span class="line">[    5.691043] [&lt;c0012aa8&gt;] (do_signal) from [&lt;c0012fdc&gt;] (do_work_pending+0xb0/0xc0)</span><br><span class="line">[    5.698640] [&lt;c0012fdc&gt;] (do_work_pending) from [&lt;c0010148&gt;] (slow_work_pending+0xc/0x20)</span><br><span class="line">[    5.706839] ---[ end Kernel panic - not syncing: Attempted to <span class="built_in">kill</span> init! exitcode=0x00000004</span><br><span class="line">[    5.706839]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="u-boot-编译错误"><a href="#u-boot-编译错误" class="headerlink" title="u-boot 编译错误"></a>u-boot 编译错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">gcc -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -include /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/include/libfdt_env.h -idirafter /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/include -idirafter /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/arch/arm/include -idirafter /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/include -I /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/lib/libfdt -I /home/michael/3TB-DISK/imx28-test/u-boot-2014.01/tools -DCONFIG_SYS_TEXT_BASE=0x40000100 -DUSE_HOSTCC -D__KERNEL_STRICT_NAMES -D_GNU_SOURCE -DCONFIG_MXS   -o mxsimage.o mxsimage.c -c</span><br><span class="line">mxsimage.c:146:19: error: field ‘cipher_ctx’ has incomplete <span class="built_in">type</span></span><br><span class="line">  EVP_CIPHER_CTX   cipher_ctx;</span><br><span class="line">                   ^~~~~~~~~~</span><br><span class="line">mxsimage.c:147:15: error: field ‘md_ctx’ has incomplete <span class="built_in">type</span></span><br><span class="line">  EVP_MD_CTX   md_ctx;</span><br><span class="line">               ^~~~~~</span><br><span class="line">mxsimage.c: In <span class="keyword">function</span> ‘sb_postfill_image_header’:</span><br><span class="line">mxsimage.c:1345:13: error: storage size of ‘md_ctx’ isn’t known</span><br><span class="line">  EVP_MD_CTX md_ctx;</span><br><span class="line">             ^~~~~~</span><br><span class="line">mxsimage.c:1345:13: warning: unused variable ‘md_ctx’ [-Wunused-variable]</span><br><span class="line">mxsimage.c: In <span class="keyword">function</span> ‘sb_verify_image_header’:</span><br><span class="line">mxsimage.c:1638:13: error: storage size of ‘md_ctx’ isn’t known</span><br><span class="line">  EVP_MD_CTX md_ctx;</span><br><span class="line">             ^~~~~~</span><br><span class="line">mxsimage.c:1638:13: warning: unused variable ‘md_ctx’ [-Wunused-variable]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>一些旧的版本编译时会出现上述错误,需修改的是把它改成指针声明.可以用这个<a href="/imgs/files/mxsimage.patch">patch</a>文件解决.</li>
+</ul>
+<hr>
+<h2 id="U-boot-加载内核错误"><a href="#U-boot-加载内核错误" class="headerlink" title="U-boot 加载内核错误"></a>U-boot 加载内核错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> Booting kernel from Legacy Image at 42000000 ...</span><br><span class="line">   Image Name:   Linux-4.13.11</span><br><span class="line">   Image Type:   ARM Linux Kernel Image (uncompressed)</span><br><span class="line">   Data Size:    4280112 Bytes =  4.1 MB</span><br><span class="line">   Load Address: 40008000</span><br><span class="line">   Entry Point:  40008000</span><br><span class="line">   Verifying Checksum ... Bad Data CRC</span><br><span class="line">ERROR: can<span class="string">'t get kernel image!</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面是因为启动的 uImage 在的体积大于 uboot 中的变里<code>kernelsize</code>所设定的值,设置如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">U-Boot &gt;setenv kernelsize 0x415000</span><br><span class="line">U-Boot &gt;save</span><br><span class="line">U-Boot &gt;reset</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="编译环境错误"><a href="#编译环境错误" class="headerlink" title="编译环境错误"></a>编译环境错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">You have PERL_MM_OPT defined because Perl <span class="built_in">local</span>::lib</span><br><span class="line">is installed on your system. Please <span class="built_in">unset</span> this variable</span><br><span class="line">before starting Buildroot, otherwise the compilation of</span><br><span class="line">Perl related packages will fail</span><br><span class="line">support/dependencies/dependencies.mk:25: recipe <span class="keyword">for</span> target <span class="string">'core-dependencies'</span> failed</span><br><span class="line">make[1]: *** [core-dependencies] Error 1</span><br><span class="line">Makefile:16: recipe <span class="keyword">for</span> target <span class="string">'_all'</span> failed</span><br><span class="line">make: *** [_all] Error 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果编译时出现上述错误,要运行下面的脚本.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">eval</span> $(perl -Mlocal::lib=--deactivate-all)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="BusyBox-编译错误"><a href="#BusyBox-编译错误" class="headerlink" title="BusyBox 编译错误"></a>BusyBox 编译错误</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c: In <span class="keyword">function</span> <span class="string">'nandwrite_main'</span>:</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c:152: error: <span class="string">'MTD_FILE_MODE_RAW'</span> undeclared (first use <span class="keyword">in</span> this <span class="keyword">function</span>)</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c:152: error: (Each undeclared identifier is reported only once</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/miscutils/nandwrite.c:152: error: <span class="keyword">for</span> each <span class="keyword">function</span> it appears <span class="keyword">in</span>.)</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/scripts/Makefile.build:197: recipe <span class="keyword">for</span> target <span class="string">'miscutils/nandwrite.o'</span> failed</span><br><span class="line">make[3]: *** [miscutils/nandwrite.o] Error 1</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/Makefile:742: recipe <span class="keyword">for</span> target <span class="string">'miscutils'</span> failed</span><br></pre></td></tr></table></figure>
+<ul>
+<li>复制/usr/include/mtd/mtd-abi.h 到 busybox/include 下面,再要 nandwrite.c 里加上<code>#include &quot;mtd-abi.h&quot;</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c: In <span class="keyword">function</span> <span class="string">'blkdiscard_main'</span>:</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c:71: error: <span class="string">'BLKSECDISCARD'</span> undeclared (first use <span class="keyword">in</span> this <span class="keyword">function</span>)</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c:71: error: (Each undeclared identifier is reported only once</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/util-linux/blkdiscard.c:71: error: <span class="keyword">for</span> each <span class="keyword">function</span> it appears <span class="keyword">in</span>.)</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/scripts/Makefile.build:197: recipe <span class="keyword">for</span> target <span class="string">'util-linux/blkdiscard.o'</span> failed</span><br><span class="line">make[3]: *** [util-linux/blkdiscard.o] Error 1</span><br><span class="line">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/Makefile:742: recipe <span class="keyword">for</span> target <span class="string">'util-linux'</span> failed</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以按照上述方法添加头文件解决,它位于/usr/include/linux/fs.h 中,也可以不编译这个模块 <code>Linux System Utilities -&gt;blkidiscard</code>就不会报错了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">coreutils/lib.a(mktemp.o): In <span class="keyword">function</span> `mktemp_main<span class="string">':</span></span><br><span class="line"><span class="string">mktemp.c:(.text.mktemp_main+0x98): warning: the use of `mktemp\'</span> is dangerous, better use `mkstemp\<span class="string">'</span></span><br><span class="line"><span class="string">util-linux/lib.a(nsenter.o): In function `nsenter_main\'</span>:</span><br><span class="line">nsenter.c:(.text.nsenter_main+0x1b0): undefined reference to `setns\<span class="string">'</span></span><br><span class="line"><span class="string">coreutils/lib.a(sync.o): In function `sync_main\'</span>:</span><br><span class="line">sync.c:(.text.sync_main+0x80): undefined reference to `syncfs\<span class="string">'</span></span><br><span class="line"><span class="string">collect2: ld returned 1 exit status</span></span><br><span class="line"><span class="string">Note: if build needs additional libraries, put them in CONFIG_EXTRA_LDLIBS.</span></span><br><span class="line"><span class="string">Example: CONFIG_EXTRA_LDLIBS="pthread dl tirpc audit pam"</span></span><br><span class="line"><span class="string">/home/michael/3TB-DISK/imx28-test/MX283Linux/busybox-1.27.2/Makefile:717: recipe for target '</span>busybox_unstripped<span class="string">' failed</span></span><br><span class="line"><span class="string">make[2]: *** [busybox_unstripped] Error 1</span></span><br><span class="line"><span class="string">Makefile:112: recipe for target '</span>_all<span class="string">' failed</span></span><br><span class="line"><span class="string">make[1]: *** [_all] Error 2</span></span><br><span class="line"><span class="string">Makefile:14: recipe for target '</span>all<span class="string">' failed</span></span><br><span class="line"><span class="string">make: *** [all] Error 2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>不要选择下面这两个模块</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Coreutils-&gt;sync</span><br><span class="line">Linux System Utilities-&gt;nsenter</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/嵌入式-imx28-evk-Linux/" rel="tag"># 嵌入式,imx28-evk,Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/19/Linux下使用JLink与OpenOCD配合嵌入式开发/" rel="prev" title="Linux下使用JLink与OpenOCD配合嵌入式开发">
+      <i class="fa fa-chevron-left"></i> Linux下使用JLink与OpenOCD配合嵌入式开发
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/16/构建SpringBoot基础项目/" rel="next" title="构建SpringBoot基础项目">
+      构建SpringBoot基础项目 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#U-Boot-2017-11"><span class="nav-number">1.</span> <span class="nav-text">U-Boot 2017.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tftpd-hpa-安装"><span class="nav-number">2.</span> <span class="nav-text">tftpd-hpa 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NFS-Server-配置"><span class="nav-number">3.</span> <span class="nav-text">NFS Server 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#U-boot-使用"><span class="nav-number">4.</span> <span class="nav-text">U-boot 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#公共变量"><span class="nav-number">4.1.</span> <span class="nav-text">公共变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS-ROOTFS"><span class="nav-number">4.2.</span> <span class="nav-text">NFS ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMC-ROOTFS"><span class="nav-number">4.3.</span> <span class="nav-text">MMC ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#USB-Stack-ROOTFS"><span class="nav-number">4.4.</span> <span class="nav-text">USB Stack ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-ROOTFS"><span class="nav-number">4.5.</span> <span class="nav-text">UBIFS ROOTFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过网络更新-kernel"><span class="nav-number">4.6.</span> <span class="nav-text">通过网络更新 kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过网络更新-nand-文件系统"><span class="nav-number">4.7.</span> <span class="nav-text">通过网络更新 nand 文件系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#imx-bootlets"><span class="nav-number">5.</span> <span class="nav-text">imx-bootlets</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#烧写系统"><span class="nav-number">5.1.</span> <span class="nav-text">烧写系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMX280A-USB-烧写模式"><span class="nav-number">5.2.</span> <span class="nav-text">IMX280A USB 烧写模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMX280-TF-烧写模式"><span class="nav-number">5.3.</span> <span class="nav-text">IMX280 TF 烧写模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BuildRoot-文件系统"><span class="nav-number">6.</span> <span class="nav-text">BuildRoot 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BusyBox-配置静态编译"><span class="nav-number">6.1.</span> <span class="nav-text">BusyBox 配置静态编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Kernel-配置"><span class="nav-number">6.2.</span> <span class="nav-text">Linux Kernel 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">6.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-文件系统制作"><span class="nav-number">6.4.</span> <span class="nav-text">UBIFS 文件系统制作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UBIFS-文件烧写"><span class="nav-number">6.5.</span> <span class="nav-text">UBIFS 文件烧写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-内核编译"><span class="nav-number">7.</span> <span class="nav-text">Linux 内核编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-下载及配置选项"><span class="nav-number">7.1.</span> <span class="nav-text">Linux 下载及配置选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译内核用设备树"><span class="nav-number">7.2.</span> <span class="nav-text">编译内核用设备树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备树相关"><span class="nav-number">7.3.</span> <span class="nav-text">设备树相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mkimage-生成-uImage"><span class="nav-number">7.4.</span> <span class="nav-text">mkimage 生成 uImage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-I2C-功能"><span class="nav-number">7.5.</span> <span class="nav-text">测试 I2C 功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI-测试"><span class="nav-number">7.6.</span> <span class="nav-text">SPI 测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载测试代码"><span class="nav-number">7.7.</span> <span class="nav-text">下载测试代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误处理"><span class="nav-number">8.</span> <span class="nav-text">错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Root-挂载错误"><span class="nav-number">8.1.</span> <span class="nav-text">Root 挂载错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u-boot-编译错误"><span class="nav-number">8.2.</span> <span class="nav-text">u-boot 编译错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#U-boot-加载内核错误"><span class="nav-number">8.3.</span> <span class="nav-text">U-boot 加载内核错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译环境错误"><span class="nav-number">8.4.</span> <span class="nav-text">编译环境错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BusyBox-编译错误"><span class="nav-number">8.5.</span> <span class="nav-text">BusyBox 编译错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">8.5.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="环境安装 这里没有使用AppleBox，参照了OSX-KVM使用qemu-system-x86_64安装一个Virtual Hackintosh系统来做开发。  安装Xcode Xcode需要apple ID登录后下载。  安装Homebrew Installation homebrew  1~$ ruby -e &quot;$(curl -fsSL https://raw.githubuserconten">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSX开发记录">
+<meta property="og:url" content="http://yoursite.com/2021/05/24/OSX开发记录/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="环境安装 这里没有使用AppleBox，参照了OSX-KVM使用qemu-system-x86_64安装一个Virtual Hackintosh系统来做开发。  安装Xcode Xcode需要apple ID登录后下载。  安装Homebrew Installation homebrew  1~$ ruby -e &quot;$(curl -fsSL https://raw.githubuserconten">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2021-11-18T13:05:34.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OSX开发记录">
+<meta name="twitter:description" content="环境安装 这里没有使用AppleBox，参照了OSX-KVM使用qemu-system-x86_64安装一个Virtual Hackintosh系统来做开发。  安装Xcode Xcode需要apple ID登录后下载。  安装Homebrew Installation homebrew  1~$ ruby -e &quot;$(curl -fsSL https://raw.githubuserconten">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/05/24/OSX开发记录/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>OSX开发记录 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/24/OSX开发记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OSX开发记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-24 20:50:27" itemprop="dateCreated datePublished" datetime="2021-05-24T20:50:27+08:00">2021-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-18 21:05:34" itemprop="dateModified" datetime="2021-11-18T21:05:34+08:00">2021-11-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><ul>
+<li>这里没有使用<code>AppleBox</code>，参照了<a href="https://github.com/kholia/OSX-KVM" target="_blank" rel="noopener">OSX-KVM</a>使用<code>qemu-system-x86_64</code>安装一个<br><code>Virtual Hackintosh</code>系统来做开发。</li>
+</ul>
+<h1 id="安装Xcode"><a href="#安装Xcode" class="headerlink" title="安装Xcode"></a>安装Xcode</h1><ul>
+<li>Xcode需要<code>apple ID</code>登录后下载。</li>
+</ul>
+<h1 id="安装Homebrew"><a href="#安装Homebrew" class="headerlink" title="安装Homebrew"></a>安装Homebrew</h1><ul>
+<li><a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">Installation</a></li>
+<li><a href="https://treehouse.github.io/installation-guides/mac/homebrew" target="_blank" rel="noopener">homebrew</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> brew install nghttp2</span><br><span class="line">Updating Homebrew...</span><br><span class="line">fatal: Could not resolve HEAD to a revision</span><br><span class="line">==&gt; Searching <span class="keyword">for</span> similarly named formulae...</span><br><span class="line">Error: No similarly named formulae found.</span><br><span class="line">Error: No available formula or cask with the name <span class="string">"nghttp2"</span>.</span><br><span class="line">==&gt; Searching <span class="keyword">for</span> a previously deleted formula (<span class="keyword">in</span> the last month)...</span><br><span class="line">Error: No previously deleted formula found.</span><br><span class="line">==&gt; Searching taps on GitHub...</span><br><span class="line">Error: No formulae found <span class="keyword">in</span> taps.</span><br><span class="line">lcy@lcys-iMac-Pro ~ % git -C $(brew --repository homebrew/core) checkout master</span><br><span class="line">Updating files: 100% (5923/5923), <span class="keyword">done</span>.</span><br><span class="line">Branch <span class="string">'master'</span> <span class="built_in">set</span> up to track remote branch <span class="string">'master'</span> from <span class="string">'origin'</span>.</span><br><span class="line">Already on <span class="string">'master'</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install nghttp2 nopoll  rapidjson pkg-config</span><br></pre></td></tr></table></figure>
+<h1 id="编译源码到库"><a href="#编译源码到库" class="headerlink" title="编译源码到库"></a>编译源码到库</h1><ul>
+<li>安装编译时要用的工具。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install autoconf automake libtool</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里以<code>protobuf</code>为例</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> -b v2.6.0 --depth=1 https://github.com/protocolbuffers/protobuf</span><br><span class="line">~$ <span class="built_in">cd</span> protobuf &amp;&amp; ./autogen.sh</span><br><span class="line">~$ mkdir build &amp;&amp; <span class="built_in">cd</span> build &amp;&amp; ../configure CC=clang CXX=clang++ CXXFLAGS=<span class="string">"-std=c++11 -stdlib=libc++ -O3 -g"</span> \</span><br><span class="line">      LDFLAGS=<span class="string">"-stdlib=libc++"</span> LIBS=<span class="string">"-lc++ -lc++abi"</span> \</span><br><span class="line">      --libdir=/usr/<span class="built_in">local</span>/protobuf --includedir=/usr/<span class="built_in">local</span>/protobuf/include --with-zlib &amp;&amp; \</span><br><span class="line">      make &amp;&amp; sudo make install</span><br><span class="line"></span><br><span class="line">~$</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装<code>appdmg</code>打包脚本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install node</span><br><span class="line"></span><br><span class="line">~$ npm install appdmg -g</span><br></pre></td></tr></table></figure>
+<h2 id="库版本不兼容的问题"><a href="#库版本不兼容的问题" class="headerlink" title="库版本不兼容的问题"></a>库版本不兼容的问题</h2><ul>
+<li>库版本不兼容的问题,因为程序是在<code>Catalina 10.15.17</code>编译构建的，而且通过<code>brew</code>安装的二进制库,都是根据系统版本(Catalina)下载的，下面错<br>误，是在<code>High Sierra 10.13.17</code>下去运行，出现下面错误，这两个系统版本不兼容。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	dyld: lazy symbol binding failed: Symbol not found: ____chkstk_darwin</span><br><span class="line">  Referenced from: /Applications/MyApp.app/Contents/MacOS/./../Frameworks/libssl.1.1.dylib (<span class="built_in">which</span> was built <span class="keyword">for</span> Mac OS X 10.15)</span><br><span class="line">  Expected <span class="keyword">in</span>: /usr/lib/libSystem.B.dylib</span><br><span class="line"></span><br><span class="line">dyld: Symbol not found: ____chkstk_darwin</span><br><span class="line">  Referenced from: /Applications/MyApp.app/Contents/MacOS/./../Frameworks/libssl.1.1.dylib (<span class="built_in">which</span> was built <span class="keyword">for</span> Mac OS X 10.15)</span><br><span class="line">  Expected <span class="keyword">in</span>: /usr/lib/libSystem.B.dylib</span><br></pre></td></tr></table></figure>
+<ul>
+<li>处理上述问题， 必须从源码去编译相应的依赖库，指定<code>export MACOSX_DEPLOYMENT_TARGET=10.12</code>变量，在<code>Qt5</code>工程配置是<br><code>QMAKE_MACOSX_DEPLOYMENT_TARGET</code>变量。</li>
+</ul>
+<h1 id="错误记录"><a href="#错误记录" class="headerlink" title="错误记录"></a>错误记录</h1><h2 id="签名权限错误"><a href="#签名权限错误" class="headerlink" title="签名权限错误"></a>签名权限错误</h2><ul>
+<li><a href="https://jmmv.dev/2020/05/codesign-and-ssh.html" target="_blank" rel="noopener">Running codesign over SSH with a new key</a></li>
+<li><p>必须在<code>OSX</code>图形系统内,使用<code>termiator</code>运行签名。下面是通过<code>SSH</code>运行<code>codesign</code>所出现的错误。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error: Command failed: codesign --verbose --sign Developer ID Application: My Company Technology Co. Ltd. (XXXXXXXX) /Users/tuser/dailybuild_mac/felo-client-mac-2021.19.137.dmg</span><br><span class="line">/Users/tuser/dailybuild_mac/felo-client-mac-2021.19.137.dmg: errSecInternalComponent</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过下面操作终端（shell)导入签名证书.再试试看，再尝试通过<code>SSH</code>去签名，看是否成功。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo security import developer_id.p12 -k /Library/Keychains/System.keychain -P <span class="string">"&lt;your password&gt;"</span> -T /usr/bin/codesign</span><br><span class="line"><span class="comment"># must run below in the shell.</span></span><br><span class="line">~$ security unlock-keychain</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下面这个错误也是类似，只是现在Linux下。QT程序内调用<code>root</code>权限, 通过远程<code>ssh -X</code>运行的<code>GUI</code>程序会有下面错误, 而在它的本机上面确不会，<br>如，使用<code>pkexec</code>运行，会调出一个输入密码的窗口。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error creating textual authentication agent: Error opening current controlling terminal <span class="keyword">for</span> the process (`/dev/tty<span class="string">'): No such device or address</span></span><br></pre></td></tr></table></figure>
+<h3 id="打包错误"><a href="#打包错误" class="headerlink" title="打包错误"></a>打包错误</h3><ul>
+<li>下面的错误，要确认主工程内的<code>info.plist</code>文件里的<code>CFBundleExecutable，CFBundleName</code>节点值，是否与<code>bundle</code>名称对应，是否与主工程<br><code>.pro</code>里的<code>TARGET</code>对应。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~$ macdeployqt output/myappqt.app</span><br><span class="line">ERROR: Could not find bundle binary <span class="keyword">for</span> <span class="string">"/Users/tuser/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/output/myappqt.app"</span></span><br><span class="line">ERROR: <span class="string">"error: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool-classic: can't open file:  (No such file or directory)\n"</span></span><br><span class="line">ERROR: <span class="string">"error: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool-classic: can't open file:  (No such file or directory)\n"</span></span><br><span class="line">ERROR: <span class="string">"error: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool-classic: can't open file:  (No such file or directory)\n"</span></span><br><span class="line">WARNING:</span><br><span class="line">WARNING: Could not find any external Qt frameworks to deploy <span class="keyword">in</span> <span class="string">"/Users/tuser/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/output/myappqt.app"</span></span><br><span class="line">WARNING: Perhaps macdeployqt was already used on <span class="string">"/Users/tuser/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/output/myappqt.app"</span> ?</span><br><span class="line">WARNING: If so, you will need to rebuild <span class="string">"/Users/tuser/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/output/myappqt.app"</span> before trying again.</span><br><span class="line">Empty filename passed to <span class="keyword">function</span></span><br><span class="line">ERROR: Could not find bundle binary <span class="keyword">for</span> <span class="string">"/Users/tuser/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/output/myappqt.app"</span></span><br><span class="line">ERROR: <span class="string">"error: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip: can't open file:  (No such file or directory)\n"</span></span><br><span class="line">ERROR: <span class="string">""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>macdeployqt</code>错误</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ERROR: no file at “/usr/<span class="built_in">local</span>/opt/libiodbc/lib/libiodbc.2.dylib”</span><br><span class="line">ERROR: no file at “/Applications/Postgres.app/Contents/Versions/9.6/lib/libpq.5.dylib”</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面错误是缺失两个依赖的库，须要安装下面支持</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install libiodbc postgres</span><br><span class="line"></span><br><span class="line">~$ sudo mkdir -pv /Applications/Postgres.app/Contents/Versions/9.6</span><br><span class="line">~$ sudo ln -svf /usr/<span class="built_in">local</span>/Cellar/postgresql/13.3/lib /Applications/Postgres.app/Contents/Versions/9.6</span><br><span class="line">/Applications/Postgres.app/Contents/Versions/9.6/lib -&gt; /usr/<span class="built_in">local</span>/Cellar/postgresql/13.3/lib</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不能加载插件的错误，如果不是从终端(shell)打开目标程序，就表显为程序闪退。终端打开运行显示如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">qt.qpa.plugin: Could not load the Qt platform plugin <span class="string">"cocoa"</span> <span class="keyword">in</span> <span class="string">""</span> even though it was found.</span><br><span class="line">This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.</span><br><span class="line"></span><br><span class="line">Available platform plugins are: cocoa.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面错误信息，只是初步定位了错误，如果是在<code>Linux</code>下，上面错误基本是因为文件不存造成。这里打开<code>export QT_DEBUG_PLUGINS=1</code>，查看如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Got keys from plugin meta data (<span class="string">"cocoa"</span>)</span><br><span class="line">QFactoryLoader::QFactoryLoader() checking directory path <span class="string">"/Applications/MyApp.app/Contents/MacOS/platforms"</span> ...</span><br><span class="line">Cannot load library /Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib: (dlopen(/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib, 133): no suitable image found.  Did find:</span><br><span class="line">	/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib: code signature <span class="keyword">in</span> (/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib) not valid <span class="keyword">for</span> use <span class="keyword">in</span> process using Library Validation: mapped file has no cdhash, completely unsigned? Code has to be at least ad-hoc signed.)</span><br><span class="line">QLibraryPrivate::loadPlugin failed on <span class="string">"/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib"</span> : <span class="string">"Cannot load library /Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib: (dlopen(/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib, 133): no suitable image found.  Did find:\n\t/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib: code signature in (/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib) not valid for use in process using Library Validation: mapped file has no cdhash, completely unsigned? Code has to be at least ad-hoc signed.)"</span></span><br><span class="line">qt.qpa.plugin: Could not load the Qt platform plugin <span class="string">"cocoa"</span> <span class="keyword">in</span> <span class="string">""</span> even though it was found.</span><br><span class="line">This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.</span><br><span class="line"></span><br><span class="line">Available platform plugins are: cocoa.</span><br><span class="line"></span><br><span class="line">Abort <span class="built_in">trap</span>: 6</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如上所示，在<code>OSX</code>下出现的<code>Could not load the Qt platform plugin</code>是因为文件未签名造成的。使用下面方法尝试处理。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ codesign -f -s <span class="string">"Mac Developer: 你的开发者邮箱"</span> /usr/<span class="built_in">local</span>/opt/*/lib/*.dylib</span><br></pre></td></tr></table></figure>
+<h2 id="签名问题"><a href="#签名问题" class="headerlink" title="签名问题"></a>签名问题</h2><ul>
+<li>检验签是否正确</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ spctl -a -t <span class="built_in">exec</span> -vv /Applications/MyApp.app</span><br><span class="line">/Applications/MyApp.app: nested code is modified or invalid</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看具体签名错误详情</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ codesign --verify --deep --verbose dmg_root/MyApp.app</span><br><span class="line">dmg_root/MyApp.app: nested code is modified or invalid</span><br><span class="line">In subcomponent: /Users/user/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/dmg_root/MyApp.app/Contents/Frameworks/QtWebEngineCore.framework</span><br><span class="line">file modified: /Users/user/myapp-desktop/build-myappqt-Desktop_x86_darwin_generic_mach_o_64bit-Release/dmg_root/MyApp.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/Current/Helpers/QtWebEngineProcess.app</span><br></pre></td></tr></table></figure>
+<ul>
+<li>签名后，检验将要打包的<code>bundle</code>目录签名情况，直到出现下面这样正确为止。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ codesign --verify --deep --verbose dmg_root/MyApp.app</span><br><span class="line">dmg_root/MyApp.app: valid on disk</span><br><span class="line">dmg_root/MyApp.app: satisfies its Designated Requirement</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果按上述签名成，但是其它机器上安装成功，运行时确崩溃了，有些系统会有<code>DiagnosticReports</code>，有些是直接闪退。下面<code>DiagnosticReports</code>的<br>错误，关键信息是<code>EXC_BAD_ACCESS (Code Signature Invalid)</code>，<code>__TEXT</code>字段处是指向<code>libcrypto.1.1</code>,可以对<code>libcrypto.1.1</code>路径的文件<br>进行签名校验查看。用户程序<code>crash</code>出错的路径是在<code>/Users/&lt;username&gt;/Library/Logs/DiagnosticReports</code>下面。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Time Awake Since Boot: 12000 seconds</span><br><span class="line"></span><br><span class="line">System Integrity Protection: enabled</span><br><span class="line"></span><br><span class="line">Crashed Thread:        0  Dispatch queue: com.apple.main-thread</span><br><span class="line"></span><br><span class="line">Exception Type:        EXC_BAD_ACCESS (Code Signature Invalid)</span><br><span class="line">Exception Codes:       0x0000000000000032, 0x0000000106f3a000</span><br><span class="line">Exception Note:        EXC_CORPSE_NOTIFY</span><br><span class="line"></span><br><span class="line">Termination Reason:    Namespace CODESIGNING, Code 0x2</span><br><span class="line"></span><br><span class="line">kernel messages:</span><br><span class="line"></span><br><span class="line">VM Regions Near 0x106f3a000:</span><br><span class="line">    shared memory          0000000106f36000-0000000106f3a000 [   16K] r--/r-- SM=SHM</span><br><span class="line">--&gt; mapped file            0000000106f3a000-0000000106f3c000 [    8K] r--/r-- SM=PRV  Object_id=4f872dd9</span><br><span class="line">    __TEXT                 0000000106f3d000-0000000107165000 [ 2208K] r-x/rwx SM=COW  /Applications/MyApp.app/Contents/Frameworks/libcrypto.1.1.dylib</span><br><span class="line"></span><br><span class="line">Application Specific Information:</span><br><span class="line">dyld: <span class="keyword">in</span> dlopen()</span><br><span class="line">/Applications/MyApp.app/Contents/Plugins/platforms/libqcocoa.dylib</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下面要是目标程序的未完整签名造成的。<code>__TEXT</code>指向当前系统的<code>/usr/lib/dyld</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Crashed Thread:        0  Dispatch queue: com.apple.main-thread</span><br><span class="line"></span><br><span class="line">Exception Type:        EXC_BAD_ACCESS (Code Signature Invalid)</span><br><span class="line">Exception Codes:       0x0000000000000032, 0x0000000109bed000</span><br><span class="line">Exception Note:        EXC_CORPSE_NOTIFY</span><br><span class="line"></span><br><span class="line">Termination Reason:    Namespace CODESIGNING, Code 0x2</span><br><span class="line"></span><br><span class="line">kernel messages:</span><br><span class="line"></span><br><span class="line">VM Regions Near 0x109bed000:</span><br><span class="line">    shared memory          0000000109be5000-0000000109bed000 [   32K] r--/r-- SM=SHM</span><br><span class="line">--&gt; mapped file            0000000109bed000-0000000109da9000 [ 1776K] r--/r-- SM=PRV  Object_id=4f872dd9</span><br><span class="line">    __TEXT                 000000010a61a000-000000010a6ac000 [  584K] r-x/r-x SM=COW  /usr/lib/dyld</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>OSX</code>编译链接的错误问题, 是因为缺少了这个架构的库文件<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Undefined symbols <span class="keyword">for</span> architecture x86_64:</span><br><span class="line">  <span class="string">"_iconv_ostream_create"</span>, referenced from:</span><br><span class="line">     -exported_symbol[s_list] <span class="built_in">command</span> line option</span><br><span class="line">ld: symbol(s) not found <span class="keyword">for</span> architecture x86_64</span><br><span class="line">clang: error: linker <span class="built_in">command</span> failed with <span class="built_in">exit</span> code 1 (use -v to see invocation)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="OSX命令行操作"><a href="#OSX命令行操作" class="headerlink" title="OSX命令行操作"></a>OSX命令行操作</h1><h2 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lcy@lcys-iMac-Pro ~ % sudo launchctl stop com.openssh.sshd</span><br><span class="line">lcy@lcys-iMac-Pro ~ % sudo launchctl start com.openssh.sshd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lcy@lcys-iMac-Pro ~ %  sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist</span><br><span class="line">lcy@lcys-iMac-Pro ~ %  sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist</span><br></pre></td></tr></table></figure>
+<h2 id="使用apple脚本开启远程管理（VNC桌面访问）"><a href="#使用apple脚本开启远程管理（VNC桌面访问）" class="headerlink" title="使用apple脚本开启远程管理（VNC桌面访问）"></a>使用apple脚本开启远程管理（VNC桌面访问）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/zsh</span><br><span class="line">osascript -e &quot;do shell script \&quot;</span><br><span class="line">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all</span><br><span class="line">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy yes</span><br><span class="line">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvncpw -vncpw 1234test</span><br><span class="line">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console</span><br><span class="line">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate</span><br><span class="line">\&quot; with administrator privileges&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>osascript</code>是调起一个图形授权窗口，类似于终端的<code>sudo</code>,在<code>Windows</code>下就类似是<code>UAC</code>窗体，在<code>Linux</code>下就是调用<code>pkexec</code>获取<code>sudo</code>权限.</li>
+</ul>
+<h1 id="Command-Line-修改配置-defaults"><a href="#Command-Line-修改配置-defaults" class="headerlink" title="Command Line 修改配置(defaults)"></a>Command Line 修改配置(defaults)</h1><ul>
+<li><p>枚举出所有的可配置域。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults domains</span><br><span class="line">com.apple.AppleMultitouchMouse, com.apple.AppleMultitouchTrackpad, com.apple.CoreBrightness, com.apple.CoreGraphics, com.apple.CrashReporterSupportHelper, com.apple.MobileAsset, com.apple.SSMenuAgent, com.apple.SoftwareUpdate, com.apple.UserAccountUpdater, com.apple.WirelessRadioManager.debug, com.apple.airplay, com.apple.awdd.persistent, com.apple.bluetoothd, com.apple.corecaptured, com.apple.coreduetd, com.apple.das.fairscheduling, com.apple.driver.AppleBluetoothMultitouch.mouse, com.apple.driver.AppleBluetoothMultitouch.trackpad, com.apple.driver.AppleHIDMouse, com.apple.dt.xcodebuild, com.apple.icloud.findmydeviced, com.apple.icloud.searchpartyd, com.apple.java.util.prefs, com.apple.loginwindow, com.apple.mediaremote, com.apple.mediaremoted, com.apple.rtcreporting, com.apple.security.ctkd-db, com.apple.systempreferences, com.apple.systemstats.microstackshot, com.apple.tailspin, com.apple.universalaccess, com.apple.xpc.activity2, com.oracle.javadeployment, systemmigrationd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看一个域的配置。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo defaults <span class="built_in">export</span> com.apple.systempreferences -</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;AttentionPrefBundleIDs&lt;/key&gt;</span><br><span class="line">	&lt;dict&gt;</span><br><span class="line">		&lt;key&gt;com.apple.preferences.softwareupdate&lt;/key&gt;</span><br><span class="line">		&lt;<span class="built_in">integer</span>&gt;1&lt;/<span class="built_in">integer</span>&gt;</span><br><span class="line">	&lt;/dict&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看一个文件的配置。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo defaults <span class="built_in">export</span> /Library/Preferences/com.apple.RemoteManagement.plist -</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;-bool&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;no&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;ARD_AllLocalUsers&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;ARD_AllLocalUsersPrivs&lt;/key&gt;</span><br><span class="line">	&lt;<span class="built_in">integer</span>&gt;1073742079&lt;/<span class="built_in">integer</span>&gt;</span><br><span class="line">	&lt;key&gt;AllowSRPForNetworkNodes&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">	&lt;key&gt;DisableKerberos&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">	&lt;key&gt;LoadRemoteManagementMenuExtra&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;ScreenSharingReqPermEnabled&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">	&lt;key&gt;VNCLegacyConnectionsEnabled&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;allowInsecureDH&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>读取域内的一个键值</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults <span class="built_in">read</span> /Library/Preferences/com.apple.RemoteManagement.plist ARD_AllLocalUsers</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>写入一个键值</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults write /Library/Preferences/com.apple.RemoteManagement.plist RestoreMachineState -bool no</span><br></pre></td></tr></table></figure>
+<p><a href="https://sparkle-project.org/" target="_blank" rel="noopener">https://sparkle-project.org/</a></p>
+<h1 id="keychain-密码访问SUDO"><a href="#keychain-密码访问SUDO" class="headerlink" title="keychain 密码访问SUDO"></a>keychain 密码访问SUDO</h1><ul>
+<li><a href="https://blog.koehntopp.info/2017/01/26/command-line-access-to-the-mac-keychain.html" target="_blank" rel="noopener">Command line access to the Mac keychain</a></li>
+<li><a href="https://help.edovia.com/hc/en-us/articles/360000472587-Why-do-I-sometimes-have-to-log-in-twice-when-connecting-to-my-Mac-" target="_blank" rel="noopener">Why do I sometimes have to log in twice when connecting to my Mac? </a><br><a href="https://brettterpstra.com/2021/04/06/scripting-with-sudo-on-mac/" target="_blank" rel="noopener">https://brettterpstra.com/2021/04/06/scripting-with-sudo-on-mac/</a><br><a href="https://bunchapp.co/docs/integration/advanced-scripting/sudo/" target="_blank" rel="noopener">https://bunchapp.co/docs/integration/advanced-scripting/sudo/</a></li>
+</ul>
+<ul>
+<li>去掉VNC的登录密码输入。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults write /Library/Preferences/com.apple.RemoteManagement VNCAlwaysStartOnConsole -bool <span class="literal">true</span></span><br><span class="line">Password:</span><br><span class="line">lcy@lcys-iMac-Pro ~ % sudo defaults <span class="built_in">export</span>  /Library/Preferences/com.apple.RemoteManagement -</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;-bool&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;no&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;ARD_AllLocalUsers&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;ARD_AllLocalUsersPrivs&lt;/key&gt;</span><br><span class="line">	&lt;<span class="built_in">integer</span>&gt;1073742079&lt;/<span class="built_in">integer</span>&gt;</span><br><span class="line">	&lt;key&gt;AllowSRPForNetworkNodes&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">	&lt;key&gt;DisableKerberos&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">	&lt;key&gt;LoadRemoteManagementMenuExtra&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;ScreenSharingReqPermEnabled&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;VNCAlwaysStartOnConsole&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;VNCLegacyConnectionsEnabled&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;allowInsecureDH&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="查找OSX的服务运行参数"><a href="#查找OSX的服务运行参数" class="headerlink" title="查找OSX的服务运行参数"></a>查找OSX的服务运行参数</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ launchctl list | grep <span class="string">"RemoteDesktop"</span></span><br><span class="line">66152	-9	com.apple.RemoteDesktop.agent</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">~$ launchctl <span class="built_in">print</span> system/com.apple.remotemanagementd</span><br><span class="line">com.apple.remotemanagementd = &#123;</span><br><span class="line">	active count = 0</span><br><span class="line">	copy count = 0</span><br><span class="line">	one shot = 0</span><br><span class="line">	path = /System/Library/LaunchDaemons/com.apple.remotemanagementd.plist</span><br><span class="line">	state = waiting</span><br><span class="line"></span><br><span class="line">	program = /System/Library/PrivateFrameworks/RemoteManagement.framework/remotemanagementd</span><br><span class="line">	default environment = &#123;</span><br><span class="line">		PATH =&gt; /usr/bin:/bin:/usr/sbin:/sbin</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	environment = &#123;</span><br><span class="line">		XPC_SERVICE_NAME =&gt; com.apple.remotemanagementd</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	domain = com.apple.xpc.launchd.domain.system</span><br><span class="line">	minimum runtime = 10</span><br><span class="line">	<span class="built_in">exit</span> timeout = 5</span><br><span class="line">	runs = 0</span><br><span class="line">	successive crashes = 0</span><br><span class="line">	last <span class="built_in">exit</span> code = (never exited)</span><br><span class="line"></span><br><span class="line">	semaphores = &#123;</span><br><span class="line">		provides events =&gt; 1</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	event triggers = &#123;</span><br><span class="line">		com.apple.remotemanagement.cloudConfigAvailable =&gt; &#123;</span><br><span class="line">			keepalive = 0</span><br><span class="line">			service = com.apple.remotemanagementd</span><br><span class="line">			stream = com.apple.distnoted.matching</span><br><span class="line">			monitor = com.apple.UserEventAgent-System</span><br><span class="line">			descriptor = &#123;</span><br><span class="line">				<span class="string">"Name"</span> =&gt; <span class="string">"CPCloudConfigIsMDMv2Notification"</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	endpoints = &#123;</span><br><span class="line">		<span class="string">"com.apple.remotemanagementd"</span> = &#123;</span><br><span class="line">			port = 0x1d703</span><br><span class="line">			active = 0</span><br><span class="line">			managed = 1</span><br><span class="line">			reset = 0</span><br><span class="line">			hide = 0</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="string">"com.apple.aps.remotemanagementd.http.apns-dev"</span> = &#123;</span><br><span class="line">			port = 0x1d803</span><br><span class="line">			active = 0</span><br><span class="line">			managed = 1</span><br><span class="line">			reset = 0</span><br><span class="line">			hide = 0</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="string">"com.apple.aps.remotemanagementd.http.apns-prod"</span> = &#123;</span><br><span class="line">			port = 0x18303</span><br><span class="line">			active = 0</span><br><span class="line">			managed = 1</span><br><span class="line">			reset = 0</span><br><span class="line">			hide = 0</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	dynamic endpoints = &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pid-local endpoints = &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	instance-specific endpoints = &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	event channels = &#123;</span><br><span class="line">		<span class="string">"com.apple.distnoted.matching"</span> = &#123;</span><br><span class="line">			port = 0x18403</span><br><span class="line">			active = 0</span><br><span class="line">			managed = 1</span><br><span class="line">			reset = 0</span><br><span class="line">			hide = 0</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sockets = &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	instances = &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	spawn <span class="built_in">type</span> = background</span><br><span class="line">	spawn role = (null)</span><br><span class="line">	jetsam priority = 3</span><br><span class="line">	jetsam memory <span class="built_in">limit</span> (active, soft) = 15 MB</span><br><span class="line">	jetsam memory <span class="built_in">limit</span> (inactive, soft) = 15 MB</span><br><span class="line">	jetsamproperties category = daemon</span><br><span class="line">	jetsam thread <span class="built_in">limit</span> = 32</span><br><span class="line">	cpumon = default</span><br><span class="line"></span><br><span class="line">	properties = &#123;</span><br><span class="line">		partial import = 0</span><br><span class="line">		launchd bundle = 0</span><br><span class="line">		xpc bundle = 0</span><br><span class="line">		keepalive = 0</span><br><span class="line">		runatload = 0</span><br><span class="line">		low priority i/o = 0</span><br><span class="line">		low priority background i/o = 0</span><br><span class="line">		dataless file mode = 0</span><br><span class="line">		legacy timer behavior = 0</span><br><span class="line">		exception handler = 0</span><br><span class="line">		multiple instances = 0</span><br><span class="line">		supports transactions = 1</span><br><span class="line">		supports pressured <span class="built_in">exit</span> = 1</span><br><span class="line">		supports idle hysteresis = 0</span><br><span class="line">		enter kdp before <span class="built_in">kill</span> = 0</span><br><span class="line">		<span class="built_in">wait</span> <span class="keyword">for</span> debugger = 0</span><br><span class="line">		app = 0</span><br><span class="line">		system app = 0</span><br><span class="line">		creates session = 0</span><br><span class="line">		inetd-compatible = 0</span><br><span class="line">		inetd listener = 0</span><br><span class="line">		abandon process group = 0</span><br><span class="line">		one-shot = 0</span><br><span class="line">		event monitor = 0</span><br><span class="line">		penalty box = 0</span><br><span class="line">		pended non-demand spawn = 0</span><br><span class="line">		role account = 0</span><br><span class="line">		launch only once = 0</span><br><span class="line">		system support = 0</span><br><span class="line">		app-like = 0</span><br><span class="line">		inferred program = 0</span><br><span class="line">		joins gui session = 0</span><br><span class="line">		joins host session = 0</span><br><span class="line">		parameterized sandbox = 0</span><br><span class="line">		resolve program = 0</span><br><span class="line">		abandon coalition = 0</span><br><span class="line">		high bits aslr = 0</span><br><span class="line">		extension = 0</span><br><span class="line">		nano allocator = 0</span><br><span class="line">		no initgroups = 0</span><br><span class="line">		start on fs mount = 0</span><br><span class="line">		endpoints initialized = 1</span><br><span class="line">		is copy = 0</span><br><span class="line">		disallow all lookups = 0</span><br><span class="line">		system service = 1</span><br><span class="line">		protected by submitter = 0</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/17/Docker应用/" rel="prev" title="Docker应用">
+      <i class="fa fa-chevron-left"></i> Docker应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/12/XILINX-Arty-A7-35T实践指南/" rel="next" title="XILINX_Arty-A7-35T实践指南">
+      XILINX_Arty-A7-35T实践指南 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境安装"><span class="nav-number">1.</span> <span class="nav-text">环境安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Xcode"><span class="nav-number">2.</span> <span class="nav-text">安装Xcode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Homebrew"><span class="nav-number">3.</span> <span class="nav-text">安装Homebrew</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖库"><span class="nav-number">3.1.</span> <span class="nav-text">安装依赖库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译源码到库"><span class="nav-number">4.</span> <span class="nav-text">编译源码到库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#库版本不兼容的问题"><span class="nav-number">4.1.</span> <span class="nav-text">库版本不兼容的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误记录"><span class="nav-number">5.</span> <span class="nav-text">错误记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#签名权限错误"><span class="nav-number">5.1.</span> <span class="nav-text">签名权限错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打包错误"><span class="nav-number">5.1.1.</span> <span class="nav-text">打包错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#签名问题"><span class="nav-number">5.2.</span> <span class="nav-text">签名问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OSX命令行操作"><span class="nav-number">6.</span> <span class="nav-text">OSX命令行操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重启服务"><span class="nav-number">6.1.</span> <span class="nav-text">重启服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用apple脚本开启远程管理（VNC桌面访问）"><span class="nav-number">6.2.</span> <span class="nav-text">使用apple脚本开启远程管理（VNC桌面访问）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Command-Line-修改配置-defaults"><span class="nav-number">7.</span> <span class="nav-text">Command Line 修改配置(defaults)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#keychain-密码访问SUDO"><span class="nav-number">8.</span> <span class="nav-text">keychain 密码访问SUDO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找OSX的服务运行参数"><span class="nav-number">9.</span> <span class="nav-text">查找OSX的服务运行参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">10.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

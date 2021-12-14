@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本人有空会折腾编译最新的Linux内核,使用的笔记本电脑又AMD的平台,AMD显卡fglrx驱动一直是一个巨大的坑,没有一次可以完全正常编译的,对于不同的内核本版要打无数的补丁才能编译成功,且它的驱动不支持VAPDU特性.对于不是很新的显卡用开源的radeon驱动都能很好的使用. [参考链接]Mesa-12.0.1 安装依赖库LLVM-3.8下载LLVM3.8后解压到/usr/local/clan">
+<meta name="keywords" content="Debian,Linux,GLX,ATI,RADEON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为Radeon驱动编译Mesa-GLX支持">
+<meta property="og:url" content="http://yoursite.com/2016/08/06/为Radeon驱动编译Mesa-GLX支持/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="本人有空会折腾编译最新的Linux内核,使用的笔记本电脑又AMD的平台,AMD显卡fglrx驱动一直是一个巨大的坑,没有一次可以完全正常编译的,对于不同的内核本版要打无数的补丁才能编译成功,且它的驱动不支持VAPDU特性.对于不是很新的显卡用开源的radeon驱动都能很好的使用. [参考链接]Mesa-12.0.1 安装依赖库LLVM-3.8下载LLVM3.8后解压到/usr/local/clan">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2016-12-14T14:19:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为Radeon驱动编译Mesa-GLX支持">
+<meta name="twitter:description" content="本人有空会折腾编译最新的Linux内核,使用的笔记本电脑又AMD的平台,AMD显卡fglrx驱动一直是一个巨大的坑,没有一次可以完全正常编译的,对于不同的内核本版要打无数的补丁才能编译成功,且它的驱动不支持VAPDU特性.对于不是很新的显卡用开源的radeon驱动都能很好的使用. [参考链接]Mesa-12.0.1 安装依赖库LLVM-3.8下载LLVM3.8后解压到/usr/local/clan">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2016/08/06/为Radeon驱动编译Mesa-GLX支持/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>为Radeon驱动编译Mesa-GLX支持 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/06/为Radeon驱动编译Mesa-GLX支持/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为Radeon驱动编译Mesa-GLX支持
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-08-06 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-06T00:00:00+08:00">2016-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-12-14 22:19:00" itemprop="dateModified" datetime="2016-12-14T22:19:00+08:00">2016-12-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本人有空会折腾编译最新的Linux内核,使用的笔记本电脑又AMD的平台,AMD显卡fglrx驱动一直是一个巨大的坑,<br>没有一次可以完全正常编译的,对于不同的内核本版要打无数的补丁才能编译成功,且它的驱动不支持VAPDU特性.<br>对于不是很新的显卡用开源的radeon驱动都能很好的使用.</p>
+<p>[参考链接]<br><a href="http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html" target="_blank" rel="noopener">Mesa-12.0.1</a></p>
+<h3 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h3><h4 id="LLVM-3-8"><a href="#LLVM-3-8" class="headerlink" title="LLVM-3.8"></a>LLVM-3.8</h4><p><a href="http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-x86_64-linux-gnu-debian8.tar.xz" target="_blank" rel="noopener">下载</a>LLVM3.8后解压到<br><code>/usr/local/clang+llvm-3.8.0-x86_64-linux-gnu-debian8</code></p>
+<ul>
+<li><a href="https://dri.freedesktop.org/libdrm/libdrm-2.4.68.tar.bz2" target="_blank" rel="noopener">libdrm-2.4.68</a></li>
+<li><p>下载后解压编译如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ../configure --<span class="built_in">enable</span>-udev --<span class="built_in">enable</span>-radeon --<span class="built_in">enable</span>-amdgpu --<span class="built_in">disable</span>-intel --<span class="built_in">disable</span>-nouveau --<span class="built_in">disable</span>-vmwgfx</span><br><span class="line">[...]</span><br><span class="line">$ make &amp;&amp; sudo make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面这些依赖的库文件很简单的编译,直接解压进去,<code>./configure &amp;&amp; make &amp;&amp; make install</code> 就可以了,</p>
+</li>
+<li>安装的目录在<code>/usr/local</code>,如果编译过程碰到错误,就是少某些头文件,安装它就可以继续编译了.<br>&gt;</li>
+</ul>
+<ul>
+<li><a href="https://www.x.org/archive/individual/proto/dri2proto-2.8.tar.bz2" target="_blank" rel="noopener">dri2proto-2.8</a></li>
+<li><a href="http://people.freedesktop.org/~aplattner/vdpau/libvdpau-1.1.1.tar.bz2" target="_blank" rel="noopener">libvdpau-1.1.1</a></li>
+<li><a href="https://fedorahosted.org/releases/e/l/elfutils/0.166/elfutils-0.166.tar.bz2" target="_blank" rel="noopener">elfutils-0.166</a></li>
+<li><a href="https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.3.tar.bz2" target="_blank" rel="noopener">libva-1.7.3</a></li>
+</ul>
+<p>&gt;</p>
+<h3 id="安装libva"><a href="#安装libva" class="headerlink" title="安装libva"></a>安装libva</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$  ../configure --<span class="built_in">enable</span>-x11 --<span class="built_in">enable</span>-drm  --<span class="built_in">enable</span>-egl --<span class="built_in">enable</span>-glx </span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h3 id="安装MESA"><a href="#安装MESA" class="headerlink" title="安装MESA"></a>安装MESA</h3><p><a href="ftp://ftp.freedesktop.org/pub/mesa/12.0.1/mesa-12.0.1.tar.xz" target="_blank" rel="noopener">mesa-12.0.1</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ tar xvf mesa-12.0.1.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> mesa-12.0.1 &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">$ GLL_DRV=<span class="string">"r300,r600,radeonsi,swrast"</span></span><br><span class="line">$ ../autogen.sh --<span class="built_in">enable</span>-dri --<span class="built_in">enable</span>-glx --<span class="built_in">enable</span>-vdpau  --<span class="built_in">enable</span>-opencl --<span class="built_in">enable</span>-opencl-icd \</span><br><span class="line">  --<span class="built_in">enable</span>-glx-tls --with-llvm-prefix=/usr/<span class="built_in">local</span>/clang+llvm-3.8.0-x86_64-linux-gnu-debian8 \ </span><br><span class="line">  --<span class="built_in">disable</span>-llvm-shared-libs --<span class="built_in">enable</span>-egl --<span class="built_in">enable</span>-gbm \</span><br><span class="line">    --<span class="built_in">enable</span>-texture-float --<span class="built_in">enable</span>-xa --with-gallium-drivers=<span class="variable">$GLL_DRV</span> \</span><br><span class="line">    --with-dri-drivers=radeon --with-egl-platforms=drm,x11 --<span class="built_in">enable</span>-gles1 \</span><br><span class="line">    --<span class="built_in">enable</span>-gles2 --<span class="built_in">enable</span>-osmesa --<span class="built_in">enable</span>-va --with-osmesa-bits=32 --<span class="built_in">enable</span>-gallium-extra-hud</span><br><span class="line">[....]</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>替换系统的MESA库</strong><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cd</span> /usr/lib/x86_64-linux-gnu/dri </span><br><span class="line">debian:/usr/lib/x86_64-linux-gnu/dri$ ls -l</span><br><span class="line">total 82908</span><br><span class="line">-rw-r--r-- 1 root root   22504 Oct 24  2014 dummy_drv_video.so</span><br><span class="line">-rw-r--r-- 5 root root 5505624 Aug 20  2015 i915_dri.so</span><br><span class="line">-rw-r--r-- 5 root root 5505624 Aug 20  2015 i965_dri.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 kms_swrast_dri.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 nouveau_dri.so</span><br><span class="line">lrwxrwxrwx 1 root root      18 Aug  8  2014 nouveau_drv_video.so -&gt; vdpau_drv_video.so</span><br><span class="line">-rw-r--r-- 5 root root 5505624 Aug 20  2015 nouveau_vieux_dri.so</span><br><span class="line">lrwxrwxrwx 1 root root      18 Aug  8  2014 nvidia_drv_video.so -&gt; vdpau_drv_video.so</span><br><span class="line">-rw-r--r-- 5 root root 5505624 Aug 20  2015 r200_dri.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 r300_dri.so</span><br><span class="line">lrwxrwxrwx 1 root root      30 Aug  6 23:20 r600_dri.so -&gt; /usr/<span class="built_in">local</span>/lib/dri/r600_dri.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 r600_dri.so.org</span><br><span class="line">lrwxrwxrwx 1 root root      18 Aug  8  2014 r600_drv_video.so -&gt; vdpau_drv_video.so</span><br><span class="line">-rw-r--r-- 5 root root 5505624 Aug 20  2015 radeon_dri.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 radeonsi_dri.so</span><br><span class="line">lrwxrwxrwx 1 root root      18 Aug  8  2014 radeonsi_drv_video.so -&gt; vdpau_drv_video.so</span><br><span class="line">lrwxrwxrwx 1 root root      18 Aug  8  2014 s3g_drv_video.so -&gt; vdpau_drv_video.so</span><br><span class="line">lrwxrwxrwx 1 root root      32 Aug  7 00:46 swrast_dri.so -&gt; /usr/<span class="built_in">local</span>/lib/dri/swrast_dri.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 swrast_dri.so.org</span><br><span class="line">-rw-r--r-- 1 root root   97056 Aug  8  2014 vdpau_drv_video.so</span><br><span class="line">-rw-r--r-- 7 root root 8175344 Aug 20  2015 vmwgfx_dri.so</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ls /usr/lib/x86_64-linux-gnu/libdrm_* -l</span><br><span class="line">lrwxrwxrwx 1 root root     37 Dec 11 19:14 /usr/lib/x86_64-linux-gnu/libdrm_amdgpu.so -&gt; /usr/local/lib/libdrm_amdgpu.so.1.0.0</span><br><span class="line">-rw-r--r-- 1 root root 206760 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_intel.a</span><br><span class="line">lrwxrwxrwx 1 root root     30 Dec 11 13:30 /usr/lib/x86_64-linux-gnu/libdrm_intel.so -&gt; /usr/local/lib/libdrm_intel.so</span><br><span class="line">lrwxrwxrwx 1 root root     21 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_intel.so.1 -&gt; libdrm_intel.so.1.0.0</span><br><span class="line">-rw-r--r-- 1 root root 139328 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_intel.so.1.0.0</span><br><span class="line">-rw-r--r-- 1 root root  31552 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_nouveau.a</span><br><span class="line">lrwxrwxrwx 1 root root     32 Dec 11 13:30 /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so -&gt; /usr/local/lib/libdrm_nouveau.so</span><br><span class="line">lrwxrwxrwx 1 root root     23 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2 -&gt; libdrm_nouveau.so.2.0.0</span><br><span class="line">-rw-r--r-- 1 root root  26896 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0</span><br><span class="line">-rw-r--r-- 1 root root  71708 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_radeon.a</span><br><span class="line">lrwxrwxrwx 1 root root     37 Dec 11 19:13 /usr/lib/x86_64-linux-gnu/libdrm_radeon.so -&gt; /usr/local/lib/libdrm_radeon.so.1.0.1</span><br><span class="line">lrwxrwxrwx 1 root root     37 Dec 11 19:13 /usr/lib/x86_64-linux-gnu/libdrm_radeon.so.1 -&gt; /usr/local/lib/libdrm_radeon.so.1.0.1</span><br><span class="line">-rw-r--r-- 1 root root  51688 Oct  6  2014 /usr/lib/x86_64-linux-gnu/libdrm_radeon.so.1.0.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;drm,egl,glx,va,tpi,wayland,x11&#125;;do sudo ln -svf /usr/local/lib/libva-$i.so.1.3904.0 libva-$i.so.1  ;done</span><br><span class="line">‘libva-drm.so.1’ -&gt; ‘/usr/local/lib/libva-drm.so.1.3904.0’</span><br><span class="line">‘libva-egl.so.1’ -&gt; ‘/usr/local/lib/libva-egl.so.1.3904.0’</span><br><span class="line">‘libva-glx.so.1’ -&gt; ‘/usr/local/lib/libva-glx.so.1.3904.0’</span><br><span class="line">‘libva-va.so.1’ -&gt; ‘/usr/local/lib/libva-va.so.1.3904.0’</span><br><span class="line">‘libva-tpi.so.1’ -&gt; ‘/usr/local/lib/libva-tpi.so.1.3904.0’</span><br><span class="line">‘libva-wayland.so.1’ -&gt; ‘/usr/local/lib/libva-wayland.so.1.3904.0’</span><br><span class="line">‘libva-x11.so.1’ -&gt; ‘/usr/local/lib/libva-x11.so.1.3904.0’</span><br><span class="line">michael@debian:/usr/lib/x86_64-linux-gnu$ for i in &#123;drm,egl,glx,va,tpi,wayland,x11&#125;;do sudo ln -svf /usr/local/lib/libva-$i.so.1.3904.0 libva-$i.so  ;done</span><br><span class="line">‘libva-drm.so’ -&gt; ‘/usr/local/lib/libva-drm.so.1.3904.0’</span><br><span class="line">‘libva-egl.so’ -&gt; ‘/usr/local/lib/libva-egl.so.1.3904.0’</span><br><span class="line">‘libva-glx.so’ -&gt; ‘/usr/local/lib/libva-glx.so.1.3904.0’</span><br><span class="line">‘libva-va.so’ -&gt; ‘/usr/local/lib/libva-va.so.1.3904.0’</span><br><span class="line">‘libva-tpi.so’ -&gt; ‘/usr/local/lib/libva-tpi.so.1.3904.0’</span><br><span class="line">‘libva-wayland.so’ -&gt; ‘/usr/local/lib/libva-wayland.so.1.3904.0’</span><br><span class="line">‘libva-x11.so’ -&gt; ‘/usr/local/lib/libva-x11.so.1.3904.0’</span><br></pre></td></tr></table></figure>
+<ul>
+<li>进入到系统MESA库目录下</li>
+<li><p>下面文件中有一些是<code>.org</code>结尾是的系统的MESA库文,为保险起见保留了它</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cd</span> /usr/lib/mesa-diverted/x86_64-linux-gnu</span><br><span class="line">$/usr/lib/mesa-diverted/x86_64-linux-gnu$ ls -l</span><br><span class="line">total 836</span><br><span class="line">lrwxrwxrwx 1 root root     15 Aug 20  2015 libEGL.so -&gt; libEGL.so.1.0.0</span><br><span class="line">lrwxrwxrwx 1 root root     15 Aug 20  2015 libEGL.so.1 -&gt; libEGL.so.1.0.0</span><br><span class="line">lrwxrwxrwx 1 root root     30 Aug  7 01:08 libEGL.so.1.0.0 -&gt; /usr/<span class="built_in">local</span>/lib/libEGL.so.1.0.0</span><br><span class="line">-rw-r--r-- 1 root root 173144 Aug 20  2015 libEGL.so.1.0.0.org</span><br><span class="line">lrwxrwxrwx 1 root root     21 Aug 20  2015 libGLESv1_CM.so -&gt; libGLESv1_CM.so.1.1.0</span><br><span class="line">lrwxrwxrwx 1 root root     21 Aug 20  2015 libGLESv1_CM.so.1 -&gt; libGLESv1_CM.so.1.1.0</span><br><span class="line">lrwxrwxrwx 1 root root     36 Aug  7 01:08 libGLESv1_CM.so.1.1.0 -&gt; /usr/<span class="built_in">local</span>/lib/libGLESv1_CM.so.1.1.0</span><br><span class="line">-rw-r--r-- 1 root root  18232 Aug 20  2015 libGLESv1_CM.so.1.1.0.org</span><br><span class="line">lrwxrwxrwx 1 root root     18 Aug 20  2015 libGLESv2.so -&gt; libGLESv2.so.2.0.0</span><br><span class="line">lrwxrwxrwx 1 root root     18 Aug 20  2015 libGLESv2.so.2 -&gt; libGLESv2.so.2.0.0</span><br><span class="line">lrwxrwxrwx 1 root root     33 Aug  7 01:10 libGLESv2.so.2.0.0 -&gt; /usr/<span class="built_in">local</span>/lib/libGLESv2.so.2.0.0</span><br><span class="line">-rw-r--r-- 1 root root  26424 Aug 20  2015 libGLESv2.so.2.0.0.org</span><br><span class="line">lrwxrwxrwx 1 root root     10 Aug  6 22:07 libGL.so -&gt; libGL.so.1</span><br><span class="line">lrwxrwxrwx 1 root root     14 Aug 20  2015 libGL.so.1 -&gt; libGL.so.1.2.0</span><br><span class="line">lrwxrwxrwx 1 root root     29 Aug  7 01:10 libGL.so.1.2.0 -&gt; /usr/<span class="built_in">local</span>/lib/libGL.so.1.2.0</span><br><span class="line">-rw-r--r-- 1 root root 627320 Aug 20  2015 libGL.so.1.2.0.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看本机的显卡数量,我这台笔记本电脑有两个GPU如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep <span class="string">"VGA"</span></span><br><span class="line">00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] BeaverCreek [Radeon HD 6520G]</span><br><span class="line">01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Thames [Radeon HD 7500M/7600M Series]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我这里修改/etc/X11/xorg.conf如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">$ grep -v &apos;#|^$&apos; /etc/X11/xorg.conf</span><br><span class="line">Section &quot;ServerLayout&quot;</span><br><span class="line">    Identifier     &quot;X.org Configured&quot;</span><br><span class="line">    Screen      0  &quot;Screen0&quot; 0 0</span><br><span class="line">    Screen      1  &quot;Screen1&quot; RightOf &quot;Screen0&quot;</span><br><span class="line">    InputDevice    &quot;Mouse0&quot; &quot;CorePointer&quot;</span><br><span class="line">    InputDevice    &quot;Keyboard0&quot; &quot;CoreKeyboard&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Files&quot;</span><br><span class="line">    ModulePath   &quot;/usr/local/lib/xorg/modules&quot;</span><br><span class="line">    ModulePath   &quot;/usr/lib/xorg/modules&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/misc&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/cyrillic&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/100dpi/:unscaled&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/75dpi/:unscaled&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/Type1&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/100dpi&quot;</span><br><span class="line">    FontPath     &quot;/usr/share/fonts/X11/75dpi&quot;</span><br><span class="line">    FontPath     &quot;built-ins&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Module&quot;</span><br><span class="line">    Load  &quot;glx&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;InputDevice&quot;</span><br><span class="line">    Identifier  &quot;Keyboard0&quot;</span><br><span class="line">    Driver      &quot;kbd&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;InputDevice&quot;</span><br><span class="line">    Identifier  &quot;Mouse0&quot;</span><br><span class="line">    Driver      &quot;mouse&quot;</span><br><span class="line">    Option      &quot;Protocol&quot; &quot;auto&quot;</span><br><span class="line">    Option      &quot;Device&quot; &quot;/dev/input/mice&quot;</span><br><span class="line">    Option      &quot;ZAxisMapping&quot; &quot;4 5 6 7&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Monitor&quot;</span><br><span class="line">    Identifier   &quot;Monitor0&quot;</span><br><span class="line">    VendorName   &quot;Monitor Vendor&quot;</span><br><span class="line">    ModelName    &quot;Monitor Model&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Monitor&quot;</span><br><span class="line">    Identifier   &quot;Monitor1&quot;</span><br><span class="line">    VendorName   &quot;Monitor Vendor&quot;</span><br><span class="line">    ModelName    &quot;Monitor Model&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Section &quot;Device&quot;</span><br><span class="line">        ### Available Driver options are:-</span><br><span class="line">        ### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;: &quot;True&quot;/&quot;False&quot;,</span><br><span class="line">        ### &lt;string&gt;: &quot;String&quot;, &lt;freq&gt;: &quot;&lt;f&gt; Hz/kHz/MHz&quot;,</span><br><span class="line">        ### &lt;percent&gt;: &quot;&lt;f&gt;%&quot;</span><br><span class="line">        ### [arg]: arg optional</span><br><span class="line">        #Option     &quot;Accel&quot;                 # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;SWcursor&quot;              # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;EnablePageFlip&quot;        # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;ColorTiling2D&quot;         # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;RenderAccel&quot;           # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;SubPixelOrder&quot;         # [&lt;str&gt;]</span><br><span class="line">        #Option     &quot;AccelMethod&quot;           &quot;glamor&quot;</span><br><span class="line">        Option     &quot;DRI&quot;                &quot;3&quot;</span><br><span class="line">        Option     &quot;ColorTiling&quot;            &quot;1&quot;</span><br><span class="line">        Option     &quot;AccelMethod&quot;            &quot;EXA&quot;</span><br><span class="line">        Option      &quot;TearFree&quot;          &quot;on&quot;</span><br><span class="line">        #Option     &quot;EnablePageFlip&quot;     &quot;1&quot;</span><br><span class="line">        Option     &quot;RenderAccel&quot;        &quot;on&quot;    # [&lt;bool&gt;]</span><br><span class="line">        Option     &quot;AGPMode&quot;            &quot;4&quot;</span><br><span class="line">        #Option      &quot;AIGLX&quot;                 &quot;off&quot;</span><br><span class="line">        #Option     &quot;EXAVSync&quot;              # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;EXAPixmaps&quot;            # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;ZaphodHeads&quot;           # &lt;str&gt;</span><br><span class="line">        #Option     &quot;SwapbuffersWait&quot;       # [&lt;bool&gt;]</span><br><span class="line">    Identifier  &quot;Advanced Micro Devices, Inc. [AMD/ATI] BeaverCreek [Radeon HD 6520G]&quot;</span><br><span class="line">    Driver      &quot;radeon&quot;</span><br><span class="line">    BusID       &quot;PCI:0:1:0&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Device&quot;</span><br><span class="line">        ### Available Driver options are:-</span><br><span class="line">        ### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;: &quot;True&quot;/&quot;False&quot;,</span><br><span class="line">        ### &lt;string&gt;: &quot;String&quot;, &lt;freq&gt;: &quot;&lt;f&gt; Hz/kHz/MHz&quot;,</span><br><span class="line">        ### &lt;percent&gt;: &quot;&lt;f&gt;%&quot;</span><br><span class="line">        ### [arg]: arg optional</span><br><span class="line">        #Option     &quot;Accel&quot;                 # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;SWcursor&quot;              # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;EnablePageFlip&quot;        # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;ColorTiling&quot;           # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;ColorTiling2D&quot;         # [&lt;bool&gt;]</span><br><span class="line">        Option     &quot;RenderAccel&quot;        &quot;on&quot;    # [&lt;bool&gt;]</span><br><span class="line">        Option     &quot;AGPMode&quot;            &quot;4&quot;</span><br><span class="line">        #Option     &quot;SubPixelOrder&quot;         # [&lt;str&gt;]</span><br><span class="line">        #Option     &quot;AccelMethod&quot;           # &lt;str&gt;</span><br><span class="line">        #Option     &quot;EXAVSync&quot;              # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;EXAPixmaps&quot;            # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;ZaphodHeads&quot;           # &lt;str&gt;</span><br><span class="line">        #Option     &quot;EnablePageFlip&quot;        # [&lt;bool&gt;]</span><br><span class="line">        #Option     &quot;SwapbuffersWait&quot;       # [&lt;bool&gt;]</span><br><span class="line">        #Option      &quot;AIGLX&quot;                 &quot;off&quot;</span><br><span class="line">        Option     &quot;DRI&quot;                &quot;3&quot;</span><br><span class="line">        Option     &quot;ColorTiling&quot;            &quot;1&quot;</span><br><span class="line">        Option     &quot;AccelMethod&quot;            &quot;EXA&quot;</span><br><span class="line">        Option      &quot;TearFree&quot;          &quot;on&quot;</span><br><span class="line">        #Option     &quot;EnablePageFlip&quot;     &quot;1&quot;</span><br><span class="line">    Identifier  &quot;Advanced Micro Devices, Inc. [AMD/ATI] Thames [Radeon HD 7500M/7600M Series]&quot;</span><br><span class="line">    Driver      &quot;radeon&quot;</span><br><span class="line">    BusID       &quot;PCI:1:0:0&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Screen&quot;</span><br><span class="line">    Identifier &quot;Screen0&quot;</span><br><span class="line">    Device     &quot;Card0&quot;</span><br><span class="line">    Monitor    &quot;Monitor0&quot;</span><br><span class="line">    SubSection &quot;Display&quot;</span><br><span class="line">        Viewport   0 0</span><br><span class="line">        Depth     24</span><br><span class="line">    EndSubSection</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Screen&quot;</span><br><span class="line">    Identifier &quot;Screen1&quot;</span><br><span class="line">    Device &quot;Card1&quot;</span><br><span class="line">    Monitor    &quot;Monitor1&quot;</span><br><span class="line">    SubSection &quot;Display&quot;</span><br><span class="line">        Viewport   0 0</span><br><span class="line">        Depth     24</span><br><span class="line">    EndSubSection</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Extensions&quot;</span><br><span class="line">    Option  &quot;Composite&quot;     &quot;Enable&quot;</span><br><span class="line">EndSection</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启Xorg,用xrander 查看可用的GPU数量,下面显示两个GPU可供使用.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ xrandr --listproviders</span><br><span class="line">Providers: number : 2</span><br><span class="line">Provider 0: id: 0x8a <span class="built_in">cap</span>: 0xf, Source Output, Sink Output, Source Offload, Sink Offload crtcs: 2 outputs: 3 associated providers: 0 name:radeon</span><br><span class="line">Provider 1: id: 0x55 <span class="built_in">cap</span>: 0xf, Source Output, Sink Output, Source Offload, Sink Offload crtcs: 6 outputs: 0 associated providers: 0 name:radeon</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改radeon驱动的内核参数,<a href="https://www.x.org/wiki/RadeonFeature/#index4h2" target="_blank" rel="noopener">RadeonFeature</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/modprobe.d/radeon.conf </span><br><span class="line">options radeon audio=1</span><br><span class="line">options radeon agpmode=1</span><br><span class="line">options radeon tv=1</span><br><span class="line">options radeon modeset=1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试GLX信息, 如下显示GLX功能正常</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ glxinfo | head -n 10</span><br><span class="line">name of display: :0.0</span><br><span class="line">display: :0  screen: 0</span><br><span class="line">direct rendering: Yes</span><br><span class="line">server glx vendor string: SGI</span><br><span class="line">server glx version string: 1.4</span><br><span class="line">server glx extensions:</span><br><span class="line">    GLX_ARB_create_context, GLX_ARB_create_context_profile, </span><br><span class="line">    GLX_ARB_create_context_robustness, GLX_ARB_fbconfig_float, </span><br><span class="line">    GLX_ARB_framebuffer_sRGB, GLX_ARB_multisample, </span><br><span class="line">    GLX_EXT_create_context_es2_profile, GLX_EXT_framebuffer_sRGB,</span><br><span class="line">   [...]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查VDPAU支持,如下显示已经开启VAPDU功能.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ vainfo</span><br><span class="line">libva info: VA-API version 0.36.0</span><br><span class="line">libva info: va_getDriverName() returns 0</span><br><span class="line">libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/r600_drv_video.so</span><br><span class="line">libva info: Found init <span class="keyword">function</span> __vaDriverInit_0_35</span><br><span class="line">libva info: va_openDriver() returns 0</span><br><span class="line">vainfo: VA-API version: 0.36 (libva 1.4.1)</span><br><span class="line">vainfo: Driver version: Splitted-Desktop Systems VDPAU backend <span class="keyword">for</span> VA-API - 0.7.4</span><br><span class="line">vainfo: Supported profile and entrypoints</span><br><span class="line">      VAProfileMPEG2Simple            : VAEntrypointVLD</span><br><span class="line">      VAProfileMPEG2Main              : VAEntrypointVLD</span><br><span class="line">      VAProfileMPEG4Simple            : VAEntrypointVLD</span><br><span class="line">      VAProfileMPEG4AdvancedSimple    : VAEntrypointVLD</span><br><span class="line">      VAProfileH264Baseline           : VAEntrypointVLD</span><br><span class="line">      VAProfileH264Main               : VAEntrypointVLD</span><br><span class="line">      VAProfileH264High               : VAEntrypointVLD</span><br><span class="line">      VAProfileVC1Simple              : VAEntrypointVLD</span><br><span class="line">      VAProfileVC1Main                : VAEntrypointVLD</span><br><span class="line">      VAProfileVC1Advanced            : VAEntrypointVLD</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="遇到过的名错误"><a href="#遇到过的名错误" class="headerlink" title="遇到过的名错误"></a>遇到过的名错误</h3><ul>
+<li>检查Xorg错误信息 ,如果出现很多”EE”信息,轻则功能缺失,重则不能开启图界面,下面只有一个EE,没有找到出错的原因.<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"EE"</span> /var/<span class="built_in">log</span>/Xorg.0.log</span><br><span class="line">    (WW) warning, (EE) error, (NI) not implemented, (??) unknown.</span><br><span class="line">[  6597.997] (EE) RADEON(1): No modes.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="vainfo-vdpauinfo-出错"><a href="#vainfo-vdpauinfo-出错" class="headerlink" title="vainfo , vdpauinfo 出错."></a>vainfo , vdpauinfo 出错.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~$ VDPAU_DRIVER=r600 vdpauinfo</span><br><span class="line">display: :0.0   screen: 0</span><br><span class="line">Error creating VDPAU device: 23</span><br><span class="line"></span><br><span class="line">~$ vdpauinfo</span><br><span class="line">display: :0.0   screen: 0</span><br><span class="line">Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared object file: No such file or directory</span><br><span class="line">Error creating VDPAU device: 1</span><br><span class="line"></span><br><span class="line">~$ vainfo</span><br><span class="line">libva info: VA-API version 0.39.4</span><br><span class="line">libva info: va_getDriverName() returns -1</span><br><span class="line">libva error: va_getDriverName() failed with unknown libva error,driver_name=(null)</span><br><span class="line">vaInitialize failed with error code -1 (unknown libva error),exit</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面错误是因为 <code>/etc/X11/xorg.conf</code> 的　<code>AccelMethod</code> 设置 <code>Glamor</code> ,改成<code>EXA</code> 解决问题.</li>
+</ul>
+<h5 id="新显卡加载固件问题"><a href="#新显卡加载固件问题" class="headerlink" title="新显卡加载固件问题"></a>新显卡加载固件问题</h5><p>*　R7 显卡遇无法加载radeon驱动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep <span class="string">"VGA"</span></span><br><span class="line">00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Kaveri [Radeon R7 Graphics] (rev d6)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">* 通过dmesg 发现如下错误</span><br><span class="line">```bash</span><br><span class="line">[  449.155790] radeon 0000:00:01.0: Direct firmware load <span class="keyword">for</span></span><br><span class="line">radeon/kaveri_pfp.bin failed with error -2</span><br><span class="line">[  449.156090] radeon 0000:00:01.0: Direct firmware load <span class="keyword">for</span></span><br><span class="line">radeon/kaveri_me.bin failed with error -2</span><br><span class="line">[  449.156407] radeon 0000:00:01.0: Direct firmware load <span class="keyword">for</span></span><br><span class="line">radeon/kaveri_ce.bin failed with error -2</span><br><span class="line">[  449.156680] radeon 0000:00:01.0: Direct firmware load <span class="keyword">for</span></span><br><span class="line">radeon/kaveri_mec.bin failed with error -2</span><br><span class="line">[  449.156990] radeon 0000:00:01.0: Direct firmware load <span class="keyword">for</span></span><br><span class="line">radeon/kaveri_mec2.bin failed with error -2</span><br><span class="line">[  449.156992] cik_cp: Failed to load firmware <span class="string">"radeon/kaveri_mec2.bin"</span></span><br><span class="line">[  449.157153] [drm:cik_init [radeon]] *ERROR* Failed to load firmware!</span><br><span class="line">[  449.157241] radeon 0000:00:01.0: Fatal error during GPU init</span><br><span class="line">[  449.157327] [drm] radeon: finishing device.</span><br><span class="line">[  449.164593] [TTM] Finalizing pool allocator</span><br><span class="line">[  449.164597] [TTM] Finalizing DMA pool allocator</span><br><span class="line">[  449.164697] [TTM] Zone  kernel: Used memory at <span class="built_in">exit</span>: 0 kiB</span><br><span class="line">[  449.164701] [TTM] Zone   dma32: Used memory at <span class="built_in">exit</span>: 0 kiB</span><br><span class="line">[  449.164703] [drm] radeon: ttm finalized</span><br><span class="line">[  449.165170] radeon: probe of 0000:00:01.0 failed with error -2</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git" target="_blank" rel="noopener">下载最新的固件</a> , 把<code>radeon</code>目录下的所有文件复制到<code>/lib/firmware/radeon</code>,重新<code>modprobe radeon</code>解决</li>
+</ul>
+<ul>
+<li><p>使用xrandr 设置多屏</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ xrandr </span><br><span class="line">Screen 0: minimum 320 x 200, current 3286 x 1080, maximum 8192 x 8192</span><br><span class="line">VGA-0 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">LVDS connected 1366x768+0+0 (normal left inverted right x axis y axis) 344mm x 194mm</span><br><span class="line">   1366x768      60.00*+</span><br><span class="line">   1280x720      59.86  </span><br><span class="line">   1152x768      59.78  </span><br><span class="line">   1024x768      59.92  </span><br><span class="line">   800x600       59.86  </span><br><span class="line">   848x480       59.66  </span><br><span class="line">   720x480       59.71  </span><br><span class="line">   640x480       59.38  </span><br><span class="line">HDMI-0 connected 1920x1080+1366+0 (normal left inverted right x axis y axis) 480mm x 270mm</span><br><span class="line">   1920x1080     60.00*+  50.00    59.94  </span><br><span class="line">   1920x1080i    60.00    50.00    59.94  </span><br><span class="line">   1680x1050     59.88  </span><br><span class="line">   1400x1050     59.95  </span><br><span class="line">   1600x900      60.00  </span><br><span class="line">   1280x1024     75.02    60.02  </span><br><span class="line">   1440x900      59.90  </span><br><span class="line">   1280x800      59.91  </span><br><span class="line">   1152x864      75.00  </span><br><span class="line">   1280x720      60.00    50.00    59.94  </span><br><span class="line">   1024x768      75.08    60.00  </span><br><span class="line">   800x600       75.00    60.32  </span><br><span class="line">   720x576       50.00  </span><br><span class="line">   720x480       60.00    59.94  </span><br><span class="line">   640x480       75.00    60.00    59.94  </span><br><span class="line">   720x400       70.08  </span><br><span class="line">$ xrandr --output LVDS --mode 1366x768 --output HDMI-0 --mode 1920x1080 --right-of LVDS</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于<code>debian</code>发行版安装mesa 驱并支持,VDPAU,VA API,GLX, 需要安装如下的包,下面是64位系统上的包列表.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># uname -a</span><br><span class="line">Linux debian 4.8.13-20161211 #2 SMP Sun Dec 11 13:11:44 CST 2016 x86_64 GNU/Linux</span><br><span class="line"># lspci | grep &quot;VGA&quot;</span><br><span class="line">00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Kaveri [Radeon R7 Graphics] (rev d6)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># apt-get install glx-alternative-mesa libegl1-mesa:amd64 libegl1-mesa-dev:amd64 libegl1-mesa-drivers:amd64 libgl1-mesa-dev:amd64 libgl1-mesa-dri:amd64  </span><br><span class="line">libgl1-mesa-dri:i386 libgl1-mesa-glx:amd64 libgl1-mesa-glx:i386 libglapi-mesa:amd64 libglapi-mesa:i386 libgles1-mesa:amd64 </span><br><span class="line">libgles1-mesa-dev:amd64 libgles2-mesa:amd64 libgles2-mesa-dev:amd64 libglu1-mesa:amd64 libglu1-mesa:i386 </span><br><span class="line">libglu1-mesa-dev libglw1-mesa:amd64 libglw1-mesa-dev libopenvg1-mesa:amd64  libosmesa6:amd64  </span><br><span class="line">libosmesa6-dev:amd64 libwayland-egl1-mesa:amd64 mesa-common-dev:amd64  mesa-opencl-icd </span><br><span class="line">mesa-utils mesa-va-drivers:amd64  mesa-vdpau-drivers:amd64 libdrm-amdgpu1:amd64 libdrm-dev:amd64  </span><br><span class="line">libdrm-intel1:amd64 libdrm-intel1:i386 libdrm-nouveau2:amd64  libdrm-nouveau2:i386 libdrm-radeon1:amd64 </span><br><span class="line">libdrm-radeon1:i386 libdrm2:amd64  libdrm2:i386  libva-drm1:amd64  libvdpau1:amd64 </span><br><span class="line">mesa-vdpau-drivers:amd64 vdpauinfo libva-dev:amd64 libva-drm1:amd64  libva-egl1:amd64  </span><br><span class="line">libva-glx1:amd64  libva-tpi1:amd64  libva-wayland1:amd64 libva-x11-1:amd64 libva1:amd64  </span><br><span class="line">libva1:i386 libval-bin libval14:amd64</span><br></pre></td></tr></table></figure>
+<ul>
+<li>到次如果没有错误就算是折腾完了,如果遇到问题一定<a href="https://www.google.com.hk" target="_blank" rel="noopener">google</a> 一下.</li>
+</ul>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Debian-Linux-GLX-ATI-RADEON/" rel="tag"># Debian,Linux,GLX,ATI,RADEON</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/07/07/为树莓派交叉编译FFMPEG程序/" rel="prev" title="为树莓派交叉编译FFMPEG工具">
+      <i class="fa fa-chevron-left"></i> 为树莓派交叉编译FFMPEG工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/08/26/使用的一些常见问题-不定期更新/" rel="next" title="Linux使用的一些常见问题-不定期更新">
+      Linux使用的一些常见问题-不定期更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">1.</span> <span class="nav-text">安装依赖库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LLVM-3-8"><span class="nav-number">1.1.</span> <span class="nav-text">LLVM-3.8</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装libva"><span class="nav-number">2.</span> <span class="nav-text">安装libva</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MESA"><span class="nav-number">3.</span> <span class="nav-text">安装MESA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到过的名错误"><span class="nav-number">4.</span> <span class="nav-text">遇到过的名错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vainfo-vdpauinfo-出错"><span class="nav-number">4.1.</span> <span class="nav-text">vainfo , vdpauinfo 出错.</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#新显卡加载固件问题"><span class="nav-number">4.1.1.</span> <span class="nav-text">新显卡加载固件问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">5.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

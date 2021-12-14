@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="看到网上做的一些gif图片,突然想到做一个gif录屏的工具,win,iso肯定有这些工具,linux 下只发现了peek,这个工具就是用ffmpeg去录的屏幕.  其实不需要这篇文章,只要安装了ffmpeg或者使用静态编译的ffmpeg,使用参数脚本也就能实现录屏功能,可以录成各种视频格式(avi,mp4,…),或者图片格式(png,jpeg,gif…).   编译安装ffmpeg,Linux">
+<meta name="keywords" content="ffmpeg,QT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栽剪FFMPEG做GIF录屏工具">
+<meta property="og:url" content="http://yoursite.com/2017/01/15/栽剪FFMPEG做GIF录屏工具/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="看到网上做的一些gif图片,突然想到做一个gif录屏的工具,win,iso肯定有这些工具,linux 下只发现了peek,这个工具就是用ffmpeg去录的屏幕.  其实不需要这篇文章,只要安装了ffmpeg或者使用静态编译的ffmpeg,使用参数脚本也就能实现录屏功能,可以录成各种视频格式(avi,mp4,…),或者图片格式(png,jpeg,gif…).   编译安装ffmpeg,Linux">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/2017-01-21-12-49-output.gif">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2020-02-25T00:30:04.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="栽剪FFMPEG做GIF录屏工具">
+<meta name="twitter:description" content="看到网上做的一些gif图片,突然想到做一个gif录屏的工具,win,iso肯定有这些工具,linux 下只发现了peek,这个工具就是用ffmpeg去录的屏幕.  其实不需要这篇文章,只要安装了ffmpeg或者使用静态编译的ffmpeg,使用参数脚本也就能实现录屏功能,可以录成各种视频格式(avi,mp4,…),或者图片格式(png,jpeg,gif…).   编译安装ffmpeg,Linux">
+<meta name="twitter:image" content="http://yoursite.com/imgs/2017-01-21-12-49-output.gif">
+
+<link rel="canonical" href="http://yoursite.com/2017/01/15/栽剪FFMPEG做GIF录屏工具/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>栽剪FFMPEG做GIF录屏工具 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/栽剪FFMPEG做GIF录屏工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          栽剪FFMPEG做GIF录屏工具
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-15 20:09:38" itemprop="dateCreated datePublished" datetime="2017-01-15T20:09:38+08:00">2017-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-25 08:30:04" itemprop="dateModified" datetime="2020-02-25T08:30:04+08:00">2020-02-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><p>看到网上做的一些gif图片,突然想到做一个gif录屏的工具,win,iso肯定有这些工具,linux 下只发现了<a href="https://github.com/phw/peek" target="_blank" rel="noopener"><strong>peek</strong></a>,这个工具就是用ffmpeg去录的屏幕.</p>
+</li>
+<li><p>其实不需要这篇文章,只要安装了ffmpeg或者使用静态编译的ffmpeg,使用参数脚本也就能实现录屏功能,可以录成各种视频格式(avi,mp4,…),或者图片格式(png,jpeg,gif…).</p>
+</li>
+</ul>
+<h2 id="编译安装ffmpeg"><a href="#编译安装ffmpeg" class="headerlink" title="编译安装ffmpeg,"></a>编译安装ffmpeg,</h2><h3 id="Linux-版本"><a href="#Linux-版本" class="headerlink" title="Linux 版本"></a>Linux 版本</h3><ul>
+<li>这里使用最新的<a href="http://ffmpeg.org/releases/ffmpeg-3.2.2.tar.bz2" target="_blank" rel="noopener"><strong>ffmpeg-3.2.2</strong></a>做演示.</li>
+<li>这里保留<strong>gif,rawvideo,png,huffyuv,avi</strong>的相关功能.</li>
+</ul>
+<h4 id="栽剪功能说明"><a href="#栽剪功能说明" class="headerlink" title="栽剪功能说明"></a>栽剪功能说明</h4><ul>
+<li>–disable-ffprobe , 不编译ffprobe</li>
+<li>–disable-ffserver, 不编译ffserver</li>
+<li>[…]</li>
+<li>–disable-encoders –enable-encoder=’gif,rawvido,png’ –disable-decoders –enable-encoder=’gif,rawvideo,huffyuv,png’, 这里设置禁止编译所有编译功能,后面只开起<code>gif,rawvideo,png</code>的功能.</li>
+<li>–disable-muxers –enable-muxer=’gif,rawvideo,avi,image2’  –disable-demuxers –enable-demuxer=’gif,rawvideo,avi,image2’ ,这里同上,image2是生成png要用到的</li>
+<li>–disable-protocols –enable-protocol=’file,data,pipe’,这三个选项是最基本要,不然不能写文件与管道的.</li>
+<li>–diable-outdevs , 这里没用到任何的输出设备,全部禁用.</li>
+<li>–disable-hwaccels  –disable-vdpau –disable-xvmc –disable-nvenc  ,禁用硬件加速,怕兼容性有问题.</li>
+<li>–disable-parsers –enable-parser=’png’ –disable-bsfs  ,这两个大的功能可以完全剪掉,<code>png</code>也是后要生成高质量GIF所使用到调色板的设置.</li>
+<li>–diable-filters  –enable-filter=’scale,zscale,fps,palettegen,paletteuse’, 这里的scale 过滤器是必须,palettegen,paletteuse依赖于image2,png,因为为了加强GIF的质量要用到这个调色板,关于<a href="https://ffmpeg.org/ffmpeg-filters.html" target="_blank" rel="noopener"><strong>过滤器</strong></a>的很多魔法功能可以网上自行搜索.</li>
+<li>–disable-indevs –enable-indev=’x11grab,x11grab_xcb’ , x11grab是已经过时的,x11grab_xcb的功能与<strong>–extra-libs=-static</strong>冲突.信赖于<strong>–enable-gpl –enable-nonfree</strong>.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ tar xvf ffmpeg-3.2.2.tar.bz2</span><br><span class="line">$ mkdir ffmpeg-3.2.2/build-linux &amp;&amp; <span class="built_in">cd</span> ffmpeg-3.2.2/build-linux</span><br><span class="line"></span><br><span class="line">../configure --<span class="built_in">disable</span>-ffplay --<span class="built_in">disable</span>-ffprobe --<span class="built_in">disable</span>-ffserver --<span class="built_in">disable</span>-doc --<span class="built_in">disable</span>-htmlpages --<span class="built_in">disable</span>-manpages --<span class="built_in">disable</span>-podpages --<span class="built_in">disable</span>-txtpages --<span class="built_in">disable</span>-logging --<span class="built_in">disable</span>-protocols --<span class="built_in">enable</span>-protocol=<span class="string">'file,data,pipe'</span> --<span class="built_in">disable</span>-encoders --<span class="built_in">enable</span>-encoder=gif,rawvideo,huffyuv,png --<span class="built_in">disable</span>-decoders --<span class="built_in">enable</span>-decoder=<span class="string">'gif,rawvideo,huffyuv,png'</span> --<span class="built_in">disable</span>-outdevs --<span class="built_in">disable</span>-filters --<span class="built_in">enable</span>-filter=<span class="string">'scale,zscale,fps,palettegen,paletteuse'</span> --<span class="built_in">disable</span>-muxers --<span class="built_in">enable</span>-muxer=<span class="string">'gif,rawvideo,avi,image2'</span> --<span class="built_in">disable</span>-demuxers --<span class="built_in">enable</span>-demuxer=<span class="string">'gif,rawvideo,avi,image2'</span> --<span class="built_in">disable</span>-hwaccels --<span class="built_in">disable</span>-parsers --<span class="built_in">enable</span>-parser=<span class="string">'png'</span> --<span class="built_in">disable</span>-bsfs --<span class="built_in">disable</span>-indevs --<span class="built_in">enable</span>-indev=<span class="string">'x11grab_xcb'</span> --<span class="built_in">enable</span>-x11grab --<span class="built_in">disable</span>-shared --<span class="built_in">enable</span>-static  --extra-cflags=--static --<span class="built_in">disable</span>-sdl2 --<span class="built_in">disable</span>-bzlib --<span class="built_in">enable</span>-gpl --<span class="built_in">enable</span>-nonfree --<span class="built_in">disable</span>-xvmc --<span class="built_in">disable</span>-nvenc --<span class="built_in">disable</span>-vdpau</span><br><span class="line">install prefix            /usr/<span class="built_in">local</span></span><br><span class="line"><span class="built_in">source</span> path               /home/michael/Downloads/ffmpeg-3.2.2</span><br><span class="line">C compiler                gcc</span><br><span class="line">C library                 glibc</span><br><span class="line">ARCH                      x86 (generic)</span><br><span class="line">big-endian                no</span><br><span class="line">runtime cpu detection     yes</span><br><span class="line">yasm                      yes</span><br><span class="line">MMX enabled               yes</span><br><span class="line">MMXEXT enabled            yes</span><br><span class="line">3DNow! enabled            yes</span><br><span class="line">3DNow! extended enabled   yes</span><br><span class="line">SSE enabled               yes</span><br><span class="line">SSSE3 enabled             yes</span><br><span class="line">AESNI enabled             yes</span><br><span class="line">AVX enabled               yes</span><br><span class="line">XOP enabled               yes</span><br><span class="line">FMA3 enabled              yes</span><br><span class="line">FMA4 enabled              yes</span><br><span class="line">i686 features enabled     yes</span><br><span class="line">CMOV is fast              yes</span><br><span class="line">EBX available             yes</span><br><span class="line">EBP available             yes</span><br><span class="line">debug symbols             yes</span><br><span class="line">strip symbols             yes</span><br><span class="line">optimize <span class="keyword">for</span> size         no</span><br><span class="line">optimizations             yes</span><br><span class="line">static                    yes</span><br><span class="line">shared                    no</span><br><span class="line">postprocessing support    yes</span><br><span class="line">new filter support        yes</span><br><span class="line">network support           no</span><br><span class="line">threading support         pthreads</span><br><span class="line">safe bitstream reader     yes</span><br><span class="line">SDL2 support              no</span><br><span class="line">opencl enabled            no</span><br><span class="line">JNI support               no</span><br><span class="line">texi2html enabled         no</span><br><span class="line">perl enabled              yes</span><br><span class="line">pod2man enabled           yes</span><br><span class="line">makeinfo enabled          yes</span><br><span class="line">makeinfo supports HTML    yes</span><br><span class="line"></span><br><span class="line">Enabled programs:</span><br><span class="line">ffmpeg</span><br><span class="line"></span><br><span class="line">External libraries:</span><br><span class="line">iconv           libxcb          libxcb_shape        libxcb_shm      libxcb_xfixes       xlib            zlib</span><br><span class="line"></span><br><span class="line">External libraries providing hardware acceleration:</span><br><span class="line">vaapi</span><br><span class="line"></span><br><span class="line">Libraries:</span><br><span class="line">avcodec         avdevice        avfilter        avformat        avutil          postproc        swresample      swscale</span><br><span class="line"></span><br><span class="line">Enabled decoders:</span><br><span class="line">gif         huffyuv         png         rawvideo</span><br><span class="line"></span><br><span class="line">Enabled encoders:</span><br><span class="line">gif         huffyuv         png         rawvideo</span><br><span class="line"></span><br><span class="line">Enabled hwaccels:</span><br><span class="line"></span><br><span class="line">Enabled parsers:</span><br><span class="line">png</span><br><span class="line"></span><br><span class="line">Enabled demuxers:</span><br><span class="line">avi         gif         image2          rawvideo</span><br><span class="line"></span><br><span class="line">Enabled muxers:</span><br><span class="line">avi         gif         image2          rawvideo</span><br><span class="line"></span><br><span class="line">Enabled protocols:</span><br><span class="line">data            file            pipe</span><br><span class="line"></span><br><span class="line">Enabled filters:</span><br><span class="line">aformat         anull           atrim           format          fps         null            palettegen      paletteuse      scale           setpts          trim</span><br><span class="line"></span><br><span class="line">Enabled bsfs:</span><br><span class="line"></span><br><span class="line">Enabled indevs:</span><br><span class="line">x11grab_xcb</span><br><span class="line"></span><br><span class="line">Enabled outdevs:</span><br><span class="line"></span><br><span class="line">License: nonfree and unredistributable</span><br><span class="line">Creating config.mak, config.h, and doc/config.texi...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ make</span><br></pre></td></tr></table></figure>
+<h4 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h4><ul>
+<li>具体使用参数以<a href="https://ffmpeg.org/ffmpeg.html#X11-grabbing" target="_blank" rel="noopener">ffmpeg</a>为准.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./ffmpeg -y -video_size 1024x768 -framerate 10  -f x11grab -i :0.0+0,0 -vf scale=1024:-1 -t 10  -pixel_format rgb24  -r 5  -vcodec gif output.gif</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<h3 id="打包成静态库"><a href="#打包成静态库" class="headerlink" title="打包成静态库"></a>打包成静态库</h3><ul>
+<li><p>打包成静态库需要重命名ffmpeg.c 里的main 函数.</p>
+</li>
+<li><p>需要修改<code>ffmpeg.c,cmdutils</code>.c如下</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">diff ffmpeg.c ~/ffmpeg-3.2.2/ffmpeg.c </span><br><span class="line">113d112</span><br><span class="line">&lt; int ffmpeg(int argc, char **argv);</span><br><span class="line">323,325c322,323</span><br><span class="line">&lt; </span><br><span class="line">&lt; void sigterm_handler(int sig);</span><br><span class="line">&lt; void sigterm_handler(int sig)</span><br><span class="line">---</span><br><span class="line">&gt; static void</span><br><span class="line">&gt; sigterm_handler(int sig)</span><br><span class="line">596d593</span><br><span class="line">&lt; </span><br><span class="line">4536,4545c4533</span><br><span class="line">&lt; static void my_logoutput(void* ptr, int level, const char* fmt,va_list vl)&#123;</span><br><span class="line">&lt;     FILE *fp = fopen(<span class="string">"my_log.txt"</span>,<span class="string">"a+"</span>);</span><br><span class="line">&lt;     <span class="keyword">if</span>(fp)&#123;</span><br><span class="line">&lt;         vfprintf(fp,fmt,vl);</span><br><span class="line">&lt;         fflush(fp);</span><br><span class="line">&lt;         fclose(fp);</span><br><span class="line">&lt;     &#125;</span><br><span class="line">&lt; &#125;</span><br><span class="line">&lt; </span><br><span class="line">&lt; int ffmpeg(int argc, char **argv)</span><br><span class="line">---</span><br><span class="line">&gt; int main(int argc, char **argv)</span><br><span class="line">4552,4553c4540</span><br><span class="line">&lt; </span><br><span class="line">&lt;     //register_exit(ffmpeg_cleanup);</span><br><span class="line">---</span><br><span class="line">&gt;     register_exit(ffmpeg_cleanup);</span><br><span class="line">4580,4581c4567</span><br><span class="line">&lt;         goto fail;</span><br><span class="line">&lt; //        exit_program(1);</span><br><span class="line">---</span><br><span class="line">&gt;         exit_program(1);</span><br><span class="line">4586,4591c4572</span><br><span class="line">&lt;         <span class="keyword">for</span>(int i = 0 ; i &lt; argc;i++)</span><br><span class="line">&lt;         &#123;</span><br><span class="line">&lt;            av_log(NULL, AV_LOG_WARNING, <span class="string">"Use -h to get full help or, even better, run  %s\n"</span>, argv[i]);</span><br><span class="line">&lt;         &#125;</span><br><span class="line">&lt;          goto fail;</span><br><span class="line">&lt;         //        exit_program(1);</span><br><span class="line">---</span><br><span class="line">&gt;         exit_program(1);</span><br><span class="line">4597,4598c4578</span><br><span class="line">&lt;         goto fail;</span><br><span class="line">&lt;         //        exit_program(1);</span><br><span class="line">---</span><br><span class="line">&gt;         exit_program(1);</span><br><span class="line">4613c4593</span><br><span class="line">&lt; //        exit_program(1);</span><br><span class="line">---</span><br><span class="line">&gt;         exit_program(1);</span><br><span class="line">4621,4622c4601</span><br><span class="line">&lt;          goto fail;</span><br><span class="line">&lt;         //        exit_program(69);</span><br><span class="line">---</span><br><span class="line">&gt;         exit_program(69);</span><br><span class="line">4624,4635c4603</span><br><span class="line">&lt;     //exit_program(received_nb_signals ? 255 : main_return_code);</span><br><span class="line">&lt; fail:</span><br><span class="line">&lt;     ffmpeg_cleanup(received_nb_signals ? 255: main_return_code);</span><br><span class="line">&lt;     nb_output_streams = 0;</span><br><span class="line">&lt;     nb_filtergraphs = 0;</span><br><span class="line">&lt;     nb_output_files = 0;</span><br><span class="line">&lt;     nb_input_files = 0;</span><br><span class="line">&lt;     nb_input_streams = 0;</span><br><span class="line">&lt;     received_sigterm = 0;</span><br><span class="line">&lt;     received_nb_signals = 0;</span><br><span class="line">&lt;     transcode_init_done = 0;</span><br><span class="line">&lt;     ffmpeg_exited = 0;</span><br><span class="line">---</span><br><span class="line">&gt;     exit_program(received_nb_signals ? 255 : main_return_code);</span><br><span class="line">4638d4605</span><br><span class="line">&lt; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line">diff cmdutils.c ~/ffmpeg-3.2.2/cmdutils.c </span><br><span class="line">754d753</span><br><span class="line">&lt; </span><br><span class="line">756,758c755</span><br><span class="line">&lt;     //prepare_app_arguments(&amp;argc, &amp;argv);</span><br><span class="line">&lt; </span><br><span class="line">&lt; </span><br><span class="line">---</span><br><span class="line">&gt;     prepare_app_arguments(&amp;argc, &amp;argv);</span><br><span class="line">851a849</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>直接make 会报下面的错误无需理会</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">libavutil/libavutil.a(reverse.o): warning: definition of `ff_reverse<span class="string">' overriding common</span></span><br><span class="line"><span class="string">libavutil/libavutil.a(eval.o): warning: common is here</span></span><br><span class="line"><span class="string">/usr/lib/gcc/x86_64-linux-gnu/4.9/../../../x86_64-linux-gnu/crt1.o: In function `_start'</span>:</span><br><span class="line">/build/glibc-qK83Be/glibc-2.19/csu/../sysdeps/x86_64/start.S:118: undefined reference to `main<span class="string">'</span></span><br><span class="line"><span class="string">collect2: error: ld returned 1 exit status</span></span><br><span class="line"><span class="string">/home/michael/3TB-DISK/Downloads/ffmpeg-3.2.2/Makefile:131: recipe for target '</span>ffmpeg_g<span class="string">' failed</span></span><br><span class="line"><span class="string">make: *** [ffmpeg_g] Error 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接用脚本打包所有的点o文件.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -iname <span class="string">"*.o"</span> | xargs ar crv libffmpeg-linux.a</span><br></pre></td></tr></table></figure>
+<h3 id="MinGW-版本"><a href="#MinGW-版本" class="headerlink" title="MinGW 版本"></a>MinGW 版本</h3><ul>
+<li>MinGW版本与Linux 版本有一些小的区别,都是用GCC编译器,只是这里要指交叉编译器</li>
+<li>与上面Linux版相比,<strong>indev=gdigrab</strong>,添加了<strong>–extra-libs-static –enable-cross-compile –target-os=mingw32 –arch=x64 –cross-prefix=i686-w64-ming32.static-</strong></li>
+<li>windows ,有几个输入设备可以选,<strong>dshow,vfwcap</strong>可以用来做摄像头的输入</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">../configure  --<span class="built_in">disable</span>-ffplay --<span class="built_in">disable</span>-ffprobe --<span class="built_in">disable</span>-ffserver --<span class="built_in">disable</span>-doc --<span class="built_in">disable</span>-htmlpages --<span class="built_in">disable</span>-manpages --<span class="built_in">disable</span>-podpages --<span class="built_in">disable</span>-txtpages --<span class="built_in">disable</span>-logging --<span class="built_in">disable</span>-protocols --<span class="built_in">enable</span>-protocol=<span class="string">'file,data,pipe'</span> --<span class="built_in">disable</span>-encoders --<span class="built_in">enable</span>-encoder=<span class="string">'gif,rawvideo,huffyuv,png'</span> --<span class="built_in">disable</span>-decoders --<span class="built_in">enable</span>-decoder=<span class="string">'gif,huffyuv,png,rawvideo'</span> --<span class="built_in">disable</span>-outdevs --<span class="built_in">disable</span>-filters --<span class="built_in">enable</span>-filter=<span class="string">'scale,zscale,fps,palettegen,paletteuse'</span> --<span class="built_in">disable</span>-muxers --<span class="built_in">enable</span>-muxer=<span class="string">'gif,avi,image2,rawvideo'</span> --<span class="built_in">disable</span>-demuxers --<span class="built_in">enable</span>-demuxer=<span class="string">'gif,avi,image2,rawvideo'</span> --<span class="built_in">disable</span>-hwaccels --<span class="built_in">disable</span>-parsers --<span class="built_in">enable</span>-parser=png --<span class="built_in">disable</span>-bsfs --<span class="built_in">disable</span>-indevs --<span class="built_in">enable</span>-indev=gdigrab --<span class="built_in">disable</span>-shared --<span class="built_in">enable</span>-static --extra-libs=-static --extra-cflags=--static --<span class="built_in">disable</span>-sdl2 --<span class="built_in">disable</span>-bzlib --<span class="built_in">disable</span>-vdpau --<span class="built_in">disable</span>-xvmc --<span class="built_in">disable</span>-nvenc --<span class="built_in">enable</span>-gpl --<span class="built_in">enable</span>-nonfree --<span class="built_in">enable</span>-cross-compile --target-os=mingw32 --arch=x86 --cross-prefix=i686-w64-mingw32.static-</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">install prefix            /usr/<span class="built_in">local</span></span><br><span class="line"><span class="built_in">source</span> path               /home/michael/3TB-DISK/Downloads/ffmpeg-3.2.2</span><br><span class="line">C compiler                i686-w64-mingw32.static-gcc</span><br><span class="line">C library                 mingw64</span><br><span class="line">host C compiler           gcc</span><br><span class="line">host C library            glibc</span><br><span class="line">ARCH                      x86 (generic)</span><br><span class="line">big-endian                no</span><br><span class="line">runtime cpu detection     yes</span><br><span class="line">yasm                      yes</span><br><span class="line">MMX enabled               yes</span><br><span class="line">MMXEXT enabled            yes</span><br><span class="line">3DNow! enabled            yes</span><br><span class="line">3DNow! extended enabled   yes</span><br><span class="line">SSE enabled               yes</span><br><span class="line">SSSE3 enabled             yes</span><br><span class="line">AESNI enabled             yes</span><br><span class="line">AVX enabled               yes</span><br><span class="line">XOP enabled               yes</span><br><span class="line">FMA3 enabled              yes</span><br><span class="line">FMA4 enabled              yes</span><br><span class="line">i686 features enabled     yes</span><br><span class="line">CMOV is fast              no</span><br><span class="line">EBX available             yes</span><br><span class="line">EBP available             yes</span><br><span class="line">debug symbols             yes</span><br><span class="line">strip symbols             yes</span><br><span class="line">optimize <span class="keyword">for</span> size         no</span><br><span class="line">optimizations             yes</span><br><span class="line">static                    yes</span><br><span class="line">shared                    no</span><br><span class="line">postprocessing support    yes</span><br><span class="line">new filter support        yes</span><br><span class="line">network support           no</span><br><span class="line">threading support         w32threads</span><br><span class="line">safe bitstream reader     yes</span><br><span class="line">SDL2 support              no</span><br><span class="line">opencl enabled            no</span><br><span class="line">JNI support               no</span><br><span class="line">texi2html enabled         no</span><br><span class="line">perl enabled              yes</span><br><span class="line">pod2man enabled           yes</span><br><span class="line">makeinfo enabled          yes</span><br><span class="line">makeinfo supports HTML    yes</span><br><span class="line"></span><br><span class="line">Enabled programs:</span><br><span class="line">ffmpeg</span><br><span class="line"></span><br><span class="line">External libraries:</span><br><span class="line">iconv           schannel</span><br><span class="line"></span><br><span class="line">External libraries providing hardware acceleration:</span><br><span class="line">dxva2</span><br><span class="line"></span><br><span class="line">Libraries:</span><br><span class="line">avcodec         avdevice        avfilter        avformat        avutil          postproc        swresample      swscale</span><br><span class="line"></span><br><span class="line">Enabled decoders:</span><br><span class="line">bmp         gif         rawvideo</span><br><span class="line"></span><br><span class="line">Enabled encoders:</span><br><span class="line">gif</span><br><span class="line"></span><br><span class="line">Enabled hwaccels:</span><br><span class="line"></span><br><span class="line">Enabled parsers:</span><br><span class="line"></span><br><span class="line">Enabled demuxers:</span><br><span class="line">gif         rawvideo</span><br><span class="line"></span><br><span class="line">Enabled muxers:</span><br><span class="line">gif         rawvideo</span><br><span class="line"></span><br><span class="line">Enabled protocols:</span><br><span class="line">data            file            pipe</span><br><span class="line"></span><br><span class="line">Enabled filters:</span><br><span class="line">aformat         anull           atrim           format          null            scale           setpts          trim</span><br><span class="line"></span><br><span class="line">Enabled bsfs:</span><br><span class="line"></span><br><span class="line">Enabled indevs:</span><br><span class="line">dshow           gdigrab         vfwcap</span><br><span class="line"></span><br><span class="line">Enabled outdevs:</span><br><span class="line"></span><br><span class="line">License: nonfree and unredistributable</span><br><span class="line">Creating config.mak, config.h, and doc/config.texi...</span><br><span class="line"></span><br><span class="line">$ make</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line"><span class="comment">## PE32 是64bit的标识</span></span><br><span class="line">$ file ffmpeg.exe</span><br><span class="line">ffmpeg.exe: PE32 executable (console) Intel 80386 (stripped to external PDB), <span class="keyword">for</span> MS Windows</span><br></pre></td></tr></table></figure>
+<h4 id="windows下面运行测试"><a href="#windows下面运行测试" class="headerlink" title="windows下面运行测试"></a>windows下面运行测试</h4><ul>
+<li>如果直接用下面的命令参数直接生成GIF文件会很大的色差与抖动.<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg.exe -y  -framerate 10  -f gdigrab -i desktop -video_size vga -vf scale=1024:-1   -pixel_format rgb24  -r 5 -vcodec gif output.gif</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="打包成静态库-1"><a href="#打包成静态库-1" class="headerlink" title="打包成静态库"></a>打包成静态库</h4><ul>
+<li>打包方式同Linux版相同,替换ar 为 i686-w64-mingw32.static-ar.</li>
+</ul>
+<h4 id="QT-C-工程调用"><a href="#QT-C-工程调用" class="headerlink" title="QT C++工程调用"></a>QT C++工程调用</h4><ul>
+<li>Qt的工程文件设置如下. 至于为什么要链接这些库,请参照编译时的<strong>config.mak</strong>文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">unix:!macx: LIBS += -L$<span class="variable">$PWD</span>/ -lffmpeg-linux -ldl -lxcb -lxcb-shm -lxcb \</span><br><span class="line">                             -lxcb-xfixes -lxcb-render -lxcb-shape \</span><br><span class="line">                             -lxcb -lxcb-shape -lxcb -lX11 -lm -llzma -lz -pthread</span><br><span class="line"></span><br><span class="line">INCLUDEPATH += $<span class="variable">$PWD</span>/.</span><br><span class="line">DEPENDPATH += $<span class="variable">$PWD</span>/.</span><br><span class="line"></span><br><span class="line">unix:!macx: PRE_TARGETDEPS += $<span class="variable">$PWD</span>/libffmpeg-linux.a</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">win32:CONFIG(release, debug|release): LIBS += -L$<span class="variable">$PWD</span>/ -lffmpeg-win -lgdi32  -liconv -lsecur32 -lm -llzma -lz -lpsapi -ladvapi32 -lshell32 -static</span><br><span class="line"><span class="keyword">else</span>:win32:CONFIG(debug, debug|release): LIBS += -L$<span class="variable">$PWD</span>/ -lffmpeg-win -lgdi32  -liconv -lsecur32 -lm -llzma -lz -lpsapi -ladvapi32 -lshell32 -static</span><br><span class="line"></span><br><span class="line">INCLUDEPATH += $<span class="variable">$PWD</span>/.</span><br><span class="line">DEPENDPATH += $<span class="variable">$PWD</span>/.</span><br><span class="line"></span><br><span class="line">win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $<span class="variable">$PWD</span>/libffmpeg-win.a</span><br><span class="line"><span class="keyword">else</span>:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $<span class="variable">$PWD</span>/libffmpeg-win.a</span><br><span class="line"><span class="keyword">else</span>:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $<span class="variable">$PWD</span>/./release/ffmpeg-win.lib</span><br><span class="line"><span class="keyword">else</span>:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $<span class="variable">$PWD</span>/./debug/ffmpeg-win.lib</span><br></pre></td></tr></table></figure>
+<h4 id="调用静态库函数"><a href="#调用静态库函数" class="headerlink" title="调用静态库函数"></a>调用静态库函数</h4><ul>
+<li>C++ 中需要导出三个函数,还要做如下的必要修改,才能被其它工程调用.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line"></span><br><span class="line">/* C++ 中需要导出三个函数 */</span><br><span class="line">extern <span class="string">"C"</span> &#123;</span><br><span class="line">int ffmpeg(int argc,char *argv[]) //原ffmpeg程序的入口函数</span><br><span class="line">int sigterm_handler(int sig); // 终止ffmpeg程序</span><br><span class="line">void av_log_set_callback(void (*callback)(void*, int, const char*, va_list)); // 设置日志打印的回调函数.</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">MainWindow::MainWindow(QWidget *parent) :</span><br><span class="line">    QMainWindow(parent),</span><br><span class="line">    //out(stdout, QIODevice::WriteOnly),</span><br><span class="line">    ui(new Ui::MainWindow),</span><br><span class="line">&#123;</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">            QList&lt;QByteArray&gt; tmp;</span><br><span class="line">            tmp &lt;&lt; <span class="string">"ffmpeg"</span></span><br><span class="line">                &lt;&lt; <span class="string">"-v"</span> &lt;&lt; <span class="string">"quiet"</span>  &lt;&lt; <span class="string">"-y"</span></span><br><span class="line">                // Video Size 要在-f 的前面.</span><br><span class="line">                &lt;&lt; <span class="string">"-video_size"</span> &lt;&lt; wsize.toLocal8Bit()</span><br><span class="line">                &lt;&lt; <span class="string">"-framerate"</span> &lt;&lt; <span class="string">"15"</span></span><br><span class="line">       <span class="comment">#if _WIN32</span></span><br><span class="line">                &lt;&lt; <span class="string">"-f"</span> &lt;&lt; <span class="string">"gdigrab"</span></span><br><span class="line">                &lt;&lt; <span class="string">"-i"</span> &lt;&lt; <span class="string">"desktop"</span></span><br><span class="line">                &lt;&lt; <span class="string">"-offset_x"</span> &lt;&lt; QString(<span class="string">"%1"</span>).arg(QString::number(mWindow-&gt;pos().x())).toLocal8Bit()</span><br><span class="line">                &lt;&lt; <span class="string">"-offset_y"</span>  &lt;&lt; QString(<span class="string">"%1"</span>).arg(QString::number(mWindow-&gt;pos().x())).toLocal8Bit()</span><br><span class="line">       <span class="comment">#else</span></span><br><span class="line">                &lt;&lt; <span class="string">"-f"</span> &lt;&lt; <span class="string">"x11grab"</span></span><br><span class="line">                &lt;&lt; <span class="string">"-i"</span> &lt;&lt; pos.toLocal8Bit()</span><br><span class="line"></span><br><span class="line">       <span class="comment">#endif</span></span><br><span class="line">                &lt;&lt; <span class="string">"-vcodec"</span> &lt;&lt; <span class="string">"huffyuv"</span></span><br><span class="line">                &lt;&lt; <span class="string">"-pix_fmt"</span> &lt;&lt; <span class="string">"yuv422p"</span></span><br><span class="line">                &lt;&lt; outputvideo;</span><br><span class="line"></span><br><span class="line">            char *argv[tmp.size()+1] = &#123;NULL&#125;;</span><br><span class="line">            <span class="keyword">for</span>(int i =0 ;i &lt; tmp.size() ;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                argv[i] = tmp[i].data();</span><br><span class="line">            &#125;</span><br><span class="line">            ffmpeg(tmp.size(),argv);</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<h4 id="录制效果图"><a href="#录制效果图" class="headerlink" title="录制效果图"></a>录制效果图</h4><p><img src="/imgs/2017-01-21-12-49-output.gif" alt></p>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ffmpeg-QT/" rel="tag"># ffmpeg,QT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/01/08/Qt的一些开发技巧/" rel="prev" title="Qt的一些开发技巧">
+      <i class="fa fa-chevron-left"></i> Qt的一些开发技巧
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/04/19/Windows下WinDDK驱动开发/" rel="next" title="Windows下WinDDK驱动开发">
+      Windows下WinDDK驱动开发 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装ffmpeg"><span class="nav-number">1.</span> <span class="nav-text">编译安装ffmpeg,</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-版本"><span class="nav-number">1.1.</span> <span class="nav-text">Linux 版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栽剪功能说明"><span class="nav-number">1.1.1.</span> <span class="nav-text">栽剪功能说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行测试"><span class="nav-number">1.1.2.</span> <span class="nav-text">运行测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包成静态库"><span class="nav-number">1.2.</span> <span class="nav-text">打包成静态库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MinGW-版本"><span class="nav-number">1.3.</span> <span class="nav-text">MinGW 版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows下面运行测试"><span class="nav-number">1.3.1.</span> <span class="nav-text">windows下面运行测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打包成静态库-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">打包成静态库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QT-C-工程调用"><span class="nav-number">1.3.3.</span> <span class="nav-text">QT C++工程调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用静态库函数"><span class="nav-number">1.3.4.</span> <span class="nav-text">调用静态库函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#录制效果图"><span class="nav-number">1.3.5.</span> <span class="nav-text">录制效果图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">1.4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

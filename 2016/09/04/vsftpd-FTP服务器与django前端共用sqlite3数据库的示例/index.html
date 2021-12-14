@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本示例接合vsftpd与Django共用Sqlite3(不限于sqlite3,Mysql,Postgresql)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容, Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.  Vsftpd 这里使用vsftpd-3.0.2版本,这里要对它的源做一小修改,">
+<meta name="keywords" content="Vsftpd,Django,Sqlite3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vsftpd FTP服务器与django前端共用sqlite3数据库的示例">
+<meta property="og:url" content="http://yoursite.com/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="本示例接合vsftpd与Django共用Sqlite3(不限于sqlite3,Mysql,Postgresql)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容, Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.  Vsftpd 这里使用vsftpd-3.0.2版本,这里要对它的源做一小修改,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2016-12-14T14:18:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vsftpd FTP服务器与django前端共用sqlite3数据库的示例">
+<meta name="twitter:description" content="本示例接合vsftpd与Django共用Sqlite3(不限于sqlite3,Mysql,Postgresql)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容, Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.  Vsftpd 这里使用vsftpd-3.0.2版本,这里要对它的源做一小修改,">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vsftpd FTP服务器与django前端共用sqlite3数据库的示例 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/04/vsftpd-FTP服务器与django前端共用sqlite3数据库的示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vsftpd FTP服务器与django前端共用sqlite3数据库的示例
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-04T00:00:00+08:00">2016-09-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-12-14 22:18:00" itemprop="dateModified" datetime="2016-12-14T22:18:00+08:00">2016-12-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>本示例接合vsftpd与Django共用Sqlite3(不限于<code>sqlite3,Mysql,Postgresql</code>)中的数据表认证做一个Web端FTP管理的应用.可以支持多用户,Web端管理帐户,上传文件,Vsftpd端只可以下载当前用户目录下的内容,</li>
+<li>Ｗeb端的上传目录与Vsftpd下载目录映射到服务器的同一个目录.</li>
+</ul>
+<h3 id="Vsftpd"><a href="#Vsftpd" class="headerlink" title="Vsftpd"></a>Vsftpd</h3><ul>
+<li><p>这里使用<code>vsftpd-3.0.2</code>版本,这里要对它的源做一小修改,确保每一个用户登录成功之后自动创建一个名为用户名目录.这个目录专属于这个用户,用户上传下载也只限于这个目录下.</p>
+</li>
+<li><p>源代码位置在<code>vsftpd-3.0.2/twoprocess.c</code> 里的　<code>common_do_login</code> 函数中.如下面代码片段.</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">385</span>    <span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line"><span class="number">386</span>  common_do_login(struct vsf_session* p_sess, <span class="keyword">const</span> struct mystr* p_user_str,</span><br><span class="line"><span class="number">387</span>                  <span class="keyword">int</span> do_chroot, <span class="keyword">int</span> anon)</span><br><span class="line"><span class="number">388</span>  &#123;</span><br><span class="line"><span class="number">389</span>      <span class="keyword">int</span> was_anon = anon;</span><br><span class="line"><span class="number">390</span>      <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">mystr</span>* <span class="title">p_orig_user_str</span> = <span class="title">p_user_str</span>;</span></span><br><span class="line"><span class="number">391</span>      <span class="keyword">int</span> newpid;</span><br><span class="line"><span class="number">392</span>      vsf_sysutil_install_null_sighandler(kVSFSysUtilSigCHLD);</span><br><span class="line"><span class="number">393</span>      <span class="comment">/* Tells the pre-login child all is OK (it may exit in response) */</span></span><br><span class="line"><span class="number">394</span>      priv_sock_send_result(p_sess-&gt;parent_fd, PRIV_SOCK_RESULT_OK);</span><br><span class="line"><span class="number">395</span>      <span class="keyword">if</span> (!p_sess-&gt;control_use_ssl)</span><br><span class="line"><span class="number">396</span>      &#123;</span><br><span class="line"><span class="number">397</span>          (<span class="keyword">void</span>) vsf_sysutil_wait();</span><br><span class="line"><span class="number">398</span>      &#125;</span><br><span class="line"><span class="number">399</span>      <span class="keyword">else</span></span><br><span class="line"><span class="number">400</span>      &#123;</span><br><span class="line"><span class="number">401</span>          p_sess-&gt;ssl_slave_active = <span class="number">1</span>;</span><br><span class="line"><span class="number">402</span>      &#125;</span><br><span class="line"><span class="number">403</span>      <span class="comment">/* Handle loading per-user config options */</span></span><br><span class="line"><span class="number">404</span>      handle_per_user_config(p_user_str);</span><br><span class="line"><span class="number">405</span>      <span class="comment">/* Set this before we fork */</span></span><br><span class="line"><span class="number">406</span>      p_sess-&gt;is_anonymous = anon;</span><br><span class="line"><span class="number">407</span>      priv_sock_close(p_sess);</span><br><span class="line"><span class="number">408</span>      priv_sock_init(p_sess);</span><br><span class="line"><span class="number">409</span>      vsf_sysutil_install_sighandler(kVSFSysUtilSigCHLD, handle_sigchld, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="number">410</span>      <span class="keyword">if</span> (tunable_isolate_network &amp;&amp; !tunable_port_promiscuous)</span><br><span class="line"><span class="number">411</span>      &#123;</span><br><span class="line"><span class="number">412</span>          newpid = vsf_sysutil_fork_newnet();</span><br><span class="line"><span class="number">413</span>      &#125;</span><br><span class="line"><span class="number">414</span>      <span class="keyword">else</span></span><br><span class="line"><span class="number">415</span>      &#123;</span><br><span class="line"><span class="number">416</span>          newpid = vsf_sysutil_fork();</span><br><span class="line"><span class="number">417</span>      &#125;</span><br><span class="line"><span class="number">418</span>      <span class="keyword">if</span> (newpid == <span class="number">0</span>)</span><br><span class="line"><span class="number">419</span>      &#123;</span><br><span class="line"><span class="number">420</span>          <span class="class"><span class="keyword">struct</span> <span class="title">mystr</span> <span class="title">guest_user_str</span> = <span class="title">INIT_MYSTR</span>;</span></span><br><span class="line"><span class="number">421</span>          <span class="class"><span class="keyword">struct</span> <span class="title">mystr</span> <span class="title">chroot_str</span> = <span class="title">INIT_MYSTR</span>;</span></span><br><span class="line"><span class="number">422</span>          <span class="class"><span class="keyword">struct</span> <span class="title">mystr</span> <span class="title">chdir_str</span> = <span class="title">INIT_MYSTR</span>;</span></span><br><span class="line"><span class="number">423</span>          <span class="class"><span class="keyword">struct</span> <span class="title">mystr</span> <span class="title">userdir_str</span> = <span class="title">INIT_MYSTR</span>;</span></span><br><span class="line"><span class="number">424</span>          <span class="keyword">unsigned</span> <span class="keyword">int</span> secutil_option = VSF_SECUTIL_OPTION_USE_GROUPS |</span><br><span class="line"><span class="number">425</span>                                        VSF_SECUTIL_OPTION_NO_PROCS;</span><br><span class="line"><span class="number">426</span>          <span class="comment">/* Child - drop privs and start proper FTP! */</span></span><br><span class="line"><span class="number">427</span>          <span class="comment">/* This PR_SET_PDEATHSIG doesn't work for all possible process tree setups.</span></span><br><span class="line"><span class="comment">428           * The other cases are taken care of by a shutdown() of the command</span></span><br><span class="line"><span class="comment">429           * connection in our SIGTERM handler.</span></span><br><span class="line"><span class="comment">430           */</span></span><br><span class="line"><span class="number">431</span>          vsf_set_die_if_parent_dies();</span><br><span class="line"><span class="number">432</span>          priv_sock_set_child_context(p_sess);</span><br><span class="line"><span class="number">433</span>          <span class="keyword">if</span> (tunable_guest_enable &amp;&amp; !anon)</span><br><span class="line"><span class="number">434</span>          &#123;</span><br><span class="line"><span class="number">435</span>              p_sess-&gt;is_guest = <span class="number">1</span>;</span><br><span class="line"><span class="number">436</span>              <span class="comment">/* Remap to the guest user */</span></span><br><span class="line"><span class="number">437</span>              <span class="keyword">if</span> (tunable_guest_username)</span><br><span class="line"><span class="number">438</span>              &#123;</span><br><span class="line"><span class="number">439</span>                  str_alloc_text(&amp;guest_user_str, tunable_guest_username);</span><br><span class="line"><span class="number">440</span>              &#125;</span><br><span class="line"><span class="number">441</span>              p_user_str = &amp;guest_user_str;</span><br><span class="line"><span class="number">442</span>              <span class="keyword">if</span> (!tunable_virtual_use_local_privs)</span><br><span class="line"><span class="number">443</span>              &#123;</span><br><span class="line"><span class="number">444</span>                  anon = <span class="number">1</span>;</span><br><span class="line"><span class="number">445</span>                  do_chroot = <span class="number">1</span>;</span><br><span class="line"><span class="number">446</span>              &#125;</span><br><span class="line"><span class="number">447</span>          &#125;</span><br><span class="line"><span class="number">448</span>          <span class="keyword">if</span> (do_chroot)</span><br><span class="line"><span class="number">449</span>          &#123;</span><br><span class="line"><span class="number">450</span>              secutil_option |= VSF_SECUTIL_OPTION_CHROOT;</span><br><span class="line"><span class="number">451</span>          &#125;</span><br><span class="line"><span class="number">452</span>          <span class="keyword">if</span> (!anon)</span><br><span class="line"><span class="number">453</span>          &#123;</span><br><span class="line"><span class="number">454</span>              secutil_option |= VSF_SECUTIL_OPTION_CHANGE_EUID;</span><br><span class="line"><span class="number">455</span>          &#125;</span><br><span class="line"><span class="number">456</span>          <span class="keyword">if</span> (!was_anon &amp;&amp; tunable_allow_writeable_chroot)</span><br><span class="line"><span class="number">457</span>          &#123;</span><br><span class="line"><span class="number">458</span>              secutil_option |= VSF_SECUTIL_OPTION_ALLOW_WRITEABLE_ROOT;</span><br><span class="line"><span class="number">459</span>          &#125;</span><br><span class="line"><span class="number">460</span>          calculate_chdir_dir(was_anon, &amp;userdir_str, &amp;chroot_str, &amp;chdir_str,</span><br><span class="line"><span class="number">461</span>                              p_user_str, p_orig_user_str);</span><br><span class="line"><span class="number">462</span>  </span><br><span class="line"><span class="number">463</span>  </span><br><span class="line">             <span class="comment">/* 通过我的调式这里加下面这一句,用户通过FTP端户登录成功就会创建它自已的目录*/</span></span><br><span class="line"><span class="number">464</span>          str_mkdir(&amp;chroot_str, <span class="number">0777</span>);</span><br><span class="line"><span class="number">465</span>  </span><br><span class="line"><span class="number">466</span>          chown(str_getbuf(&amp;chroot_str),p_sess-&gt;guest_user_uid,p_sess-&gt;guest_user_uid);</span><br><span class="line"><span class="number">467</span>  </span><br><span class="line"><span class="number">468</span>  </span><br><span class="line"><span class="number">469</span>          vsf_secutil_change_credentials(p_user_str, &amp;userdir_str, &amp;chroot_str,</span><br><span class="line"><span class="number">470</span>                                         <span class="number">0</span>, secutil_option);</span><br><span class="line"><span class="number">471</span>          <span class="keyword">if</span> (!str_isempty(&amp;chdir_str))</span><br><span class="line"><span class="number">472</span>          &#123;</span><br><span class="line"><span class="number">473</span>              (<span class="keyword">void</span>) str_chdir(&amp;chdir_str);</span><br><span class="line"><span class="number">474</span>          &#125;</span><br><span class="line"><span class="number">475</span>          str_free(&amp;guest_user_str);</span><br><span class="line"><span class="number">476</span>          str_free(&amp;chroot_str);</span><br><span class="line"><span class="number">477</span>          str_free(&amp;chdir_str);</span><br><span class="line"><span class="number">478</span>          str_free(&amp;userdir_str);</span><br><span class="line"><span class="number">479</span>          p_sess-&gt;is_anonymous = anon;</span><br><span class="line"><span class="number">480</span>          seccomp_sandbox_init();</span><br><span class="line"><span class="number">481</span>          seccomp_sandbox_setup_postlogin(p_sess);</span><br><span class="line"><span class="number">482</span>          seccomp_sandbox_lockdown();</span><br><span class="line"><span class="number">483</span>  </span><br><span class="line"><span class="number">484</span>          process_post_login(p_sess);</span><br><span class="line"><span class="number">485</span>          bug(<span class="string">"should not get here: common_do_login"</span>);</span><br><span class="line"><span class="number">486</span>      &#125;</span><br><span class="line"><span class="number">487</span>      <span class="comment">/* Parent */</span></span><br><span class="line"><span class="number">488</span>      priv_sock_set_parent_context(p_sess);</span><br><span class="line"><span class="number">489</span>      <span class="keyword">if</span> (tunable_ssl_enable)</span><br><span class="line"><span class="number">490</span>      &#123;</span><br><span class="line"><span class="number">491</span>          ssl_comm_channel_set_producer_context(p_sess);</span><br><span class="line"><span class="number">492</span>      &#125;</span><br><span class="line"><span class="number">493</span>      <span class="comment">/* The seccomp sandbox lockdown for the priv parent is done inside here */</span></span><br><span class="line"><span class="number">494</span>      vsf_priv_parent_postlogin(p_sess);</span><br><span class="line"><span class="number">495</span>      bug(<span class="string">"should not get here in common_do_login"</span>);</span><br><span class="line"><span class="number">496</span>  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参照<code>vsftpd-3.0.2/INSTALL</code>　直接编译安装.</li>
+</ul>
+<h3 id="配置vsftpd"><a href="#配置vsftpd" class="headerlink" title="配置vsftpd"></a>配置vsftpd</h3><ul>
+<li><code>/etc/vsftpd.conf</code> 修改如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">grep -v &apos;^#&apos; /etc/vsftpd.conf </span><br><span class="line">cmds_allowed=ABOR,CWD,LIST,NLST,PWD,QUIT,RETR,SIZE,TYPE,USER,ACCT,CDUP,MODE,SYST,FEAT,PASV</span><br><span class="line">listen=YES</span><br><span class="line">listen_ipv6=NO</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">local_enable=YES</span><br><span class="line">write_enable=NO</span><br><span class="line"></span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">use_localtime=YES</span><br><span class="line">xferlog_enable=NO</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">idle_session_timeout=600</span><br><span class="line">data_connection_timeout=120</span><br><span class="line">nopriv_user=vsftpd</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">user_sub_token=$USER</span><br><span class="line">guest_enable=YES</span><br><span class="line">guest_username=vsftpd</span><br><span class="line">local_root=/opt/data/ftproot/$USER #所有用户目录会在这个目录下.</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line">chroot_list_enable=NO</span><br><span class="line">virtual_use_local_privs=YES</span><br><span class="line">file_open_mode=0770</span><br><span class="line">anon_mkdir_write_enable=NO</span><br><span class="line">ssl_enable=NO</span><br><span class="line">max_per_ip=65536</span><br><span class="line">log_ftp_protocol=YES</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>/etc/pam.d/vsftpd</code> 修改如下:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Standard behaviour for ftpd(8).</span><br><span class="line">#auth   required    pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed</span><br><span class="line"></span><br><span class="line"># Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.</span><br><span class="line"></span><br><span class="line"># Standard pam includes</span><br><span class="line">#@include common-account</span><br><span class="line">#@include common-session</span><br><span class="line">#@include common-auth</span><br><span class="line">#auth   required    pam_shells.so</span><br><span class="line"># 如果使用其它数据库如:postgresql ,把pam_sqlite3.so替换掉</span><br><span class="line">auth        required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so </span><br><span class="line">account     required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</span><br><span class="line">password    required    /lib/x86_64-linux-gnu/security/pam_sqlite3.so</span><br></pre></td></tr></table></figure>
+<h3 id="pam-sqlite-0-3"><a href="#pam-sqlite-0-3" class="headerlink" title="pam_sqlite-0.3"></a>pam_sqlite-0.3</h3><ul>
+<li>在github上找到两个项目<strong><a href="https://github.com/sangeeths/libpam-sqlite" target="_blank" rel="noopener">libpam-sqlite</a>,<a href="https://github.com/dtjm/pam_sqlite3" target="_blank" rel="noopener">dtjm/pam_sqlite3</a></strong>是关于pam_sqlite3认证的,两个项目都很老了,</li>
+<li>这两个代码应该是大同小异,我没有对比,这里用是用libpam-sqlite.也修了源码才可以使用.<code>pam_sqlite3</code>没有测试,应该也是可以的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:sangeeths/libpam-sqlite.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的修改不一定是通用的可能要根据调试结果来决定,我这里修改是为了迎合后面的<code>Django</code>项目登录认证的.修改的源代如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~/libpam-sqlite<span class="comment"># git diff</span></span><br><span class="line">diff --git a/pam_sqlite3.c b/pam_sqlite3.c</span><br><span class="line">index 565ce30..f2545a4 100644</span><br><span class="line">--- a/pam_sqlite3.c</span><br><span class="line">+++ b/pam_sqlite3.c</span><br><span class="line">@@ -455,7 +455,9 @@ static int auth_verify_password(const char *un,</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">     /* get the encrypted password from the database */</span><br><span class="line">+    //const char *stored_pwd = (char*)sqlite3_column_text(stmt, 0);</span><br><span class="line">     const char *stored_pwd = (char *)sqlite3_column_text(stmt, 0);</span><br><span class="line">+    stored_pwd = stored_pwd +7; // skip the crypt$$</span><br><span class="line"> </span><br><span class="line">     result = PAM_AUTH_ERR;</span><br><span class="line">     switch(options-&gt;pw_type) &#123;</span><br><span class="line">@@ -581,7 +583,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh,</span><br><span class="line">     /* <span class="keyword">if</span> new password is required <span class="keyword">then</span> newtok_column = <span class="string">'y'</span> or <span class="string">'1'</span> */</span><br><span class="line">     <span class="keyword">if</span>(options-&gt;newtok_column || options-&gt;sql_check_newtok) &#123;</span><br><span class="line">         query = format_query(options-&gt;sql_check_newtok ? options-&gt;sql_check_newtok :</span><br><span class="line">-                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='1')"</span>,</span><br><span class="line">+                <span class="string">"SELECT 1 FROM %Ot WHERE %Ou='%U' AND (%On='y' OR %On='0')"</span>,</span><br><span class="line">                 options, un, NULL);</span><br><span class="line">         DBGLOG(<span class="string">"query: %s"</span>, query);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参照源码目录下的<code>README</code>编译与设置</li>
+</ul>
+<h4 id="pam-sqlite-conf"><a href="#pam-sqlite-conf" class="headerlink" title="pam_sqlite.conf"></a>pam_sqlite.conf</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cat</span> /etc/pam_sqlite.conf </span><br><span class="line">database = /opt/data/db.sqlite3</span><br><span class="line">table = ftp_ftpuser </span><br><span class="line">user_column = email</span><br><span class="line">pwd_column = password</span><br><span class="line">newtok_column = is_staff</span><br><span class="line">pw_type = crypt</span><br></pre></td></tr></table></figure>
+<h3 id="Django配置"><a href="#Django配置" class="headerlink" title="Django配置"></a>Django配置</h3><p>####　Sqlite3表结构</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlite&gt; .schema ftp_ftpuser</span><br><span class="line">CREATE TABLE <span class="string">"ftp_ftpuser"</span> (<span class="string">"password"</span> varchar(128) NOT NULL, <span class="string">"last_login"</span> datetime NULL, <span class="string">"is_superuser"</span> bool NOT NULL, <span class="string">"name"</span> varchar(256) NOT NULL, <span class="string">"email"</span> varchar(254) NOT NULL PRIMARY KEY, <span class="string">"phone_num"</span> varchar(15) NOT NULL, <span class="string">"reg_ip"</span> char(39) NOT NULL, <span class="string">"is_active"</span> bool NOT NULL, <span class="string">"is_staff"</span> bool NOT NULL, <span class="string">"date_joined"</span> datetime NOT NULL, <span class="string">"last_ip"</span> char(39) NOT NULL);</span><br><span class="line">CREATE UNIQUE INDEX <span class="string">"ftp_ftpuser_name_2294ce6a_uniq"</span> ON <span class="string">"ftp_ftpuser"</span> (<span class="string">"name"</span>, <span class="string">"email"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h4><ul>
+<li>在Django项目里的<code>settings.py</code> 添加如下代码片段.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Application definition</span></span><br><span class="line">PASSWORD_HASHERS = (</span><br><span class="line">            <span class="string">'django.contrib.auth.hashers.CryptPasswordHasher'</span>,</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),  <span class="comment">#这里的**db.sqlite3** 应该与**/etc/pam_sqlite.conf**里对应</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Password validation</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.9/ref/settings/#authassword-validators</span></span><br><span class="line"></span><br><span class="line">AUTH_PASSWORD_VALIDATORS = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">#AUTHENTICATION_BACKENDS = ['ftp.auth.CustomBackEnd']</span></span><br><span class="line">AUTH_USER_MODEL=<span class="string">'ftp.FtpUser'</span></span><br><span class="line">MEDIA_ROOT=<span class="string">'/opt/data/ftproot'</span>  <span class="comment">#这里的路径与vsftpd.conf是对应的.这里Django 程序创建的目录就会在这个目录下面</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Django 程序创建目录的代码片段如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def get_upload_dir(req,filename):</span><br><span class="line">    tname  = req.target_name</span><br><span class="line">    pname = tname.product_name</span><br><span class="line">    fdir = <span class="string">'/'</span>.join([settings.MEDIA_ROOT,pname.ftp_user.email,pname.name,tname.name,req.ver_name])</span><br><span class="line">    <span class="comment">#fdir = '/'.join([settings.MEDIA_ROOT,product.ftp_user.email,req.name.name,req.target_name.target_name,req.ver_name])</span></span><br><span class="line">    fdir = unicode(fdir)</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(fdir):</span><br><span class="line">        try:</span><br><span class="line">            os.makedirs(fdir)</span><br><span class="line">        except OSError:</span><br><span class="line">            pass</span><br><span class="line">    filepath = <span class="string">'/'</span>.join([fdir,req.file_name.name])</span><br><span class="line">    <span class="keyword">if</span> os.path.isfile(filepath):</span><br><span class="line">        os.remove(filepath)</span><br><span class="line"><span class="built_in">return</span> filepath</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>这里的数据库表结构都是通过Django的模型创建的,通过Django端注册用户,设置相应权限(如是否允许该用户登录等.),FTP端就可以使用该用户登录服务器进行下载.具体应用要根据需求灵活改变,这里只是做了一个简单示例,</li>
+<li>也没有添加SSL加密连接.后续加入SSL支持.</li>
+</ul>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vsftpd-Django-Sqlite3/" rel="tag"># Vsftpd,Django,Sqlite3</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/08/26/常见编译问题-不定期更新/" rel="prev" title="常见编译问题,不定期更新.">
+      <i class="fa fa-chevron-left"></i> 常见编译问题,不定期更新.
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/09/13/Linux下编译静态MinGW环境-编译windows平台Qt程序/" rel="next" title="Linux下编译静态MinGW环境,编译windows平台Qt程序">
+      Linux下编译静态MinGW环境,编译windows平台Qt程序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vsftpd"><span class="nav-number">1.</span> <span class="nav-text">Vsftpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置vsftpd"><span class="nav-number">2.</span> <span class="nav-text">配置vsftpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pam-sqlite-0-3"><span class="nav-number">3.</span> <span class="nav-text">pam_sqlite-0.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pam-sqlite-conf"><span class="nav-number">3.1.</span> <span class="nav-text">pam_sqlite.conf</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django配置"><span class="nav-number">4.</span> <span class="nav-text">Django配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Settings"><span class="nav-number">4.1.</span> <span class="nav-text">Settings</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">6.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

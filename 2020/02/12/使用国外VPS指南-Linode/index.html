@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="相关链接 https://github.com/trojan-gfw Linode Brook 其它教程    选购VPS 这里选择尝试使用Linode来做VPS，如果预算购的可以选择高配，一般可以选择Standard Linode plan10刀一月，像我这种穷人只选Nanodes5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码ad40d846b4e9fcb9cec7a0f3e47f">
+<meta name="keywords" content="VPS,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用国外VPS指南-Linode">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="相关链接 https://github.com/trojan-gfw Linode Brook 其它教程    选购VPS 这里选择尝试使用Linode来做VPS，如果预算购的可以选择高配，一般可以选择Standard Linode plan10刀一月，像我这种穷人只选Nanodes5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码ad40d846b4e9fcb9cec7a0f3e47f">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/linode-vps.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2021-10-03T14:45:55.060Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用国外VPS指南-Linode">
+<meta name="twitter:description" content="相关链接 https://github.com/trojan-gfw Linode Brook 其它教程    选购VPS 这里选择尝试使用Linode来做VPS，如果预算购的可以选择高配，一般可以选择Standard Linode plan10刀一月，像我这种穷人只选Nanodes5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码ad40d846b4e9fcb9cec7a0f3e47f">
+<meta name="twitter:image" content="http://yoursite.com/imgs/linode-vps.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用国外VPS指南-Linode | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/使用国外VPS指南-Linode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用国外VPS指南-Linode
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-12 09:01:19" itemprop="dateCreated datePublished" datetime="2020-02-12T09:01:19+08:00">2020-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-03 22:45:55" itemprop="dateModified" datetime="2021-10-03T22:45:55+08:00">2021-10-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>相关链接<ul>
+<li><a href="https://github.com/trojan-gfw" target="_blank" rel="noopener">https://github.com/trojan-gfw</a></li>
+<li><a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="noopener">Linode</a></li>
+<li><a href="https://github.com/txthinking/brook" target="_blank" rel="noopener">Brook</a></li>
+<li><a href="https://www.johnrosen1.com/trojan/" target="_blank" rel="noopener">其它教程</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="选购VPS"><a href="#选购VPS" class="headerlink" title="选购VPS"></a>选购VPS</h1><ul>
+<li>这里选择尝试使用<a href="https://www.linode.com/?r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="noopener">Linode</a>来做VPS，如果预算购的可以选择高配，<br>一般可以选择<code>Standard Linode plan</code>10刀一月，像我这种穷人只选<code>Nanodes</code>5刀一月，具体参数请查看它的官网，注册时可以提供这个推荐码<code>ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d</code>有优惠。</li>
+<li>这里选择安装<code>Debian 10</code>,区域就选择<code>SG</code>或<code>JP</code>,勾选<code>Private IP</code>还会有一个v4的IP,现在能供IPv4的厂商很少了，像<a href="https://www.vultr.com/" target="_blank" rel="noopener">Vultr</a><br>最便宜的VPS是2.5刀一月，只提供<code>IPv6</code>.完成之后，控制台如下图：<br><img src="/imgs/linode-vps.png" alt="vps"></li>
+<li>就上面区域选择，理论上离自己近的访问会最快，但是我在实际应用中选择了一个<code>SG</code>很慢，这里在创建前可以使用<a href="https://www.linode.com/speed-test/" target="_blank" rel="noopener">https://www.linode.com/speed-test/</a><br>测试一下，自己本地到<code>Linode</code>全球各机房的速度，选最快的。安装完成可以把<code>VPS</code>里的IP地址使用<a href="https://tools.ipip.net/traceroute.php" target="_blank" rel="noopener">https://tools.ipip.net/traceroute.php</a><br>检查一下路由，会在下方有直观的线路地图显示，如果发现IP的线路不满意删除重建一个新的<code>VPS</code>。</li>
+<li>登录它有两种SSH方式，一是直接SSH访问：<code>ssh root@xxx.xxx.xxx.xxx</code>,这里可以使用在布署时添加RSA证书验证免密访问。二是通过Lish访问，估计它像是一个<br>串口重定向一样的：<code>ssh -t &lt;username&gt;@lish-singapore.linode.com &lt;host-tags&gt;</code>,这里要用<a href="https://www.linode.com/?
+r=ad40d846b4e9fcb9cec7a0f3e47fe553e8c2a27d" target="_blank" rel="noopener">Linode</a>的用户名与密码登录，后面再输入<code>VPS</code>的用户名与密码登入<code>VPS</code>。</li>
+</ul>
+<h1 id="开启SSH动态转发"><a href="#开启SSH动态转发" class="headerlink" title="开启SSH动态转发"></a>开启SSH动态转发</h1><ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-route-web-traffic-securely-without-a-vpn-using-a-socks-tunnel" target="_blank" rel="noopener">How To Route Web Traffic Securely Without a VPN Using a SOCKS Tunnel</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ ssh -D 1088 -f -C -q -N user@&lt;vps-ip&gt;</span><br><span class="line"></span><br><span class="line">~$ ps -ef | grep ssh</span><br><span class="line">user  14609     1  0 23:32 ?        00:00:00 ssh -CfNq -D 1088 user@example.com</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里一般建议修改SSH服务器的默认端22为其它数字。，参数说明：<ul>
+<li>-D [bind_address:]port 监听本地端口与SSH服务器创建一条Socks5通道。</li>
+<li>-C 开启数据压缩功能。</li>
+<li>-f fork一个进程到后台模式，不会出现Shell.</li>
+<li>-N 保持连接，端口转发中有用。</li>
+<li>-q 安静模式，屏蔽一些警告与错误信息。</li>
+</ul>
+</li>
+</ul>
+<h1 id="安装Trojan"><a href="#安装Trojan" class="headerlink" title="安装Trojan"></a>安装Trojan</h1><ul>
+<li><a href="https://github.com/trojan-gfw" target="_blank" rel="noopener">trojan</a>是一个代理上网工具，能帮助学习到更全面的知识,同时它的服务请求是通过标准的SSL(443)通讯的。<br>对于新手可以去到<a href="https://github.com/johnrosen1/trojan-gfw-script" target="_blank" rel="noopener">Github</a>找一键安装脚本，有动手能力的可以自己编译源码与配置。</li>
+</ul>
+<h2 id="网络性能优化"><a href="#网络性能优化" class="headerlink" title="网络性能优化"></a>网络性能优化</h2><ul>
+<li><a href="https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt" target="_blank" rel="noopener">Sysctl内核配置文档</a>或者<a href="https://sysctl-explorer.net/" target="_blank" rel="noopener">https://sysctl-explorer.net/</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~$ vi /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件，添加下面的行。</span></span><br><span class="line"></span><br><span class="line">* soft nofile 1048576</span><br><span class="line">* hard nofile 1048576</span><br><span class="line"></span><br><span class="line"><span class="comment"># for server running in root:</span></span><br><span class="line">root soft nofile 1048576</span><br><span class="line">root hard nofile 1048576</span><br><span class="line"></span><br><span class="line">~$ sudo cat &gt; <span class="string">'/etc/sysctl.d/99-sysctl.conf'</span> &lt;&lt; EOF</span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">net.ipv4.conf.all.rp_filter = 1</span><br><span class="line"><span class="comment"># Overrule forwarding behavior. Accept Router Advertisements</span></span><br><span class="line">net.ipv6.conf.all.accept_ra = 2</span><br><span class="line"><span class="comment"># max open files</span></span><br><span class="line">fs.file-max = 1048576</span><br><span class="line"><span class="comment"># max read buffer</span></span><br><span class="line">net.core.rmem_max = 67108864</span><br><span class="line"><span class="comment"># max write buffer</span></span><br><span class="line">net.core.wmem_max = 67108864</span><br><span class="line"><span class="comment"># default read buffer</span></span><br><span class="line">net.core.rmem_default = 65536</span><br><span class="line"><span class="comment"># default write buffer</span></span><br><span class="line">net.core.wmem_default = 65536</span><br><span class="line"><span class="comment"># max processor input queue</span></span><br><span class="line">net.core.netdev_max_backlog = 409600</span><br><span class="line"><span class="comment"># max backlog</span></span><br><span class="line">net.core.somaxconn = 4096</span><br><span class="line"><span class="comment"># resist SYN flood attacks</span></span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line"><span class="comment"># reuse timewait sockets when safe</span></span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line"><span class="comment"># short FIN timeout</span></span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br><span class="line"><span class="comment"># short keepalive time</span></span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line"><span class="comment"># outbound port range</span></span><br><span class="line">net.ipv4.ip_local_port_range = 6000 65535</span><br><span class="line"><span class="comment"># max timewait sockets held by system simultaneously</span></span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line"><span class="comment"># turn on TCP Fast Open on both client and server side</span></span><br><span class="line">net.ipv4.tcp_fastopen = 3</span><br><span class="line"><span class="comment"># TCP receive buffer</span></span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</span><br><span class="line"><span class="comment"># TCP write buffer</span></span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</span><br><span class="line"><span class="comment"># turn on path MTU discovery</span></span><br><span class="line">net.ipv4.tcp_mtu_probing = 1</span><br><span class="line">net.ipv4.tcp_slow_start_after_idle = 0</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 12800</span><br><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp_congestion_control=bbr</span><br><span class="line">EOF</span><br><span class="line">~$ sudo sysctl -p</span><br></pre></td></tr></table></figure>
+<h2 id="申请证书Let’s-Encrypt"><a href="#申请证书Let’s-Encrypt" class="headerlink" title="申请证书Let’s Encrypt"></a>申请证书Let’s Encrypt</h2><ul>
+<li>这里使用一个简单脚本获取</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install certbot dnsutils  python-certbot-nginx -y</span><br><span class="line">~$ ETH0_IPv4=`ip addr show dev eth0 | grep <span class="string">"inet"</span> | head -n1  | awk <span class="string">'&#123;print $2&#125;'</span> | awk -F <span class="string">'/'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">~$ DOMAIN=`dig -x <span class="variable">$&#123;ETH0_IPv4&#125;</span> | grep <span class="string">"PTR"</span> | grep -v <span class="string">'^;'</span> | awk <span class="string">'&#123;print $5&#125;'</span>`</span><br><span class="line">~$ DOMAIN=`<span class="built_in">echo</span> <span class="variable">$&#123;DOMAIN%?&#125;</span>`</span><br><span class="line">~$ certbot certonly --nginx  --agree-tos --email yjdwbj@gmail.com  -d <span class="variable">$DOMAIN</span></span><br><span class="line">~$ apt-get autoremove nginx-full -y   <span class="comment"># 这里没有用到nginx,删除它。</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>申请成功后，查看证书.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># ls/etc/letsencrypt/live/&lt;xxxxx&gt;.members.linode.com</span></span><br><span class="line">cert.pem  chain.pem  fullchain.pem  privkey.pem  README</span><br></pre></td></tr></table></figure>
+<h2 id="部署Trojan"><a href="#部署Trojan" class="headerlink" title="部署Trojan"></a>部署Trojan</h2><ul>
+<li><p>这里就直接下载一个最新的Release解压使使用，解压后如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># tree trojan</span></span><br><span class="line">trojan</span><br><span class="line">├── config.json</span><br><span class="line">├── CONTRIBUTORS.md</span><br><span class="line">├── examples</span><br><span class="line">│   ├── client.json-example</span><br><span class="line">│   ├── forward.json-example</span><br><span class="line">│   ├── nat.json-example</span><br><span class="line">│   ├── server.json-example</span><br><span class="line">│   └── trojan.service-example</span><br><span class="line">├── LICENSE</span><br><span class="line">├── README.md</span><br><span class="line">└── trojan</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里直接从<code>examples/server.json-example</code>复制一个改名成<code>server.json</code>,具体修改的位置如下:<br>*</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat server.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"run_type"</span>: <span class="string">"server"</span>,  <span class="comment"># 如果是用客户端，改成client</span></span><br><span class="line">    <span class="string">"local_addr"</span>: <span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="string">"local_port"</span>: 443,</span><br><span class="line">    <span class="string">"remote_addr"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"remote_port"</span>: 80,</span><br><span class="line">    <span class="string">"password"</span>: [</span><br><span class="line">        <span class="string">"passwd1"</span>, <span class="comment"># 可以设置多个密码，可以使用任意一个访问该服务。</span></span><br><span class="line">        <span class="string">"passwd2"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"log_level"</span>: 1,</span><br><span class="line">    <span class="string">"ssl"</span>: &#123;</span><br><span class="line">        <span class="comment"># 下面这两行，就是使用从letsencrypt申请到的证书的完全路径。</span></span><br><span class="line">	      <span class="string">"cert"</span>: <span class="string">"/etc/letsencrypt/live/&lt;xxxxxx&gt;.members.linode.com/fullchain.pem"</span>,</span><br><span class="line">	      <span class="string">"key"</span>:<span class="string">"/etc/letsencrypt/live/&lt;xxxxx&gt;.members.linode.com/privkey.pem"</span>,</span><br><span class="line">        <span class="string">"key_password"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"cipher"</span>: <span class="string">"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"</span>,</span><br><span class="line">        <span class="string">"cipher_tls13"</span>: <span class="string">"TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384"</span>,</span><br><span class="line">        <span class="string">"prefer_server_cipher"</span>: <span class="literal">true</span>,</span><br><span class="line">        ＃  <span class="string">"sni"</span>: <span class="string">"yourdomain"</span>, //如果客户端，会有这一行，就是服务器的域名。</span><br><span class="line">        <span class="string">"alpn"</span>: [</span><br><span class="line">            <span class="string">"h2"</span>,</span><br><span class="line">            <span class="string">"http/1.1"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"reuse_session"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"session_ticket"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"session_timeout"</span>: 600,</span><br><span class="line">        <span class="string">"plain_http_response"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"curves"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"dhparam"</span>: <span class="string">""</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"tcp"</span>: &#123;</span><br><span class="line">        <span class="string">"prefer_ipv4"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"no_delay"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"keep_alive"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"reuse_port"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"fast_open"</span>: <span class="literal">true</span>,   // 要使用 sysctl -w net.ipv4.tcp_fastopen=4</span><br><span class="line">        <span class="string">"fast_open_qlen"</span>: 20</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"mysql"</span>: &#123;</span><br><span class="line">        <span class="string">"enabled"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"server_addr"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">        <span class="string">"server_port"</span>: 3306,</span><br><span class="line">        <span class="string">"database"</span>: <span class="string">"trojan"</span>,</span><br><span class="line">        <span class="string">"username"</span>: <span class="string">"trojan"</span>,</span><br><span class="line">        <span class="string">"password"</span>: <span class="string">""</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="配置systemd启动与运行权限"><a href="#配置systemd启动与运行权限" class="headerlink" title="配置systemd启动与运行权限"></a>配置systemd启动与运行权限</h2><ul>
+<li>使用一个非特权用户运行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># useradd -s /usr/sbin/nologin trojan</span></span><br><span class="line">~<span class="comment"># chown -R trojan:trojan /path/to/trojan</span></span><br><span class="line">~<span class="comment"># chmod u+x /path/to/trojan</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者使用<a href="https://wiki.archlinux.org/index.php/Capabilities_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">Capabilities</a>)来管理根限。如果不是特权用户是不绑定1024以下的端口的。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># setcap 'cap_net_bind_service=+eip' /path/to/trojan</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建文件，<code>/etc/systemd/system/trojan.service</code>或者<code>/lib/systemd/system/trojan.service</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~$ cat /etc/systemd/system/trojan.service</span><br><span class="line">    [Unit]</span><br><span class="line">    Description=Trojan</span><br><span class="line">    After=network.target network-online.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">    [Service]</span><br><span class="line">    User=trojan</span><br><span class="line">    Group=trojan</span><br><span class="line">    Restart=on-failure</span><br><span class="line">    Type=simple</span><br><span class="line">    ExecStart=/path/to/trojan -c /path/to/config.json</span><br><span class="line"></span><br><span class="line">    [Install]</span><br><span class="line">    WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line">~$ sudo systemctl <span class="built_in">enable</span> trojan</span><br><span class="line">~$ sudo systemctl start trojan</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面启动如果有错，使用<code>systemctl status trojan</code>再用<code>journalctl -x | grep &quot;trojan&quot; -A +10</code>查看具体错误原因。</li>
+</ul>
+<h2 id="TLS-1-3支持"><a href="#TLS-1-3支持" class="headerlink" title="TLS 1.3支持"></a>TLS 1.3支持</h2><ul>
+<li>如果系统的<code>openssl</code>版本是在<code>1.1.1</code>以上的可以开启<code>TLS1.3</code>，加密可以改成如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256</span><br></pre></td></tr></table></figure>
+<h1 id="使用Docker安装"><a href="#使用Docker安装" class="headerlink" title="使用Docker安装"></a>使用Docker安装</h1><ul>
+<li>主机上获取证书</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --nginx  --agree-tos --email yjdwbj@gmail.com  -d proxy.yjdwbj.cloudns.org --force-interactive</span><br><span class="line"></span><br><span class="line">chmod 644 /etc/letsencrypt/archive/proxy.yjdwbj.cloudns.org/privkey.pem</span><br></pre></td></tr></table></figure>
+<h1 id="安装dnsmasq来加速解析（非必需）"><a href="#安装dnsmasq来加速解析（非必需）" class="headerlink" title="安装dnsmasq来加速解析（非必需）"></a>安装<code>dnsmasq</code>来加速解析（非必需）</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install dnsmasq -y</span><br><span class="line">~$ sudo cat &gt; <span class="string">'/etc/dnsmasq.conf'</span> &lt;&lt; EOF</span><br><span class="line">port=53</span><br><span class="line">domain-needed</span><br><span class="line">bogus-priv</span><br><span class="line"><span class="built_in">enable</span>-ra  <span class="comment"># 开启IPv6 delegation prefix</span></span><br><span class="line">no-resolv</span><br><span class="line">server=8.8.4.4<span class="comment">#53</span></span><br><span class="line">server=1.1.1.1<span class="comment">#53</span></span><br><span class="line">interface=lo</span><br><span class="line"><span class="built_in">bind</span>-interfaces</span><br><span class="line">cache-size=10000</span><br><span class="line">no-negcache</span><br><span class="line"><span class="built_in">log</span>-queries</span><br><span class="line"><span class="built_in">log</span>-facility=/var/<span class="built_in">log</span>/dnsmasq.log</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ sudo <span class="built_in">echo</span> <span class="string">"nameserver 127.0.0.1"</span> &gt; /etc/resolv.conf || <span class="literal">true</span></span><br><span class="line">~$ sudo chattr +i /etc/resolv.conf || <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">~$ sudo systemctl <span class="built_in">enable</span> dnsmasq</span><br></pre></td></tr></table></figure>
+<h2 id="使用Dokku安装"><a href="#使用Dokku安装" class="headerlink" title="使用Dokku安装"></a>使用<code>Dokku</code>安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">REPOSITORY             TAG             IMAGE ID       CREATED         SIZE</span><br><span class="line">nextcloud              latest          7aa569922593   14 hours ago    835MB</span><br><span class="line">gliderlabs/herokuish   latest          61872ca570ac   2 days ago      1.35GB</span><br><span class="line">gliderlabs/herokuish   v0.5.26         61872ca570ac   2 days ago      1.35GB</span><br><span class="line">shadowsocks-libev      latest          cf7d25b78191   2 months ago    66.1MB</span><br><span class="line">trojan                 latest          8fc0996f16f6   2 months ago    11.5MB</span><br><span class="line">[....]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~$ dokku apps:create trojan</span><br><span class="line"></span><br><span class="line">~$ dokku domains:add trojan proxy.llccyy.dynv6.net</span><br><span class="line">~$ dokku config:<span class="built_in">set</span> trojan --no-restart DOKKU_LETSENCRYPT_EMAIL=yjdwbj@gmail.com</span><br><span class="line">~$ dokku letsencrypt trojan</span><br><span class="line">~$ dokku storage:mount trojan /etc/trojan:/etc/trojan</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">~$ dokku storage:mount trojan /home/dokku/trojan/letsencrypt:/etc/letsencrypt</span><br><span class="line">~$ docker tag trojan:latest dokku/trojan:latest</span><br><span class="line">~$ dokku tags:deploy trojan latest</span><br></pre></td></tr></table></figure>
+<h1 id="安装WireGuard"><a href="#安装WireGuard" class="headerlink" title="安装WireGuard"></a>安装WireGuard</h1><ul>
+<li><a href="https://www.linode.com/docs/networking/vpn/set-up-wireguard-vpn-on-debian/" target="_blank" rel="noopener">Set Up WireGuard VPN on Debian</a></li>
+<li><a href="https://docs.linuxconsulting.mn.it/notes/setup-wireguard-vpn-on-debian9" target="_blank" rel="noopener">Setup a VPN Server with WireGuard on Debian 9</a></li>
+<li><a href="https://wiki.debian.org/Wireguard" target="_blank" rel="noopener">Wireguard</a></li>
+</ul>
+<ul>
+<li>现在WireGuard还没有进入<code>Debian</code>的稳定版本分支，需要使用下面命令安装。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># echo "deb http://deb.debian.org/debian/ unstable main" &gt; /etc/apt/sources.list.d/unstable-wireguard.list</span></span><br><span class="line">~<span class="comment"># printf 'Package: *\nPin: release a=unstable\nPin-Priority: 150\n' &gt; /etc/apt/preferences.d/limit-unstable</span></span><br><span class="line">~<span class="comment"># uname -a</span></span><br><span class="line">Linux localhost 4.19.0-6-amd64 <span class="comment">#1 SMP Debian 4.19.67-2+deb10u2 (2019-11-11) x86_64 GNU/Linux</span></span><br><span class="line">~<span class="comment"># apt update</span></span><br><span class="line">~<span class="comment"># apt install linux-headers-4.19.0-6-amd64 wireguard-dkms wireguard-tools</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果安装了<code>WireGuard dkms</code>模块了，但是又更新内核，这是是需要用重新编译并安装到新的内核里，如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">~$ dkms status</span><br><span class="line">[.....]</span><br><span class="line">wireguard, 0.0.20200215, 5.5.5-20200223-lcy, x86_64: installed</span><br><span class="line">sudo dkms build -m wireguard -v 0.0.20200215</span><br><span class="line">Kernel preparation unnecessary <span class="keyword">for</span> this kernel.  Skipping...</span><br><span class="line">Building module:</span><br><span class="line">cleaning build area...</span><br><span class="line">[.....]</span><br><span class="line">cleaning build area...</span><br><span class="line">DKMS: build completed.</span><br><span class="line">~$ sudo dkms install -m wireguard -v 0.0.20200215</span><br><span class="line">wireguard.ko:</span><br><span class="line">[...]</span><br><span class="line">depmod...</span><br><span class="line">DKMS: install completed.</span><br></pre></td></tr></table></figure>
+<h2 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> /etc/wireguard/</span><br><span class="line">~$ sudo wg genkey | tee privatekey | wg pubkey &gt; publickey</span><br><span class="line">~$ sudo cat &gt; <span class="string">'/etc/wireguard/wg0.conf'</span> &lt;&lt; EOF</span><br><span class="line">[Interface]</span><br><span class="line">PrivateKey = &lt;Private Key&gt;</span><br><span class="line">Address = 172.18.0.1/24, fd86:ea04:1115::1/64</span><br><span class="line">ListenPort = 51820</span><br><span class="line">PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">SaveConfig = <span class="literal">true</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h2 id="安装防火墙"><a href="#安装防火墙" class="headerlink" title="安装防火墙"></a>安装防火墙</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install ufw</span><br><span class="line">~$ sudo ufw allow 22/tcp</span><br><span class="line">~$ sudo ufw allow 51820/udp</span><br><span class="line">~$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">~$ sudo ufw status verbose</span><br></pre></td></tr></table></figure>
+<h2 id="启动WireGuard"><a href="#启动WireGuard" class="headerlink" title="启动WireGuard"></a>启动WireGuard</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo wg-quick up wg0</span><br><span class="line">~$ sudo systemctl <span class="built_in">enable</span> wg-quick@wg0</span><br><span class="line">~$ sudo wg show</span><br><span class="line">public key: DSdXQC01TD7Hk9sXXUKjevzJv6md+aK0x7/aKrmJMX8=</span><br><span class="line">  private key: (hidden)</span><br><span class="line">  listening port: 51820</span><br><span class="line">~$ ifconfig wg0</span><br><span class="line"> ifconfig wg0</span><br><span class="line">wg0: flags=209&lt;UP,POINTOPOINT,RUNNING,NOARP&gt;  mtu 1420</span><br><span class="line">        inet 172.18.0.1  netmask 255.255.255.0  destination 172.18.0.1</span><br><span class="line">        inet6 fd86:ea04:1115::1  prefixlen 64  scopeid 0x0&lt;global&gt;</span><br><span class="line">        unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 1000  (UNSPEC)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><ul>
+<li>客户端的安装方式如同服务端，VPN的配置都是对等配置，就是都要知道对方的公共密钥。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> /etc/wireguard/</span><br><span class="line">~$ sudo wg genkey | tee privatekey | wg pubkey &gt; publickey</span><br><span class="line">~$ sudo cat &gt; <span class="string">'/etc/wireguard/wg0.conf'</span> &lt;&lt; EOF</span><br><span class="line">[Interface]</span><br><span class="line">PrivateKey = &lt;Private Key&gt;</span><br><span class="line">Address = 172.18.0.2/24, fd86:ea04:1115::5/64</span><br><span class="line">[Peer]</span><br><span class="line">PublicKey= &lt;Server Public Key&gt;</span><br><span class="line">Endpoint = &lt;Server IpAddress&gt;:51820</span><br><span class="line">AllowedIPs = 172.18.0.2/24,fd86:ea04:1115::0/64</span><br><span class="line">EOF</span><br><span class="line">~$ sudo wg-quick up wg0</span><br><span class="line">interface: wg0</span><br><span class="line">  public key: &lt;Public Key&gt;</span><br><span class="line">  private key: (hidden)</span><br><span class="line">  listening port: 41743</span><br></pre></td></tr></table></figure>
+<h2 id="服务端添加Peer"><a href="#服务端添加Peer" class="headerlink" title="服务端添加Peer"></a>服务端添加Peer</h2><ul>
+<li>上面就是配置好的客户端，但是还不能连接到上述的服务器去，现在还要在服务端里加上对等的<code>Peer</code>项，可以直接编辑服务端的<code>/etc/wireguard/wg0.conf</code>,也可以使用下面命令。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo wg <span class="built_in">set</span> wg0 peer &lt;Client Public Key&gt; allowed-ips 172.18.0.2/32</span><br><span class="line">~$ sudo wg-quick save wg0   <span class="comment"># 保存配置</span></span><br><span class="line">~$ sudo wg</span><br><span class="line">interface: wg0</span><br><span class="line">  public key: &lt;Server Public Key&gt;</span><br><span class="line">  private key: (hidden)</span><br><span class="line">  listening port: 51820</span><br><span class="line"></span><br><span class="line">peer: &lt;Client Public Key&gt;</span><br><span class="line">  endpoint: &lt;Client Public IpAddress&gt;:&lt;port&gt;</span><br><span class="line">  allowed ips: 172.18.0.0/24, fd86:ea04:1115::/64</span><br><span class="line">  latest handshake: 2 hours, 44 minutes, 13 seconds ago</span><br><span class="line">  transfer: 3.16 MiB received, 13.16 MiB sent</span><br><span class="line"></span><br><span class="line">~<span class="comment"># cat /etc/wireguard/wg0.conf</span></span><br><span class="line">Interface]</span><br><span class="line">Address = 172.18.0.1/16</span><br><span class="line">Address = fd86:ea04:1115::1/64</span><br><span class="line">SaveConfig = <span class="literal">true</span></span><br><span class="line">PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">ListenPort = 51820</span><br><span class="line">PrivateKey = &lt;public key of server&gt;</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = &lt;public key of client B&gt;</span><br><span class="line">AllowedIPs = 172.18.0.2/32</span><br><span class="line">Endpoint = &lt;public ip of Client B&gt;:23637</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = &lt;public key of client A&gt;</span><br><span class="line">AllowedIPs = 172.18.0.3/32</span><br><span class="line">Endpoint = &lt;public ip of Client A&gt;:33506</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果无错连接成功后，就可以从<code>172.18.0.1</code>去<code>ping 172.18.0.2</code>.</li>
+</ul>
+<ul>
+<li>下面是一个服务器连接两个端点的配置：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~$ wg show</span><br><span class="line">interface: wg0</span><br><span class="line">  public key: &lt;server &gt;</span><br><span class="line">  private key: (hidden)</span><br><span class="line">  listening port: 51820</span><br><span class="line"></span><br><span class="line">peer: &lt;public key of Bob&gt;</span><br><span class="line">  endpoint: &lt;Bob&gt;:33506</span><br><span class="line">  allowed ips: 172.18.0.3/32</span><br><span class="line">  latest handshake: 50 seconds ago</span><br><span class="line">  transfer: 35.55 KiB received, 36.31 KiB sent</span><br><span class="line"></span><br><span class="line">peer: &lt;public key of Alice&gt;</span><br><span class="line">  endpoint: &lt;Alice&gt;:23637</span><br><span class="line">  allowed ips: 172.18.0.2/32</span><br><span class="line">  latest handshake: 2 minutes, 51 seconds ago</span><br><span class="line">  transfer: 15.53 KiB received, 14.59 KiB sent</span><br></pre></td></tr></table></figure>
+<h2 id="手机端通过QR加入服务器"><a href="#手机端通过QR加入服务器" class="headerlink" title="手机端通过QR加入服务器"></a>手机端通过QR加入服务器</h2><ul>
+<li><p><a href="https://serversideup.net/generating-wireguard-qr-codes-for-fast-mobile-deployments/" target="_blank" rel="noopener">Generating WireGuard QR codes for fast mobile deployments</a></p>
+</li>
+<li><p>这里可以完全在服务端完成，现生成一组服务器的密钥对, 再建一个名为<code>clients</code>目录，在下面生成各个客户端的密钥与配置文件<br>再把配置文件转成终端的QR图，供手机端扫码加入。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo mkdir -p /etc/wireguard/clients; wg genkey | sudo tee /etc/wireguard/clients/mobile.key | wg pubkey | sudo tee /etc/wireguard/clients/mobile.key.pub</span><br></pre></td></tr></table></figure>
+<ul>
+<li>生成配置文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~$ cat &gt; /etc/wireguard/clients/mobile.conf &lt;&lt;EOF</span><br><span class="line">[Interface]</span><br><span class="line">PrivateKey = &lt;mobile.key&gt;</span><br><span class="line">Address = 10.0.0.10/24</span><br><span class="line">DNS = 1.1.1.1, 1.0.0.1</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = YOUR_SERVER_PUBLIC_KEY</span><br><span class="line">AllowedIPs = 0.0.0.0/0</span><br><span class="line">Endpoint = YOUR_SERVER_WAN_IP:51820</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<ul>
+<li>转换成QR图</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ qrencode -t ansiutf8 &lt; /etc/wireguard/clients/mobile.conf</span><br></pre></td></tr></table></figure>
+<ul>
+<li>服务端加入该客户端并保存。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo wg <span class="built_in">set</span> wg0 peer &lt;mobile.key.pub&gt; allowed-ips 0.0.0.0/0</span><br><span class="line">~$ sudo wg-quick save wg0</span><br></pre></td></tr></table></figure>
+<h2 id="安装Polipo做HTTP-Proxy"><a href="#安装Polipo做HTTP-Proxy" class="headerlink" title="安装Polipo做HTTP Proxy"></a>安装Polipo做HTTP Proxy</h2><ul>
+<li><a href="https://wiki.archlinux.org/index.php/Polipo" target="_blank" rel="noopener">Polipo</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># cat &gt; /etc/polipo/config &lt;&lt;EOF</span></span><br><span class="line">proxyAddress = <span class="string">"0.0.0.0"</span></span><br><span class="line">allowedClients=172.18.0.0/24,127.0.0.1,192.168.1.0/24</span><br><span class="line">socksParentProxy = <span class="string">"127.0.0.1:1080"</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ sudo systemctl restart polipo</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="shadowsocks-libev"><a href="#shadowsocks-libev" class="headerlink" title="shadowsocks-libev"></a>shadowsocks-libev</h1><ul>
+<li><a href="https://wiki.archlinux.org/index.php/Shadowsocks_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">Arch Shadowsocks</a>)</li>
+<li><a href="https://shadowsocks.org/en/config/advanced.html" target="_blank" rel="noopener">Shadowsocks Config Advanced</a></li>
+<li><a href="https://github.com/shadowsocks/shadowsocks-libev" target="_blank" rel="noopener">Shadowsocks</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ apt-get install  libsodium-dev libmbedtls-dev libev-dev libpcre3-dev libc-ares-dev cmake libc-ares2 libipset-dev -y</span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/shadowsocks/shadowsocks-libev</span><br><span class="line">~$ <span class="built_in">cd</span> shadowsocks-libev/</span><br><span class="line">~$ git submodule update --init --recursive</span><br><span class="line">~$ <span class="built_in">cd</span> build/</span><br><span class="line">~$ cmake ../</span><br><span class="line">~$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h2 id="配置ss-server"><a href="#配置ss-server" class="headerlink" title="配置ss-server"></a>配置ss-server</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo mkdir /etc/shadowsocks-libev/</span><br><span class="line">~$ <span class="built_in">cd</span> /etc/shadowsocks-libev/</span><br><span class="line">~$ sudo cat &gt; config.json &lt; EOF</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>: [<span class="string">"::"</span>,<span class="string">"0.0.0.0"</span>],</span><br><span class="line">    <span class="string">"server_port"</span>: 8443,</span><br><span class="line">    <span class="string">"password"</span>: <span class="string">"&lt;password&gt;"</span>,</span><br><span class="line">    <span class="string">"method"</span>: <span class="string">"aes-256-gcm"</span>,</span><br><span class="line">    <span class="string">"timeout"</span>:300,</span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"tcp_and_udp"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ ss-server -c /etc/shadowsocks-libev/config.json</span><br></pre></td></tr></table></figure>
+<h2 id="配置ss-local"><a href="#配置ss-local" class="headerlink" title="配置ss-local"></a>配置ss-local</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~$ cat config.json</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>: <span class="string">"&lt;server ip&gt;"</span>,</span><br><span class="line">    <span class="string">"server_port"</span>: 8443,</span><br><span class="line">    <span class="string">"local_port"</span>: 1088,</span><br><span class="line">    <span class="string">"password"</span>: <span class="string">"&lt;passwd&gt;"</span>,</span><br><span class="line">    <span class="string">"method"</span>: <span class="string">"aes-256-gcm"</span>,</span><br><span class="line">    <span class="string">"timeout"</span>:60,</span><br><span class="line">    <span class="string">"fast_open"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"tcp_and_udp"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">~$ ss-local -c ./config.json</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在本地运行一个<code>ss-local</code>实例，成功连接后，可以使用<code>127.0.0.1:1088</code>的去做<code>Socks5</code>代理了。</li>
+</ul>
+<h2 id="URI与二维码"><a href="#URI与二维码" class="headerlink" title="URI与二维码"></a>URI与二维码</h2><ul>
+<li><a href="https://shadowsocks.org/en/config/quick-guide.html" target="_blank" rel="noopener">quick-guide</a></li>
+<li><p>在一些移动APP中，为了安全或是方便分享，可以使用二维码来添加服务器。它的最终格式如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss://YmYtY2ZiOnRlc3QvIUAjOkAxOTIuMTY4LjEwMC4xOjg4ODg<span class="comment">#example-server</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例，如有一个服务器是<code>192.168.100.1:8888</code>，使用<code>bf-cfb</code>的加密算法，密码是<code>test/!@#:</code>，它的明文<code>URI</code>是：<br><code>ss://bf-cfb:test/!@#:@192.168.100.1:8888</code>，需要把它编码<code>BASE64</code>格式的URI,下面通过浏览器的<code>Web Console</code>运行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; console.log( <span class="string">"ss://"</span> + btoa(<span class="string">"bf-cfb:test/!@#:@192.168.100.1:8888"</span>) )</span><br><span class="line">ss://YmYtY2ZiOnRlc3QvIUAjOkAxOTIuMTY4LjEwMC4xOjg4ODg=</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在可以把<code>BASE64</code>URI再编码成二维码，还可以加名字标记如:<code>ss:&lt;BASE64&gt;#&lt;server-name&gt;</code>,<a href="https://shadowsocks.org/en/config/quick-guide.html" target="_blank" rel="noopener">quick-guide</a>的后面生成二维的工具，<code>IOS</code>系统中的客户端名字是<code>Outline App</code>,它就是只能通过URI来添加服务器。</p>
+</li>
+</ul>
+<h2 id="配置Systemd服务"><a href="#配置Systemd服务" class="headerlink" title="配置Systemd服务"></a>配置<code>Systemd</code>服务</h2><ul>
+<li>这里可以参照上面<code>trojan</code>的系统服务，也可以直接复制<code>shadowsocks-libev/debian/shadowsocks-libev.service</code>到系统目录下。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo cp shadowsocks-libev/debian/shadowsocks-libev.default /etc/default/shadowsocks-libev</span><br><span class="line">~$ sudo cat &gt;  <span class="string">'/etc/systemd/system/shadowsocks-libev.service'</span> &lt; EOF</span><br><span class="line">[Unit]</span><br><span class="line">Description=Shadowsocks-libev Default Server Service</span><br><span class="line">Documentation=man:shadowsocks-libev(8)</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">CapabilityBoundingSet=CAP_NET_BIND_SERVICE</span><br><span class="line">AmbientCapabilities=CAP_NET_BIND_SERVICE</span><br><span class="line">EnvironmentFile=/etc/default/shadowsocks-libev</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">LimitNOFILE=32768</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/bin/ss-server -c <span class="variable">$CONFFILE</span> <span class="variable">$DAEMON_ARGS</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ sudo systemctl daemon-reload</span><br><span class="line">~$ sudo systemctl start shadowsocks-libev</span><br></pre></td></tr></table></figure>
+<h2 id="插件部分"><a href="#插件部分" class="headerlink" title="插件部分"></a>插件部分</h2><ul>
+<li><a href="https://github.com/shadowsocks/kcptun" target="_blank" rel="noopener">kcptun</a></li>
+<li><a href="https://github.com/shadowsocks/v2ray-plugin" target="_blank" rel="noopener">v2ray-plugin</a></li>
+</ul>
+<ul>
+<li><a href="https://shadowsocks.org/en/spec/Plugin.html" target="_blank" rel="noopener">shadowsocks-libev</a>可以安装<a href="https://github.com/shadowsocks/simple-obfs" target="_blank" rel="noopener">obfs</a>做数据混淆。</li>
+</ul>
+<h1 id="安装V2Ray"><a href="#安装V2Ray" class="headerlink" title="安装V2Ray"></a>安装V2Ray</h1><ul>
+<li><a href="https://www.v2ray.com/" target="_blank" rel="noopener">www.v2ray.com</a></li>
+<li><a href="https://github.com/v2ray/v2ray-core" target="_blank" rel="noopener">v2ray-core</a></li>
+</ul>
+<ul>
+<li>Project V 是一个工具集合，它可以帮助你打造专属的基础通信网络。Project V 的核心工具称为V2Ray，其主要负责网络协议和功能的实现，与其它 Project V 通信。V2Ray 可以单独运行，也可以和其它工具配合，以提供简便的操作流程。</li>
+</ul>
+<h2 id="简单脚本安装"><a href="#简单脚本安装" class="headerlink" title="简单脚本安装"></a>简单脚本安装</h2><ul>
+<li><a href="https://www.v2ray.com/chapter_00/install.html" target="_blank" rel="noopener">参照这里</a>直接下载解压二进制的安装，不知会不会夹带私货。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">~$ bash &lt;(curl -L -s https://install.direct/go.sh)</span><br><span class="line">Installing V2Ray v4.22.1 on x86_64</span><br><span class="line">Downloading V2Ray: https://github.com/v2ray/v2ray-core/releases/download/v4.22.1/v2ray-linux-64.zip</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100   608  100   608    0     0   9212      0 --:--:-- --:--:-- --:--:--  9212</span><br><span class="line">100 11.6M  100 11.6M    0     0  24.3M      0 --:--:-- --:--:-- --:--:-- 24.3M</span><br><span class="line">awk: not an option: -e</span><br><span class="line">Archive:  /tmp/v2ray/v2ray.zip</span><br><span class="line">  inflating: /usr/bin/v2ray/geoip.dat</span><br><span class="line">  inflating: /usr/bin/v2ray/geosite.dat</span><br><span class="line">  inflating: /usr/bin/v2ray/v2ctl</span><br><span class="line">  inflating: /usr/bin/v2ray/v2ray</span><br><span class="line">PORT:42747</span><br><span class="line">UUID:x009c053-xxxx-4420-xxxx-33b2fa35209x</span><br><span class="line">Archive:  /tmp/v2ray/v2ray.zip</span><br><span class="line">  inflating: /etc/systemd/system/v2ray.service</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/v2ray.service → /etc/systemd/system/v2ray.service.</span><br><span class="line">V2Ray v4.22.1 is installed.</span><br></pre></td></tr></table></figure>
+<h1 id="使用Docker安装-1"><a href="#使用Docker安装-1" class="headerlink" title="使用Docker安装"></a>使用Docker安装</h1><ul>
+<li><a href="https://youngryan.com/2019/02/how-to-assign-ipv6-addresses-to-lxd-containers-on-a-vps/" target="_blank" rel="noopener">How to Assign IPv6 Addresses to LXD Containers on a VPS</a></li>
+<li><a href="https://discuss.linuxcontainers.org/t/getting-universally-routable-ipv6-addresses-for-your-linux-containers-on-ubuntu-18-04-with-lxd-4-0-on-a-vps/7322" target="_blank" rel="noopener">Getting universally routable IPv6 Addresses for your Linux Containers on Ubuntu 18.04 with LXD 4.0 on a VPS</a></li>
+<li><a href="https://www.geeklab.info/2013/05/ipv6-neighbour-proxy/" target="_blank" rel="noopener">IPv6 neighbour proxy</a></li>
+<li><a href="https://alexi.ch/code/docker_ipv6" target="_blank" rel="noopener">Use IPv6-enabled Docker containers</a></li>
+<li><a href="https://dker.ru/docs/docker-engine/user-guide/network-configuration/default-bridge-network/ipv6-with-docker/" target="_blank" rel="noopener">IPv6 with Docker</a></li>
+<li><a href="https://safaci2000.github.io/blog/posts/docker_ipv6_guide/" target="_blank" rel="noopener">Docker IPV6 Guide</a></li>
+</ul>
+<h2 id="Dokku安装"><a href="#Dokku安装" class="headerlink" title="Dokku安装"></a>Dokku安装</h2><ul>
+<li>这里为什么要用Dokku?本来一个<code>Dockfile</code>直接用<code>Docker</code>就可以，但是关于<code>trojan</code>要用到<code>letscrypt</code>证书的问题，这里还是使用<code>Dokku</code>来完成它。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ wget https://raw.githubusercontent.com/dokku/dokku/v0.21.4/bootstrap.sh;</span><br><span class="line">~$ sudo DOKKU_TAG=v0.21.4 bash bootstrap.sh</span><br></pre></td></tr></table></figure>
+<h1 id="安装Brook"><a href="#安装Brook" class="headerlink" title="安装Brook"></a>安装Brook</h1><ul>
+<li><p>它可能是目前最灵活，但同时又保持了较高易用性的架设方法。支持多协议多模式，跨平台也比其它技术好。它是用GO语言写的，这里也是不想从源码编译，直接去下载一个最新使用。下面会是一些使用示例，最完整的还参考它的<a href="https://github.com/txthinking/brook" target="_blank" rel="noopener">Wiki</a>，<a href="https://txthinking.github.io/brook/#/install-cli" target="_blank" rel="noopener">安装（install-cli）参考</a></p>
+</li>
+<li><p>服务端</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ./brook server -l :8118 -p passwd1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>客户端</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># ./brook client -l 127.0.0.1:4444 -i 127.0.0.1 -s &lt;serverip&gt;:8118 -p passwd1</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用systemd管理"><a href="#使用systemd管理" class="headerlink" title="使用systemd管理"></a>使用<code>systemd</code>管理</h2><ul>
+<li>创建如下文件，服务端与客户端类似，如果要在<code>systemd</code>内监听小于<code>1024</code>的端口，需要开启<code>CapabilityBoundingSet=CAP_NET_BIND_SERVICE，AmbientCapabilities=CAP_NET_BIND_SERVICE</code>两项。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~$ cat /etc/systemd/system/brook.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=Brook service</span><br><span class="line">Documentation=https://github.com/txthinking/brook</span><br><span class="line">After=network.target network-online.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook <span class="variable">$DAEMON_ARGS</span></span><br><span class="line">CapabilityBoundingSet=CAP_NET_BIND_SERVICE</span><br><span class="line">AmbientCapabilities=CAP_NET_BIND_SERVICE</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=10</span><br><span class="line">StandardOutput=syslog</span><br><span class="line">StandardError=syslog</span><br><span class="line">SyslogIdentifier=brook</span><br><span class="line">EnvironmentFile=/etc/default/brook</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">LimitNOFILE=500000</span><br><span class="line">LimitNPROC=500000</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>环境参数文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">~$ cat&gt;/etc/default/brook&lt;&lt;EOF</span><br><span class="line"><span class="comment"># brook Upstart and SysVinit configuration file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># THIS FILE DOES NOT APPLY TO SYSTEMD</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#   Please see the documentation for "systemd drop-ins":</span></span><br><span class="line"><span class="comment">#   https://docs.docker.com/engine/admin/systemd/</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use brook --help to modify the daemon startup options.</span></span><br><span class="line"><span class="comment"># Extra command line arguments</span></span><br><span class="line"></span><br><span class="line">DAEMON_ARGS=<span class="string">'client -s &lt;your service&gt;:443 --socks5 127.0.0.1:1080 -p &lt;your password&gt;'</span></span><br><span class="line"><span class="comment"># Enable during startup?</span></span><br><span class="line">START=yes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># User and group to run the server as</span></span><br><span class="line">USER=nobody</span><br><span class="line">GROUP=nogroup</span><br><span class="line"></span><br><span class="line"><span class="comment"># Number of maximum file descriptors</span></span><br><span class="line">MAXFD=32768</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo systemctl <span class="built_in">enable</span> brook</span><br><span class="line">~$ sudo systemctl start brook</span><br><span class="line">~$ sudo systemctl status brook</span><br></pre></td></tr></table></figure>
+<h1 id="FRP服务"><a href="#FRP服务" class="headerlink" title="FRP服务"></a><code>FRP</code>服务</h1><ul>
+<li><a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">frp</a></li>
+</ul>
+<h2 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/fatedier/frp</span><br><span class="line">~$ <span class="built_in">cd</span> frp &amp;&amp; make</span><br><span class="line">~$ tree bin/</span><br><span class="line">bin/</span><br><span class="line">├── frpc</span><br><span class="line">└── frps</span><br><span class="line"></span><br><span class="line">0 directories, 2 files</span><br></pre></td></tr></table></figure>
+<h2 id="使用docker运行"><a href="#使用docker运行" class="headerlink" title="使用docker运行"></a>使用<code>docker</code>运行</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">FROM golang:1.17 AS builder</span><br><span class="line">RUN go version</span><br><span class="line"></span><br><span class="line">ARG upx_version=3.96</span><br><span class="line">ARG GOPROXY</span><br><span class="line"></span><br><span class="line">RUN go env -w GO111MODULE=on</span><br><span class="line">RUN go env -w GOPROXY=https://goproxy.io,direct</span><br><span class="line"></span><br><span class="line">COPY . /go/src/github.com/xindalcy/frp</span><br><span class="line">WORKDIR /go/src/github.com/xindalcy/frp</span><br><span class="line"><span class="comment">#RUN set -x &amp;&amp; \</span></span><br><span class="line"><span class="comment">#    go get github.com/golang/dep/cmd/dep &amp;&amp; \</span></span><br><span class="line"><span class="comment">#    dep ensure -v</span></span><br><span class="line"></span><br><span class="line">RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -ldflags=<span class="string">"-w -s"</span> -o bin/frps ./cmd/frps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SHELL [<span class="string">"/bin/bash"</span>, <span class="string">"-o"</span>, <span class="string">"pipefail"</span>, <span class="string">"-c"</span>]</span><br><span class="line"><span class="comment"># hadolint ignore=DL3008</span></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends xz-utils &amp;&amp; \</span><br><span class="line">  curl -Ls https://github.com/upx/upx/releases/download/v<span class="variable">$&#123;upx_version&#125;</span>/upx-<span class="variable">$&#123;upx_version&#125;</span>-amd64_linux.tar.xz -o - | tar xvJf - -C /tmp &amp;&amp; \</span><br><span class="line">  cp /tmp/upx-<span class="variable">$&#123;upx_version&#125;</span>-amd64_linux/upx /usr/<span class="built_in">local</span>/bin/ &amp;&amp; \</span><br><span class="line">  chmod +x /usr/<span class="built_in">local</span>/bin/upx</span><br><span class="line"></span><br><span class="line">RUN /usr/<span class="built_in">local</span>/bin/upx -9 /go/src/github.com/xindalcy/frp/bin/frps</span><br><span class="line"></span><br><span class="line">FROM scratch</span><br><span class="line">COPY --from=builder /go/src/github.com/xindalcy/frp/bin/frps /go/bin/frps</span><br><span class="line"></span><br><span class="line">EXPOSE 7001/tcp</span><br><span class="line">EXPOSE 7500/tcp</span><br><span class="line">EXPOSE 7001/udp</span><br><span class="line">EXPOSE 7002/udp</span><br><span class="line"></span><br><span class="line">VOLUME /etc/frp/</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"/go/bin/frps"</span>,<span class="string">"-c"</span>,<span class="string">"/etc/frp/frps.ini"</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">~$ cat /etc/frps.ini</span><br><span class="line">[common]</span><br><span class="line">bind_port = 7001</span><br><span class="line">bind_udp_port = 7002</span><br><span class="line">kcp_bind_port = 7001</span><br><span class="line">authentication_method = token</span><br><span class="line">token = 1122aabbcc  <span class="comment"># 建议使用 xxd -l 16 -p /dev/random</span></span><br><span class="line">tcp_mux = <span class="literal">true</span></span><br><span class="line">protocol = kcp</span><br><span class="line">udp_packet_size = 1500</span><br><span class="line"></span><br><span class="line"><span class="comment"># dashboard 很简单，没有什么可以看的。</span></span><br><span class="line">dashboard_port = 7500</span><br><span class="line"><span class="comment"># dashboard's username and password are both optional</span></span><br><span class="line">dashboard_user = admin</span><br><span class="line">dashboard_pwd = admin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">~$ frps -c /etc/frps.ini</span><br></pre></td></tr></table></figure>
+<h3 id="加入Systemed服务"><a href="#加入Systemed服务" class="headerlink" title="加入Systemed服务"></a>加入<code>Systemed</code>服务</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ cat /etc/systemd/system/frps.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=frps service</span><br><span class="line">Documentation=https://github.com/fatedier/frp</span><br><span class="line">After=network.target network-online.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/frps -c /etc/frps.ini</span><br><span class="line">CapabilityBoundingSet=CAP_NET_BIND_SERVICE</span><br><span class="line">AmbientCapabilities=CAP_NET_BIND_SERVICE</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=10</span><br><span class="line">StandardOutput=syslog</span><br><span class="line">StandardError=syslog</span><br><span class="line">SyslogIdentifier=frps</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">LimitNOFILE=500000</span><br><span class="line">LimitNPROC=500000</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<h2 id="被控端"><a href="#被控端" class="headerlink" title="被控端"></a>被控端</h2><h3 id="P2P-Mode"><a href="#P2P-Mode" class="headerlink" title="P2P Mode"></a>P2P Mode</h3><ul>
+<li><code>xtcp</code> is designed for transmitting large amounts of data directly between clients. A frps server is still needed, as P2P here<br>only refers the actual data transmission.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">~$ cat .config/frpc.ini</span><br><span class="line"><span class="comment"># frpc.ini</span></span><br><span class="line">[common]</span><br><span class="line">server_addr = &lt;your server address&gt;</span><br><span class="line">server_port = 7001</span><br><span class="line">token = 1122aabbcc <span class="comment"># 与服务器一致。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地SSH服务</span></span><br><span class="line">[build_ssh]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">sk = aabbcc123  <span class="comment"># 访问该服务的认证密钥。</span></span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line"><span class="comment"># 加密压缩可以选，如果要加，必须两端一致。</span></span><br><span class="line">use_encryption = <span class="literal">true</span></span><br><span class="line">use_compression = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#本地spice服务，类似VNC</span></span><br><span class="line">[osx]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">sk = aabbcc123</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 5930</span><br><span class="line"></span><br><span class="line"><span class="comment">#本地spice服务，类似VNC</span></span><br><span class="line">[win10]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">sk = aabbcc123</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 5940</span><br><span class="line"></span><br><span class="line">[zkfd]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">sk = aabbcc123</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 5980</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2021/06/04 23:17:52 [I] [service.go:304] [294f53354ddf974b] login to server success, get run id [294f53354ddf974b], server udp port [7002]</span><br><span class="line">2021/06/04 23:17:52 [I] [proxy_manager.go:144] [294f53354ddf974b] proxy added: [win10 zkfd jenkins build_ssh osx]</span><br><span class="line">2021/06/04 23:17:52 [I] [control.go:180] [294f53354ddf974b] [build_ssh] start proxy success</span><br><span class="line">2021/06/04 23:17:52 [I] [control.go:180] [294f53354ddf974b] [win10] start proxy success</span><br><span class="line">2021/06/04 23:17:52 [I] [control.go:180] [294f53354ddf974b] [zkfd] start proxy success</span><br><span class="line">2021/06/04 23:17:52 [I] [control.go:180] [294f53354ddf974b] [osx] start proxy success</span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者命令行的方式</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ frpc xtcp --sk aabbcc123 -s &lt;your server address&gt;:7001 --proxy_name osx --uc --ue --local_ip 127.0.0.1 --local_port 5901   -t 1122aabbcc</span><br></pre></td></tr></table></figure>
+<h2 id="控制端"><a href="#控制端" class="headerlink" title="控制端"></a>控制端</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">cat .config/frpc.ini</span><br><span class="line">[common]</span><br><span class="line">server_addr = &lt;your server address&gt;</span><br><span class="line">server_port = 7001</span><br><span class="line">token = 1122aabbcc  <span class="comment"># 与服务器一致。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[p2p_ssh_visitor]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">role = visitor</span><br><span class="line">server_name = secret_ssh</span><br><span class="line">sk = aabbcc123</span><br><span class="line">bind_addr = 127.0.0.1</span><br><span class="line">bind_port = 23222</span><br><span class="line">use_encryption = <span class="literal">true</span></span><br><span class="line">use_compression = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[build_visitor]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">role = visitor</span><br><span class="line">server_name = build_ssh</span><br><span class="line">sk = aabbcc123</span><br><span class="line">bind_addr = 127.0.0.1</span><br><span class="line">bind_port = 5122</span><br><span class="line"></span><br><span class="line">[win10_visitor]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">role = visitor</span><br><span class="line">server_name = win10</span><br><span class="line">sk = aabbcc123</span><br><span class="line">bind_addr = 127.0.0.1</span><br><span class="line">bind_port = 5940</span><br><span class="line"></span><br><span class="line">[zkfd_visitor]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">role = visitor</span><br><span class="line">server_name = zkfd</span><br><span class="line">sk = aabbcc123</span><br><span class="line">bind_addr = 127.0.0.1</span><br><span class="line">bind_port = 5980</span><br><span class="line"></span><br><span class="line">[osx_visitor]</span><br><span class="line"><span class="built_in">type</span> = xtcp</span><br><span class="line">role = visitor</span><br><span class="line">server_name = mac</span><br><span class="line">sk = aabbcc123</span><br><span class="line">bind_addr = 127.0.0.1</span><br><span class="line">bind_port = 5930</span><br></pre></td></tr></table></figure>
+<ul>
+<li>控制端运行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">2021/06/07 21:30:13 [I] [service.go:304] [b6d7adb82bbcd374] login to server success, get run id [b6d7adb82bbcd374], server udp port [7002]</span><br><span class="line">2021/06/07 21:30:13 [I] [visitor_manager.go:86] [b6d7adb82bbcd374] start visitor success</span><br><span class="line">2021/06/07 21:30:13 [I] [visitor_manager.go:86] [b6d7adb82bbcd374] start visitor success</span><br><span class="line">2021/06/07 21:30:13 [I] [visitor_manager.go:86] [b6d7adb82bbcd374] start visitor success</span><br><span class="line">2021/06/07 21:30:13 [I] [visitor_manager.go:86] [b6d7adb82bbcd374] start visitor success</span><br><span class="line">2021/06/07 21:30:13 [I] [visitor_manager.go:86] [b6d7adb82bbcd374] start visitor success</span><br><span class="line">2021/06/07 21:30:13 [I] [visitor_manager.go:86] [b6d7adb82bbcd374] start visitor success</span><br></pre></td></tr></table></figure>
+<ul>
+<li>命令行运行。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ frpc xtcp --role visitor --server_name osx --sk aabbcc123 -s &lt;your server address&gt;:7001 --uc --ue --bind_addr 127.0.0.1  --bind_port 6900  -t 1122aabbcc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在本机或者局域网内运行<code>控制端</code>后，就可以通过它去连接的服务器上的服务了。如：连接到<code>p2p_ssh_visitor</code>，直接<code>ssh user@127.0.0.1 -p 23222</code>.</li>
+<li><code>frp</code>本身支持直接暴露<code>HTTP web</code>服务，如果只内网的一些私用的<code>web</code>服务，也可以在<code>frp</code>的代理下，再进行一次<code>SSH</code>本地代理转发，下面是通过<code>SSH -L</code>把对端局<br>域内的某一个<code>8080</code>服务转发本地的<code>8080</code>,如：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ssh -L 8080:172.17.0.56:8080 user@127.0.0.1 -p 23222 -fNTC</span><br></pre></td></tr></table></figure>
+<h2 id="TLS加密通信"><a href="#TLS加密通信" class="headerlink" title="TLS加密通信"></a>TLS加密通信</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">~$ cat generate_cs_cert.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># If you using frp via IP address and not hostname, make sure to set the appropriate IP address in the Subject Alternative Name (SAN) area when generating SSL/TLS Certificates.</span></span><br><span class="line"></span><br><span class="line">ETH0_IPv4=`ip addr show dev eth0 | grep <span class="string">"inet"</span> | head -n1  | awk <span class="string">'&#123;print $2&#125;'</span> | awk -F <span class="string">'/'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">DOMAIN=`dig -x <span class="variable">$&#123;ETH0_IPv4&#125;</span> | grep <span class="string">"PTR"</span> | grep -v <span class="string">'^;'</span> | awk <span class="string">'&#123;print $5&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> TLS_DIR=<span class="variable">$1</span></span><br><span class="line">[ ! -d <span class="variable">$TLS_DIR</span> ] &amp;&amp; mkdir  <span class="variable">$TLS_DIR</span> &amp;&amp; <span class="built_in">cd</span> <span class="variable">$TLS_DIR</span></span><br><span class="line"></span><br><span class="line">cat &gt; my-openssl.cnf &lt;&lt; EOF</span><br><span class="line">[ ca ]</span><br><span class="line">default_ca = CA_default</span><br><span class="line">[ CA_default ]</span><br><span class="line">x509_extensions = usr_cert</span><br><span class="line">[ req ]</span><br><span class="line">default_bits        = 2048</span><br><span class="line">default_md          = sha256</span><br><span class="line">default_keyfile     = privkey.pem</span><br><span class="line">distinguished_name  = req_distinguished_name</span><br><span class="line">attributes          = req_attributes</span><br><span class="line">x509_extensions     = v3_ca</span><br><span class="line">string_mask         = utf8only</span><br><span class="line">prompt              = no</span><br><span class="line">[ req_distinguished_name ]</span><br><span class="line">C  = US</span><br><span class="line">ST = VA</span><br><span class="line">L  = SomeCity</span><br><span class="line">O  = MyCompany</span><br><span class="line">OU = MyDivision</span><br><span class="line">CN = <span class="variable">$&#123;DOMAIN&#125;</span></span><br><span class="line">[ req_attributes ]</span><br><span class="line">[ usr_cert ]</span><br><span class="line">basicConstraints       = CA:FALSE</span><br><span class="line">nsComment              = <span class="string">"OpenSSL Generated Certificate"</span></span><br><span class="line">subjectKeyIdentifier   = <span class="built_in">hash</span></span><br><span class="line">authorityKeyIdentifier = keyid,issuer</span><br><span class="line">[ v3_ca ]</span><br><span class="line">subjectKeyIdentifier   = <span class="built_in">hash</span></span><br><span class="line">authorityKeyIdentifier = keyid:always,issuer</span><br><span class="line">basicConstraints       = CA:<span class="literal">true</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># build ca certificates</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"---&gt; build ca certificates"</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line">openssl req -x509 -new -nodes -key ca.key -subj <span class="string">"/CN=<span class="variable">$&#123;DOMAIN&#125;</span>"</span> -days 5000 -out ca.crt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># build frps server side certificates</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"---&gt; build frps server side certificates"</span></span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line"></span><br><span class="line">openssl req -new -sha256 -key server.key -out server.csr -config my-openssl.cnf</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 365 \</span><br><span class="line">	-<span class="keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -CAcreateserial \</span><br><span class="line">  -extfile &lt;(<span class="built_in">printf</span> <span class="string">"subjectAltName=IP:<span class="variable">$&#123;ETH0_IPv4&#125;</span>"</span>) \</span><br><span class="line">  -out server.crt</span><br><span class="line"></span><br><span class="line"><span class="comment"># build frpc client side  certificates</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"---&gt; build frpc client side  certificates"</span></span><br><span class="line"></span><br><span class="line">openssl genrsa -out client.key 2048</span><br><span class="line">openssl req -new -sha256 -key client.key -out client.csr -config my-openssl.cnf</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 365 \</span><br><span class="line">    -<span class="keyword">in</span> client.csr -CA ca.crt -CAkey ca.key -CAcreateserial \</span><br><span class="line">    -extfile &lt;(<span class="built_in">printf</span> <span class="string">"subjectAltName=IP:<span class="variable">$&#123;ETH0_IPv4&#125;</span>"</span>) \</span><br><span class="line">    -out client.crt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># verify the server certificate:</span></span><br><span class="line"></span><br><span class="line">openssl verify -CAfile ca.crt ca.crt server.crt</span><br><span class="line">ca.crt: OK</span><br><span class="line">server.crt: OK</span><br><span class="line"></span><br><span class="line"><span class="comment"># verify the client certificate:</span></span><br><span class="line">openssl verify -CAfile ca.crt ca.crt client.crt</span><br><span class="line">ca.crt: OK</span><br><span class="line">client.crt: OK</span><br></pre></td></tr></table></figure>
+<h3 id="测试证书"><a href="#测试证书" class="headerlink" title="测试证书"></a>测试证书</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ openssl s_server -cert server.crt -key server.key -accept 1443 -www</span><br><span class="line">Using default temp DH parameters</span><br><span class="line">ACCEPT</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以使用浏览器打开，也可以使用下面命令测试</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect localhost:1443</span><br><span class="line">CONNECTED(00000003)</span><br><span class="line">Can<span class="string">'t use SSL_get_servername</span></span><br><span class="line"><span class="string">depth=0 C = US, ST = VA, L = SomeCity, O = MyCompany, OU = MyDivision, CN = 66.228.37.43</span></span><br><span class="line"><span class="string">verify error:num=20:unable to get local issuer certificate</span></span><br><span class="line"><span class="string">verify return:1</span></span><br><span class="line"><span class="string">depth=0 C = US, ST = VA, L = SomeCity, O = MyCompany, OU = MyDivision, CN = 66.228.37.43</span></span><br><span class="line"><span class="string">verify error:num=21:unable to verify the first certificate</span></span><br><span class="line"><span class="string">verify return:1</span></span><br><span class="line"><span class="string">---</span></span><br><span class="line"><span class="string">Certificate chain</span></span><br><span class="line"><span class="string"> 0 s:C = US, ST = VA, L = SomeCity, O = MyCompany, OU = MyDivision, CN = 66.228.37.43</span></span><br><span class="line"><span class="string">   i:CN = 66.228.37.43</span></span><br><span class="line"><span class="string">---</span></span><br><span class="line"><span class="string">[...]</span></span><br></pre></td></tr></table></figure>
+<h3 id="服务端证书配置"><a href="#服务端证书配置" class="headerlink" title="服务端证书配置"></a>服务端证书配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[common]</span><br><span class="line">tls_enable = <span class="literal">true</span></span><br><span class="line">tls_only = <span class="literal">true</span></span><br><span class="line">tls_cert_file = /etc/frp/tls/server.crt</span><br><span class="line">tls_key_file = /etc/frp/tls/server.key</span><br><span class="line">tls_trusted_ca_file = /etc/frp/tls/ca.crt</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<h3 id="客户端证书配置"><a href="#客户端证书配置" class="headerlink" title="客户端证书配置"></a>客户端证书配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = &lt;your SAN address&gt;</span><br><span class="line"></span><br><span class="line">tls_enable = <span class="literal">true</span></span><br><span class="line">tls_cert_file = /etc/frp/tls/client.crt</span><br><span class="line">tls_key_file = /etc/frp/tls/client.key</span><br><span class="line">tls_trusted_ca_file = /etc/frp/tls/ca.crt</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line">~$ sudo chown nobody:nogroup -R /etc/frp/tls</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意，如果开始<code>TLS</code>后，<code>[common] -&gt; server_addr</code> 就必须是证书里的<code>SAN</code>,不要使用<code>/etc/hosts</code>里的映射，否则会报如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2021/06/13 23:58:22 [W] [service.go:104] login to server failed: x509: certificate is not valid <span class="keyword">for</span> any names, but wanted to match xxx</span><br><span class="line">x509: certificate is not valid <span class="keyword">for</span> any names, but wanted to match xxx</span><br></pre></td></tr></table></figure>
+<h3 id="使用OpenSSL加解密DES密码，可用于解密TightVNC-TigerVNC的密文。"><a href="#使用OpenSSL加解密DES密码，可用于解密TightVNC-TigerVNC的密文。" class="headerlink" title="使用OpenSSL加解密DES密码，可用于解密TightVNC,TigerVNC的密文。"></a>使用OpenSSL加解密DES密码，可用于解密<code>TightVNC,TigerVNC</code>的密文。</h3><h4 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h4><ul>
+<li>加密明文如果不是8的倍数，需要<code>zero padding</code>, 否则无法解密。如下面密码是<code>654321</code>需要<code>padding 2B</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -ne <span class="string">"654321\x00\x00"</span> |  openssl enc -v -des-cbc -nosalt -e   -K e84ad660c4721ae0 -iv 0000000000000000  -nopad | hexdump -Cv</span><br><span class="line">bufsize=8192</span><br><span class="line">bytes <span class="built_in">read</span>   :        8</span><br><span class="line">bytes written:        8</span><br><span class="line">00000000  64 1f c7 0c 07 79 a6 29                           |d....y.)|</span><br><span class="line">00000008</span><br></pre></td></tr></table></figure>
+<ul>
+<li>文件方式</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -ne <span class="string">"654321\x00\x00"</span> &gt; plain.key</span><br><span class="line">openssl enc -v -des-cbc -nosalt -e -K e84ad660c4721ae0 -iv 0000000000000000  -nopad -<span class="keyword">in</span> plain.key -out enc.key</span><br></pre></td></tr></table></figure>
+<ul>
+<li>openssl API</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void DES_ncbc_encrypt(const unsigned char *input, unsigned char *output,</span><br><span class="line">                     long length, DES_key_schedule *schedule,</span><br><span class="line">                      DES_cblock *ivec, int enc);</span><br></pre></td></tr></table></figure>
+<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n 641fc70c0779a629 | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv</span><br><span class="line">00000000  36 35 34 33 32 31 00 00                           |654321..|</span><br></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者: yjdwbj@gmail.com</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/VPS-Linux/" rel="tag"># VPS,Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/17/TI-MSP432E401Y开发指南/" rel="prev" title="TI-MSP432E401Y开发指南">
+      <i class="fa fa-chevron-left"></i> TI-MSP432E401Y开发指南
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/13/TI-CC2640R2-LaunchPad开发指南/" rel="next" title="TI-CC2640R2-LaunchPad开发指南">
+      TI-CC2640R2-LaunchPad开发指南 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#选购VPS"><span class="nav-number">1.</span> <span class="nav-text">选购VPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启SSH动态转发"><span class="nav-number">2.</span> <span class="nav-text">开启SSH动态转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Trojan"><span class="nav-number">3.</span> <span class="nav-text">安装Trojan</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络性能优化"><span class="nav-number">3.1.</span> <span class="nav-text">网络性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请证书Let’s-Encrypt"><span class="nav-number">3.2.</span> <span class="nav-text">申请证书Let’s Encrypt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Trojan"><span class="nav-number">3.3.</span> <span class="nav-text">部署Trojan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置systemd启动与运行权限"><span class="nav-number">3.4.</span> <span class="nav-text">配置systemd启动与运行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS-1-3支持"><span class="nav-number">3.5.</span> <span class="nav-text">TLS 1.3支持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker安装"><span class="nav-number">4.</span> <span class="nav-text">使用Docker安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装dnsmasq来加速解析（非必需）"><span class="nav-number">5.</span> <span class="nav-text">安装dnsmasq来加速解析（非必需）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Dokku安装"><span class="nav-number">5.1.</span> <span class="nav-text">使用Dokku安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装WireGuard"><span class="nav-number">6.</span> <span class="nav-text">安装WireGuard</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置服务器"><span class="nav-number">6.1.</span> <span class="nav-text">配置服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装防火墙"><span class="nav-number">6.2.</span> <span class="nav-text">安装防火墙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动WireGuard"><span class="nav-number">6.3.</span> <span class="nav-text">启动WireGuard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端"><span class="nav-number">6.4.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端添加Peer"><span class="nav-number">6.5.</span> <span class="nav-text">服务端添加Peer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手机端通过QR加入服务器"><span class="nav-number">6.6.</span> <span class="nav-text">手机端通过QR加入服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Polipo做HTTP-Proxy"><span class="nav-number">6.7.</span> <span class="nav-text">安装Polipo做HTTP Proxy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shadowsocks-libev"><span class="nav-number">7.</span> <span class="nav-text">shadowsocks-libev</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ss-server"><span class="nav-number">7.1.</span> <span class="nav-text">配置ss-server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ss-local"><span class="nav-number">7.2.</span> <span class="nav-text">配置ss-local</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI与二维码"><span class="nav-number">7.3.</span> <span class="nav-text">URI与二维码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Systemd服务"><span class="nav-number">7.4.</span> <span class="nav-text">配置Systemd服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件部分"><span class="nav-number">7.5.</span> <span class="nav-text">插件部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装V2Ray"><span class="nav-number">8.</span> <span class="nav-text">安装V2Ray</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单脚本安装"><span class="nav-number">8.1.</span> <span class="nav-text">简单脚本安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker安装-1"><span class="nav-number">9.</span> <span class="nav-text">使用Docker安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dokku安装"><span class="nav-number">9.1.</span> <span class="nav-text">Dokku安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Brook"><span class="nav-number">10.</span> <span class="nav-text">安装Brook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用systemd管理"><span class="nav-number">10.1.</span> <span class="nav-text">使用systemd管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FRP服务"><span class="nav-number">11.</span> <span class="nav-text">FRP服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译源码"><span class="nav-number">11.1.</span> <span class="nav-text">编译源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用docker运行"><span class="nav-number">11.2.</span> <span class="nav-text">使用docker运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端配置"><span class="nav-number">11.3.</span> <span class="nav-text">服务端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加入Systemed服务"><span class="nav-number">11.3.1.</span> <span class="nav-text">加入Systemed服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#被控端"><span class="nav-number">11.4.</span> <span class="nav-text">被控端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P-Mode"><span class="nav-number">11.4.1.</span> <span class="nav-text">P2P Mode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制端"><span class="nav-number">11.5.</span> <span class="nav-text">控制端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS加密通信"><span class="nav-number">11.6.</span> <span class="nav-text">TLS加密通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试证书"><span class="nav-number">11.6.1.</span> <span class="nav-text">测试证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端证书配置"><span class="nav-number">11.6.2.</span> <span class="nav-text">服务端证书配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端证书配置"><span class="nav-number">11.6.3.</span> <span class="nav-text">客户端证书配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用OpenSSL加解密DES密码，可用于解密TightVNC-TigerVNC的密文。"><span class="nav-number">11.6.4.</span> <span class="nav-text">使用OpenSSL加解密DES密码，可用于解密TightVNC,TigerVNC的密文。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加密"><span class="nav-number">11.6.4.1.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解密"><span class="nav-number">11.6.4.2.</span> <span class="nav-text">解密</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">12.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

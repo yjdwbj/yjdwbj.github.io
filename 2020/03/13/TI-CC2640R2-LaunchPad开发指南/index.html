@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="参考链接  CC25xx相关的FAQ 蓝牙协议栈 Secure OTA Firmware Update with CC2650 how to update CC2640 firmware via UART in linux TI CC13xx/CC2538/CC26xx Serial Boot Loader   术语简介  BLE ：Bluetooth Low Energy BR/EDR： Ba">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TI-CC2640R2-LaunchPad开发指南">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/TI-CC2640R2-LaunchPad开发指南/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="参考链接  CC25xx相关的FAQ 蓝牙协议栈 Secure OTA Firmware Update with CC2650 how to update CC2640 firmware via UART in linux TI CC13xx/CC2538/CC26xx Serial Boot Loader   术语简介  BLE ：Bluetooth Low Energy BR/EDR： Ba">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640r2f_arch_block-diagram.jpeg">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640r2f_app_icall_stack.jpeg">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640_debugger_connection.png">
+<meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640_debugger_connection_serial.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2020-06-13T13:49:12.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TI-CC2640R2-LaunchPad开发指南">
+<meta name="twitter:description" content="参考链接  CC25xx相关的FAQ 蓝牙协议栈 Secure OTA Firmware Update with CC2650 how to update CC2640 firmware via UART in linux TI CC13xx/CC2538/CC26xx Serial Boot Loader   术语简介  BLE ：Bluetooth Low Energy BR/EDR： Ba">
+<meta name="twitter:image" content="http://yoursite.com/imgs/ti/cc2640r2f_arch_block-diagram.jpeg">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/13/TI-CC2640R2-LaunchPad开发指南/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>TI-CC2640R2-LaunchPad开发指南 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/TI-CC2640R2-LaunchPad开发指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TI-CC2640R2-LaunchPad开发指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-13 21:18:44" itemprop="dateCreated datePublished" datetime="2020-03-13T21:18:44+08:00">2020-03-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 21:49:12" itemprop="dateModified" datetime="2020-06-13T21:49:12+08:00">2020-06-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><p>参考链接</p>
+<ul>
+<li><a href="https://e2echina.ti.com/question_answer/w/faq/553.cc2640r2f-cc2640-cc2650" target="_blank" rel="noopener">CC25xx相关的FAQ</a></li>
+<li><a href="https://www.ti.com.cn/tool/cn/BLE-STACK" target="_blank" rel="noopener">蓝牙协议栈</a></li>
+<li><a href="https://www.hackster.io/firmwareguru/secure-ota-firmware-update-with-cc2650-e14683" target="_blank" rel="noopener">Secure OTA Firmware Update with CC2650</a></li>
+<li><a href="https://e2echina.ti.com/question_answer/wireless_connectivity/bluetooth/f/103/t/146495" target="_blank" rel="noopener">how to update CC2640 firmware via UART in linux</a></li>
+<li><a href="https://github.com/JelmerT/cc2538-bsl" target="_blank" rel="noopener">TI CC13xx/CC2538/CC26xx Serial Boot Loader</a></li>
+</ul>
+</li>
+<li><p><a href="simplelink_cc2640r2_sdk_1_50_00_58/docs/blestack/ble_user_guide/html/ble-stack-3.x-guide/reference.html#term-46">术语简介</a></p>
+<ul>
+<li>BLE ：Bluetooth Low Energy</li>
+<li>BR/EDR： Basic Rate/Enhanced Data Rate</li>
+<li>GAP： Generic Access Protocol</li>
+<li>HCI： Host Control Interface</li>
+<li>BIM： Boot Image Manager, the software bootloader</li>
+<li>CCFG： Customer Configuration Area, contains lock-bits on flash page 31 and the Customer Configuration Table (.ccfg)</li>
+<li>OAD： Over the Air Download</li>
+<li>SNP： Simple Network Processor, a BLE network processor implementation that supports the peripheral and broadcaster GAP Roles.</li>
+<li>AP： Application Processor, the host MCU that implements the user application. Connected to a network processor via a serial interface such as NPI</li>
+<li>SC: Sensor Controller</li>
+<li>SCS: Sensor Controller Studio</li>
+</ul>
+</li>
+</ul>
+<h1 id="硬件简介"><a href="#硬件简介" class="headerlink" title="硬件简介"></a>硬件简介</h1><h2 id="硬件架构"><a href="#硬件架构" class="headerlink" title="硬件架构"></a>硬件架构</h2><ul>
+<li><a href="http://www.ti.com.cn/product/cn/CC2640R2F" target="_blank" rel="noopener">CC2640R2F</a>器件是一款无线微控制器<code>(MCU)</code>，主要适用于<code>Bluetooth® 4.2</code>和<code>Bluetooth 5</code>低功耗 应用。<a href="http://www.ti.com.cn/cn/lit/ds/symlink/cc2640r2f.pdf" target="_blank" rel="noopener"><strong>cc2640r2f数据手册</strong></a>。<br><img src="/imgs/ti/cc2640r2f_arch_block-diagram.jpeg" alt="cc2640r2f_arch_block-diagram.jpeg"></li>
+<li>下面笔记是参照<code>simplelink_cc2640r2_sdk_1_50_00_58/docs/blestack/ble_user_guide</code>文档，验证总结的。建议有问题查看官方SDK各种文档。</li>
+</ul>
+<h2 id="BLE软件架构"><a href="#BLE软件架构" class="headerlink" title="BLE软件架构"></a>BLE软件架构</h2><ul>
+<li>CC2640R2F蓝牙软件环境包含两个部分:APP应用程序,蓝牙协议栈.应用程序中包含<code>TI RTOS</code>内核，驱动，蓝牙Profie三部。它们两部分之间消息通信是通过<code>ICall</code>来实现。</li>
+<li>蓝牙栈的SDK中有是<code>exe</code>的安装包，如果是Linux系统需要从<code>exe</code>里复制出来使用,也可以使用<a href="https://www.winehq.org" target="_blank" rel="noopener">WineHQ</a>来安装本用户目录下。<br><img src="/imgs/ti/cc2640r2f_app_icall_stack.jpeg" alt="cc2640r2f_app_icall_stack.jpeg"></li>
+</ul>
+<h1 id="开箱测试"><a href="#开箱测试" class="headerlink" title="开箱测试"></a>开箱测试</h1><h2 id="蓝牙主机测试-Host-test"><a href="#蓝牙主机测试-Host-test" class="headerlink" title="蓝牙主机测试(Host_test)"></a>蓝牙主机测试(Host_test)</h2><ul>
+<li>Academy教程是在<code>simplelink_academy_cc2640r2sdk_3_40_02_00/modules/projects/ble_hosttest/information.html</code></li>
+</ul>
+<h3 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h3><ul>
+<li>从本地<code>simplelink_cc2640r2_sdk_3_40_00_10</code>SDK里的<code>examples</code>导入工程<code>examples/rtos/CC2640R2_LAUNCHXL/blestack/
+host_test/tirtos/host_test_cc2640r2lp_app</code>，导入成功后。</li>
+<li>会看到两个工程<code>host_test_cc2640r2lp_app</code>与<code>host_test_cc2640r2lp_stack_library</code>，这个<code>_app</code>工程是要依赖<code>_stack_library</code>工程，所以只编译与<code>Debug</code>这个<code>_app</code>工程时，它会先去调动编译<code>_stack_library</code>工程，该工程会生成一个库文件<code>_stack_library/FlashROM_Library/host_test_cc2640r2lp_stack_library.lib</code>去给到<code>_app</code>工程链接的，这里不像是之前的版本把<code>stack</code>编译成独立的<code>hex</code>或<code>bin</code>文件，而是做为一个库去给<code>app</code>链接调用.</li>
+</ul>
+<h3 id="编译工程"><a href="#编译工程" class="headerlink" title="编译工程"></a>编译工程</h3><ul>
+<li>编译工程,如果想知道<code>IDE</code>在编译工程时细节，可以这样操作，把<code>Window--&gt;Preferences--&gt;Build--&gt;Console verbosity level</code>选择<code>Verbose</code>。</li>
+<li>下面是<code>_app</code>工程的编译与链接以及最终生成<code>hex</code>文件的细节。注意<code>${SDK_DIR}</code>与<code>${CCS_DIR}</code>,<code>${WORKSPACE}</code>是替换过的实际绝对路径的变量。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">Finished building: <span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/blestack/icall/app/icall_hci_tl.c"</span></span><br><span class="line"> </span><br><span class="line">Building target: <span class="string">"host_test_cc2640r2lp_app.out"</span></span><br><span class="line">Invoking: ARM Linker</span><br><span class="line"><span class="string">"<span class="variable">$&#123;CCS_DIR&#125;</span>/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/bin/armcl"</span> </span><br><span class="line">--cmd_file=<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/blestack/config/build_components.opt"</span></span><br><span class="line">--cmd_file=<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/blestack/config/factory_config.opt"</span> </span><br><span class="line">--cmd_file=<span class="string">"<span class="variable">$&#123;WORKSPACE&#125;</span>/host_test_cc2640r2lp_stack_library/TOOLS/build_config.opt"</span>  </span><br><span class="line">-mv7M3 --code_state=16 -me -O4 --opt_for_speed=0 --define=DeviceFamily_CC26X0R2 </span><br><span class="line">--define=Display_DISABLE_ALL --define=CC2640R2_LAUNCHXL --define=CC26XX --define=CC26XX_R2 --define=ICALL_EVENTS </span><br><span class="line">--define=ICALL_JT --define=ICALL_LITE --define=ICALL_MAX_NUM_ENTITIES=6 --define=ICALL_MAX_NUM_TASKS=3 </span><br><span class="line">--define=ICALL_STACK0_ADDR --define=MAX_NUM_BLE_CONNS=1 --define=MAX_PDU_SIZE=255 --define=NPI_USE_UART --define=xNPI_USE_SPI </span><br><span class="line">--define=NPI_SPI_CONFIG=Board_SPI0 --define=xPOWER_SAVING --define=STACK_LIBRARY --define=USE_ICALL --define=xdc_runtime_Assert_DISABLE_ALL --define=xdc_runtime_Log_DISABLE_ALL -g --c99 --gcc --diag_warning=225 --diag_wrap=off </span><br><span class="line">--display_error_number --gen_func_subsections=on --abi=eabi -z -m<span class="string">"host_test_cc2640r2lp_app.map"</span> --heap_size=0 --stack_size=256 </span><br><span class="line">-i<span class="string">"<span class="variable">$&#123;CCS_DIR&#125;</span>/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/lib"</span> -i<span class="string">"<span class="variable">$&#123;CCS_DIR&#125;</span>/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include"</span> </span><br><span class="line">--reread_libs --define=CC26X0ROM=2 --diag_suppress=16002-D --diag_suppress=10247-D --diag_suppress=10325-D --diag_suppress=10229-D </span><br><span class="line">--diag_suppress=16032-D --diag_wrap=off --display_error_number --warn_sections </span><br><span class="line">--xml_link_info=<span class="string">"host_test_cc2640r2lp_app_linkInfo.xml"</span> </span><br><span class="line">--rom_model -o <span class="string">"host_test_cc2640r2lp_app.out"</span> <span class="string">"./Application/host_test_app.obj"</span> <span class="string">"./Application/util.obj"</span> <span class="string">"./Drivers/ECC/ECCROMCC26XX.obj"</span> <span class="string">"./Drivers/RF/RFCC26XX_singleMode.obj"</span> <span class="string">"./Drivers/TRNG/TRNGCC26XX.obj"</span> <span class="string">"./ICall/icall.obj"</span> <span class="string">"./ICall/icall_cc2650.obj"</span> <span class="string">"./ICall/icall_user_config.obj"</span> <span class="string">"./ICallBLE/ble_user_config.obj"</span> <span class="string">"./ICallBLE/icall_api_lite.obj"</span> <span class="string">"./ICallBLE/icall_hci_tl.obj"</span></span><br><span class="line"><span class="string">"./NPI/Transport/SPI/npi_tl_spi.obj"</span> <span class="string">"./NPI/Transport/UART/npi_tl_uart.obj"</span> <span class="string">"./NPI/Transport/npi_tl.obj"</span> <span class="string">"./NPI/npi_frame_hci.obj"</span> <span class="string">"./NPI/npi_rxbuf.obj"</span> <span class="string">"./NPI/npi_task.obj"</span> <span class="string">"./PROFILES/devinfoservice.obj"</span> <span class="string">"./PROFILES/gatt_uuid.obj"</span> <span class="string">"./PROFILES/gattservapp_util.obj"</span> <span class="string">"./PROFILES/peripheral.obj"</span> <span class="string">"./PROFILES/simple_gatt_profile.obj"</span> <span class="string">"./Startup/board.obj"</span> <span class="string">"./Startup/ccfg_app_ble.obj"</span> <span class="string">"./Startup/main.obj"</span> </span><br><span class="line">-l<span class="string">"configPkg/linker.cmd"</span> -l<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/devices/cc26x0r2/driverlib/bin/ccs/driverlib.lib"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/kernel/tirtos/packages/ti/dpl/lib/dpl_cc26x0r2.aem3"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/drivers/lib/drivers_cc26x0r2.aem3"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/display/lib/display.aem3"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/grlib/lib/ccs/m3/grlib.a"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;WORKSPACE&#125;</span>/host_test_cc2640r2lp_stack_library/FlashROM_Library/ble_r2.symbols"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;WORKSPACE&#125;</span>/host_test_cc2640r2lp_stack_library/FlashROM_Library/lib_linker.cmd"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;WORKSPACE&#125;</span>/host_test_cc2640r2lp_stack_library/FlashROM_Library/host_test_cc2640r2lp_stack_library.lib"</span> </span><br><span class="line">-l<span class="string">"<span class="variable">$&#123;SDK_DIR&#125;</span>/simplelink_cc2640r2_sdk_3_40_00_10/source/ti/blestack/common/cc26xx/ccs/cc26xx_app.cmd"</span> -llibc.a </span><br><span class="line">&lt;Linking&gt;</span><br><span class="line">Finished building target: <span class="string">"host_test_cc2640r2lp_app.out"</span></span><br><span class="line"> </span><br><span class="line"><span class="variable">$&#123;CCS_DIR&#125;</span>/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/bin/armhex -order MS --memwidth=8 --romwidth=8 --intel </span><br><span class="line">-o host_test_cc2640r2lp_app.hex host_test_cc2640r2lp_app.out</span><br><span class="line">Translating to Intel format...</span><br><span class="line">   <span class="string">"host_test_cc2640r2lp_app.out"</span> .resetVecs ==&gt; .resetVecs</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接<code>TI-CC2640R2-LaunchPad</code>板子，查看板子上的<code>XDS110</code>串号。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ ti/ccs920/ccs/ccs_base/common/uscif/xds110/xdsdfu -e</span><br><span class="line"></span><br><span class="line">USB Device Firmware Upgrade Utility</span><br><span class="line">Copyright (c) 2008-2019 Texas Instruments Incorporated.  All rights reserved.</span><br><span class="line">Scanning USB buses <span class="keyword">for</span> supported XDS110 devices...</span><br><span class="line">&lt;&lt;&lt;&lt; Device 0 &gt;&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line">VID: 0x0451    PID: 0xbef3</span><br><span class="line">Device Name:   XDS110 Embed with CMSIS-DAP</span><br><span class="line">Version:       3.0.0.11</span><br><span class="line">Manufacturer:  Texas Instruments</span><br><span class="line">Serial Num:    L50012VN</span><br><span class="line">Mode:          Runtime</span><br><span class="line">Configuration: Standard</span><br><span class="line"></span><br><span class="line">Found 1 device.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改<code>host_test_cc2640r2lp_app</code>工程文件的<code>targetConfigs/CC2640R2F.ccxml</code>,打开后会显示<code>Basic</code>界面如下图：</li>
+</ul>
+<p><img src="/imgs/ti/cc2640_debugger_connection.png" alt="cc2640_debugger_connection"><br><img src="/imgs/ti/cc2640_debugger_connection_serial.png" alt="cc2640_debugger_connection_serial"></p>
+<ul>
+<li>把串号<code>L50012VN</code>写入上图的<code>Enter the serial number</code>栏中，并保存。现在可以调试或加载<code>host_test_cc2640r2lp_app</code>工程到<code>TI-CC2640R2-LaunchPad</code>板子。</li>
+</ul>
+<h3 id="BTool测试"><a href="#BTool测试" class="headerlink" title="BTool测试"></a>BTool测试</h3><ul>
+<li><p>BTool是一个PC工具，可以单独下载，<code>SimpleLink SDK</code>里带有最新版本，它在<code>${SIMPLELINK_CORE_SDK_INSTALL_DIR}/
+simplelink_cc2640r2_sdk_1_50_00_58/tools/blestack/btool</code>。它的使用说明在<code>${SIMPLELINK_CORE_SDK_INSTALL_DIR}/
+simplelink_cc2640r2_sdk_3_40_00_10/docs/ble5stack/btool_user_guide/BTool_Users_Guide/index.html</code>。</p>
+</li>
+<li><p>在Linux下使用<code>btool.exe</code>需要安装<code>mono</code>支持。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install mono -y</span><br><span class="line">~$ <span class="built_in">cd</span> simplelink_cc2640r2_sdk_1_50_00_58/tools/blestack/</span><br><span class="line">~$ mono btool.exe</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Serial Bootloader (SBL)串口启动，Over-the-Air Download(OAD)空中下载。</li>
+</ul>
+<h1 id="Bootloader"><a href="#Bootloader" class="headerlink" title="Bootloader"></a>Bootloader</h1><ul>
+<li>参照官方文档《CC13x0, CC26x0 SimpleLinkTM Wireless MCU Technical Reference Manual.pdf》第8章描述，<a href="http://www.ti.com/lit/ug/swcu117h/swcu117h.pdf" target="_blank" rel="noopener">swcu117h.pdf</a>，<code>ROM bootlaoder</code>主要功能是为了下载固件的，也可以通过它读取固件。安全起见可以关闭<code>Bootloader</code>功能，也可以设置”后门(8.1.2 Bootloader Backdoor)”.与<code>bootloader</code>的通信接口可以是<code>2-pin UART</code>与<code>SSI</code>.</li>
+</ul>
+<h1 id="设备配置"><a href="#设备配置" class="headerlink" title="设备配置"></a>设备配置</h1><h2 id="厂家配置-Factory-Configuration-FCFG"><a href="#厂家配置-Factory-Configuration-FCFG" class="headerlink" title="厂家配置 Factory Configuration(FCFG)"></a>厂家配置 Factory Configuration(FCFG)</h2><h2 id="用户配置-Customer-Configuration-CCFG"><a href="#用户配置-Customer-Configuration-CCFG" class="headerlink" title="用户配置 Customer Configuration(CCFG)"></a>用户配置 Customer Configuration(CCFG)</h2><ul>
+<li><p>CCFG片区是在FLASH的尾部(0x1fff=128*1024)它是用来设置硬件功能的,而且是与驱动程序版本是相关联的，CCFG的修改必需与相应驱动程序一致。具体详情可以查看SDK里的示例工程源码,如：<code>simplelink_cc2640r2_sdk_3_40_00_10/examples/rtos/CC2640R2_LAUNCHXL/ble5stack/host_test/src/ccfg_app_blc.c</code>.它是包含一个设备启动文件<code>simplelink_cc2640r2_sdk_3_40_00_10/source/ti/devices/cc26x0r2/startup_files/ccfg.c</code>.</p>
+</li>
+<li><p>看文件内的描述，是通过宏把这些定义位(bit)值拼接成字节，再附加到FLASH的尾端，官方建议如果要修改参数，肯定是不要去改动原SDK内的文件，可以自定义一个文件如<customer_ccfg.c>:覆盖原来的参数值如：</customer_ccfg.c></p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#define SET_CCFG_BL_CONFIG_BOOTLOADER_ENABLE  0xC5 // Enable ROM boot loader</span></span><br><span class="line"><span class="comment">#define SET_CCFG_MODE_CONF_SCLK_LF_OPTION     0x3  // LF RCOSC</span></span><br><span class="line">//---- Use default values <span class="keyword">for</span> all others ----</span><br><span class="line"><span class="comment">#include "&lt;project-path&gt;/source/ti/devices/&lt;device&gt;/startup_files/ccfg.c"</span></span><br></pre></td></tr></table></figure>
+<h1 id="OAD下载"><a href="#OAD下载" class="headerlink" title="OAD下载"></a>OAD下载</h1><p><a href="file:///home/michael/3TB-DISK/Embedded-System/TIREX/simplelink_cc2640r2_sdk_1_50_00_58/docs/blestack/ble_user_guide/html/cc2640/architecture.html#hardware-and-software-architecture" target="_blank" rel="noopener">进度</a></p>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/12/使用国外VPS指南-Linode/" rel="prev" title="使用国外VPS指南-Linode">
+      <i class="fa fa-chevron-left"></i> 使用国外VPS指南-Linode
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/07/开始Flutter入坑实操/" rel="next" title="开始Flutter入坑实操">
+      开始Flutter入坑实操 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#硬件简介"><span class="nav-number">1.</span> <span class="nav-text">硬件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件架构"><span class="nav-number">1.1.</span> <span class="nav-text">硬件架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BLE软件架构"><span class="nav-number">1.2.</span> <span class="nav-text">BLE软件架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开箱测试"><span class="nav-number">2.</span> <span class="nav-text">开箱测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝牙主机测试-Host-test"><span class="nav-number">2.1.</span> <span class="nav-text">蓝牙主机测试(Host_test)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入工程"><span class="nav-number">2.1.1.</span> <span class="nav-text">导入工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译工程"><span class="nav-number">2.1.2.</span> <span class="nav-text">编译工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BTool测试"><span class="nav-number">2.1.3.</span> <span class="nav-text">BTool测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bootloader"><span class="nav-number">3.</span> <span class="nav-text">Bootloader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设备配置"><span class="nav-number">4.</span> <span class="nav-text">设备配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#厂家配置-Factory-Configuration-FCFG"><span class="nav-number">4.1.</span> <span class="nav-text">厂家配置 Factory Configuration(FCFG)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户配置-Customer-Configuration-CCFG"><span class="nav-number">4.2.</span> <span class="nav-text">用户配置 Customer Configuration(CCFG)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAD下载"><span class="nav-number">5.</span> <span class="nav-text">OAD下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">6.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

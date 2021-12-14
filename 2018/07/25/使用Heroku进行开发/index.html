@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="官网 snapcraft  Heroku 是 Salesforce 旗下云服务商，提供方便便捷的各种云服务，如服务器，数据库，监控，计算等等,Heroku 平台的灵活性极高且支持多种编程语言。若想把程序部署到 Heroku 上,开发者要使用 Git 把程序推送到 Heroku 的 Git 服务器上。并且他提供了免费版本.对于个使用,搞一些小程序还是可以满足使用的.   安装使用 这里直接下载一个">
+<meta name="keywords" content="PaaS,Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Heroku进行开发">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/使用Heroku进行开发/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="官网 snapcraft  Heroku 是 Salesforce 旗下云服务商，提供方便便捷的各种云服务，如服务器，数据库，监控，计算等等,Heroku 平台的灵活性极高且支持多种编程语言。若想把程序部署到 Heroku 上,开发者要使用 Git 把程序推送到 Heroku 的 Git 服务器上。并且他提供了免费版本.对于个使用,搞一些小程序还是可以满足使用的.   安装使用 这里直接下载一个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2020-04-24T04:01:25.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Heroku进行开发">
+<meta name="twitter:description" content="官网 snapcraft  Heroku 是 Salesforce 旗下云服务商，提供方便便捷的各种云服务，如服务器，数据库，监控，计算等等,Heroku 平台的灵活性极高且支持多种编程语言。若想把程序部署到 Heroku 上,开发者要使用 Git 把程序推送到 Heroku 的 Git 服务器上。并且他提供了免费版本.对于个使用,搞一些小程序还是可以满足使用的.   安装使用 这里直接下载一个">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/07/25/使用Heroku进行开发/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用Heroku进行开发 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/使用Heroku进行开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Heroku进行开发
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-25 17:22:29" itemprop="dateCreated datePublished" datetime="2018-07-25T17:22:29+08:00">2018-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-24 12:01:25" itemprop="dateModified" datetime="2020-04-24T12:01:25+08:00">2020-04-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><a href="https://www.heroku.com/" target="_blank" rel="noopener">官网</a></li>
+<li><p><a href="https://snapcraft.io/" target="_blank" rel="noopener">snapcraft</a></p>
+</li>
+<li><p>Heroku 是 Salesforce 旗下云服务商，提供方便便捷的各种云服务，如服务器，数据库，监控，计算等等,Heroku 平台的灵活性极高且支持多种编程语言。若想把程序部署到 Heroku 上,开发者要使用 Git 把程序推送到 Heroku 的 Git 服务器上。并且他提供了免费版本.对于个使用,搞一些小程序还是可以满足使用的.</p>
+</li>
+</ul>
+<h1 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h1><ul>
+<li>这里直接下载一个独立包使用,也可以使用<code>snap</code>安装.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ wget -c https://cli-assets.heroku.com/heroku-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
+<ul>
+<li>登录 Heroku</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ heroku login</span><br><span class="line">heroku: Enter your login credentials</span><br><span class="line">Email: yjdwbj@gmail.com</span><br><span class="line">Password: ***************</span><br><span class="line">Logged <span class="keyword">in</span> as yjdwbj@gmail.com</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加 SSH 公钥</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ heroku keys:add</span><br><span class="line">Found an SSH public key at /home/michael/.ssh/id_rsa.pub</span><br><span class="line">? Would you like to upload it to Heroku? Yes</span><br><span class="line">Uploading /home/michael/.ssh/id_rsa.pub SSH key... <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h1 id="创建-App-项目"><a href="#创建-App-项目" class="headerlink" title="创建 App 项目"></a>创建 App 项目</h1><ul>
+<li>创建项目有两种方,一是登录<a href="https://www.heroku.com/" target="_blank" rel="noopener">Heroku</a>网站创建,二是可以使用<code>Heroku Toolbelt</code> 命令创建.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ heroku create lcy-web-srv</span><br><span class="line">Creating ⬢ lcy-web-srv... <span class="keyword">done</span></span><br><span class="line">https://lcy-web-srv.herokuapp.com/ | https://git.heroku.com/lcy-web-srv.git</span><br><span class="line">~ $ heroku apps</span><br><span class="line">=== xxxxxx@gmail.com Apps</span><br><span class="line">app-srv-test</span><br><span class="line">lcy-web-srv</span><br></pre></td></tr></table></figure>
+<h1 id="创建-PostgreSQL-数据库"><a href="#创建-PostgreSQL-数据库" class="headerlink" title="创建 PostgreSQL 数据库"></a>创建 PostgreSQL 数据库</h1><ul>
+<li><a href="https://elements.heroku.com/addons/heroku-postgresql" target="_blank" rel="noopener">Heroku Postgres</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">~$ heroku addons:create heroku-postgresql:hobby-dev --version=9.6 --app=lcy-web-srv</span><br><span class="line">Creating heroku-postgresql:hobby-dev on ⬢ lcy-web-srv... free</span><br><span class="line">Database has been created and is available</span><br><span class="line"> ! This database is empty. If upgrading, you can transfer</span><br><span class="line"> ! data from another database with pg:copy</span><br><span class="line">Created postgresql-solid-87926 as DATABASE_URL</span><br><span class="line">Use heroku addons:docs heroku-postgresql to view documentation</span><br><span class="line"></span><br><span class="line">~$ heroku config -s -a lcy-web-srv</span><br><span class="line">DATABASE_URL=<span class="string">'postgres://qxovwdfmkapqxx:xxx0xxfb7d017ea8d7826435d15d7c3891cc1c7ae9722c497b5c3fee031ed89@ec2-174-129-227-116.compute-1.amazonaws.com:5432/dbbu4a5s4mleid'</span></span><br><span class="line">~$ heroku pg:info -a lcy-web-srv</span><br><span class="line">=== DATABASE_URL</span><br><span class="line">Plan:                  Hobby-dev</span><br><span class="line">Status:                Available</span><br><span class="line">Connections:           ?/20</span><br><span class="line">PG Version:            ?</span><br><span class="line">Created:               2018-07-25 10:23 UTC</span><br><span class="line">Data Size:             0 B</span><br><span class="line">Tables:                0</span><br><span class="line">Rows:                  0/10000 (In compliance) - refreshing</span><br><span class="line">Fork/Follow:           Unsupported</span><br><span class="line">Rollback:              Unsupported</span><br><span class="line">Continuous Protection: Off</span><br><span class="line">Add-on:                postgresql-solid-87926</span><br></pre></td></tr></table></figure>
+<h1 id="创建-Redis-数据库"><a href="#创建-Redis-数据库" class="headerlink" title="创建 Redis 数据库"></a>创建 Redis 数据库</h1><ul>
+<li><a href="https://elements.heroku.com/addons/heroku-redis" target="_blank" rel="noopener">Heroku Redis</a> 安装需要绑定一张信用卡.这里就创建了.</li>
+</ul>
+<h1 id="使用-Pipenv-创建-Django-项目"><a href="#使用-Pipenv-创建-Django-项目" class="headerlink" title="使用 Pipenv 创建 Django 项目"></a>使用 Pipenv 创建 Django 项目</h1><h2 id="Pyenv-使用"><a href="#Pyenv-使用" class="headerlink" title="Pyenv 使用"></a>Pyenv 使用</h2><p>-　<a href="https://github.com/pyenv" target="_blank" rel="noopener">github 位置</a></p>
+<p>-　使用命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出可用的片本</span></span><br><span class="line">~$ pyenv install --list</span><br><span class="line"><span class="comment">#安装3.6.6 与2.7.24两个版本</span></span><br><span class="line">~$ pyenv install 3.6.6 2.7.24</span><br><span class="line"><span class="comment">#列出当前系统安装的版本.</span></span><br><span class="line">~$ pyenv  versions</span><br><span class="line">  system</span><br><span class="line">  2.7.13</span><br><span class="line">  2.7.13/envs/py2dev</span><br><span class="line">  3.6.6</span><br><span class="line">  3.6.6/envs/py3dev</span><br><span class="line">  py2dev</span><br><span class="line">* py3dev (<span class="built_in">set</span> by PYENV_VERSION environment variable)</span><br><span class="line"><span class="comment"># 安装pyenv-virtualenv插件</span></span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv</span><br><span class="line">~$ <span class="built_in">echo</span> <span class="string">'eval "$(pyenv virtualenv-init -)"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment">#创一个python3.6.6版本的虚拟环境名为py3dev</span></span><br><span class="line">~$ pyenv virtualenv 3.6.6 py3dev</span><br><span class="line"><span class="comment">#激活虚拟环境</span></span><br><span class="line">~$ pyenv activate py3dev <span class="comment"># pyenv deactivate 是退出虚拟环境.</span></span><br><span class="line"><span class="comment">#　列出已有的虚拟环境路径</span></span><br><span class="line">~$ pyenv virtualenvs</span><br><span class="line">  2.7.13/envs/py2dev (created from /home/michael/.pyenv/versions/2.7.13)</span><br><span class="line">  3.6.6/envs/py3dev (created from /home/michael/.pyenv/versions/3.6.6)</span><br><span class="line">  py2dev (created from /home/michael/.pyenv/versions/2.7.13)</span><br><span class="line">* py3dev (created from /home/michael/.pyenv/versions/3.6.6)</span><br></pre></td></tr></table></figure>
+<h2 id="Pipenv-使用"><a href="#Pipenv-使用" class="headerlink" title="Pipenv 使用"></a>Pipenv 使用</h2><ul>
+<li><a href="https://pipenv.readthedocs.io/en/latest/" target="_blank" rel="noopener">pipenv doc</a></li>
+<li><a href="https://github.com/pypa/pipenv" target="_blank" rel="noopener">github</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入上述激活的pyenv环境安装pipenv</span></span><br><span class="line">(py3dev) ~$ pip install pipenv</span><br><span class="line">~$　<span class="built_in">echo</span> <span class="string">'export PIPENV_VENV_IN_PROJECT=1'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始一个python3的环境</span></span><br><span class="line">~$ mkdir pipenv3</span><br><span class="line">~$ <span class="built_in">cd</span> pipenv3 &amp;&amp; pipenv --three</span><br><span class="line"><span class="comment"># 安装软件包</span></span><br><span class="line">~$　pipenv install django</span><br><span class="line"><span class="comment"># 查看包的依赖关系</span></span><br><span class="line">~$ pipenv graph</span><br><span class="line"><span class="comment"># 如果从git服务器克隆源码下来,里面有Pipfile与Pipfile.lock,就可以直接使用下面命令安装环境</span></span><br><span class="line">~$ pipenv install  <span class="comment"># 如果想要安装Pipfile.lock中固定的版本号,加上 --ignore-pipfile选项.</span></span><br><span class="line"><span class="comment">#　如果之前项目是用requirements.txt来管理.就用下面命令安装环境.</span></span><br><span class="line">~$ pipenv install -f path/to/requirements.txt</span><br></pre></td></tr></table></figure>
+<h2 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">~$ mkdir Heroku-Dir &amp;&amp; <span class="built_in">cd</span> Heroku-Dir</span><br><span class="line">~$ sudo pip3 install pipenv  <span class="comment">#　使用python3安装,python2的支持快到了.</span></span><br><span class="line">Collecting pipenv</span><br><span class="line">  Using cached</span><br><span class="line">  [...]</span><br><span class="line">Collecting virtualenv-clone&gt;=0.2.5 (from pipenv)</span><br><span class="line">  Using cached https://files.pythonhosted.org/packages/6d/c2/dccb5ccf599e0c5d1eea6acbd058af7a71384f9740179db67a9182a24798/virtualenv_clone-0.3.0-py2.py3-none-any.whl</span><br><span class="line">Installing collected packages: virtualenv, setuptools, certifi, pip, virtualenv-clone, pipenv</span><br><span class="line">Successfully installed certifi-2018.4.16 pip-18.0 pipenv-2018.7.1 setuptools-40.0.0 virtualenv-16.0.0 virtualenv-clone-0.3.0</span><br><span class="line"></span><br><span class="line">~$ mkdir lcy-web-srv &amp;&amp; <span class="built_in">cd</span> lcy-web-srv</span><br><span class="line">~$ $ pipenv --three</span><br><span class="line">Creating a virtualenv <span class="keyword">for</span> this project...</span><br><span class="line">Pipfile: /home/michael/Heroku-Dir/lcy-web-srv/Pipfile</span><br><span class="line">[...]</span><br><span class="line">Virtualenv location: /home/michael/.<span class="built_in">local</span>/share/virtualenvs/lcy-web-srv-3zhvmAj6</span><br><span class="line">Creating a Pipfile <span class="keyword">for</span> this project...</span><br><span class="line"></span><br><span class="line">~$ pipenv shell  <span class="comment">#激活Python3虚拟环境</span></span><br><span class="line">Launching subshell <span class="keyword">in</span> virtual environment…</span><br><span class="line"> . /home/michael/.<span class="built_in">local</span>/share/virtualenvs/lcy-web-srv-3zhvmAj6/bin/activate</span><br><span class="line">michael@debian:~/Heroku-Dir/lcy-web-srv$  . /home/michael/.<span class="built_in">local</span>/share/virtualenvs/lcy-web-srv-3zhvmAj6/bin/activate</span><br><span class="line">(lcy-web-srv-3zhvmAj6) michael@debian:~/Heroku-Dir/lcy-web-srv$</span><br><span class="line"></span><br><span class="line">~$ pipenv install django</span><br></pre></td></tr></table></figure>
+<h1 id="安装-Django-模版工程"><a href="#安装-Django-模版工程" class="headerlink" title="安装 Django 模版工程"></a>安装 Django 模版工程</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">~$ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld</span><br><span class="line">~$ <span class="built_in">cd</span> helloworld</span><br><span class="line">~$ git init</span><br><span class="line">~$ git add -A</span><br><span class="line">~$ git commit -am <span class="string">"Initial commit"</span></span><br><span class="line">~$ heroku git:remote -a lcy-web-srv</span><br><span class="line"><span class="built_in">set</span> git remote heroku to https://git.heroku.com/lcy-web-srv.git</span><br><span class="line">~$ git push heroku master</span><br><span class="line">Counting objects: 13, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (9/9), <span class="keyword">done</span>.</span><br><span class="line">[...]</span><br><span class="line">remote:        https://lcy-web-srv.herokuapp.com/ deployed to Heroku</span><br><span class="line">remote:</span><br><span class="line">remote: Verifying deploy... <span class="keyword">done</span>.</span><br><span class="line">To https://git.heroku.com/lcy-web-srv.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line"> <span class="comment">#Django合并操作.</span></span><br><span class="line">~$ heroku run python manage.py migrate</span><br><span class="line">Running python manage.py migrate on ⬢ lcy-web-srv... up, run.6377 (Free)</span><br><span class="line">/app/.heroku/python/lib/python3.6/site-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; <span class="keyword">in</span> order to keep installing from binary please use <span class="string">"pip install psycopg2-binary"</span> instead. For details see: &lt;http://initd.org/psycopg/docs/install.html<span class="comment">#binary-install-from-pypi&gt;.</span></span><br><span class="line"></span><br><span class="line">Operations to perform:</span><br><span class="line">  Apply all migrations: admin, auth, contenttypes, sessions</span><br><span class="line">Running migrations:</span><br><span class="line">  Applying contenttypes.0001_initial... OK</span><br><span class="line">  Applying auth.0001_initial... OK</span><br><span class="line">  [...]</span><br><span class="line">  Applying sessions.0001_initial... OK</span><br><span class="line"></span><br><span class="line">~$ pip install django_heroku dj-database-url <span class="comment">#在Pipenv中通过pip安装依赖包.</span></span><br><span class="line">~$ python manage.py migrate　 <span class="comment">#在本地中创建基本认证表项.</span></span><br><span class="line">Operations to perform:</span><br><span class="line">  Apply all migrations: admin, auth, contenttypes, sessions</span><br><span class="line">Running migrations:</span><br><span class="line">  Applying contenttypes.0001_initial... OK</span><br><span class="line">  [...]</span><br><span class="line">  Applying sessions.0001_initial... OK</span><br><span class="line"></span><br><span class="line">~$ python manage.py createsuperuser    <span class="comment">#本地创建一个超级用户.</span></span><br><span class="line">Username (leave blank to use <span class="string">'michael'</span>): xxx</span><br><span class="line">Email address: xxxxx@gmail.com</span><br><span class="line">Password:</span><br><span class="line">Password (again):</span><br><span class="line">Superuser created successfully.</span><br><span class="line"></span><br><span class="line">~$ heroku run python manage.py createsuperuser    <span class="comment">#在Heroku的项目中创建一个超级用户.</span></span><br><span class="line">Username (leave blank to use <span class="string">'michael'</span>): xxx</span><br><span class="line">Email address: xxxxx@gmail.com</span><br><span class="line">Password:</span><br><span class="line">Password (again):</span><br><span class="line">Superuser created successfully.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过上述操作,一个带数据库后台的<code>Django</code>项目成功布署到 Heroku 上面运行.能过公共域名访问<code>https://lcy-web-srv.herokuapp.com/admin/</code>,输入正确的用户名与密码就可以登录到<code>Djangot</code>后台管理了.</li>
+</ul>
+<hr>
+<ul>
+<li><strong>注意</strong>,如果不是用上面这个模版创建的要项目,要在项目根目录下创建<code>Procfile</code>,它里面只有一行内容<code>web: gunicorn .wsgi</code>.</li>
+<li><strong>注意</strong>,还要在根目下添加一个<code>Pipfile</code>文件.内容如下:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[[source]]</span><br><span class="line"></span><br><span class="line">url = <span class="string">"https://pypi.python.org/simple"</span></span><br><span class="line">verify_ssl = true</span><br><span class="line">name = <span class="string">"pypi"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[requires]</span><br><span class="line">python_version = <span class="string">"3.6"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[packages]</span><br><span class="line"></span><br><span class="line"><span class="string">"psycopg2-binary"</span> = <span class="string">"*"</span></span><br><span class="line">django-heroku = <span class="string">"*"</span></span><br><span class="line">gunicorn = <span class="string">"*"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[dev-packages]</span><br></pre></td></tr></table></figure>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.core.exceptions.ImproperlyConfigured: You&apos;re using the staticfiles app without having set the STATIC_ROOT setting to a filesystem path.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果出现上述错误,在<code>settings.py</code>加入<code>PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))</code>,<code>STATIC_ROOT = os.path.join(PROJECT_DIR, &#39;static&#39;)</code>两行.或者设置<code>heroku config:set DISABLE_COLLECTSTATIC=1</code></li>
+</ul>
+<hr>
+<h4 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h4><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者: yjdwbj@gmail.com</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PaaS-Django/" rel="tag"># PaaS,Django</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/16/构建SpringBoot基础项目/" rel="prev" title="构建SpringBoot基础项目">
+      <i class="fa fa-chevron-left"></i> 构建SpringBoot基础项目
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/13/RTL-SDR的一些玩法/" rel="next" title="RTL-SDR的一些玩法">
+      RTL-SDR的一些玩法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装使用"><span class="nav-number">1.</span> <span class="nav-text">安装使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-App-项目"><span class="nav-number">2.</span> <span class="nav-text">创建 App 项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-PostgreSQL-数据库"><span class="nav-number">3.</span> <span class="nav-text">创建 PostgreSQL 数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-Redis-数据库"><span class="nav-number">4.</span> <span class="nav-text">创建 Redis 数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-Pipenv-创建-Django-项目"><span class="nav-number">5.</span> <span class="nav-text">使用 Pipenv 创建 Django 项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pyenv-使用"><span class="nav-number">5.1.</span> <span class="nav-text">Pyenv 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pipenv-使用"><span class="nav-number">5.2.</span> <span class="nav-text">Pipenv 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django"><span class="nav-number">5.3.</span> <span class="nav-text">Django</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-Django-模版工程"><span class="nav-number">6.</span> <span class="nav-text">安装 Django 模版工程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误"><span class="nav-number">7.</span> <span class="nav-text">错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

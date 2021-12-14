@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="软件硬件配置 STM32F4 Discovery Codeblocks 16.01 OpenOCD STLink GCC ARM Embedded  OpenOCD 这里省略下载编译 opencd 环节。 openocd 安装在/usr/local 下 /usr/local/bin/openocd 配置文件目录 /usr/local/share/openocd/  在当前用户目录下创建一个.ope">
+<meta name="keywords" content="STM32,Codeblocks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeblocks与STM32的开发环境配置">
+<meta property="og:url" content="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="软件硬件配置 STM32F4 Discovery Codeblocks 16.01 OpenOCD STLink GCC ARM Embedded  OpenOCD 这里省略下载编译 opencd 环节。 openocd 安装在/usr/local 下 /usr/local/bin/openocd 配置文件目录 /usr/local/share/openocd/  在当前用户目录下创建一个.ope">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/codecompletion.png">
+<meta property="og:image" content="http://yoursite.com/imgs/compiler_settings.png">
+<meta property="og:image" content="http://yoursite.com/imgs/compiler_settings_inc.png">
+<meta property="og:image" content="http://yoursite.com/imgs/compiler_settings_lib.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_options.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_define.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_link.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_inc.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_search_link.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_shell.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_shfile.png">
+<meta property="og:image" content="http://yoursite.com/imgs/project_build.png">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2016-12-14T14:25:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeblocks与STM32的开发环境配置">
+<meta name="twitter:description" content="软件硬件配置 STM32F4 Discovery Codeblocks 16.01 OpenOCD STLink GCC ARM Embedded  OpenOCD 这里省略下载编译 opencd 环节。 openocd 安装在/usr/local 下 /usr/local/bin/openocd 配置文件目录 /usr/local/share/openocd/  在当前用户目录下创建一个.ope">
+<meta name="twitter:image" content="http://yoursite.com/imgs/codecompletion.png">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>codeblocks与STM32的开发环境配置 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/codeblocks与STM32的开发环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          codeblocks与STM32的开发环境配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-12-14 22:25:00" itemprop="dateModified" datetime="2016-12-14T22:25:00+08:00">2016-12-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="软件硬件配置"><a href="#软件硬件配置" class="headerlink" title="软件硬件配置"></a>软件硬件配置</h3><ul>
+<li><a href="http://www.st.com/stm32f4-discovery" target="_blank" rel="noopener">STM32F4 Discovery</a></li>
+<li><a href="http://codeblocks.org/downloads" target="_blank" rel="noopener">Codeblocks 16.01</a></li>
+<li><a href="https://sourceforge.net/projects/openocd/files/openocd/" target="_blank" rel="noopener">OpenOCD</a></li>
+<li><a href="https://github.com/texane/stlink" target="_blank" rel="noopener">STLink</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="noopener">GCC ARM Embedded</a></li>
+</ul>
+<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><ul>
+<li>这里省略下载编译 opencd 环节。</li>
+<li>openocd 安装在/usr/local 下</li>
+<li>/usr/local/bin/openocd</li>
+<li>配置文件目录</li>
+<li><p>/usr/local/share/openocd/</p>
+</li>
+<li><p>在当前用户目录下创建一个<code>.openocd</code>目录</p>
+</li>
+<li><p>添加下面三行到~/.openocd/openocd.cfg</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/interface/stlink-v2.cfg]</span><br><span class="line"><span class="built_in">source</span> [find /usr/<span class="built_in">local</span>/share/openocd/scripts/target/stm32f4x.cfg]</span><br><span class="line">reset_config srst_only srst_nogate</span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接 STM32F4 开发板，运行/usr/local/bin/openocd</li>
+<li>正常会出现下面信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">michael@debian:~$ /usr/<span class="built_in">local</span>/bin/openocd</span><br><span class="line">Open On-Chip Debugger 0.10.0-dev-00146-g332023f (2015-12-05-18:09)</span><br><span class="line">Licensed under GNU GPL v2</span><br><span class="line">For bug reports, <span class="built_in">read</span></span><br><span class="line">  http://openocd.org/doc/doxygen/bugs.html</span><br><span class="line">  Info : auto-selecting first available session transport <span class="string">"hla_swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.</span><br><span class="line">  Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD</span><br><span class="line">  adapter speed: 2000 kHz</span><br><span class="line">  adapter_nsrst_delay: 100</span><br><span class="line">  none separate</span><br><span class="line">  srst_only separate srst_nogate srst_open_drain connect_deassert_srst</span><br><span class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz</span><br><span class="line">  Info : Unable to match requested speed 2000 kHz, using 1800 kHz</span><br><span class="line">  Info : clock speed 1800 kHz</span><br><span class="line">  Info : STLINK v2 JTAG v24 API v2 SWIM v0 VID 0x0483 PID 0x3748</span><br><span class="line">  Info : using stlink api v2</span><br><span class="line">  Info : Target voltage: 2.881129</span><br><span class="line">  Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints</span><br></pre></td></tr></table></figure>
+<h3 id="STLink-驱动安装"><a href="#STLink-驱动安装" class="headerlink" title="STLink 驱动安装"></a>STLink 驱动安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">～$ git <span class="built_in">clone</span> https://github.com/texane/stlink.git</span><br><span class="line">～$ <span class="built_in">cd</span> STLink</span><br><span class="line">～$ ./authorgen.sh</span><br><span class="line">～$ ./configure --prefix=/opt/STLink</span><br><span class="line">～$ make &amp;&amp; sudo make install</span><br><span class="line">～$ sudo cp 49-stlinkv2.rules /etc/udev/rules.d/49-stlinkv2.rules</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过 lsusb 命令找出开板板的 ID</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lsusb</span><br><span class="line">Bus 001 Device 002: ID 0483:3748 STMicroelectronics ST-LINK/V2</span><br><span class="line">Bus 003 Device 010: ID 174c:5106 ASMedia Technology Inc. Transcend StoreJet 25M3</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改<code>/etc/udev/rules.d/49-stlinkv2.rules</code>,注意 ATTRS{idProduct}==<strong>“3748”</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ cat /etc/udev/rules.d/49-stlinkv2.rules</span><br><span class="line"><span class="comment"># stm32 discovery boards, with onboard st/linkv2</span></span><br><span class="line"><span class="comment"># ie, STM32L, STM32F4.</span></span><br><span class="line"><span class="comment"># STM32VL has st/linkv1, which is quite different</span></span><br><span class="line">SUBSYSTEMS==<span class="string">"usb"</span>, ATTRS&#123;idVendor&#125;==<span class="string">"0483"</span>, ATTRS&#123;idProduct&#125;==<span class="string">"3748"</span>, \</span><br><span class="line">    MODE:=<span class="string">"0666"</span>, \</span><br><span class="line">    SYMLINK+=<span class="string">"stlinkv2_%n"</span>,OWNER=<span class="string">"michael"</span></span><br><span class="line"><span class="comment"># If you share your linux system with other users, or just don't like the</span></span><br><span class="line"><span class="comment"># idea of write permission for everybody, you can replace MODE:="0666" with</span></span><br><span class="line"><span class="comment"># OWNER:="yourusername" to create the device owned by you, or with</span></span><br><span class="line"><span class="comment"># GROUP:="somegroupname" and mange access using standard unix groups.</span></span><br></pre></td></tr></table></figure>
+<h3 id="刷新系统规则"><a href="#刷新系统规则" class="headerlink" title="刷新系统规则"></a>刷新系统规则</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~$ sudo udevadm control --reload-rules</span><br><span class="line">~$ sudo udevadm trigger</span><br></pre></td></tr></table></figure>
+<h3 id="GCC-ARM-Embedded"><a href="#GCC-ARM-Embedded" class="headerlink" title="GCC ARM Embedded"></a>GCC ARM Embedded</h3><ul>
+<li>下载 GCC 工具链解压到<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3</code>,并且把<code>/home/user/Embedded-System/gcc-arm-none-eabi-4_9-2015q3/bin</code> 添加系统环境变量里面</li>
+</ul>
+<h4 id="Codeblocks-配置"><a href="#Codeblocks-配置" class="headerlink" title="Codeblocks 配置"></a>Codeblocks 配置</h4><ul>
+<li>安装相应平台的 codeblocks 二进制包。</li>
+<li>打开<code>Settings-&gt;Editor-&gt;Code completion</code> . 设置如下图。<br><img src="/imgs/codecompletion.png" alt="codecompletion.png"></li>
+</ul>
+<h4 id="编译器的全局设置"><a href="#编译器的全局设置" class="headerlink" title="编译器的全局设置"></a>编译器的全局设置</h4><ul>
+<li><p>设置 ARM 工具链的路径，根据自己的环境做相应改变，如下图所示。<br><img src="/imgs/compiler_settings.png" alt="compiler_settings.png"></p>
+</li>
+<li><p>工具链头文件设置，如下图所示。<br><img src="/imgs/compiler_settings_inc.png" alt="compiler_settings_inc.png"></p>
+</li>
+<li><p>工具链库文件设置，如下图所示。<br><img src="/imgs/compiler_settings_lib.png" alt="compiler_settings_lib.png"></p>
+</li>
+</ul>
+<h4 id="STM32-工程设置"><a href="#STM32-工程设置" class="headerlink" title="STM32 工程设置"></a>STM32 工程设置</h4><ul>
+<li><p>这里是针对 STM32F4 Discovery 开发板，工程设置的一些参数</p>
+</li>
+<li><p>编译选项设置，如下图所示。</p>
+</li>
+<li><p>设置基于特定 CPU 的 CFLAGS 参数。<strong>-mthumb -mthumb-interwork -mlittle-endian -O2 -Wall -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -std=c99</strong></p>
+</li>
+</ul>
+<p><img src="/imgs/project_options.png" alt="project_options.png"></p>
+<ul>
+<li><p>编译宏定义设置，如下图所示。<br><img src="/imgs/project_define.png" alt="project_define.png"></p>
+</li>
+<li><p>链接选项设置，如下图所示。<br><img src="/imgs/project_link.png" alt="project_link.png"></p>
+</li>
+<li><p>工程头文件查找目录,库文件查找目录。</p>
+</li>
+</ul>
+<p><img src="/imgs/project_inc.png" alt="project_inc.png"><br><img src="/imgs/project_search_link.png" alt="project_search_link.png"></p>
+<ul>
+<li><p>结合 openocd 自动烧写 bin 文件的设置，如下图所示。<br><img src="/imgs/project_shell.png" alt="project_shell.png"></p>
+</li>
+<li><p>工程中的自动烧写脚本文件。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line">spawn telnet localhost 4444</span><br><span class="line"><span class="built_in">set</span> prompt <span class="string">"&gt;"</span></span><br><span class="line"><span class="built_in">set</span> hexf [lindex <span class="variable">$argv</span> 0];</span><br><span class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></span><br><span class="line">send <span class="string">"reset halt\r"</span></span><br><span class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></span><br><span class="line">send <span class="string">"flash write_image erase unlock <span class="variable">$hexf</span>\r"</span></span><br><span class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></span><br><span class="line">send <span class="string">"reset run\r"</span></span><br><span class="line">interact -o -nobuffer -re <span class="variable">$prompt</span> <span class="built_in">return</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+<p><img src="/imgs/project_shfile.png" alt="project_shfile.png"></p>
+<ul>
+<li>因为 GCC 工具链与 Keil 的链接文件是一样，必须在下面这个 LD 文件上修改，不能使用 Keil 版本的链接文件。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">*****************************************************************************</span><br><span class="line">**</span><br><span class="line">**  File        : stm32_flash.ld</span><br><span class="line">**</span><br><span class="line">**  Abstract    : Linker script <span class="keyword">for</span> STM32F407VG Device with</span><br><span class="line">**                1024KByte FLASH, 192KByte RAM</span><br><span class="line">**</span><br><span class="line">**                Set heap size, stack size and stack location according</span><br><span class="line">**                to application requirements.</span><br><span class="line">**</span><br><span class="line">**                Set memory bank area and size <span class="keyword">if</span> external memory is used.</span><br><span class="line">**</span><br><span class="line">**  Target      : STMicroelectronics STM32</span><br><span class="line">**</span><br><span class="line">**  Environment : Atollic TrueSTUDIO(R)</span><br><span class="line">**</span><br><span class="line">**  Distribution: The file is distributed “as is,” without any warranty</span><br><span class="line">**                of any kind.</span><br><span class="line">**</span><br><span class="line">**  (c)Copyright Atollic AB.</span><br><span class="line">**  You may use this file as-is or modify it according to the needs of your</span><br><span class="line">**  project. Distribution of this file (unmodified or modified) is not</span><br><span class="line">**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the</span><br><span class="line">**  rights to distribute the assembled, compiled &amp; linked contents of this</span><br><span class="line">**  file as part of an application binary file, provided that it is built</span><br><span class="line">**  using the Atollic TrueSTUDIO(R) toolchain.</span><br><span class="line">**</span><br><span class="line">*****************************************************************************</span><br><span class="line">*/</span><br><span class="line">/* Entry Point */</span><br><span class="line">ENTRY(Reset_Handler)</span><br><span class="line">/* Highest address of the user mode stack */</span><br><span class="line">_estack = 0x20020000;    /* end of 128K RAM on AHB bus*/</span><br><span class="line">/* Generate a link error <span class="keyword">if</span> heap and stack don\<span class="string">'t fit into RAM */</span></span><br><span class="line"><span class="string">_Min_Heap_Size = 0;      /* required amount of heap  */</span></span><br><span class="line"><span class="string">_Min_Stack_Size = 0x400; /* required amount of stack */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* Specify the memory areas */</span></span><br><span class="line"><span class="string">MEMORY</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K</span></span><br><span class="line"><span class="string">        RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K</span></span><br><span class="line"><span class="string">        MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    /* Define output sections */</span></span><br><span class="line"><span class="string">    SECTIONS</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    /* The startup code goes first into FLASH */</span></span><br><span class="line"><span class="string">.isr_vector :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        KEEP(*(.isr_vector)) /* Startup code */</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">    &#125; &gt;FLASH</span></span><br><span class="line"><span class="string">    /* The program code and other data goes into FLASH */</span></span><br><span class="line"><span class="string">.text :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        *(.text)           /* .text sections (code) */</span></span><br><span class="line"><span class="string">        *(.text*)          /* .text* sections (code) */</span></span><br><span class="line"><span class="string">        *(.rodata)         /* .rodata sections (constants, strings, etc.) */</span></span><br><span class="line"><span class="string">        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */</span></span><br><span class="line"><span class="string">        *(.glue_7)         /* glue arm to thumb code */</span></span><br><span class="line"><span class="string">        *(.glue_7t)        /* glue thumb to arm code */</span></span><br><span class="line"><span class="string">        *(.eh_frame)</span></span><br><span class="line"><span class="string">        KEEP (*(.init))</span></span><br><span class="line"><span class="string">        KEEP (*(.fini))</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        _etext = .;        /* define a global symbols at end of code */</span></span><br><span class="line"><span class="string">        _exit = .;</span></span><br><span class="line"><span class="string">    &#125; &gt;FLASH</span></span><br><span class="line"><span class="string">.ARM.extab   :</span></span><br><span class="line"><span class="string">    &#123; *(.ARM.extab* .gnu.linkonce.armextab.*) &#125; &gt;FLASH</span></span><br><span class="line"><span class="string">.ARM :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        __exidx_start = .;</span></span><br><span class="line"><span class="string">        *(.ARM.exidx*)</span></span><br><span class="line"><span class="string">        __exidx_end = .;</span></span><br><span class="line"><span class="string">    &#125; &gt;FLASH</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.preinit_array     :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        PROVIDE_HIDDEN (__preinit_array_start = .);</span></span><br><span class="line"><span class="string">        KEEP (*(.preinit_array*))</span></span><br><span class="line"><span class="string">        PROVIDE_HIDDEN (__preinit_array_end = .);</span></span><br><span class="line"><span class="string">    &#125; &gt;FLASH</span></span><br><span class="line"><span class="string">.init_array :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        PROVIDE_HIDDEN (__init_array_start = .);</span></span><br><span class="line"><span class="string">        KEEP (*(SORT(.init_array.*)))</span></span><br><span class="line"><span class="string">        KEEP (*(.init_array*))</span></span><br><span class="line"><span class="string">        PROVIDE_HIDDEN (__init_array_end = .);</span></span><br><span class="line"><span class="string">    &#125; &gt;FLASH</span></span><br><span class="line"><span class="string">.fini_array :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        PROVIDE_HIDDEN (__fini_array_start = .);</span></span><br><span class="line"><span class="string">        KEEP (*(.fini_array*))</span></span><br><span class="line"><span class="string">        KEEP (*(SORT(.fini_array.*)))</span></span><br><span class="line"><span class="string">        PROVIDE_HIDDEN (__fini_array_end = .);</span></span><br><span class="line"><span class="string">    &#125; &gt;FLASH</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /* used by the startup to initialize data */</span></span><br><span class="line"><span class="string">    _sidata = .;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /* Initialized data sections goes into RAM, load LMA copy after code */</span></span><br><span class="line"><span class="string">.data :</span></span><br><span class="line"><span class="string">    AT ( _sidata )</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        _sdata = .;        /* create a global symbol at data start */</span></span><br><span class="line"><span class="string">        *(.data)           /* .data sections */</span></span><br><span class="line"><span class="string">        *(.data*)          /* .data* sections */</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        _edata = .;        /* define a global symbol at data end */</span></span><br><span class="line"><span class="string">    &#125; &gt;RAM</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /* Uninitialized data section */</span></span><br><span class="line"><span class="string">    . = ALIGN(4);</span></span><br><span class="line"><span class="string">.bss :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        /* This is used by the startup in order to initialize the .bss secion */</span></span><br><span class="line"><span class="string">        _sbss = .;         /* define a global symbol at bss start */</span></span><br><span class="line"><span class="string">        __bss_start__ = _sbss;</span></span><br><span class="line"><span class="string">        *(.bss)</span></span><br><span class="line"><span class="string">        *(.bss*)</span></span><br><span class="line"><span class="string">        *(COMMON)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        _ebss = .;         /* define a global symbol at bss end */</span></span><br><span class="line"><span class="string">        __bss_end__ = _ebss;</span></span><br><span class="line"><span class="string">    &#125; &gt;RAM</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /* User_heap_stack section, used to check that there is enough RAM left */</span></span><br><span class="line"><span class="string">._user_heap_stack :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">        PROVIDE ( end = . );</span></span><br><span class="line"><span class="string">        PROVIDE ( _end = . );</span></span><br><span class="line"><span class="string">        . = . + _Min_Heap_Size;</span></span><br><span class="line"><span class="string">        . = . + _Min_Stack_Size;</span></span><br><span class="line"><span class="string">        . = ALIGN(4);</span></span><br><span class="line"><span class="string">    &#125; &gt;RAM</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /* MEMORY_bank1 section, code must be located here explicitly            */</span></span><br><span class="line"><span class="string">    /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */</span></span><br><span class="line"><span class="string">.memory_b1_text :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        *(.mb1text)        /* .mb1text sections (code) */</span></span><br><span class="line"><span class="string">        *(.mb1text*)       /* .mb1text* sections (code)  */</span></span><br><span class="line"><span class="string">        *(.mb1rodata)      /* read-only data (constants) */</span></span><br><span class="line"><span class="string">        *(.mb1rodata*)</span></span><br><span class="line"><span class="string">    &#125; &gt;MEMORY_B1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /* Remove information from the standard libraries */</span></span><br><span class="line"><span class="string">/DISCARD/ :</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        libc.a ( * )</span></span><br><span class="line"><span class="string">        libm.a ( * )</span></span><br><span class="line"><span class="string">        libgcc.a ( * )</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.ARM.attributes 0 :</span></span><br><span class="line"><span class="string">    &#123; *(.ARM.attributes) &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="编译下载"><a href="#编译下载" class="headerlink" title="编译下载"></a>编译下载</h3><ul>
+<li>完成上述设置，每次编译完成后都会自动 telenet 连接到<code>OpenOCD</code>烧写最新的文件</li>
+<li>最终运行的效果如下图<br><img src="/imgs/project_build.png" alt="project_build.png"></li>
+</ul>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/STM32-Codeblocks/" rel="tag"># STM32,Codeblocks</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/29/安装mate桌面与设置多屏/" rel="prev" title="debian 安装mate桌面与设置多屏">
+      <i class="fa fa-chevron-left"></i> debian 安装mate桌面与设置多屏
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/27/在Windows-环境下编译Qt静态库/" rel="next" title="在Windows 环境下编译Qt静态库">
+      在Windows 环境下编译Qt静态库 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#软件硬件配置"><span class="nav-number">1.</span> <span class="nav-text">软件硬件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenOCD"><span class="nav-number">2.</span> <span class="nav-text">OpenOCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STLink-驱动安装"><span class="nav-number">3.</span> <span class="nav-text">STLink 驱动安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新系统规则"><span class="nav-number">4.</span> <span class="nav-text">刷新系统规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-ARM-Embedded"><span class="nav-number">5.</span> <span class="nav-text">GCC ARM Embedded</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Codeblocks-配置"><span class="nav-number">5.1.</span> <span class="nav-text">Codeblocks 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译器的全局设置"><span class="nav-number">5.2.</span> <span class="nav-text">编译器的全局设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STM32-工程设置"><span class="nav-number">5.3.</span> <span class="nav-text">STM32 工程设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译下载"><span class="nav-number">6.</span> <span class="nav-text">编译下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

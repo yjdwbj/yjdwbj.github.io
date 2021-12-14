@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="NextCloud 简介  Nextcloud offers the industry-leading, on-premises content collaboration platform.Our technology combines the convenience and ease of use of consumer-grade solutionslike Dropbox and Goog">
+<meta name="keywords" content="Cloud, Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建一些开源的工具服务">
+<meta property="og:url" content="http://yoursite.com/2021/02/27/搭建一些开源的工具服务/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="NextCloud 简介  Nextcloud offers the industry-leading, on-premises content collaboration platform.Our technology combines the convenience and ease of use of consumer-grade solutionslike Dropbox and Goog">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2021-12-14T13:26:34.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建一些开源的工具服务">
+<meta name="twitter:description" content="NextCloud 简介  Nextcloud offers the industry-leading, on-premises content collaboration platform.Our technology combines the convenience and ease of use of consumer-grade solutionslike Dropbox and Goog">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/02/27/搭建一些开源的工具服务/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>搭建一些开源的工具服务 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/27/搭建一些开源的工具服务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搭建一些开源的工具服务
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-27 12:30:25" itemprop="dateCreated datePublished" datetime="2021-02-27T12:30:25+08:00">2021-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-14 21:26:34" itemprop="dateModified" datetime="2021-12-14T21:26:34+08:00">2021-12-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="NextCloud"><a href="#NextCloud" class="headerlink" title="NextCloud"></a>NextCloud</h1><ul>
+<li><p>简介</p>
+<ul>
+<li>Nextcloud offers the industry-leading, on-premises content collaboration platform.<br>Our technology combines the convenience and ease of use of consumer-grade solutions<br>like Dropbox and Google Drive with the security, privacy and control business needs.</li>
+</ul>
+</li>
+<li><p>链接:</p>
+<ul>
+<li><a href="https://nextcloud.com/" target="_blank" rel="noopener">nextcloud</a></li>
+<li><a href="https://github.com/nextcloud" target="_blank" rel="noopener">github</a></li>
+<li><a href="https://hub.docker.com/_/nextcloud" target="_blank" rel="noopener">hub.docker</a></li>
+<li><a href="https://help.nextcloud.com/t/howto-ubuntu-docker-nextcloud-talk-collabora/76430" target="_blank" rel="noopener">HowTo: Ubuntu + Docker + Nextcloud + Talk + Collabora</a></li>
+<li><a href="https://itnext.io/nextcloud-docker-raspberry-pi-onion-service-84d4af13f7e6" target="_blank" rel="noopener">Nextcloud + Raspberry Pi + Docker + Onion service = </a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><ul>
+<li><a href="https://github.com/nextcloud/docker" target="_blank" rel="noopener">nextcloud/docker</a></li>
+<li>这里是个人使用,所以对数据库没有什么特殊要求,就使用<code>sqlite</code>,但是安全方面还是要使用<code>HTTPS</code>,使用<code>docker</code>安装.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~$ docker images | grep <span class="string">"nextcloud"</span> || docker pull nextcloud</span><br><span class="line">~$ <span class="keyword">if</span> [ ! -d nextcloud ]; <span class="keyword">then</span></span><br><span class="line">    mkdir -pv nextcloud/&#123;nextcloud,config,custom_apps,data,theme&#125;</span><br><span class="line">   <span class="keyword">fi</span></span><br><span class="line">~$ <span class="built_in">cd</span> nextcloud &amp;&amp; docker run -d --restart=always --name nextcloud -p 8443:443  \</span><br><span class="line">    -v nextcloud:/var/www/html \</span><br><span class="line">    -v config:/var/www/html/config \</span><br><span class="line">    -v custom_apps:/var/www/html/custom_apps \</span><br><span class="line">    -v data:/var/www/html/data \</span><br><span class="line">    -v theme:/var/www/html/themes \</span><br><span class="line">    -v /etc/localtime:/etc/localtime:ro \</span><br><span class="line">    nextcloud</span><br></pre></td></tr></table></figure>
+<h2 id="Dokku安装"><a href="#Dokku安装" class="headerlink" title="Dokku安装"></a>Dokku安装</h2><ul>
+<li><a href="https://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html" target="_blank" rel="noopener">ngx_stream_ssl_preread_module</a></li>
+</ul>
+<h3 id="安装Plugins"><a href="#安装Plugins" class="headerlink" title="安装Plugins"></a>安装Plugins</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git</span><br><span class="line">~$ sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres</span><br></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~$ dokku apps:create mycloud</span><br><span class="line">~$ docker pull nextcloud</span><br><span class="line">~$ docker images</span><br><span class="line">REPOSITORY             TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">nextcloud              latest    7aa569922593   11 hours ago    835MB</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: The image must be retagged `dokku/&lt;app-name&gt;:&lt;version&gt;`</span></span><br><span class="line">~$ docker tag nextcloud:latest dokku/mycloud:latest</span><br><span class="line"></span><br><span class="line">~$ sudo mkdir -p /var/lib/dokku/data/storage/mycloud</span><br><span class="line">~$ sudo chown -R dokku:dokku /var/lib/dokku/data/storage/mycloud</span><br><span class="line">~$ dokku storage:mount mycloud /var/lib/dokku/data/storage/mycloud:/var/www/html</span><br><span class="line">~$ dokku tags:deploy mycloud latest</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>链接数据库,运行下面操作后,打开浏览器,进入首次配置管理员与数据库类型(Storage &amp; database)的配置,默认是<code>SQLite</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ dokku postgres:create mycloud_db</span><br><span class="line">~$ dokku postgres:link mycloud_db mycloud</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置域名,域名是主要是为了使用<code>Let&#39;s Encrypt</code>,还有就是<code>SNI</code>的功能,这里没有注册域名,使用了<code>dynv6.net</code>的动态域名.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ dokku domains:add mycloud  nc.llccyy.dynv6.net</span><br><span class="line">~$ dokku domains:remove mycloud mycloud.localhost</span><br><span class="line">~$ dokku config:<span class="built_in">set</span> mycloud --no-restart DOKKU_LETSENCRYPT_EMAIL=yjdwbj@gmail.com</span><br><span class="line">~$ dokku letsencrypt mycloud</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取证书错误:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">darkhttpd/1.12, copyright (c) 2003-2016 Emil Mikulic.</span><br><span class="line">listening on: http://0.0.0.0:80/</span><br><span class="line">2021-02-28 08:15:08,915:INFO:__main__:1406: Generating new certificate private key</span><br><span class="line">2021-02-28 08:15:32,772:ERROR:__main__:1388: CA marked some of the authorizations as invalid, <span class="built_in">which</span> likely means it could not access http://example.com/.well-known/acme-challenge/X. Did you <span class="built_in">set</span> correct path <span class="keyword">in</span> -d example.com:path or --default_root? Are all your domains accessible from the internet? Please check your domains<span class="string">' DNS entries, your host'</span>s network/firewall setup and your webserver config. If a domain<span class="string">'s DNS entry has both A and AAAA fields set up, some CAs such as Let'</span>s Encrypt will perform the challenge validation over IPv6. If your DNS provider does not answer correctly to CAA records request, Let<span class="string">'s Encrypt won'</span>t issue a certificate <span class="keyword">for</span> your domain (see https://letsencrypt.org/docs/caa/). Failing authorizations: https://acme-v02.api.letsencrypt.org/acme/authz-v3/11204345532</span><br><span class="line">Challenge validation has failed, see error <span class="built_in">log</span>.</span><br><span class="line"></span><br><span class="line">Debugging tips: -v improves output verbosity. Help is available under --<span class="built_in">help</span>.</span><br><span class="line">-----&gt; Certificate retrieval failed!</span><br><span class="line">-----&gt; Disabling ACME proxy <span class="keyword">for</span> fpm...</span><br><span class="line">       <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>出现上面的问题,基本就是<code>DNS A</code>记录的问题,不能解析域名,也有可能是域名服务商的问题,在使用<code>dynv6.com</code>的服务是有碰到这种问题,有时不作任改动,过一段时间重试又可以了.也可以尝试使用其它的<code>DDNS</code>.</li>
+<li>在<code>dokku</code>中使用<code>Let&#39;s Encrypt</code>获取证书,有几点要求注意的点:<ul>
+<li>必须要有一个域名(有A或AAAA记录),二级动态域名也可.</li>
+<li><code>DOKKU_DOCKERFILE_PORTS: 80/tcp</code>,必须是80端口.如:<code>nextcloud:latest</code>是<code>80/tcp</code>,<code>nextcloud:nextcloud:fpm-alpine</code>它是<code>9000/tcp</code>,而且<code>nextcloud:fpm-alpine only a php fpm instance without a web server</code>.所以,使用<code>nextcloud:latest</code>创建的应用是可以正确的获取证书.</li>
+<li>如果<code>DOKKU_DOCKERFILE_PORTS</code>不是<code>80</code>端口,可以使用<code>dokku proxy:ports-set &lt;APP&gt; http:80:9000</code>先设置要代理,再申请获取证书.</li>
+</ul>
+</li>
+<li>如果是从<code>Docker Images</code>去创建的<code>app</code>,也就是用<code>dokku tags:deploy &lt;appname&gt; latest</code>部署的,可以使用下面<code>docker</code>命令查看它所支持的资源<br>与<code>Exposed</code>的详情.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ docker inspect &lt;appname&gt;.web.1 | jq <span class="string">".[0].Config.ExposedPorts"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者直接查看镜像的配置详情</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ docker image inspect &lt;image tag&gt; | jq <span class="string">'.[0].Config.ExposedPorts'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置上传文件限制</li>
+<li><a href="https://github.com/dokku/dokku/blob/master/docs/configuration/nginx.md" target="_blank" rel="noopener">nginx configuration</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ dokku nginx:<span class="built_in">set</span> mycloud  client-max-body-size 100m</span><br><span class="line">~$ dokku nginx:show-config mycloud</span><br></pre></td></tr></table></figure>
+<h2 id="移动APP的连接"><a href="#移动APP的连接" class="headerlink" title="移动APP的连接"></a>移动APP的连接</h2><ul>
+<li>进入网页端的管理后台<code>https://&lt;domain&gt;/settings/user/security</code>. 在<code>Devices &amp; sessions</code>下面点击<code>Create new app password</code>生成一个动态的<br>用户与密码,再点<code>Show QR code from mobile apps</code>,打开移动端<code>nextcloud</code>选择连接自建服务器,扫描连接.</li>
+<li>如果碰到问题,可以通过查看<code>https://&lt;domain&gt;/settings/admin/logging</code>.</li>
+</ul>
+<h1 id="MinIO"><a href="#MinIO" class="headerlink" title="MinIO"></a>MinIO</h1><ul>
+<li><a href="https://github.com/minio/minio" target="_blank" rel="noopener">minio</a></li>
+<li><a href="http://www.minio.org.cn/" target="_blank" rel="noopener">http://www.minio.org.cn/</a></li>
+<li><p><a href="https://zaher.dev/blog/2020/06/08/build-a-pi-cluster-for-local-development-part-1/" target="_blank" rel="noopener">Build a PI Cluster for Local Development - Part 1</a></p>
+</li>
+<li><p><code>MinIO</code>是在<code>GNU Affero</code>通用公共许可证<code>v3.0</code>下发布的高性能对象存储.它是与<code>Amazon S3</code>云存储服务兼容的<code>API</code>.使用<code>MinIO</code> 为机器学习、分析和应用<br>程序数据工作负载构建高性能基础架构.</p>
+</li>
+</ul>
+<h2 id="容器运行"><a href="#容器运行" class="headerlink" title="容器运行"></a>容器运行</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install podman -y</span><br><span class="line">~$ podman run \</span><br><span class="line">  -p 9000:9000 \</span><br><span class="line">  -p 9001:9001 \</span><br><span class="line">  minio/minio server /data --console-address <span class="string">":9001"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果出现下面的错误,请确认<code>/etc/containers/registries.conf</code>里有这一行<code>unqualified-search-registries=[&quot;docker.io&quot;]</code>,再重试.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: error getting default registries to try: short-name <span class="string">"minio/minio"</span> did not resolve to an <span class="built_in">alias</span> and no unqualified-search registries are defined <span class="keyword">in</span> <span class="string">"/etc/containers/registries.conf"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以<code>docker</code>运行</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ docker run -it --rm -p 9000:9000 \</span><br><span class="line">  -v `<span class="built_in">pwd</span>`/minio-data:/data \</span><br><span class="line">  -e MINIO_ROOT_USER=minio \</span><br><span class="line">  -e MINIO_ROOT_PASSWORD=minio123 \</span><br><span class="line">  -p 9001:9001 minio/minio server /data --console-address <span class="string">":9001"</span></span><br></pre></td></tr></table></figure>
+<h2 id="直接单机运行"><a href="#直接单机运行" class="headerlink" title="直接单机运行"></a>直接单机运行</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ wget http://dl.minio.org.cn/server/minio/release/darwin-amd64/minio</span><br><span class="line">~$ chmod +x minio</span><br><span class="line">~$ ./minio server /data</span><br></pre></td></tr></table></figure>
+<h2 id="客户端访问"><a href="#客户端访问" class="headerlink" title="客户端访问"></a>客户端访问</h2><h3 id="mc"><a href="#mc" class="headerlink" title="mc"></a>mc</h3><ul>
+<li><a href="https://docs.min.io/docs/minio-client-quickstart-guide.html" target="_blank" rel="noopener">MinIO Client Quickstart Guide</a></li>
+<li><a href="https://docs.min.io/docs/minio-admin-complete-guide.html" target="_blank" rel="noopener">MinIO Admin Complete Guide</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ ./mc <span class="built_in">alias</span> <span class="built_in">set</span> myminio http://127.0.0.1:9000 minio minio123</span><br><span class="line">Added `myminio` successfully.</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>添加用户</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ ./mc admin user add myminio testuser testpwd123</span><br><span class="line">Added user `testuser` successfully.</span><br><span class="line">~$ ./mc admin user info myminio testuser</span><br><span class="line">AccessKey: testuser</span><br><span class="line">Status: enabled</span><br><span class="line">PolicyName:</span><br><span class="line">MemberOf:</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加桶(bucket)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./mc mb myminio/<span class="built_in">test</span>-new-s3-bucket</span><br><span class="line">Bucket created successfully `myminio/<span class="built_in">test</span>-new-s3-bucket`.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个<code>bucket policy</code></p>
+</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~$ cat test-policy.json</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"Version"</span>: <span class="string">"2012-10-17"</span>,</span><br><span class="line">    <span class="attr">"Statement"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"Action"</span>: [</span><br><span class="line">          <span class="string">"s3:GetObject"</span>,</span><br><span class="line">          <span class="string">"s3:PutObject"</span>,</span><br><span class="line">          <span class="string">"s3:DeleteObject"</span>,</span><br><span class="line">          <span class="string">"s3:GetBucketLocation"</span>,</span><br><span class="line">          <span class="string">"s3:ListBucket"</span>,</span><br><span class="line">          <span class="string">"s3:ListAllMyBuckets"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"Effect"</span>: <span class="string">"Allow"</span>,</span><br><span class="line">        <span class="attr">"Resource"</span>: [</span><br><span class="line">          <span class="string">"arn:aws:s3:::&lt;change-this-to-your-bucket-name&gt;/*"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"Sid"</span>: <span class="string">"Public"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>把策略文件加入到服务器中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ ./mc admin policy add myminio <span class="built_in">test</span>-policy <span class="built_in">test</span>-policy.json</span><br><span class="line">Added policy `<span class="built_in">test</span>-policy` successfully.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应用策略到指定的用户上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ ./mc admin policy <span class="built_in">set</span> myminio <span class="string">"test-policy"</span> user=testuser</span><br><span class="line">Policy `<span class="built_in">test</span>-policy` is <span class="built_in">set</span> on user `testuser`</span><br><span class="line"></span><br><span class="line">~$ ./mc admin user info myminio testuser</span><br><span class="line">AccessKey: testuser</span><br><span class="line">Status: enabled</span><br><span class="line">PolicyName: <span class="built_in">test</span>-policy</span><br><span class="line">MemberOf:</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="awscli"><a href="#awscli" class="headerlink" title="awscli"></a>awscli</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ pip3 install awscli</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ aws configure --profile minio</span><br><span class="line">AWS Access Key ID [None]: minio</span><br><span class="line">AWS Secret Access Key [None]: minio123</span><br><span class="line">Default region name [None]: myminio</span><br><span class="line">Default output format [None]: json</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>创建一个<code>bucket</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ aws --profile minio --endpoint-url http://127.0.0.1:9000 s3 mb s3://new-s3-bucket</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列出服务器上的<code>bucket</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ aws --profile minio --endpoint-url http://127.0.0.1:9000 s3 ls</span><br><span class="line">2021-12-13 23:16:20 new-s3-bucket</span><br><span class="line">2021-12-13 22:58:15 <span class="built_in">test</span>-new-s3-bucket</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上传一个文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ aws --profile minio --endpoint-url http://127.0.0.1:9000 s3 cp <span class="built_in">test</span>-policy.json s3://new-s3-bucket</span><br><span class="line">upload: ./<span class="built_in">test</span>-policy.json to s3://new-s3-bucket/<span class="built_in">test</span>-policy.json</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再对比一下,绑定到<code>minio</code>容器的本地目录<code>minio-data</code>的结构.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">minio$ tree minio-data/</span><br><span class="line">minio-data/</span><br><span class="line">├── new-s3-bucket</span><br><span class="line">│   └── <span class="built_in">test</span>-policy.json</span><br><span class="line">└── <span class="built_in">test</span>-new-s3-bucket</span><br><span class="line"></span><br><span class="line">2 directories, 1 file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Kubernetes</code>环境中,使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Kubernetes Operator</a>来创建/配置/管理<code>k8s</code>的<code>MinIO</code>集群.</li>
+</ul>
+<h1 id="Syncthing"><a href="#Syncthing" class="headerlink" title="Syncthing"></a>Syncthing</h1><ul>
+<li><a href="https://github.com/syncthing/syncthing" target="_blank" rel="noopener">https://github.com/syncthing/syncthing</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ docker pull syncthing/syncthing</span><br><span class="line">~$ docker run -p 8384:8384 -p 22000:22000 -v &lt;YOUR PC FOLDER&gt;/share:/var/syncthing syncthing/syncthing:latest</span><br></pre></td></tr></table></figure>
+<h2 id="使用docker-compose创建"><a href="#使用docker-compose创建" class="headerlink" title="使用docker-compose创建"></a>使用<code>docker-compose</code>创建</h2><ul>
+<li><p>这里使用<code>docker-compose</code>创建,并支持<code>Traefik</code>反向代理,暴露给外部访问,这里只是本地内部测试,未配置<code>https</code>与真实的域名.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">syncthing$ cat .env</span><br><span class="line"><span class="comment"># Syncthing</span></span><br><span class="line">DOCKER_SYNCTHING_IMAGE_NAME=syncthing/syncthing</span><br><span class="line">DOCKER_SYNCTHING_HOSTNAME=syncthing-on-storage</span><br><span class="line">DOCKER_SYNCTHING_DOMAIN=syncthing.localhost</span><br><span class="line"></span><br><span class="line"><span class="comment"># discosrv</span></span><br><span class="line">DOCKER_DISCOSRV_IMAGE_NAME=syncthing/discosrv</span><br><span class="line">DOCKER_DISCOSRV_HOSTNAME=discosrv-on-storage</span><br><span class="line">DOCKER_DISCOSRV_DOMAIN=discosrv.localhost</span><br><span class="line"></span><br><span class="line"><span class="comment"># exporter</span></span><br><span class="line">DOCKER_EXPORTER_IMAGE_NAME=soulteary/syncthing-exporter</span><br><span class="line"><span class="comment"># xxd -l 16 -p /dev/random | base64</span></span><br><span class="line">DOCKER_EXPORTER_API_TOKEN=OTU0NGJmMGJhYzRiNGEzM2Q3Yzc4MjhjOTdhZjJkMDAK</span><br><span class="line">DOCKER_EXPORTER_HOSTNAME=syncthing-exporter-on-storage</span><br><span class="line">DOCKER_EXPORTER_DOMAIN=syncthing-exporter.localhost</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>docker-compose.yml</code>文件,需要当前目录里的<code>.env</code>文件配合.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">syncthing$ cat docker-compose.yml</span><br><span class="line"></span><br><span class="line">version: <span class="string">"3"</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  syncthing:</span><br><span class="line">    image: <span class="variable">$&#123;DOCKER_SYNCTHING_IMAGE_NAME&#125;</span></span><br><span class="line">    container_name: <span class="variable">$&#123;DOCKER_SYNCTHING_HOSTNAME&#125;</span></span><br><span class="line">    hostname: <span class="variable">$&#123;DOCKER_SYNCTHING_HOSTNAME&#125;</span></span><br><span class="line">    environment:</span><br><span class="line">      - PUID=1000</span><br><span class="line">      - PGID=1000</span><br><span class="line">    volumes:</span><br><span class="line">      - ./data:/var/syncthing</span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">"22000:22000"</span></span><br><span class="line">    restart: always</span><br><span class="line">    labels:</span><br><span class="line">      - <span class="string">"traefik.enable=true"</span></span><br><span class="line">      - <span class="string">"traefik.docker.network=traefik_default"</span></span><br><span class="line">      - <span class="string">"traefik.http.routers.sync-http.entrypoints=http"</span></span><br><span class="line">      - <span class="string">"traefik.http.routers.sync-http.rule=Host(`<span class="variable">$&#123;DOCKER_SYNCTHING_DOMAIN&#125;</span>`)"</span></span><br><span class="line">      - <span class="string">"traefik.http.routers.sync-http.service=sync-backend"</span></span><br><span class="line">      - <span class="string">"traefik.http.services.sync-backend.loadbalancer.server.scheme=http"</span></span><br><span class="line">      - <span class="string">"traefik.http.services.sync-backend.loadbalancer.server.port=8384"</span></span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    logging:</span><br><span class="line">      driver: <span class="string">"json-file"</span></span><br><span class="line">      options:</span><br><span class="line">        max-size: <span class="string">"1m"</span></span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  traefik_default:</span><br><span class="line">    external: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过浏览器打开<code>http://127.0.0.1:8384</code>访问控制台,移动端可以安装<code>syncthing</code>客户端进行连接.</li>
+</ul>
+<h1 id="协作文档"><a href="#协作文档" class="headerlink" title="协作文档"></a>协作文档</h1><h2 id="CryptPad"><a href="#CryptPad" class="headerlink" title="CryptPad"></a>CryptPad</h2><ul>
+<li><a href="https://github.com/xwiki-labs/cryptpad" target="_blank" rel="noopener">xwiki-labs/cryptpad</a><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo dokku apps:create cryptpad</span><br><span class="line">~$ docker tag promasu/cryptpad:latest dokku/cryptpad:latest</span><br><span class="line">~$ sudo dokku tags:deploy cryptpad latest</span><br><span class="line">~$ sudo dokku domains:add cryptpad cryptpad.llccyy.dynv6.net</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="wiki-js"><a href="#wiki-js" class="headerlink" title="wiki.js"></a>wiki.js</h2><ul>
+<li><a href="https://js.wiki/" target="_blank" rel="noopener">wikijs</a></li>
+<li><a href="https://github.com/Requarks/wiki" target="_blank" rel="noopener">Requarks/wiki</a></li>
+</ul>
+<h3 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker-compose安装"></a><code>docker-compose</code>安装</h3><ul>
+<li><a href="https://docs.requarks.io/install/docker" target="_blank" rel="noopener">wikijs installation</a></li>
+<li><a href="https://tuneit.me/docker/deploy-wiki-js-in-docker-swarm-behind-traefik/" target="_blank" rel="noopener">Deploy Wiki.js 2.4.107 in Docker Swarm</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">wiki.js$ cat docker-compose.yml</span><br><span class="line">ersion: <span class="string">"3"</span></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  db:</span><br><span class="line">    image: postgres:11-alpine</span><br><span class="line">    environment:</span><br><span class="line">      POSTGRES_DB: wiki</span><br><span class="line">      POSTGRES_PASSWORD: wikijsrocks</span><br><span class="line">      POSTGRES_USER: wikijs</span><br><span class="line">    logging:</span><br><span class="line">      driver: <span class="string">"none"</span></span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    volumes:</span><br><span class="line">      - ./db-data:/var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line">  wiki:</span><br><span class="line">    image: requarks/wiki:2</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    environment:</span><br><span class="line">      DB_TYPE: postgres</span><br><span class="line">      DB_HOST: db</span><br><span class="line">      DB_PORT: 5432</span><br><span class="line">      DB_USER: wikijs</span><br><span class="line">      DB_PASS: wikijsrocks</span><br><span class="line">      DB_NAME: wiki</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    expose:</span><br><span class="line">      - 3000</span><br><span class="line">    labels:</span><br><span class="line">      - traefik.enable=<span class="literal">true</span></span><br><span class="line">      - traefik.docker.network=traefik_default</span><br><span class="line">      - traefik.http.routers.wiki.rule=Host(`wiki.localhost`)</span><br><span class="line">      - traefik.http.routers.wiki.entrypoints=http</span><br><span class="line">      - traefik.http.services.wiki.loadbalancer.server.port=3000</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  traefik_default:</span><br><span class="line">    external: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如上面如示,<code>docker-compose.yml</code>是开启了<code>Traefik</code>反向代理的,启动后,打开<code>http://wiki.localhost/</code>就可以设置安装<code>wiki.js</code>向导页了.</li>
+</ul>
+<h1 id="项目管理"><a href="#项目管理" class="headerlink" title="项目管理"></a>项目管理</h1><h2 id="OpenProject"><a href="#OpenProject" class="headerlink" title="OpenProject"></a>OpenProject</h2><ul>
+<li><a href="https://www.openproject.org" target="_blank" rel="noopener">openproject</a></li>
+</ul>
+<h1 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h1><h2 id="RobotFramework"><a href="#RobotFramework" class="headerlink" title="RobotFramework"></a>RobotFramework</h2><ul>
+<li><a href="https://github.com/robotframework/robotframework" target="_blank" rel="noopener">robotframework</a></li>
+</ul>
+<h1 id="Trojan"><a href="#Trojan" class="headerlink" title="Trojan"></a>Trojan</h1><ul>
+<li><code>trojan</code>与<code>dokku</code>共用 443端口,4层转发.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br></pre></td><td class="code"><pre><span class="line">~$ nginx  -T</span><br><span class="line">nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/nginx.conf <span class="built_in">test</span> is successful</span><br><span class="line"><span class="comment"># configuration file /etc/nginx/nginx.conf:</span></span><br><span class="line">user www-data;</span><br><span class="line">worker_processes auto;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line">include /etc/nginx/modules-enabled/*.conf;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	worker_connections 768;</span><br><span class="line">	<span class="comment"># multi_accept on;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Basic Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	sendfile on;</span><br><span class="line">	tcp_nopush on;</span><br><span class="line">	tcp_nodelay on;</span><br><span class="line">	keepalive_timeout 65;</span><br><span class="line">	types_hash_max_size 2048;</span><br><span class="line">	<span class="comment"># server_tokens off;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># server_names_hash_bucket_size 64;</span></span><br><span class="line">	<span class="comment"># server_name_in_redirect off;</span></span><br><span class="line"></span><br><span class="line">	include /etc/nginx/mime.types;</span><br><span class="line">	default_type application/octet-stream;</span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># SSL Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; <span class="comment"># Dropping SSLv3, ref: POODLE</span></span><br><span class="line">	ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Logging Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	access_log /var/<span class="built_in">log</span>/nginx/access.log;</span><br><span class="line">	error_log /var/<span class="built_in">log</span>/nginx/error.log;</span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Gzip Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	gzip on;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># gzip_vary on;</span></span><br><span class="line">	<span class="comment"># gzip_proxied any;</span></span><br><span class="line">	<span class="comment"># gzip_comp_level 6;</span></span><br><span class="line">	<span class="comment"># gzip_buffers 16 8k;</span></span><br><span class="line">	<span class="comment"># gzip_http_version 1.1;</span></span><br><span class="line">	<span class="comment"># gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Virtual Host Configs</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	include /etc/nginx/conf.d/*.conf;</span><br><span class="line">	include /etc/nginx/sites-enabled/*;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#mail &#123;</span></span><br><span class="line"><span class="comment">#	# See sample authentication script at:</span></span><br><span class="line"><span class="comment">#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	# auth_http localhost/auth.php;</span></span><br><span class="line"><span class="comment">#	# pop3_capabilities "TOP" "USER";</span></span><br><span class="line"><span class="comment">#	# imap_capabilities "IMAP4rev1" "UIDPLUS";</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	server &#123;</span></span><br><span class="line"><span class="comment">#		listen     localhost:110;</span></span><br><span class="line"><span class="comment">#		protocol   pop3;</span></span><br><span class="line"><span class="comment">#		proxy      on;</span></span><br><span class="line"><span class="comment">#	&#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	server &#123;</span></span><br><span class="line"><span class="comment">#		listen     localhost:143;</span></span><br><span class="line"><span class="comment">#		protocol   imap;</span></span><br><span class="line"><span class="comment">#		proxy      on;</span></span><br><span class="line"><span class="comment">#	&#125;</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># https://raymii.org/s/tutorials/nginx_1.15.2_ssl_preread_protocol_multiplex_https_and_ssh_on_the_same_port.html</span></span><br><span class="line">stream &#123;</span><br><span class="line">    map <span class="variable">$ssl_preread_server_name</span> <span class="variable">$backend_name</span> &#123;</span><br><span class="line">	proxy.yjdwbj.cloudns.org trojan;</span><br><span class="line">	nc.llccyy.dynv6.net mycloud;</span><br><span class="line">	fpm.yjdwbj.cloudns.org fpm;</span><br><span class="line">        default dokku;</span><br><span class="line">    &#125;</span><br><span class="line">    upstream dokku &#123;</span><br><span class="line">	server 127.0.0.1:2000;</span><br><span class="line">    &#125;</span><br><span class="line">	upstream fpm</span><br><span class="line">	&#123;</span><br><span class="line">		server 127.0.0.1:6443;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    upstream trojan &#123;</span><br><span class="line">        server 172.17.0.2:443;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	upstream mycloud &#123;</span><br><span class="line"></span><br><span class="line">	  server 127.0.0.1:5443;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 reuseport ;</span><br><span class="line">        listen [::]:443 reuseport;</span><br><span class="line">        proxy_pass  <span class="variable">$backend_name</span>;</span><br><span class="line">	<span class="comment">#proxy_protocol on;</span></span><br><span class="line">        ssl_preread on;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-auth-pam.conf:</span></span><br><span class="line">load_module modules/ngx_http_auth_pam_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-dav-ext.conf:</span></span><br><span class="line">load_module modules/ngx_http_dav_ext_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-echo.conf:</span></span><br><span class="line">load_module modules/ngx_http_echo_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-geoip.conf:</span></span><br><span class="line">load_module modules/ngx_http_geoip_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-image-filter.conf:</span></span><br><span class="line">load_module modules/ngx_http_image_filter_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-subs-filter.conf:</span></span><br><span class="line">load_module modules/ngx_http_subs_filter_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-upstream-fair.conf:</span></span><br><span class="line">load_module modules/ngx_http_upstream_fair_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-http-xslt-filter.conf:</span></span><br><span class="line">load_module modules/ngx_http_xslt_filter_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-mail.conf:</span></span><br><span class="line">load_module modules/ngx_mail_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/modules-enabled/50-mod-stream.conf:</span></span><br><span class="line">load_module modules/ngx_stream_module.so;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/mime.types:</span></span><br><span class="line"></span><br><span class="line">types &#123;</span><br><span class="line">    text/html                             html htm shtml;</span><br><span class="line">    text/css                              css;</span><br><span class="line">    text/xml                              xml;</span><br><span class="line">    image/gif                             gif;</span><br><span class="line">    image/jpeg                            jpeg jpg;</span><br><span class="line">    application/javascript                js;</span><br><span class="line">    application/atom+xml                  atom;</span><br><span class="line">    application/rss+xml                   rss;</span><br><span class="line"></span><br><span class="line">    text/mathml                           mml;</span><br><span class="line">    text/plain                            txt;</span><br><span class="line">    text/vnd.sun.j2me.app-descriptor      jad;</span><br><span class="line">    text/vnd.wap.wml                      wml;</span><br><span class="line">    text/x-component                      htc;</span><br><span class="line"></span><br><span class="line">    image/png                             png;</span><br><span class="line">    image/tiff                            tif tiff;</span><br><span class="line">    image/vnd.wap.wbmp                    wbmp;</span><br><span class="line">    image/x-icon                          ico;</span><br><span class="line">    image/x-jng                           jng;</span><br><span class="line">    image/x-ms-bmp                        bmp;</span><br><span class="line">    image/svg+xml                         svg svgz;</span><br><span class="line">    image/webp                            webp;</span><br><span class="line"></span><br><span class="line">    application/font-woff                 woff;</span><br><span class="line">    application/java-archive              jar war ear;</span><br><span class="line">    application/json                      json;</span><br><span class="line">    application/mac-binhex40              hqx;</span><br><span class="line">    application/msword                    doc;</span><br><span class="line">    application/pdf                       pdf;</span><br><span class="line">    application/postscript                ps eps ai;</span><br><span class="line">    application/rtf                       rtf;</span><br><span class="line">    application/vnd.apple.mpegurl         m3u8;</span><br><span class="line">    application/vnd.ms-excel              xls;</span><br><span class="line">    application/vnd.ms-fontobject         eot;</span><br><span class="line">    application/vnd.ms-powerpoint         ppt;</span><br><span class="line">    application/vnd.wap.wmlc              wmlc;</span><br><span class="line">    application/vnd.google-earth.kml+xml  kml;</span><br><span class="line">    application/vnd.google-earth.kmz      kmz;</span><br><span class="line">    application/x-7z-compressed           7z;</span><br><span class="line">    application/x-cocoa                   cco;</span><br><span class="line">    application/x-java-archive-diff       jardiff;</span><br><span class="line">    application/x-java-jnlp-file          jnlp;</span><br><span class="line">    application/x-makeself                run;</span><br><span class="line">    application/x-perl                    pl pm;</span><br><span class="line">    application/x-pilot                   prc pdb;</span><br><span class="line">    application/x-rar-compressed          rar;</span><br><span class="line">    application/x-redhat-package-manager  rpm;</span><br><span class="line">    application/x-sea                     sea;</span><br><span class="line">    application/x-shockwave-flash         swf;</span><br><span class="line">    application/x-stuffit                 sit;</span><br><span class="line">    application/x-tcl                     tcl tk;</span><br><span class="line">    application/x-x509-ca-cert            der pem crt;</span><br><span class="line">    application/x-xpinstall               xpi;</span><br><span class="line">    application/xhtml+xml                 xhtml;</span><br><span class="line">    application/xspf+xml                  xspf;</span><br><span class="line">    application/zip                       zip;</span><br><span class="line"></span><br><span class="line">    application/octet-stream              bin exe dll;</span><br><span class="line">    application/octet-stream              deb;</span><br><span class="line">    application/octet-stream              dmg;</span><br><span class="line">    application/octet-stream              iso img;</span><br><span class="line">    application/octet-stream              msi msp msm;</span><br><span class="line"></span><br><span class="line">    application/vnd.openxmlformats-officedocument.wordprocessingml.document    docx;</span><br><span class="line">    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet          xlsx;</span><br><span class="line">    application/vnd.openxmlformats-officedocument.presentationml.presentation  pptx;</span><br><span class="line"></span><br><span class="line">    audio/midi                            mid midi kar;</span><br><span class="line">    audio/mpeg                            mp3;</span><br><span class="line">    audio/ogg                             ogg;</span><br><span class="line">    audio/x-m4a                           m4a;</span><br><span class="line">    audio/x-realaudio                     ra;</span><br><span class="line"></span><br><span class="line">    video/3gpp                            3gpp 3gp;</span><br><span class="line">    video/mp2t                            ts;</span><br><span class="line">    video/mp4                             mp4;</span><br><span class="line">    video/mpeg                            mpeg mpg;</span><br><span class="line">    video/quicktime                       mov;</span><br><span class="line">    video/webm                            webm;</span><br><span class="line">    video/x-flv                           flv;</span><br><span class="line">    video/x-m4v                           m4v;</span><br><span class="line">    video/x-mng                           mng;</span><br><span class="line">    video/x-ms-asf                        asx asf;</span><br><span class="line">    video/x-ms-wmv                        wmv;</span><br><span class="line">    video/x-msvideo                       avi;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/conf.d/dokku-installer.conf:</span></span><br><span class="line">upstream dokku-installer &#123; server 127.0.0.1:2000; &#125;</span><br><span class="line">server &#123;</span><br><span class="line">  listen      80;</span><br><span class="line">  location    / &#123;</span><br><span class="line">    proxy_pass  http://dokku-installer;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/conf.d/dokku.conf:</span></span><br><span class="line">include /home/dokku/*/nginx.conf;</span><br><span class="line"></span><br><span class="line">server_tokens off;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings from https://mozilla.github.io/server-side-tls/ssl-config-generator/</span></span><br><span class="line">ssl_session_cache   shared:SSL:20m;</span><br><span class="line">ssl_session_timeout 1d;</span><br><span class="line">ssl_session_tickets off;</span><br><span class="line"></span><br><span class="line">ssl_dhparam /etc/nginx/dhparam.pem;</span><br><span class="line">ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /home/dokku/fpm/nginx.conf:</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">  listen      [::]:80;</span><br><span class="line">  listen      80;</span><br><span class="line">  server_name fpm.yjdwbj.cloudns.org;</span><br><span class="line">  access_log  /var/<span class="built_in">log</span>/nginx/fpm-access.log;</span><br><span class="line">  error_log   /var/<span class="built_in">log</span>/nginx/fpm-error.log;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> 301 https://<span class="variable">$host</span>:6443<span class="variable">$request_uri</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">  listen      [::]:6443 ssl http2;</span><br><span class="line">  listen      6443 ssl http2;</span><br><span class="line"></span><br><span class="line">  server_name fpm.yjdwbj.cloudns.org;</span><br><span class="line">  access_log  /var/<span class="built_in">log</span>/nginx/fpm-access.log;</span><br><span class="line">  error_log   /var/<span class="built_in">log</span>/nginx/fpm-error.log;</span><br><span class="line"></span><br><span class="line">  ssl_certificate           /home/dokku/fpm/tls/server.crt;</span><br><span class="line">  ssl_certificate_key       /home/dokku/fpm/tls/server.key;</span><br><span class="line">  ssl_protocols             TLSv1.2 TLSv1.3;</span><br><span class="line">  ssl_prefer_server_ciphers off;</span><br><span class="line"></span><br><span class="line">  keepalive_timeout   70;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  location    / &#123;</span><br><span class="line"></span><br><span class="line">    gzip on;</span><br><span class="line">    gzip_min_length  1100;</span><br><span class="line">    gzip_buffers  4 32k;</span><br><span class="line">    gzip_types    text/css text/javascript text/xml text/plain text/x-component application/javascript application/x-javascript application/json application/xml  application/rss+xml font/truetype application/x-font-ttf font/opentype application/vnd.ms-fontobject image/svg+xml;</span><br><span class="line">    gzip_vary on;</span><br><span class="line">    gzip_comp_level  6;</span><br><span class="line"></span><br><span class="line">    proxy_pass  http://fpm-80;</span><br><span class="line">    http2_push_preload on;</span><br><span class="line">    proxy_http_version 1.1;</span><br><span class="line">    proxy_read_timeout 60s;</span><br><span class="line">    proxy_buffer_size 4096;</span><br><span class="line">    proxy_buffering on;</span><br><span class="line">    proxy_buffers 8 4096;</span><br><span class="line">    proxy_busy_buffers_size 8192;</span><br><span class="line">    proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">    proxy_set_header Connection <span class="variable">$http_connection</span>;</span><br><span class="line">    proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$remote_addr</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Port <span class="variable">$server_port</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    proxy_set_header X-Request-Start <span class="variable">$msec</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  include /home/dokku/fpm/nginx.conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">  error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 418 420 422 423 424 426 428 429 431 444 449 450 451 /400-error.html;</span><br><span class="line">  location /400-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 404 /404-error.html;</span><br><span class="line">  location /404-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 500 501 503 504 505 506 507 508 509 510 511 /500-error.html;</span><br><span class="line">  location /500-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 502 /502-error.html;</span><br><span class="line">  location /502-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">upstream fpm-80 &#123;</span><br><span class="line"></span><br><span class="line">  server 172.17.0.5:80;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /home/dokku/fpm/nginx.conf.d/hsts.conf:</span></span><br><span class="line">add_header Strict-Transport-Security <span class="string">"max-age=15724800; includeSubdomains"</span> always;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /home/dokku/mycloud/nginx.conf:</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">  listen      [::]:80;</span><br><span class="line">  listen      80;</span><br><span class="line">  server_name nc.llccyy.dynv6.net;</span><br><span class="line">  access_log  /var/<span class="built_in">log</span>/nginx/mycloud-access.log;</span><br><span class="line">  error_log   /var/<span class="built_in">log</span>/nginx/mycloud-error.log;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> 301 https://<span class="variable">$host</span>:5443<span class="variable">$request_uri</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">  listen      [::]:5443 ssl http2;</span><br><span class="line">  listen      5443 ssl http2;</span><br><span class="line"></span><br><span class="line">  server_name nc.llccyy.dynv6.net;</span><br><span class="line">  access_log  /var/<span class="built_in">log</span>/nginx/mycloud-access.log;</span><br><span class="line">  error_log   /var/<span class="built_in">log</span>/nginx/mycloud-error.log;</span><br><span class="line"></span><br><span class="line">  ssl_certificate           /home/dokku/mycloud/tls/server.crt;</span><br><span class="line">  ssl_certificate_key       /home/dokku/mycloud/tls/server.key;</span><br><span class="line">  ssl_protocols             TLSv1.2 TLSv1.3;</span><br><span class="line">  ssl_prefer_server_ciphers off;</span><br><span class="line"></span><br><span class="line">  keepalive_timeout   70;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  location    / &#123;</span><br><span class="line"></span><br><span class="line">    gzip on;</span><br><span class="line">    gzip_min_length  1100;</span><br><span class="line">    gzip_buffers  4 32k;</span><br><span class="line">    gzip_types    text/css text/javascript text/xml text/plain text/x-component application/javascript application/x-javascript application/json application/xml  application/rss+xml font/truetype application/x-font-ttf font/opentype application/vnd.ms-fontobject image/svg+xml;</span><br><span class="line">    gzip_vary on;</span><br><span class="line">    gzip_comp_level  6;</span><br><span class="line"></span><br><span class="line">    proxy_pass  http://mycloud-80;</span><br><span class="line">    http2_push_preload on;</span><br><span class="line">    proxy_http_version 1.1;</span><br><span class="line">    proxy_read_timeout 60s;</span><br><span class="line">    proxy_buffer_size 4096;</span><br><span class="line">    proxy_buffering on;</span><br><span class="line">    proxy_buffers 8 4096;</span><br><span class="line">    proxy_busy_buffers_size 8192;</span><br><span class="line">    proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">    proxy_set_header Connection <span class="variable">$http_connection</span>;</span><br><span class="line">    proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$remote_addr</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Port <span class="variable">$server_port</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    proxy_set_header X-Request-Start <span class="variable">$msec</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  client_max_body_size 100m;</span><br><span class="line">  include /home/dokku/mycloud/nginx.conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">  error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 418 420 422 423 424 426 428 429 431 444 449 450 451 /400-error.html;</span><br><span class="line">  location /400-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 404 /404-error.html;</span><br><span class="line">  location /404-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 500 501 503 504 505 506 507 508 509 510 511 /500-error.html;</span><br><span class="line">  location /500-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 502 /502-error.html;</span><br><span class="line">  location /502-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">upstream mycloud-80 &#123;</span><br><span class="line"></span><br><span class="line">  server 172.17.0.4:80;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /home/dokku/mycloud/nginx.conf.d/hsts.conf:</span></span><br><span class="line">add_header Strict-Transport-Security <span class="string">"max-age=15724800; includeSubdomains"</span> always;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /home/dokku/trojan/nginx.conf:</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">  listen      [::]:7443 ssl http2;</span><br><span class="line">  listen      7443 ssl http2;</span><br><span class="line"></span><br><span class="line">  server_name proxy.yjdwbj.cloudns.org;</span><br><span class="line">  access_log  /var/<span class="built_in">log</span>/nginx/trojan-access.log;</span><br><span class="line">  error_log   /var/<span class="built_in">log</span>/nginx/trojan-error.log;</span><br><span class="line"></span><br><span class="line">  ssl_certificate           /home/dokku/trojan/tls/server.crt;</span><br><span class="line">  ssl_certificate_key       /home/dokku/trojan/tls/server.key;</span><br><span class="line">  ssl_protocols             TLSv1.2 TLSv1.3;</span><br><span class="line">  ssl_prefer_server_ciphers off;</span><br><span class="line"></span><br><span class="line">  keepalive_timeout   70;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  location    / &#123;</span><br><span class="line"></span><br><span class="line">    gzip on;</span><br><span class="line">    gzip_min_length  1100;</span><br><span class="line">    gzip_buffers  4 32k;</span><br><span class="line">    gzip_types    text/css text/javascript text/xml text/plain text/x-component application/javascript application/x-javascript application/json application/xml  application/rss+xml font/truetype application/x-font-ttf font/opentype application/vnd.ms-fontobject image/svg+xml;</span><br><span class="line">    gzip_vary on;</span><br><span class="line">    gzip_comp_level  6;</span><br><span class="line"></span><br><span class="line">    proxy_pass  https://trojan-443;</span><br><span class="line">    http2_push_preload on;</span><br><span class="line">    proxy_http_version 1.1;</span><br><span class="line">    proxy_read_timeout 60s;</span><br><span class="line">    proxy_buffer_size 4096;</span><br><span class="line">    proxy_buffering on;</span><br><span class="line">    proxy_buffers 8 4096;</span><br><span class="line">    proxy_busy_buffers_size 8192;</span><br><span class="line">    proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">    proxy_set_header Connection <span class="variable">$http_connection</span>;</span><br><span class="line">    proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$remote_addr</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Port <span class="variable">$server_port</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    proxy_set_header X-Request-Start <span class="variable">$msec</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  include /home/dokku/trojan/nginx.conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">  error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 418 420 422 423 424 426 428 429 431 444 449 450 451 /400-error.html;</span><br><span class="line">  location /400-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 404 /404-error.html;</span><br><span class="line">  location /404-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 500 501 503 504 505 506 507 508 509 510 511 /500-error.html;</span><br><span class="line">  location /500-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  error_page 502 /502-error.html;</span><br><span class="line">  location /502-error.html &#123;</span><br><span class="line">    root /var/lib/dokku/data/nginx-vhosts/dokku-errors;</span><br><span class="line">    internal;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">upstream trojan-443 &#123;</span><br><span class="line"></span><br><span class="line">  server 172.17.0.2:443;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /home/dokku/trojan/nginx.conf.d/hsts.conf:</span></span><br><span class="line">add_header Strict-Transport-Security <span class="string">"max-age=15724800; includeSubdomains"</span> always;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration file /etc/nginx/conf.d/server_names_hash_bucket_size.conf:</span></span><br><span class="line"><span class="comment">#server_names_hash_bucket_size 512;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>本地端口与上面对应.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">netstat -tnlp</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp        0      0 0.0.0.0:6443            0.0.0.0:*               LISTEN      23764/nginx: master</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      23764/nginx: master</span><br><span class="line">tcp        0      0 0.0.0.0:2000            0.0.0.0:*               LISTEN      27904/python3</span><br><span class="line">tcp        0      0 0.0.0.0:7443            0.0.0.0:*               LISTEN      23764/nginx: master</span><br><span class="line">tcp        0      0 0.0.0.0:2132            0.0.0.0:*               LISTEN      1027/sshd</span><br><span class="line">tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      2715/dnsmasq</span><br><span class="line">tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      23764/nginx: master</span><br><span class="line">tcp        0      0 0.0.0.0:8123            0.0.0.0:*               LISTEN      444/polipo</span><br><span class="line">tcp        0      0 0.0.0.0:5443            0.0.0.0:*               LISTEN      23764/nginx: master</span><br><span class="line">tcp        0      0 0.0.0.0:1443            0.0.0.0:*               LISTEN      1435/ss-server</span><br><span class="line">tcp6       0      0 :::6443                 :::*                    LISTEN      23764/nginx: master</span><br><span class="line">tcp6       0      0 :::80                   :::*                    LISTEN      23764/nginx: master</span><br><span class="line">tcp6       0      0 :::7443                 :::*                    LISTEN      23764/nginx: master</span><br><span class="line">tcp6       0      0 :::2132                 :::*                    LISTEN      1027/sshd</span><br><span class="line">tcp6       0      0 :::53                   :::*                    LISTEN      2715/dnsmasq</span><br><span class="line">tcp6       0      0 :::443                  :::*                    LISTEN      23764/nginx: master</span><br><span class="line">tcp6       0      0 :::5443                 :::*                    LISTEN      23764/nginx: master</span><br><span class="line">tcp6       0      0 :::1443                 :::*                    LISTEN      1435/ss-server</span><br></pre></td></tr></table></figure>
+<h1 id="资源聚合"><a href="#资源聚合" class="headerlink" title="资源聚合"></a>资源聚合</h1><ul>
+<li><a href="https://iyouport.substack.com/p/100" target="_blank" rel="noopener">100种不错的免费工具和资源</a></li>
+</ul>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Cloud-Linux/" rel="tag"># Cloud, Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/19/Kubernetes基于CephFS的存储/" rel="prev" title="Kubernetes基于CephFS的存储">
+      <i class="fa fa-chevron-left"></i> Kubernetes基于CephFS的存储
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/21/Linux环境下开发与应用备忘/" rel="next" title="Linux环境下开发与应用备记">
+      Linux环境下开发与应用备记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NextCloud"><span class="nav-number">1.</span> <span class="nav-text">NextCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker安装"><span class="nav-number">1.1.</span> <span class="nav-text">Docker安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dokku安装"><span class="nav-number">1.2.</span> <span class="nav-text">Dokku安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Plugins"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装Plugins</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动APP的连接"><span class="nav-number">1.4.</span> <span class="nav-text">移动APP的连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MinIO"><span class="nav-number">2.</span> <span class="nav-text">MinIO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器运行"><span class="nav-number">2.1.</span> <span class="nav-text">容器运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接单机运行"><span class="nav-number">2.2.</span> <span class="nav-text">直接单机运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端访问"><span class="nav-number">2.3.</span> <span class="nav-text">客户端访问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mc"><span class="nav-number">2.3.1.</span> <span class="nav-text">mc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awscli"><span class="nav-number">2.3.2.</span> <span class="nav-text">awscli</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Syncthing"><span class="nav-number">3.</span> <span class="nav-text">Syncthing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用docker-compose创建"><span class="nav-number">3.1.</span> <span class="nav-text">使用docker-compose创建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协作文档"><span class="nav-number">4.</span> <span class="nav-text">协作文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CryptPad"><span class="nav-number">4.1.</span> <span class="nav-text">CryptPad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wiki-js"><span class="nav-number">4.2.</span> <span class="nav-text">wiki.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose安装"><span class="nav-number">4.2.1.</span> <span class="nav-text">docker-compose安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目管理"><span class="nav-number">5.</span> <span class="nav-text">项目管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenProject"><span class="nav-number">5.1.</span> <span class="nav-text">OpenProject</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动化测试"><span class="nav-number">6.</span> <span class="nav-text">自动化测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RobotFramework"><span class="nav-number">6.1.</span> <span class="nav-text">RobotFramework</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Trojan"><span class="nav-number">7.</span> <span class="nav-text">Trojan</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源聚合"><span class="nav-number">8.</span> <span class="nav-text">资源聚合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">9.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

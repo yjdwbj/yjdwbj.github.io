@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://docs.gitlab.com/ce/ci/img/cicd_pipeline_infograph.png">
 <meta property="og:image" content="http://yoursite.com/imgs/gitlab-cicd.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2021-07-25T03:12:50.182Z">
+<meta property="og:updated_time" content="2021-12-15T14:15:15.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建SpringBoot基础项目">
 <meta name="twitter:description" content="相关链接  sdkman eclipse jdk Apache Maven Project MyBatis   Eclipse 插件及仓库    EPP Marketplace Client for Eclipse Neon 地址 通过Eclipse--&amp;gt;Help--&amp;gt;Install New Software...安装Eclipse Marketplace Client成功后,就能在">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-25 11:12:50" itemprop="dateModified" datetime="2021-07-25T11:12:50+08:00">2021-07-25</time>
+                <time title="修改时间：2021-12-15 22:15:15" itemprop="dateModified" datetime="2021-12-15T22:15:15+08:00">2021-12-15</time>
               </span>
 
           
@@ -287,7 +287,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] Results:</span><br><span class="line">[INFO]</span><br><span class="line">[ERROR] Errors:</span><br><span class="line">[ERROR]   DemoApplicationTests.contextLoads » IllegalState Failed to load ApplicationCon...</span><br><span class="line">[INFO]</span><br><span class="line">[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: 04:01 min</span><br><span class="line">[INFO] Finished at: 2018-07-17T12:05:21+08:00</span><br><span class="line">[INFO] Final Memory: 38M/327M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.21.0:<span class="built_in">test</span> (default-test) on project demo: There are <span class="built_in">test</span> failures.</span><br><span class="line">~$　mvn package -Dmaven.test.skip=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <h3 id="处理包的依赖冲突"><a href="#处理包的依赖冲突" class="headerlink" title="处理包的依赖冲突"></a>处理包的依赖冲突</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ mvn dependency:tree -Dverbose -Dincludes=commons-collections</span><br></pre></td></tr></table></figure>
 <h3 id="组合使用"><a href="#组合使用" class="headerlink" title="组合使用"></a>组合使用</h3><ul>
-<li>下面命令会执行 clean ，然后执行 dependency 插件的 copy-dependencies 目标（goal）,最后执行 package 阶段。</li>
+<li>下面命令会执行 clean ，然后执行 dependency 插件的 copy-dependencies 目标（goal）,最后执行 package 阶段.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ mvn clean dependency:copy-dependencies package</span><br></pre></td></tr></table></figure>
 <h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><ul>
@@ -332,20 +332,20 @@
 <h3 id="Docker-Compose服务编排"><a href="#Docker-Compose服务编排" class="headerlink" title="Docker Compose服务编排"></a><code>Docker Compose</code>服务编排</h3><ul>
 <li><a href="https://docs.docker.com/compose/" target="_blank" rel="noopener">Docker Compose</a></li>
 <li><a href="https://github.com/docker/compose" target="_blank" rel="noopener">https://github.com/docker/compose</a></li>
-<li>Compose 是一个用于定义并运行多容器 Docker 应用的工具。先通过一个 compose 文件来配置你的应用服务，然后用一个简单的命令就可以创建并启动所有的应用服务了。</li>
+<li>Compose 是一个用于定义并运行多容器 Docker 应用的工具.先通过一个 compose 文件来配置你的应用服务，然后用一个简单的命令就可以创建并启动所有的应用服务了.</li>
 <li><p>Compose 的特性：</p>
 <ul>
-<li><p>单主机多个隔离环境 Compose 使用项目名称来隔离各个环境。在不同的应用场景中使用这个特性：</p>
+<li><p>单主机多个隔离环境 Compose 使用项目名称来隔离各个环境.在不同的应用场景中使用这个特性：</p>
 <ul>
 <li>在开发机上，可以创建同一个环境的不同副本</li>
 <li>在 CI 服务器上，可以设置项目名为一个唯一的 build ID，从而避免 build 时互相干扰</li>
-<li>在一个共享主机或开发机上，可能会存在相同服务名称的应用，通过这个特性可以避免互相干扰默认的项目名称是项目目录的目录名，可以通过-p 命令行选项或者 COMPOSE_PROJECT_NAME 指定。</li>
+<li>在一个共享主机或开发机上，可能会存在相同服务名称的应用，通过这个特性可以避免互相干扰默认的项目名称是项目目录的目录名，可以通过-p 命令行选项或者 COMPOSE_PROJECT_NAME 指定.</li>
 </ul>
 </li>
 <li><p>保存容器创建时使用的卷(volume)数据</p>
 </li>
 <li>只重新创建已更改的容器</li>
-<li>Compose 会缓存用于创建容器的配置，当重启一个未曾更改过的服务时，Compose 会重用已存在的容器。这意味着你可以很快地改变你的环境。</li>
+<li>Compose 会缓存用于创建容器的配置，当重启一个未曾更改过的服务时，Compose 会重用已存在的容器.这意味着你可以很快地改变你的环境.</li>
 <li>支持变量，在不同的环境间定义不同的组合</li>
 </ul>
 </li>
@@ -389,7 +389,7 @@
 <ul>
 <li>运行起来之后,通过宿主机浏览器访问<code>http://127.0.0.1:9090/</code>就会看到 Jenkins 提示输入密码访问,复制<code>743cb67494f5428e801093ed2416e359</code>输入就能进管理界面.</li>
 </ul>
-<h1 id="Docker容器基本操作"><a href="#Docker容器基本操作" class="headerlink" title="Docker容器基本操作"></a><code>Docker</code>容器基本操作</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">7ba1108b9f98        jenkinsci/jenkins   <span class="string">"/sbin/tini -- /usr/l"</span>   39 minutes ago      Up 39 minutes       50000/tcp, 0.0.0.0:9090-&gt;8080/tcp   jenkins</span><br><span class="line">~$ docker <span class="built_in">exec</span> -ti 7ba1108b9f98 /bin/bash  <span class="comment">#进入容器</span></span><br><span class="line">jenkins@7ba1108b9f98:/$</span><br><span class="line">jenkins@7ba1108b9f98:/$ <span class="built_in">exit</span></span><br><span class="line">~$ docker <span class="built_in">exec</span> --user root  -ti 7ba1108b9f98 /bin/bash <span class="comment">#进入容器,root用户.</span></span><br><span class="line">root@7ba1108b9f98:/<span class="comment">#</span></span><br><span class="line"></span><br><span class="line">$ docker ps　　</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                               NAMES</span><br><span class="line">89abae910d39        gitlab/gitlab-ce    <span class="string">"/assets/wrapper"</span>        18 minutes ago      Up 18 minutes       0.0.0.0:80-&gt;80/tcp, 443/tcp, 0.0.0.0:2222-&gt;22/tcp   gitlab</span><br><span class="line">7ba1108b9f98        jenkinsci/jenkins   <span class="string">"/sbin/tini -- /usr/l"</span>   2 hours ago         Up 2 hours          50000/tcp, 0.0.0.0:9090-&gt;8080/tcp                   jenkins</span><br><span class="line">~$ docker stop 89abae910d39　<span class="comment">#停止容器</span></span><br><span class="line">89abae910d39</span><br><span class="line">~$ docker rm 89abae910d39  <span class="comment">#删除除容器</span></span><br><span class="line">89abae910d39</span><br><span class="line">~$ docker  rmi gitlab/gitlab-ce <span class="comment">#删除镜像</span></span><br><span class="line"></span><br><span class="line">~$ docker image prune -a  <span class="comment">#清除未使用的镜像，释放磁盤空间。</span></span><br><span class="line"></span><br><span class="line">~$ docker system prune <span class="comment">#清除更多的选项的资源。</span></span><br></pre></td></tr></table></figure>
+<h1 id="Docker容器基本操作"><a href="#Docker容器基本操作" class="headerlink" title="Docker容器基本操作"></a><code>Docker</code>容器基本操作</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">7ba1108b9f98        jenkinsci/jenkins   <span class="string">"/sbin/tini -- /usr/l"</span>   39 minutes ago      Up 39 minutes       50000/tcp, 0.0.0.0:9090-&gt;8080/tcp   jenkins</span><br><span class="line">~$ docker <span class="built_in">exec</span> -ti 7ba1108b9f98 /bin/bash  <span class="comment">#进入容器</span></span><br><span class="line">jenkins@7ba1108b9f98:/$</span><br><span class="line">jenkins@7ba1108b9f98:/$ <span class="built_in">exit</span></span><br><span class="line">~$ docker <span class="built_in">exec</span> --user root  -ti 7ba1108b9f98 /bin/bash <span class="comment">#进入容器,root用户.</span></span><br><span class="line">root@7ba1108b9f98:/<span class="comment">#</span></span><br><span class="line"></span><br><span class="line">$ docker ps　　</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                               NAMES</span><br><span class="line">89abae910d39        gitlab/gitlab-ce    <span class="string">"/assets/wrapper"</span>        18 minutes ago      Up 18 minutes       0.0.0.0:80-&gt;80/tcp, 443/tcp, 0.0.0.0:2222-&gt;22/tcp   gitlab</span><br><span class="line">7ba1108b9f98        jenkinsci/jenkins   <span class="string">"/sbin/tini -- /usr/l"</span>   2 hours ago         Up 2 hours          50000/tcp, 0.0.0.0:9090-&gt;8080/tcp                   jenkins</span><br><span class="line">~$ docker stop 89abae910d39　<span class="comment">#停止容器</span></span><br><span class="line">89abae910d39</span><br><span class="line">~$ docker rm 89abae910d39  <span class="comment">#删除除容器</span></span><br><span class="line">89abae910d39</span><br><span class="line">~$ docker  rmi gitlab/gitlab-ce <span class="comment">#删除镜像</span></span><br><span class="line"></span><br><span class="line">~$ docker image prune -a  <span class="comment">#清除未使用的镜像，释放磁盤空间.</span></span><br><span class="line"></span><br><span class="line">~$ docker system prune <span class="comment">#清除更多的选项的资源.</span></span><br></pre></td></tr></table></figure>
 <h2 id="容器网络"><a href="#容器网络" class="headerlink" title="容器网络"></a>容器网络</h2><ul>
 <li><p>查看网络</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ docker network ls</span><br><span class="line">NETWORK ID          NAME                DRIVER              SCOPE</span><br><span class="line">108d6f126660        bridge              bridge              <span class="built_in">local</span></span><br><span class="line">1f2d1f3f0ebf        host                host                <span class="built_in">local</span></span><br><span class="line">b17831300bb4        none                null                <span class="built_in">local</span></span><br></pre></td></tr></table></figure>
@@ -409,7 +409,7 @@
 <h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><ul>
 <li><p><a href="https://docs.docker.com/config/daemon/systemd/" target="_blank" rel="noopener">Control Docker with systemd</a></p>
 </li>
-<li><p>在某些应用中，有时<code>docker</code>容器需要通过<code>proxy</code>连接某些服服。</p>
+<li><p>在某些应用中，有时<code>docker</code>容器需要通过<code>proxy</code>连接某些服服.</p>
 </li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line"></span><br><span class="line"><span class="comment"># "HTTP_PROXY=socks5://127.0.0.1:1080" for socks5 proxy</span></span><br><span class="line">~$ cat &lt;&lt;EOF &gt;/etc/systemd/system/docker.service.d/http-proxy.conf</span><br><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">"HTTP_PROXY=http://user01:password@10.10.10.10:8080/"</span></span><br><span class="line">Environment=<span class="string">"HTTPS_PROXY=https://user01:password@10.10.10.10:8080/"</span></span><br><span class="line">Environment=<span class="string">"NO_PROXY= hostname.example.com,172.10.10.10"</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ systemctl daemon-reload</span><br><span class="line">~$ systemctl restart docker</span><br><span class="line">~$ systemctl show docker --property Environment</span><br><span class="line">Environment=HTTP_PROXY=socks5://127.0.0.1:1080 HTTPS_PROXY=socks5://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
@@ -418,7 +418,7 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ curl --unix-socket /var/run/docker.sock -H <span class="string">"Content-Type: application/json"</span> \</span><br><span class="line">  -d <span class="string">'&#123;"Image": "alpine", "Cmd": ["echo", "hello world"]&#125;'</span> \</span><br><span class="line">  -X POST http://localhost/v1.41/containers/create</span><br><span class="line">&#123;<span class="string">"Id"</span>:<span class="string">"1c6594faf5"</span>,<span class="string">"Warnings"</span>:null&#125;</span><br><span class="line"></span><br><span class="line">~$ curl --unix-socket /var/run/docker.sock -X POST http://localhost/v1.41/containers/1c6594faf5/start</span><br></pre></td></tr></table></figure>
 <h1 id="安装GitLab容器服务"><a href="#安装GitLab容器服务" class="headerlink" title="安装GitLab容器服务"></a>安装<code>GitLab</code>容器服务</h1><ul>
-<li><p>GitLab 是由 GitLab Inc.开发，使用 MIT 许可证的基于网络的 Git 仓库管理工具，且具有 wiki 和 issue 跟踪功能。GitLab 由乌克兰程序员 Dmitriy Zaporozhets 和 Valery Sizov 开发，它由 Ruby 写成。后来，一些部分用 Go 语言重写。</p>
+<li><p>GitLab 是由 GitLab Inc.开发，使用 MIT 许可证的基于网络的 Git 仓库管理工具，且具有 wiki 和 issue 跟踪功能.GitLab 由乌克兰程序员 Dmitriy Zaporozhets 和 Valery Sizov 开发，它由 Ruby 写成.后来，一些部分用 Go 语言重写.</p>
 </li>
 <li><p><a href="https://docs.gitlab.com/omnibus/docker/" target="_blank" rel="noopener">GitLab Docker images</a></p>
 </li>
@@ -519,18 +519,18 @@
 <ul>
 <li><p><strong>Pipeline</strong></p>
 <ul>
-<li>一次 Pipeline 其实相当于一次构建任务，里面可以包含多个流程，如安装依赖、运行测试、编译、部署测试服务器、部署生产服务器等流程。任何提交或者 Merge Request 的合并都可以触发 Pipeline.</li>
+<li>一次 Pipeline 其实相当于一次构建任务，里面可以包含多个流程，如安装依赖、运行测试、编译、部署测试服务器、部署生产服务器等流程.任何提交或者 Merge Request 的合并都可以触发 Pipeline.</li>
 </ul>
 </li>
 <li><p><strong>Stages</strong></p>
 <ul>
-<li>Stages 表示构建阶段，说白了就是上面提到的流程。我们可以在一次 Pipeline 中定义多个 Stages，这些 Stages 会有以下特点：</li>
+<li>Stages 表示构建阶段，说白了就是上面提到的流程.我们可以在一次 Pipeline 中定义多个 Stages，这些 Stages 会有以下特点：</li>
 <li>所有 Stages 会按照顺序运行，即当一个 Stage 完成后，下一个 Stage 才会开始只有当所有 Stages 完成后，该构建任务 (Pipeline) 才会成功如果任何一个 Stage 失败，那么后面的 Stages 不会执行，该构建任务 (Pipeline) 失败.</li>
 </ul>
 </li>
 <li><p><strong>Jobs</strong></p>
 <ul>
-<li>Jobs 表示构建工作，表示某个 Stage 里面执行的工作。我们可以在 Stages 里面定义个 Jobs，这些 Jobs 会有以下特点：</li>
+<li>Jobs 表示构建工作，表示某个 Stage 里面执行的工作.我们可以在 Stages 里面定义个 Jobs，这些 Jobs 会有以下特点：</li>
 <li>相同 Stage 中的 Jobs 会并行执行</li>
 <li>相同 Stage 中的 Jobs 都执行成功时，该 Stage 才会成功</li>
 <li>如果任何一个 Job 失败，那么该 Stage 失败，即该构建任务 (Pipeline) 失败</li>
@@ -542,7 +542,7 @@
 </li>
 <li><p><code>GitLab Runner</code>就是最终干活的角色,因为编译构建任务是要占用很多的系统资源的脏累活.<code>GitLab CI</code>是项目构建状态的管理者,如果把它安装在一起,肯定会影响<code>GitLab</code>的性能.</p>
 </li>
-<li><code>GitLab Runner</code>可以是虚拟机，VPS，物理主机，Docker 容器，甚至一堆容器。<code>GitLab</code>和<code>GitLab Runner</code>通过 API 通信，所以唯一的要求就是它们之间是要联网的.</li>
+<li><code>GitLab Runner</code>可以是虚拟机，VPS，物理主机，Docker 容器，甚至一堆容器.<code>GitLab</code>和<code>GitLab Runner</code>通过 API 通信，所以唯一的要求就是它们之间是要联网的.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ docker pull gitlab/gitlab-runner:latest</span><br><span class="line">~$ docker run -dit \</span><br><span class="line"> --name gitlab-runner \</span><br><span class="line"> --restart always \</span><br><span class="line"> -v ~/gitlab-runner/config:/etc/gitlab-runner \</span><br><span class="line"> -v ~/gitlab-runner/run/docker.sock:/var/run/docker.sock \</span><br><span class="line"> --link gitlab-ce:gitlab \</span><br><span class="line"> gitlab/gitlab-runner:latest</span><br></pre></td></tr></table></figure>
 <p><strong>注册 Runner</strong></p>
@@ -580,7 +580,7 @@
 <li><a href="https://www.yworks.com/products/yed" target="_blank" rel="noopener">yEd</a></li>
 </ul>
 <h2 id="Papyrus"><a href="#Papyrus" class="headerlink" title="Papyrus"></a>Papyrus</h2><ul>
-<li>Papyrus 是一款可定制的 UML 工具，其往往以 Eclipse 插件的形式发布。目前，Papyrus 支持 UML 2.5，可以集成 SysML 1.1 和 SysML 1.4。</li>
+<li>Papyrus 是一款可定制的 UML 工具，其往往以 Eclipse 插件的形式发布.目前，Papyrus 支持 UML 2.5，可以集成 SysML 1.1 和 SysML 1.4.</li>
 </ul>
 <h2 id="Papyrus-升级站点"><a href="#Papyrus-升级站点" class="headerlink" title="Papyrus 升级站点"></a>Papyrus 升级站点</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Papyrus Photon (4.X.0)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/photon</span><br><span class="line"></span><br><span class="line">Papyrus Oxygen (3.X.0)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/oxygen</span><br><span class="line"></span><br><span class="line">Papyrus Neon (2.0.X)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/neon</span><br><span class="line"></span><br><span class="line">Papyrus Mars (1.1.X)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/mars</span><br><span class="line"></span><br><span class="line">Papyrus Luna (1.0.X)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/luna</span><br><span class="line"></span><br><span class="line">Papyrus Kepler (0.10.X)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/kepler</span><br><span class="line"></span><br><span class="line">Papyrus Juno (0.9.2)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/juno</span><br><span class="line"></span><br><span class="line">Papyrus Indigo (0.8.2)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/indigo</span><br><span class="line"></span><br><span class="line">Papyrus Helios (0.7.3)</span><br><span class="line">http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/helios</span><br></pre></td></tr></table></figure>
 <p><a href="http://wiki.eclipse.org/Papyrus_User_Guide" target="_blank" rel="noopener">Papyrus User Guide</a></p>

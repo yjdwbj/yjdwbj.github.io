@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式：  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于：  环境搭建简单：直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
+  <meta name="description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:  环境搭建简单:直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
 <meta name="keywords" content="Android,OpenCV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为Android编译OpenCV3_SDK">
 <meta property="og:url" content="http://yoursite.com/2018/04/29/为Android编译OpenCV3-SDK/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
-<meta property="og:description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式：  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于：  环境搭建简单：直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
+<meta property="og:description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:  环境搭建简单:直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
 <meta property="og:updated_time" content="2018-05-07T09:12:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为Android编译OpenCV3_SDK">
-<meta name="twitter:description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式：  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于：  环境搭建简单：直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
+<meta name="twitter:description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:  环境搭建简单:直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
 <meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
 
 <link rel="canonical" href="http://yoursite.com/2018/04/29/为Android编译OpenCV3-SDK/">
@@ -200,23 +200,23 @@
         <ul>
 <li><a href="https://ricky.moe/2017/07/03/opencv-contrib-for-android/" target="_blank" rel="noopener">本段说明链接来源</a></li>
 </ul>
-<p>OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式：</p>
+<p>OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:</p>
 <ul>
 <li>Java Native 代码实现</li>
 <li>C++ NDK 代码实现</li>
 </ul>
-<p><strong> 其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于：</strong></p>
+<p><strong> 其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:</strong></p>
 <ul>
-<li>环境搭建简单：直接引入官方 <code>OpenCV-for-Android</code> 的对应 jar 包即可</li>
-<li>代码维护繁琐：由于<code>OpenCV-for-Android</code> 的<code>Java API</code>与<code>C++</code>不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
-<li>运行效率低：Java 代码会在内部进行 C++翻译，运行时性能损耗较大</li>
+<li>环境搭建简单:直接引入官方 <code>OpenCV-for-Android</code> 的对应 jar 包即可</li>
+<li>代码维护繁琐:由于<code>OpenCV-for-Android</code> 的<code>Java API</code>与<code>C++</code>不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
+<li>运行效率低:Java 代码会在内部进行 C++翻译，运行时性能损耗较大</li>
 </ul>
-<p><strong> 而直接采用 C++代码导入的方式的特点在于：</strong></p>
+<p><strong> 而直接采用 C++代码导入的方式的特点在于:</strong></p>
 <ul>
-<li>环境搭建复杂：往往需要现自行编译对应的库，再进行<code>NDK、Cmakelists</code>和<code>build.gradle</code>的配置.</li>
-<li>代码维护简单：由于直接采用 C++实现算法部分，与其他平台的兼容性极好，能与 Android 程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可.</li>
-<li>运行效率高：不存在内部执行时的代码转换问题，性能最好.</li>
-<li>总结来看，Java Native 代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建 C++ NDK 方式。</li>
+<li>环境搭建复杂:往往需要现自行编译对应的库，再进行<code>NDK、Cmakelists</code>和<code>build.gradle</code>的配置.</li>
+<li>代码维护简单:由于直接采用 C++实现算法部分，与其他平台的兼容性极好，能与 Android 程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可.</li>
+<li>运行效率高:不存在内部执行时的代码转换问题，性能最好.</li>
+<li>总结来看，Java Native 代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建 C++ NDK 方式.</li>
 </ul>
 <p>如果自己不从源码编译也可去<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-android" target="_blank" rel="noopener">这里</a>下载,网上很多配置教程都是基于这里下载的 SDK 而写的.如: <a href="https://www.jianshu.com/p/e90da53c4bb5" target="_blank" rel="noopener">Android Studio 集成 OpenCV</a></p>
 <hr>

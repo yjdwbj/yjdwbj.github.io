@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="处理问题要流程binutils工具 查看动态库内的函数符号。  1aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep &quot;TLSv1_2_method&quot; 查看程序链接动态库的依赖。 查看当前系统的程序链接动态库的依赖，可以使用ldd这个工具，ldd -u可以直接列出无法链接到的库名。如">
+  <meta name="description" content="处理问题要流程binutils工具 查看动态库内的函数符号.  1aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep &quot;TLSv1_2_method&quot; 查看程序链接动态库的依赖. 查看当前系统的程序链接动态库的依赖，可以使用ldd这个工具，ldd -u可以直接列出无法链接到的库名.如">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux环境下开发与应用备记">
 <meta property="og:url" content="http://yoursite.com/2021/03/21/Linux环境下开发与应用备忘/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
-<meta property="og:description" content="处理问题要流程binutils工具 查看动态库内的函数符号。  1aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep &quot;TLSv1_2_method&quot; 查看程序链接动态库的依赖。 查看当前系统的程序链接动态库的依赖，可以使用ldd这个工具，ldd -u可以直接列出无法链接到的库名。如">
+<meta property="og:description" content="处理问题要流程binutils工具 查看动态库内的函数符号.  1aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep &quot;TLSv1_2_method&quot; 查看程序链接动态库的依赖. 查看当前系统的程序链接动态库的依赖，可以使用ldd这个工具，ldd -u可以直接列出无法链接到的库名.如">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2021-12-14T13:25:28.952Z">
+<meta property="og:updated_time" content="2021-12-15T14:15:15.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux环境下开发与应用备记">
-<meta name="twitter:description" content="处理问题要流程binutils工具 查看动态库内的函数符号。  1aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep &quot;TLSv1_2_method&quot; 查看程序链接动态库的依赖。 查看当前系统的程序链接动态库的依赖，可以使用ldd这个工具，ldd -u可以直接列出无法链接到的库名。如">
+<meta name="twitter:description" content="处理问题要流程binutils工具 查看动态库内的函数符号.  1aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep &quot;TLSv1_2_method&quot; 查看程序链接动态库的依赖. 查看当前系统的程序链接动态库的依赖，可以使用ldd这个工具，ldd -u可以直接列出无法链接到的库名.如">
 <meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/03/21/Linux环境下开发与应用备忘/">
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-14 21:25:28" itemprop="dateModified" datetime="2021-12-14T21:25:28+08:00">2021-12-14</time>
+                <time title="修改时间：2021-12-15 22:15:15" itemprop="dateModified" datetime="2021-12-15T22:15:15+08:00">2021-12-15</time>
               </span>
 
           
@@ -198,15 +198,15 @@
 
       
         <h1 id="处理问题要流程"><a href="#处理问题要流程" class="headerlink" title="处理问题要流程"></a>处理问题要流程</h1><h2 id="binutils工具"><a href="#binutils工具" class="headerlink" title="binutils工具"></a><code>binutils</code>工具</h2><ul>
-<li>查看动态库内的函数符号。</li>
+<li>查看动态库内的函数符号.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aarch64-linux-gnu-readelf --dyn-syms /lib/aarch64-linux-gnu/libssl.so.1.0.0  | grep <span class="string">"TLSv1_2_method"</span></span><br></pre></td></tr></table></figure>
-<h3 id="查看程序链接动态库的依赖。"><a href="#查看程序链接动态库的依赖。" class="headerlink" title="查看程序链接动态库的依赖。"></a>查看程序链接动态库的依赖。</h3><ul>
-<li>查看当前系统的程序链接动态库的依赖，可以使用<code>ldd</code>这个工具，<code>ldd -u</code>可以直接列出无法链接到的库名。如果是在交叉编译环境下可以使用<br>对应<code>&lt;CROSS_COMPILE&gt;-readelf</code>读取，使用如下:</li>
+<h3 id="查看程序链接动态库的依赖"><a href="#查看程序链接动态库的依赖" class="headerlink" title="查看程序链接动态库的依赖."></a>查看程序链接动态库的依赖.</h3><ul>
+<li>查看当前系统的程序链接动态库的依赖，可以使用<code>ldd</code>这个工具，<code>ldd -u</code>可以直接列出无法链接到的库名.如果是在交叉编译环境下可以使用<br>对应<code>&lt;CROSS_COMPILE&gt;-readelf</code>读取，使用如下:</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~$ aarch64-linux-gnu-readelf -d jtagd | grep <span class="string">"NEEDED"</span></span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libccl_ver.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libSafeString.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libboost_unit_test_framework.so.1.59.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libboost_program_options.so.1.59.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libboost_system.so.1.59.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libboost_filesystem.so.1.59.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libboost_serialization.so.1.59.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libboost_regex.so.1.59.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libnsl.so.1]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libpthread.so.0]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libgomp.so.1]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [ld-linux-x86-64.so.2]</span><br></pre></td></tr></table></figure>
 <h3 id="程序长时间运行，无stdout输出的问题"><a href="#程序长时间运行，无stdout输出的问题" class="headerlink" title="程序长时间运行，无stdout输出的问题"></a>程序长时间运行，无<code>stdout</code>输出的问题</h3><ul>
-<li>可以使用<code>strace &lt;program&gt;</code>方法运行它，查看它做了那些动作。对于正在运行的程序可以使用<code>strace -p &lt;PID&gt;</code>通过<code>attatch</code>它的<br><code>PID</code>来查看它运行的详情。如果只想查看它的网络相关的调用，可以使用如下命令过虑掉其它信息干扰:</li>
+<li>可以使用<code>strace &lt;program&gt;</code>方法运行它，查看它做了那些动作.对于正在运行的程序可以使用<code>strace -p &lt;PID&gt;</code>通过<code>attatch</code>它的<br><code>PID</code>来查看它运行的详情.如果只想查看它的网络相关的调用，可以使用如下命令过虑掉其它信息干扰:</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">strace -e trace=network jtagconfig</span><br><span class="line">--- SIGCHLD &#123;si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=26660, si_uid=1000, si_status=0, si_utime=0, ssi_stime=0&#125; ---</span><br><span class="line">socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3</span><br><span class="line">setsockopt(3, SOL_TCP, TCP_NODELAY, [1], 4) = 0</span><br><span class="line">setsockopt(3, SOL_SOCKET, SO_LINGER, &#123;l_onoff=1, l_linger=10&#125;, 8) = 0</span><br><span class="line">connect(3, &#123;sa_family=AF_INET, sin_port=htons(1309), sin_addr=inet_addr(<span class="string">"127.0.0.1"</span>)&#125;, 16) = -1 EINPROGRESS (Operation now <span class="keyword">in</span> progress)</span><br><span class="line">getsockopt(3, SOL_SOCKET, SO_ERROR, [0], [4]) = 0</span><br><span class="line">recvfrom(3, <span class="string">""</span>, 2, 0, NULL, NULL)       = 0</span><br><span class="line">recvfrom(-1, 0x1b066ac, 2, 0, NULL, NULL) = -1 EBADF (Bad file descriptor)</span><br></pre></td></tr></table></figure>
 <ul>
@@ -217,7 +217,7 @@
 <li>查看 core dump file</li>
 </ul>
 <ul>
-<li>下面错误处理，是没设置正的运行环境变量， 设置<code>export LC_ALL=C</code>就可以解决。<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">: Gtk-WARNING **: Locale not supported by C library.</span><br><span class="line">Using the fallback <span class="string">'C'</span> locale.</span><br></pre></td></tr></table></figure>
+<li>下面错误处理，是没设置正的运行环境变量， 设置<code>export LC_ALL=C</code>就可以解决.<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">: Gtk-WARNING **: Locale not supported by C library.</span><br><span class="line">Using the fallback <span class="string">'C'</span> locale.</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
@@ -307,7 +307,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#处理问题要流程"><span class="nav-number">1.</span> <span class="nav-text">处理问题要流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#binutils工具"><span class="nav-number">1.1.</span> <span class="nav-text">binutils工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看程序链接动态库的依赖。"><span class="nav-number">1.1.1.</span> <span class="nav-text">查看程序链接动态库的依赖。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序长时间运行，无stdout输出的问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">程序长时间运行，无stdout输出的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">2.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#处理问题要流程"><span class="nav-number">1.</span> <span class="nav-text">处理问题要流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#binutils工具"><span class="nav-number">1.1.</span> <span class="nav-text">binutils工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看程序链接动态库的依赖"><span class="nav-number">1.1.1.</span> <span class="nav-text">查看程序链接动态库的依赖.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序长时间运行，无stdout输出的问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">程序长时间运行，无stdout输出的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">2.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -29,7 +29,7 @@
 <meta property="og:description" content="一直以来的服务器开发都会使用PostgreSQL做为数据库.有人会问为什么不用 MySQL?这个是个人喜好.Postgresql 与 MySQL 也是一些区别的.Postgresql 有一些特性是 MySQL 没有具备的.有人会说:在中国为什么 MySQL 的使用会比 PostgreSQL 流行.可能其中一个原因是 PostgreSQL 没有服务好 PHP.PostgreSQL 与 MySQL">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2019-03-22T13:25:08.165Z">
+<meta property="og:updated_time" content="2021-12-15T14:15:15.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装Postgresql-XL">
 <meta name="twitter:description" content="一直以来的服务器开发都会使用PostgreSQL做为数据库.有人会问为什么不用 MySQL?这个是个人喜好.Postgresql 与 MySQL 也是一些区别的.Postgresql 有一些特性是 MySQL 没有具备的.有人会说:在中国为什么 MySQL 的使用会比 PostgreSQL 流行.可能其中一个原因是 PostgreSQL 没有服务好 PHP.PostgreSQL 与 MySQL">
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-22 21:25:08" itemprop="dateModified" datetime="2019-03-22T21:25:08+08:00">2019-03-22</time>
+                <time title="修改时间：2021-12-15 22:15:15" itemprop="dateModified" datetime="2021-12-15T22:15:15+08:00">2021-12-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,10 +276,10 @@
 <p>Gtm 节点 gtm.conf</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keepalives_idle = 120</span><br><span class="line">keepalives_interval = 30</span><br><span class="line">keepalives_count = 50</span><br></pre></td></tr></table></figure>
 <h3 id="安装-Pgbouncer-连接池"><a href="#安装-Pgbouncer-连接池" class="headerlink" title="安装 Pgbouncer 连接池"></a>安装 Pgbouncer 连接池</h3><ul>
-<li>pgbouncer 是 PostgreSQL 的一个轻量级连接池，可以给客户端提供一个统一的视图。</li>
-<li><p>pgbouncer 的作用:<br>a)pgbouncer 可以在后端数据库和前端应用间简历连接的桥梁，由 pgbouncer 去处理和后端的连接关系。<br>b)对客户端的连接进行限制，防止过多的恶意连接。</p>
+<li>pgbouncer 是 PostgreSQL 的一个轻量级连接池，可以给客户端提供一个统一的视图.</li>
+<li><p>pgbouncer 的作用:<br>a)pgbouncer 可以在后端数据库和前端应用间简历连接的桥梁，由 pgbouncer 去处理和后端的连接关系.<br>b)对客户端的连接进行限制，防止过多的恶意连接.</p>
 </li>
-<li><p>pgbouncer 的特点：<br>a)内存消耗低。（默认 2k/连接）<br>b)可以把不同的数据库连接到一个机器上，而对客户端保持透明。<br>c)支持在线的重行配置而无需重启。</p>
+<li><p>pgbouncer 的特点：<br>a)内存消耗低.（默认 2k/连接）<br>b)可以把不同的数据库连接到一个机器上，而对客户端保持透明.<br>c)支持在线的重行配置而无需重启.</p>
 </li>
 </ul>
 <hr>

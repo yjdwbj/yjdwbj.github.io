@@ -28,7 +28,7 @@
 <meta property="og:description" content="环境安装 这里没有使用AppleBox,参照了OSX-KVM使用qemu-system-x86_64安装一个Virtual Hackintosh系统来做开发.  安装Xcode Xcode需要apple ID登录后下载.  安装Homebrew Installation homebrew sparkle制作安装包  1~$ ruby -e &quot;$(curl -fsSL https://raw.git">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2021-12-15T12:21:58.817Z">
+<meta property="og:updated_time" content="2021-12-23T14:49:46.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OSX开发记录">
 <meta name="twitter:description" content="环境安装 这里没有使用AppleBox,参照了OSX-KVM使用qemu-system-x86_64安装一个Virtual Hackintosh系统来做开发.  安装Xcode Xcode需要apple ID登录后下载.  安装Homebrew Installation homebrew sparkle制作安装包  1~$ ruby -e &quot;$(curl -fsSL https://raw.git">
@@ -182,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 20:21:58" itemprop="dateModified" datetime="2021-12-15T20:21:58+08:00">2021-12-15</time>
+                <time title="修改时间：2021-12-23 22:49:46" itemprop="dateModified" datetime="2021-12-23T22:49:46+08:00">2021-12-23</time>
               </span>
 
           
@@ -197,7 +197,7 @@
 
       
         <h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><ul>
-<li>这里没有使用<code>AppleBox</code>,参照了<a href="https://github.com/kholia/OSX-KVM" target="_blank" rel="noopener">OSX-KVM</a>使用<code>qemu-system-x86_64</code>安装一个<br><code>Virtual Hackintosh</code>系统来做开发.</li>
+<li>这里没有使用<code>AppleBox</code>,参照了<a href="https://github.com/kholia/OSX-KVM" target="_blank" rel="noopener">OSX-KVM</a>使用<code>qemu-system-x86_64</code>安装一个<code>Virtual Hackintosh</code>系统来做开发.</li>
 </ul>
 <h1 id="安装Xcode"><a href="#安装Xcode" class="headerlink" title="安装Xcode"></a>安装Xcode</h1><ul>
 <li>Xcode需要<code>apple ID</code>登录后下载.</li>
@@ -215,11 +215,10 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install autoconf automake libtool</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>这里以<code>protobuf</code>为例</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> -b v2.6.0 --depth=1 https://github.com/protocolbuffers/protobuf</span><br><span class="line">~$ <span class="built_in">cd</span> protobuf &amp;&amp; ./autogen.sh</span><br><span class="line">~$ mkdir build &amp;&amp; <span class="built_in">cd</span> build &amp;&amp; ../configure CC=clang CXX=clang++ CXXFLAGS=<span class="string">"-std=c++11 -stdlib=libc++ -O3 -g"</span> \</span><br><span class="line">      LDFLAGS=<span class="string">"-stdlib=libc++"</span> LIBS=<span class="string">"-lc++ -lc++abi"</span> \</span><br><span class="line">      --libdir=/usr/<span class="built_in">local</span>/protobuf --includedir=/usr/<span class="built_in">local</span>/protobuf/include --with-zlib &amp;&amp; \</span><br><span class="line">      make &amp;&amp; sudo make install</span><br><span class="line">~$</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> -b v2.6.0 --depth=1 https://github.com/protocolbuffers/protobuf</span><br><span class="line">~$ <span class="built_in">cd</span> protobuf &amp;&amp; ./autogen.sh</span><br><span class="line">~$ mkdir build &amp;&amp; <span class="built_in">cd</span> build &amp;&amp; ../configure CC=clang CXX=clang++ CXXFLAGS=<span class="string">"-std=c++11 -stdlib=libc++ -O3 -g"</span> \</span><br><span class="line">      LDFLAGS=<span class="string">"-stdlib=libc++"</span> LIBS=<span class="string">"-lc++ -lc++abi"</span> \</span><br><span class="line">      --libdir=/usr/<span class="built_in">local</span>/protobuf --includedir=/usr/<span class="built_in">local</span>/protobuf/include --with-zlib &amp;&amp; \</span><br><span class="line">      make &amp;&amp; sudo make install</span><br><span class="line"></span><br><span class="line">~$</span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装<code>appdmg</code>打包脚本<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install node</span><br><span class="line">~$ npm install appdmg -g</span><br></pre></td></tr></table></figure>
+<li><p>安装<code>appdmg</code>打包脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ brew install node</span><br><span class="line">~$ npm install appdmg -g</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="库版本不兼容的问题"><a href="#库版本不兼容的问题" class="headerlink" title="库版本不兼容的问题"></a>库版本不兼容的问题</h2><ul>
@@ -429,7 +428,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -456,7 +455,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

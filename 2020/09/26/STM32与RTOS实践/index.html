@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://yoursite.com/imgs/mbed-studio-blinky-project.png">
 <meta property="og:image" content="http://yoursite.com/imgs/ftdi232h_usb.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2021-12-14T09:30:54.096Z">
+<meta property="og:updated_time" content="2021-12-18T09:34:41.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STM32与RTOS实实践">
 <meta name="twitter:description" content="参考链接 Nucleo F767ZI website. RM0410 STM32F76xxx and STM32F77xxx advanced Arm®-based 32-bit MCUs 4.0.PDF stm32f767zi.pdf elinux.org    开发板简介 The STM32 Nucleo-144 F767ZI boards offer combinations of per">
@@ -185,7 +185,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-14 17:30:54" itemprop="dateModified" datetime="2021-12-14T17:30:54+08:00">2021-12-14</time>
+                <time title="修改时间：2021-12-18 17:34:41" itemprop="dateModified" datetime="2021-12-18T17:34:41+08:00">2021-12-18</time>
               </span>
 
           
@@ -634,8 +634,9 @@
 <h3 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ mbed import https://github.com/ARMmbed/mbed-os-example-blinky<span class="comment">#mbed-os-5.15.0  my-blink</span></span><br><span class="line">[mbed] Working path <span class="string">"/fullpath/github/ArmMbed"</span> (directory)</span><br><span class="line">[mbed] Importing program <span class="string">"my-blink"</span> from <span class="string">"https://github.com/ARMmbed/mbed-os-example-blinky"</span> at branch/tag <span class="string">"mbed-os-5.15.0"</span></span><br><span class="line">[mbed] Adding library <span class="string">"mbed-os"</span> from <span class="string">"https://github.com/ARMmbed/mbed-os"</span> at rev <span class="comment">#64853b354fa1</span></span><br></pre></td></tr></table></figure>
 <h3 id="为工程添加库"><a href="#为工程添加库" class="headerlink" title="为工程添加库"></a>为工程添加库</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> my-blink</span><br><span class="line">~$ mbed add https://github.com/ARMmbed/mbed-cloud-client</span><br><span class="line">[mbed] Working path <span class="string">"/fullpath/Mbed Programs/my-blink"</span> (program)</span><br><span class="line">[mbed] Adding library <span class="string">"mbed-cloud-client"</span> from <span class="string">"https://github.com/ARMmbed/mbed-cloud-client"</span> at latest revision <span class="keyword">in</span> the current branch</span><br><span class="line">[mbed] Updating reference <span class="string">"mbed-cloud-client"</span> -&gt; <span class="string">"https://github.com/ARMmbed/mbed-cloud-client/#f72a23e0dc21de4c82ee53fe947153341419a5b9"</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>如果要删除库就直接:<code>mbed remove mbed-cloud-client</code><br>*</p>
-<h3 id="编译工程"><a href="#编译工程" class="headerlink" title="编译工程"></a>编译工程</h3></li>
+<li>如果要删除库就直接:<code>mbed remove mbed-cloud-client</code></li>
+</ul>
+<h3 id="编译工程"><a href="#编译工程" class="headerlink" title="编译工程"></a>编译工程</h3><ul>
 <li><p>查看可以支持的板子.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">~$ mbed compile --supported  <span class="comment"># mbed compile -S</span></span><br><span class="line">[mbed] Working path <span class="string">"/fullpath/ArmMbed/mbed-os-example-blinky"</span> (program)</span><br><span class="line">| Target        | mbed OS 2 | mbed OS 5 | ARM       | uARM | GCC_ARM   | IAR       |</span><br><span class="line">| ------------- | --------- | --------- | --------- | ---- | --------- | --------- |</span><br><span class="line">| ADV_WISE_1510 | -         | Supported | Supported | -    | Supported | Supported |</span><br><span class="line">| ADV_WISE_1570 | -         | Supported | Supported | -    | Supported | Supported |</span><br><span class="line">| ARCH_MAX      | -         | Supported | Supported | -    | Supported | Supported |</span><br><span class="line">| ARCH_PRO      | -         | Supported | Supported | -    | Supported | Supported |</span><br><span class="line">[......]</span><br><span class="line"></span><br><span class="line">~$</span><br></pre></td></tr></table></figure>
 </li>
@@ -657,12 +658,15 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~$ mbed <span class="built_in">test</span> -m KL25Z -t GCC_ARM --run</span><br><span class="line">[mbed] Working path <span class="string">"/home/michael/3TB-DISK/Mbed Programs/my-blink"</span> (program)</span><br><span class="line">mbedgt: greentea <span class="built_in">test</span> automation tool ver. 1.7.4</span><br><span class="line">mbedgt: <span class="built_in">test</span> specification file <span class="string">'./BUILD/tests/KL25Z/GCC_ARM/test_spec.json'</span> (specified with --<span class="built_in">test</span>-spec option)</span><br><span class="line">mbedgt: using <span class="string">'./BUILD/tests/KL25Z/GCC_ARM/test_spec.json'</span> from current directory!</span><br><span class="line">mbedgt: detecting connected mbed-enabled devices...</span><br><span class="line">mbedgt: detected 1 device</span><br><span class="line">mbedgt: processing target <span class="string">'KL25Z'</span> toolchain <span class="string">'GCC_ARM'</span> compatible platforms... (note: switch <span class="built_in">set</span> to --parallel 1)</span><br><span class="line">mbedgt: running 4 tests <span class="keyword">for</span> platform <span class="string">'KL25Z'</span> and toolchain <span class="string">'GCC_ARM'</span></span><br><span class="line">mbedgt: mbed-host-test-runner: started</span><br><span class="line">mbedgt: retry mbedhtrun 1/1</span><br><span class="line">mbedgt: [<span class="string">'mbedhtrun'</span>, <span class="string">'-m'</span>, <span class="string">'KL25Z'</span>, <span class="string">'-p'</span>, <span class="string">'/dev/ttyACM0:9600'</span>, <span class="string">'-f'</span>, <span class="string">'"BUILD/tests/KL25Z/GCC_ARM/mbed-os/TESTS/psa/spm_smoke/spm_smoke.bin"'</span>, <span class="string">'-e'</span>, <span class="string">'"mbed-os/TESTS/host_tests"'</span>, <span class="string">'-d'</span>, <span class="string">'/media/michael/MBED'</span>, <span class="string">'-c'</span>, <span class="string">'default'</span>, <span class="string">'-t'</span>, <span class="string">'02000201242BD1925E8A1EE0'</span>, <span class="string">'-r'</span>, <span class="string">'default'</span>, <span class="string">'-C'</span>, <span class="string">'4'</span>, <span class="string">'--sync'</span>, <span class="string">'5'</span>, <span class="string">'-P'</span>, <span class="string">'60'</span>] failed after 1 count</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="Ardunio库"><a href="#Ardunio库" class="headerlink" title="Ardunio库"></a>Ardunio库</h1><ul>
+<h1 id="Ardunio库"><a href="#Ardunio库" class="headerlink" title="Ardunio库"></a><code>Ardunio</code>库</h1><ul>
+<li>Links:<ul>
 <li><a href="https://github.com/stm32duino/Arduino_Core_STM32" target="_blank" rel="noopener">stm32duino</a></li>
 <li><a href="https://github.com/stm32duino/wiki/wiki/Getting-Started" target="_blank" rel="noopener">wiki</a></li>
 <li><code>Nucleo-F767ZI</code>与<code>Nucleo-L152RE</code>都是兼容<code>Arduino</code>管脚的,这里是使用<code>Nucleo-L152RE</code>为目标对像.</li>
 </ul>
-<h2 id="添加STM32-Cores"><a href="#添加STM32-Cores" class="headerlink" title="添加STM32 Cores"></a>添加STM32 Cores</h2><ul>
+</li>
+</ul>
+<h2 id="添加STM32-Cores"><a href="#添加STM32-Cores" class="headerlink" title="添加STM32 Cores"></a>添加<code>STM32 Cores</code></h2><ul>
 <li>打开<code>Arduino IDE</code>的<code>File-&gt;Preferences</code>,在<code>Additional Board Manager URLs:</code>内,加入这个链接<a href="https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json" target="_blank" rel="noopener">https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json</a></li>
 <li>添加完成,它会更新数据.进入<code>Tools -&gt; Boards -&gt; Boards Manager</code>过滤”stm32”或者下拉,选择安装<code>STM32 Cores</code>.</li>
 </ul>
@@ -675,10 +679,9 @@
 <li><code>Upload</code>方法,选择<code>Tools -&gt; Upload method -&gt; STM32CubeProgrammer (SWD)</code></li>
 </ul>
 <h2 id="更新ST-Link的固件"><a href="#更新ST-Link的固件" class="headerlink" title="更新ST-Link的固件"></a>更新ST-Link的固件</h2><ul>
-<li>烧写时提示如下的错误.</li>
-</ul>
+<li><p>烧写时提示如下的错误.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> STM32CubeProgrammer v2.4.0</span><br><span class="line">      -------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Error: Old ST-LINK firmware version. Upgrade ST-LINK firmware</span><br><span class="line">Error: Old ST-LINK firmware version. Upgrade ST-LINK firmware</span><br><span class="line">Error: Old ST-LINK firmware!Please upgrade it.</span><br><span class="line">Error: Old ST-LINK firmware!Please upgrade it.</span><br></pre></td></tr></table></figure>
-<ul>
+</li>
 <li><p>下载<a href="https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/stsw-link007.html" target="_blank" rel="noopener">stsw-link007</a>,后解压它.</p>
 </li>
 <li><p>解压目录如下:</p>
@@ -690,7 +693,7 @@
 <li><p>更新完最新的固件后可以,用<code>ST官方</code>的<code>STM32CubeProgrammer</code>读写,但是想用它的<code>ST-link</code>外接给<code>STM32F103</code>最小系统板做<code>SWD</code>烧写调试时出错了.</p>
 </li>
 </ul>
-<h2 id="SPI-SD示例"><a href="#SPI-SD示例" class="headerlink" title="SPI SD示例"></a>SPI SD示例</h2><ul>
+<h2 id="SPI-SD示例"><a href="#SPI-SD示例" class="headerlink" title="SPI SD示例"></a><code>SPI SD</code>示例</h2><ul>
 <li>这里选择标准库内的<code>File -&gt; Examples -&gt; Examples for any board -&gt; SD -&gt; listfiles</code>的示例,程序如下所示,管脚定义兼容<code>Nucleo-L152RE</code>,只是<code>CS</code>这里与原程序定义不符.<code>Nucleo-L152RE</code>里是<code>pin 10 (CS)</code>,所以只需要在程序内改成<code>!SD.begin(10)</code>.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">The circuit:</span><br><span class="line">  SD card attached to SPI bus as follows:</span><br><span class="line">** MOSI - pin 11</span><br><span class="line">** MISO - pin 12</span><br><span class="line">** CLK - pin 13</span><br><span class="line">** CS - pin 4 (<span class="keyword">for</span> MKRZero SD: SDCARD_SS_PIN)</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line"><span class="keyword">if</span> (!SD.begin(10)) &#123;</span><br><span class="line">   Serial.println(<span class="string">"initialization failed!"</span>);</span><br><span class="line">   <span class="keyword">while</span> (1);</span><br><span class="line"> &#125;</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
@@ -884,7 +887,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -911,7 +914,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

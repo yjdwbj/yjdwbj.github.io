@@ -148,6 +148,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/10/NFC读写工具杂记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/NFC读写工具杂记/" class="post-title-link" itemprop="url">NFC读写工具杂记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-10 21:09:03" itemprop="dateCreated datePublished" datetime="2022-02-10T21:09:03+08:00">2022-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>参考链接:<ul>
+<li><a href="https://zh.wikipedia.org/zh/%E8%BF%91%E5%A0%B4%E9%80%9A%E8%A8%8A" target="_blank" rel="noopener">近場通訊</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="NFC概述-摘自维基"><a href="#NFC概述-摘自维基" class="headerlink" title="NFC概述[摘自维基]"></a>NFC概述[摘自维基]</h1><ul>
+<li>近距离无线通信(英语:Near-field communication,NFC),又简称近距离通信或近场通信,是一套通信协议,让两个电子设备(其中一个通常是移动设备,例如智能手机)在相距几厘米之内进行通信.<code>NFC</code>,如同过去的电子票券智能卡一般,将允许移动支付取代或支持这类系统.<code>NFC</code>应用于社交网络,分享联系方式,照片,视频或文件.具备 <code>NFC</code> 功能的设备可以充当电子身份证和钥匙卡.<code>NFC</code> 提供了设置简便的低速连接,也可用于引导能力更强的无线连接.</li>
+<li>近场通信技术由非接触式射频识别(RFID)演变而来,由飞利浦半导体(现恩智浦半导体 NXP)’诺基亚和索尼共同于2004年研制开发[4],其基础是RFID及互连技术.近场通信是一种短距高频的无线电技术,在<code>13.56MHz</code>频率运行于<code>20</code>厘米距离内.其传输速度有<code>106 Kbit/秒</code>,<code>212 Kbit/秒</code>或者<code>424 Kbit/秒</code>三种.目前近场通信已通过成为<code>ISO/IEC IS 18092</code>国际标准,<code>EMCA-340</code>标准与<code>ETSI TS 102 190</code>标准.<code>NFC</code>采用主动和被动两种读取模式.</li>
+<li>每一个完整的<code>NFC</code>设备可以用三种模式工作:<ul>
+<li>卡模拟模式(Card emulation mode):这个模式其实就是相当于一张采用<code>RFID技</code>术的<code>IC</code>卡.可以替代现在大量的IC卡(包括信用卡)场合商场刷卡,<code>IPASS</code>,门禁管制,车票,门票等等.此种方式下,有一个极大的优点,那就是卡片通过非接触读卡器的RF域来供电,即便是寄主设备(如手机)没电也可以工作.<code>NFC</code>设备若要进行卡片模拟(Card Emulation)相关应用,则必须内置安全组件(Security Element, SE)之<code>NFC</code>芯片或通过软件实现主机卡模拟(Host Card Emulation,HCE).</li>
+<li>读卡器模式(Reader/Writer mode):作为非接触读卡器使用,比如从海报或者展览信息电子标签上读取相关信息.</li>
+<li>点对点模式(P2P mode):这个模式和红外线差不多,可用于数据交换,只是传输距离较短,传输创建速度较快,传输速度也快些,功耗低(蓝牙也类似).将两个具备<code>NFC</code>功能的设备链接,能实现数据点对点传输,如下载音乐,交换图片或者同步设备地址薄.因此通过<code>NFC</code>,多个设备如数位相机,<code>PDA</code>,计算机和手机之间都可以交换资料或者服务.</li>
+</ul>
+</li>
+</ul>
+<h2 id="与藍牙的比较"><a href="#与藍牙的比较" class="headerlink" title="与藍牙的比较"></a>与藍牙的比较</h2><ul>
+<li><code>NFC</code>和蓝牙都是短距离通信技术,而且都被集成到移动电话.但<code>NFC</code>不需要复杂的设置程序.<code>NFC</code>也可以简化蓝牙连接.</li>
+<li><code>NFC</code>略胜蓝牙的地方在于设置程序较短,但无法达到低功率蓝牙(Bluetooth Low Energy)的传输速率.在两台<code>NFC</code>设备相互连接的设备识别过程中,使用<code>NFC</code>来替代人工设置会使创建连接的速度大大加快:少于十分之一秒.<code>NFC</code>的最大资料传输量<code>424 kbit/s</code>远小于<code>Bluetooth V2.1(2.1 Mbit/s)</code>.虽然<code>NFC</code>在传输速度与距离比不上蓝牙(小于20 cm),但相应可以减少不必要的干扰.这让<code>NFC</code>特别适用于设备密集而传输变得困难的时候.</li>
+<li>相对于蓝牙,<code>NFC</code>兼容于现有的被动<code>RFID(13.56 MHz ISO/IEC 18000-3)</code>设施.<code>NFC</code>的能量需求更低,与蓝牙<code>V4.0</code>低功耗协议类似.当NFC在一台无供电的设备(比如一台关机的手机,非接触式智能信用卡,或是智能海报)上工作时,<code>NFC</code>的能量消耗会要大于低功率蓝牙<code>V4.0</code>.</li>
+<li>对于移动电话或是行动消费性电子产品来说,<code>NFC</code>的使用比较方便.<code>NFC</code>的短距离通信特性正是其优点,由于耗电量低,一次只和一台机器链接,拥有较高的保密性与安全性,<code>NFC</code>有利于信用卡交易时避免被盗用.<code>NFC</code>的目标并非是取代蓝牙等其他无线技术,而是在不同的场合,不同的领域起到相互补充的作用.</li>
+</ul>
+<h1 id="Linux连接使用"><a href="#Linux连接使用" class="headerlink" title="Linux连接使用"></a>Linux连接使用</h1><ul>
+<li><a href="https://smartlockpicking.com/nfc-toolkit/" target="_blank" rel="noopener">Confidence 2018: NFC research toolkit</a></li>
+<li><a href="https://www.kaper.com/electronics/duplicate-unprotected-mifare-classic-nfc-card/" target="_blank" rel="noopener">Duplicate unprotected Mifare Classic NFC Card</a></li>
+<li><a href="https://samdecrock.medium.com/cracking-mifare-classic-nfc-cards-using-the-hardnested-attack-506aab3ea305" target="_blank" rel="noopener">Howto crack Mifare Classic NFC cards using the hardnested attack</a></li>
+</ul>
+<ul>
+<li>因为<code>Debian</code>里的仓库包含它的这些式具的发行版了,就可以直接安装它使用,而且查看它的源码库,如：<a href="https://github.com/nfc-tools/libnfc" target="_blank" rel="noopener">nfs-tools/libnfc</a>,<a href="https://github.com/nfc-tools/mfoc" target="_blank" rel="noopener">nfc-tools/mfoc</a>都没有大的更新.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install libnfc-bin libnfc-examples mfoc mfcuk</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里是直接使用<code>uart</code>来连接,只要一个<code>USB-TTL</code>连接到电脑就要可以,修改<code>/etc/nfc/libnfc.conf</code>成如下内容：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ grep  <span class="string">'='</span> /etc/nfc/libnfc.conf</span><br><span class="line"><span class="comment">#allow_autoscan = true</span></span><br><span class="line"><span class="comment">#allow_intrusive_scan = false</span></span><br><span class="line"><span class="comment">#log_level = 1</span></span><br><span class="line"><span class="comment">#device.name = "microBuilder.eu"</span></span><br><span class="line">device.connstring = <span class="string">"pn532_uart:/dev/ttyUSB0"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如下图所示,连接<code>UART</code>后,并且通过板上的拨码开关设置成<code>HSV</code>模式.</li>
+</ul>
+<p><img src="/imgs/PN532_nfc.jpg" alt="PN532_nfc.jpg"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  USB-TTL      PN532</span><br><span class="line"></span><br><span class="line">3.3vVCC &lt;-----&gt; VCC</span><br><span class="line">    GND &lt;-----&gt; GND</span><br><span class="line">    RX  &lt;-----&gt; TX</span><br><span class="line">    TX  &lt;-----&gt; RX</span><br></pre></td></tr></table></figure>
+<ul>
+<li>列出所有的<code>NFC</code>列表,如果<code>LIBNFC_LOG_LEVEL=3</code>会有更加丰富的信息输出.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ LIBNFC_LOG_LEVEL=1 nfc-list -v</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">0 ISO14443A passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 Felica (212 kbps) passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 Felica (424 kbps) passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B-2 ST SRx passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B-2 ASK CTx passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B iClass passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443A-3 Jewel passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443A-2 NFC Barcode passive target(s) found.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>直接放上一张卡,读取它的基本信息.如下面所示,这张卡的<code>UID</code>是<code>370656b3</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ nfc-list</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">1 ISO14443A passive target(s) found:</span><br><span class="line">ISO/IEC 14443A (106 kbps) target:</span><br><span class="line">    ATQA (SENS_RES): 00  04</span><br><span class="line">       UID (NFCID1): 37  06  56  b3</span><br><span class="line">      SAK (SEL_RES): 08</span><br></pre></td></tr></table></figure>
+<ul>
+<li>再读一张</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">~$ ~$ nfc-list -v</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">1 ISO14443A passive target(s) found:</span><br><span class="line">ISO/IEC 14443A (106 kbps) target:</span><br><span class="line">    ATQA (SENS_RES): 00  04</span><br><span class="line">* UID size: single</span><br><span class="line">* bit frame anticollision supported</span><br><span class="line">       UID (NFCID1): 0f  b7  85  32</span><br><span class="line">      SAK (SEL_RES): 28</span><br><span class="line">* Compliant with ISO/IEC 14443-4</span><br><span class="line">* Not compliant with ISO/IEC 18092</span><br><span class="line">                ATS: 77  33  a0  02  22  30  00  01  01</span><br><span class="line">* Max Frame Size accepted by PICC: 128 bytes</span><br><span class="line">* Bit Rate Capability:</span><br><span class="line">  * PICC to PCD, DS=2, bitrate 212 kbits/s supported</span><br><span class="line">  * PICC to PCD, DS=4, bitrate 424 kbits/s supported</span><br><span class="line">  * PCD to PICC, DR=2, bitrate 212 kbits/s supported</span><br><span class="line">  * PCD to PICC, DR=4, bitrate 424 kbits/s supported</span><br><span class="line">* Frame Waiting Time: 309.3 ms</span><br><span class="line">* No Start-up Frame Guard Time required</span><br><span class="line">* Node Address not supported</span><br><span class="line">* Card IDentifier supported</span><br><span class="line">* Historical bytes Tk: 22  30  00  01  01</span><br><span class="line">  * Proprietary format</span><br><span class="line"></span><br><span class="line">Fingerprinting based on MIFARE <span class="built_in">type</span> Identification Procedure:</span><br><span class="line">* SmartMX with MIFARE 1K emulation</span><br><span class="line">Other possible matches based on ATQA &amp; SAK values:</span><br><span class="line">* JCOP31 v2.3.1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这是一张<code>NXP</code>的<code>SmartMX</code>系列的卡片,同时附带<code>MIFARE Classic 1K</code>模拟.<code>SmartMX</code>是<code>NXP</code>的<code>JCOP</code>卡系列,也就是说这张卡是一种<code>CPU</code>卡（也有叫做Java卡）.<code>CPU卡</code>意味着卡中有一个完整功能的<code>CPU</code>,并且带有操作系统,卡片的功能是基于软件实现的,而不是像<code>MIFAREClassic</code>这种基于<code>ASIC</code>的卡,用硬件电路实现卡片功能.这种类型的卡相比较<code>MifareClassic</code>类型的卡要安全的多,几乎不可能被破解和复制.<h2 id="相关源码编译"><a href="#相关源码编译" class="headerlink" title="相关源码编译"></a>相关源码编译</h2></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="树莓派"><a href="#树莓派" class="headerlink" title="树莓派"></a>树莓派</h1><ul>
+<li><a href="http://wiki.sunfounder.cc/index.php?title=PN532_NFC_Module_for_Raspberry_Pi" target="_blank" rel="noopener">PN532 NFC Module for Raspberry Pi</a></li>
+</ul>
+<h1 id="手机应用"><a href="#手机应用" class="headerlink" title="手机应用"></a>手机应用</h1><ul>
+<li><a href="https://timdows.com/projects/using-a-mobile-phone-to-clone-a-mifare-card/" target="_blank" rel="noopener">Using a mobile phone to clone a MIFARE card</a></li>
+</ul>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/18/Lattice-FPGA-开发板实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -179,7 +309,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-09 22:44:23" itemprop="dateModified" datetime="2022-01-09T22:44:23+08:00">2022-01-09</time>
+                <time title="修改时间：2022-02-28 21:43:30" itemprop="dateModified" datetime="2022-02-28T21:43:30+08:00">2022-02-28</time>
               </span>
 
           
@@ -203,6 +333,7 @@
 <li><a href="http://yosyshq.net/prjtrellis-db/ECP5/LFE5UM5G-85F/index.html" target="_blank" rel="noopener">LFE5UM5G-85F Tilegrid</a></li>
 <li><a href="http://yosyshq.net/prjtrellis-db/" target="_blank" rel="noopener">Project Trellis HTML Documentation</a></li>
 <li><a href="https://www.wpgdadatong.com/cn/blog/detail?BID=B1577" target="_blank" rel="noopener">Lattice ECP5系列FPGA介绍</a></li>
+<li><a href="https://github.com/antonblanchard/microwatt" target="_blank" rel="noopener">Microwatt</a></li>
 </ul>
 </li>
 </ul>
@@ -243,7 +374,7 @@
 <li><a href="YosysHQ/icestorm">icestorm</a>:针对<code>Lattice iCE40 FPGA</code>架构信息库和完整生成<code>bitstream</code>工具链组合,依靠反向工程创建出来的。</li>
 </ul>
 </li>
-<li><p>上面三个开源工具链被<a href="https://github.com/SymbiFlow" target="_blank" rel="noopener">SymbiFlow</a>收入整合了。</p>
+<li><p>上面三个开源工具链被<a href="https://github.com/SymbiFlow" target="_blank" rel="noopener">SymbiFlow</a>收入整合了。也可以用<a href="https://github.com/YosysHQ/oss-cad-suite-build" target="_blank" rel="noopener">YosysHQ/oss-cad-suite-build</a>去做开发环境的构建。</p>
 </li>
 </ul>
 <h2 id="SymbiFlow"><a href="#SymbiFlow" class="headerlink" title="SymbiFlow"></a><code>SymbiFlow</code></h2><ul>
@@ -254,6 +385,10 @@
 <li><code>SymbiFlow</code>相当于是<code>FPGAs</code>开源界的<code>GCC</code>工具。</li>
 </ul>
 <h2 id="构建环境"><a href="#构建环境" class="headerlink" title="构建环境"></a>构建环境</h2><h3 id="prjtrellis"><a href="#prjtrellis" class="headerlink" title="prjtrellis"></a>prjtrellis</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> --recursive https://github.com/YosysHQ/prjtrellis</span><br><span class="line">~$ <span class="built_in">export</span> LATTICE_TOOLS_PATH=~/Lattice-OpenTools</span><br><span class="line">~$ <span class="built_in">cd</span> libtrellis</span><br><span class="line">~$ cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> .</span><br><span class="line">~$ make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果出现<code>python3</code>开发版本不匹配的错误,可以参照下面修改到合适的版本。删除<code>CMakeCache.txt</code>,重新运行<code>cmake</code>生成配置。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">prjtrellis/libtrellis$ rm CMakeCache.txt</span><br><span class="line">prjtrellis/libtrellis$ git diff CMakeLists.txt</span><br><span class="line">diff --git a/libtrellis/CMakeLists.txt b/libtrellis/CMakeLists.txt</span><br><span class="line">index 540368e..868bd2b 100644</span><br><span class="line">--- a/libtrellis/CMakeLists.txt</span><br><span class="line">+++ b/libtrellis/CMakeLists.txt</span><br><span class="line">@@ -49,10 +49,10 @@ <span class="keyword">else</span>()</span><br><span class="line">     add_definitions(-DNO_THREADS)</span><br><span class="line"> endif()</span><br><span class="line"> <span class="built_in">set</span>(Boost_NO_BOOST_CMAKE ON)</span><br><span class="line">-find_package(PythonInterp 3.5 REQUIRED)</span><br><span class="line">+find_package(PythonInterp 3.9 REQUIRED)</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (BUILD_PYTHON)</span><br><span class="line">-    find_package(PythonLibs 3.5 REQUIRED)</span><br><span class="line">+    find_package(PythonLibs 3.9 REQUIRED)</span><br><span class="line">     <span class="built_in">set</span>(PythonInstallTarget <span class="string">"pytrellis"</span>)</span><br><span class="line"> endif()</span><br></pre></td></tr></table></figure>
 <h3 id="nextpnr"><a href="#nextpnr" class="headerlink" title="nextpnr"></a>nextpnr</h3><ul>
 <li>我现在手上只有<a href="https://www.latticesemi.com/en/Products/DevelopmentBoardsAndKits/ECP5EvaluationBoard" target="_blank" rel="noopener"><code>ECP5 Evaluation Board</code></a>,这只选择编译<code>-DARCH=ecp5</code>,具体更多的参数,查看源码脚本。<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> --recursive https://github.com/YosysHQ/nextpnr</span><br><span class="line">~$ cmake . -DARCH=ecp5 -DTRELLIS_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span></span><br><span class="line">~$ make install</span><br></pre></td></tr></table></figure>
 </li>
@@ -270,14 +405,18 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ PREFIX=/usr sudo make -j20 -f ../Makefile install</span><br></pre></td></tr></table></figure>
 <h3 id="openFPGALoader"><a href="#openFPGALoader" class="headerlink" title="openFPGALoader"></a>openFPGALoader</h3><ul>
+<li><a href="https://www.librecores.org/trabucayre/openfpgaloader" target="_blank" rel="noopener">openfpgaloader</a></li>
 <li><a href="https://trabucayre.github.io/openFPGALoader/index.html" target="_blank" rel="noopener">Welcome to the documentation of openFPGALoader!</a></li>
 <li><a href="https://github.com/trabucayre/openFPGALoader" target="_blank" rel="noopener">openFPGALoader</a>是一个用于<code>FPGA</code>编程的通用实用程序,支持众多主流<code>FPGA</code>厂商的产品与烧写器,如：<code>Xilinx, Altera/Intel, Lattice, Gowin, Efinix, Anlogic, Cologne Chip</code>. 并且支持<code>Linux, Windows,macOS</code>多平台系统.</li>
+</ul>
+<h4 id="编译openFPGALoader"><a href="#编译openFPGALoader" class="headerlink" title="编译openFPGALoader"></a>编译<code>openFPGALoader</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">~$ apt-get install libftdi1-2 libftdi1-dev libudev-dev cmake  <span class="comment"># 这装必要的支持库</span></span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/trabucayre/openFPGALoader</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> openFPGALoader</span><br><span class="line">~$ sudo cp 99-openfpgaloader.rules /etc/udev/rules.d/</span><br><span class="line">~$ sudo udevadm control --reload-rules &amp;&amp; udevadm trigger <span class="comment"># 强制重新加载rules</span></span><br><span class="line">~$  mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">build$ cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> ../</span><br><span class="line">-- The CXX compiler identification is GNU 10.2.1</span><br><span class="line">-- Detecting CXX compiler ABI info</span><br><span class="line">-- Detecting CXX compiler ABI info - <span class="keyword">done</span></span><br><span class="line">-- Check <span class="keyword">for</span> working CXX compiler: /usr/bin/c++ - skipped</span><br><span class="line">-- Detecting CXX compile features</span><br><span class="line">-- Detecting CXX compile features - <span class="keyword">done</span></span><br><span class="line">-- Found PkgConfig: /usr/bin/pkg-config (found version <span class="string">"0.29.2"</span>)</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libftdi1'</span></span><br><span class="line">--   Found libftdi1, version 1.5</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libusb-1.0'</span></span><br><span class="line">--   Found libusb-1.0, version 1.0.24</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'hidapi-hidraw'</span></span><br><span class="line">--   Found hidapi-hidraw, version 0.10.1</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'zlib'</span></span><br><span class="line">--   Found zlib, version 1.2.11</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libudev'</span></span><br><span class="line">--   Found libudev, version 247</span><br><span class="line">cmsis_dap support enabled</span><br><span class="line">-- Configuring <span class="keyword">done</span></span><br><span class="line">-- Generating <span class="keyword">done</span></span><br><span class="line">-- Build files have been written to: /home/michael/openTools-For-Lattice/openFPGALoader/build</span><br><span class="line">~$ make &amp;&amp; make install</span><br><span class="line">[...]</span><br><span class="line">Install the project...</span><br><span class="line">-- Install configuration: <span class="string">""</span></span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/bin/openFPGALoader</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/test_sfl.svf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc6slx100fgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc6slx45csg324.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a100tfgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a200tsbg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tcpg236.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tcsg324.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tftg256.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a50tcpg236.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a75tfgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_10cl025256.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_5ce223.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_ep4ce2217.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_5ce423.rbf.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_ep4ce1523.rbf.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a100tcsg324.bit.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7s25csga324.bit.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7s50csga324.bit.gz</span><br></pre></td></tr></table></figure>
+<ul>
 <li>支持的板子型号,<a href="https://trabucayre.github.io/openFPGALoader/compatibility/board.html#compatibility-boards" target="_blank" rel="noopener">查看这里</a>,或者运行：</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ openFPGALoader --list-boards</span><br><span class="line">~$ openFPGALoader --list-fpga</span><br><span class="line">~$ openFPGALoader --list-cables</span><br></pre></td></tr></table></figure>
-<h4 id="编译openFPGALoader"><a href="#编译openFPGALoader" class="headerlink" title="编译openFPGALoader"></a>编译<code>openFPGALoader</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">~$ apt-get install libftdi1-2 libftdi1-dev libudev-dev cmake  <span class="comment"># 这装必要的支持库</span></span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/trabucayre/openFPGALoader</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> openFPGALoader</span><br><span class="line">~$ sudo cp 99-openfpgaloader.rules /etc/udev/rules.d/</span><br><span class="line">~$ sudo udevadm control --reload-rules &amp;&amp; udevadm trigger <span class="comment"># 强制重新加载rules</span></span><br><span class="line">~$  mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">build$ cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> ../</span><br><span class="line">-- The CXX compiler identification is GNU 10.2.1</span><br><span class="line">-- Detecting CXX compiler ABI info</span><br><span class="line">-- Detecting CXX compiler ABI info - <span class="keyword">done</span></span><br><span class="line">-- Check <span class="keyword">for</span> working CXX compiler: /usr/bin/c++ - skipped</span><br><span class="line">-- Detecting CXX compile features</span><br><span class="line">-- Detecting CXX compile features - <span class="keyword">done</span></span><br><span class="line">-- Found PkgConfig: /usr/bin/pkg-config (found version <span class="string">"0.29.2"</span>)</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libftdi1'</span></span><br><span class="line">--   Found libftdi1, version 1.5</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libusb-1.0'</span></span><br><span class="line">--   Found libusb-1.0, version 1.0.24</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'hidapi-hidraw'</span></span><br><span class="line">--   Found hidapi-hidraw, version 0.10.1</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'zlib'</span></span><br><span class="line">--   Found zlib, version 1.2.11</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libudev'</span></span><br><span class="line">--   Found libudev, version 247</span><br><span class="line">cmsis_dap support enabled</span><br><span class="line">-- Configuring <span class="keyword">done</span></span><br><span class="line">-- Generating <span class="keyword">done</span></span><br><span class="line">-- Build files have been written to: /home/michael/openTools-For-Lattice/openFPGALoader/build</span><br><span class="line">~$ make &amp;&amp; make install</span><br><span class="line">[...]</span><br><span class="line">Install the project...</span><br><span class="line">-- Install configuration: <span class="string">""</span></span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/bin/openFPGALoader</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/test_sfl.svf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc6slx100fgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc6slx45csg324.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a100tfgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a200tsbg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tcpg236.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tcsg324.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tftg256.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a50tcpg236.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a75tfgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_10cl025256.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_5ce223.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_ep4ce2217.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_5ce423.rbf.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_ep4ce1523.rbf.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a100tcsg324.bit.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7s25csga324.bit.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7s50csga324.bit.gz</span><br></pre></td></tr></table></figure>
 <h2 id="测试编译示例"><a href="#测试编译示例" class="headerlink" title="测试编译示例"></a>测试编译示例</h2><ul>
 <li><a href="https://blog.dave.tf/post/getting-started-fpga/" target="_blank" rel="noopener">Getting started with FPGA hacking</a></li>
+<li><a href="https://codeconstruct.com.au/docs/microwatt-orangecrab/" target="_blank" rel="noopener">Microwatt with Linux on OrangeCrab</a></li>
 </ul>
 <h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> prjtrellis/examples/ecp5_evn</span><br><span class="line">~$ make</span><br><span class="line">[....]</span><br><span class="line">2.51. Executing JSON backend.</span><br><span class="line">ERROR: Module top contains processes, <span class="built_in">which</span> are not supported by JSON backend (run `proc` first).</span><br><span class="line">make: *** [Makefile:7: blinky.json] Error 1</span><br><span class="line">rm blinky.json</span><br></pre></td></tr></table></figure>
 <ul>
@@ -294,16 +433,19 @@
 </li>
 <li><p>烧写成功后,就能看到板上的流水灯的效果。</p>
 </li>
+<li><p>这里也可以使用一个外部的<code>JTAG</code>烧写。比如使用一个独立的<code>FTDI 2232HL</code>连接到板上的<code>J1 JTAG</code>,再把<code>JP1</code>跳线安装上,就可以下载调试了。</p>
+</li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">~$ openFPGALoader -d /dev/ttyUSB1 --detect</span><br><span class="line">write to ram</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">index 0:</span><br><span class="line">	idcode 0x1113043</span><br><span class="line">	manufacturer lattice</span><br><span class="line">	family ECP5</span><br><span class="line">	model  LFE5U-85</span><br><span class="line">	irlength 8</span><br><span class="line"></span><br><span class="line">~$ openFPGALoader -d /dev/ttyUSB1 -b ecp5_evn blinky.bit</span><br></pre></td></tr></table></figure>
 <h3 id="烧写到SPI-Flash"><a href="#烧写到SPI-Flash" class="headerlink" title="烧写到SPI Flash"></a>烧写到<code>SPI Flash</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">prjtrellis/examples/ecp5_evn_multiboot$ openFPGALoader -b ecp5_evn -f blinky1.bit</span><br><span class="line">write to flash</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">Open file DONE</span><br><span class="line">Parse file DONE</span><br><span class="line">Enable configuration: DONE</span><br><span class="line">SRAM erase: DONE</span><br><span class="line">Detail:</span><br><span class="line">Jedec ID          : c2</span><br><span class="line">memory <span class="built_in">type</span>       : 20</span><br><span class="line">memory capacity   : 18</span><br><span class="line">EDID + CFD length : c2</span><br><span class="line">EDID              : 1820</span><br><span class="line">CFD               :</span><br><span class="line">flash chip unknown: use basic protection detection</span><br><span class="line">Erasing: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Writing: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Refresh: DONE</span><br></pre></td></tr></table></figure>
 <ul>
-<li>烧写<code>flash</code>的时间会略长一些。每次上电启动，都是从<code>spi flash</code>加载程序来运行。如果烧写的是<code>openFPGALoader -b ecp5_evn -f multiboot.bin</code>,可以通过板上的<code>PGMN SW3</code>按键来切换从不同的<code>flash</code>位置加载启动。</li>
+<li>烧写<code>flash</code>的时间会略长一些。每次上电启动,都是从<code>spi flash</code>加载程序来运行。如果烧写的是<code>openFPGALoader -b ecp5_evn -f multiboot.bin</code>,可以通过板上的<code>PGMN SW3</code>按键来切换从不同的<code>flash</code>位置加载启动。</li>
 </ul>
 <h1 id="RISC-V"><a href="#RISC-V" class="headerlink" title="RISC-V"></a>RISC-V</h1><h2 id="VexRiscv"><a href="#VexRiscv" class="headerlink" title="VexRiscv"></a>VexRiscv</h2><ul>
 <li><a href="https://wot.lv/from-zero-to-soc-in-litex.html" target="_blank" rel="noopener">From zero to SoC in LiteX</a></li>
 </ul>
 <h3 id="运行linux-on-litex-vexriscv"><a href="#运行linux-on-litex-vexriscv" class="headerlink" title="运行linux-on-litex-vexriscv"></a>运行<code>linux-on-litex-vexriscv</code></h3><ul>
-<li>这里可以接合参照我写的另一篇文章<a href="https://yjdwbj.github.io/2021/10/12/XILINX-Arty-A7-35T%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/" target="_blank" rel="noopener"><code>XILINX_Arty-A7-35T实践指南</code></a>去实践。</li>
+<li>这里可以接合参照我写的另一篇文章<a href="https://yjdwbj.github.io/2021/10/12/XILINX-Arty-A7-35T%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/" target="_blank" rel="noopener"><code>XILINX_Arty-A7-35T实践指南</code></a>去实践。要先编译安装<code>riscv toolchains</code>.</li>
 </ul>
 <ul>
 <li><p>编译工程</p>
@@ -315,12 +457,19 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">~$ ./make.py --board ecpix5 --load</span><br><span class="line">[....]</span><br><span class="line">python3 -m litex.soc.software.mkmscimg bios.bin --little</span><br><span class="line">python3 -m litex.soc.software.memusage bios.elf /home/michael/workspace-xilinx/RISC-V/litex-hub/litex/linux-on-litex-vexriscv/build/ecpix5/software/bios/../include/generated/regions.ld riscv64-unknown-elf</span><br><span class="line"></span><br><span class="line">ROM usage: 39.21KiB 	(61.27%)</span><br><span class="line">RAM usage: 0.61KiB 	(7.62%)</span><br><span class="line"></span><br><span class="line">make: Leaving directory <span class="string">'/home/michael/workspace-xilinx/RISC-V/litex-hub/litex/linux-on-litex-vexriscv/build/ecpix5/software/bios'</span></span><br><span class="line">INFO:SoC:Initializing ROM rom with contents (Size: 0x9cf4).</span><br><span class="line">INFO:SoC:Auto-Resizing ROM rom from 0x10000 to 0x9cf4.</span><br><span class="line">write to ram</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">Open file: DONE</span><br><span class="line">Parse file: DONE</span><br><span class="line">Enable configuration: DONE</span><br><span class="line">SRAM erase: DONE</span><br><span class="line">Loading: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Disable configuration: DONE</span><br></pre></td></tr></table></figure>
 <h3 id="直接运行litex-boards"><a href="#直接运行litex-boards" class="headerlink" title="直接运行litex-boards"></a>直接运行<code>litex-boards</code></h3><ul>
 <li><p>编译工程</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">litex-boards/litex_boards$ ./targets/lattice_ecp5_evn.py --cpu-type vexriscv  --build</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ litex-boards/litex_boards$ ./targets/lattice_ecp5_evn.py --cpu-type vexriscv  --build</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>加载工程</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">litex-boards/litex_boards$ ./targets/lattice_ecp5_evn.py --cpu-type vexriscv --sys-clk-freq 100e6 --load</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ litex-boards/litex_boards$ ./targets/lattice_ecp5_evn.py --cpu-type vexriscv --sys-clk-freq 100e6 --load</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更换连接<code>uart</code>的管脚配置，把原板上的<code>FTDI P2,P3</code>换成<code>M19,M20</code>,因为<code>P2,P3</code>有复用到其它功能。</p>
 </li>
 </ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">litex-boards/litex_boards$ git diff platforms/lattice_ecp5_evn.py</span><br><span class="line">diff --git a/litex_boards/platforms/lattice_ecp5_evn.py b/litex_boards/platforms/lattice_ecp5_evn.py</span><br><span class="line">index 1a96862..7892dc0 100644</span><br><span class="line">--- a/litex_boards/platforms/lattice_ecp5_evn.py</span><br><span class="line">+++ b/litex_boards/platforms/lattice_ecp5_evn.py</span><br><span class="line">@@ -48,8 +48,8 @@ _io = [</span><br><span class="line"></span><br><span class="line">     <span class="comment"># Serial</span></span><br><span class="line">     (<span class="string">"serial"</span>, 0,</span><br><span class="line">-        Subsignal(<span class="string">"rx"</span>, Pins(<span class="string">"P2"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">-        Subsignal(<span class="string">"tx"</span>, Pins(<span class="string">"P3"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">+        Subsignal(<span class="string">"rx"</span>, Pins(<span class="string">"M19"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">+        Subsignal(<span class="string">"tx"</span>, Pins(<span class="string">"M20"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">     ),</span><br><span class="line"></span><br><span class="line">     <span class="comment"># SPIFlash</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接成功后如下。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">litex&gt;</span><br><span class="line">        __   _ __      _  __</span><br><span class="line">       / /  (_) /____ | |/_/</span><br><span class="line">      / /__/ / __/ -_)&gt;  &lt;</span><br><span class="line">     /____/_/\__/\__/_/|_|</span><br><span class="line">   Build your hardware, easily!</span><br><span class="line"></span><br><span class="line"> (c) Copyright 2012-2022 Enjoy-Digital</span><br><span class="line"> (c) Copyright 2007-2015 M-Labs</span><br><span class="line"></span><br><span class="line"> BIOS built on Feb 26 2022 23:37:36</span><br><span class="line"> BIOS CRC passed (23ff10b6)</span><br><span class="line"></span><br><span class="line"> Migen git sha1: ac70301</span><br><span class="line"> LiteX git sha1: 7f49c523</span><br><span class="line"></span><br><span class="line">--=============== SoC ==================--</span><br><span class="line">CPU:            VexRiscv @ 100MHz</span><br><span class="line">BUS:            WISHBONE 32-bit @ 4GiB</span><br><span class="line">CSR:            32-bit data</span><br><span class="line">ROM:            128KiB</span><br><span class="line">SRAM:           8KiB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--============== Boot ==================--</span><br><span class="line">Booting from serial...</span><br><span class="line">Press Q or ESC to abort boot completely.</span><br><span class="line">sL5DdSMmkekro</span><br><span class="line">             Timeout</span><br><span class="line">No boot medium found</span><br><span class="line"></span><br><span class="line">--============= Console ================--</span><br></pre></td></tr></table></figure>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
 </ul>
@@ -375,7 +524,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-09 22:23:48" itemprop="dateModified" datetime="2022-01-09T22:23:48+08:00">2022-01-09</time>
+                <time title="修改时间：2022-02-27 22:52:00" itemprop="dateModified" datetime="2022-02-27T22:52:00+08:00">2022-02-27</time>
               </span>
 
           
@@ -671,7 +820,7 @@
 <li><p>同样<code>lxterm</code>也是<code>litex_setup.py</code>安装的工具集之一,位于<code>~/.local/bin/lxterm</code>.如果你用的是<code>Mate Desktop</code>,它也有一个同名的工具,别混用了.运行下面命令时,要按一下板上的<code>PROG</code>键, 让它进入烧写状态.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br></pre></td><td class="code"><pre><span class="line">linux-on-litex-vexriscv$ ~/.<span class="built_in">local</span>/bin/lxterm --images=images/boot.json /dev/ttyUSB1 --speed=1e6</span><br><span class="line"> BIOS CRC passed (f7d62022)</span><br><span class="line"></span><br><span class="line"> Migen git sha1: 7507a2b</span><br><span class="line"> LiteX git sha1: af5167c7</span><br><span class="line"></span><br><span class="line">--=============== SoC ==================--</span><br><span class="line">CPU:		VexRiscv SMP-LINUX @ 100MHz</span><br><span class="line">BUS:		WISHBONE 32-bit @ 4GiB</span><br><span class="line">CSR:		32-bit data</span><br><span class="line">ROM:		64KiB</span><br><span class="line">SRAM:		8KiB</span><br><span class="line">L2:		0KiB</span><br><span class="line">FLASH:		16384KiB</span><br><span class="line">SDRAM:		262144KiB 16-bit @ 800MT/s (CL-7 CWL-5)</span><br><span class="line"></span><br><span class="line">--========== Initialization ============--</span><br><span class="line">Ethernet init...</span><br><span class="line">Initializing SDRAM @0x40000000...</span><br><span class="line">Switching SDRAM to software control.</span><br><span class="line">Write latency calibration:</span><br><span class="line">m0:0 m1:0</span><br><span class="line">Read leveling:</span><br><span class="line">  m0, b00: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m0, b01: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m0, b02: |11111111110000000000000000000000| delays: 05+-05</span><br><span class="line">  m0, b03: |00000000000011111111111110000000| delays: 18+-06</span><br><span class="line">  m0, b04: |00000000000000000000000000011111| delays: 29+-02</span><br><span class="line">  m0, b05: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m0, b06: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m0, b07: |00000000000000000000000000000000| delays: -</span><br><span class="line">  best: m0, b03 delays: 18+-06</span><br><span class="line">  m1, b00: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m1, b01: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m1, b02: |11111111110000000000000000000000| delays: 05+-05</span><br><span class="line">  m1, b03: |00000000000111111111111110000000| delays: 18+-07</span><br><span class="line">  m1, b04: |00000000000000000000000000011111| delays: 29+-02</span><br><span class="line">  m1, b05: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m1, b06: |00000000000000000000000000000000| delays: -</span><br><span class="line">  m1, b07: |00000000000000000000000000000000| delays: -</span><br><span class="line">  best: m1, b03 delays: 18+-07</span><br><span class="line">Switching SDRAM to hardware control.</span><br><span class="line">Memtest at 0x40000000 (2.0MiB)...</span><br><span class="line">  Write: 0x40000000-0x40200000 2.0MiB</span><br><span class="line">   Read: 0x40000000-0x40200000 2.0MiB</span><br><span class="line">Memtest OK</span><br><span class="line">Memspeed at 0x40000000 (Sequential, 2.0MiB)...</span><br><span class="line">  Write speed: 31.7MiB/s</span><br><span class="line">   Read speed: 33.1MiB/s</span><br><span class="line"></span><br><span class="line">Initializing S25FL128L SPI Flash @0xd0000000...</span><br><span class="line">SPI Flash clk configured to 25 MHz</span><br><span class="line">Memspeed at 0xd0000000 (Sequential, 4.0KiB)...</span><br><span class="line">   Read speed: 2.5MiB/s</span><br><span class="line">Memspeed at 0xd0000000 (Random, 4.0KiB)...</span><br><span class="line">   Read speed: 1.1MiB/s</span><br><span class="line"></span><br><span class="line">--============== Boot ==================--</span><br><span class="line">Booting from serial...</span><br><span class="line">Press Q or ESC to abort boot completely.</span><br><span class="line">sL5DdSMmkekro</span><br><span class="line">[LXTERM] Received firmware download request from the device.</span><br><span class="line">[LXTERM] Uploading images/Image to 0x40000000 (7420864 bytes)...</span><br><span class="line">[LXTERM] Upload calibration...(inter-frame: 10.00us, length: 64)</span><br><span class="line">[LXTERM] Upload complete (86.2KB/s).</span><br><span class="line">[LXTERM] Uploading images/rv32.dtb to 0x40ef0000 (12130 bytes)...</span><br><span class="line">[LXTERM] Upload calibration...(inter-frame: 10.00us, length: 64)</span><br><span class="line">[LXTERM] Upload complete (78.9KB/s).</span><br><span class="line">[LXTERM] Uploading images/rootfs.cpio to 0x41000000 (4010496 bytes)...</span><br><span class="line">[LXTERM] Upload calibration...(inter-frame: 10.00us, length: 64)</span><br><span class="line">[LXTERM] Upload complete (86.2KB/s).</span><br><span class="line">[LXTERM] Uploading images/opensbi.bin to 0x40f00000 (53640 bytes)...</span><br><span class="line">[LXTERM] Upload calibration...(inter-frame: 10.00us, length: 64)</span><br><span class="line">[LXTERM] Upload complete (85.3KB/s).</span><br><span class="line">[LXTERM] Booting the device.</span><br><span class="line">[LXTERM] Done.</span><br><span class="line">Executing booted program at 0x40f00000</span><br><span class="line"></span><br><span class="line">--============= Liftoff! ===============--</span><br><span class="line"></span><br><span class="line">OpenSBI v0.8-1-gecf7701</span><br><span class="line">   ____                    _____ ____ _____</span><br><span class="line">  / __ \                  / ____|  _ \_   _|</span><br><span class="line"> | |  | |_ __   ___ _ __ | (___ | |_) || |</span><br><span class="line"> | |  | | <span class="string">'_ \ / _ \ '</span>_ \ \___ \|  _ &lt; | |</span><br><span class="line"> | |__| | |_) |  __/ | | |____) | |_) || |_</span><br><span class="line">  \____/| .__/ \___|_| |_|_____/|____/_____|</span><br><span class="line">        | |</span><br><span class="line">        |_|</span><br><span class="line"></span><br><span class="line">Platform Name       : LiteX / VexRiscv-SMP</span><br><span class="line">Platform Features   : timer,mfdeleg</span><br><span class="line">Platform HART Count : 8</span><br><span class="line">Boot HART ID        : 0</span><br><span class="line">Boot HART ISA       : rv32imas</span><br><span class="line">BOOT HART Features  : time</span><br><span class="line">BOOT HART PMP Count : 0</span><br><span class="line">Firmware Base       : 0x40f00000</span><br><span class="line">Firmware Size       : 124 KB</span><br><span class="line">Runtime SBI Version : 0.2</span><br><span class="line"></span><br><span class="line">MIDELEG : 0x00000222</span><br><span class="line">MEDELEG : 0x0000b101</span><br><span class="line">[    0.000000] Linux version 5.12.0-rc4 (florent@panda) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2020.11-281-g69e5046e7b) 10.2.0, GNU ld (GNU Binutils) 2.35.2) <span class="comment">#2 SMP Mon Mar 29 10:07:39 CEST 2021</span></span><br><span class="line">[    0.000000] Zone ranges:</span><br><span class="line">[    0.000000]   Normal   [mem 0x0000000040000000-0x000000004fffffff]</span><br><span class="line">[    0.000000] Movable zone start <span class="keyword">for</span> each node</span><br><span class="line">[    0.000000] Early memory node ranges</span><br><span class="line">[    0.000000]   node   0: [mem 0x0000000040000000-0x000000004fffffff]</span><br><span class="line">[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x000000004fffffff]</span><br><span class="line">[    0.000000] SBI specification v0.2 detected</span><br><span class="line">[    0.000000] SBI implementation ID=0x1 Version=0x8</span><br><span class="line">[    0.000000] SBI v0.2 TIME extension detected</span><br><span class="line">[    0.000000] SBI v0.2 IPI extension detected</span><br><span class="line">[    0.000000] SBI v0.2 RFENCE extension detected</span><br><span class="line">[    0.000000] SBI v0.2 HSM extension detected</span><br><span class="line">[    0.000000] Invalid cpuid [8] <span class="keyword">for</span> hartid [8]</span><br><span class="line">[    0.000000] riscv: ISA extensions aim</span><br><span class="line">[    0.000000] riscv: ELF capabilities aim</span><br><span class="line">[    0.000000] percpu: Embedded 10 pages/cpu s19148 r0 d21812 u40960</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@8 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@9 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@10 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@11 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@12 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@13 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@14 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] CPU node <span class="keyword">for</span> /cpus/cpu@15 exist but the possible cpu range is :0-7</span><br><span class="line">[    0.000000] Built 1 zonelists, mobility grouping on. Total pages: 65024</span><br><span class="line">[    0.000000] Kernel <span class="built_in">command</span> line: console=liteuart earlycon=liteuart,0xf0001000 rootwait root=/dev/ram0</span><br><span class="line">[    0.000000] Dentry cache <span class="built_in">hash</span> table entries: 32768 (order: 5, 131072 bytes, linear)</span><br><span class="line">[    0.000000] Inode-cache <span class="built_in">hash</span> table entries: 16384 (order: 4, 65536 bytes, linear)</span><br><span class="line">[    0.000000] Sorting __ex_table...</span><br><span class="line">[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off</span><br><span class="line">[    0.000000] Memory: 243356K/262144K available (5596K kernel code, 572K rwdata, 860K rodata, 214K init, 221K bss, 18788K reserved, 0K cma-reserved)</span><br><span class="line">[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1</span><br><span class="line">[    0.000000] rcu: Hierarchical RCU implementation.</span><br><span class="line">[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.</span><br><span class="line">[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0</span><br><span class="line">[    0.000000] riscv-intc: 32 <span class="built_in">local</span> interrupts mapped</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [8]</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [9]</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [10]</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [11]</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [12]</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [13]</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [14]</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [15]</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [8]</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [9]</span><br><span class="line">[    0.000000] plic: handler already present <span class="keyword">for</span> context 19.</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [10]</span></span><br><span class="line"><span class="string">[    0.000000] plic: handler already present for context 21.</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [11]</span><br><span class="line">[    0.000000] plic: handler already present <span class="keyword">for</span> context 23.</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [12]</span></span><br><span class="line"><span class="string">[    0.000000] plic: handler already present for context 25.</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [13]</span><br><span class="line">[    0.000000] plic: handler already present <span class="keyword">for</span> context 27.</span><br><span class="line">[    0.000000] Couldn<span class="string">'t find cpu id for hartid [14]</span></span><br><span class="line"><span class="string">[    0.000000] plic: handler already present for context 29.</span></span><br><span class="line"><span class="string">[    0.000000] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [15]</span><br><span class="line">[    0.000000] plic: handler already present <span class="keyword">for</span> context 31.</span><br><span class="line">[    0.000000] plic: interrupt-controller@f0c00000: mapped 32 interrupts with 16 handlers <span class="keyword">for</span> 32 contexts.</span><br><span class="line">[    0.000000] random: get_random_bytes called from start_kernel+0x360/0x4d0 with crng_init=0</span><br><span class="line">[    0.000000] riscv_timer_init_dt: Registering clocksource cpuid [0] hartid [0]</span><br><span class="line">[    0.000000] clocksource: riscv_clocksource: mask: 0xffffffffffffffff max_cycles: 0x171024e7e0, max_idle_ns: 440795205315 ns</span><br><span class="line">[    0.000021] sched_clock: 64 bits at 100MHz, resolution 10ns, wraps every 4398046511100ns</span><br><span class="line">[    0.002019] Couldn<span class="string">'t find cpu id for hartid [8]</span></span><br><span class="line"><span class="string">[    0.002715] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [9]</span><br><span class="line">[    0.003406] Couldn<span class="string">'t find cpu id for hartid [10]</span></span><br><span class="line"><span class="string">[    0.004035] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [11]</span><br><span class="line">[    0.004647] Couldn<span class="string">'t find cpu id for hartid [12]</span></span><br><span class="line"><span class="string">[    0.005269] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [13]</span><br><span class="line">[    0.005888] Couldn<span class="string">'t find cpu id for hartid [14]</span></span><br><span class="line"><span class="string">[    0.006510] Couldn'</span>t find cpu id <span class="keyword">for</span> hartid [15]</span><br><span class="line">[    0.008712] Console: colour dummy device 80x25</span><br><span class="line">[    0.009694] Calibrating delay loop (skipped), value calculated using timer frequency..200.00 BogoMIPS (lpj=400000)</span><br><span class="line">[    0.011160] pid_max: default: 32768 minimum: 301</span><br><span class="line">[    0.015359] Mount-cache <span class="built_in">hash</span> table entries: 1024 (order: 0, 4096 bytes, linear)</span><br><span class="line">[    0.016601] Mountpoint-cache <span class="built_in">hash</span> table entries: 1024 (order: 0, 4096 bytes, linear)</span><br><span class="line">[    0.039744] ASID allocator using 9 bits (512 entries)</span><br><span class="line">[    0.042606] rcu: Hierarchical SRCU implementation.</span><br><span class="line">[    0.052177] smp: Bringing up secondary CPUs ...</span><br><span class="line">[    1.106334] CPU1: failed to come online</span><br><span class="line">[    2.174473] CPU2: failed to come online</span><br><span class="line">[    3.242724] CPU3: failed to come online</span><br><span class="line">[    4.310959] CPU4: failed to come online</span><br><span class="line">[    5.379125] CPU5: failed to come online</span><br><span class="line">[    6.447274] CPU6: failed to come online</span><br><span class="line">[    7.515486] CPU7: failed to come online</span><br><span class="line">[    7.516400] smp: Brought up 1 node, 1 CPU</span><br><span class="line">[    7.522412] devtmpfs: initialized</span><br><span class="line">[    7.631706] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns</span><br><span class="line">[    7.633017] futex <span class="built_in">hash</span> table entries: 2048 (order: 5, 131072 bytes, linear)</span><br><span class="line">[    7.639479] NET: Registered protocol family 16</span><br><span class="line">[    7.880381] FPGA manager framework</span><br><span class="line">[    7.895223] clocksource: Switched to clocksource riscv_clocksource</span><br><span class="line">[    8.064355] NET: Registered protocol family 2</span><br><span class="line">[    8.073113] tcp_listen_portaddr_hash <span class="built_in">hash</span> table entries: 512 (order: 0, 6144 bytes, linear)</span><br><span class="line">[    8.074433] TCP established <span class="built_in">hash</span> table entries: 2048 (order: 1, 8192 bytes, linear)</span><br><span class="line">[    8.076232] TCP <span class="built_in">bind</span> <span class="built_in">hash</span> table entries: 2048 (order: 2, 16384 bytes, linear)</span><br><span class="line">[    8.077425] TCP: Hash tables configured (established 2048 <span class="built_in">bind</span> 2048)</span><br><span class="line">[    8.079928] UDP <span class="built_in">hash</span> table entries: 256 (order: 1, 8192 bytes, linear)</span><br><span class="line">[    8.081038] UDP-Lite <span class="built_in">hash</span> table entries: 256 (order: 1, 8192 bytes, linear)</span><br><span class="line">[    8.092717] Unpacking initramfs...</span><br><span class="line">[    8.858450] Initramfs unpacking failed: invalid magic at start of compressed archive</span><br><span class="line">[    8.916140] Freeing initrd memory: 8192K</span><br><span class="line">[    8.932899] workingset: timestamp_bits=30 max_order=16 bucket_order=0</span><br><span class="line">[    9.193838] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)</span><br><span class="line">[    9.194565] io scheduler mq-deadline registered</span><br><span class="line">[    9.195468] io scheduler kyber registered</span><br><span class="line">[    9.223323] No litex,nclkout entry <span class="keyword">in</span> the dts file</span><br><span class="line">[    9.225515] LiteX SoC Controller driver initialized: subreg:4, align:4</span><br><span class="line">[   10.286467] f0001000.serial: ttyLXU0 at MMIO 0x0 (irq = 0, base_baud = 0) is a liteuart</span><br><span class="line">[   10.388082] printk: console [liteuart0] enabled</span><br><span class="line">[   10.443080] libphy: Fixed MDIO Bus: probed</span><br><span class="line">[   10.445897] liteeth f0002000.mac: unable to get rx-fifo-depth</span><br><span class="line">[   10.447597] liteeth: probe of f0002000.mac failed with error -22</span><br><span class="line">[   10.451740] i2c /dev entries driver</span><br><span class="line">[   10.459084] i2c i2c-0: Not I2C compliant: can\<span class="string">'t read SCL</span></span><br><span class="line"><span class="string">[   10.460008] i2c i2c-0: Bus may be unreliable</span></span><br><span class="line"><span class="string">[   10.491212] litex-mmc f0009000.mmc: Requested clk_freq=12500000: set to 12500000 via div=8</span></span><br><span class="line"><span class="string">[   10.523707] fpga_manager fpga0: LiteX ICAPBitstream FPGA Manager registered</span></span><br><span class="line"><span class="string">[   10.549391] NET: Registered protocol family 10</span></span><br><span class="line"><span class="string">[   10.558414] litex-mmc f0009000.mmc: Requested clk_freq=0: set to 390625 via div=256</span></span><br><span class="line"><span class="string">[   10.565072] Segment Routing with IPv6</span></span><br><span class="line"><span class="string">[   10.567088] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver</span></span><br><span class="line"><span class="string">[   10.582063] NET: Registered protocol family 17</span></span><br><span class="line"><span class="string">[   10.594660] Freeing unused kernel memory: 208K</span></span><br><span class="line"><span class="string">[   10.596083] Kernel memory protection not selected by kernel config.</span></span><br><span class="line"><span class="string">[   10.597491] Run /init as init process</span></span><br><span class="line"><span class="string">Starting syslogd: OK</span></span><br><span class="line"><span class="string">Starting klogd: OK</span></span><br><span class="line"><span class="string">Running sysctl: OK</span></span><br><span class="line"><span class="string">Saving random seed: [   12.456910] random: dd: uninitialized urandom read (512 bytes read)</span></span><br><span class="line"><span class="string">OK</span></span><br><span class="line"><span class="string">Starting network: OK</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Welcome to Buildroot</span></span><br><span class="line"><span class="string">buildroot login:</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>通过串口加载是稍慢的,加载成功后,会有一个<code>shell console</code>登录提示.<code>lxterm</code>是通过板上<code>J10 USB</code>接口使用<code>JTAGUART</code>协议来通信的,脚本是位于<br><code>litex/litex/tools/litex_term.py</code>.也可以使用<code>sudo minicom -D /dev/ttyUSB1 -b 1000000</code>来连接,注意它的速率是<code>1000000</code>.</p>
+<li><p>通过串口加载是稍慢的,加载成功后,会有一个<code>shell console</code>登录提示.<code>lxterm</code>是通过板上<code>J10 USB</code>接口使用<code>JTAGUART</code>协议来通信的,脚本是位于<br><code>litex/litex/tools/litex_term.py</code>.也可以使用<code>sudo minicom -D /dev/ttyUSB1 -b 1000000</code>来连接,注意它的速率是<code>1000000</code>.有一些<code>USB to UART</code>不支持这种速率，通常表现为乱码，无法输入等.</p>
 </li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">buildroot login: root</span><br><span class="line">                   __   _</span><br><span class="line">                  / /  (_)__  __ ____ __</span><br><span class="line">                 / /__/ / _ \/ // /\ \ /</span><br><span class="line">                /____/_/_//_/\_,_//_\_\</span><br><span class="line">                      / _ \/ _ \</span><br><span class="line">   __   _ __      _  _\___/_//_/         ___  _</span><br><span class="line">  / /  (_) /____ | |/_/__| | / /____ __ / _ \(_)__ _____  __</span><br><span class="line"> / /__/ / __/ -_)&gt;  &lt;/___/ |/ / -_) \ // , _/ (_-&lt;/ __/ |/ /</span><br><span class="line">/____/_/\__/\__/_/|_|____|___/\__/_\_\/_/|_/_/___/\__/|___/</span><br><span class="line">                  / __/  |/  / _ \</span><br><span class="line">                 _\ \/ /|_/ / ___/</span><br><span class="line">                /___/_/  /_/_/</span><br><span class="line">  32-bit RISC-V Linux running on LiteX / VexRiscv-SMP.</span><br><span class="line"></span><br><span class="line">login[103]: root login on <span class="string">'console'</span></span><br><span class="line">root@buildroot:~<span class="comment"># cat /proc/cpuinfo</span></span><br><span class="line">processor	: 0</span><br><span class="line">hart		: 0</span><br><span class="line">isa		: rv32ima</span><br><span class="line">mmu		: sv32</span><br><span class="line"></span><br><span class="line">root@buildroot:~<span class="comment"># free -m</span></span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:            245           3         236           0           5         233</span><br><span class="line">Swap:             0           0           0</span><br></pre></td></tr></table></figure>
@@ -683,8 +832,24 @@
 <li>也可以直接使用<code>OpenOCD</code>来加载,如下:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">linux-on-litex-vexriscv$  openocd -f prog/openocd_xc7_ft2232.cfg -c <span class="string">"transport select jtag; init; pld load 0 build/arty/gateware/arty.bit; exit"</span></span><br><span class="line">Open On-Chip Debugger 0.11.0+dev-00433-g97db87c22 (2021-11-01-22:36)</span><br><span class="line">Licensed under GNU GPL v2</span><br><span class="line">For bug reports, <span class="built_in">read</span></span><br><span class="line">	http://openocd.org/doc/doxygen/bugs.html</span><br><span class="line">DEPRECATED! use <span class="string">'adapter driver'</span> not <span class="string">'interface'</span></span><br><span class="line">DEPRECATED! use <span class="string">'ftdi vid_pid'</span> not <span class="string">'ftdi_vid_pid'</span></span><br><span class="line">DEPRECATED! use <span class="string">'ftdi channel'</span> not <span class="string">'ftdi_channel'</span></span><br><span class="line">DEPRECATED! use <span class="string">'ftdi layout_init'</span> not <span class="string">'ftdi_layout_init'</span></span><br><span class="line">Info : auto-selecting first available session transport <span class="string">"jtag"</span>.To override use <span class="string">'transport select &lt;transport&gt;'</span>.</span><br><span class="line">DEPRECATED! use <span class="string">'adapter speed'</span> not <span class="string">'adapter_khz'</span></span><br><span class="line">fpga_program</span><br><span class="line">Warn : Transport <span class="string">"jtag"</span> was already selected</span><br><span class="line">Info : ftdi: <span class="keyword">if</span> you experience problems at higher adapter clocks, try the <span class="built_in">command</span> <span class="string">"ftdi tdo_sample_edge falling"</span></span><br><span class="line">Info : clock speed 25000 kHz</span><br><span class="line">Info : JTAG tap: xc7.tap tap/device found: 0x0362d093 (mfg: 0x049 (Xilinx), part: 0x362d, ver: 0x0)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h3 id="通过SDCard-Boot加载linux系统"><a href="#通过SDCard-Boot加载linux系统" class="headerlink" title="通过SDCard Boot加载linux系统"></a>通过<code>SDCard Boot</code>加载<code>linux</code>系统</h3><ul>
+<li>通过<code>TF/SD</code>启动，需要一张空白卡,格式成<code>W95 FAT32</code>,现在我只测试了<code>W95 FAT32</code>与<code>exFAT</code>两种格式，只有<code>W95 FAT32</code>可以成功加载，还发现对<code>TF/SD</code>卡有兼容问题，我手上有一块较老的<code>512MB</code>的<code>SD</code>卡就是无法识别加载，最终还是买了一张新的<code>SD</code>格式化，才成功加载。具体格式化如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">~$ fdisk /dev/sdb</span><br><span class="line">[....]</span><br><span class="line">Disk /dev/sdb: 116.36 GiB, 124939927552 bytes, 244023296 sectors</span><br><span class="line">Disk model: STORAGE DEVICE</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x00000000</span><br><span class="line"></span><br><span class="line">Device     Boot Start       End   Sectors   Size Id Type</span><br><span class="line">/dev/sdb1        2048 244023295 244021248 116.4G  b W95 FAT32</span><br><span class="line"></span><br><span class="line">~$ sudo mkfs.fat /dev/sdb1</span><br><span class="line">mkfs.fat 4.2 (2021-01-31)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>再把<code>linux-on-litex-vexriscv/images</code>下的所有文件复制到<code>SD</code>卡根目录下。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">litex/linux-on-litex-vexriscv$ ls images/</span><br><span class="line">boot.json  Image  opensbi.bin  rootfs.cpio  rv32.dtb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因为<code>Digilent Arty-A7-35T</code>板上没集成<code>SD卡</code>插槽，只能通过其它外接的方式来实现，<code>linux-on-litex-vexriscv</code>项目默认是通过定义配置<code>PMOD-D</code>来支持<code>SDCard</code>,关于<code>Pmod MicroSD</code>又有两种接口，一种是<a href="https://digilent.com/shop/pmod-microsd-microsd-card-slot/" target="_blank" rel="noopener">digilent</a>,另一种是<a href="https://numato.com/product/micro-sd-expansion-module/" target="_blank" rel="noopener">numato</a>.当时在某宝上对比发现，<code>digilent</code>接口是在<code>5x-1xx</code>左右，后来就选择了一个<code>numato</code>的。<code>numato</code>相较于<code>digilent</code>少了一个<code>插卡检测(CD)</code>信号脚，同时管脚功能定义也不一样，<code>linux-on-litex-vexriscv</code>项目默认是配置<code>digilent</code>类型，且没参数可以选择，如果是像我这里使用了<code>numato</code>的类型的<code>PMOD</code>,需要修改<code>linux-on-litex-vexriscv/make.py</code>源码.而在<code>litex-hub/litex-boards</code>的项目里是可以通过<code>--sdcard-adapter=numato</code>来配置选择的。<code>numato</code>的补丁如下：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">litex-hub/linux-on-litex-vexriscv$ git diff make.py</span><br><span class="line">diff --git a/make.py b/make.py</span><br><span class="line">index 9eb81c6..b1c996a 100755</span><br><span class="line">--- a/make.py</span><br><span class="line">+++ b/make.py</span><br><span class="line">@@ -71,6 +71,7 @@ class AcornPCIe(Board):</span><br><span class="line"> <span class="comment"># Arty support -------------------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"> class Arty(Board):</span><br><span class="line">+    soc_kwargs = &#123;<span class="string">"with-pmod-gpio"</span> : True&#125;</span><br><span class="line">     spiflash = S25FL128L(Codes.READ_1_1_1)</span><br><span class="line">     def __init__(self):</span><br><span class="line">         from litex_boards.targets import arty</span><br><span class="line">@@ -571,7 +572,7 @@ class Qmtech_EP4CE15(Board):</span><br><span class="line">             <span class="comment"># "leds",</span></span><br><span class="line">         &#125;, bitstream_ext=<span class="string">".sof"</span>)</span><br><span class="line"></span><br><span class="line">-<span class="comment"># ... and its bigger brother</span></span><br><span class="line">+<span class="comment"># ... and its bigger brother</span></span><br><span class="line"></span><br><span class="line"> class Qmtech_EP4CE55(Board):</span><br><span class="line">     soc_kwargs = &#123;</span><br><span class="line">@@ -741,8 +742,8 @@ def main():</span><br><span class="line"></span><br><span class="line">         <span class="comment"># SoC peripherals --------------------------------------------------------------------------</span></span><br><span class="line">         <span class="keyword">if</span> board_name <span class="keyword">in</span> [<span class="string">"arty"</span>, <span class="string">"arty_a7"</span>]:</span><br><span class="line">-            from litex_boards.platforms.arty import _sdcard_pmod_io</span><br><span class="line">-            board.platform.add_extension(_sdcard_pmod_io)</span><br><span class="line">+            from litex_boards.platforms.arty import _numato_sdcard_pmod_io</span><br><span class="line">+            board.platform.add_extension(_numato_sdcard_pmod_io)</span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span> board_name <span class="keyword">in</span> [<span class="string">"orangecrab"</span>]:</span><br><span class="line">             from litex_boards.platforms.orangecrab import feather_i2c</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面补丁相当于是<code>--with-pmod-gpio --sdcard-adapter=numato</code>转给了<code>litex-boards</code>. 执行<code>./make.py --board=arty  --build --flash</code>,如果编译正常，从<code>SDCard boot</code>的显示如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">[....]</span><br><span class="line">--============== Boot ==================--</span><br><span class="line">Booting from serial...</span><br><span class="line">Press Q or ESC to abort boot completely.</span><br><span class="line">sL5DdSMmkekro</span><br><span class="line">             Timeout</span><br><span class="line">Booting from SDCard <span class="keyword">in</span> SD-Mode...</span><br><span class="line">Booting from boot.json...</span><br><span class="line">Copying Image to 0x40000000 (7531468 bytes)...</span><br><span class="line">[<span class="comment">########################################]</span></span><br><span class="line">Copying rv32.dtb to 0x40ef0000 (5290 bytes)...</span><br><span class="line">[<span class="comment">########################################]</span></span><br><span class="line">Copying rootfs.cpio to 0x41000000 (3786240 bytes)...</span><br><span class="line">[<span class="comment">########################################]</span></span><br><span class="line">Copying opensbi.bin to 0x40f00000 (53640 bytes)...</span><br><span class="line">[<span class="comment">########################################]</span></span><br><span class="line">Executing booted program at 0x40f00000</span><br><span class="line"></span><br><span class="line">--============= Liftoff! ===============--</span><br><span class="line"></span><br><span class="line">OpenSBI v0.8-1-gecf7701</span><br><span class="line">   ____                    _____ ____ _____</span><br><span class="line">  / __ \                  / ____|  _ \_   _|</span><br><span class="line"> | |  | |_ __   ___ _ __ | (___ | |_) || |</span><br><span class="line"> | |  | | <span class="string">'_ \ / _ \ '</span>_ \ \___ \|  _ &lt; | |</span><br><span class="line"> | |__| | |_) |  __/ | | |____) | |_) || |_</span><br><span class="line">  \____/| .__/ \___|_| |_|_____/|____/_____|</span><br><span class="line">        | |</span><br><span class="line">        |_|</span><br><span class="line"></span><br><span class="line">Platform Name       : LiteX / VexRiscv-SMP</span><br><span class="line">Platform Features   : timer,mfdeleg</span><br><span class="line">Platform HART Count : 8</span><br><span class="line">Boot HART ID        : 0</span><br><span class="line">Boot HART ISA       : rv32imas</span><br><span class="line">BOOT HART Features  : time</span><br><span class="line">BOOT HART PMP Count : 0</span><br><span class="line">Firmware Base       : 0x40f00000</span><br><span class="line">Firmware Size       : 124 KB</span><br><span class="line">Runtime SBI Version : 0.2</span><br><span class="line"></span><br><span class="line">MIDELEG : 0x00000222</span><br><span class="line">MEDELEG : 0x0000b101</span><br><span class="line">[    0.000000] Linux version 5.14.0 (michael@debian) (riscv32-buildroot-linux-gnu-gcc.br_real (Buildroot 2021.11-rc2-39-g37004bde66) 10.3.0, GNU ld (GNU Binutils) 2.36.1) <span class="comment">#1 SMP Tue Nov 30 22:44:10 CST 2021</span></span><br><span class="line">[    0.000000] earlycon: liteuart0 at I/O port 0x0 (options <span class="string">''</span>)</span><br><span class="line">[    0.000000] Malformed early option <span class="string">'console'</span></span><br><span class="line">[    0.000000] earlycon: liteuart0 at MMIO 0xf0001000 (options <span class="string">''</span>)</span><br><span class="line">[    0.000000] printk: bootconsole [liteuart0] enabled</span><br><span class="line">[    0.000000] Zone ranges:</span><br><span class="line">[    0.000000]   Normal   [mem 0x0000000040000000-0x000000004fffffff]</span><br><span class="line">[....]</span><br></pre></td></tr></table></figure>
 <h2 id="直接使用Litex-Boards脚本编译"><a href="#直接使用Litex-Boards脚本编译" class="headerlink" title="直接使用Litex-Boards脚本编译"></a>直接使用<code>Litex-Boards</code>脚本编译</h2><ul>
-<li>前面运行<code>litex_setup.py --install --user</code>时,它就会在当前目录下,同步<code>https://github.com/litex-hub/litex-boards</code>的源码<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> litex-boards/litex-boards</span><br><span class="line"></span><br><span class="line">~$ ./targets/digilent_arty.py --cpu-type vexriscv --with-spi-flash --with-sdcard --with-ethernet --with-pmod-gpio --sdcard-adapter=numato --build</span><br><span class="line"></span><br><span class="line">[....]</span><br><span class="line">===================================</span><br><span class="line">Configuration Memory information</span><br><span class="line">===================================</span><br><span class="line">File Format        BIN</span><br><span class="line">Interface          SPIX4</span><br><span class="line">Size               16M</span><br><span class="line">Start Address      0x00000000</span><br><span class="line">End Address        0x00FFFFFF</span><br><span class="line"></span><br><span class="line">Addr1         Addr2         Date                    File(s)</span><br><span class="line">0x00000000    0x0021728B    Nov 21 23:17:41 2021    digilent_arty.bit</span><br><span class="line">0 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.</span><br><span class="line">write_cfgmem completed successfully</span><br><span class="line"><span class="comment"># quit</span></span><br><span class="line">INFO: [Common 17-206] Exiting Vivado at Sun Nov 21 23:17:42 2021...</span><br><span class="line"></span><br><span class="line">~$ ./targets/digilent_arty.py --cpu-type vexriscv --sys-clk-freq 100e6 --with-ethernet   --with-sdcard --load</span><br></pre></td></tr></table></figure>
+<li>前面运行<code>litex_setup.py --install --user</code>时,它就会在当前目录下,同步<code>https://github.com/litex-hub/litex-boards</code>的源码<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> litex-boards/litex-boards</span><br><span class="line"></span><br><span class="line">~$ ./targets/digilent_arty.py --cpu-type vexriscv --with-spi-flash --with-sdcard --with-ethernet --with-pmod-gpio --sdcard-adapter=numato --build --flash</span><br><span class="line"></span><br><span class="line">[....]</span><br><span class="line">===================================</span><br><span class="line">Configuration Memory information</span><br><span class="line">===================================</span><br><span class="line">File Format        BIN</span><br><span class="line">Interface          SPIX4</span><br><span class="line">Size               16M</span><br><span class="line">Start Address      0x00000000</span><br><span class="line">End Address        0x00FFFFFF</span><br><span class="line"></span><br><span class="line">Addr1         Addr2         Date                    File(s)</span><br><span class="line">0x00000000    0x0021728B    Nov 21 23:17:41 2021    digilent_arty.bit</span><br><span class="line">0 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.</span><br><span class="line">write_cfgmem completed successfully</span><br><span class="line"><span class="comment"># quit</span></span><br><span class="line">INFO: [Common 17-206] Exiting Vivado at Sun Nov 21 23:17:42 2021...</span><br><span class="line"></span><br><span class="line">~$ ./targets/digilent_arty.py --cpu-type vexriscv --sys-clk-freq 100e6 --with-ethernet   --with-sdcard --load</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="编译错误"><a href="#编译错误" class="headerlink" title="编译错误"></a>编译错误</h3><ul>
@@ -890,7 +1055,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 20:01:58" itemprop="dateModified" datetime="2021-12-15T20:01:58+08:00">2021-12-15</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
 
           
@@ -936,6 +1101,17 @@
 <h2 id="Overlays"><a href="#Overlays" class="headerlink" title="Overlays"></a><code>Overlays</code></h2><ul>
 <li><a href="https://pynq.readthedocs.io/en/latest/pynq_overlays.html" target="_blank" rel="noopener">PYNQ Overlays</a><br><img src="https://pynq.readthedocs.io/en/latest/_images/zynq_block_diagram.jpg" alt="zynq_block_diagram.jpg"></li>
 <li><code>Overlays</code>，或者硬件库，都是可编程FPGA的设计理念.<code>Overlay</code>由两个主要部分组成:<code>bitstream</code>文件和<code>hwh(Hardware Handoff)</code>文件.</li>
+</ul>
+<h1 id="ZYBO"><a href="#ZYBO" class="headerlink" title="ZYBO"></a>ZYBO</h1><ul>
+<li>Links:<ul>
+<li><a href="https://digilent.com/reference/programmable-logic/zybo/start" target="_blank" rel="noopener">Digilent Zybo</a></li>
+<li><a href="https://github.com/Digilent" target="_blank" rel="noopener">https://github.com/Digilent</a></li>
+<li><a href="https://digilent.com/reference/software/sdsoc/start" target="_blank" rel="noopener">SDSoC Platforms,SD系统平台</a></li>
+<li><a href="https://github.com/Digilent/digilent-xdc/" target="_blank" rel="noopener">Digilent/digilent-xdc</a></li>
+<li><a href="http://www.zynqbook.com" target="_blank" rel="noopener">The Zynq Book</a></li>
+<li><a href="https://digilent.com/reference/programmable-logic/zybo-z7/migration-guide" target="_blank" rel="noopener">zybo-z7/migration-guide</a></li>
+</ul>
+</li>
 </ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
@@ -991,7 +1167,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-23 22:49:46" itemprop="dateModified" datetime="2021-12-23T22:49:46+08:00">2021-12-23</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
 
           
@@ -1182,7 +1358,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-31 23:38:24" itemprop="dateModified" datetime="2021-12-31T23:38:24+08:00">2021-12-31</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
 
           
@@ -1467,7 +1643,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 22:15:15" itemprop="dateModified" datetime="2021-12-15T22:15:15+08:00">2021-12-15</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
 
           
@@ -1558,7 +1734,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-31 23:52:05" itemprop="dateModified" datetime="2021-12-31T23:52:05+08:00">2021-12-31</time>
+                <time title="修改时间：2022-02-28 11:58:34" itemprop="dateModified" datetime="2022-02-28T11:58:34+08:00">2022-02-28</time>
               </span>
 
           
@@ -1721,9 +1897,17 @@
 <li><a href="https://docs.requarks.io/install/docker" target="_blank" rel="noopener">wikijs installation</a></li>
 <li><a href="https://tuneit.me/docker/deploy-wiki-js-in-docker-swarm-behind-traefik/" target="_blank" rel="noopener">Deploy Wiki.js 2.4.107 in Docker Swarm</a></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">wiki.js$ cat docker-compose.yml</span><br><span class="line">ersion: <span class="string">"3"</span></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  db:</span><br><span class="line">    image: postgres:11-alpine</span><br><span class="line">    environment:</span><br><span class="line">      POSTGRES_DB: wiki</span><br><span class="line">      POSTGRES_PASSWORD: wikijsrocks</span><br><span class="line">      POSTGRES_USER: wikijs</span><br><span class="line">    logging:</span><br><span class="line">      driver: <span class="string">"none"</span></span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    volumes:</span><br><span class="line">      - ./db-data:/var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line">  wiki:</span><br><span class="line">    image: requarks/wiki:2</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    environment:</span><br><span class="line">      DB_TYPE: postgres</span><br><span class="line">      DB_HOST: db</span><br><span class="line">      DB_PORT: 5432</span><br><span class="line">      DB_USER: wikijs</span><br><span class="line">      DB_PASS: wikijsrocks</span><br><span class="line">      DB_NAME: wiki</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    expose:</span><br><span class="line">      - 3000</span><br><span class="line">    labels:</span><br><span class="line">      - traefik.enable=<span class="literal">true</span></span><br><span class="line">      - traefik.docker.network=traefik_default</span><br><span class="line">      - traefik.http.routers.wiki.rule=Host(`wiki.localhost`)</span><br><span class="line">      - traefik.http.routers.wiki.entrypoints=http</span><br><span class="line">      - traefik.http.services.wiki.loadbalancer.server.port=3000</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  traefik_default:</span><br><span class="line">    external: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">wiki.js$ cat docker-compose.yml</span><br><span class="line">version: <span class="string">"3"</span></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  db:</span><br><span class="line">    image: postgres:11-alpine</span><br><span class="line">    environment:</span><br><span class="line">      POSTGRES_DB: wiki</span><br><span class="line">      POSTGRES_PASSWORD: wikijsrocks</span><br><span class="line">      POSTGRES_USER: wikijs</span><br><span class="line">    logging:</span><br><span class="line">      driver: <span class="string">"none"</span></span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    volumes:</span><br><span class="line">      - ./db-data:/var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line">  wiki:</span><br><span class="line">    image: requarks/wiki:2</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    environment:</span><br><span class="line">      DB_TYPE: postgres</span><br><span class="line">      DB_HOST: db</span><br><span class="line">      DB_PORT: 5432</span><br><span class="line">      DB_USER: wikijs</span><br><span class="line">      DB_PASS: wikijsrocks</span><br><span class="line">      DB_NAME: wiki</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    expose:</span><br><span class="line">      - 3000</span><br><span class="line">    labels:</span><br><span class="line">      - traefik.enable=<span class="literal">true</span></span><br><span class="line">      - traefik.docker.network=traefik_default</span><br><span class="line">      - traefik.http.routers.wiki.rule=Host(`wiki.localhost`)</span><br><span class="line">      - traefik.http.routers.wiki.entrypoints=http</span><br><span class="line">      - traefik.http.services.wiki.loadbalancer.server.port=3000</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  traefik_default:</span><br><span class="line">    external: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>如上面如示,<code>docker-compose.yml</code>是开启了<code>Traefik</code>反向代理的,启动后,打开<code>http://wiki.localhost/</code>就可以设置安装<code>wiki.js</code>向导页了.</li>
+</ul>
+<h2 id="配置TLS与域名"><a href="#配置TLS与域名" class="headerlink" title="配置TLS与域名"></a>配置<code>TLS</code>与域名</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">cat docker-compose-wikijs.yml</span><br><span class="line">version: <span class="string">"3"</span></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  db:</span><br><span class="line">    image: postgres:11-alpine</span><br><span class="line">    environment:</span><br><span class="line">      POSTGRES_DB: wiki</span><br><span class="line">      POSTGRES_PASSWORD: wikijsrocks</span><br><span class="line">      POSTGRES_USER: wikijs</span><br><span class="line">    logging:</span><br><span class="line">      driver: <span class="string">"none"</span></span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    volumes:</span><br><span class="line">      - ./db-data:/var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line">  wiki:</span><br><span class="line">    image: requarks/wiki:2</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">    networks:</span><br><span class="line">      - traefik_default</span><br><span class="line">    environment:</span><br><span class="line">      DB_TYPE: postgres</span><br><span class="line">      DB_HOST: db</span><br><span class="line">      DB_PORT: 5432</span><br><span class="line">      DB_USER: wikijs</span><br><span class="line">      DB_PASS: wikijsrocks</span><br><span class="line">      DB_NAME: wiki</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    expose:</span><br><span class="line">      - 3000</span><br><span class="line">    labels:</span><br><span class="line">      - traefik.enable=<span class="literal">true</span></span><br><span class="line">      - traefik.docker.network=traefik_default</span><br><span class="line">      - traefik.http.routers.wiki.rule=Host(`&lt;your full domain name&gt;`) &amp;&amp; (PathPrefix(`/wiki`) || PathPrefix(`/_assets`))</span><br><span class="line">      - traefik.http.routers.wiki.entrypoints=websecure</span><br><span class="line">      - traefik.http.routers.wiki.tls.certresolver=myresolver</span><br><span class="line">      - traefik.http.services.wiki.loadbalancer.server.port=3000</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  traefik_default:</span><br><span class="line">    external: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如上面所示，<code>entrypoints=websecure,tls.certresolver=myresolver</code>这两个指项的定义是在<code>traefik</code>启动命令行中定义的，而且路由规则<code>Rule</code>必须是匹配<code>/wiki</code>与<code>/_assets</code>的前缀。<code>traefix</code>的启动命令大概如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">traefik:</span><br><span class="line">    image: <span class="string">"traefik:v2.5"</span></span><br><span class="line">    container_name: <span class="string">"traefik"</span></span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">      - <span class="string">"--api.insecure=false"</span></span><br><span class="line">      - <span class="string">"--providers.docker=true"</span></span><br><span class="line">      - <span class="string">"--providers.docker.exposedbydefault=false"</span></span><br><span class="line">      - <span class="string">"--providers.file.directory=/letsencrypt/"</span></span><br><span class="line">      - <span class="string">"--entrypoints.web.address=:80"</span></span><br><span class="line">      - <span class="string">"--entrypoints.websecure.address=:443"</span></span><br><span class="line">      - <span class="string">"--certificatesresolvers.myresolver.acme.httpchallenge=true"</span></span><br><span class="line">      - <span class="string">"--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"</span></span><br><span class="line">      <span class="comment">#- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"</span></span><br><span class="line">      - <span class="string">"--certificatesresolvers.myresolver.acme.email=&lt;your email&gt;@gmail.com"</span></span><br><span class="line">      - <span class="string">"--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"</span></span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一次启动访问<code>wiki</code>页面时，会是一个初始化安装页，在<code>SITE URL</code>必须填写<code>https://&lt;your full domain&gt;/wiki</code>.</li>
 </ul>
 <h1 id="通信类"><a href="#通信类" class="headerlink" title="通信类"></a>通信类</h1><h2 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><h4 id="Dendrite"><a href="#Dendrite" class="headerlink" title="Dendrite"></a>Dendrite</h4><ul>
 <li><a href="https://github.com/matrix-org/dendrite" target="_blank" rel="noopener">dendrite</a></li>
@@ -2272,7 +2456,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-04 23:35:17" itemprop="dateModified" datetime="2022-01-04T23:35:17+08:00">2022-01-04</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
 
           
@@ -2884,789 +3068,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/02/玩转FPGA-DE0-Nano/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/02/玩转FPGA-DE0-Nano/" class="post-title-link" itemprop="url">玩转FPGA_DE0-Nano</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-02 19:01:27" itemprop="dateCreated datePublished" datetime="2021-02-02T19:01:27+08:00">2021-02-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-09 20:36:20" itemprop="dateModified" datetime="2022-01-09T20:36:20+08:00">2022-01-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>Links:<ul>
-<li><a href="http://www.nxlab.fer.hr/fpgarduino/" target="_blank" rel="noopener">fpgarduino</a></li>
-<li><a href="https://idlelogiclabs.com/2012/04/15/talking-to-the-de0-nano-using-the-virtual-jtag-interface/" target="_blank" rel="noopener">talking-to-the-de0-nano-using-the-virtual-jtag-interface</a></li>
-<li><a href="https://wiki.archlinux.org/index.php/Altera_Design_Software" target="_blank" rel="noopener">Altera_Design_Software</a></li>
-</ul>
-<ul>
-<li>OpenRISC<ul>
-<li><a href="https://www.kernel.org/doc/html/latest/openrisc/openrisc_port.html" target="_blank" rel="noopener">OpenRISC Linux</a></li>
-<li><a href="https://github.com/olofk/fusesoc" target="_blank" rel="noopener">FuseSoC</a></li>
-<li><a href="https://github.com/fusesoc/fusesoc-cores" target="_blank" rel="noopener">FuseSoC standard core library</a></li>
-<li><a href="https://matbaj.github.io/2015/01/19/openrisc-on-de2-115/" target="_blank" rel="noopener">Getting started with OpenRISC on Altera Terasic de2-115 board</a></li>
-<li><a href="https://kevinmehall.net/openrisc/guide/" target="_blank" rel="noopener">Getting Started with OpenRISC</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="开板板简介"><a href="#开板板简介" class="headerlink" title="开板板简介"></a>开板板简介</h1><h2 id="管脚定义"><a href="#管脚定义" class="headerlink" title="管脚定义"></a>管脚定义</h2><ul>
-<li>下面数据来源于<code>DE0_Nano_User_Manual.pdf</code>的<code>Chapter 3-3.5 Expansion headers</code>.</li>
-</ul>
-<h3 id="GPIO-0-Pin-Assignments"><a href="#GPIO-0-Pin-Assignments" class="headerlink" title="GPIO-0 Pin Assignments"></a>GPIO-0 Pin Assignments</h3><table>
-<thead>
-<tr>
-<th>Signal Name</th>
-<th>FPGA Pin No.</th>
-<th>Descritption</th>
-<th>I/O Standard</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIO_0_IN0</td>
-<td>PIN_A8</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_00</td>
-<td>PIN_D3</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_0_IN1</td>
-<td>PIN_B8</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_01</td>
-<td>PIN_C3</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_02</td>
-<td>PIN_A2</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_03</td>
-<td>PIN_A3</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_04</td>
-<td>PIN_B3</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_05</td>
-<td>PIN_B4</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_06</td>
-<td>PIN_A4</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_07</td>
-<td>PIN_B5</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_08</td>
-<td>PIN_A5</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_09</td>
-<td>PIN_D5</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_010</td>
-<td>PIN_B6</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_011</td>
-<td>PIN_A6</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_012</td>
-<td>PIN_B7</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_013</td>
-<td>PIN_D6</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_014</td>
-<td>PIN_A7</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_015</td>
-<td>PIN_C6</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_016</td>
-<td>PIN_C8</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_017</td>
-<td>PIN_E6</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_018</td>
-<td>PIN_E7</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_019</td>
-<td>PIN_D8</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_020</td>
-<td>PIN_E8</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_021</td>
-<td>PIN_F8</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_022</td>
-<td>PIN_F9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_023</td>
-<td>PIN_E9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_024</td>
-<td>PIN_C9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_025</td>
-<td>PIN_D9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_026</td>
-<td>PIN_E11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_027</td>
-<td>PIN_E10</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_028</td>
-<td>PIN_C11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_029</td>
-<td>PIN_B11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_030</td>
-<td>PIN_A12</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_031</td>
-<td>PIN_D11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_032</td>
-<td>PIN_D12</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_033</td>
-<td>PIN_B12</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-</tbody>
-</table>
-<h3 id="GPIO-1-Pin-Assignments"><a href="#GPIO-1-Pin-Assignments" class="headerlink" title="GPIO-1 Pin Assignments"></a>GPIO-1 Pin Assignments</h3><table>
-<thead>
-<tr>
-<th>Signal Name</th>
-<th>FPGA Pin No.</th>
-<th>Descritption</th>
-<th>I/O Standard</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIO_1_IN0</td>
-<td>PIN_T9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_10</td>
-<td>PIN_F13</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_1_IN1</td>
-<td>PIN_R9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_11</td>
-<td>PIN_T15</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_12</td>
-<td>PIN_T14</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_13</td>
-<td>PIN_T13</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_14</td>
-<td>PIN_R13</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_15</td>
-<td>PIN_T12</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_16</td>
-<td>PIN_R12</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_17</td>
-<td>PIN_T11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_18</td>
-<td>PIN_T10</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_19</td>
-<td>PIN_R11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_110</td>
-<td>PIN_P11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_111</td>
-<td>PIN_R10</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_112</td>
-<td>PIN_N12</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_113</td>
-<td>PIN_P9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_114</td>
-<td>PIN_N9</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_115</td>
-<td>PIN_N11</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_116</td>
-<td>PIN_L16</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_117</td>
-<td>PIN_K16</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_118</td>
-<td>PIN_R16</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_119</td>
-<td>PIN_L15</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_120</td>
-<td>PIN_P15</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_121</td>
-<td>PIN_P16</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_122</td>
-<td>PIN_R14</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_123</td>
-<td>PIN_N16</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_124</td>
-<td>PIN_N15</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_125</td>
-<td>PIN_P14</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_126</td>
-<td>PIN_L14</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_127</td>
-<td>PIN_N14</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_128</td>
-<td>PIN_M10</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_129</td>
-<td>PIN_L13</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_130</td>
-<td>PIN_J16</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_131</td>
-<td>PIN_K15</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_132</td>
-<td>PIN_J13</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_133</td>
-<td>PIN_J14</td>
-<td>GPIO Connection DATA</td>
-<td>3.3V</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Table-3-8-Pin-Assignments-for-2x13-Header"><a href="#Table-3-8-Pin-Assignments-for-2x13-Header" class="headerlink" title="Table 3-8 Pin Assignments for 2x13 Header"></a>Table 3-8 Pin Assignments for 2x13 Header</h3><table>
-<thead>
-<tr>
-<th>Signal Name</th>
-<th>FPGA Pin No.</th>
-<th>Descritption</th>
-<th>I/O Standard</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIO_2[0]</td>
-<td>PIN_A14</td>
-<td>GPIO Connection DATA[0]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[1]</td>
-<td>PIN_B16</td>
-<td>GPIO Connection DATA[1]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[2]</td>
-<td>PIN_C14</td>
-<td>GPIO Connection DATA[2]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[3]</td>
-<td>PIN_C16</td>
-<td>GPIO Connection DATA[3]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[4]</td>
-<td>PIN_C15</td>
-<td>GPIO Connection DATA[4]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[5]</td>
-<td>PIN_D16</td>
-<td>GPIO Connection DATA[5]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[6]</td>
-<td>PIN_D15</td>
-<td>GPIO Connection DATA[6]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[7]</td>
-<td>PIN_D14</td>
-<td>GPIO Connection DATA[7]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[8]</td>
-<td>PIN_F15</td>
-<td>GPIO Connection DATA[8]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[9]</td>
-<td>PIN_F16</td>
-<td>GPIO Connection DATA[9]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[10]</td>
-<td>PIN_F14</td>
-<td>GPIO Connection DATA[10]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[11]</td>
-<td>PIN_G16</td>
-<td>GPIO Connection DATA[11]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2[12]</td>
-<td>PIN_G15</td>
-<td>GPIO Connection DATA[12]</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2_IN[0]</td>
-<td>PIN_E15</td>
-<td>GPIO Input</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2_IN[1]</td>
-<td>PIN_E16</td>
-<td>GPIO Input</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>GPIO_2_IN[2]</td>
-<td>PIN_M16</td>
-<td>GPIO Input</td>
-<td>3.3V</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Table-3-9-Pin-Assignments-for-ADC"><a href="#Table-3-9-Pin-Assignments-for-ADC" class="headerlink" title="Table 3-9 Pin Assignments for ADC"></a>Table 3-9 Pin Assignments for ADC</h3><table>
-<thead>
-<tr>
-<th>Signal Name</th>
-<th>FPGA Pin No.</th>
-<th>Descritption</th>
-<th>I/O Standard</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ADC_CS_N</td>
-<td>PIN_A10</td>
-<td>Chip select</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>ADC_SADDR</td>
-<td>PIN_B10</td>
-<td>Digital data input</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>ADC_SDAT</td>
-<td>PIN_A9</td>
-<td>Digital data output</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>ADC_SCLK</td>
-<td>PIN_B14</td>
-<td>Digital clock input</td>
-<td>3.3V</td>
-</tr>
-</tbody>
-</table>
-<h2 id="GCC工具链"><a href="#GCC工具链" class="headerlink" title="GCC工具链"></a>GCC工具链</h2><ul>
-<li><a href="https://github.com/stffrdhrn/or1k-toolchain-build" target="_blank" rel="noopener">or1k-toolchain-build</a></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/stffrdhrn/or1k-toolchain-build</span><br><span class="line">~$ <span class="built_in">cd</span> or1k-toolchain-build</span><br><span class="line">~$ docker build -t or1k-toolchain-build or1k-toolchain-build/</span><br></pre></td></tr></table></figure>
-<ul>
-<li>设置挂载目录变量,运行容器编译.如果<code>build-gcc.sh</code>内的资源链接失效了,需要找一个替代修改它,如：<code>QEMU_URL=https://github.com/vamanea/qemu-or32/archive/v2.0.2.tar.gz</code>.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The location where you have tarballs, so they dont need to be</span></span><br><span class="line"><span class="comment"># downloaded every time you build</span></span><br><span class="line">CACHEDIR=/home/user/work/docker/volumes/src</span><br><span class="line"><span class="comment"># The location where you want your output to go</span></span><br><span class="line">OUTPUTDIR=/home/user/work/docker/volumes/crosstool</span><br><span class="line"></span><br><span class="line">docker run -it --rm \</span><br><span class="line">  -e MUSL_ENABLED=1 \</span><br><span class="line">  -e NEWLIB_ENABLED=1 \</span><br><span class="line">  -e NOLIB_ENABLED=1 \</span><br><span class="line">  -e GCC_VERSION=9.0.1 \</span><br><span class="line">  -e BINUTILS_VERSION=2.32.51 \</span><br><span class="line">  -e LINUX_HEADERS_VERSION=4.19.1 \</span><br><span class="line">  -e MUSL_VERSION=1.1.20 \</span><br><span class="line">  -e GMP_VERSION=6.1.2 \</span><br><span class="line">  -v <span class="variable">$&#123;OUTPUTDIR&#125;</span>:/opt/crosstool:Z \</span><br><span class="line">  -v <span class="variable">$&#123;CACHEDIR&#125;</span>:/opt/crossbuild/cache:Z \</span><br><span class="line">    or1k-toolchain-build</span><br></pre></td></tr></table></figure>
-<ul>
-<li>编译成功后,如下：</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">or1k-elf-9.0.1-20210204.tar.xz</span><br><span class="line">or1k-elf-gcc-9.0.1-20210204.log.gz</span><br><span class="line">or1k-elf-gcc-9.0.1-20210204.sum</span><br><span class="line">or1k-elf-gxx-9.0.1-20210204.log.gz</span><br><span class="line">or1k-elf-gxx-9.0.1-20210204.sum</span><br><span class="line">or1k-linux-9.0.1-20210204.tar.xz</span><br><span class="line">or1k-linux-musl-9.0.1-20210204.tar.xz</span><br><span class="line">or1k-linux-musl-gcc-9.0.1-20210203.log.gz</span><br><span class="line">or1k-linux-musl-gcc-9.0.1-20210203.sum</span><br><span class="line">or1k-linux-musl-gcc-9.0.1-20210204.log.gz</span><br><span class="line">or1k-linux-musl-gcc-9.0.1-20210204.sum</span><br><span class="line">or1k-linux-musl-gxx-9.0.1-20210203.log.gz</span><br><span class="line">or1k-linux-musl-gxx-9.0.1-20210203.sum</span><br><span class="line">or1k-linux-musl-gxx-9.0.1-20210204.log.gz</span><br><span class="line">or1k-linux-musl-gxx-9.0.1-20210204.sum</span><br><span class="line">relnotes-9.0.1-20210204.md</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>这里把<code>or1k-linux-9.0.1-20210204.tar.xz</code>解压安装到本地,并设置相应的环境变量如下：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ALTERA_PATH=<span class="string">"/home/michael/3TB-DISK/intelFPGA_lite/20.1/"</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ALTERA_PATH</span>/quartus/bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ARCH=openrisc</span><br><span class="line"><span class="built_in">export</span> CROSS_COMPILE=or1k-linux-</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:`<span class="built_in">pwd</span>`/toolchain-rootfs/or1k-linux/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>或者单独编译<code>or1k-gcc</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/openrisc/or1k-gcc</span><br><span class="line">~$ <span class="built_in">cd</span> or1k-gcc/</span><br><span class="line">~$ mkdir build-linux</span><br><span class="line">~$ <span class="built_in">cd</span> build-linux &amp;&amp; ../configure &amp;&amp; make -j4</span><br><span class="line">~$ make install DESTPATH=&lt;absolute  path&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="编译ORPSOC"><a href="#编译ORPSOC" class="headerlink" title="编译ORPSOC"></a>编译<code>ORPSOC</code></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/mczerski/orpsoc-de0_nano</span><br><span class="line">~$ <span class="built_in">export</span> ALTERA_PATH=<span class="string">"/home/fullpath/QuartusIIWebEdition13.0.0.156/quartus"</span></span><br><span class="line">~$ <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ALTERA_PATH</span>/bin</span><br><span class="line">~$ make OR32_TOOL_PREFIX=or1k-linux- all</span><br></pre></td></tr></table></figure>
-<h2 id="编译Linux"><a href="#编译Linux" class="headerlink" title="编译Linux"></a>编译Linux</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ tar xvf linux-4.16.14.tar.xz</span><br><span class="line">~$ <span class="built_in">cd</span> linux-4.16.14</span><br><span class="line">~$ wget -c https://kevinmehall.net/openrisc/guide/de0_nano.dts.txt -O arch/openrisc/boot/dts/de0_nano.dts</span><br><span class="line"></span><br><span class="line">~$ make ARCH=openrisc CROSS_COMPILE=<span class="string">"or1k-linux-"</span> or1ksim_defconfig</span><br><span class="line">/** Select Processor <span class="built_in">type</span> and Features -&gt; Builtin DTB and <span class="built_in">type</span> de0_nano */</span><br><span class="line">~$ make ARCH=openrisc CROSS_COMPILE=<span class="string">"or1k-linux-"</span> menuconfig</span><br><span class="line">~$ make ARCH=openrisc CROSS_COMPILE=<span class="string">"or1k-linux-"</span></span><br></pre></td></tr></table></figure>
-<h2 id="烧写入bitstream"><a href="#烧写入bitstream" class="headerlink" title="烧写入bitstream"></a>烧写入bitstream</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> orpsoc/boards/altera/de0_nano/syn/quartus/run</span><br><span class="line">~$ make OR32_TOOL_PREFIX=or1k-linux- all</span><br><span class="line">~$ make pgm</span><br></pre></td></tr></table></figure>
-<h2 id="连接串号"><a href="#连接串号" class="headerlink" title="连接串号"></a>连接串号</h2><ul>
-<li>根据上面<code>GPIO</code>的管脚定义,以及下面的信息,连接正确的<code>rx,tx</code>.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat boards/altera/de0_nano/syn/quartus/tcl/UART0_pin_assignments.tcl</span><br><span class="line">set_location_assignment PIN_D8 -to uart0_srx_pad_i</span><br><span class="line">set_instance_assignment -name IO_STANDARD <span class="string">"3.3-V LVTTL"</span> -to uart0_srx_pad_i</span><br><span class="line">set_location_assignment PIN_F8 -to uart0_stx_pad_o</span><br><span class="line">set_instance_assignment -name IO_STANDARD <span class="string">"3.3-V LVTTL"</span> -to uart0_stx_pad_o</span><br></pre></td></tr></table></figure>
-<h1 id="FuseSOC-试用"><a href="#FuseSOC-试用" class="headerlink" title="FuseSOC 试用"></a>FuseSOC 试用</h1><ul>
-<li><a href="https://fusesoc.readthedocs.io/en/stable/user/index.html" target="_blank" rel="noopener">FuseSoC User Guide</a></li>
-<li><a href="https://stffrdhrn.github.io/hardware/embedded/openrisc/2019/06/11/or1k_marocchino.html" target="_blank" rel="noopener">OR1K Marocchino in Action</a></li>
-</ul>
-<h2 id="安装fuseSoc"><a href="#安装fuseSoc" class="headerlink" title="安装fuseSoc"></a>安装fuseSoc</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/olofk/fusesoc</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> fusesoc &amp;&amp; pip install -e .</span><br><span class="line"></span><br><span class="line">OR</span><br><span class="line">~$ pip install fusesoc</span><br></pre></td></tr></table></figure>
-<h2 id="安装fusesoc-库"><a href="#安装fusesoc-库" class="headerlink" title="安装fusesoc 库"></a>安装fusesoc 库</h2><ul>
-<li>从网络安装.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ fusesoc library add intgen https://github.com/openrisc/intgen.git</span><br></pre></td></tr></table></figure>
-<ul>
-<li>从本地安装</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/openrisc/mor1kx-generic.git</span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/openrisc/or1k_marocchino.git</span><br><span class="line"></span><br><span class="line">~$ fusesoc library add mor1kx-generic `<span class="built_in">pwd</span>`/mor1kx-generic</span><br><span class="line">~$ fusesoc library add or1k_marocchino `<span class="built_in">pwd</span>`/or1k_marocchino</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~$ fusesoc list-cores</span><br><span class="line">Available cores:</span><br><span class="line"></span><br><span class="line">Core                      Cache status  Description</span><br><span class="line">================================================================================</span><br><span class="line">::blinky:0               :      <span class="built_in">local</span> : &lt;No description&gt;</span><br><span class="line">::intgen:0               :      <span class="built_in">local</span> : Interrupt Generator For testing Processors</span><br><span class="line">::mor1kx-generic:1.1     :      <span class="built_in">local</span> : Minimal mor1kx simulation environment</span><br><span class="line">::or1k_marocchino:5.0-r3 :      <span class="built_in">local</span> : &lt;No description&gt;</span><br><span class="line">::plights:0              :      <span class="built_in">local</span> : &lt;No description&gt;</span><br><span class="line">::rv_sopc:0              :      <span class="built_in">local</span> : RISC V system on programmable chip example</span><br><span class="line">::wb_intercon_gen_ng:0   :      <span class="built_in">local</span> : CAPI=2 .core file description based Wishbone Interconnect generator</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看<code>fusesoc.conf</code>配置.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">~$ cat fusesoc.conf</span><br><span class="line">[library.mor1kx-generic]</span><br><span class="line">location = /fullpath/FPGA-DE0-Nano/openrisc/mor1kx-generic</span><br><span class="line">sync-uri = /fullpath/FPGA-DE0-Nano/openrisc/mor1kx-generic</span><br><span class="line">sync-type = <span class="built_in">local</span></span><br><span class="line">auto-sync = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[library.or1k_marocchino]</span><br><span class="line">location = /fullpath/FPGA-DE0-Nano/openrisc/or1k_marocchino</span><br><span class="line">sync-uri = /fullpath/FPGA-DE0-Nano/openrisc/or1k_marocchino</span><br><span class="line">sync-type = <span class="built_in">local</span></span><br><span class="line">auto-sync = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[library.intgen]</span><br><span class="line">location = /fullpath/FPGA-DE0-Nano/openrisc/intgen</span><br><span class="line">sync-uri = /fullpath/FPGA-DE0-Nano/openrisc/intgen</span><br><span class="line">sync-type = <span class="built_in">local</span></span><br><span class="line">auto-sync = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[library.fusesoc-demos]</span><br><span class="line">location = fusesoc_libraries/fusesoc-demos</span><br><span class="line">sync-uri = https://github.com/Oxore/fusesoc-demos</span><br><span class="line">sync-type = git</span><br><span class="line">auto-sync = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 id="RISC-V"><a href="#RISC-V" class="headerlink" title="RISC-V"></a>RISC-V</h1><ul>
-<li><a href="https://github.com/litex-hub/linux-on-litex-vexriscv" target="_blank" rel="noopener">linux-on-litex-vexriscv</a></li>
-<li><a href="https://github.com/SpinalHDL/VexRiscv" target="_blank" rel="noopener">VexRiscv</a></li>
-</ul>
-<h2 id="Fusesoc-demos"><a href="#Fusesoc-demos" class="headerlink" title="Fusesoc-demos"></a>Fusesoc-demos</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fusesoc library add  https://github.com/Oxore/fusesoc-demos</span><br></pre></td></tr></table></figure>
-<h1 id="其它项目"><a href="#其它项目" class="headerlink" title="其它项目"></a>其它项目</h1><ul>
-<li><a href="https://github.com/open-design/riscv-soc-cores" target="_blank" rel="noopener">open-design/riscv-soc-cores</a></li>
-<li><a href="https://github.com/ikwzm/FPGA-SoC-Linux" target="_blank" rel="noopener">ikwzm/FPGA-SoC-Linux</a>, 下一步实践.</li>
-<li><a href="http://www.nxlab.fer.hr/fpgarduino/" target="_blank" rel="noopener">fpgarduino</a>需要实践一下.</li>
-<li><a href="https://www.librecores.org/olofk/serv" target="_blank" rel="noopener">olofk/serv</a> SERV - the SErial RISC-V CPU by olofk</li>
-<li><a href="https://github.com/Dmitriy0111/nanoFOX" target="_blank" rel="noopener">Dmitriy0111/nanoFOX</a></li>
-<li><a href="https://githubhelp.com/dosoon883/openFPGALoader" target="_blank" rel="noopener">openFPGALoader通用烧写工具</a></li>
-</ul>
-<h1 id="USB-Blaster连接问题"><a href="#USB-Blaster连接问题" class="headerlink" title="USB Blaster连接问题"></a>USB Blaster连接问题</h1><ul>
-<li><a href="https://wiki.archlinux.org/index.php/Altera_Design_Software#Error_when_scanning_hardware_-_Server_error" target="_blank" rel="noopener">Altera Design Software</a></li>
-</ul>
-<ul>
-<li>因为这里只想使用<code>quartus_pgm</code>命令,就只下载了<code>QuartusProgrammerSetup-16.1.0.196-linux.run</code>.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jtagd --foreground --debug</span><br><span class="line"></span><br><span class="line">./jtagd --user-start --foreground</span><br><span class="line">./jtagconfig</span><br><span class="line">Error (Server error) when scanning hardware</span><br></pre></td></tr></table></figure>
-<ul>
-<li>测看系统日志</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ dmesg</span><br><span class="line">[...]</span><br><span class="line">[25811.819181] usb 4-2: USB disconnect, device number 16</span><br><span class="line">[25814.375520] usb 4-2: new full-speed USB device number 17 using xhci_hcd</span><br><span class="line">[25814.550270] usb 4-2: New USB device found, idVendor=09fb, idProduct=6001, bcdDevice= 4.00</span><br><span class="line">[25814.550283] usb 4-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3</span><br><span class="line">[25814.550289] usb 4-2: Product: USB-Blaster</span><br><span class="line">[25814.550293] usb 4-2: Manufacturer: Altera</span><br><span class="line">[25814.550297] usb 4-2: SerialNumber: 91d28408</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>直接运行<code>jtagconfig</code>命令,就出现下面这个错.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ ./jtagconfig</span><br><span class="line">Error when scanning hardware - Server error</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后用<code>strace</code>运行只过滤查看<code>network</code>运行情况如下：</p>
-</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ strace -e trace=network jtagconfig</span><br><span class="line">[...]</span><br><span class="line">si_stime=0&#125; ---</span><br><span class="line">socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3</span><br><span class="line">setsockopt(3, SOL_TCP, TCP_NODELAY, [1], 4) = 0</span><br><span class="line">setsockopt(3, SOL_SOCKET, SO_LINGER, &#123;l_onoff=1, l_linger=10&#125;, 8) = 0</span><br><span class="line">connect(3, &#123;sa_family=AF_INET, sin_port=htons(1309), sin_addr=inet_addr(<span class="string">"127.0.0.1"</span>)&#125;, 16) = -1 EINPROGRESS (Operation now <span class="keyword">in</span> progress)</span><br><span class="line">socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">setsockopt(4, SOL_TCP, TCP_NODELAY, [1], 4) = 0</span><br><span class="line">setsockopt(4, SOL_SOCKET, SO_LINGER, &#123;l_onoff=1, l_linger=10&#125;, 8) = 0</span><br><span class="line">connect(4, &#123;sa_family=AF_INET, sin_port=htons(1309), sin_addr=inet_addr(<span class="string">"127.0.0.1"</span>)&#125;, 16) = -1 EINPROGRESS (Operation now <span class="keyword">in</span> progress)</span><br><span class="line">getsockopt(3, SOL_SOCKET, SO_ERROR, [0], [4]) = 0</span><br><span class="line">recvfrom(3, <span class="string">""</span>, 2, 0, NULL, NULL)       = 0</span><br><span class="line">getsockopt(4, SOL_SOCKET, SO_ERROR, [0], [4]) = 0</span><br><span class="line">recvfrom(4, <span class="string">""</span>, 2, 0, NULL, NULL)       = 0</span><br><span class="line">recvfrom(-1, 0x1e4ca0c, 2, 0, NULL, NULL) = -1 EBADF (Bad file descriptor)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>为排除硬件问题,又没有第二台电脑系统可试.使用<code>Virtualbox</code>安装了一个同版本的系统测试,发现在虚拟机里不做任何设置,就可以正常发现<br>设备.如下:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ ./jtagconfig</span><br><span class="line">1) USB-Blaster [2-2]</span><br><span class="line">  Unable to <span class="built_in">read</span> device chain - JTAG chain broken</span><br></pre></td></tr></table></figure>
-<ul>
-<li>再次按装官方文档,安装添加<code>udev</code>相关设置,再把<code>jtagd</code>开启调试模式如下：</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~<span class="comment"># cat&gt;/etc/udev/rules.d/51-altera-usb-blaster.rules&lt;&lt;EOF</span></span><br><span class="line">SUBSYSTEM==<span class="string">"usb"</span>, ATTR&#123;idVendor&#125;==<span class="string">"09fb"</span>, ATTR&#123;idProduct&#125;==<span class="string">"6001"</span>, MODE=<span class="string">"0666"</span></span><br><span class="line">SUBSYSTEM==<span class="string">"usb"</span>, ATTR&#123;idVendor&#125;==<span class="string">"09fb"</span>, ATTR&#123;idProduct&#125;==<span class="string">"6002"</span>, MODE=<span class="string">"0666"</span></span><br><span class="line">SUBSYSTEM==<span class="string">"usb"</span>, ATTR&#123;idVendor&#125;==<span class="string">"09fb"</span>, ATTR&#123;idProduct&#125;==<span class="string">"6003"</span>, MODE=<span class="string">"0666"</span></span><br><span class="line">SUBSYSTEM==<span class="string">"usb"</span>, ATTR&#123;idVendor&#125;==<span class="string">"09fb"</span>, ATTR&#123;idProduct&#125;==<span class="string">"6010"</span>, MODE=<span class="string">"0666"</span></span><br><span class="line">SUBSYSTEM==<span class="string">"usb"</span>, ATTR&#123;idVendor&#125;==<span class="string">"09fb"</span>, ATTR&#123;idProduct&#125;==<span class="string">"6810"</span>, MODE=<span class="string">"0666"</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ jtagd --foreground --debug</span><br><span class="line">JTAG daemon started</span><br><span class="line">Using config file /etc/jtagd/jtagd.conf</span><br><span class="line">Remote JTAG permitted when password <span class="built_in">set</span></span><br><span class="line">USB-Blaster <span class="string">"USB-Blaster"</span> firmware version 4.00</span><br><span class="line">USB-Blaster endpoints out=02(64), <span class="keyword">in</span>=81(64); urb size=1024</span><br><span class="line">USB-Blaster added <span class="string">"USB-Blaster [4-2]"</span></span><br><span class="line">USB-Blaster port (/dev/bus/usb/004/017) opened</span><br></pre></td></tr></table></figure>
-<ul>
-<li>但是直接运行<code>jtagconfig</code>还是会报<code>Error when scanning hardware - Server error</code>错误.后面按照上述文档进行下面的设置就可以<br>了.</li>
-</ul>
-<h2 id="jtagd服务端配置"><a href="#jtagd服务端配置" class="headerlink" title="jtagd服务端配置"></a><code>jtagd</code>服务端配置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># cp /fullpath/intelFPGA_lite/16.1/qprogrammer/linux64/pgm_parts.txt /etc/jtagd/jtagd.pgm_parts</span></span><br><span class="line">~<span class="comment"># echo "Password = \"123456\";" &gt; /etc/jtagd/jtagd.conf</span></span><br><span class="line">~<span class="comment"># killall -9 jtagd</span></span><br><span class="line">~$ jtagd --foreground --debug</span><br><span class="line">JTAG daemon started</span><br><span class="line">Using config file /etc/jtagd/jtagd.conf</span><br><span class="line">Remote JTAG permitted when password <span class="built_in">set</span></span><br><span class="line">USB-Blaster <span class="string">"USB-Blaster"</span> firmware version 4.00</span><br><span class="line">USB-Blaster endpoints out=02(64), <span class="keyword">in</span>=81(64); urb size=1024</span><br><span class="line">USB-Blaster added <span class="string">"USB-Blaster [6-2]"</span></span><br><span class="line">USB-Blaster port (/dev/bus/usb/006/002) opened</span><br><span class="line">USB-Blaster <span class="string">"USB-Blaster"</span> firmware version 4.00</span><br><span class="line">USB-Blaster endpoints out=02(64), <span class="keyword">in</span>=81(64); urb size=1024</span><br><span class="line">USB-Blaster reports JTAG protocol version 0, using version 0</span><br></pre></td></tr></table></figure>
-<h2 id="jtagconfig配置"><a href="#jtagconfig配置" class="headerlink" title="jtagconfig配置"></a><code>jtagconfig</code>配置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ jtagconfig --addserver 127.0.0.1 123456</span><br><span class="line">~$ jtagconfig</span><br><span class="line">1) USB-Blaster on 127.0.0.1 [6-2]</span><br><span class="line">  020F30DD   EP3C25/EP4CE22</span><br></pre></td></tr></table></figure>
-<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -3734,7 +3139,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3743,7 +3148,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

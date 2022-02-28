@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://yoursite.com/imgs/imx28evk-dma_apbx.png">
 <meta property="og:image" content="http://yoursite.com/imgs/hmc5883l.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2021-02-04T13:26:04.045Z">
+<meta property="og:updated_time" content="2022-02-26T15:52:54.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为iMX28-EVK移植Linux内核与U-Boot">
 <meta name="twitter:description" content="相关链接 elftosb imx-bootlets Arm None Toolchain Linaro Toolchain i.MX280: Multimedia Applications Processors i.MX28 Applications Processor Reference Manual    U-Boot 2017.11 Secure boot with NXP tools (">
@@ -187,7 +187,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-04 21:26:04" itemprop="dateModified" datetime="2021-02-04T21:26:04+08:00">2021-02-04</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
 
           
@@ -295,8 +295,8 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~$ wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.51.tar.xz</span><br><span class="line">~$ tar xvf linux-4.14.51.tar.xz &amp;&amp; <span class="built_in">cd</span> linux-4.14.51</span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- O=../imx28evk-kernel mxs_defconfig</span><br><span class="line"></span><br><span class="line"> GEN     ./Makefile</span><br><span class="line">  HOSTCC  scripts/kconfig/mconf.o</span><br><span class="line">  HOSTCC  scripts/kconfig/lxdialog/checklist.o</span><br><span class="line"> [...]</span><br><span class="line"></span><br><span class="line">~$ make ARCH=arm CROSS_COMPILE=arm-none-eabi- menuconfig</span><br><span class="line"></span><br><span class="line">Boot options -&gt; [*] Use appended device tree blob to zImage (EXPERIMENTAL)</span><br><span class="line">				[*]   Supplement the appended DTB with traditional ATAG information</span><br><span class="line">                Kernel <span class="built_in">command</span> line <span class="built_in">type</span> (Use bootloader kernel arguments <span class="keyword">if</span> available)  ---&gt;</span><br><span class="line">                 (console=ttyAMA0,115200n8 rootfstype=ubifs ubi.mtd=5 root=ubi0_0 rootwait=1 rw earlyprintk) Default kernel <span class="built_in">command</span> string</span><br><span class="line">                 Kernel <span class="built_in">command</span> line <span class="built_in">type</span> (Use bootloader kernel arguments <span class="keyword">if</span> available)  ---&gt;</span><br><span class="line">Kernel hacking → printk and dmesg options -&gt; [*] Enable dynamic printk() support</span><br><span class="line">				[*] Kernel low-level debugging <span class="built_in">functions</span> (<span class="built_in">read</span> <span class="built_in">help</span>!)</span><br><span class="line">                	Kernel low-level debugging port (i.MX28 Debug UART)  ---&gt;</span><br><span class="line">                [*] Early printk</span><br><span class="line">Device Drivers → Network device support → Ethernet driver support -&gt; Freescale devices -&gt; FEC ethernet controller</span><br></pre></td></tr></table></figure>
 <h2 id="编译内核用设备树"><a href="#编译内核用设备树" class="headerlink" title="编译内核用设备树"></a>编译内核用设备树</h2><ul>
-<li>Linux 内核３.x 以后都要使用设备树才能正常启动,可以把<code>DTB</code>附加到<code>zImage</code>后面,也可以在<code>U-Boot</code>中指定 dtb 文件路径.</li>
-<li>设备树的 patch 如下.经过测试<code>iMX280A</code>必须改成<code>pinctrl-0 = &lt;&amp;duart_pins_b&gt;</code>不然串口<strong>ttyAMA0</strong>无法输入,同时修改时要注意 IO 定义的冲突处理.这里是我修改的<code>iMX280A</code>的设备树<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/patchs/linux-4.14.51-imx28evk.patch" target="_blank" rel="noopener">补丁文件</a></li>
+<li><code>Linux</code>内核<code>３.x</code>以后都要使用设备树才能正常启动,可以把<code>DTB</code>附加到<code>zImage</code>后面,也可以在<code>U-Boot</code>中指定 dtb 文件路径.</li>
+<li>设备树的 patch 如下.经过测试<code>iMX280A</code>必须改成<code>pinctrl-0 = &lt;&amp;duart_pins_b&gt;</code>不然串口<code>ttyAMA0</code>无法输入,同时修改时要注意 IO 定义的冲突处理.这里是我修改的<code>iMX280A</code>的设备树<a href="https://github.com/yjdwbj/iMX28-EVK-BSP/blob/master/patchs/linux-4.14.51-imx28evk.patch" target="_blank" rel="noopener">补丁文件</a></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ diff -Naur ../../linux-4.14.51/arch/arm/boot/dts/imx28-evk.dts ../linux-4.14.51/arch/arm/boot/dts/imx28-evk.dts &gt; ../linux-4.14.51-imx28evk.patch</span><br></pre></td></tr></table></figure>
 <h2 id="设备树相关"><a href="#设备树相关" class="headerlink" title="设备树相关"></a>设备树相关</h2><ul>
@@ -476,7 +476,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -485,7 +485,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

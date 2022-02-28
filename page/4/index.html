@@ -148,6 +148,211 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/Android错误集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/02/Android错误集/" class="post-title-link" itemprop="url">Android错误集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-02 21:24:42" itemprop="dateCreated datePublished" datetime="2018-05-02T21:24:42+08:00">2018-05-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><a href="https://developer.android.com/studio/known-issues" target="_blank" rel="noopener">Android Studio 和 Android Gradle 插件的已知问题</a></li>
+<li><a href="https://developer.android.com/studio/intro/studio-config.html" target="_blank" rel="noopener">配置 Android Studio</a></li>
+<li><a href="https://developer.android.com/studio/command-line/variables" target="_blank" rel="noopener">Android Studio 环境变量</a></li>
+<li><a href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh_cn" target="_blank" rel="noopener">Android Gradle 插件版本说明</a></li>
+<li><a href="https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it" target="_blank" rel="noopener">Gradle for Android Developers - Getting the most of it</a></li>
+</ul>
+<h1 id="刷机教程"><a href="#刷机教程" class="headerlink" title="刷机教程"></a>刷机教程</h1><ul>
+<li><a href="https://fossbytes.com/android-custom-roms/" target="_blank" rel="noopener">安卓自定义ROM镜像</a></li>
+<li><a href="https://hitechdroid.com/how-to-install-custom-rom/" target="_blank" rel="noopener">how-to-install-custom-rom</a></li>
+<li><a href="https://wiki.lineageos.org/adb_fastboot_guide.html" target="_blank" rel="noopener">adb_fastboot_guide.html</a></li>
+<li><a href="https://odindownload.com/download/" target="_blank" rel="noopener">三星专用Odin刷机</a></li>
+<li><a href="https://www.androidauthority.com/lineageos-install-guide-893303/" target="_blank" rel="noopener">Beginner’s guide to installing LineageOS on your Android device</a></li>
+</ul>
+<h3 id="常规错误"><a href="#常规错误" class="headerlink" title="常规错误"></a>常规错误</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dl.google.com:443 failed to respond</span><br><span class="line">Could not resolve com.android.tools.build:gradle:4.0.1</span><br><span class="line">Could not resolve all artifacts <span class="keyword">for</span> configuration <span class="string">':classpath'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面错误，主要是目标文件不可以访问，原因有：在整个的<code>repositories</code>内找不到对应版本的目标文件，或者是网络无法访问到目标服务器.</li>
+</ul>
+<h3 id="Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found"><a href="#Android-studio-3-1-error-style-attribute-‘android-attr-keyboardNavigationCluster’-not-found" class="headerlink" title="Android-studio 3.1 error: style attribute ‘android:attr/keyboardNavigationCluster’ not found."></a>Android-studio 3.1 <strong>error: style attribute ‘android:attr/keyboardNavigationCluster’ not found.</strong></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found.</span><br><span class="line">Message&#123;kind=ERROR, text=error: style attribute <span class="string">'android:attr/keyboardNavigationCluster'</span> not found., sources=[/home/michael/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/e3f34410f8f84b1f2b297174f475b194/res/values-v26/values-v26.xml:3:5-6:13], original message=, tool name=Optional.of(AAPT)&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ul>
+<li>修改<strong>app</strong>下的 build.gradle</li>
+<li>把<strong>dependences</strong> 里改成 <code>implementation &#39;com.android.support:appcompat-v7:27.1.0&#39;</code></li>
+<li>同时修改成<strong>compileSdkVersion 26</strong>,<strong>targetSdkVersion 26</strong>,要大于等于<strong>26</strong>的版本.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 27</span><br><span class="line">    buildToolsVersion <span class="string">"27.0.3"</span> // not needed since com.android.tools.build:gradle:3.0.0</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        minSdkVersion 14</span><br><span class="line">        targetSdkVersion 26</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  [...]</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line"> 	[...]</span><br><span class="line">    implementation <span class="string">'com.android.support:appcompat-v7:27.1.1'</span></span><br><span class="line">    implementation <span class="string">'com.android.support:design:27.1.1'</span></span><br><span class="line">    implementation <span class="string">'com.android.support:recyclerview-v7:27.1.1'</span></span><br><span class="line">    [...]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="吐血的Gradle-sync-failed"><a href="#吐血的Gradle-sync-failed" class="headerlink" title="吐血的Gradle sync failed."></a>吐血的Gradle sync failed.</h1><ul>
+<li><a href="https://appuals.com/fix-gradle-project-sync-failed/" target="_blank" rel="noopener">Fix: Gradle Project Sync Failed</a></li>
+<li><a href="https://medium.com/@mydogtom/tip-how-to-reuse-gradle-daemon-between-android-studio-and-terminal-df5232d63f38" target="_blank" rel="noopener">Tip: How to reuse Gradle daemon between Android Studio and terminal</a></li>
+<li><p><a href="https://medium.com/@mydogtom/tip-reduce-the-number-of-gradle-daemon-instances-by-using-local-distribution-56f645cf2c97" target="_blank" rel="noopener">Tip: Use local Gradle distribution instead of wrapper</a></p>
+</li>
+<li><p>打开Android工程时，它就自动<code>Gradle sync started</code>,在下方<code>Sync</code>终端不断显示如下信息：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">Gradle Daemon started <span class="keyword">in</span> 950 ms</span><br><span class="line">Gradle Daemon started <span class="keyword">in</span> 909 ms</span><br><span class="line">Gradle Daemon started <span class="keyword">in</span> 848 ms</span><br><span class="line">Gradle Daemon started <span class="keyword">in</span> 875 ms</span><br><span class="line">Gradle Daemon started <span class="keyword">in</span> 871 ms</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>并且使用的内存一直不断上升，它不会因为使用内存过多而被内核<code>Kill</code>掉，内存用完之后就是使用硬盘<code>Swap</code>,直接卡死，如果恢复响应后，在<code>Event log</code>里必然显示下面信息：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Gradle sync failed: The first result from the daemon was empty. Most likely the process died immediately after connection</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>Gradle</code>同步失败：管道无效,问题在于，<code>Gradle</code>守护进程会尝试使用<code>IPv4</code>而非<code>IPv6</code>.</p>
+</li>
+<li><p>下面是我的一个取巧的方法.<code>Android Studio</code>打开工程时，它就自动<code>Gradle Build</code>时，在终端里用下面命令<code>Kill</code>掉.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">which</span> jps</span><br><span class="line">/fullpath/jdk1.8.0_112/bin/jps</span><br><span class="line"></span><br><span class="line">~$ jps | grep <span class="string">"Gradle"</span> | awk <span class="string">'&#123;print $1&#125;'</span> | xargs <span class="built_in">kill</span> -9</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过终端去到工程目录下，使用<code>gradlew build</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">~$ ./gradlew build</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 7s</span><br><span class="line">1 actionable task: 1 executed</span><br><span class="line"></span><br><span class="line">// 编译并打Debug包</span><br><span class="line">~$ ./gradlew assembleDebug</span><br><span class="line"></span><br><span class="line">// 编译并打Release的包</span><br><span class="line">~$ ./gradlew assembleRelease</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果在终端运行上面的命令，还是出现如下的错误， 是与<code>IDE</code>里的端终显示同一类的错误.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Starting a Gradle Daemon (subsequent builds will be faster)</span><br><span class="line">Starting a Gradle Daemon, 1 busy Daemon could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line">Starting a Gradle Daemon, 2 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line">Starting a Gradle Daemon, 3 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line">Starting a Gradle Daemon, 4 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line">Starting a Gradle Daemon, 5 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line">Starting a Gradle Daemon, 6 busy Daemons could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line">[.....]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>现在来记录解决这个问题步骤，代理肯定是配置的，最优先配置使用工程目录下的<code>gradle.properties</code>，其次用户目录也有一个同名文件：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ ls ~/.gradle</span><br><span class="line">caches  daemon  gradle.properties  kotlin-profile  native  notifications  workers  wrapper</span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据上面终端提示<code>use --status for details</code>,可以打开<code>~/.gradle/daemon/&lt;gradle version&gt;/daemon-xxx-out.log</code>查看细节，如果里面包含如下行：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line"> [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...</span><br><span class="line"> [ERROR] [org.gradle.internal.remote.internal.inet.TcpIncomingConnector] Cannot accept connection from remote address /192.168.1.100.</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>并且,如果本机系统有开启<code>IPv6</code>，上面的无法连接可能是<code>Gradle</code>同步失败：管道无效,问题在于，<code>Gradle</code> 守护进程会尝试使用<code>IPv4</code>而非<code>IPv6</code>.设置<code>Shell</code>环境变量：<code>export _JAVA_OPTIONS=&quot;-Djava.net.preferIPv6Addresses=true&quot;</code>再运行<code>./gradlew assembleRelease</code>尝试.<code>gradle</code>用户配置如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ cat ~/.gradle/gradle.properties</span><br><span class="line">[...]</span><br><span class="line">org.gradle.parallel=<span class="literal">true</span></span><br><span class="line">org.gradle.daemon=<span class="literal">true</span></span><br><span class="line">systemProp.https.proxyHost=127.0.0.1</span><br><span class="line">systemProp.https.proxyPort=8123</span><br><span class="line">systemProp.http.proxyHost=127.0.0.1</span><br><span class="line">systemProp.http.proxyPort=8123</span><br><span class="line">systemProp.https.nonProxyHosts=127.0.0.1|localhost|192.168.1.100</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把工程里的<code>gradle/wrapper/gradle-wrapper.properties</code>里的<code>distributionUrl</code>可以指成网络位置，也可以指定本地位置,如:<code>distributionUrl=file\:///home/fullpath/sdkman/archives/gradle-6.4.1.zip</code>. 如果是指定了本地的位置后，在<code>File -&gt; Project Structure -&gt; Project --&gt; Gradle Version</code>就会是空，这里就保持为空，不要选择，如果选择了一项，它就会重写<code>distributionUrl</code>为官网的网络位置， 同时要确保指向本地位置版本的<code>Gradle</code>要与<code>Bash Shell</code>内指定是同一个版本.<code>Gradle</code>的版本兼容性，参考<a href="https://developer.android.com/studio/releases/gradle-plugin?hl=cs" target="_blank" rel="noopener">Android Gradle plugin release notes</a></li>
+<li>还有一个问题是，设置<code>Android-Studio</code>与<code>graldew</code>使用同一个<code>gradle</code>实例，可以<a href="https://stackoverflow.com/questions/39743560/how-do-i-run-the-same-gradle-daemon-for-terminal-and-android-studio" target="_blank" rel="noopener">参考这里</a>.</li>
+<li>解决方法 2：在<code>Android Studio</code>的<a href="https://sites.google.com/a/android.com/tools/tech-docs/configuration" target="_blank" rel="noopener"><code>vmoptions</code>文件</a>中，将<code>-Djava.net.preferIPv6Addresses=true</code>行更改为<code>-Djava.net.preferIPv6Addresses=true</code>.</li>
+<li>最终该问题在<code>Android Studio 3.6.3</code>版本中配置<code>Gradle Plugin 3.6.3</code>与<code>Gradle 5.6.4</code>,并通过<code>Ctrl+Alt+S --&gt; Build,Execution,Deployment --&gt; Gradle</code>把<code>Use Gradle from</code>设置成<code>Specified location</code>选择本地的<code>SDKMAN</code>安装目录的下<code>gradle/5.6.4</code>,上述设置后，再把所有的(工程|用户)<code>gradle.properties</code>加上这一行：<code>org.gradle.jvmargs=-Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv6Stack=true</code>, 先在<code>Bash shell</code>运行一次<code>./gradlew build</code>后,再去到IDE时好像同步文件就正常了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Build <span class="comment">#AI-192.7142.36.36.6392135, built on April 14, 2020</span></span><br><span class="line">Runtime version: 1.8.0_212-release-1586-b4-5784211 amd64</span><br><span class="line">VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</span><br><span class="line">Linux 5.5.13-20200327-lcy</span><br><span class="line">GC: ParNew, ConcurrentMarkSweep</span><br><span class="line">Memory: 1246M</span><br><span class="line">Cores: 4</span><br><span class="line">Registry: ide.new.welcome.screen.force=<span class="literal">true</span></span><br><span class="line">Non-Bundled Plugins: com.google.services.firebase`</span><br></pre></td></tr></table></figure>
+<h1 id="Android系统源码AOSP-下载"><a href="#Android系统源码AOSP-下载" class="headerlink" title="Android系统源码AOSP 下载."></a>Android系统源码AOSP 下载.</h1><ul>
+<li>参考链接<ul>
+<li><a href="https://source.android.google.cn/" target="_blank" rel="noopener">Android 开源项目-中国区</a></li>
+<li><a href="https://source.android.google.cn/source/downloading" target="_blank" rel="noopener">下载源代码</a></li>
+<li><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp" target="_blank" rel="noopener">科大-AOSP(Android) 镜像使用帮助</a></li>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="noopener">清华大学开源软件镜像站</a></li>
+<li><a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大-开源软件镜像</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="同步源码"><a href="#同步源码" class="headerlink" title="同步源码"></a>同步源码</h2><h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ mkdir ~/bin</span><br><span class="line">~$ PATH=~/bin:<span class="variable">$PATH</span></span><br><span class="line">~$ curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">~$ chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
+<h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ mkdir Android-AOSP &amp;&amp; <span class="built_in">cd</span> Android-AOSP</span><br><span class="line">~$ repo init -u https://android.googlesource.com/platform/manifest</span><br><span class="line">~$ repo sync</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果不能同步上面的官方源需要使用代理.也可以使用国内一些大学的镜像源:<a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="noopener">清华大学开源软件镜像站</a>,<a href="http://mirrors.ustc.edu.cn/aosp/" target="_blank" rel="noopener">中国科学技术大学</a>.可以一开始就使用国内镜像源，也可以把原来官方源地址替换成国内镜像源再同步,方法如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~$ cat .repo/manifests.git/config</span><br><span class="line">[core]</span><br><span class="line">        repositoryformatversion = 0</span><br><span class="line">        filemode = <span class="literal">true</span></span><br><span class="line">[filter <span class="string">"lfs"</span>]</span><br><span class="line">        smudge = git-lfs smudge --skip -- %f</span><br><span class="line">        process = git-lfs filter-process --skip</span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">        <span class="comment">#url = https://android.googlesource.com/platform/manifest</span></span><br><span class="line">        url = https://aosp.tuna.tsinghua.edu.cn/platform/manifest</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch <span class="string">"default"</span>]</span><br><span class="line">        remote = origin</span><br><span class="line">        merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+<ul>
+<li>我最终是改成<a href="https://aosp.tuna.tsinghua.edu.cn/platform/manifest" target="_blank" rel="noopener">清华大学</a>镜像同步完成.2020-03-16同步完成后，目录体积显示是93G.后来对比了官方<code>https://android.googlesource.com/device/</code>与本地<code>device</code>目录，好像少了一些设备目录，比如：<code>htc,samsung</code>是没有看到的.</li>
+</ul>
+<h3 id="验证Git标记"><a href="#验证Git标记" class="headerlink" title="验证Git标记"></a>验证Git标记</h3><ul>
+<li>输入<code>gpg --import</code>后粘贴下面的PGP密钥数据.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">~$ gpg --import</span><br><span class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</span><br><span class="line">Version: GnuPG v1.4.2.2 (GNU/Linux)</span><br><span class="line"></span><br><span class="line">mQGiBEnnWD4RBACt9/h4v9xnnGDou13y3dvOx6/t43LPPIxeJ8eX9WB+8LLuROSV</span><br><span class="line">lFhpHawsVAcFlmi7f7jdSRF+OvtZL9ShPKdLfwBJMNkU66/TZmPewS4m782ndtw7</span><br><span class="line">8tR1cXb197Ob8kOfQB3A9yk2XZ4ei4ZC3i6wVdqHLRxABdncwu5hOF9KXwCgkxMD</span><br><span class="line">u4PVgChaAJzTYJ1EG+UYBIUEAJmfearb0qRAN7dEoff0FeXsEaUA6U90sEoVks0Z</span><br><span class="line">wNj96SA8BL+a1OoEUUfpMhiHyLuQSftxisJxTh+2QclzDviDyaTrkANjdYY7p2cq</span><br><span class="line">/HMdOY7LJlHaqtXmZxXjjtw5Uc2QG8UY8aziU3IE9nTjSwCXeJnuyvoizl9/I1S5</span><br><span class="line">jU5SA/9WwIps4SC84ielIXiGWEqq6i6/sk4I9q1YemZF2XVVKnmI1F4iCMtNKsR4</span><br><span class="line">MGSa1gA8s4iQbsKNWPgp7M3a51JCVCu6l/8zTpA+uUGapw4tWCp4o0dpIvDPBEa9</span><br><span class="line">b/aF/ygcR8mh5hgUfpF9IpXdknOsbKCvM9lSSfRciETykZc4wrRCVGhlIEFuZHJv</span><br><span class="line">aWQgT3BlbiBTb3VyY2UgUHJvamVjdCA8aW5pdGlhbC1jb250cmlidXRpb25AYW5k</span><br><span class="line">cm9pZC5jb20+iGAEExECACAFAknnWD4CGwMGCwkIBwMCBBUCCAMEFgIDAQIeAQIX</span><br><span class="line">gAAKCRDorT+BmrEOeNr+AJ42Xy6tEW7r3KzrJxnRX8mij9z8tgCdFfQYiHpYngkI</span><br><span class="line">2t09Ed+9Bm4gmEO5Ag0ESedYRBAIAKVW1JcMBWvV/0Bo9WiByJ9WJ5swMN36/vAl</span><br><span class="line">QN4mWRhfzDOk/Rosdb0csAO/l8Kz0gKQPOfObtyYjvI8JMC3rmi+LIvSUT9806Up</span><br><span class="line">hisyEmmHv6U8gUb/xHLIanXGxwhYzjgeuAXVCsv+EvoPIHbY4L/KvP5x+oCJIDbk</span><br><span class="line">C2b1TvVk9PryzmE4BPIQL/NtgR1oLWm/uWR9zRUFtBnE411aMAN3qnAHBBMZzKMX</span><br><span class="line">LWBGWE0znfRrnczI5p49i2YZJAjyX1P2WzmScK49CV82dzLo71MnrF6fj+Udtb5+</span><br><span class="line">OgTg7Cow+8PRaTkJEW5Y2JIZpnRUq0CYxAmHYX79EMKHDSThf/8AAwUIAJPWsB/M</span><br><span class="line">pK+KMs/s3r6nJrnYLTfdZhtmQXimpoDMJg1zxmL8UfNUKiQZ6esoAWtDgpqt7Y7s</span><br><span class="line">KZ8laHRARonte394hidZzM5nb6hQvpPjt2OlPRsyqVxw4c/KsjADtAuKW9/d8phb</span><br><span class="line">N8bTyOJo856qg4oOEzKG9eeF7oaZTYBy33BTL0408sEBxiMior6b8LrZrAhkqDjA</span><br><span class="line">vUXRwm/fFKgpsOysxC6xi553CxBUCH2omNV6Ka1LNMwzSp9ILz8jEGqmUtkBszwo</span><br><span class="line">G1S8fXgE0Lq3cdDM/GJ4QXP/p6LiwNF99faDMTV3+2SAOGvytOX6KjKVzKOSsfJQ</span><br><span class="line">hN0DlsIw8hqJc0WISQQYEQIACQUCSedYRAIbDAAKCRDorT+BmrEOeCUOAJ9qmR0l</span><br><span class="line">EXzeoxcdoafxqf6gZlJZlACgkWF7wi2YLW3Oa+jv2QSTlrx4KLM=</span><br><span class="line">=Wi5D</span><br><span class="line">-----END PGP PUBLIC KEY BLOCK-----</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试验证tag</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> device/generic/mini-emulator-arm64</span><br><span class="line">~$ git tag -v android-5.0.0_r1</span><br><span class="line">object 743dd408af5c662761bafc05eacdb18ade88cf3a</span><br><span class="line"><span class="built_in">type</span> commit</span><br><span class="line">tag android-5.0.0_r1</span><br><span class="line">tagger The Android Open Source Project &lt;initial-contribution@android.com&gt; 1415119682 -0800</span><br><span class="line"></span><br><span class="line">Android 5.0.0 release 1</span><br><span class="line">gpg: Signature made Wed 05 Nov 2014 12:48:02 AM CST</span><br><span class="line">gpg:                using DSA key E8AD3F819AB10E78</span><br><span class="line">gpg: Good signature from <span class="string">"The Android Open Source Project &lt;initial-contribution@android.com&gt;"</span> [unknown]</span><br><span class="line">gpg: WARNING: This key is not certified with a trusted signature!</span><br><span class="line">gpg:          There is no indication that the signature belongs to the owner.</span><br><span class="line">Primary key fingerprint: 4340 D135 70EF 945E 8381  0964 E8AD 3F81 9AB1 0E78</span><br></pre></td></tr></table></figure>
+<h2 id="Android-Material组件"><a href="#Android-Material组件" class="headerlink" title="Android Material组件"></a>Android Material组件</h2><ul>
+<li>Link<ul>
+<li><a href="https://material.io/components" target="_blank" rel="noopener">Material Design</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Android图标资源"><a href="#Android图标资源" class="headerlink" title="Android图标资源"></a>Android图标资源</h2><ul>
+<li><p>参考链接：</p>
+<ul>
+<li><a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="noopener">Android-Iconics</a></li>
+<li><a href="https://google.github.io/material-design-icons/" target="_blank" rel="noopener">Icons for Android</a></li>
+<li><a href="https://developer.android.com/studio/write/image-asset-studio" target="_blank" rel="noopener">使用 Image Asset Studio 创建应用图标</a></li>
+<li><a href="https://developer.android.com/studio/write/vector-asset-studio" target="_blank" rel="noopener">Vector Asset Studio</a></li>
+</ul>
+</li>
+<li><p>之前开发时，还去不同网站上去下载图标下来，放到<code>app/src/main/res/drawable</code>或者是<code>`app/src/main/res/icons</code>内，其实使用<a href="https://developer.android.com/studio/write/image-asset-studio" target="_blank" rel="noopener">Image Asset Studio</a>是最方便的.它可以满足各种类型的图标创建，包括自适应图标.还可以使用<a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="noopener">Android-Iconics</a>，它集成多个图标资源在一起，比如:<code>FontAwesome</code>.</p>
+</li>
+</ul>
+<h3 id="导入PNG图标"><a href="#导入PNG图标" class="headerlink" title="导入PNG图标"></a>导入PNG图标</h3><ul>
+<li>在<code>Project</code>窗口中，选择<code>Android</code>视图，右键点击<code>res</code>文件夹，然后依次选择<code>New &gt; Image Asset</code>.<code>Icon Type</code>可以选：启动器图标，操作栏和标签页图标，通知图标.</li>
+<li>选中<code>Asset Type</code>是<code>Clip Art</code>时，点击下方的<code>Clip Art</code>就会弹出一个内置的图标列表，选择一个图标编辑后，按完成就会提示，保存到<code>app/src/main/res/drawable</code>下面.</li>
+<li>选中<code>Asset Type</code>是<code>Image</code>时,下面的<code>Path</code>可以选择一个本地位置的PNG文件，可以先把<a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener">material-design-icons</a>同步下来，再通过该步骤编辑导入到工程去.</li>
+<li>也可以手动复制自定义的PNG文件放到工程里的<code>app/src/main/res/drawable</code>.</li>
+</ul>
+<h3 id="导入SVG图标"><a href="#导入SVG图标" class="headerlink" title="导入SVG图标"></a>导入SVG图标</h3><ul>
+<li>在<code>Project</code>窗口中，选择<code>Android</code>视图，右键点击<code>res</code>文件夹，然后依次选择<code>New &gt; Vector Asset</code>.</li>
+<li>选中<code>Asset Type</code>是<code>Clip Art</code>时，点击下方的<code>Clip Art</code>就会弹出一个内置的图标列表，选择一个图标编辑后，按完成就会提示，保存到<code>app/src/main/res/drawable</code>下面.</li>
+<li>选中<code>Asset Type</code>是<code>Local file(SVG,PSD)</code>时,下面的<code>Path</code>可以选择一个本地位置的矢量文件，可以先把<a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener">material-design-icons</a>同步下来，再通过该步骤编辑导入到工程去.</li>
+<li>也可以手动复制自定义的SVG文件放到工程里的<code>app/src/main/res/drawable</code>.</li>
+</ul>
+<h3 id="使用Android-Material-Design-Icon-Generator插件"><a href="#使用Android-Material-Design-Icon-Generator插件" class="headerlink" title="使用Android Material Design Icon Generator插件"></a>使用<code>Android Material Design Icon Generator</code>插件</h3><ul>
+<li><p><a href="https://tutorialscache.com/how-to-use-material-design-icons-in-android/" target="_blank" rel="noopener">How to use Material Design icons in Android</a></p>
+</li>
+<li><p>安装完成<code>Android Material Design Icon Generator</code>后，打开<code>File -&gt; New -&gt; Material Design Icon</code>.</p>
+</li>
+</ul>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/为Android编译OpenCV3-SDK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,7 +536,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 20:17:58" itemprop="dateModified" datetime="2021-12-15T20:17:58+08:00">2021-12-15</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -650,7 +855,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-31 23:33:06" itemprop="dateModified" datetime="2021-12-31T23:33:06+08:00">2021-12-31</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -794,7 +999,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-09 20:48:31" itemprop="dateModified" datetime="2022-01-09T20:48:31+08:00">2022-01-09</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -960,7 +1165,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 22:15:15" itemprop="dateModified" datetime="2021-12-15T22:15:15+08:00">2021-12-15</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1220,7 +1425,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 20:31:21" itemprop="dateModified" datetime="2021-12-15T20:31:21+08:00">2021-12-15</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1449,7 +1654,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-15 22:15:15" itemprop="dateModified" datetime="2021-12-15T22:15:15+08:00">2021-12-15</time>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1664,137 +1869,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/09/Django-uWsgi-nginx-https-完全配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/11/09/Django-uWsgi-nginx-https-完全配置/" class="post-title-link" itemprop="url">Django+uWsgi+nginx+https 完全配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-11-09 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-09T00:00:00+08:00">2016-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2016-12-13 00:00:00" itemprop="dateModified" datetime="2016-12-13T00:00:00+08:00">2016-12-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>相关链接</li>
-</ul>
-<p>-　<a href="https://letsencrypt.org/" target="_blank" rel="noopener">https://letsencrypt.org/</a></p>
-<hr>
-<h1 id="编译Nginx"><a href="#编译Nginx" class="headerlink" title="编译Nginx"></a>编译<code>Nginx</code></h1><ul>
-<li>这里要使用<code>http v2</code>所以 nginx 版要大于<code>1.9.4</code>,nginx 主要用这里的 WEB 前端反向代理.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># apt-get install libpcre3-dev libssl-dev  zlib1g-dev libzip-dev</span></span><br><span class="line"><span class="comment"># ./configure --with-http_v2_module --with-http_ssl_module --with-threads --with-poll_module --with-file_aio --user=nginx --group=nginx --with-http_gzip_module --with-stream --with-stream_ssl_module --with-pcre</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a><code>nginx</code>配置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /usr/local/nginx/conf/nginx.conf | grep -v '^$' | grep -v '#'</span></span><br><span class="line">worker_processes 8;</span><br><span class="line">worker_rlimit_nofile 1048576;</span><br><span class="line">events &#123;</span><br><span class="line">    use epoll;</span><br><span class="line">    multi_accept on;</span><br><span class="line">    worker_connections  65535;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    tcp_nopush     on;</span><br><span class="line">    tcp_nodelay on;</span><br><span class="line">    reset_timedout_connection on;</span><br><span class="line">    client_body_timeout 10;</span><br><span class="line">    send_timeout 2;</span><br><span class="line">    keepalive_timeout  30;</span><br><span class="line">    keepalive_requests 500000;</span><br><span class="line">    client_body_buffer_size      128k;</span><br><span class="line">    client_max_body_size         10m;</span><br><span class="line">    client_header_buffer_size    8k;</span><br><span class="line">    large_client_header_buffers  16 64k;</span><br><span class="line">    output_buffers               1 32k;</span><br><span class="line">    postpone_output              1460;</span><br><span class="line">    gzip  on;</span><br><span class="line">    gzip_http_version 1.0;</span><br><span class="line">    gzip_proxied      any;</span><br><span class="line">    gzip_min_length   500;</span><br><span class="line">    gzip_disable      <span class="string">"MSIE [1-6]\."</span>;</span><br><span class="line">    gzip_types        text/plain text/xml text/css</span><br><span class="line">                      text/comma-separated-values</span><br><span class="line">                      text/javascript</span><br><span class="line">                      application/x-javascript</span><br><span class="line">                      application/atom+xml;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen      443 ssl http2 ;</span><br><span class="line"></span><br><span class="line">        server_name  ssl.example.com;</span><br><span class="line"></span><br><span class="line">        <span class="comment">## 优化HTTPS设置</span></span><br><span class="line">        ssl_session_cache shared:SSL:200m;</span><br><span class="line">        ssl_session_timeout 1800m;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        add_header Strict-Transport-Security <span class="string">"max-age=31536000"</span> always;</span><br><span class="line">        ssl_ciphers AES128-SHA:DES-CBC3-SHA:AES128-SHA256:!ADH:!AECDH:!MD5;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 这里使用Let's Encrypt 的证书,免费值得信赖. 后面会讲如何申请与更新它.</span></span><br><span class="line">        ssl_certificate /etc/letsencrypt/live/exmaple.com/fullchain.pem;</span><br><span class="line">        ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;</span><br><span class="line">        ssl_trusted_certificate /etc/letsencrypt/live/example.com/fullchain.pem;</span><br><span class="line"></span><br><span class="line">        access_log  off;</span><br><span class="line">        location /static/ &#123;</span><br><span class="line">            <span class="built_in">alias</span> /home/www/mqtt_auth/static/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            include     uwsgi_params;</span><br><span class="line">            <span class="comment">#　这里把请求转发给uwsgi 处理.</span></span><br><span class="line">            uwsgi_pass  unix:///tmp/uwsgi.sock;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="申请-Let’-Encrypt-证书"><a href="#申请-Let’-Encrypt-证书" class="headerlink" title="申请 Let’ Encrypt 证书"></a>申请 Let’ Encrypt 证书</h2><ul>
-<li><p>Let’s Encrypt 是由互联网安全研究小组（ISRG，一个公益组织）提供的服务.主要赞助商包括电子前哨基金会，Mozilla 基金会，Akamai 以及思科.</p>
-</li>
-<li><p>这里参照<a href="https://certbot.eff.org/#debianjessie-nginx" target="_blank" rel="noopener">Certbot</a>安装相关的客户端程序.根据自已的域创建一个配置文件,用于自动请求证书.</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/letsencrypt/configs/www.example.com.conf</span></span><br><span class="line">domains = www.example.com</span><br><span class="line">rsa-key-size = 2048</span><br><span class="line">email = yjdwbj@gmail.com</span><br><span class="line">text = True</span><br><span class="line"></span><br><span class="line">authenticator = standalone</span><br><span class="line"></span><br><span class="line">webroot-path = /opt/www</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="测试-NGINX-HTTPS-设置"><a href="#测试-NGINX-HTTPS-设置" class="headerlink" title="测试 NGINX HTTPS 设置"></a>测试 NGINX HTTPS 设置</h2><ul>
-<li>查看网站使用的证书</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect  ftp.example.com:18090</span><br><span class="line">[...]</span><br><span class="line">Certificate chain</span><br><span class="line"> 0 s:/CN=ftp.example.com</span><br><span class="line">   i:/C=US/O=Let<span class="string">'s Encrypt/CN=Let'</span>s Encrypt Authority X3</span><br><span class="line"> 1 s:/C=US/O=Let<span class="string">'s Encrypt/CN=Let'</span>s Encrypt Authority X3</span><br><span class="line">   i:/O=Digital Signature Trust Co./CN=DST Root CA X3</span><br><span class="line">---</span><br><span class="line">Server certificate</span><br><span class="line">....</span><br><span class="line">No client certificate CA names sent</span><br><span class="line">---</span><br><span class="line">SSL handshake has <span class="built_in">read</span> 2812 bytes and written 631 bytes</span><br><span class="line">---</span><br><span class="line">New, TLSv1/SSLv3, Cipher is AES128-SHA</span><br><span class="line">Server public key is 2048 bit</span><br><span class="line">Secure Renegotiation IS supported</span><br><span class="line">Compression: NONE</span><br><span class="line">Expansion: NONE</span><br><span class="line">SSL-Session:</span><br><span class="line">    Protocol  : TLSv1.2</span><br><span class="line">    Cipher    : AES128-SHA</span><br><span class="line">    Session-ID: 47AD316DA0733301D8E2C982BE52168749FF6272CA584466584DA39C28EC2FD9</span><br><span class="line">    Session-ID-ctx:</span><br><span class="line">    Master-Key: D2EA8F60B4E83D7CA91DD42CA176D6AB21608824C2A7631130291214E7092831B0D795B8E82085E7BCF2D5D32C7A06CA</span><br><span class="line">    Key-Arg   : None</span><br><span class="line">    PSK identity: None</span><br><span class="line">    PSK identity hint: None</span><br><span class="line">    SRP username: None</span><br><span class="line">    TLS session ticket lifetime hint: 600000 (seconds)</span><br><span class="line">    TLS session ticket:</span><br><span class="line">    0000 - 3a a1 7f 93 72 a6 d1 04-d9 79 f7 ab 24 0d 17 94   :...r....y..$...</span><br><span class="line">    0010 - fa 68 1e e1 1c 6c b0 8f-04 cb ae ad 3a 16 68 b3   .h...l......:.h.</span><br><span class="line">    0020 - e4 1a 69 46 30 08 21 50-6f 1d c5 7e d5 77 a8 0c   ..iF0.!Po..~.w..</span><br><span class="line">    0030 - 66 74 82 f8 3d bb 2f 2a-43 71 65 f3 a9 d0 36 8e   ft..=./*Cqe...6.</span><br><span class="line">    0040 - 8b 57 d8 a3 4f 9d c8 42-89 7e 9e 27 bc 7d 7a 21   .W..O..B.~.<span class="string">'.&#125;z!</span></span><br><span class="line"><span class="string">    0050 - 5e fe 99 63 b7 20 9d c4-1a ad 80 16 4c cc 67 13   ^..c. ......L.g.</span></span><br><span class="line"><span class="string">    0060 - f1 7e cf 48 f6 ee c4 d6-dc 49 0b f1 c5 58 59 b2   .~.H.....I...XY.</span></span><br><span class="line"><span class="string">    0070 - 2b 4e 74 b6 05 74 b1 3c-68 72 b2 3a 92 3e 31 b9   +Nt..t.&lt;hr.:.&gt;1.</span></span><br><span class="line"><span class="string">    0080 - c6 99 20 7a 80 63 93 e8-e5 7c a5 be 7a 49 a9 43   .. z.c...|..zI.C</span></span><br><span class="line"><span class="string">    0090 - 08 df 34 18 d5 91 0c b0-1d 53 ca b3 24 ea 24 c5   ..4......S..$.$.</span></span><br><span class="line"><span class="string">    00a0 - c0 8f d0 74 76 3d 7d a0-e7 59 fe e7 87 57 68 8f   ...tv=&#125;..Y...Wh.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Start Time: 1481641417</span></span><br><span class="line"><span class="string">    Timeout   : 300 (sec)</span></span><br><span class="line"><span class="string">    Verify return code: 0 (ok)</span></span><br></pre></td></tr></table></figure>
-<h3 id="SSLScan-测试"><a href="#SSLScan-测试" class="headerlink" title="SSLScan 测试"></a>SSLScan 测试</h3><ul>
-<li>根据不同的发行版安装 sslcan , <code>apt-get install sslcan</code>.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">$ sslscan -tlsall ftp.example.com:18090</span><br><span class="line">                   _</span><br><span class="line">           ___ ___| |___  ___ __ _ _ __</span><br><span class="line">          / __/ __| / __|/ __/ _` | <span class="string">'_ \</span></span><br><span class="line"><span class="string">          \__ \__ \ \__ \ (_| (_| | | | |</span></span><br><span class="line"><span class="string">          |___/___/_|___/\___\__,_|_| |_|</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                  Version 1.8.2</span></span><br><span class="line"><span class="string">             http://www.titania.co.uk</span></span><br><span class="line"><span class="string">        Copyright Ian Ventura-Whiting 2009</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Testing SSL server ftp.example.com on port 18090</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Supported Server Cipher(s):</span></span><br><span class="line"><span class="string">    Failed    SSLv3  256 bits  ECDHE-RSA-AES256-GCM-SHA384</span></span><br><span class="line"><span class="string">    Failed    SSLv3  256 bits  ECDHE-ECDSA-AES256-GCM-SHA384</span></span><br><span class="line"><span class="string">    Failed    TLSv1  112 bits  SRP-DSS-3DES-EDE-CBC-SHA</span></span><br><span class="line"><span class="string">    Failed    TLSv1  112 bits  SRP-RSA-3DES-EDE-CBC-SHA</span></span><br><span class="line"><span class="string">    Accepted  TLSv1  112 bits  DES-CBC3-SHA</span></span><br><span class="line"><span class="string">    Failed    TLSv1  112 bits  PSK-3DES-EDE-CBC-SHA</span></span><br><span class="line"><span class="string">    Rejected  TLSv1  0 bits    ECDH-ECDSA-NULL-SHA</span></span><br><span class="line"><span class="string">    Failed    TLSv1  0 bits    NULL-SHA256</span></span><br><span class="line"><span class="string">    [...]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Prefered Server Cipher(s):</span></span><br><span class="line"><span class="string">    TLSv1  128 bits  AES128-SHA</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  SSL Certificate:</span></span><br><span class="line"><span class="string">    Version: 2</span></span><br><span class="line"><span class="string">    SerialCPS: http://cps.letsencrypt.org</span></span><br><span class="line"><span class="string">    [....]</span></span><br><span class="line"><span class="string">          User Notice:</span></span><br><span class="line"><span class="string">            Explicit Text: This Certificate may only be relied upon by Relying Parties and only in accordance with the Certificate Policy found at https://letsencrypt.org/repository/</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Verify Certificate:</span></span><br><span class="line"><span class="string">    unable to get local issuer certificate</span></span><br></pre></td></tr></table></figure>
-<h3 id="NMAP-测试"><a href="#NMAP-测试" class="headerlink" title="NMAP 测试"></a>NMAP 测试</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ nmap --script ssl-enum-ciphers -p 443 ssl.example.com</span><br><span class="line"></span><br><span class="line">Starting Nmap 6.47 ( http://nmap.org ) at 2016-12-13 23:13 CST</span><br><span class="line">Nmap scan report <span class="keyword">for</span> ssl.example.com (18x.2x4.21.5x)</span><br><span class="line">Host is up (0.0063s latency).</span><br><span class="line">PORT    STATE SERVICE</span><br><span class="line">443/tcp open  https</span><br><span class="line">| ssl-enum-ciphers:</span><br><span class="line">|   TLSv1.0:</span><br><span class="line">|     ciphers:</span><br><span class="line">|       TLS_RSA_WITH_3DES_EDE_CBC_SHA - strong</span><br><span class="line">|       TLS_RSA_WITH_AES_128_CBC_SHA - strong</span><br><span class="line">|     compressors:</span><br><span class="line">|       NULL</span><br><span class="line">|   TLSv1.1:</span><br><span class="line">|     ciphers:</span><br><span class="line">|       TLS_RSA_WITH_3DES_EDE_CBC_SHA - strong</span><br><span class="line">|       TLS_RSA_WITH_AES_128_CBC_SHA - strong</span><br><span class="line">|     compressors:</span><br><span class="line">|       NULL</span><br><span class="line">|   TLSv1.2:</span><br><span class="line">|     ciphers:</span><br><span class="line">|       TLS_RSA_WITH_3DES_EDE_CBC_SHA - strong</span><br><span class="line">|       TLS_RSA_WITH_AES_128_CBC_SHA - strong</span><br><span class="line">|       TLS_RSA_WITH_AES_128_CBC_SHA256 - strong</span><br><span class="line">|     compressors:</span><br><span class="line">|       NULL</span><br><span class="line">|_  least strength: strong</span><br><span class="line"></span><br><span class="line">Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 0.27 seconds</span><br></pre></td></tr></table></figure>
-<h3 id="在线检测"><a href="#在线检测" class="headerlink" title="在线检测"></a>在线检测</h3><ul>
-<li>可以通过<a href="https://www.ssllabs.com/ssltest/" target="_blank" rel="noopener">SSL Server Test</a>检测,生成评分报告与建议.</li>
-</ul>
-<hr>
-<h2 id="Django-环境"><a href="#Django-环境" class="headerlink" title="Django 环境"></a>Django 环境</h2><ul>
-<li>安装 virtualenv</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># pip install virtualenv</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cd /opt/www</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># virtualenv pyenv</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># source pyenv/bin/active</span></span><br><span class="line">　<span class="comment">#　这里通过pip安装项目要用的库.</span></span><br><span class="line">(pyenv) root@localhost:/opt/www<span class="comment">#  pip install django uwsgi</span></span><br></pre></td></tr></table></figure>
-<h3 id="Django-关键配置"><a href="#Django-关键配置" class="headerlink" title="Django 关键配置"></a>Django 关键配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用Redis 保存django的会话.</span></span><br><span class="line">CACHES = &#123;</span><br><span class="line">    <span class="string">"default"</span>: &#123;</span><br><span class="line">        <span class="string">"BACKEND"</span>: <span class="string">"django_redis.cache.RedisCache"</span>,</span><br><span class="line">        <span class="string">"LOCATION"</span> : <span class="string">"unix://:f4e4821080ca489d3361a520fc2123495755559b45fb24323c5b02e79163e425@/var/run/redis/redis.sock?db=1"</span>,</span><br><span class="line">        <span class="string">"OPTIONS"</span>: &#123;</span><br><span class="line">            <span class="string">"DB"</span>:<span class="number">0</span>,</span><br><span class="line">            <span class="string">"PASSWORD"</span>:<span class="string">"f4e4821080ca489d3361a520fc2123495755559b45fb24323c5b02e79163e425"</span>,</span><br><span class="line">            <span class="string">"CONNECTION_POOL_KWARGS"</span>: &#123;<span class="string">"max_connections"</span>: <span class="number">65535</span>&#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SESSION_ENGINE = <span class="string">"django.contrib.sessions.backends.cache"</span></span><br><span class="line">SESSION_CACHE_ALIAS = <span class="string">"default"</span></span><br><span class="line">PASSWORD_HASER=[</span><br><span class="line">        <span class="string">"django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher"</span>,</span><br><span class="line">        <span class="string">"django.contrib.auth.hashers.SHA1PasswordHasher"</span>,</span><br><span class="line">    ]</span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'user_manager'</span>,</span><br><span class="line">]</span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">'django.middleware.security.SecurityMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.csrf.CsrfViewMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth.middleware.AuthenticationMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages.middleware.MessageMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.clickjacking.XFrameOptionsMiddleware'</span>,</span><br><span class="line">]</span><br><span class="line">ROOT_URLCONF = <span class="string">'my_app.urls'</span></span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [os.path.join(BASE_DIR),<span class="string">'templates'</span>],</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line">WSGI_APPLICATION = <span class="string">'my_app.wsgi.application'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置连接接两个数据库</span></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.postgresql_psycopg2'</span>,</span><br><span class="line">        <span class="string">'NAME'</span> : <span class="string">'testapp'</span>,</span><br><span class="line">        <span class="string">'USER'</span> :<span class="string">'testapp'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>:<span class="string">'testapp123'</span>,</span><br><span class="line">        <span class="string">'HOST'</span> : <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        <span class="comment">## 端口这里可以指定数据库的端口,也可以是连接池的端口</span></span><br><span class="line">        <span class="string">'PORT'</span> : <span class="string">'5432'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'seconddb'</span>:&#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>:<span class="string">'django.db.backends.postgresql_psycopg2'</span>,</span><br><span class="line">        <span class="string">'NAME'</span> : <span class="string">'otherdb'</span>,</span><br><span class="line">        <span class="string">'USER'</span> : <span class="string">'testapp'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>:<span class="string">'testapp123'</span>,</span><br><span class="line">        <span class="string">'HOST'</span>:<span class="string">'127.0.0.1'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>:<span class="string">'5432'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">AUTH_PASSWORD_VALIDATORS = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line">LANGUAGE_CODE = <span class="string">'en-us'</span></span><br><span class="line">TIME_ZONE = <span class="string">'UTC'</span></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line">USE_L10N = <span class="literal">True</span></span><br><span class="line">USE_TZ = <span class="literal">True</span></span><br><span class="line">AUTO_LOGOUT_DELAY = <span class="number">1</span></span><br><span class="line">APPEND_SLASH=<span class="literal">True</span></span><br><span class="line">STATICFILES_DIRS = (</span><br><span class="line">        os.path.join(BASE_DIR,<span class="string">'static'</span>),</span><br><span class="line">        )</span><br><span class="line">STATIC_ROOT = os.path.join(BASE_DIR)</span><br><span class="line">STATIC_URL = <span class="string">'/static/'</span></span><br></pre></td></tr></table></figure>
-<h3 id="uWSGI-配置"><a href="#uWSGI-配置" class="headerlink" title="uWSGI 配置"></a>uWSGI 配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">project = my_app</span><br><span class="line">base = /home/www</span><br><span class="line"><span class="built_in">chdir</span> = %(base)/%(project)</span><br><span class="line">module = %(project).wsgi:application</span><br><span class="line">uid = nginx</span><br><span class="line">gid = nginx</span><br><span class="line">listen = 65536</span><br><span class="line">master = <span class="literal">true</span></span><br><span class="line">virtualenv = /home/www/pyenv</span><br><span class="line">home = /home/www/pyenv</span><br><span class="line">master = <span class="literal">true</span></span><br><span class="line">cpu = affinity</span><br><span class="line">async = <span class="literal">true</span></span><br><span class="line">py-autoreload=<span class="literal">true</span></span><br><span class="line">processes = 88</span><br><span class="line">die-on-term = <span class="literal">true</span></span><br><span class="line"><span class="comment">#threads = 32</span></span><br><span class="line">max-requests = 65536</span><br><span class="line"><span class="comment">#socket = /tmp/uwsgi.sock</span></span><br><span class="line"><span class="comment">#http = 127.0.0.1:9090</span></span><br><span class="line"><span class="comment">#socket = 192.168.25.109:4599</span></span><br><span class="line"><span class="built_in">disable</span>-logging = <span class="literal">true</span></span><br><span class="line">buffer-size =32768</span><br><span class="line">harakiri = 20</span><br><span class="line">chmod-socket = 664</span><br><span class="line">daemonize=/home/www/<span class="built_in">log</span>/uwsgi.log</span><br><span class="line">vcauum = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h3 id="为-Postgresql-配置连接池"><a href="#为-Postgresql-配置连接池" class="headerlink" title="为 Postgresql 配置连接池"></a>为 Postgresql 配置连接池</h3><ul>
-<li><strong>如果不为 Postgresl 配置连接池,程序会在高并发的情况下把数据库的连接全部用完</strong></li>
-<li>参考链接<a href="https://pgbouncer.github.io/" target="_blank" rel="noopener">pgbouncer</a></li>
-<li>下面设置很简单.更多高级功能后面挖掘.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grep -v "^;" /etc/pgbouncer/pgbouncer.ini  | grep -v "^$"</span></span><br><span class="line">[databases]</span><br><span class="line"><span class="comment">## 下面这个连接信息必需与postgresql里设一样.就是说,postgresql 要有test_db数库名,test用户,它的密码是test123,....</span></span><br><span class="line">test_db = host=127.0.0.1 port=5432 user=<span class="built_in">test</span> password=test123 client_encoding=UNICODE datestyle=ISO connect_query=<span class="string">'SELECT 1'</span></span><br><span class="line"></span><br><span class="line">[pgbouncer]</span><br><span class="line">pidfile = /var/run/postgresql/pgbouncer.pid</span><br><span class="line"><span class="comment">##  绑定所有地址</span></span><br><span class="line">listen_addr = *</span><br><span class="line">listen_port = 6432</span><br><span class="line"><span class="comment">## 通过unix　socket与postgresql 通信</span></span><br><span class="line">unix_socket_dir = /var/run/postgresql</span><br><span class="line">auth_type = md5</span><br><span class="line"></span><br><span class="line"><span class="comment">## 认证用户的信息,每行格式: "test" "test123"</span></span><br><span class="line">auth_file = /etc/pgbouncer/userlist.txt</span><br><span class="line">admin_users = admin</span><br><span class="line">pool_mode = transaction</span><br><span class="line">server_reset_query = DISCARD ALL</span><br><span class="line"></span><br><span class="line"><span class="comment">## 我测试到的一个比较理想的数值,过大过小对程序的并发都有影响.</span></span><br><span class="line">max_client_conn = 100</span><br><span class="line">default_pool_size = 20</span><br><span class="line">listen_backlog = 1024</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>在网上看到好多人声称 uWSGI 与 Nginx 会达到很高的性能,我用这种配置组合,压测的数据很难看.　 TPS 1K/sec.安装了连接池之后,虽然没有做读写分享,但是它的提升还是很大的.</li>
-</ul>
-<hr>
-<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
-<li>微信二维码:</li>
-<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1862,7 +1940,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1871,7 +1949,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

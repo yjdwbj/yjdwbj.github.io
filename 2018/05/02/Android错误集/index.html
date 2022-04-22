@@ -29,7 +29,7 @@
 <meta property="og:description" content="Android Studio 和 Android Gradle 插件的已知问题 配置 Android Studio Android Studio 环境变量 Android Gradle 插件版本说明 Gradle for Android Developers - Getting the most of it  刷机教程 安卓自定义ROM镜像 how-to-install-custom-rom a">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2022-02-26T15:52:54.699Z">
+<meta property="og:updated_time" content="2022-03-16T14:35:09.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android错误集">
 <meta name="twitter:description" content="Android Studio 和 Android Gradle 插件的已知问题 配置 Android Studio Android Studio 环境变量 Android Gradle 插件版本说明 Gradle for Android Developers - Getting the most of it  刷机教程 安卓自定义ROM镜像 how-to-install-custom-rom a">
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
+                <time title="修改时间：2022-03-16 22:35:09" itemprop="dateModified" datetime="2022-03-16T22:35:09+08:00">2022-03-16</time>
               </span>
 
           
@@ -269,6 +269,9 @@
 <li>最终该问题在<code>Android Studio 3.6.3</code>版本中配置<code>Gradle Plugin 3.6.3</code>与<code>Gradle 5.6.4</code>,并通过<code>Ctrl+Alt+S --&gt; Build,Execution,Deployment --&gt; Gradle</code>把<code>Use Gradle from</code>设置成<code>Specified location</code>选择本地的<code>SDKMAN</code>安装目录的下<code>gradle/5.6.4</code>,上述设置后，再把所有的(工程|用户)<code>gradle.properties</code>加上这一行：<code>org.gradle.jvmargs=-Djava.net.preferIPv6Addresses=true -Djava.net.preferIPv6Stack=true</code>, 先在<code>Bash shell</code>运行一次<code>./gradlew build</code>后,再去到IDE时好像同步文件就正常了.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Build <span class="comment">#AI-192.7142.36.36.6392135, built on April 14, 2020</span></span><br><span class="line">Runtime version: 1.8.0_212-release-1586-b4-5784211 amd64</span><br><span class="line">VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</span><br><span class="line">Linux 5.5.13-20200327-lcy</span><br><span class="line">GC: ParNew, ConcurrentMarkSweep</span><br><span class="line">Memory: 1246M</span><br><span class="line">Cores: 4</span><br><span class="line">Registry: ide.new.welcome.screen.force=<span class="literal">true</span></span><br><span class="line">Non-Bundled Plugins: com.google.services.firebase`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最终确定可能是系统里设置了<code>iptables -t nat -A POSTROUTING -j MASQUERADE</code>造成的,参考<a href="https://docs.gradle.org/7.4/userguide/troubleshooting.html#network_connection" target="_blank" rel="noopener">这里</a></li>
+</ul>
 <h1 id="Android系统源码AOSP-下载"><a href="#Android系统源码AOSP-下载" class="headerlink" title="Android系统源码AOSP 下载."></a>Android系统源码AOSP 下载.</h1><ul>
 <li>参考链接<ul>
 <li><a href="https://source.android.google.cn/" target="_blank" rel="noopener">Android 开源项目-中国区</a></li>

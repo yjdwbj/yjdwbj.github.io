@@ -29,10 +29,11 @@
 <meta property="og:description" content="参考:  Atmel AVR   Atmel AVR系列是一种基于改进的哈佛结构、8位～32位精简指令集(Reduced Instruction Set Computing,RISC)的微控制器,由Atmel公司于1996年研发.AVR系列是首次采用闪存(Flash Memory)作为数据存储介质的单芯片微控制器之一,同时代的其它微控制器多采用一次写入可编程ROM、EPROM或是EEPROM.目">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/imgs/arduino-attinycore-t85.png">
+<meta property="og:image" content="http://yoursite.com/imgs/high-voltage-programmer.png">
 <meta property="og:image" content="http://yoursite.com/imgs/attiny85_fuse.png">
 <meta property="og:image" content="http://yoursite.com/imgs/atmega8_16pu_fuse.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2022-05-02T09:35:32.552Z">
+<meta property="og:updated_time" content="2022-07-03T11:29:40.155Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AVR单片机指南">
 <meta name="twitter:description" content="参考:  Atmel AVR   Atmel AVR系列是一种基于改进的哈佛结构、8位～32位精简指令集(Reduced Instruction Set Computing,RISC)的微控制器,由Atmel公司于1996年研发.AVR系列是首次采用闪存(Flash Memory)作为数据存储介质的单芯片微控制器之一,同时代的其它微控制器多采用一次写入可编程ROM、EPROM或是EEPROM.目">
@@ -186,7 +187,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-02 17:35:32" itemprop="dateModified" datetime="2022-05-02T17:35:32+08:00">2022-05-02</time>
+                <time title="修改时间：2022-07-03 19:29:40" itemprop="dateModified" datetime="2022-07-03T19:29:40+08:00">2022-07-03</time>
               </span>
 
           
@@ -239,6 +240,8 @@
 <li><a href="https://learn.sparkfun.com/tutorials/tiny-avr-programmer-hookup-guide/all" target="_blank" rel="noopener"> Tiny AVR Programmer Hookup Guide </a></li>
 <li><a href="https://semjonov.de/docs/tips/avr/" target="_blank" rel="noopener">Arduino / AVR #</a></li>
 <li><a href="https://littlewire.github.io/index.html" target="_blank" rel="noopener">Little Wire</a></li>
+<li><a href="https://www.gadgetronicx.com/attiny85-i2c-protocol-tutorial/" target="_blank" rel="noopener">ATtiny85 I2C protocol tutorial</a></li>
+<li><a href="https://www.hackster.io/wiresauce/attiny85-snake-game-handheld-5498e7" target="_blank" rel="noopener">ATtiny85 Snake Game Handheld</a></li>
 </ul>
 <h2 id="Bootloader"><a href="#Bootloader" class="headerlink" title="Bootloader"></a>Bootloader</h2><ul>
 <li><a href="https://www.embedded-creations.com/projects/attiny85-usb-bootloader-overview/details" target="_blank" rel="noopener">ATtiny85 USB Boot Loader: Details</a></li>
@@ -336,10 +339,15 @@
 </li>
 </ul>
 <h2 id="高压编程恢复熔丝位-fuse-锁死"><a href="#高压编程恢复熔丝位-fuse-锁死" class="headerlink" title="高压编程恢复熔丝位(fuse)锁死"></a>高压编程恢复<code>熔丝位(fuse)</code>锁死</h2><ul>
+<li>Links<ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=Alex079.vscode-avr-helper" target="_blank" rel="noopener">Alex079.vscode-avr-helper</a></li>
 <li><a href="https://arduinodiy.wordpress.com/2015/05/16/high-voltage-programmingunbricking-for-attiny/" target="_blank" rel="noopener">High Voltage programming/Unbricking for Attiny</a></li>
 <li><a href="https://github.com/RalphBacon/ATTiny85_Fuse_Resetter" target="_blank" rel="noopener">ATTiny85_Fuse_Resetter</a></li>
-<li>恢复<code>熔丝位(fuse)</code>还是有一点麻烦,按照博文<a href="https://arduinodiy.wordpress.com/2015/05/16/high-voltage-programmingunbricking-for-attiny/" target="_blank" rel="noopener">High Voltage programming/Unbricking for Attiny</a>指导,需要有一个<code>Arduino</code>设备,或者说至少要一个有6个IO口的单片机.还需要6个1k的电阻,一个(npn)的三极管,一个12V的电压源.</li>
+<li><a href="https://embedds.com/all-you-need-to-know-about-avr-fuses/" target="_blank" rel="noopener">All you need to know about AVR fuses</a></li>
+</ul>
+</li>
+<li>恢复<code>熔丝位(fuse)</code>还是有一点麻烦,按照博文<a href="https://arduinodiy.wordpress.com/2015/05/16/high-voltage-programmingunbricking-for-attiny/" target="_blank" rel="noopener">High Voltage programming/Unbricking for Attiny</a>指导,需要有一个<code>Arduino</code>设备,或者说至少要一个有6个IO口的单片机.还需要6个1k的电阻,一个(npn)的三极管,一个12V的电压源.如图：</li>
+<li><img src="/imgs/high-voltage-programmer.png" alt="high-voltage-programmer.png"></li>
 </ul>
 <ul>
 <li><p>读取<code>熔丝位(fuse)</code></p>
@@ -356,11 +364,12 @@
 <li><a href="https://www.gadgetronicx.com/attiny85-timer-tutorial-generating-time-delay-interrupts/" target="_blank" rel="noopener">ATtiny85 timer tutorial: generating time delay using Interrupts</a></li>
 <li><a href="https://www.randseq.org/2017/02/attiny85-timer-programming-using-timer1.html" target="_blank" rel="noopener">Attiny85 timer programming using Timer1 </a></li>
 <li><a href="http://www.technoblogy.com/show?1ZIY" target="_blank" rel="noopener">ATtiny85 20MHz Internal Clock</a></li>
+<li><a href="https://exploreembedded.com/wiki/NEC_IR_Remote_Control_Interface_with_8051" target="_blank" rel="noopener">NEC IR Remote Control Interface with 8051</a></li>
 </ul>
 </li>
 </ul>
 <h3 id="8位定时器-timer0"><a href="#8位定时器-timer0" class="headerlink" title="8位定时器(timer0)"></a>8位定时器(timer0)</h3><ul>
-<li>先确认手上的<code>ATtiny85</code>的时钟频是否在运行在<code>8MHz</code>,可以通过读取它的<code>fuse</code>位来判定.这里测试用的<code>fuse</code>配置如图</li>
+<li>先确认手上的<code>ATtiny85</code>的时钟频是否在运行在<code>8MHz</code>,可以通过读取它的<code>fuse</code>位来判定,这里使用的是<code>-U lfuse:w:0xe2:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m</code>.这里测试用的<code>fuse</code>配置如图</li>
 </ul>
 <p><img src="/imgs/attiny85_fuse.png" alt="attiny85_fuse.png"></p>
 <ul>
@@ -482,9 +491,14 @@
 <li><a href="https://exploreembedded.com/wiki/OLED_Interface_With_8051" target="_blank" rel="noopener">OLED_Interface_With_8051</a></li>
 <li><a href="https://iotexpert.com/debugging-ssd1306-display-problems/" target="_blank" rel="noopener">Debugging SSD1306 Display Problems</a></li>
 </ul>
-<h3 id="逻辑分析仪的问题"><a href="#逻辑分析仪的问题" class="headerlink" title="逻辑分析仪的问题"></a>逻辑分析仪的问题</h3><ul>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><ul>
+<li><a href="https://blog.oddbit.com/post/2019-01-22-debugging-attiny-code-pt-2/" target="_blank" rel="noopener">Debugging attiny85 code, part 2: Automating GDB with scripts</a></li>
+<li><a href="https://github.com/buserror/simavr" target="_blank" rel="noopener">buserror/simavr</a></li>
+</ul>
+<h2 id="逻辑分析仪的问题"><a href="#逻辑分析仪的问题" class="headerlink" title="逻辑分析仪的问题"></a>逻辑分析仪的问题</h2><ul>
 <li><a href="https://sigrok.org/wiki/Fx2lafw" target="_blank" rel="noopener">Fx2lafw</a></li>
 <li><a href="https://sigrok.org/wiki/PulseView" target="_blank" rel="noopener">PulseView</a></li>
+<li><a href="https://github.com/pico-coder/sigrok-pico" target="_blank" rel="noopener">Use a raspberry pi pico (rp2040) as a logic </a></li>
 <li>连接逻辑分析仪时,不知为何,有时会出现干扰,让程序跑飞,而断开后运行的很正常.</li>
 </ul>
 <h3 id="字符相关"><a href="#字符相关" class="headerlink" title="字符相关"></a>字符相关</h3><ul>
@@ -935,7 +949,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega32U4-Arduino-pro-micro"><span class="nav-number">1.</span> <span class="nav-text">ATmega32U4(Arduino pro micro)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega328p-Arduino-Pro-mini-with-CH340"><span class="nav-number">2.</span> <span class="nav-text">ATmega328p (Arduino Pro mini with CH340)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATtiny85-CJMCU"><span class="nav-number">3.</span> <span class="nav-text">ATtiny85(CJMCU)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootloader"><span class="nav-number">3.1.</span> <span class="nav-text">Bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统控制与复位"><span class="nav-number">3.1.1.</span> <span class="nav-text">系统控制与复位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Arduino-IDE支持-ATTinyCore"><span class="nav-number">3.2.</span> <span class="nav-text">使用Arduino IDE支持(ATTinyCore)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Arduino上传第一个程序-blink"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用Arduino上传第一个程序(blink).</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增烧写器-UM232H为例"><span class="nav-number">3.2.2.</span> <span class="nav-text">新增烧写器(UM232H为例)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加2232HL"><span class="nav-number">3.2.3.</span> <span class="nav-text">添加2232HL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRDude烧写"><span class="nav-number">3.3.</span> <span class="nav-text">AVRDude烧写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高压编程恢复熔丝位-fuse-锁死"><span class="nav-number">3.4.</span> <span class="nav-text">高压编程恢复熔丝位(fuse)锁死</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ATTiny85-Atmega328p时钟计数器相关"><span class="nav-number">3.5.</span> <span class="nav-text">ATTiny85/Atmega328p时钟计数器相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8位定时器-timer0"><span class="nav-number">3.5.1.</span> <span class="nav-text">8位定时器(timer0)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16位定时器-timer1"><span class="nav-number">3.5.2.</span> <span class="nav-text">16位定时器(timer1)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega8-16PU"><span class="nav-number">4.</span> <span class="nav-text">ATmega8-16PU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Arduino-IDE支持"><span class="nav-number">4.1.</span> <span class="nav-text">添加Arduino IDE支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ATmega8-16pu连接UM232H"><span class="nav-number">4.1.1.</span> <span class="nav-text">ATmega8-16pu连接UM232H</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读写fuse"><span class="nav-number">4.2.</span> <span class="nav-text">读写fuse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动NRF24l01"><span class="nav-number">4.3.</span> <span class="nav-text">驱动NRF24l01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动SSD1306"><span class="nav-number">4.4.</span> <span class="nav-text">驱动SSD1306</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑分析仪的问题"><span class="nav-number">4.4.1.</span> <span class="nav-text">逻辑分析仪的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符相关"><span class="nav-number">4.4.2.</span> <span class="nav-text">字符相关</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVR-GCC汇编相关"><span class="nav-number">5.</span> <span class="nav-text">AVR-GCC汇编相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCC-asm-Statement"><span class="nav-number">5.1.</span> <span class="nav-text">GCC asm Statement</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-and-Output-Operands"><span class="nav-number">5.1.1.</span> <span class="nav-text">Input and Output Operands</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">6.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega32U4-Arduino-pro-micro"><span class="nav-number">1.</span> <span class="nav-text">ATmega32U4(Arduino pro micro)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega328p-Arduino-Pro-mini-with-CH340"><span class="nav-number">2.</span> <span class="nav-text">ATmega328p (Arduino Pro mini with CH340)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATtiny85-CJMCU"><span class="nav-number">3.</span> <span class="nav-text">ATtiny85(CJMCU)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootloader"><span class="nav-number">3.1.</span> <span class="nav-text">Bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统控制与复位"><span class="nav-number">3.1.1.</span> <span class="nav-text">系统控制与复位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Arduino-IDE支持-ATTinyCore"><span class="nav-number">3.2.</span> <span class="nav-text">使用Arduino IDE支持(ATTinyCore)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Arduino上传第一个程序-blink"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用Arduino上传第一个程序(blink).</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增烧写器-UM232H为例"><span class="nav-number">3.2.2.</span> <span class="nav-text">新增烧写器(UM232H为例)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加2232HL"><span class="nav-number">3.2.3.</span> <span class="nav-text">添加2232HL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRDude烧写"><span class="nav-number">3.3.</span> <span class="nav-text">AVRDude烧写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高压编程恢复熔丝位-fuse-锁死"><span class="nav-number">3.4.</span> <span class="nav-text">高压编程恢复熔丝位(fuse)锁死</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ATTiny85-Atmega328p时钟计数器相关"><span class="nav-number">3.5.</span> <span class="nav-text">ATTiny85/Atmega328p时钟计数器相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8位定时器-timer0"><span class="nav-number">3.5.1.</span> <span class="nav-text">8位定时器(timer0)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16位定时器-timer1"><span class="nav-number">3.5.2.</span> <span class="nav-text">16位定时器(timer1)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ATmega8-16PU"><span class="nav-number">4.</span> <span class="nav-text">ATmega8-16PU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Arduino-IDE支持"><span class="nav-number">4.1.</span> <span class="nav-text">添加Arduino IDE支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ATmega8-16pu连接UM232H"><span class="nav-number">4.1.1.</span> <span class="nav-text">ATmega8-16pu连接UM232H</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读写fuse"><span class="nav-number">4.2.</span> <span class="nav-text">读写fuse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动NRF24l01"><span class="nav-number">4.3.</span> <span class="nav-text">驱动NRF24l01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动SSD1306"><span class="nav-number">4.4.</span> <span class="nav-text">驱动SSD1306</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">5.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB"><span class="nav-number">5.1.</span> <span class="nav-text">GDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑分析仪的问题"><span class="nav-number">5.2.</span> <span class="nav-text">逻辑分析仪的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符相关"><span class="nav-number">5.2.1.</span> <span class="nav-text">字符相关</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVR-GCC汇编相关"><span class="nav-number">6.</span> <span class="nav-text">AVR-GCC汇编相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCC-asm-Statement"><span class="nav-number">6.1.</span> <span class="nav-text">GCC asm Statement</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-and-Output-Operands"><span class="nav-number">6.1.1.</span> <span class="nav-text">Input and Output Operands</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -951,7 +965,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -960,7 +974,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

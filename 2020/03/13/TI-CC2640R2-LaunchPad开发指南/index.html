@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640_debugger_connection.png">
 <meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640_debugger_connection_serial.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2022-03-20T15:18:49.347Z">
+<meta property="og:updated_time" content="2022-08-17T13:23:21.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TI-CC2640R2-LaunchPad开发指南">
 <meta name="twitter:description" content="参考链接  CC25xx相关的FAQ 蓝牙协议栈 Secure OTA Firmware Update with CC2650 how to update CC2640 firmware via UART in linux TI CC13xx/CC2538/CC26xx Serial Boot Loader   术语简介  BLE :Bluetooth Low Energy BR/EDR: Ba">
@@ -186,7 +186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 23:18:49" itemprop="dateModified" datetime="2022-03-20T23:18:49+08:00">2022-03-20</time>
+                <time title="修改时间：2022-08-17 21:23:21" itemprop="dateModified" datetime="2022-08-17T21:23:21+08:00">2022-08-17</time>
               </span>
 
           
@@ -231,7 +231,7 @@
 <li>下面笔记是参照<code>simplelink_cc2640r2_sdk_1_50_00_58/docs/blestack/ble_user_guide</code>文档,验证总结的.建议有问题查看官方SDK各种文档.</li>
 </ul>
 <h2 id="BLE软件架构"><a href="#BLE软件架构" class="headerlink" title="BLE软件架构"></a>BLE软件架构</h2><ul>
-<li>CC2640R2F蓝牙软件环境包含两个部分:APP应用程序,蓝牙协议栈.应用程序中包含<code>TI RTOS</code>内核,驱动,蓝牙Profie三部.它们两部分之间消息通信是通过<code>ICall</code>来实现.</li>
+<li><code>CC2640R2</code>F蓝牙软件环境包含两个部分:APP应用程序,蓝牙协议栈.应用程序中包含<code>TI RTOS</code>内核,驱动,蓝牙Profie三部.它们两部分之间消息通信是通过<code>ICall</code>来实现.</li>
 <li>蓝牙栈的SDK中有是<code>exe</code>的安装包,如果是Linux系统需要从<code>exe</code>里复制出来使用,也可以使用<a href="https://www.winehq.org" target="_blank" rel="noopener">WineHQ</a>来安装本用户目录下.<br><img src="/imgs/ti/cc2640r2f_app_icall_stack.jpeg" alt="cc2640r2f_app_icall_stack.jpeg"></li>
 </ul>
 <h1 id="开箱测试"><a href="#开箱测试" class="headerlink" title="开箱测试"></a>开箱测试</h1><h2 id="蓝牙主机测试-Host-test"><a href="#蓝牙主机测试-Host-test" class="headerlink" title="蓝牙主机测试(Host_test)"></a>蓝牙主机测试(Host_test)</h2><ul>
@@ -285,7 +285,7 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">export</span> JAVA_HOME=~/IDE_DIR/jdk-11.0.14.1+1/</span><br><span class="line">~$ <span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line">~$ sdk install gradle 7.4.1</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/NationalSecurityAgency/ghidra.git</span><br><span class="line">~$ <span class="built_in">cd</span> ghidra</span><br><span class="line">~$ gradle -I gradle/support/fetchDependencies.gradle init</span><br></pre></td></tr></table></figure>
-<h2 id="安装SVD插件"><a href="#安装SVD插件" class="headerlink" title="安装SVD插件"></a>安装SVD插件</h2><ul>
+<h2 id="安装SVD插件"><a href="#安装SVD插件" class="headerlink" title="安装SVD插件"></a>安装<code>SVD</code>插件</h2><ul>
 <li>克隆<a href="https://github.com/leveldown-security/SVD-Loader-Ghidra" target="_blank" rel="noopener">https://github.com/leveldown-security/SVD-Loader-Ghidra</a>到<code>$USER_HOME/ghidra_scripts</code>目录下。或者放到安装目录的<code>$GHIDRA_HOME/Ghidra/Features</code>目录下都可以。或者打开<code>Windows-&gt; Script Manager -&gt; Manage Script directories</code>的菜单项,靠近右上角关闭按钮的位置。打开脚本扫描路径的列表，添加一个目录路径，选择<code>SVD-Loader-Ghidra</code>所在位置，再刷新所有的脚本列表. 就会在左边栏里，多了一行<code>leveldown security</code>的目录。</li>
 </ul>
 <h1 id="设备配置"><a href="#设备配置" class="headerlink" title="设备配置"></a>设备配置</h1><h2 id="厂家配置-Factory-Configuration-FCFG"><a href="#厂家配置-Factory-Configuration-FCFG" class="headerlink" title="厂家配置 Factory Configuration(FCFG)"></a>厂家配置 Factory Configuration(FCFG)</h2><h2 id="用户配置-Customer-Configuration-CCFG"><a href="#用户配置-Customer-Configuration-CCFG" class="headerlink" title="用户配置 Customer Configuration(CCFG)"></a>用户配置 Customer Configuration(CCFG)</h2><ul>
@@ -395,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -404,7 +404,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

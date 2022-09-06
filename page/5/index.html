@@ -148,6 +148,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/工作中的一些Bash-shell测试脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/21/工作中的一些Bash-shell测试脚本/" class="post-title-link" itemprop="url">工作中的一些Bash shell测试脚本</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-21 21:24:01" itemprop="dateCreated datePublished" datetime="2016-12-21T21:24:01+08:00">2016-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-21 23:34:57" itemprop="dateModified" datetime="2021-05-21T23:34:57+08:00">2021-05-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><strong>做服务器开发绕不开一些测试工作,如功能测试,压力测试,环境的搭建,数据收集,数据分析.这中间有很多重复单调的工作.如果手工一次一次的重复测试,不光费时,还容易出错.这里记录了一些小脚本做为以后工作参考.</strong></li>
+</ul>
+<h1 id="提取-TOP-命令中的数据"><a href="#提取-TOP-命令中的数据" class="headerlink" title="提取 TOP 命令中的数据"></a>提取 TOP 命令中的数据</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ cat grep_pid.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">srvdir=<span class="string">"/root/netty_srv_dir/"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##　分类统计top输出的CPU与内存数据</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | sort -k9 -n | head -n1 | awk <span class="string">'&#123;printf "\nCPU min:%4s\t", $9&#125;'</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum+=$9;n++&#125;END&#123;printf "avg: %4s\t", sum /n &#125;'</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | sort -k9 -n | tail -n1 | awk <span class="string">'&#123;printf " max:%4s\n", $9&#125;'</span></span><br><span class="line"><span class="comment">## print MEM</span></span><br><span class="line">grep -a <span class="string">"<span class="variable">$1</span> root"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> | sort -k10 -n | tail -n1 | awk <span class="string">'&#123;printf "MEM: %4s\n",$10&#125;'</span></span><br><span class="line">cat <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span> &gt; <span class="variable">$1bak</span>.<span class="built_in">log</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line"><span class="comment">#grep "total" $srvdir$1.net | sort -k 3 |tail -n1 | awk -F";" 'BEGIN&#123;print "Bytes Out\tBytes In\tPackets Out\tPackets In"&#125;&#123; printf "%sKB/s\t%sKB/s\t%sKB/s\t%sKB/s\n", $3 / 1000,$4/1000,$6/1000,$7/1000&#125;'</span></span><br><span class="line"><span class="comment">#grep "total" $srvdir$1.net | awk 'BEGIN &#123;FS =";";print "BOut\tBin\tPOut\tPin"&#125;&#123;if(NF==16)&#123; if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t",$3&#125;;if($4&gt;1000)&#123;printf "%sKB/s\n",$4/1000&#125;else&#123;printf "%sb/s\n",$4&#125;&#125;&#125;' 18028.net</span></span><br><span class="line">cat /proc/net/sockstat | grep <span class="string">"TCP"</span> | awk <span class="string">'&#123;print $1,$9&#125;'</span></span><br><span class="line">awk <span class="string">'BEGIN&#123;print "\nBytesOut\t\tByteIn\t\tPacketsOut\tPacketsIn"&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 分类统计bwn-ng输出的CSV格式数据.</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 3 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($3&gt;1000)&#123;printf "%sKB/s\t",$3/1000&#125;else&#123;printf "%sb/s\t\t",$3&#125;&#125;&#125;'</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 4 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($4&gt;1000)&#123;printf "%sKB/s\t",$4/1000&#125;else&#123;printf "%sb/s\t\t",$4&#125;&#125;&#125;'</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 6 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($6&gt;1000)&#123;printf "%sKB/s\t",$6/1000&#125;else&#123;printf "%sb/s\t\t",$6&#125;&#125;&#125;'</span></span><br><span class="line">grep <span class="string">"total"</span> <span class="variable">$srvdir</span><span class="variable">$1</span>.net  | sort -t <span class="string">";"</span> -n -k 7 |  tail -n1 | awk -F <span class="string">";"</span> <span class="string">'&#123;if (NF==16)&#123;if($7&gt;1000)&#123;printf "%sKB/s\n",$7/1000&#125;else&#123;printf "%sb/s\n",$7&#125;&#125;&#125;'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; <span class="variable">$srvdir</span><span class="variable">$1</span>.net</span><br></pre></td></tr></table></figure>
+<h1 id="自动批量回答-yes"><a href="#自动批量回答-yes" class="headerlink" title="自动批量回答 yes"></a>自动批量回答 yes</h1><ul>
+<li>这里是一个自动登录的脚本,因为每个服务器第一次连接都会提示要接受一个证书.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect -f</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> timeout 10</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> num [lindex <span class="variable">$argv</span> 0]</span><br><span class="line"></span><br><span class="line">spawn ssh -b 172.168.<span class="variable">$num</span>.10 root@172.168.<span class="variable">$num</span>.100</span><br><span class="line">expect &#123;</span><br><span class="line"><span class="string">"*yes/no"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue&#125;</span><br><span class="line">&#125;</span><br><span class="line">expect <span class="string">"#*"</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">send <span class="string">"eof\r"</span></span><br><span class="line">expect eof</span><br></pre></td></tr></table></figure>
+<h1 id="循环测试脚本"><a href="#循环测试脚本" class="headerlink" title="循环测试脚本"></a>循环测试脚本</h1><ul>
+<li>这个脚本根据<code>camera_client.py</code>运行打印出``done”表示该程序运行结束,在 while 里把它清除掉.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@debian-t6:~<span class="comment"># cat test_loop.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">srv=<span class="string">"192.168.25.100"</span></span><br><span class="line">python camera_client.py dev -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;</span><br><span class="line">dpid=$!</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$dpid</span></span><br><span class="line"><span class="keyword">done</span>=<span class="string">"done&gt;"</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;&amp; <span class="built_in">kill</span> -9 <span class="variable">$dpid</span> &amp;&amp; <span class="built_in">break</span> || sleep 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">cat camera.log</span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</span><br></pre></td></tr></table></figure>
+<h1 id="开启服务器与数据收集脚本"><a href="#开启服务器与数据收集脚本" class="headerlink" title="开启服务器与数据收集脚本"></a>开启服务器与数据收集脚本</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ cat test_start_srv.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 设置系统的文件句柄数限制</span></span><br><span class="line"><span class="built_in">ulimit</span> -Hn 20000500</span><br><span class="line"><span class="built_in">ulimit</span> -Sn 20000500</span><br><span class="line"><span class="comment">#cd netty_srv_dir</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 清除上次运行的,``bwn-ng, top``命令.</span></span><br><span class="line">pkill bwm-ng</span><br><span class="line">pkill top</span><br><span class="line">srv=<span class="string">"asio_p2p_srv"</span></span><br><span class="line"><span class="comment">## 清除上次运行的服务器的进程</span></span><br><span class="line">pkill <span class="variable">$srv</span></span><br><span class="line"><span class="comment">##  服务已经运行,它的pid赋于给SPID变量,并保存在192.168.25.100机器上的/root/srv.pid里</span></span><br><span class="line"><span class="variable">$srv</span> &amp;  SPID=$!</span><br><span class="line">ssh -t root@192.168.25.100 <span class="string">"echo <span class="variable">$SPID</span> &gt; srv.pid"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## bwm-ng 监控网卡eth1的流量,并输出CSV格式到以SPID变量名,.net为后缀的文件名里.　它的pid赋于给NPID变量</span></span><br><span class="line">bwm-ng -o csv -T rate -I eth1 -F  <span class="variable">$SPID</span>.net &amp; NPID=$!</span><br><span class="line"><span class="comment">## top 只输出SPID的pid的信息,并重定向pid.log的文件名中.</span></span><br><span class="line">top -p <span class="variable">$SPID</span> -b &gt; <span class="variable">$SPID</span>.<span class="built_in">log</span>  &amp;</span><br></pre></td></tr></table></figure>
+<h1 id="服务器测试脚本"><a href="#服务器测试脚本" class="headerlink" title="服务器测试脚本"></a>服务器测试脚本</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># cat start_srv.py</span></span><br><span class="line">import paramiko</span><br><span class="line">import select</span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">SRV = <span class="string">"192.168.25.100"</span></span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">mykey = paramiko.RSAKey.from_private_key_file(<span class="string">"/root/.ssh/id_rsa"</span>)</span><br><span class="line">ssh.connect(<span class="string">"%s"</span> % SRV,username=<span class="string">"root"</span>,pkey=mykey)</span><br><span class="line">ssh.exec_command(<span class="string">"pkill test_start_srv"</span>)</span><br><span class="line">stdin,stdout,stderr = ssh.exec_command(<span class="string">"/root/test_start_srv.sh"</span>)</span><br><span class="line"><span class="keyword">while</span> not stdout.channel.exit_status_ready():</span><br><span class="line">    <span class="keyword">if</span> stdout.channel.recv_ready():</span><br><span class="line">        rl,wl,xl = select.select([stdout.channel],[],[],0.0)</span><br><span class="line">        <span class="keyword">if</span> len(rl )&gt; 0:</span><br><span class="line">            <span class="built_in">print</span> stdout.channel.recv(1024)</span><br><span class="line">            <span class="built_in">break</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ cat test_devices_only.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">pid=`python start_srv.py`</span><br><span class="line"></span><br><span class="line">./test_camera_client.sh <span class="variable">$1</span></span><br><span class="line">ssh -t root@192.168.25.100 <span class="string">"/root/grep_pid.sh <span class="variable">$pid</span> &amp;&amp; pkill test_start_srv &amp;&amp; pkill socket_srv"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">~$ cat test_app_dev.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">test_one</span></span>()&#123;</span><br><span class="line">    tt=<span class="variable">$200</span></span><br><span class="line">    <span class="comment">## 中止远程服务器的之前进程名.</span></span><br><span class="line">    ssh -t root@192.168.25.100 <span class="string">"pkill test_start_srv &amp;&amp; pkill socket_srv"</span></span><br><span class="line">    pid=`python start_srv.py`</span><br><span class="line">    srv=<span class="string">"192.168.25.100"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">## 开启一种类型的客户端 ,DEV</span></span><br><span class="line">    python camera_client.py dev -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;</span><br><span class="line">    dpid=$!</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">       <span class="comment">## 等到DEV输出done,开记另一种类型的客户端,APP</span></span><br><span class="line">       grep <span class="string">"done"</span> camera.log &amp;&amp; python camera_client.py app -H <span class="variable">$srv</span> -f <span class="variable">$1</span> &amp;&amp; <span class="built_in">break</span> || sleep 2</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">## 上面两种类型的客户端运行完成之后,把各类数据分类增量重定向到相应的文件名中.</span></span><br><span class="line">    cat camera.log &gt;&gt; <span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span> &gt; camera.log</span><br><span class="line">    pkill <span class="string">"python"</span></span><br><span class="line"></span><br><span class="line">    ssh -t root@192.168.25.100 <span class="string">"pkill test_start_srv &amp;&amp; pkill socket_srv &amp;&amp; /root/grep_pid.sh <span class="variable">$pid</span>"</span> &gt;&gt; <span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line">    <span class="built_in">echo</span> ---------------------------------------------------------------</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">run_ten_test()</span><br><span class="line">&#123;</span><br><span class="line">    test_one <span class="variable">$1</span> <span class="variable">$2</span> &gt;&gt; <span class="variable">$1</span>.<span class="built_in">log</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span> test result"</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    <span class="comment">## 分类累计,DEV,APP输出的日志数据,并做平均计算.</span></span><br><span class="line">    grep <span class="string">"DEV Run Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "Dev Run Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"DEV Avg Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "Dev Avg Time: %s\n", sum / n&#125;'</span>  &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"APP Run Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "APP Run Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"APP Avg Time"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "APP Avg Time: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 分类统计出top 输出的内存与CPU的总数与平均数值</span></span><br><span class="line">    grep <span class="string">"CPU"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "AVG CPU: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    grep <span class="string">"MEM"</span> <span class="variable">$1</span>.<span class="built_in">log</span> | awk <span class="string">'&#123;sum += $2;n++&#125; END &#123;if (n &gt; 0) printf "AVG MEM: %s\n", sum / n&#125;'</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span> test result---------------------------------------------------------"</span> &gt;&gt; <span class="variable">$1</span>.result</span><br><span class="line">&#125;</span><br><span class="line">test_all()</span><br><span class="line">&#123;</span><br><span class="line">    ext=<span class="string">"0000.txt"</span></span><br><span class="line">    pre=<span class="string">"user_"</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> `seq 1 6`;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"start test <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span>"</span></span><br><span class="line">            test_one <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span> <span class="variable">$i</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"test <span class="variable">$pre</span><span class="variable">$i</span><span class="variable">$ext</span> done"</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"wait 30 seconds"</span></span><br><span class="line">            sleep 30</span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line">test_all</span><br></pre></td></tr></table></figure>
+<h1 id="复制目录-并生成二进制文件"><a href="#复制目录-并生成二进制文件" class="headerlink" title="复制目录,并生成二进制文件"></a>复制目录,并生成二进制文件</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cat ./rsync_openresty.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">LUAJIT=/usr/<span class="built_in">local</span>/openresty/luajit/bin/luajit</span><br><span class="line">ORG=openresty-china</span><br><span class="line">BYTECODE=openresty-byte</span><br><span class="line"></span><br><span class="line"><span class="comment">## 清除旧的目录</span></span><br><span class="line">rm -rf <span class="variable">$&#123;BYTECODE&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 用find 把目录找出来,替换ORG到BYTECODE.</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find <span class="variable">$&#123;ORG&#125;</span> -<span class="built_in">type</span> d`;<span class="keyword">do</span></span><br><span class="line">     mkdir -p <span class="string">"<span class="variable">$&#123;i/"$&#123;ORG&#125;</span>"</span>/<span class="string">"<span class="variable">$&#123;BYTECODE&#125;</span>"</span>&#125;<span class="string">"</span></span><br><span class="line"><span class="string">done</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 用find 把*.lua结尾的文件找来,并使用LUAJIT编译成字节码,输出到BYTECODE的相应目录下</span></span><br><span class="line"><span class="string">for i in `find <span class="variable">$&#123;ORG&#125;</span> -iname "</span>*.lua<span class="string">"`;do</span></span><br><span class="line"><span class="string">    <span class="variable">$&#123;LUAJIT&#125;</span> -b <span class="variable">$i</span> "</span><span class="variable">$&#123;i/"$&#123;ORG&#125;</span><span class="string">"/"</span><span class="variable">$&#123;BYTECODE&#125;</span><span class="string">"&#125;"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">cp <span class="variable">$&#123;ORG&#125;</span>/conf/* <span class="variable">$&#123;BYTECODE&#125;</span>/conf</span><br><span class="line"></span><br><span class="line">rsync --exclude=<span class="string">"*.git"</span> --exclude=<span class="string">"*.sh"</span> --exclude=<span class="string">"config.lua"</span> --exclude=<span class="string">"*.conf"</span> -a <span class="variable">$&#123;BYTECODE&#125;</span>/* root@exmaple.com:/home/www/test_openresty</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把一个<code>N*M</code>行的转换成<code>N</code>行<code>M</code>列如：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">B</span><br><span class="line">B</span><br><span class="line">C</span><br><span class="line">C</span><br><span class="line">C</span><br><span class="line"></span><br><span class="line">~$ awk <span class="string">'&#123;a[FNR%3] = a[FNR%3] == "" ? $0 : a[FNR%3] "\t" $0&#125; END&#123;for(i=1;i&lt;=3;i++) print a[i%3]&#125;'</span></span><br><span class="line"></span><br><span class="line">A B C</span><br><span class="line">A B C</span><br><span class="line">A B C</span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者是这样</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ cat &lt;&lt;EOF | awk -F\| <span class="string">'&#123;a[FNR%4] = a[FNR%4] == "" ? $0 : a[FNR%4] "\t" $0&#125; END&#123;for(i=1;i&lt;=4;i++) print a[i%4]&#125;'</span></span><br><span class="line">&gt; ADC_CS_N|</span><br><span class="line">&gt; ADC_SADDR|</span><br><span class="line">&gt; ADC_SDAT|</span><br><span class="line">&gt; ADC_SCLK|</span><br><span class="line">&gt; PIN_A10|</span><br><span class="line">&gt; PIN_B10|</span><br><span class="line">&gt; PIN_A9|</span><br><span class="line">&gt; PIN_B14|</span><br><span class="line">&gt; Chip select|</span><br><span class="line">&gt; Digital data input|</span><br><span class="line">&gt; Digital data output|</span><br><span class="line">&gt; Digital clock input|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; 3.3V|</span><br><span class="line">&gt; EOF</span><br><span class="line">ADC_CS_N|	PIN_A10|	Chip select|	3.3V|</span><br><span class="line">ADC_SADDR|	PIN_B10|	Digital data input|	3.3V|</span><br><span class="line">ADC_SDAT|	PIN_A9|	Digital data output|	3.3V|</span><br><span class="line">ADC_SCLK|	PIN_B14|	Digital clock input|	3.3V|</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/09/Django-uWsgi-nginx-https-完全配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1011,6 +1107,10 @@
 <h3 id="使用Long-Test"><a href="#使用Long-Test" class="headerlink" title="使用Long Test"></a>使用Long Test</h3><ul>
 <li>如果短测试没有发现问题,可能要使用长测试,耗时根据硬盘容量决定,<code>ST4000DM000</code>使用了大概480分钟.<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ smartctl -t long /dev/sda</span><br><span class="line"><span class="comment"># 查看测试结果</span></span><br><span class="line">~$ smartctl -x /dev/sda</span><br><span class="line">[...]</span><br><span class="line">SMART Extended Self-test Log Version: 1 (1 sectors)</span><br><span class="line">Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error</span><br><span class="line"><span class="comment"># 1  Short offline       Completed without error       00%      7757         -</span></span><br><span class="line"><span class="comment"># 2  Short offline       Completed without error       00%      7757         -</span></span><br><span class="line"><span class="comment"># 3  Extended offline    Completed without error       00%      7752         -</span></span><br><span class="line"><span class="comment"># 4  Short offline       Completed without error       00%      7744         -</span></span><br><span class="line"><span class="comment"># 5  Short offline       Completed: read failure       90%      7744         5341719016</span></span><br><span class="line"><span class="comment"># 6  Short offline       Completed without error       00%      7744         -</span></span><br><span class="line"><span class="comment"># 7  Extended offline    Completed without error       00%      3769         -</span></span><br><span class="line"><span class="comment"># 8  Extended offline    Completed without error       00%      3746         -</span></span><br><span class="line">1 of 1 failed self-tests are outdated by newer successful extended offline self-test <span class="comment"># 3</span></span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
 </li>
+</ul>
+<h2 id="NVMe的固态硬盘"><a href="#NVMe的固态硬盘" class="headerlink" title="NVMe的固态硬盘"></a>NVMe的固态硬盘</h2><ul>
+<li><a href="https://opensource.com/article/21/9/nvme-cli" target="_blank" rel="noopener">nvme-cli</a></li>
+<li><a href="https://github.com/linux-nvme/nvme-cli" target="_blank" rel="noopener">https://github.com/linux-nvme/nvme-cli</a></li>
 </ul>
 <h1 id="防止-etc-resolve-conf-被-DHCP-自动修改"><a href="#防止-etc-resolve-conf-被-DHCP-自动修改" class="headerlink" title="防止/etc/resolve.conf 被 DHCP 自动修改"></a>防止/etc/resolve.conf 被 DHCP 自动修改</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~# cat /etc/NetworkManager/NetworkManager.conf</span><br><span class="line">[main]</span><br><span class="line">plugins=ifupdown,keyfile</span><br><span class="line">dns=none</span><br><span class="line"></span><br><span class="line">[ifupdown]</span><br><span class="line">managed=true</span><br></pre></td></tr></table></figure>
 <ul>
@@ -2039,130 +2139,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="yjdwbj">
-      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise 博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/05/29/安装mate桌面与设置多屏/" class="post-title-link" itemprop="url">debian 安装mate桌面与设置多屏</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-29T00:00:00+08:00">2016-05-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2016-12-14 22:28:00" itemprop="dateModified" datetime="2016-12-14T22:28:00+08:00">2016-12-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.</p>
-</li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="noopener">GitHub</a>:</p>
-</li>
-</ul>
-<h1 id="安装-MATE-相关的软件包"><a href="#安装-MATE-相关的软件包" class="headerlink" title="安装 MATE 相关的软件包:"></a>安装 MATE 相关的软件包:</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></span><br><span class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64</span></span><br><span class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64</span><br><span class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common</span><br><span class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common</span><br><span class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse</span><br><span class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager</span><br><span class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager</span><br><span class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor</span><br><span class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common</span><br><span class="line">mate-themes mate-utils mate-utils-common</span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装 FVWM 相关软件包:</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></span><br></pre></td></tr></table></figure>
-<h1 id="安装-Lightdm"><a href="#安装-Lightdm" class="headerlink" title="安装 Lightdm"></a>安装 Lightdm</h1><ul>
-<li><p>LightDM 是一个跨桌面环境的显示管理器，其目的是为 X 窗口系统提供一个标准的显示管理器.它的特点有:</p>
-</li>
-<li><p>代码轻量</p>
-</li>
-<li>符合标准 (如 PAM, logind, 等)</li>
-<li>为用户提供一个良好的界面.</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></span><br><span class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</span><br><span class="line"></span><br><span class="line">  Selection    Path                      Priority   Status</span><br><span class="line">  ------------------------------------------------------------</span><br><span class="line">    0            /usr/bin/openbox-session   40        auto mode</span><br><span class="line">  * 1            /usr/bin/mate-session      30        manual mode</span><br><span class="line">    2            /usr/bin/openbox-session   40        manual mode</span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></span><br><span class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</span><br><span class="line"></span><br><span class="line">Selection    Path                   Priority   Status</span><br><span class="line"> ------------------------------------------------------------</span><br><span class="line">* 0            /usr/bin/fvwm2          90        auto mode</span><br><span class="line">  1            /usr/bin/awesome        20        manual mode</span><br><span class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</span><br></pre></td></tr></table></figure>
-<h1 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h1><ul>
-<li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
-<li>获取屏幕的信息如下图所示.</li>
-</ul>
-<p><img src="/imgs/xrandr_cmd.png" alt></p>
-<ul>
-<li>通过命令行设置.</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</span><br></pre></td></tr></table></figure>
-<ul>
-<li>最后效果图如下.</li>
-</ul>
-<p><img src="/imgs/xrandr_example.png" alt></p>
-<ul>
-<li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个 HDMI 的显示的图.</li>
-</ul>
-<p><img src="/imgs/arandr.png" alt></p>
-<hr>
-<h2 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h2><ul>
-<li>微信二维码:</li>
-</ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2234,7 +2210,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2243,7 +2219,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

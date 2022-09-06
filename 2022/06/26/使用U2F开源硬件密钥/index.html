@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="资源链接： nrf52840-mdk-usb-dongle The nRF52840 USB Dongle Tutorial (Part 1) nRF52840 MDK USB Dongle  nRF52840 Dongle v1.0.0    连接工具 NordicSemiconductor/pc-nrfutil/ NordicSemiconductor/pc-nrfconnect-progr">
+<meta name="keywords" content="nRF52840">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用U2F开源硬件密钥">
+<meta property="og:url" content="http://yoursite.com/2022/06/26/使用U2F开源硬件密钥/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="资源链接： nrf52840-mdk-usb-dongle The nRF52840 USB Dongle Tutorial (Part 1) nRF52840 MDK USB Dongle  nRF52840 Dongle v1.0.0    连接工具 NordicSemiconductor/pc-nrfutil/ NordicSemiconductor/pc-nrfconnect-progr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2022-07-27T12:43:16.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用U2F开源硬件密钥">
+<meta name="twitter:description" content="资源链接： nrf52840-mdk-usb-dongle The nRF52840 USB Dongle Tutorial (Part 1) nRF52840 MDK USB Dongle  nRF52840 Dongle v1.0.0    连接工具 NordicSemiconductor/pc-nrfutil/ NordicSemiconductor/pc-nrfconnect-progr">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2022/06/26/使用U2F开源硬件密钥/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用U2F开源硬件密钥 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/26/使用U2F开源硬件密钥/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用U2F开源硬件密钥
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-26 17:22:27" itemprop="dateCreated datePublished" datetime="2022-06-26T17:22:27+08:00">2022-06-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-27 20:43:16" itemprop="dateModified" datetime="2022-07-27T20:43:16+08:00">2022-07-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>资源链接：<ul>
+<li><a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle" target="_blank" rel="noopener">nrf52840-mdk-usb-dongle</a></li>
+<li><a href="https://www.novelbits.io/nrf52840-usb-dongle-tutorial-1/" target="_blank" rel="noopener">The nRF52840 USB Dongle Tutorial (Part 1)</a></li>
+<li><a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" target="_blank" rel="noopener">nRF52840 MDK USB Dongle </a></li>
+<li><a href="https://infocenter.nordicsemi.com/index.jsp?topic=%2Fug_nrf52840_dongle%2FUG%2Fnrf52840_Dongle%2Fhw_button_led.html" target="_blank" rel="noopener">nRF52840 Dongle v1.0.0</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="连接工具"><a href="#连接工具" class="headerlink" title="连接工具"></a>连接工具</h1><ul>
+<li><a href="https://github.com/NordicSemiconductor/pc-nrfutil/" target="_blank" rel="noopener">NordicSemiconductor/pc-nrfutil/</a></li>
+<li><a href="https://github.com/NordicSemiconductor/pc-nrfconnect-programmer" target="_blank" rel="noopener">NordicSemiconductor/pc-nrfconnect-programmer</a></li>
+<li><a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/programming/" target="_blank" rel="noopener">Programming the nRF52840 MDK USB Dongle¶</a></li>
+</ul>
+<h1 id="OpenSK"><a href="#OpenSK" class="headerlink" title="OpenSK"></a>OpenSK</h1><ul>
+<li><a href="https://github.com/google/OpenSK" target="_blank" rel="noopener">google/OpenSK</a></li>
+</ul>
+<h1 id="nRF52-U2F"><a href="#nRF52-U2F" class="headerlink" title="nRF52-U2F"></a>nRF52-U2F</h1><ul>
+<li><a href="https://github.com/makerdiary/nrf52-u2f" target="_blank" rel="noopener">makerdiary/nrf52-u2f</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive https://github.com/makerdiary/nrf52-u2f</span><br></pre></td></tr></table></figure>
+<h2 id="直接下载官方固件"><a href="#直接下载官方固件" class="headerlink" title="直接下载官方固件"></a>直接下载官方固件</h2><ul>
+<li><a href="https://wiki.makerdiary.com/nrf52-u2f/upgrading/#upgrade-open-bootloader-with-nrfutil" target="_blank" rel="noopener">How to upgrade the nRF52-U2F Firmware?¶</a></li>
+</ul>
+<h1 id="U2F-bootloader"><a href="#U2F-bootloader" class="headerlink" title="U2F-bootloader"></a>U2F-bootloader</h1><ul>
+<li><p><a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/programming/" target="_blank" rel="noopener">Programming the nRF52840 MDK USB Dongle</a></p>
+</li>
+<li><p><a href="https://github.com/makerdiary/uf2-bootloader" target="_blank" rel="noopener">uf2-bootloader</a>可以把设备枚举成一个<code>flash</code>设备，可以直接复制<code>.uf2</code>格式的文件到盘符内。<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/open_bootloader" target="_blank" rel="noopener">下载uf2_bootloader-0.2.13-44-gb2b4284-nosd_signed.zip</a></p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="编程烧写工具"><a href="#编程烧写工具" class="headerlink" title="编程烧写工具"></a>编程烧写工具</h2><ul>
+<li><a href="http://openocd.org/" target="_blank" rel="noopener">openOCD</a></li>
+<li><a href="https://pypi.org/project/pyocd/" target="_blank" rel="noopener">pyocd</a></li>
+<li><a href="https://pypi.org/project/nrfutil/" target="_blank" rel="noopener">nrfutil</a></li>
+</ul>
+<h2 id="编译固件"><a href="#编译固件" class="headerlink" title="编译固件"></a>编译固件</h2><ul>
+<li>安装<code>rustup</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ curl --proto <span class="string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh</span><br><span class="line">~$ <span class="built_in">source</span> <span class="variable">$HOME</span>/.cargo/env</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装<code>nrfutil</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ pip3 install nrfutil</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装<code>OpenSK</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> --recurse-submodules https://github.com/google/OpenSK.git</span><br><span class="line">~$ <span class="built_in">cd</span> OpenSK</span><br><span class="line">~$ git switch -c develop origin/develop</span><br><span class="line">~$ ./setup.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>烧写之前，要确保<code>nrfutil</code>是可以正常使用的。先要按设备上的<code>reset</code>键,进入<code>DFU bootloader</code>模式，在按<code>Enter</code>确认进行烧写.不知为何在<code>OpenSK/stable</code>分支上没有测试成功。这里使用了<code>develop</code>分支测试成功。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">OpenSK$ ./deploy.py --board=nrf52840_dongle_dfu --opensk --programmer=nordicdfu</span><br><span class="line">info: Updating rust toolchain to nightly-2020-06-10</span><br><span class="line">info: syncing channel updates <span class="keyword">for</span> <span class="string">'nightly-2020-06-10-x86_64-unknown-linux-gnu'</span></span><br><span class="line">info: checking <span class="keyword">for</span> self-updates</span><br><span class="line">info: component <span class="string">'rust-std'</span> <span class="keyword">for</span> target <span class="string">'thumbv7em-none-eabi'</span> is up to date</span><br><span class="line">info: Rust toolchain up-to-date</span><br><span class="line">info: Building Tock OS <span class="keyword">for</span> board nrf52840_dongle_dfu</span><br><span class="line">info: This is the version <span class="keyword">for</span> the rustup toolchain manager, not the rustc compiler.</span><br><span class="line">info: The currently active `rustc` version is `rustc 1.45.0-nightly (fe10f1a49 2020-06-02)`</span><br><span class="line">    Finished release [optimized + debuginfo] target(s) <span class="keyword">in</span> 0.01s</span><br><span class="line">info: Building OpenSK application</span><br><span class="line">    Finished release [optimized] target(s) <span class="keyword">in</span> 0.02s</span><br><span class="line">info: Generating Tock TAB file <span class="keyword">for</span> application/example ctap2</span><br><span class="line">info: Generating all-merged HEX file: target/nrf52840_dongle_dfu_merged.hex</span><br><span class="line">info: Creating DFU package</span><br><span class="line">info: Please insert the dongle and switch it to DFU mode by keeping the button pressed <span class="keyword">while</span> inserting...</span><br><span class="line">info: Press [ENTER] when ready.</span><br><span class="line">info: Flashing device using DFU...</span><br><span class="line">  [<span class="comment">####################################]  100%</span></span><br><span class="line">Device programmed.</span><br><span class="line">info: Programming OpenSK device AAGUID fdecda13-0c04-4463-82c4-43f425871f2f (CtapHidDevice(<span class="string">'/dev/hidraw4'</span>)).</span><br><span class="line">info: Certificate: Missing</span><br><span class="line">info: Private Key: Missing</span><br><span class="line">100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00&lt;00:00, 26.69it/s]</span><br><span class="line">info: Your device is not yet configured, and lacks some functionality. If you run into issues, this <span class="built_in">command</span> might <span class="built_in">help</span>:</span><br><span class="line"></span><br><span class="line">./tools/configure.py \</span><br><span class="line">    --certificate=crypto_data/opensk_cert.pem \</span><br><span class="line">    --private-key=crypto_data/opensk.key</span><br><span class="line"></span><br><span class="line">Please <span class="built_in">read</span> the Certificate considerations <span class="keyword">in</span> docs/customization.md to understand the privacy trade-off.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果上面烧写操作后，不能正常工作，先把运行下面的命令，再重复一次，上面的烧写命令。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./deploy.py --board=nrf52840_dongle_dfu --programmer=nordicdfu --erase_storage</span><br></pre></td></tr></table></figure>
+<ul>
+<li>烧写错误</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR: pip<span class="string">'s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.</span></span><br><span class="line"><span class="string">manifest-tool 1.5.2 requires colorama&lt;0.4.0,&gt;=0.3.9, but you have colorama 0.4.5 which is incompatible.</span></span><br><span class="line"><span class="string">manifest-tool 1.5.2 requires protobuf&lt;3.6.0,&gt;=3.5.0, but you have protobuf 3.20.1 which is incompatible.</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>出现上述错误，需要使用<code>PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python</code>来处理<code>protobuf</code>.</li>
+</ul>
+<h2 id="在线网站测试"><a href="#在线网站测试" class="headerlink" title="在线网站测试"></a>在线网站测试</h2><ul>
+<li><a href="https://webauthn.io/" target="_blank" rel="noopener">https://webauthn.io/</a></li>
+<li>这里使用<code>Firefox</code>打开上述网站,随意输入一个用户名,再点击<code>Regster</code>,浏览器会弹出提示窗口,并且板上的<code>LD1,LD2</code>出现交替闪烁,表示需要按<code>SW1</code>进行下一步.这里按下<code>SW1</code>后,网站会提示注册成功.</li>
+<li>网站登录测试,点击界面上的<code>Login</code>后,浏览器会弹出提示窗口,并且板上的<code>LD1,LD2</code>出现交替闪烁,此时按下板上的<code>SW1</code>,网站会提示登录成功。</li>
+</ul>
+<h2 id="使用U2F登录OpenSSH服务"><a href="#使用U2F登录OpenSSH服务" class="headerlink" title="使用U2F登录OpenSSH服务"></a>使用<code>U2F</code>登录<code>OpenSSH</code>服务</h2><ul>
+<li><p>Links:</p>
+<ul>
+<li><a href="https://wiki.debian.org/Security/U2F" target="_blank" rel="noopener">Using U2F keys in Debian</a></li>
+<li><a href="https://www.mogilowski.net/2021/03/08/securing-ssh-with-fido-u2f-yubikey-on-debian/" target="_blank" rel="noopener">Securing SSH with FIDO U2F (YubiKey) on Debian</a></li>
+</ul>
+</li>
+<li><p>生成<code>ecdsa-sk</code>类型的密钥</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ssh-keygen -t ecdsa-sk -f ~/.ssh/id_ecdsa_sk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把<code>id_ecdsa_sk.pub</code>里的内容，复制到对端服务器的<code>~/.ssh/authorized_keys</code>里.再设置本地指定使用<code>id_ecdsa_sk</code>登录验证:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ cat ~/.ssh/config</span><br><span class="line">[...]</span><br><span class="line">Host vps</span><br><span class="line">    Hostname YOUR_SERVER_IP</span><br><span class="line">    User root</span><br><span class="line">    Port YOUR_SSH_PORT</span><br><span class="line">    Compression yes</span><br><span class="line">    IdentityFile ~/.ssh/id_ecdsa_sk</span><br></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/nRF52840/" rel="tag"># nRF52840</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/10/NFC读写工具杂记/" rel="prev" title="NFC读写工具杂记">
+      <i class="fa fa-chevron-left"></i> NFC读写工具杂记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#连接工具"><span class="nav-number">1.</span> <span class="nav-text">连接工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenSK"><span class="nav-number">2.</span> <span class="nav-text">OpenSK</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nRF52-U2F"><span class="nav-number">3.</span> <span class="nav-text">nRF52-U2F</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接下载官方固件"><span class="nav-number">3.1.</span> <span class="nav-text">直接下载官方固件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#U2F-bootloader"><span class="nav-number">4.</span> <span class="nav-text">U2F-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程烧写工具"><span class="nav-number">4.1.</span> <span class="nav-text">编程烧写工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译固件"><span class="nav-number">4.2.</span> <span class="nav-text">编译固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在线网站测试"><span class="nav-number">4.3.</span> <span class="nav-text">在线网站测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用U2F登录OpenSSH服务"><span class="nav-number">4.4.</span> <span class="nav-text">使用U2F登录OpenSSH服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">5.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yjdwbj"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

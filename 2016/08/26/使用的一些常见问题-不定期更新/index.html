@@ -573,6 +573,14 @@
 <li>hcitool 连接蓝牙</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~$ hcitool scan</span><br><span class="line">Scanning ...</span><br><span class="line">	00:14:01:22:14:49	lcy</span><br><span class="line">	B8:AD:3E:91:70:02	LG HBS500</span><br><span class="line">	98:D3:36:00:CC:BF	lcy_HC-05</span><br><span class="line"></span><br><span class="line">~$ hcitool cc B8:AD:3E:91:70:02</span><br><span class="line">Can<span class="string">'t create connection: Operation not permitted</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">~$ sudo setcap cap_net_raw+eip `which hcitool`</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>无法检测到蓝牙控制器</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ bluetoothctl show</span><br><span class="line">No default controller available</span><br></pre></td></tr></table></figure>
+<ul>
+<li>尝试重装一下它的驱动</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># rmmod btusb</span></span><br><span class="line">~<span class="comment"># rmmod btintel</span></span><br><span class="line"></span><br><span class="line">~<span class="comment"># modprobe btintel</span></span><br><span class="line">~<span class="comment"># modprobe btusb</span></span><br></pre></td></tr></table></figure>
 <h2 id="查看WIFI的地区代码"><a href="#查看WIFI的地区代码" class="headerlink" title="查看WIFI的地区代码."></a>查看WIFI的地区代码.</h2><ul>
 <li><a href="https://askubuntu.com/questions/597546/iwconfig-wlan0-txpower-30mw-not-working" target="_blank" rel="noopener">iwconfig wlan0 txpower 30mW - not working</a></li>
 <li><p><a href="https://networkgeekstuff.com/networking/how-to-create-custom-linux-wi-fi-regulatory-database-to-unlock-30db1000mw/" target="_blank" rel="noopener">How to create custom Linux Wi-Fi regulatory database to unlock 30db/1000mW</a><code>DFS</code>是为了使无线产品主动探测军方使用的频率,并主动选择另一个频率,以避开军方频率.所以上面那个链接说,在美国解除限制是违法.</p>

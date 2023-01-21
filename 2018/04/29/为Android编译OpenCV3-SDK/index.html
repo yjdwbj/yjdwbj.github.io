@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:  环境搭建简单:直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
+<meta name="keywords" content="Android,OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为Android编译OpenCV3_SDK">
+<meta property="og:url" content="http://yoursite.com/2018/04/29/为Android编译OpenCV3-SDK/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:  环境搭建简单:直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2018-05-07T09:12:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为Android编译OpenCV3_SDK">
+<meta name="twitter:description" content="本段说明链接来源  OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:  Java Native 代码实现 C++ NDK 代码实现   其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:  环境搭建简单:直接引入官方 OpenCV-for-Android 的对应 jar 包即可 代码维">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/04/29/为Android编译OpenCV3-SDK/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>为Android编译OpenCV3_SDK | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/为Android编译OpenCV3-SDK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为Android编译OpenCV3_SDK
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-04-29 18:04:34" itemprop="dateCreated datePublished" datetime="2018-04-29T18:04:34+08:00">2018-04-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-05-07 17:12:34" itemprop="dateModified" datetime="2018-05-07T17:12:34+08:00">2018-05-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><a href="https://ricky.moe/2017/07/03/opencv-contrib-for-android/" target="_blank" rel="noopener">本段说明链接来源</a></li>
+</ul>
+<p>OpenCV 整套代码是基于 C 和 C++实现的，在 Android 上调用存在两种方式:</p>
+<ul>
+<li>Java Native 代码实现</li>
+<li>C++ NDK 代码实现</li>
+</ul>
+<p><strong> 其中 Java Native 代码实现是直接通过 Java OpenCV API 编写算法实现部分，相对应的特点在于:</strong></p>
+<ul>
+<li>环境搭建简单:直接引入官方 <code>OpenCV-for-Android</code> 的对应 jar 包即可</li>
+<li>代码维护繁琐:由于<code>OpenCV-for-Android</code> 的<code>Java API</code>与<code>C++</code>不完全相同，任何算法的更新都需要重写 =&gt; 在存在 Windows、iOS 等多平台更新时比较麻烦</li>
+<li>运行效率低:Java 代码会在内部进行 C++翻译，运行时性能损耗较大</li>
+</ul>
+<p><strong> 而直接采用 C++代码导入的方式的特点在于:</strong></p>
+<ul>
+<li>环境搭建复杂:往往需要现自行编译对应的库，再进行<code>NDK、Cmakelists</code>和<code>build.gradle</code>的配置.</li>
+<li>代码维护简单:由于直接采用 C++实现算法部分，与其他平台的兼容性极好，能与 Android 程序员分离开发 =&gt; 算法升级时替换对应的算法库文件即可.</li>
+<li>运行效率高:不存在内部执行时的代码转换问题，性能最好.</li>
+<li>总结来看，Java Native 代码实现是爽一时但是后面会不爽很久，对于有时间精力且要求较高的开发任务，强烈建议多花点时间搭建 C++ NDK 方式.</li>
+</ul>
+<p>如果自己不从源码编译也可去<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-android" target="_blank" rel="noopener">这里</a>下载,网上很多配置教程都是基于这里下载的 SDK 而写的.如: <a href="https://www.jianshu.com/p/e90da53c4bb5" target="_blank" rel="noopener">Android Studio 集成 OpenCV</a></p>
+<hr>
+<h1 id="Python-脚本编译"><a href="#Python-脚本编译" class="headerlink" title="Python 脚本编译"></a>Python 脚本编译</h1><ul>
+<li>依赖工具<ul>
+<li>CMake &gt; 3.7</li>
+<li>ninja-build</li>
+<li>ccache</li>
+<li>python</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装编译工具"><a href="#安装编译工具" class="headerlink" title="安装编译工具"></a>安装编译工具</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ apt-get install ninja-build  ccache</span><br><span class="line">~$ <span class="built_in">export</span> ANDROID_SDK=/fullpath/Android/Sdk</span><br><span class="line">~$ <span class="built_in">export</span> ANDROID_NDK=/fullpath/Android/Sdk/android-ndk-r16b</span><br><span class="line"></span><br><span class="line">~$ mkdir build</span><br><span class="line">~$ <span class="built_in">cd</span> build ../opencv-3.4.1/platforms/android/build_sdk.py --no_ccache --extra_module=/fullpath/opencv_contrib-3.4.1/modules --config=ndk-16.config.py  build-ndk ../opencv-3.4.1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用<strong>opencv-3.4.1/platforms/android/build_sdk.py</strong> 脚本安装,可以一次编译多种平台的 SDK,相关的一些配置要参照文件<strong>ndk-16.config.py</strong>.</li>
+<li>如果没有出错误的话,<strong>build-ndk</strong>目录结构如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">~$ tree build-ndk -L 1</span><br><span class="line">build-ndk</span><br><span class="line">├── build_service_arm64-v8a</span><br><span class="line">├── build_service_armeabi</span><br><span class="line">├── build_service_armeabi-v7a</span><br><span class="line">├── build_service_x86</span><br><span class="line">├── build_service_x86_64</span><br><span class="line">├── o4a</span><br><span class="line">└── OpenCV-android-sdk</span><br><span class="line"></span><br><span class="line">7 directories, 0 files</span><br><span class="line"></span><br><span class="line">~$ tree build-ndk/OpenCV-android-sdk/ -L 2</span><br><span class="line">build-ndk/OpenCV-android-sdk/</span><br><span class="line">├── apk</span><br><span class="line">│   ├── OpenCV_3.4.1_Manager_3.41_arm64-v8a.apk</span><br><span class="line">│   ├── OpenCV_3.4.1_Manager_3.41_armeabi.apk</span><br><span class="line">│   ├── OpenCV_3.4.1_Manager_3.41_armeabi-v7a.apk</span><br><span class="line">│   ├── OpenCV_3.4.1_Manager_3.41_x86_64.apk</span><br><span class="line">│   ├── OpenCV_3.4.1_Manager_3.41_x86.apk</span><br><span class="line">│   └── readme.txt</span><br><span class="line">├── LICENSE</span><br><span class="line">├── README.android</span><br><span class="line">├── samples</span><br><span class="line">│   ├── 15-puzzle</span><br><span class="line">│   ├── camera-calibration</span><br><span class="line">│   ├── color-blob-detection</span><br><span class="line">│   ├── example-15-puzzle.apk</span><br><span class="line">│   ├── example-camera-calibration.apk</span><br><span class="line">│   ├── example-color-blob-detection.apk</span><br><span class="line">│   ├── example-face-detection.apk</span><br><span class="line">│   ├── example-image-manipulations.apk</span><br><span class="line">│   ├── example-tutorial-1-camerapreview.apk</span><br><span class="line">│   ├── example-tutorial-2-mixedprocessing.apk</span><br><span class="line">│   ├── example-tutorial-3-cameracontrol.apk</span><br><span class="line">│   ├── face-detection</span><br><span class="line">│   ├── image-manipulations</span><br><span class="line">│   ├── tutorial-1-camerapreview</span><br><span class="line">│   ├── tutorial-2-mixedprocessing</span><br><span class="line">│   └── tutorial-3-cameracontrol</span><br><span class="line">└── sdk</span><br><span class="line">    ├── build.gradle</span><br><span class="line">    ├── etc</span><br><span class="line">    ├── java</span><br><span class="line">    └── native</span><br><span class="line"></span><br><span class="line">14 directories, 17 files</span><br><span class="line"></span><br><span class="line">~$ tree build-ndk/OpenCV-android-sdk/sdk/native -L 2</span><br><span class="line">build-ndk/OpenCV-android-sdk/sdk/native</span><br><span class="line">├── 3rdparty</span><br><span class="line">│   └── libs</span><br><span class="line">├── jni</span><br><span class="line">│   ├── abi-arm64-v8a</span><br><span class="line">│   ├── abi-armeabi</span><br><span class="line">│   ├── abi-armeabi-v7a</span><br><span class="line">│   ├── abi-x86</span><br><span class="line">│   ├── abi-x86_64</span><br><span class="line">│   ├── android.toolchain.cmake</span><br><span class="line">│   ├── include</span><br><span class="line">│   ├── OpenCV-arm64-v8a.mk</span><br><span class="line">│   ├── OpenCV-armeabi.mk</span><br><span class="line">│   ├── OpenCV-armeabi-v7a.mk</span><br><span class="line">│   ├── OpenCVConfig.cmake</span><br><span class="line">│   ├── OpenCVConfig-version.cmake</span><br><span class="line">│   ├── OpenCV.mk</span><br><span class="line">│   ├── OpenCV-x86_64.mk</span><br><span class="line">│   └── OpenCV-x86.mk</span><br><span class="line">├── libs</span><br><span class="line">│   ├── arm64-v8a</span><br><span class="line">│   ├── armeabi</span><br><span class="line">│   ├── armeabi-v7a</span><br><span class="line">│   ├── x86</span><br><span class="line">│   └── x86_64</span><br><span class="line">└── staticlibs</span><br><span class="line">    ├── arm64-v8a</span><br><span class="line">    ├── armeabi</span><br><span class="line">    ├── armeabi-v7a</span><br><span class="line">    ├── x86</span><br><span class="line">    └── x86_64</span><br><span class="line"></span><br><span class="line">21 directories, 9 files</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="CMake-编译方式"><a href="#CMake-编译方式" class="headerlink" title="CMake 编译方式"></a>CMake 编译方式</h1><h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li><a href="https://dl.google.com/android/repository/android-ndk-r14b-linux-x86_64.zip" target="_blank" rel="noopener">android-ndk-r14b</a></li>
+<li><p><a href="https://dl.google.com/android/repository/tools_r25.2.5-linux.zip" target="_blank" rel="noopener">tools_r25.2.5</a></p>
+</li>
+<li><p>这里可能要注意, 本次编译测试必須使用<strong>[tools_r25.2.5]</strong></p>
+</li>
+<li>建议使用<strong>[tools_r25.2.5]</strong>测试编译,不然有可能会出现如下错误</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--     SDK target:  android_sdk_target-NOTFOUND</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line">The <span class="string">"android"</span> <span class="built_in">command</span> is deprecated.</span><br><span class="line">For manual SDK, AVD, and project management, please use Android Studio.</span><br><span class="line">For <span class="built_in">command</span>-line tools, use tools/bin/sdkmanager and tools/bin/avdmanager</span><br><span class="line">*************************************************************************</span><br><span class="line">Invalid or unsupported <span class="built_in">command</span> <span class="string">"--silent create lib-project --path /fullpath/opencv-3.4.1/build-android/android_sdk --target android_sdk_target-NOTFOUND --name OpenCV --package org.opencv"</span></span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<h2 id="CMake-单独编译参数"><a href="#CMake-单独编译参数" class="headerlink" title="CMake 单独编译参数"></a>CMake 单独编译参数</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> /fullpath/Android/Sdk</span><br><span class="line">~$ ln -svf tools_r25.2.5 tools</span><br><span class="line">~$ ln -svf android-ndk-r14b ndk-bundle</span><br><span class="line">~$ <span class="built_in">export</span> ANDROID_NDK=/fullpath/Android/Sdk/ndk-bundle</span><br><span class="line">~$ cmake</span><br><span class="line">	-D ANDDROID_ABI=armeabi-v7a</span><br><span class="line">    -D ANDROID_FUNCTION_LEVEL_LINKING=ON</span><br><span class="line">    -D ANDROID_NATIVE_API_LEVEL=19</span><br><span class="line">    -D ANDROID_NDK_HOST_X64=ON</span><br><span class="line">    -D ANDROID_NDK_NOEXECSTACK=ON</span><br><span class="line">    -D ANDROID_STL=gnustl_static</span><br><span class="line">    -D BUILD_JPEG=ON</span><br><span class="line">    -D BUILD_PNG=ON</span><br><span class="line">    -D BUILD_PACKAGE=ON</span><br><span class="line">    -D CMAKE_TOOLCHAIN_FILE=/fullpath/opencv-3.4.1/platforms/android/android.toolchain.cmake</span><br><span class="line">    -D ANDROID_SDK=/fullpath/Android/Sdk</span><br><span class="line">    -D ANDROID_FORCE_ARM_BUILD=OFF</span><br><span class="line">    -D ANDROID_NO_UNDEFINED=ON</span><br><span class="line">    -D BUILD_ANDROID=ON</span><br><span class="line">    -D BUILD_ANDROID_EXAMPLES=ON</span><br><span class="line">    -D OPENCV_EXTRA_MODULES_PATH=/fullpath/opencv_contrib-3.4.1/modules</span><br><span class="line">    -D BUILD_PYTHON_SUPPORT=ON</span><br><span class="line">    -D BUILD_opencv_python3=ON</span><br><span class="line">    -D PYTHON_DEFAULT_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6m</span><br><span class="line">    -D PYTHON_INCLUDE_DIRS=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/include/python3.6m</span><br><span class="line">    -D PYTHON_EXECUTABLE=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/bin/python3.6</span><br><span class="line">    -D PYTHON_LIBRARY=<span class="variable">$HOME</span>/.pyenv/versions/3.6.5/lib/libpython3.6m.so.1.0</span><br><span class="line">    -D BUILD_JDK=ON</span><br><span class="line">    -D BUILD_opencv_java=ON</span><br><span class="line">    -D CMAKE_INSTALL_PREFIX=/fullpath/opencv3-android-ndk ../</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line">--     Linker flags (Release):      -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now</span><br><span class="line">--     Linker flags (Debug):        -Wl,--fix-cortex-a8 -Wl,--no-undefined -Wl,-allow-shlib-undefined -Wl,--gc-sections -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now</span><br><span class="line">--     ccache:                      NO</span><br><span class="line">--     Precompiled headers:         NO</span><br><span class="line">--     Extra dependencies:          z dl m <span class="built_in">log</span></span><br><span class="line">--     3rdparty dependencies:       libcpufeatures libprotobuf libjpeg libwebp libpng libtiff libjasper IlmImf tegra_hal</span><br><span class="line">--</span><br><span class="line">--   OpenCV modules:</span><br><span class="line">--     To be built:                 aruco bgsegm bioinspired calib3d ccalib core datasets dnn dnn_objdetect dpm face features2d flann fuzzy hfs highgui img_hash imgcodecs imgproc java_bindings_generator line_descriptor ml objdetect optflow phase_unwrapping photo plot python_bindings_generator reg rgbd saliency shape stereo stitching structured_light superres surface_matching text tracking ts video videoio videostab xfeatures2d ximgproc xobjdetect xphoto</span><br><span class="line">--     Disabled:                    js world</span><br><span class="line">--     Disabled by dependency:      -</span><br><span class="line">--     Unavailable:                 cnn_3dobj cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev cvv dnn_modern freetype hdf java matlab ovis python2 python3 sfm viz</span><br><span class="line">--     Applications:                tests perf_tests</span><br><span class="line">--     Documentation:               NO</span><br><span class="line">--     Non-free algorithms:         NO</span><br><span class="line">--</span><br><span class="line">--   Android:</span><br><span class="line">--     Android ABI:                 armeabi-v7a</span><br><span class="line">--     STL <span class="built_in">type</span>:                    gnustl_static</span><br><span class="line">--     Native API level:            android-19</span><br><span class="line">--     SDK target:                  android-19</span><br><span class="line">--     Android NDK:                 /fullpath/Android/Sdk/ndk-bundle-r14b (toolchain: arm-linux-androideabi-4.9)</span><br><span class="line">--     android tool:                /fullpath/3TB-DISK/Android/Sdk/tools/android (Android SDK Tools, revision 25.2.5.)</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">--   GUI:</span><br><span class="line">--</span><br><span class="line">--   Media I/O:</span><br><span class="line">--     ZLib:                        z (ver 1.2.3)</span><br><span class="line">--     JPEG:                        build (ver 90)</span><br><span class="line">--     WEBP:                        build (ver encoder: 0x020e)</span><br><span class="line">--     PNG:                         build (ver 1.6.34)</span><br><span class="line">--     TIFF:                        build (ver 42 - 4.0.9)</span><br><span class="line">--     JPEG 2000:                   build (ver 1.900.1)</span><br><span class="line">--     OpenEXR:                     build (ver 1.7.1)</span><br><span class="line">[...]</span><br><span class="line">--   Java:                          <span class="built_in">export</span> all <span class="built_in">functions</span></span><br><span class="line">--     ant:                         /fullpath/ant/current/bin/ant (ver 1.10.1)</span><br><span class="line">--     Java wrappers:               YES</span><br><span class="line">--     Java tests:                  YES</span><br><span class="line">[...]</span><br><span class="line">--   Install to:                    /fullpath/opencv3-android-ndk</span><br><span class="line"></span><br><span class="line">~$ make -j4</span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译成功的标志</span></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: 6 seconds</span><br><span class="line">[100%] Built target example-color-blob-detection</span><br><span class="line">[100%] Copy project sources: example-tutorial-1-camerapreview</span><br><span class="line">COPYFILES: ... 1 entries (SRC_COPY)</span><br><span class="line">COPYFILES:     ... directory <span class="string">'.../android/tutorial-1-camerapreview'</span> with 5 files</span><br><span class="line">COPYFILES: All files are up-to-date.</span><br><span class="line">[100%] Built target example-tutorial-1-camerapreview_copy_src</span><br><span class="line">Scanning dependencies of target example-tutorial-1-camerapreview</span><br><span class="line">[100%] Updating Android project at /fullpath/opencv-3.4.1/samples/android/tutorial-1-camerapreview. SDK target: android-19</span><br><span class="line">[100%] Generating example-tutorial-1-camerapreview-debug.apk</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: 6 seconds</span><br><span class="line">[100%] Built target example-tutorial-1-camerapreview</span><br><span class="line">[100%] Copy project sources: example-tutorial-2-mixedprocessing</span><br><span class="line">COPYFILES: ... 1 entries (SRC_COPY)</span><br><span class="line">COPYFILES:     ... directory <span class="string">'.../android/tutorial-2-mixedprocessing'</span> with 5 files</span><br><span class="line">COPYFILES: All files are up-to-date.</span><br><span class="line">[100%] Built target example-tutorial-2-mixedprocessing_copy_src</span><br><span class="line">[100%] Built target mixed_sample</span><br><span class="line">Scanning dependencies of target example-tutorial-2-mixedprocessing</span><br><span class="line">[100%] Updating Android project at /fullpath/opencv-3.4.1/samples/android/tutorial-2-mixedprocessing. SDK target: android-19</span><br><span class="line">[100%] Generating example-tutorial-2-mixedprocessing-debug.apk</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: 6 seconds</span><br><span class="line">[100%] Built target example-tutorial-2-mixedprocessing</span><br><span class="line">[100%] Copy project sources: example-tutorial-3-cameracontrol</span><br><span class="line">COPYFILES: ... 1 entries (SRC_COPY)</span><br><span class="line">COPYFILES:     ... directory <span class="string">'.../android/tutorial-3-cameracontrol'</span> with 6 files</span><br><span class="line">COPYFILES: All files are up-to-date.</span><br><span class="line">[100%] Built target example-tutorial-3-cameracontrol_copy_src</span><br><span class="line">Scanning dependencies of target example-tutorial-3-cameracontrol</span><br><span class="line">[100%] Updating Android project at /fullpath/opencv-3.4.1/samples/android/tutorial-3-cameracontrol. SDK target: android-19</span><br><span class="line">[100%] Generating example-tutorial-3-cameracontrol-debug.apk</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: 6 seconds</span><br><span class="line">[100%] Built target example-tutorial-3-cameracontrol</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">~$ make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行完成<strong>make install</strong>后,所有相关的库文件都会安装到<strong>/fullpath/opencv3-android-ndk</strong>,目录如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">opencv3-android-ndk$ tree -L 3</span><br><span class="line">.</span><br><span class="line">├── apk</span><br><span class="line">│   └── readme.txt</span><br><span class="line">├── LICENSE</span><br><span class="line">├── README.android</span><br><span class="line">└── sdk</span><br><span class="line">    ├── build.gradle</span><br><span class="line">    ├── etc</span><br><span class="line">    │   ├── haarcascades</span><br><span class="line">    │   ├── lbpcascades</span><br><span class="line">    │   ├── valgrind_3rdparty.supp</span><br><span class="line">    │   └── valgrind.supp</span><br><span class="line">    ├── java</span><br><span class="line">    │   ├── AndroidManifest.xml</span><br><span class="line">    │   ├── gen</span><br><span class="line">    │   ├── lint.xml</span><br><span class="line">    │   ├── project.properties</span><br><span class="line">    │   ├── res</span><br><span class="line">    │   └── src</span><br><span class="line">    └── native</span><br><span class="line">        ├── 3rdparty</span><br><span class="line">        ├── jni</span><br><span class="line">        ├── libs</span><br><span class="line">        └── staticlibs</span><br><span class="line"></span><br><span class="line">14 directories, 9 files</span><br></pre></td></tr></table></figure>
+<h1 id="Android-Studio-集成-OpenCV-测试"><a href="#Android-Studio-集成-OpenCV-测试" class="headerlink" title="Android Studio 集成 OpenCV 测试"></a>Android Studio 集成 OpenCV 测试</h1><ul>
+<li>这里可以直接导入一个 OpenCV Samples 工程做测试,我编译安装完上述 SDK 后,使用了<code>samples/tutorial-1-camerapreview</code>这个工程做测试,正常情况下,app 会通过 opencv 打开摄像头.</li>
+</ul>
+<h2 id="原有工程-添加-OpenCV-支持"><a href="#原有工程-添加-OpenCV-支持" class="headerlink" title="原有工程,添加 OpenCV 支持"></a>原有工程,添加 OpenCV 支持</h2><ul>
+<li>创建一个支持 C++的 Android 工程</li>
+<li>导入模块, <strong>File-&gt;New-&gt;Import Module</strong> ,选择<strong>/fullpath/opencv3-android-ndk</strong> ,这里我把它命名为<strong>:opencv_sdk</strong>, Finish.</li>
+<li>如果 IDE 没有报错,</li>
+<li>进入 <strong>File&gt;Project Structure</strong>. 选择<strong>app</strong> ,点击<strong>Dependencides</strong>,点击<code>+</code>-&gt;<code>3 Module dependency</code>-&gt;<code>模块名</code>,</li>
+<li>等几分钟,IDE 就会处理完导入库的操作.</li>
+<li>如果在<strong>File&gt;Project Structure</strong>没有看到一个新的模块名<code>opencv_sdk</code>,但是它的目录已经复制到工程目录的根目录下了,就在<strong>settings.gradle</strong>里的<code>include</code>后面加上如: <strong>include ‘:app’,’opencv_sdk’</strong></li>
+<li>因为我本次使用的是<strong>Android-Studio 3.1</strong>的版本,要把<strong>build.gradle</strong>里的修改成 <strong>26</strong>以上,不然会出错:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 27</span><br><span class="line">    //buildToolsVersion <span class="string">"27.0.3"</span> // not needed since com.android.tools.build:gradle:3.0.0</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        minSdkVersion 14</span><br><span class="line">        targetSdkVersion 26</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  [...]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>导入模块后,IDE 会把 opencv 相关复制工程根目录下,目录名为<strong>opencv_sdk</strong>.导入后 Android 工程目录如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">~$ tree -L 1</span><br><span class="line">.</span><br><span class="line">├── app</span><br><span class="line">├── build.gradle</span><br><span class="line">├── gradle</span><br><span class="line">├── gradle.properties</span><br><span class="line">├── gradlew</span><br><span class="line">├── gradlew.bat</span><br><span class="line">├── local.properties</span><br><span class="line">├── opencv3_android.iml</span><br><span class="line">├── opencv_sdk</span><br><span class="line">└── settings.gradle</span><br><span class="line"></span><br><span class="line">~$ tree app  -L 4</span><br><span class="line">app</span><br><span class="line">├── app.iml</span><br><span class="line">├── build.gradle</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── libs</span><br><span class="line">├── proguard-rules.pro</span><br><span class="line">└── src</span><br><span class="line">    ├── androidTest</span><br><span class="line">    │   └── java</span><br><span class="line">    │       └── com</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── AndroidManifest.xml</span><br><span class="line">    │   ├── cpp</span><br><span class="line">    │   │   └── native-lib.cpp</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   └── res</span><br><span class="line">    │       ├── drawable</span><br><span class="line">    │       ├── drawable-v24</span><br><span class="line">    │       ├── layout</span><br><span class="line">    │       ├── menu</span><br><span class="line">    │       ├── mipmap-anydpi-v26</span><br><span class="line">    │       ├── mipmap-hdpi</span><br><span class="line">    │       ├── mipmap-mdpi</span><br><span class="line">    │       ├── mipmap-xhdpi</span><br><span class="line">    │       ├── mipmap-xxhdpi</span><br><span class="line">    │       ├── mipmap-xxxhdpi</span><br><span class="line">    │       ├── raw</span><br><span class="line">    │       └── values</span><br><span class="line">    └── <span class="built_in">test</span></span><br><span class="line">        └── java</span><br><span class="line">            └── com</span><br><span class="line"></span><br><span class="line">25 directories, 6 files</span><br><span class="line"></span><br><span class="line">~$ tree opencv_sdk  -L 3</span><br><span class="line">opencv_sdk</span><br><span class="line">├── build.gradle</span><br><span class="line">├── etc</span><br><span class="line">│   ├── haarcascades</span><br><span class="line">│   │   ├── haarcascade_eye_tree_eyeglasses.xml</span><br><span class="line">│   │   ├── haarcascade_eye.xml</span><br><span class="line">│   │   ├── haarcascade_frontalcatface_extended.xml</span><br><span class="line">│   │   ├── haarcascade_frontalcatface.xml</span><br><span class="line">│   │   ├── haarcascade_frontalface_alt2.xml</span><br><span class="line">│   │   ├── haarcascade_frontalface_alt_tree.xml</span><br><span class="line">│   │   ├── haarcascade_frontalface_alt.xml</span><br><span class="line">│   │   ├── haarcascade_frontalface_default.xml</span><br><span class="line">│   │   ├── haarcascade_fullbody.xml</span><br><span class="line">│   │   ├── haarcascade_lefteye_2splits.xml</span><br><span class="line">│   │   ├── haarcascade_licence_plate_rus_16stages.xml</span><br><span class="line">│   │   ├── haarcascade_lowerbody.xml</span><br><span class="line">│   │   ├── haarcascade_profileface.xml</span><br><span class="line">│   │   ├── haarcascade_righteye_2splits.xml</span><br><span class="line">│   │   ├── haarcascade_russian_plate_number.xml</span><br><span class="line">│   │   ├── haarcascade_smile.xml</span><br><span class="line">│   │   └── haarcascade_upperbody.xml</span><br><span class="line">│   ├── lbpcascades</span><br><span class="line">│   │   ├── lbpcascade_frontalcatface.xml</span><br><span class="line">│   │   ├── lbpcascade_frontalface_improved.xml</span><br><span class="line">│   │   ├── lbpcascade_frontalface.xml</span><br><span class="line">│   │   ├── lbpcascade_profileface.xml</span><br><span class="line">│   │   └── lbpcascade_silverware.xml</span><br><span class="line">│   ├── valgrind_3rdparty.supp</span><br><span class="line">│   └── valgrind.supp</span><br><span class="line">├── java</span><br><span class="line">│   ├── AndroidManifest.xml</span><br><span class="line">│   ├── gen</span><br><span class="line">│   ├── lint.xml</span><br><span class="line">│   ├── project.properties</span><br><span class="line">│   ├── res</span><br><span class="line">│   │   └── values</span><br><span class="line">│   └── src</span><br><span class="line">│       └── org</span><br><span class="line">├── native</span><br><span class="line">│   ├── 3rdparty</span><br><span class="line">│   │   └── libs</span><br><span class="line">│   ├── jni</span><br><span class="line">│   │   ├── abi-armeabi-v7a</span><br><span class="line">│   │   ├── android.toolchain.cmake</span><br><span class="line">│   │   ├── include</span><br><span class="line">│   │   ├── OpenCV-armeabi-v7a.mk</span><br><span class="line">│   │   ├── OpenCVConfig.cmake</span><br><span class="line">│   │   ├── OpenCVConfig-version.cmake</span><br><span class="line">│   │   └── OpenCV.mk</span><br><span class="line">│   ├── libs</span><br><span class="line">│   │   └── armeabi-v7a</span><br><span class="line">│   └── staticlibs</span><br><span class="line">│       └── armeabi-v7a</span><br><span class="line">└── opencv_sdk.iml</span><br><span class="line"></span><br><span class="line">19 directories, 34 files</span><br></pre></td></tr></table></figure>
+<h2 id="纯-JNI-C-开发-调用-OPENCV"><a href="#纯-JNI-C-开发-调用-OPENCV" class="headerlink" title="纯 JNI C++开发,调用 OPENCV"></a>纯 <code>JNI C++</code>开发,调用 OPENCV</h2><ul>
+<li>如果我们要在 Android 工程里的使用 JNI 直接调用 opencv 的 API 函数,如上面工程 <strong>src/main/cpp/native-lib.cpp</strong>.<br>需要在<strong>app/build.gradle</strong> 的 <code>android</code>结点里添加相关路径:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line"></span><br><span class="line">    [...]</span><br><span class="line">    externalNativeBuild &#123;</span><br><span class="line">        cmake &#123;</span><br><span class="line">            path <span class="string">"CMakeLists.txt"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sourceSets &#123;</span><br><span class="line">        main &#123;</span><br><span class="line">            jni.srcDirs = [jni.srcDirs,<span class="string">'../opencv_sdk/native/jni/include'</span>]</span><br><span class="line">            jniLibs.srcDirs = [jniLibs.srcDirs,<span class="string">'../opencv_sdk/native/3rdparty/libs'</span>,<span class="string">'../opencv_sdk/native/libs'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>app/CMakeLists.txt</code>里要包含如下信息:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">set</span>(pathToOpenCV <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/../open_sdk )</span><br><span class="line">include_directories(<span class="variable">$&#123;pathToOpenCV&#125;</span>/native/jni/include) <span class="comment"># Not needed for CMake &gt;= 2.8.11</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span>(CMAKE_VERBOSE_MAKEFILE on)</span><br><span class="line"><span class="built_in">set</span>(CMAKE_CXX_FLAGS <span class="string">"<span class="variable">$&#123;CMAKE_CXX_FLAGS&#125;</span> -std=gnu++11"</span>)</span><br><span class="line">add_library( lib_opencv STATIC IMPORTED )</span><br><span class="line">set_target_properties(lib_opencv PROPERTIES IMPORTED_LOCATION</span><br><span class="line">                        <span class="variable">$&#123;pathToOpenCV&#125;</span>/native/libs/<span class="variable">$&#123;ANDROID_ABI&#125;</span>/libopencv_java3.so)</span><br><span class="line">target_link_libraries( <span class="comment"># Specifies the target library.</span></span><br><span class="line">                       native-lib</span><br><span class="line"></span><br><span class="line">                       <span class="comment"># Links the target library to the log library</span></span><br><span class="line">                       <span class="comment"># included in the NDK.</span></span><br><span class="line">                       <span class="variable">$&#123;log-lib&#125;</span></span><br><span class="line">                       lib_opencv   <span class="comment"># 要加上这lib_opencv 才能链接到opencv的库.</span></span><br><span class="line">                       )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加上述路径之后,就可以在<strong>src/main/cpp/native-lib.cpp</strong> 里添加<code>#include &lt;opencv2/opencv.hpp&gt;</code>.</p>
+</li>
+<li>上述 JNI 方式开发就是写原生的 C++代码调用 API,编译成功后会生成<code>.so</code>的文件,通过 JNI 方式加载这个库文件,或者升级更新这个库文件,不需要修改 Android 的文件.但是不能像 PC 下那样使用,如:<strong>imshow(),namedWindow(),createTrackBar(),waitKey()</strong>,这些函数是不能用.</li>
+</ul>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android-OpenCV/" rel="tag"># Android,OpenCV</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/04/28/OpenWrt固件编译/" rel="prev" title="OpenWrt固件编译">
+      <i class="fa fa-chevron-left"></i> OpenWrt固件编译
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/02/Android错误集/" rel="next" title="Android错误集">
+      Android错误集 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-脚本编译"><span class="nav-number">1.</span> <span class="nav-text">Python 脚本编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装编译工具"><span class="nav-number">1.1.</span> <span class="nav-text">安装编译工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CMake-编译方式"><span class="nav-number">2.</span> <span class="nav-text">CMake 编译方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译环境"><span class="nav-number">2.1.</span> <span class="nav-text">编译环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake-单独编译参数"><span class="nav-number">2.2.</span> <span class="nav-text">CMake 单独编译参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Studio-集成-OpenCV-测试"><span class="nav-number">3.</span> <span class="nav-text">Android Studio 集成 OpenCV 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原有工程-添加-OpenCV-支持"><span class="nav-number">3.1.</span> <span class="nav-text">原有工程,添加 OpenCV 支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纯-JNI-C-开发-调用-OPENCV"><span class="nav-number">3.2.</span> <span class="nav-text">纯 JNI C++开发,调用 OPENCV</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yjdwbj"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

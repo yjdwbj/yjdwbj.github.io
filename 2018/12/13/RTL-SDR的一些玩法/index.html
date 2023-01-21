@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="软件定义电台 Links: Rtl-sdr rtl2832u https://gnss-sdr.org/  GSM Hacking rtl-sdr-rtl2832 电视棒跟踪飞机&amp;gt;) Implementation of an ADS-B/Mode-S Receiver in GNU Radio 使用 OpenBTS 基站测试物联网模块 airprobe gpsprune rtl_433 gn">
+<meta name="keywords" content="RTL-SDR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RTL-SDR的一些玩法">
+<meta property="og:url" content="http://yoursite.com/2018/12/13/RTL-SDR的一些玩法/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="软件定义电台 Links: Rtl-sdr rtl2832u https://gnss-sdr.org/  GSM Hacking rtl-sdr-rtl2832 电视棒跟踪飞机&amp;gt;) Implementation of an ADS-B/Mode-S Receiver in GNU Radio 使用 OpenBTS 基站测试物联网模块 airprobe gpsprune rtl_433 gn">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/rtl-sdr/gpsprune.png">
+<meta property="og:image" content="http://yoursite.com/imgs/rtl-sdr/add-link.png">
+<meta property="og:image" content="http://yoursite.com/imgs/rtl-sdr/google-map.png">
+<meta property="og:updated_time" content="2022-11-23T12:10:27.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RTL-SDR的一些玩法">
+<meta name="twitter:description" content="软件定义电台 Links: Rtl-sdr rtl2832u https://gnss-sdr.org/  GSM Hacking rtl-sdr-rtl2832 电视棒跟踪飞机&amp;gt;) Implementation of an ADS-B/Mode-S Receiver in GNU Radio 使用 OpenBTS 基站测试物联网模块 airprobe gpsprune rtl_433 gn">
+<meta name="twitter:image" content="http://yoursite.com/imgs/rtl-sdr/gpsprune.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/12/13/RTL-SDR的一些玩法/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>RTL-SDR的一些玩法 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/RTL-SDR的一些玩法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RTL-SDR的一些玩法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-13 22:22:29" itemprop="dateCreated datePublished" datetime="2018-12-13T22:22:29+08:00">2018-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-23 20:10:27" itemprop="dateModified" datetime="2022-11-23T20:10:27+08:00">2022-11-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="软件定义电台"><a href="#软件定义电台" class="headerlink" title="软件定义电台"></a>软件定义电台</h1><ul>
+<li>Links:<ul>
+<li><a href="https://osmocom.org/projects/rtl-sdr/wiki/Rtl-sdr" target="_blank" rel="noopener">Rtl-sdr</a></li>
+<li><a href="https://gnss-sdr.org/docs/tutorials/gnss-sdr-operation-realtek-rtl2832u-usb-dongle-dvb-t-receiver/" target="_blank" rel="noopener">rtl2832u</a></li>
+<li><a href="https://gnss-sdr.org/" target="_blank" rel="noopener">https://gnss-sdr.org/</a></li>
+<li><a href="http://www.freebuf.com/articles/wireless/121961.html" target="_blank" rel="noopener"></a></li>
+<li><a href="https://cn0xroot.com/2016/12/09/gsm-hacking%EF%BC%9Athe-application-of-silent-sms-in-technical-investigation/" target="_blank" rel="noopener">GSM Hacking</a></li>
+<li><a href="http://sdr-x.github.io/  rtl-sdr-rtl2832%E7%94%B5%E8%A7%86%E6%A3%92%E8%B7%9F%E8%B8%AA%E9%A3%9E%E6%9C%BAstep-by-step%E6%95%99%E7%A8%8B  (tutorial-ADS-B-aircraft-tracking-by-rtl-sdr-rtl2832-gr-air-modes" target="_blank" rel="noopener">rtl-sdr-rtl2832 电视棒跟踪飞机</a>&gt;)</li>
+<li><a href="https://kb.ettus.com/Implementation_of_an_ADS-B/  Mode-S_Receiver_in_GNU_Radio" target="_blank" rel="noopener">Implementation of an ADS-B/Mode-S Receiver in GNU Radio</a></li>
+<li><a href="https://cn0xroot.com/2017/01/10/iot-mode-fuzzing-with-openbt/" target="_blank" rel="noopener">使用 OpenBTS 基站测试物联网模块</a></li>
+<li><a href="http://git.gnumonks.org/airprobe/" target="_blank" rel="noopener">airprobe</a></li>
+<li><a href="https://live.osgeo.org/en/overview/gpsprune_overview.html" target="_blank" rel="noopener">gpsprune</a></li>
+<li><a href="https://github.com/merbanan/rtl_433" target="_blank" rel="noopener">rtl_433</a></li>
+<li><a href="https://wiki.gnuradio.org/index.php/Main_Page" target="_blank" rel="noopener">gnuradio Wiki</a></li>
+<li><a href="https://www.hackrf.net/hackrf%E4%B8%8Egnuradio%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" target="_blank" rel="noopener">HackRF 与 gnuradio 入门</a></li>
+<li><a href="https://www.sdr-radio.com/" target="_blank" rel="noopener">SDR-Radio.com</a></li>
+<li><a href="https://blog.bliley.com/10-popular-software-defined-radios-sdr" target="_blank" rel="noopener">10 Popular Software Defined Radios (SDRs) of 2021</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="rtl-sdr"><a href="#rtl-sdr" class="headerlink" title="rtl-sdr"></a>rtl-sdr</h2><ul>
+<li><a href="http://rtlsdr.org/" target="_blank" rel="noopener">rtlsdr.org</a></li>
+<li><a href="https://github.com/steve-m/librtlsdr" target="_blank" rel="noopener">librtlsdr</a></li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>直接安装方式如下,也可以通过源码编译最新版,<a href="https://osmocom.org/projects/rtl-sdr/wiki/Rtl-sdr" target="_blank" rel="noopener">源码编译请看这里]</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install rtl-sdr</span><br><span class="line"></span><br><span class="line">~$ rtl_eeprom</span><br><span class="line">Found 1 device(s):</span><br><span class="line">  0:  Generic RTL2832U OEM</span><br><span class="line"></span><br><span class="line">Using device 0: Generic RTL2832U OEM</span><br><span class="line">Found Rafael Micro R820T tuner</span><br><span class="line"></span><br><span class="line">Current configuration:</span><br><span class="line">__________________________________________</span><br><span class="line">Vendor ID:		0x0bda</span><br><span class="line">Product ID:		0x2838</span><br><span class="line">Manufacturer:		Realtek</span><br><span class="line">Product:		RTL2838UHIDIR</span><br><span class="line">Serial number:		00000001</span><br><span class="line">Serial number enabled:	yes</span><br><span class="line">IR endpoint enabled:	yes</span><br><span class="line">Remote wakeup enabled:	no</span><br></pre></td></tr></table></figure>
+<h3 id="收音机功能"><a href="#收音机功能" class="headerlink" title="收音机功能"></a>收音机功能</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~$ rtl_fm -f 87.0e6 -M wbfm -s 200000 -r 48000 - | aplay -r 48 -f S16_LE</span><br><span class="line">Found 1 device(s):</span><br><span class="line">  0:  Realtek, RTL2838UHIDIR, SN: 00000001</span><br><span class="line"></span><br><span class="line">Using device 0: Generic RTL2832U OEM</span><br><span class="line">Found Rafael Micro R820T tuner</span><br><span class="line">Tuner gain <span class="built_in">set</span> to automatic.</span><br><span class="line">Tuned to 87216000 Hz.</span><br><span class="line">Oversampling input by: 6x.</span><br><span class="line">Oversampling output by: 1x.</span><br><span class="line">Buffer size: 6.83ms</span><br><span class="line">Sampling at 1200000 S/s.</span><br><span class="line">Output at 200000 Hz.</span><br><span class="line">Playing raw data <span class="string">'stdin'</span> : Signed 16 bit Little Endian, Rate 48000 Hz, Mono</span><br></pre></td></tr></table></figure>
+<h2 id="gr-air-modes-使用"><a href="#gr-air-modes-使用" class="headerlink" title="gr-air-modes 使用"></a>gr-air-modes 使用</h2><h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li>这里请参照该项目的<code>README.md</code>指导安装.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/bistromath/gr-air-modes</span><br><span class="line">~$ <span class="built_in">cd</span> gr-air-modes &amp;&amp; mkdir build</span><br><span class="line">~$ <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake ../</span><br></pre></td></tr></table></figure>
+<p>###　收集飞行数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~$ modes_rx -s osmocom -t 1234 -r 2.4e6 --kml air-tracker.kml</span><br><span class="line">linux; GNU C++ version 6.3.0 20170221; Boost_106200; UHD_003.009.005-0-unknown</span><br><span class="line"></span><br><span class="line">gr-osmosdr 0.1.4 (0.1.4) gnuradio 3.7.10</span><br><span class="line">built-in <span class="built_in">source</span> types: file osmosdr fcd rtl rtl_tcp uhd miri hackrf bladerf rfspace airspy soapy redpitaya</span><br><span class="line">Cannot connect to server socket err = No such file or directory</span><br><span class="line">Cannot connect to server request channel</span><br><span class="line">jack server is not running or cannot be started</span><br><span class="line">JackShmReadWritePtr::~JackShmReadWritePtr - Init not <span class="keyword">done</span> <span class="keyword">for</span> 4294967295, skipping unlock</span><br><span class="line">JackShmReadWritePtr::~JackShmReadWritePtr - Init not <span class="keyword">done</span> <span class="keyword">for</span> 4294967295, skipping unlock</span><br><span class="line">Found Rafael Micro R820T tuner</span><br><span class="line">Using device <span class="comment">#0 Realtek RTL2838UHIDIR SN: 00000001</span></span><br><span class="line">Found Rafael Micro R820T tuner</span><br><span class="line">[R82XX] PLL not locked!</span><br><span class="line">[R82XX] PLL not locked!</span><br><span class="line">Gain is 33</span><br><span class="line">Rate is 2400000</span><br><span class="line">(-26 0.06682075) Type 17 BDS0,9-1 (track report) from 780d1c with velocity 458kt heading 268 VS -64</span><br><span class="line">(-40 0.07617875) No handler <span class="keyword">for</span> message <span class="built_in">type</span> 24 from 19f157</span><br><span class="line">(-38 0.15085075) Type 0 (short A-A surveillance) from adae05 at 4375ft (speed &lt;75kt)</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<h3 id="读取飞行数据"><a href="#读取飞行数据" class="headerlink" title="读取飞行数据"></a>读取飞行数据</h3><h4 id="gpsprune"><a href="#gpsprune" class="headerlink" title="gpsprune"></a>gpsprune</h4><ul>
+<li>Debian 系统可以通过系统直接安装.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install gpsprune -y</span><br><span class="line">[...]</span><br><span class="line">~$ gpsprune</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过<code>File--&gt;Open File</code>,打开对话框,找到并选择<code>air-tracker.kml</code>文件,就会看到如下图所示的界面,一些蓝色的线条与点,把上面的<code>小地球</code>点亮就会加载地图进来.</li>
+</ul>
+<p><img src="/imgs/rtl-sdr/gpsprune.png" alt="gpsprune]"></p>
+<h4 id="Google-Earth"><a href="#Google-Earth" class="headerlink" title="Google Earth"></a>Google Earth</h4><ul>
+<li>从谷歌网站去下载地图软件,这里是需要<code>科学上网</code>才能下载与使用的.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo dpkg -i google-earth-pro-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开软件<code>Add--&gt;Network Link</code>如下图所示,打开对话框,找到并选择<code>air-tracker.kml</code>文件.</li>
+</ul>
+<p><img src="/imgs/rtl-sdr/add-link.png" alt="add-link"></p>
+<ul>
+<li>可以根据需要,设置<code>Refresh</code>,如:自动刷新…</li>
+</ul>
+<p><img src="/imgs/rtl-sdr/google-map.png" alt="google-map.png"></p>
+<h1 id="GnuRadio"><a href="#GnuRadio" class="headerlink" title="GnuRadio"></a>GnuRadio</h1><h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><ul>
+<li><a href="https://github.com/gnuradio/gnuradio" target="_blank" rel="noopener">gnuradio/gnuradio</a></li>
+<li><a href="https://wiki.gnuradio.org/index.php/InstallingGR#From_Source" target="_blank" rel="noopener">Installing GR From Source</a></li>
+</ul>
+<h3 id="安装Volk"><a href="#安装Volk" class="headerlink" title="安装Volk"></a>安装Volk</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ env PYTHON_CONFIGURE_OPTS=<span class="string">"--enable-shared --enable-static"</span> pyenv install --verbose 3.10.7</span><br><span class="line">~$ pip install mako</span><br><span class="line">~$ git <span class="built_in">clone</span> --recursive https://github.com/gnuradio/volk.git</span><br><span class="line">~$ <span class="built_in">cd</span> volk &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/home/michael/.pyenv/versions/3.10.7/bin/python3 -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">~$ make -j10 &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h3 id="支持UHD"><a href="#支持UHD" class="headerlink" title="支持UHD"></a>支持UHD</h3><ul>
+<li><a href="https://www.ettus.com/sdr-software/uhd-usrp-hardware-driver/" target="_blank" rel="noopener">UHD (USRP Hardware Driver™)</a></li>
+<li><a href="https://github.com/EttusResearch/uhd" target="_blank" rel="noopener">EttusResearch/uhd</a></li>
+<li><p><a href="https://files.ettus.com/manual/page_build_guide.html" target="_blank" rel="noopener">USRP Hardware Driver and USRP Manual</a></p>
+</li>
+<li><p>这里的<code>master</code>分支未可以正常工作，可能要试试其它的分支或者<code>tag</code>.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/EttusResearch/uhd.git</span><br><span class="line">~$ <span class="built_in">cd</span> uhd/host &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line"></span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_EXAMPLES=OFF -DENABLE_TESTS=OFF -DENABLE_DOXYGEN=OFF -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">[...]</span><br><span class="line">-- <span class="comment">######################################################</span></span><br><span class="line">-- <span class="comment"># UHD enabled components</span></span><br><span class="line">-- <span class="comment">######################################################</span></span><br><span class="line">--   * LibUHD</span><br><span class="line">--   * LibUHD - C API</span><br><span class="line">--   * LibUHD - Python API</span><br><span class="line">--   * Examples</span><br><span class="line">--   * Utils</span><br><span class="line">--   * Tests</span><br><span class="line">--   * USB</span><br><span class="line">--   * B100</span><br><span class="line">--   * B200</span><br><span class="line">--   * USRP1</span><br><span class="line">--   * USRP2</span><br><span class="line">--   * X300</span><br><span class="line">--   * MPMD</span><br><span class="line">--   * SIM</span><br><span class="line">--   * N300</span><br><span class="line">--   * N320</span><br><span class="line">--   * E320</span><br><span class="line">--   * E300</span><br><span class="line">--   * X400</span><br><span class="line">--   * OctoClock</span><br><span class="line">--   * Manual</span><br><span class="line">--   * API/Doxygen</span><br><span class="line">--   * Man Pages</span><br><span class="line">--</span><br><span class="line">-- <span class="comment">######################################################</span></span><br><span class="line">-- <span class="comment"># UHD disabled components</span></span><br><span class="line">-- <span class="comment">######################################################</span></span><br><span class="line">--   * DPDK</span><br><span class="line">--</span><br><span class="line">-- ******************************************************</span><br><span class="line">-- * You are building the UHD development master branch.</span><br><span class="line">-- * For production code, we recommend our stable,</span><br><span class="line">-- * releases or using the release branch (maint).</span><br><span class="line">-- ******************************************************</span><br><span class="line">-- Building version: 4.3.0.0-6-g5aa6bc44</span><br><span class="line">-- Using install prefix: /home/michael/.<span class="built_in">local</span></span><br><span class="line">-- Configuring <span class="keyword">done</span></span><br><span class="line">-- Generating <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>SoapySDR</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/pothosware/SoapySDR</span><br><span class="line">~$ <span class="built_in">cd</span>  SoapySDR &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/home/michael/.pyenv/versions/3.10.7/bin/python -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">~$ make -j 10 &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>boost_1.69</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ wget -c https://boostorg.jfrog.io/artifactory/main/release/1.80.0/<span class="built_in">source</span>/boost_1_80_0.tar.bz2</span><br><span class="line">~$ tar xvf boost_1_80_0.tar.bz2 &amp;&amp; <span class="built_in">cd</span> boost_1_80_0</span><br><span class="line">~$ ./bootstrap.sh --prefix=<span class="variable">$&#123;HOME&#125;</span>/.<span class="built_in">local</span></span><br><span class="line">~$ ./b2 &amp;&amp; b2 install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<!-- <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/analogdevicesinc/libiio</span><br><span class="line">~$ <span class="built_in">cd</span> libiio &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release   -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">``` --&gt;</span><br><span class="line"></span><br><span class="line">* rtl-sdr驱动</span><br><span class="line"></span><br><span class="line">```sh</span><br><span class="line"></span><br><span class="line">~$ git <span class="built_in">clone</span> https://gitea.osmocom.org/sdr/rtl-sdr</span><br><span class="line">~$ <span class="built_in">cd</span> rtl-sdr &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release   -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>libad9361-iio</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/analogdevicesinc/libad9361-iio</span><br><span class="line">~$ <span class="built_in">cd</span> libad9361-iio &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release   -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>qwt</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://git.code.sf.net/p/qwt/git qwt-git</span><br><span class="line">~$ <span class="built_in">cd</span> qwt-git</span><br><span class="line">~$ /fullpath/bin/qmake qwt.pro</span><br><span class="line">~$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h3 id="可选源码编译的库"><a href="#可选源码编译的库" class="headerlink" title="可选源码编译的库"></a>可选源码编译的库</h3><ul>
+<li><p><code>pybind11</code>或者安装<code>apt-get install pybind11-dev</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ pip install pytest</span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/pybind/pybind11.git</span><br><span class="line">~$ <span class="built_in">cd</span>  pybind11 &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/home/michael/.pyenv/versions/3.10.7/bin/python -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">~$ make -j 10 &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>spdlog</code>有可能不兼容,有可能要选择一个合适的分支，或者还是要安装<code>libspdlog-dev</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/gabime/spdlog</span><br><span class="line">~$ <span class="built_in">cd</span> spdlog &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release  -DCMAKE_INSTALL_LIBDIR=/home/michael/.<span class="built_in">local</span>/lib -DCMAKE_INSTALL_INCLUDEDIR=/home/michael/.<span class="built_in">local</span>/include  ../</span><br><span class="line">~$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装GnuRadio"><a href="#安装GnuRadio" class="headerlink" title="安装GnuRadio"></a>安装GnuRadio</h3><ul>
+<li><a href="https://wiki.gnuradio.org/index.php/InstallingGR">InstallingGR</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">~$ pip install mako pyyaml numpy jsonschema numpy pygccxml packaging thrift pyqt5 pyqtgraph scipy PythonQwt click click-plugins PyGObject</span><br><span class="line">~$ apt-get install libgsl-dev libthrift-dev libthrift-c-glib-dev \</span><br><span class="line">           libzmq3-dev libspdlog-dev  libad9361-dev  libiio-dev \</span><br><span class="line">           libsdl1.2-dev libqwt-qt5-dev libcpu-features-dev -y</span><br><span class="line">~$ git <span class="built_in">clone</span> --recursive https://github.com/gnuradio/gnuradio</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/home/michael/.pyenv/versions/3.10.7/bin/python -DBOOST_ROOT=/home/michael/SOFT-LIBRAR/boost_1_69_0 -DPREFIX=/home/michael/.<span class="built_in">local</span> -Dlibiio_INCLUDE_DIR=<span class="variable">$HOME</span>/.<span class="built_in">local</span>/include -Dlibiio_LIBRARY=<span class="variable">$HOME</span>/.<span class="built_in">local</span>/lib -DQT_DIR=<span class="variable">$HOME</span>/Qt5.15.6 -DQWT_INCLUDE_DIRS=/usr/<span class="built_in">local</span>/qwt-6.2.0/include -DQWT_LIBRARIES=/usr/<span class="built_in">local</span>/qwt-6.2.0/lib -DENABLE_UHD_RFNOC=OFF ../</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~gnuradio$ cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_DOXYGEN=OFF  -DPYTHON_EXECUTABLE=/home/michael/.pyenv/versions/3.10.7/bin/python -DCMAKE_INSTALL_PREFIX=/home/michael/.<span class="built_in">local</span>  -DENABLE_UHD_RFNOC=OFF -DENABLE_GR_UHD=OFF ../</span><br></pre></td></tr></table></figure>
+<h3 id="gr-iqbal"><a href="#gr-iqbal" class="headerlink" title="gr-iqbal"></a>gr-iqbal</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> --recursive  https://gitea.osmocom.org/sdr/gr-iqbal</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> libosmo-dsp &amp;&amp; autoreconf -i -I /usr/share/aclocal</span><br><span class="line">~$ ./configure --prefix=<span class="variable">$HOME</span>/.<span class="built_in">local</span> &amp;&amp; make &amp;&amp; make install &amp;&amp; <span class="built_in">cd</span> ../</span><br><span class="line">~$ <span class="built_in">cd</span> gr-iqbal &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span>  ../</span><br></pre></td></tr></table></figure>
+<h3 id="gr-osmosdr"><a href="#gr-osmosdr" class="headerlink" title="gr-osmosdr"></a>gr-osmosdr</h3><ul>
+<li><a href="https://osmocom.org/projects/gr-osmosdr/wiki/GrOsmoSDR">osmocom Gnu Radio Blocks</a></li>
+<li><code>freeSRP</code>可能无法编译通过，不要安装<code>libfreesrp-dev</code>.</li>
+</ul>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/CMakeLists.txt b/CMakeLists.txt</span><br><span class="line">index ffcef0c..ea04d37 100644</span><br><span class="line"><span class="comment">--- a/CMakeLists.txt</span></span><br><span class="line"><span class="comment">+++ b/CMakeLists.txt</span></span><br><span class="line">@@ -145,7 +145,7 @@ find_package(gnuradio-blocks PATHS $&#123;Gnuradio_DIR&#125;)</span><br><span class="line"> message(STATUS " Found GNURadio-Blocks: $&#123;gnuradio-blocks_FOUND&#125;")</span><br><span class="line"></span><br><span class="line"> message(STATUS "Searching for IQ Balance...")</span><br><span class="line"><span class="deletion">-find_package(gnuradio-iqbalance PATHS $&#123;Gnuradio_DIR&#125;)</span></span><br><span class="line"><span class="addition">+find_package(gnuradio-iqbalance PATHS /home/michael/.local/lib/cmake/gnuradio)</span></span><br><span class="line"> message (STATUS " Found IQ Balance: $&#123;gnuradio-iqbalance_FOUND&#125;")</span><br><span class="line"></span><br><span class="line"> message(STATUS "Searching for UHD Drivers...")</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install libfreesrp-dev libairspy-dev libxtrx-dev libairspyhf-dev librtlsdr-dev libhackrf-dev libbladerf-dev -y</span><br><span class="line">~$ git <span class="built_in">clone</span> https://git.osmocom.org/sdr/gr-osmosdr.git</span><br><span class="line">~$ <span class="built_in">cd</span> gr-osmosdr &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_DOXYGEN=OFF  -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">~$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h3 id="gqrx"><a href="#gqrx" class="headerlink" title="gqrx"></a>gqrx</h3><ul>
+<li><a href="https://gqrx.dk/download">Download Gqrx SDR</a></li>
+<li><a href="https://gqrx.dk/doc/streaming-audio-over-udp">Streaming audio over UDP</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/gqrx-sdr/gqrx.git gqrx.git</span><br><span class="line">~$ <span class="built_in">cd</span> gqrx.git &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">~$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/.<span class="built_in">local</span> ../</span><br><span class="line">~$ make -j12 &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>有可能要指定非标准目录链接</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$HOME</span>/.<span class="built_in">local</span>/lib:<span class="variable">$HOME</span>/.pyenv/versions/3.10.7/lib make -j12</span><br><span class="line">LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$HOME</span>/.<span class="built_in">local</span>/lib:<span class="variable">$HOME</span>/.pyenv/versions/3.10.7/lib /home/michael/.<span class="built_in">local</span>/bin/gqrx</span><br></pre></td></tr></table></figure>
+<h1 id="使用PyBOMBS安装"><a href="#使用PyBOMBS安装" class="headerlink" title="使用PyBOMBS安装"></a>使用PyBOMBS安装</h1><ul>
+<li><a href="https://github.com/gnuradio/pybombs">gnuradio/pybombs</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~$</span><br><span class="line">~$ pip install pybombs pytest mako pybind11 pyzmq pyyaml numpy jsonschema numpy pygccxml packaging thrift pyqt5 pyqtgraph scipy PythonQwt click click-plugins PyGObject</span><br><span class="line"></span><br><span class="line">~$ pybombs auto-config</span><br><span class="line">~$ pybombs recipes add-defaults</span><br><span class="line">~$ tree -L 2 ~/.pybombs</span><br><span class="line">/home/michael/.pybombs</span><br><span class="line">├── config.yml</span><br><span class="line">├── gitcache</span><br><span class="line">│   ├── branches</span><br><span class="line">│   ├── config</span><br><span class="line">│   ├── description</span><br><span class="line">│   ├── FETCH_HEAD</span><br><span class="line">│   ├── HEAD</span><br><span class="line">│   ├── hooks</span><br><span class="line">│   ├── info</span><br><span class="line">│   ├── objects</span><br><span class="line">│   └── refs</span><br><span class="line">└── recipes</span><br><span class="line">    ├── gr-etcetera</span><br><span class="line">    └── gr-recipes</span><br><span class="line"></span><br><span class="line">9 directories, 5 files</span><br></pre></td></tr></table></figure>
+<h2 id="卫星"><a href="#卫星" class="headerlink" title="卫星"></a>卫星</h2><ul>
+<li><a href="https://wxtoimgrestored.xyz/downloads/">WxtoImg</a>将信号解析成图片。</li>
+</ul>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><ul>
+<li><a href="https://leezeeyee.com/index.php/2020/10/04/fm%E8%B0%83%E5%88%B6%E4%B8%80%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8gqrx/"></a></li>
+<li><a href="https://wischu.com/archives/528.html"></a></li>
+<li><a href="https://www.rowetel.com/?p=7898">Open IP over VHF/UHF 5</a></li>
+<li><a href="https://github.com/merbanan/rtl_433">rtl_433</a></li>
+<li><a href="https://www.cgran.org/">The Comprehensive GNU Radio Archive Network</a></li>
+<li><a href="https://github.com/tapparelj/gr-lora_sdr">https://github.com/tapparelj/gr-lora_sdr</a></li>
+<li><a href="https://blog.classycode.com/lora-sync-word-compatibility-between-sx127x-and-sx126x-460324d1787a">https://blog.classycode.com/lora-sync-word-compatibility-between-sx127x-and-sx126x-460324d1787a</a></li>
+<li><a href="https://os.mbed.com/docs/mbed-os/v6.15/apis/LoRa-tutorial.html">https://os.mbed.com/docs/mbed-os/v6.15/apis/LoRa-tutorial.html</a></li>
+</ul>
+<hr>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+<li><a href=mailto:yjdwbj@gmail.com>联系作者</a></li>
+</ul>
+<p><img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/></p>
+-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RTL-SDR/" rel="tag"># RTL-SDR</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/25/使用Heroku进行开发/" rel="prev" title="使用Heroku进行开发">
+      <i class="fa fa-chevron-left"></i> 使用Heroku进行开发
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/04/Eclipse嵌入式开发环境/" rel="next" title="Eclipse嵌入式开发环境">
+      Eclipse嵌入式开发环境 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件定义电台"><span class="nav-number">1.</span> <span class="nav-text">软件定义电台</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rtl-sdr"><span class="nav-number">1.1.</span> <span class="nav-text">rtl-sdr</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收音机功能"><span class="nav-number">1.1.2.</span> <span class="nav-text">收音机功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gr-air-modes-使用"><span class="nav-number">1.2.</span> <span class="nav-text">gr-air-modes 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">1.2.1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取飞行数据"><span class="nav-number">1.2.2.</span> <span class="nav-text">读取飞行数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gpsprune"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">gpsprune</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Google-Earth"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Google Earth</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GnuRadio"><span class="nav-number">2.</span> <span class="nav-text">GnuRadio</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">2.1.</span> <span class="nav-text">源码安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Volk"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装Volk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持UHD"><span class="nav-number">2.1.2.</span> <span class="nav-text">支持UHD</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yjdwbj"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Links: kelu124/awesome-latticeFPGAs YosysHQ/nextpnr YosysHQ/yosys oskirby/logicbone  超详细！FPGA的SerDes接口结构 LFE5UM5G-85F Tilegrid Project Trellis HTML Documentation Lattice ECP5系列FPGA介绍 Microwatt Parall">
+<meta name="keywords" content="FPGA,RISC-V,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lattice ECP5 FPGA 开发板实践">
+<meta property="og:url" content="http://yoursite.com/2021/12/18/Lattice-FPGA-开发板实践/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="Links: kelu124/awesome-latticeFPGAs YosysHQ/nextpnr YosysHQ/yosys oskirby/logicbone  超详细！FPGA的SerDes接口结构 LFE5UM5G-85F Tilegrid Project Trellis HTML Documentation Lattice ECP5系列FPGA介绍 Microwatt Parall">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2022-09-25T14:51:13.244Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lattice ECP5 FPGA 开发板实践">
+<meta name="twitter:description" content="Links: kelu124/awesome-latticeFPGAs YosysHQ/nextpnr YosysHQ/yosys oskirby/logicbone  超详细！FPGA的SerDes接口结构 LFE5UM5G-85F Tilegrid Project Trellis HTML Documentation Lattice ECP5系列FPGA介绍 Microwatt Parall">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/12/18/Lattice-FPGA-开发板实践/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lattice ECP5 FPGA 开发板实践 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/18/Lattice-FPGA-开发板实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lattice ECP5 FPGA 开发板实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-18 20:13:35" itemprop="dateCreated datePublished" datetime="2021-12-18T20:13:35+08:00">2021-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-25 22:51:13" itemprop="dateModified" datetime="2022-09-25T22:51:13+08:00">2022-09-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>Links:<ul>
+<li><a href="https://github.com/kelu124/awesome-latticeFPGAs" target="_blank" rel="noopener">kelu124/awesome-latticeFPGAs</a></li>
+<li><a href="https://github.com/YosysHQ/nextpnr" target="_blank" rel="noopener">YosysHQ/nextpnr</a></li>
+<li><a href="https://github.com/YosysHQ/yosys" target="_blank" rel="noopener">YosysHQ/yosys</a></li>
+<li><a href="https://github.com/oskirby/logicbone" target="_blank" rel="noopener">oskirby/logicbone </a></li>
+<li><a href="https://picture.iczhiku.com/weixin/message1583919755679.html" target="_blank" rel="noopener">超详细！FPGA的SerDes接口结构</a></li>
+<li><a href="http://yosyshq.net/prjtrellis-db/ECP5/LFE5UM5G-85F/index.html" target="_blank" rel="noopener">LFE5UM5G-85F Tilegrid</a></li>
+<li><a href="http://yosyshq.net/prjtrellis-db/" target="_blank" rel="noopener">Project Trellis HTML Documentation</a></li>
+<li><a href="https://www.wpgdadatong.com/cn/blog/detail?BID=B1577" target="_blank" rel="noopener">Lattice ECP5系列FPGA介绍</a></li>
+<li><a href="https://github.com/antonblanchard/microwatt" target="_blank" rel="noopener">Microwatt</a></li>
+<li><a href="https://github.com/KastnerRG/pp4fpgas" target="_blank" rel="noopener">Parallel Programming for FPGAs</a></li>
+<li><a href="https://projectf.io/" target="_blank" rel="noopener">Project F: FPGA Dev</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="Lattice-ECP5和ECP5-5G系列FPGA简介"><a href="#Lattice-ECP5和ECP5-5G系列FPGA简介" class="headerlink" title="Lattice ECP5和ECP5-5G系列FPGA简介"></a><code>Lattice ECP5</code>和<code>ECP5-5G</code>系列<code>FPGA</code>简介</h1><ul>
+<li><code>ECP5</code>是属于<code>Lattice</code>公司里的高端产品线,<code>ECP5 FPGA</code>器件提供低成本,低功耗,小尺寸的解决方案,用于实现大批量应用中的连接,视频和图像功能,如小型蜂窝网络,工业摄像头和宽带接入设备。<ul>
+<li>特點:<ul>
+<li>新型应用中<code>FPGA</code>与<code>ASIC</code>和<code>ASSP</code>相结合,</li>
+<li>快速构建灵活的系统,可以满足严格的成本,功耗和尺寸限制。</li>
+<li>在开发<code>ECP5TM FPGA</code>系列的过程中,莱迪思打破了<code>FPGA</code>产品密度极高,功耗惊人和价格昂贵的陈规。</li>
+<li><code>ECP5</code>和<code>ECP5-5G</code>针对低成本,小封装尺寸和低功耗进行了优化,</li>
+<li>比竞争对手的<code>FPGA</code>产品成本更低,使用更好的布线架构,双通道<code>SERDES</code>以及增强的<code>DSP</code>模块,减少高达4倍的乘法器资源使用,这些特性使得ECP5器件非常适用于辅助ASIC和ASSP的可编程连接解决方案。</li>
+</ul>
+</li>
+<li>用途:<ul>
+<li>ECP5/ECP5- 5g设备系列FPGA包括可查找表(LUT)容量为85K的逻辑元件,支持最多365个用户I/O。</li>
+<li>同时还提供多达156个18x18乘法器和广泛的并行I/O标准。</li>
+<li>ECP5/ECP5- 5g FPGA在低功耗,低成本的前提下进行了高性能的优化。</li>
+<li>利用可重新配置的<code>SRAM</code>逻辑技术,提供<code>lutb</code>的逻辑,分布式和嵌入式内存,锁相环(PLLs),延迟锁相环(DLLs),预先设计的源同步I/O支持,增强的<code>sysDSP</code>片和高级配置支持,包括加密和双启动功能。</li>
+<li>支持广泛的接口标准,包括<code>DDR2/3,LPDDR2/3,XGMII和7:1 LVDS</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="开源工具"><a href="#开源工具" class="headerlink" title="开源工具"></a>开源工具</h1><ul>
+<li><p>开发FPGA,从<code>verilog</code>到可以烧录的<code>bitstream</code>有以下几步：</p>
+<ul>
+<li><code>Synthesis</code>：一般叫合成,把<code>verilog</code>的<code>RTL</code>生成为逻辑门。</li>
+<li><code>Place and Route</code>：布线,依照逻辑门的的数量限制,生成逻辑的连线。</li>
+<li><code>Bitstream Creation</code>：將逻辑门的连线,依照对应的<code>FPGA</code>型号生成可烧写的<code>bitstream</code>的文件。</li>
+</ul>
+</li>
+<li><p>开源<code>Verilog</code>逻辑综合(Synthesis)工具<code>Yosys</code>,可以用于<code>Lattice</code>和<code>Xilinx</code>的<code>FPGA</code>。<code>Clifford Wolf</code>创建了<code>FPGA</code>的整条开源工具链：</p>
+<ul>
+<li><a href="https://github.com/YosysHQ/yosys" target="_blank" rel="noopener">YosysHQ/yosys</a>:用来将<code>verilog RTL</code>综合生成网表文件</li>
+<li><a href="https://github.com/YosysHQ/nextpnr" target="_blank" rel="noopener">YosysHQ/nextpnr</a>: 根据网表文件和约束文件进行布局布线</li>
+<li><a href="https://github.com/YosysHQ/prjtrellis" target="_blank" rel="noopener">YosysHQ/prjtrellis</a>:针对<code>Lattice ECP5 FPGA</code>架构信息库和完整生成<code>bitstream</code>的烧写文件。</li>
+<li><a href="YosysHQ/icestorm">icestorm</a>:针对<code>Lattice iCE40 FPGA</code>架构信息库和完整生成<code>bitstream</code>工具链组合,依靠反向工程创建出来的。</li>
+</ul>
+</li>
+<li><p>上面三个开源工具链被<a href="https://github.com/SymbiFlow" target="_blank" rel="noopener">SymbiFlow</a>收入整合了。也可以用<a href="https://github.com/YosysHQ/oss-cad-suite-build" target="_blank" rel="noopener">YosysHQ/oss-cad-suite-build</a>去做开发环境的构建。</p>
+</li>
+</ul>
+<h2 id="SymbiFlow"><a href="#SymbiFlow" class="headerlink" title="SymbiFlow"></a><code>SymbiFlow</code></h2><ul>
+<li><a href="https://libre-soc.org/HDL_workflow/ECP5_FPGA/" target="_blank" rel="noopener">ECP5_FPGA</a></li>
+</ul>
+<ul>
+<li>SymbiFlow is a fully open source toolchain for the development of FPGAs of multiple vendors. Currently, it targets the Xilinx 7-Series, Lattice iCE40, Lattice ECP5 FPGAs, QuickLogic EOS S3 and is gradually being expanded to provide a comprehensive end-to-end FPGA synthesis flow.</li>
+<li><code>SymbiFlow</code>相当于是<code>FPGAs</code>开源界的<code>GCC</code>工具。</li>
+</ul>
+<h2 id="构建环境"><a href="#构建环境" class="headerlink" title="构建环境"></a>构建环境</h2><h3 id="prjtrellis"><a href="#prjtrellis" class="headerlink" title="prjtrellis"></a>prjtrellis</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> --recursive https://github.com/YosysHQ/prjtrellis</span><br><span class="line">~$ <span class="built_in">export</span> LATTICE_TOOLS_PATH=~/Lattice-OpenTools</span><br><span class="line">~$ <span class="built_in">cd</span> libtrellis</span><br><span class="line">~$ cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> .</span><br><span class="line">~$ make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果出现<code>python3</code>开发版本不匹配的错误,可以参照下面修改到合适的版本。删除<code>CMakeCache.txt</code>,重新运行<code>cmake</code>生成配置。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">prjtrellis/libtrellis$ rm CMakeCache.txt</span><br><span class="line">prjtrellis/libtrellis$ git diff CMakeLists.txt</span><br><span class="line">diff --git a/libtrellis/CMakeLists.txt b/libtrellis/CMakeLists.txt</span><br><span class="line">index 540368e..868bd2b 100644</span><br><span class="line">--- a/libtrellis/CMakeLists.txt</span><br><span class="line">+++ b/libtrellis/CMakeLists.txt</span><br><span class="line">@@ -49,10 +49,10 @@ <span class="keyword">else</span>()</span><br><span class="line">     add_definitions(-DNO_THREADS)</span><br><span class="line"> endif()</span><br><span class="line"> <span class="built_in">set</span>(Boost_NO_BOOST_CMAKE ON)</span><br><span class="line">-find_package(PythonInterp 3.5 REQUIRED)</span><br><span class="line">+find_package(PythonInterp 3.9 REQUIRED)</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (BUILD_PYTHON)</span><br><span class="line">-    find_package(PythonLibs 3.5 REQUIRED)</span><br><span class="line">+    find_package(PythonLibs 3.9 REQUIRED)</span><br><span class="line">     <span class="built_in">set</span>(PythonInstallTarget <span class="string">"pytrellis"</span>)</span><br><span class="line"> endif()</span><br></pre></td></tr></table></figure>
+<h3 id="nextpnr"><a href="#nextpnr" class="headerlink" title="nextpnr"></a>nextpnr</h3><ul>
+<li>我现在手上只有<a href="https://www.latticesemi.com/en/Products/DevelopmentBoardsAndKits/ECP5EvaluationBoard" target="_blank" rel="noopener"><code>ECP5 Evaluation Board</code></a>,这只选择编译<code>-DARCH=ecp5</code>,具体更多的参数,查看源码脚本。<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> --recursive https://github.com/YosysHQ/nextpnr</span><br><span class="line">~$ cmake . -DARCH=ecp5 -DTRELLIS_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span></span><br><span class="line">~$ make install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Yosys"><a href="#Yosys" class="headerlink" title="Yosys"></a>Yosys</h3><ul>
+<li><p>安装编译工具与其它依赖,<a href="https://yosyshq.net/yosys/documentation.html" target="_blank" rel="noopener">命令文档指南</a>.注意别与<code>apt-get install yosys</code>混用了,旧版的<code>yosys</code>会报错<code>ERROR: Found netlist using legacy-style JSON parameter values, please update your Yosys.</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install build-essential clang bison flex \</span><br><span class="line">	libreadline-dev gawk tcl-dev libffi-dev git \</span><br><span class="line">	graphviz xdot pkg-config python3 libboost-system-dev \</span><br><span class="line">	libboost-python-dev libboost-filesystem-dev zlib1g-dev libjson11-1-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编码编译,安装目录与前面的工具一样,默认使用<code>clang</code>,可以传送参数变量<code>CONFIG=gcc</code>,用<code>gcc</code>来编译。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/YosysHQ/yosys</span><br><span class="line">~$ <span class="built_in">cd</span> yosys &amp;&amp; mkdir build</span><br><span class="line">~$ <span class="built_in">cd</span> build</span><br><span class="line">~$ PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> make -j20 -f ../Makefile install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因为系统安装了<code>qflow</code>它会依赖安装一个较旧的发行版,最终还是使用了最新源码去覆盖旧的发行版。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ PREFIX=/usr sudo make -j20 -f ../Makefile install</span><br></pre></td></tr></table></figure>
+<h3 id="openFPGALoader"><a href="#openFPGALoader" class="headerlink" title="openFPGALoader"></a>openFPGALoader</h3><ul>
+<li><a href="https://www.librecores.org/trabucayre/openfpgaloader" target="_blank" rel="noopener">openfpgaloader</a></li>
+<li><a href="https://trabucayre.github.io/openFPGALoader/index.html" target="_blank" rel="noopener">Welcome to the documentation of openFPGALoader!</a></li>
+<li><a href="https://github.com/trabucayre/openFPGALoader" target="_blank" rel="noopener">openFPGALoader</a>是一个用于<code>FPGA</code>编程的通用实用程序,支持众多主流<code>FPGA</code>厂商的产品与烧写器,如：<code>Xilinx, Altera/Intel, Lattice, Gowin, Efinix, Anlogic, Cologne Chip</code>. 并且支持<code>Linux, Windows,macOS</code>多平台系统.</li>
+</ul>
+<h4 id="编译openFPGALoader"><a href="#编译openFPGALoader" class="headerlink" title="编译openFPGALoader"></a>编译<code>openFPGALoader</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">~$ apt-get install libftdi1-2 libftdi1-dev libudev-dev cmake  <span class="comment"># 这装必要的支持库</span></span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/trabucayre/openFPGALoader</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> openFPGALoader</span><br><span class="line">~$ sudo cp 99-openfpgaloader.rules /etc/udev/rules.d/</span><br><span class="line">~$ sudo udevadm control --reload-rules &amp;&amp; udevadm trigger <span class="comment"># 强制重新加载rules</span></span><br><span class="line">~$  mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">build$ cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$LATTICE_TOOLS_PATH</span> ../</span><br><span class="line">-- The CXX compiler identification is GNU 10.2.1</span><br><span class="line">-- Detecting CXX compiler ABI info</span><br><span class="line">-- Detecting CXX compiler ABI info - <span class="keyword">done</span></span><br><span class="line">-- Check <span class="keyword">for</span> working CXX compiler: /usr/bin/c++ - skipped</span><br><span class="line">-- Detecting CXX compile features</span><br><span class="line">-- Detecting CXX compile features - <span class="keyword">done</span></span><br><span class="line">-- Found PkgConfig: /usr/bin/pkg-config (found version <span class="string">"0.29.2"</span>)</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libftdi1'</span></span><br><span class="line">--   Found libftdi1, version 1.5</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libusb-1.0'</span></span><br><span class="line">--   Found libusb-1.0, version 1.0.24</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'hidapi-hidraw'</span></span><br><span class="line">--   Found hidapi-hidraw, version 0.10.1</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'zlib'</span></span><br><span class="line">--   Found zlib, version 1.2.11</span><br><span class="line">-- Checking <span class="keyword">for</span> module <span class="string">'libudev'</span></span><br><span class="line">--   Found libudev, version 247</span><br><span class="line">cmsis_dap support enabled</span><br><span class="line">-- Configuring <span class="keyword">done</span></span><br><span class="line">-- Generating <span class="keyword">done</span></span><br><span class="line">-- Build files have been written to: /home/michael/openTools-For-Lattice/openFPGALoader/build</span><br><span class="line">~$ make &amp;&amp; make install</span><br><span class="line">[...]</span><br><span class="line">Install the project...</span><br><span class="line">-- Install configuration: <span class="string">""</span></span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/bin/openFPGALoader</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/test_sfl.svf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc6slx100fgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc6slx45csg324.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a100tfgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a200tsbg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tcpg236.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tcsg324.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a35tftg256.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a50tcpg236.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a75tfgg484.bit</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_10cl025256.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_5ce223.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_ep4ce2217.rbf</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_5ce423.rbf.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_ep4ce1523.rbf.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7a100tcsg324.bit.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7s25csga324.bit.gz</span><br><span class="line">-- Installing: /home/michael/Lattice-OpenTools/share/openFPGALoader/spiOverJtag_xc7s50csga324.bit.gz</span><br></pre></td></tr></table></figure>
+<ul>
+<li>支持的板子型号,<a href="https://trabucayre.github.io/openFPGALoader/compatibility/board.html#compatibility-boards" target="_blank" rel="noopener">查看这里</a>,或者运行：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ openFPGALoader --list-boards</span><br><span class="line">~$ openFPGALoader --list-fpga</span><br><span class="line">~$ openFPGALoader --list-cables</span><br></pre></td></tr></table></figure>
+<h2 id="测试编译示例"><a href="#测试编译示例" class="headerlink" title="测试编译示例"></a>测试编译示例</h2><ul>
+<li><a href="https://blog.dave.tf/post/getting-started-fpga/" target="_blank" rel="noopener">Getting started with FPGA hacking</a></li>
+<li><a href="https://codeconstruct.com.au/docs/microwatt-orangecrab/" target="_blank" rel="noopener">Microwatt with Linux on OrangeCrab</a></li>
+</ul>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> prjtrellis/examples/ecp5_evn</span><br><span class="line">~$ make</span><br><span class="line">[....]</span><br><span class="line">2.51. Executing JSON backend.</span><br><span class="line">ERROR: Module top contains processes, <span class="built_in">which</span> are not supported by JSON backend (run `proc` first).</span><br><span class="line">make: *** [Makefile:7: blinky.json] Error 1</span><br><span class="line">rm blinky.json</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>默认编译显示上面的错误,找到错误行,显示:<code>yosys -p &quot;synth_ecp5 -json $@&quot; $&lt;</code>.按照理论上来,我安装的是最新版本的<code>yosys</code>版本,不应该出现这样的错误。这种写法是省掉的读取<code>verilog</code>的参数,完整的命令行写法,如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ yosys -p &quot;read_verilog blink.v; read_verilog rst_gen.v; synth_ecp5 -json main.json&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里需要修改<code>Makefile</code>,修改成如下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">prjtrellis/examples/ecp5_evn$ git diff</span><br><span class="line">diff --git a/examples/ecp5_evn/Makefile b/examples/ecp5_evn/Makefile</span><br><span class="line">index 40622b0..02f0d9d 100644</span><br><span class="line">--- a/examples/ecp5_evn/Makefile</span><br><span class="line">+++ b/examples/ecp5_evn/Makefile</span><br><span class="line">@@ -4,7 +4,7 @@ TRELLIS?=/usr/share/trellis</span><br><span class="line"> all: <span class="variable">$&#123;PROJ&#125;</span>.bit</span><br><span class="line"></span><br><span class="line"> %.json: %.v</span><br><span class="line">-       yosys -p <span class="string">"synth_ecp5 -json <span class="variable">$@</span>"</span> $&lt;</span><br><span class="line">+       yosys -p <span class="string">"read_verilog -sv $&lt;"</span> -p <span class="string">"synth_ecp5 -json <span class="variable">$@</span>"</span> $&lt;</span><br><span class="line"></span><br><span class="line"> %_out.config: %.json</span><br><span class="line">        nextpnr-ecp5 --json $&lt; --textcfg <span class="variable">$@</span> --um5g-85k --package CABGA381 --lpf ecp5evn.lpf</span><br><span class="line"></span><br><span class="line">~$ make</span><br><span class="line">[...]</span><br><span class="line">Info: Program finished normally.</span><br><span class="line">ecppack --svf blinky.svf blinky_out.config blinky.bit</span><br><span class="line">rm blinky.json blinky_out.config</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="烧写到板上的RAM"><a href="#烧写到板上的RAM" class="headerlink" title="烧写到板上的RAM"></a>烧写到板上的<code>RAM</code></h3><ul>
+<li><p><code>openFPGALoader</code>默认是加载到<code>FPGA</code>的内存里的。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~$ openFPGALoader -b ecp5_evn blinky.bit</span><br><span class="line">write to ram</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">Open file: DONE</span><br><span class="line">Parse file: DONE</span><br><span class="line">Enable configuration: DONE</span><br><span class="line">SRAM erase: DONE</span><br><span class="line">Loading: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Disable configuration: DONE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>烧写成功后,就能看到板上的流水灯的效果。</p>
+</li>
+<li><p>这里也可以使用一个外部的<code>JTAG</code>烧写。比如使用一个独立的<code>FTDI 2232HL</code>连接到板上的<code>J1 JTAG</code>,再把<code>JP1</code>跳线安装上,就可以下载调试了。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">~$ openFPGALoader -d /dev/ttyUSB1 --detect</span><br><span class="line">write to ram</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">index 0:</span><br><span class="line">	idcode 0x1113043</span><br><span class="line">	manufacturer lattice</span><br><span class="line">	family ECP5</span><br><span class="line">	model  LFE5U-85</span><br><span class="line">	irlength 8</span><br><span class="line"></span><br><span class="line">~$ openFPGALoader -d /dev/ttyUSB1 -b ecp5_evn blinky.bit</span><br></pre></td></tr></table></figure>
+<h3 id="烧写到SPI-Flash"><a href="#烧写到SPI-Flash" class="headerlink" title="烧写到SPI Flash"></a>烧写到<code>SPI Flash</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">prjtrellis/examples/ecp5_evn_multiboot$ openFPGALoader -b ecp5_evn -f blinky1.bit</span><br><span class="line">write to flash</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">Open file DONE</span><br><span class="line">Parse file DONE</span><br><span class="line">Enable configuration: DONE</span><br><span class="line">SRAM erase: DONE</span><br><span class="line">Detail:</span><br><span class="line">Jedec ID          : c2</span><br><span class="line">memory <span class="built_in">type</span>       : 20</span><br><span class="line">memory capacity   : 18</span><br><span class="line">EDID + CFD length : c2</span><br><span class="line">EDID              : 1820</span><br><span class="line">CFD               :</span><br><span class="line">flash chip unknown: use basic protection detection</span><br><span class="line">Erasing: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Writing: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Refresh: DONE</span><br></pre></td></tr></table></figure>
+<ul>
+<li>烧写<code>flash</code>的时间会略长一些。每次上电启动,都是从<code>spi flash</code>加载程序来运行。如果烧写的是<code>openFPGALoader -b ecp5_evn -f multiboot.bin</code>,可以通过板上的<code>PGMN SW3</code>按键来切换从不同的<code>flash</code>位置加载启动。</li>
+</ul>
+<h1 id="RISC-V"><a href="#RISC-V" class="headerlink" title="RISC-V"></a>RISC-V</h1><h2 id="VexRiscv"><a href="#VexRiscv" class="headerlink" title="VexRiscv"></a>VexRiscv</h2><ul>
+<li><a href="https://wot.lv/from-zero-to-soc-in-litex.html" target="_blank" rel="noopener">From zero to SoC in LiteX</a></li>
+<li><a href="https://github.com/kazkojima/litex-lattice-ecp5-evn" target="_blank" rel="noopener"></a></li>
+</ul>
+<h3 id="运行linux-on-litex-vexriscv"><a href="#运行linux-on-litex-vexriscv" class="headerlink" title="运行linux-on-litex-vexriscv"></a>运行<code>linux-on-litex-vexriscv</code></h3><ul>
+<li>这里可以接合参照我写的另一篇文章<a href="https://yjdwbj.github.io/2021/10/12/XILINX-Arty-A7-35T%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/" target="_blank" rel="noopener"><code>XILINX_Arty-A7-35T实践指南</code></a>去实践。要先编译安装<code>riscv toolchains</code>.</li>
+</ul>
+<ul>
+<li><p>编译工程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ ./make.py --board ecpix5 --toolchain=symbiflow --build</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加载工程</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">~$ ./make.py --board ecpix5 --load</span><br><span class="line">[....]</span><br><span class="line">python3 -m litex.soc.software.mkmscimg bios.bin --little</span><br><span class="line">python3 -m litex.soc.software.memusage bios.elf /home/michael/workspace-xilinx/RISC-V/litex-hub/litex/linux-on-litex-vexriscv/build/ecpix5/software/bios/../include/generated/regions.ld riscv64-unknown-elf</span><br><span class="line"></span><br><span class="line">ROM usage: 39.21KiB 	(61.27%)</span><br><span class="line">RAM usage: 0.61KiB 	(7.62%)</span><br><span class="line"></span><br><span class="line">make: Leaving directory <span class="string">'/home/michael/workspace-xilinx/RISC-V/litex-hub/litex/linux-on-litex-vexriscv/build/ecpix5/software/bios'</span></span><br><span class="line">INFO:SoC:Initializing ROM rom with contents (Size: 0x9cf4).</span><br><span class="line">INFO:SoC:Auto-Resizing ROM rom from 0x10000 to 0x9cf4.</span><br><span class="line">write to ram</span><br><span class="line">Jtag frequency : requested 6.00MHz   -&gt; real 6.00MHz</span><br><span class="line">Open file: DONE</span><br><span class="line">Parse file: DONE</span><br><span class="line">Enable configuration: DONE</span><br><span class="line">SRAM erase: DONE</span><br><span class="line">Loading: [==================================================] 100.00%</span><br><span class="line">Done</span><br><span class="line">Disable configuration: DONE</span><br></pre></td></tr></table></figure>
+<h3 id="直接运行litex-boards"><a href="#直接运行litex-boards" class="headerlink" title="直接运行litex-boards"></a>直接运行<code>litex-boards</code></h3><ul>
+<li><p>编译工程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ litex-boards/litex_boards$ ./targets/lattice_ecp5_evn.py --cpu-type vexriscv --sys-clk-freq 100e6 --build</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加载工程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ litex-boards/litex_boards$ ./targets/lattice_ecp5_evn.py --cpu-type vexriscv --sys-clk-freq 100e6 --load</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更换连接<code>uart</code>的管脚配置，把原板上的<code>FTDI P2,P3</code>换成<code>M19,M20</code>,因为<code>P2,P3</code>有复用到其它功能。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">litex-boards/litex_boards$ git diff platforms/lattice_ecp5_evn.py</span><br><span class="line">diff --git a/litex_boards/platforms/lattice_ecp5_evn.py b/litex_boards/platforms/lattice_ecp5_evn.py</span><br><span class="line">index 1a96862..7892dc0 100644</span><br><span class="line">--- a/litex_boards/platforms/lattice_ecp5_evn.py</span><br><span class="line">+++ b/litex_boards/platforms/lattice_ecp5_evn.py</span><br><span class="line">@@ -48,8 +48,8 @@ _io = [</span><br><span class="line"></span><br><span class="line">     <span class="comment"># Serial</span></span><br><span class="line">     (<span class="string">"serial"</span>, 0,</span><br><span class="line">-        Subsignal(<span class="string">"rx"</span>, Pins(<span class="string">"P2"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">-        Subsignal(<span class="string">"tx"</span>, Pins(<span class="string">"P3"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">+        Subsignal(<span class="string">"rx"</span>, Pins(<span class="string">"M19"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">+        Subsignal(<span class="string">"tx"</span>, Pins(<span class="string">"M20"</span>), IOStandard(<span class="string">"LVCMOS33"</span>)),</span><br><span class="line">     ),</span><br><span class="line"></span><br><span class="line">     <span class="comment"># SPIFlash</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接成功后如下。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">litex&gt;</span><br><span class="line">        __   _ __      _  __</span><br><span class="line">       / /  (_) /____ | |/_/</span><br><span class="line">      / /__/ / __/ -_)&gt;  &lt;</span><br><span class="line">     /____/_/\__/\__/_/|_|</span><br><span class="line">   Build your hardware, easily!</span><br><span class="line"></span><br><span class="line"> (c) Copyright 2012-2022 Enjoy-Digital</span><br><span class="line"> (c) Copyright 2007-2015 M-Labs</span><br><span class="line"></span><br><span class="line"> BIOS built on Feb 26 2022 23:37:36</span><br><span class="line"> BIOS CRC passed (23ff10b6)</span><br><span class="line"></span><br><span class="line"> Migen git sha1: ac70301</span><br><span class="line"> LiteX git sha1: 7f49c523</span><br><span class="line"></span><br><span class="line">--=============== SoC ==================--</span><br><span class="line">CPU:            VexRiscv @ 100MHz</span><br><span class="line">BUS:            WISHBONE 32-bit @ 4GiB</span><br><span class="line">CSR:            32-bit data</span><br><span class="line">ROM:            128KiB</span><br><span class="line">SRAM:           8KiB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--============== Boot ==================--</span><br><span class="line">Booting from serial...</span><br><span class="line">Press Q or ESC to abort boot completely.</span><br><span class="line">sL5DdSMmkekro</span><br><span class="line">             Timeout</span><br><span class="line">No boot medium found</span><br><span class="line"></span><br><span class="line">--============= Console ================--</span><br></pre></td></tr></table></figure>
+<h3 id="通过SDCard-Boot加载linux系统"><a href="#通过SDCard-Boot加载linux系统" class="headerlink" title="通过SDCard Boot加载linux系统"></a>通过<code>SDCard Boot</code>加载<code>linux</code>系统</h3><h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><ul>
+<li><a href="https://8bitworkshop.com/" target="_blank" rel="noopener">Write 8-bit code in your browser.</a></li>
+<li><a href="https://8bitworkshop.com/v3.9.0/?platform=verilog&amp;file=clock_divider.v" target="_blank" rel="noopener">在线Verilog仿真</a></li>
+<li><a href="https://www.falstad.com" target="_blank" rel="noopener">在线电路原理仿真</a></li>
+<li><a href="https://f4pga.org/" target="_blank" rel="noopener">Innovate by reaching for the open source FPGA tooling</a></li>
+<li><a href="https://projectf.io/posts/fpga-graphics/" target="_blank" rel="noopener">Beginning FPGA Graphics</a></li>
+<li><a href="https://github.com/BrunoLevy/learn-fpga" target="_blank" rel="noopener">Learn FPGA</a></li>
+</ul>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/FPGA-RISC-V-Linux/" rel="tag"># FPGA,RISC-V,Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/12/XILINX-Arty-A7-35T实践指南/" rel="prev" title="XILINX_Arty-A7-35T实践指南">
+      <i class="fa fa-chevron-left"></i> XILINX_Arty-A7-35T实践指南
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/10/NFC读写工具杂记/" rel="next" title="NFC读写工具杂记">
+      NFC读写工具杂记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lattice-ECP5和ECP5-5G系列FPGA简介"><span class="nav-number">1.</span> <span class="nav-text">Lattice ECP5和ECP5-5G系列FPGA简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开源工具"><span class="nav-number">2.</span> <span class="nav-text">开源工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SymbiFlow"><span class="nav-number">2.1.</span> <span class="nav-text">SymbiFlow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建环境"><span class="nav-number">2.2.</span> <span class="nav-text">构建环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#prjtrellis"><span class="nav-number">2.2.1.</span> <span class="nav-text">prjtrellis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nextpnr"><span class="nav-number">2.2.2.</span> <span class="nav-text">nextpnr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yosys"><span class="nav-number">2.2.3.</span> <span class="nav-text">Yosys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openFPGALoader"><span class="nav-number">2.2.4.</span> <span class="nav-text">openFPGALoader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译openFPGALoader"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">编译openFPGALoader</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试编译示例"><span class="nav-number">2.3.</span> <span class="nav-text">测试编译示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">2.3.1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#烧写到板上的RAM"><span class="nav-number">2.3.2.</span> <span class="nav-text">烧写到板上的RAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#烧写到SPI-Flash"><span class="nav-number">2.3.3.</span> <span class="nav-text">烧写到SPI Flash</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RISC-V"><span class="nav-number">3.</span> <span class="nav-text">RISC-V</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VexRiscv"><span class="nav-number">3.1.</span> <span class="nav-text">VexRiscv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行linux-on-litex-vexriscv"><span class="nav-number">3.1.1.</span> <span class="nav-text">运行linux-on-litex-vexriscv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接运行litex-boards"><span class="nav-number">3.1.2.</span> <span class="nav-text">直接运行litex-boards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SDCard-Boot加载linux系统"><span class="nav-number">3.1.3.</span> <span class="nav-text">通过SDCard Boot加载linux系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它"><span class="nav-number">4.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">5.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yjdwbj"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

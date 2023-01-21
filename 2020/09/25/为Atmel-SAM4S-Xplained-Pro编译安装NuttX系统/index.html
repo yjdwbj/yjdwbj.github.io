@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="编译NuttxAtmel SAM4S Xplained Pro ExperimentalCore-sam Adventures with NuttX Nuttx NL  简介 Core ARM Cortex-M4 with 2 Kbytes of cache running at up to 120 MHz Memory Protection Unit (MPU) DSP Instruction">
+<meta name="keywords" content="嵌入式系统，RTOS，nuttx,ARM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统">
+<meta property="og:url" content="http://yoursite.com/2020/09/25/为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统/index.html">
+<meta property="og:site_name" content="Sunrise 博客">
+<meta property="og:description" content="编译NuttxAtmel SAM4S Xplained Pro ExperimentalCore-sam Adventures with NuttX Nuttx NL  简介 Core ARM Cortex-M4 with 2 Kbytes of cache running at up to 120 MHz Memory Protection Unit (MPU) DSP Instruction">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+<meta property="og:updated_time" content="2022-02-26T15:52:54.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统">
+<meta name="twitter:description" content="编译NuttxAtmel SAM4S Xplained Pro ExperimentalCore-sam Adventures with NuttX Nuttx NL  简介 Core ARM Cortex-M4 with 2 Kbytes of cache running at up to 120 MHz Memory Protection Unit (MPU) DSP Instruction">
+<meta name="twitter:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/25/为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统 | Sunrise 博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sunrise 博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/25/为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为Atmel-SAM4S-Xplained-Pro编译安装NuttX系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-25 18:12:57" itemprop="dateCreated datePublished" datetime="2020-09-25T18:12:57+08:00">2020-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-26 23:52:54" itemprop="dateModified" datetime="2022-02-26T23:52:54+08:00">2022-02-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="编译Nuttx"><a href="#编译Nuttx" class="headerlink" title="编译Nuttx"></a>编译Nuttx</h1><h2 id="Atmel-SAM4S-Xplained-Pro"><a href="#Atmel-SAM4S-Xplained-Pro" class="headerlink" title="Atmel SAM4S Xplained Pro"></a>Atmel SAM4S Xplained Pro</h2><ul>
+<li><a href="https://github.com/aethaniel/ExperimentalCore-sam" target="_blank" rel="noopener">ExperimentalCore-sam</a></li>
+<li><a href="https://high12noon.neocities.org/nuttx-adventures.html" target="_blank" rel="noopener">Adventures with NuttX</a></li>
+<li><a href="https://nuttx.nl/" target="_blank" rel="noopener">Nuttx NL</a></li>
+</ul>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
+<li>Core<ul>
+<li>ARM Cortex-M4 with 2 Kbytes of cache running at up to 120 MHz</li>
+<li>Memory Protection Unit (MPU)</li>
+<li>DSP Instruction Set</li>
+<li>Thumb ® -2 instruction set</li>
+</ul>
+</li>
+<li>Memories<ul>
+<li>Up to 2048 Kbytes embedded Flash with optional dual-bank and cache memory, ECC, Security Bit and Lock Bits</li>
+<li>Up to 160 Kbytes embedded SRAM</li>
+<li>16 Kbytes ROM with embedded boot loader routines (UART, USB) and IAP routines</li>
+<li>8-bit Static Memory Controller (SMC): SRAM, PSRAM, NOR and NAND Flash support</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>同步<code>nuttx</code>与<code>nuttx-apps</code>两个源代码，它们两个平级目录.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/apache/incubator-nuttx nuttx</span><br><span class="line">~$ git <span class="built_in">clone</span> https://github.com/apache/incubator-nuttx-apps.git apps</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> nuttx</span><br><span class="line"><span class="comment"># 列出所有支持板子.</span></span><br><span class="line">~$ tools/configure.sh -L | grep <span class="string">"sam"</span></span><br><span class="line">~$ tools/configure.sh -l  sam4s-xplained-pro:nsh</span><br><span class="line">~$ cp  boards/arm/sam34/sam4s-xplained-pro/configs/nsh/defconfig .config</span><br><span class="line">~$ cp boards/arm/sam34/sam4s-xplained-pro/scripts/Make.defs .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里使用一个 第三方的工具链(gcc-arm-none-eabi-6-2017-q2-update) arm-none-eabi- 也可以编译成功.选择 CONFIG_ARMV7M_TOOLCHAIN_GNU_EABIL=y</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">export</span> PATH=/fullpath/gcc-arm-none-eabi-6-2017-q2-update/bin:<span class="variable">$PATH</span></span><br><span class="line">~$ make CROSSDEV=arm-none-eabi-</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看交㕚工具链支持的CPU特性.</span></span><br><span class="line">~$ arm-none-eabi-g++ -<span class="built_in">print</span>-multi-lib</span><br><span class="line">.;</span><br><span class="line">thumb;@mthumb</span><br><span class="line">fpu;@mfloat-abi=hard</span><br><span class="line">armv6-m;@mthumb@march=armv6s-m</span><br><span class="line">armv7-m;@mthumb@march=armv7-m</span><br><span class="line">armv7e-m;@mthumb@march=armv7e-m</span><br><span class="line">armv7-ar/thumb;@mthumb@march=armv7</span><br><span class="line">cortex-m7;@mthumb@mcpu=cortex-m7</span><br><span class="line">armv7e-m/softfp;@mthumb@march=armv7e-m@mfloat-abi=softfp@mfpu=fpv4-sp-d16</span><br><span class="line">armv7e-m/fpu;@mthumb@march=armv7e-m@mfloat-abi=hard@mfpu=fpv4-sp-d16</span><br><span class="line">armv7-ar/thumb/softfp;@mthumb@march=armv7@mfloat-abi=softfp@mfpu=vfpv3-d16</span><br><span class="line">armv7-ar/thumb/fpu;@mthumb@march=armv7@mfloat-abi=hard@mfpu=vfpv3-d16</span><br><span class="line">cortex-m7/softfp/fpv5-sp-d16;@mthumb@mcpu=cortex-m7@mfloat-abi=softfp@mfpu=fpv5-sp-d16</span><br><span class="line">cortex-m7/softfp/fpv5-d16;@mthumb@mcpu=cortex-m7@mfloat-abi=softfp@mfpu=fpv5-d16</span><br><span class="line">cortex-m7/fpu/fpv5-sp-d16;@mthumb@mcpu=cortex-m7@mfloat-abi=hard@mfpu=fpv5-sp-d16</span><br><span class="line">cortex-m7/fpu/fpv5-d16;@mthumb@mcpu=cortex-m7@mfloat-abi=hard@mfpu=fpv5-d16</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面错误，可以打开源码位置，注释掉它.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arch/arm/src/imxrt/Kconfig:1114: syntax error</span><br><span class="line">arch/arm/src/imxrt/Kconfig:1113: invalid option</span><br><span class="line">make: *** [tools/Makefile.unix:471: olddefconfig] Error 1</span><br><span class="line">ERROR: failed to refresh</span><br></pre></td></tr></table></figure>
+<h2 id="使用BuildRoot构建指交叉工具链"><a href="#使用BuildRoot构建指交叉工具链" class="headerlink" title="使用BuildRoot构建指交叉工具链"></a>使用BuildRoot构建指交叉工具链</h2><ul>
+<li><a href="http://reclonelabs.com/building-nuttx-in-ubuntu-from-scratch/" target="_blank" rel="noopener">buildroot nuttx</a></li>
+<li>这里是使用<code>NuttX</code>提供的修改后的<code>BuildRoot</code>版本.通过<code>buildroot</code>编译出一个特殊版本的交叉工具链，再用它去编译出最终的<code>nuttx</code>系统镜像.<code>buildroot</code>的源码目录与<code>nuttx,nuttx-apps</code>也是平级的目录.在实践过程中开启了<code>BR2_GCC_CORTEX_M4F_SP</code>导致下面的<code>DBUG</code>里出错的原因.也就是说<code>Atmel SAM4S Xplained Pro</code>是<code>cortex-m4</code>内核，但是它不带<code>FPU</code>，强选<code>FPU</code>肯定是出错的，</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://bitbucket.org/nuttx/buildroot.git buildroot</span><br><span class="line">~$ cp configs/cortexm4f-eabi-defconfig-4.7.4 .config</span><br><span class="line"><span class="comment"># 配置一个合适的版本，这里是:binutils-2.26.1 ,gcc-4.7.4,gdb-8.0.1，因为是cortexm4f-eabi-defconfig-4.7.4，所以这里选择gcc-4.7.4</span></span><br><span class="line"><span class="comment"># 在nuttx配置时，选择 CONFIG_ARMV7M_TOOLCHAIN_BUILDROOT=y，使用第三方如上面是选择 CONFIG_ARMV7M_TOOLCHAIN_GNU_EABIL=y</span></span><br><span class="line">~$ make menuconfig</span><br><span class="line">~$ make</span><br><span class="line"><span class="comment"># 这里最终的配置是如下:</span></span><br><span class="line">~$  grep -v <span class="string">'^$\|^#'</span> .config</span><br><span class="line">BR2_HAVE_DOT_CONFIG=y</span><br><span class="line">BR2_arm=y</span><br><span class="line">BR2_cortex_m3=y</span><br><span class="line">BR2_GCC_CORTEX=y</span><br><span class="line">BR2_ARM_EABI=y</span><br><span class="line">BR2_ARCH=<span class="string">"arm"</span></span><br><span class="line">BR2_GCC_TARGET_TUNE=<span class="string">"cortex-m3"</span></span><br><span class="line">BR2_GCC_TARGET_ARCH=<span class="string">"armv7-m"</span></span><br><span class="line">BR2_GCC_TARGET_ABI=<span class="string">"aapcs-linux"</span></span><br><span class="line">BR2_WGET=<span class="string">"wget --passive-ftp"</span></span><br><span class="line">BR2_SVN=<span class="string">"svn co"</span></span><br><span class="line">BR2_ZCAT=<span class="string">"zcat"</span></span><br><span class="line">BR2_BZCAT=<span class="string">"bzcat"</span></span><br><span class="line">BR2_TAR_OPTIONS=<span class="string">""</span></span><br><span class="line">BR2_DL_DIR=<span class="string">"<span class="variable">$(BASE_DIR)</span>/dl"</span></span><br><span class="line">BR2_STAGING_DIR=<span class="string">"<span class="variable">$(BUILD_DIR)</span>/staging_dir"</span></span><br><span class="line">BR2_NUTTX_DIR=<span class="string">"<span class="variable">$(TOPDIR)</span>/../nuttx"</span></span><br><span class="line">BR2_TOPDIR_PREFIX=<span class="string">""</span></span><br><span class="line">BR2_TOPDIR_SUFFIX=<span class="string">""</span></span><br><span class="line">BR2_GNU_BUILD_SUFFIX=<span class="string">"pc-elf"</span></span><br><span class="line">BR2_GNU_TARGET_SUFFIX=<span class="string">"nuttx-eabi"</span></span><br><span class="line">BR2_PREFER_IMA=y</span><br><span class="line">BR2_PACKAGE_BINUTILS=y</span><br><span class="line">BR2_BINUTILS_VERSION_2_26_1=y</span><br><span class="line">BR2_BINUTILS_VERSION=<span class="string">"2.26.1"</span></span><br><span class="line">BR2_EXTRA_BINUTILS_CONFIG_OPTIONS=<span class="string">""</span></span><br><span class="line">BR2_PACKAGE_GCC=y</span><br><span class="line">BR2_GCC_VERSION_4_7_4=y</span><br><span class="line">BR2_GCC_SUPPORTS_SYSROOT=y</span><br><span class="line">BR2_GCC_SUPPORTS_DOWN_PREREQ=y</span><br><span class="line">BR2_GCC_DOWNLOAD_PREREQUISITES=y</span><br><span class="line">BR2_GCC_VERSION=<span class="string">"4.7.4"</span></span><br><span class="line">BR2_EXTRA_GCC_CONFIG_OPTIONS=<span class="string">""</span></span><br><span class="line">BR2_INSTALL_LIBSTDCPP=y</span><br><span class="line">BR2_PACKAGE_GDB_HOST=y</span><br><span class="line">BR2_GDB_VERSION_8_0_1=y</span><br><span class="line">BR2_PACKAGE_GDB_TUI=y</span><br><span class="line">BR2_GDB_VERSION=<span class="string">"8.0.1"</span></span><br><span class="line">BR2_PACKAGE_GENROMFS=y</span><br><span class="line">BR2_PACKAGE_KCONFIG_FRONTENDS=y</span><br><span class="line">BR2_KCONFIG_VERSION_4_11_0_1=y</span><br><span class="line">BR2_KCONFIG_FRONTENDS_VERSION=<span class="string">"4.11.0.1"</span></span><br><span class="line">BR2_LARGEFILE=y</span><br><span class="line">BR2_TARGET_OPTIMIZATION=<span class="string">"-Os -pipe"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译成功后可以使用: arm-nutxx-eabi-g++ -print-multi-lib</span></span><br><span class="line">BR2_ENABLE_MULTILIB=y</span><br><span class="line">BR2_LARGEFILE=y</span><br><span class="line">BR2_SOFT_FLOAT=y</span><br><span class="line">BR2_TARGET_OPTIMIZATION=<span class="string">"-Os -pipe"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果成功会生成如下的目录.<strong>注意</strong>，如果开启了<code>BR2_ENABLE_MULTILIB=y</code>与<code>BR2_SOFT_FLOAT=y</code>生成的目标目录是<code>build_arm_nofpu</code>，否则生成的目录就是<code>build_arm</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~$ tree -L 2 build_arm_hf/</span><br><span class="line">build_arm_hf/</span><br><span class="line">├── root</span><br><span class="line">└── staging_dir</span><br><span class="line">    ├── arm-elf -&gt; arm-nuttx-eabi</span><br><span class="line">    ├── arm-nuttx-eabi</span><br><span class="line">    ├── bin</span><br><span class="line">    ├── include</span><br><span class="line">    ├── lib</span><br><span class="line">    ├── libexec</span><br><span class="line">    ├── share</span><br><span class="line">    └── usr</span><br><span class="line"></span><br><span class="line">10 directories, 0 files</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试工具链</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">export</span> PATH=`<span class="built_in">pwd</span>`/build_arm_hr/staging_dir/bin:<span class="variable">$PATH</span></span><br><span class="line">~$ arm-nuttx-eabi-g++ -<span class="built_in">print</span>-multi-lib</span><br><span class="line">.;</span><br><span class="line">thumb;@mthumb</span><br><span class="line">fpu;@mfloat-abi=hard</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果出现下面的错误，在<code>make menuconfig</code>选择一个高版本的<code>gdb</code>尝试一下.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/fullpath/buildroot/toolchain_build_arm_hf/gdb-7.9.1/gdb/python/python.c: In <span class="keyword">function</span> ‘_initialize_python’:</span><br><span class="line">/fullpath/buildroot/toolchain_build_arm_hf/gdb-7.9.1/gdb/python/python.c:1690:3: error: too few arguments to <span class="keyword">function</span> ‘_PyImport_FixupBuiltin’</span><br><span class="line">   _PyImport_FixupBuiltin (gdb_module, <span class="string">"_gdb"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果出现<code>gcc</code>编译时无法下载<code>mpc,mpfr,gmp</code>的依赖包时，查看一下<code>toolchain_build_arm_hf/gcc-4.9.4/contrib/download_prerequisites</code>.修改版本号，或者下载的地址.</p>
+</li>
+</ul>
+<h3 id="gcc-4-7-4的补丁"><a href="#gcc-4-7-4的补丁" class="headerlink" title="gcc-4.7.4的补丁"></a>gcc-4.7.4的补丁</h3><ul>
+<li>在构建交㕚工具链时如果出现下面的错误</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In file included from .../gcc-4.7.4/gcc/cp/except.c:990:0:</span><br><span class="line">cfns.gperf: At top level:</span><br><span class="line">cfns.gperf:101:1: error: <span class="string">'gnu_inline'</span> attribute present on <span class="string">'libc_name_p'</span></span><br><span class="line">cfns.gperf:26:14: error: but not here</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里引用了<a href="https://patchwork.ozlabs.org/project/gcc/patch/1438919226-30427-1-git-send-email-vapier@gentoo.org/" target="_blank" rel="noopener">cfns: fix mismatch in gnu_inline attributes</a>的补丁.直接创建在<code>BuildRoot</code>的源码里.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">~$ cat &gt; toolchain/gcc/4.7.4/gnu_inline.patch &lt;&lt;EOF</span><br><span class="line">diff --git a/gcc/cp/cfns.gperf b/gcc/cp/cfns.gperf</span><br><span class="line">index 68acd3d..953262f 100644</span><br><span class="line">--- a/gcc/cp/cfns.gperf</span><br><span class="line">+++ b/gcc/cp/cfns.gperf</span><br><span class="line">@@ -22,6 +22,9 @@  __inline</span><br><span class="line"> static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</span><br><span class="line"> <span class="comment">#ifdef __GNUC__</span></span><br><span class="line"> __inline</span><br><span class="line">+<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></span><br><span class="line">+__attribute__ ((__gnu_inline__))</span><br><span class="line">+<span class="comment">#endif</span></span><br><span class="line"> <span class="comment">#endif</span></span><br><span class="line"> const char * libc_name_p (const char *, unsigned int);</span><br><span class="line"> %&#125;</span><br><span class="line">diff --git a/gcc/cp/cfns.h b/gcc/cp/cfns.h</span><br><span class="line">index 1c6665d..6d00c0e 100644</span><br><span class="line">--- a/gcc/cp/cfns.h</span><br><span class="line">+++ b/gcc/cp/cfns.h</span><br><span class="line">@@ -53,6 +53,9 @@  __inline</span><br><span class="line"> static unsigned int <span class="built_in">hash</span> (const char *, unsigned int);</span><br><span class="line"> <span class="comment">#ifdef __GNUC__</span></span><br><span class="line"> __inline</span><br><span class="line">+<span class="comment">#ifdef __GNUC_STDC_INLINE__</span></span><br><span class="line">+__attribute__ ((__gnu_inline__))</span><br><span class="line">+<span class="comment">#endif</span></span><br><span class="line"> <span class="comment">#endif</span></span><br><span class="line"> const char * libc_name_p (const char *, unsigned int);</span><br><span class="line"> /* maximum key range = 391, duplicates = 0 */</span><br><span class="line"> EOF</span><br></pre></td></tr></table></figure>
+<h3 id="GCC-4-7-4的编译错误"><a href="#GCC-4-7-4的编译错误" class="headerlink" title="GCC-4.7.4的编译错误"></a>GCC-4.7.4的编译错误</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">make[4]: Entering directory <span class="string">'/fullpath/buildroot/toolchain_build_arm_nofpu/gcc-4.7.4-build/libiberty/testsuite'</span></span><br><span class="line">make[4]: Nothing to be <span class="keyword">done</span> <span class="keyword">for</span> <span class="string">'install'</span>.</span><br><span class="line">make[4]: Leaving directory <span class="string">'/fullpath/buildroot/toolchain_build_arm_nofpu/gcc-4.7.4-build/libiberty/testsuite'</span></span><br><span class="line">make[3]: Leaving directory <span class="string">'/fullpath/buildroot/toolchain_build_arm_nofpu/gcc-4.7.4-build/libiberty'</span></span><br><span class="line">/bin/bash: line 3: <span class="built_in">cd</span>: arm-nuttx-eabi/libgcc: No such file or directory</span><br><span class="line">make[2]: *** [Makefile:10334: install-target-libgcc] Error 1</span><br><span class="line">make[2]: Leaving directory <span class="string">'/fullpath/buildroot/toolchain_build_arm_nofpu/gcc-4.7.4-build'</span></span><br><span class="line">make[1]: *** [Makefile:2115: install] Error 2</span><br><span class="line">make[1]: Leaving directory <span class="string">'/fullpath/buildroot/toolchain_build_arm_nofpu/gcc-4.7.4-build'</span></span><br><span class="line">make: *** [toolchain/gcc/gcc-nuttx-4.x.mk:159: /fullpath/buildroot/toolchain_build_arm_nofpu/gcc-4.7.4-build/.installed] Error 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译时出现上面的错误，这好像是这个GCC版本的问题，在<code>4.9.x</code>好像没有出这样的错误，同是查看了各级的<code>config.log</code>与各级的<code>Makefile</code>也没有找出问题，后来只有进入到编译的目录内<code>toolchain_build_arm/gcc-4.7.4-build</code>内直接运行<code>make</code>,无错的话再回到<code>buildroot</code>内，再运行<code>make</code>这里就正常完成了.</li>
+</ul>
+<h2 id="配置NuttX系统"><a href="#配置NuttX系统" class="headerlink" title="配置NuttX系统"></a>配置<code>NuttX</code>系统</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~$ tools/configure.sh -l  sam4s-xplained-pro:nsh</span><br><span class="line">~$ cp  boards/arm/sam34/sam4s-xplained-pro/configs/nsh/defconfig .config</span><br><span class="line">~$ cp boards/arm/sam34/sam4s-xplained-pro/scripts/Make.defs .</span><br><span class="line">~$ make menuconfig</span><br><span class="line">~$ make</span><br><span class="line">[...]</span><br><span class="line">LD: nuttx</span><br><span class="line">make[1]: Leaving directory <span class="string">'/fullpath/nuttx/arch/arm/src'</span></span><br><span class="line">CP: nuttx.hex</span><br><span class="line">CP: nuttx.bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Nuttx</code>的最终配置如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ grep -v <span class="string">'^$\|^#'</span> .config</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译时出现下面错误，这个有可能是配置时没有选择<code>CONFIG_ARCH_IRQPRIO=y</code>，然后就去<code>make</code>后的结果.通过搜索<code>nuttx</code>源码时发现，<code>getcontrol(void)</code>是定义在<code>arch/arm/include/armv7-m/irq.h</code>里的内联函数.最终在<code>arch/arm/src/chip/sam_start.c</code>前面，添加<code>#include &lt;nuttx/irq.h&gt;</code>就可以了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/fullpath/nuttx/staging/libarch.a(sam_start.o): In <span class="keyword">function</span> `sam_fpuconfig<span class="string">':</span></span><br><span class="line"><span class="string">/fullpath/nuttx/arch/arm/src/chip/sam_start.c:159: undefined reference to `getcontrol`</span></span><br><span class="line"><span class="string">/fullpath/nuttx/arch/arm/src/chip/sam_start.c:161: undefined reference to `setcontrol`</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用OpenOCD调试"><a href="#使用OpenOCD调试" class="headerlink" title="使用OpenOCD调试"></a>使用OpenOCD调试</h2><ul>
+<li><a href="https://docs.lvgl.io/v7/en/html/get-started/nuttx.html" target="_blank" rel="noopener">NuttX RTOS</a></li>
+<li><a href="https://nuttx.apache.org/docs/latest/quickstart/debugging.html" target="_blank" rel="noopener">Debugging Nuttx</a></li>
+</ul>
+<h3 id="编译OpenOCD"><a href="#编译OpenOCD" class="headerlink" title="编译OpenOCD"></a>编译OpenOCD</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> http://repo.or.cz/r/openocd.git</span><br><span class="line">~$ <span class="built_in">cd</span> openocd &amp;&amp; mkdir build-linux &amp;&amp; <span class="built_in">cd</span> build-linux</span><br><span class="line">~$ ../configure --<span class="built_in">enable</span>-ftdi --<span class="built_in">enable</span>-stlink --<span class="built_in">enable</span>-ti-icdi --<span class="built_in">enable</span>-ulink --<span class="built_in">enable</span>-usb-blaster-2 --<span class="built_in">enable</span>-ft232r --<span class="built_in">enable</span>-xds110  --<span class="built_in">enable</span>-usbprog --<span class="built_in">enable</span>-armjtagew --<span class="built_in">enable</span>-cmsis-dap --<span class="built_in">enable</span>-usb-blaster  --<span class="built_in">enable</span>-openjtag --<span class="built_in">enable</span>-jlink --<span class="built_in">enable</span>-bcm2835gpio --<span class="built_in">enable</span>-imx_gpio --<span class="built_in">enable</span>-oocd_trace --<span class="built_in">enable</span>-buspirate --<span class="built_in">enable</span>-sysfsgpio</span><br><span class="line">~$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>根据<code>Nuttx</code>官方的<a href="https://nuttx.apache.org/docs/latest/quickstart/debugging.html" target="_blank" rel="noopener">Debugging Nuttx</a>提示，基于某些特性调试，可能需要修改相应的<code>openocd/src/rtos/nuttx_header.h</code>内的宏定义如:<code>CONFIG_DISABLE_MQUEUE=y</code>.</p>
+</li>
+<li><p>运行<code>OpenOCD</code>服务,通过PC端的USB连接到<code>Atmel-SAM4S_Xpained-Pro</code>上写有<code>DEBUG USB</code>的接口上,<strong>注意</strong>，该USB接口是板上调试器(EDBG)的组合接口，它包含三个接口功能:DEBUG,Virtual COM Port, Data Gateway Interface(DGI).</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里如果定义板级配置也可直接: openocd -f board/atmel_sam4s_xplained_pro.cfg -c init -c "reset halt"</span></span><br><span class="line">~$ openocd -f interface/cmsis-dap.cfg -f target/at91sam4sd32x.cfg -c init -c <span class="string">"reset halt"</span></span><br><span class="line">Open On-Chip Debugger 0.10.0+dev-01408-g762ddcb74-dirty (2020-09-25-00:32)</span><br><span class="line">Licensed under GNU GPL v2</span><br><span class="line">For bug reports, <span class="built_in">read</span></span><br><span class="line">	http://openocd.org/doc/doxygen/bugs.html</span><br><span class="line">Info : auto-selecting first available session transport <span class="string">"swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.</span><br><span class="line">Info : CMSIS-DAP: SWD  Supported</span><br><span class="line">Info : CMSIS-DAP: JTAG Supported</span><br><span class="line">Info : CMSIS-DAP: FW Version = 1.0</span><br><span class="line">Info : CMSIS-DAP: Serial<span class="comment"># = ATML1803040200001055</span></span><br><span class="line">Info : CMSIS-DAP: Interface Initialised (SWD)</span><br><span class="line">Info : SWCLK/TCK = 1 SWDIO/TMS = 1 TDI = 1 TDO = 1 nTRST = 0 nRESET = 1</span><br><span class="line">Info : CMSIS-DAP: Interface ready</span><br><span class="line">Info : clock speed 500 kHz</span><br><span class="line">Info : SWD DPIDR 0x2ba01477</span><br><span class="line">Info : sam4.cpu: hardware has 6 breakpoints, 4 watchpoints</span><br><span class="line">Info : starting gdb server <span class="keyword">for</span> sam4.cpu on 3333</span><br><span class="line">Info : Listening on port 3333 <span class="keyword">for</span> gdb connections</span><br><span class="line">target halted due to debug-request, current mode: Thread</span><br><span class="line">xPSR: 0x01000000 pc: 0x00400554 msp: 0x200034d0</span><br><span class="line">Info : Listening on port 6666 <span class="keyword">for</span> tcl connections</span><br><span class="line">Info : Listening on port 4444 <span class="keyword">for</span> telnet connections</span><br><span class="line">Info : accepting <span class="string">'telnet'</span> connection on tcp/4444</span><br><span class="line">Info : dropped <span class="string">'telnet'</span> connection</span><br><span class="line">Info : accepting <span class="string">'telnet'</span> connection on tcp/4444</span><br><span class="line">Info : dropped <span class="string">'telnet'</span> connection</span><br><span class="line">Info : accepting <span class="string">'gdb'</span> connection on tcp/3333</span><br><span class="line">target halted due to debug-request, current mode: Thread</span><br><span class="line">xPSR: 0x01000000 pc: 0x00400554 msp: 0x200034d0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用GDB桥接到<code>OpenOCD</code>服务上去调试.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">~$ arm-nuttx-eabi-gdb nuttx</span><br><span class="line">GNU gdb (GDB) 8.0.1</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type <span class="string">"show copying"</span></span><br><span class="line">and <span class="string">"show warranty"</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">"--host=x86_64-pc-elf --target=arm-nuttx-eabi"</span>.</span><br><span class="line">Type <span class="string">"show configuration"</span> <span class="keyword">for</span> configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line">For <span class="built_in">help</span>, <span class="built_in">type</span> <span class="string">"help"</span>.</span><br><span class="line">Type <span class="string">"apropos word"</span> to search <span class="keyword">for</span> commands related to <span class="string">"word"</span>...</span><br><span class="line">Reading symbols from nuttx...done.</span><br><span class="line">(gdb) target extended-remote :3333</span><br><span class="line">0x00400554 <span class="keyword">in</span> arm_earlyserialinit () at chip/sam_serial.c:1345</span><br><span class="line">1345	  up_disableallints(TTYS1_DEV.priv, NULL);</span><br><span class="line">(gdb) load   <span class="comment"># 加载到板子上去,也就烧写入板子.</span></span><br><span class="line"><span class="comment"># OpenOCD的终端上也有相应的信息输出.</span></span><br><span class="line">Loading section .text, size 0x19003 lma 0x400000</span><br><span class="line">Loading section .ARM.extab, size 0x30 lma 0x419004</span><br><span class="line">Loading section .ARM.exidx, size 0xd0 lma 0x419034</span><br><span class="line">Loading section .data, size 0x220 lma 0x419104</span><br><span class="line">Start address 0x4000cc, load size 103203</span><br><span class="line">Transfer rate: 18 KB/sec, 10320 bytes/write.</span><br><span class="line">(gdb) cont  <span class="comment">#继续运行，这里出现异常了，这人错误的示例，是因为工具链选择了`BR2_GCC_CORTEX_M4F_SP=y`,与目标板子不匹配，SAM4S-XPRO它是Cortex-m4但是它没有FPU.</span></span><br><span class="line">Continuing.</span><br><span class="line">sam4.cpu -- clearing lockup after double fault</span><br><span class="line"></span><br><span class="line">Program received signal SIGINT, Interrupt.</span><br><span class="line">exception_common () at armv7-m/gnu/arm_exception.S:176</span><br><span class="line">176		vstmdb	sp!, &#123;s16-s31&#125;			/* Save the non-volatile FP context */</span><br><span class="line">(gdb) i r  <span class="comment"># 详细GDB的指令，参考该版本的说明文档,最权威，最详细.</span></span><br><span class="line">r0             0x3	3</span><br><span class="line">r1             0x1	1</span><br><span class="line">r2             0x20001e78	536878712</span><br><span class="line">[....]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>也可以把几个参数合在一行命令下提交，如<code>arm-nuttx-eabi-gdb -ex &quot;target remote :3333&quot; -ex &quot;mon reset halt&quot;  nuttx</code></p>
+</li>
+<li><p>关于类似<code>ATSAM4SD32C.cpu -- clearing lockup after double fault</code>,参考了<a href="https://electronics.stackexchange.com/questions/30688/clearing-lockup-after-double-fault" target="_blank" rel="noopener">stackexchange</a>处理.</p>
+</li>
+<li><p>查看目标文件的内容.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ file nuttx</span><br><span class="line">nuttx: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, with debug_info, not stripped</span><br><span class="line">~$ file nuttx.bin</span><br><span class="line">nuttx.bin: data</span><br><span class="line">~$ file nuttx.hex</span><br><span class="line">nuttx.hex: ASCII text, with CRLF line terminators</span><br></pre></td></tr></table></figure>
+<h2 id="GDB调试"><a href="#GDB调试" class="headerlink" title="GDB调试"></a>GDB调试</h2><ul>
+<li><a href="https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf" target="_blank" rel="noopener">GDB Cheat Sheet.pdf</a></li>
+<li><a href="https://sourceware.org/gdb/current/onlinedocs/gdb/" target="_blank" rel="noopener">Debugging with GDB</a></li>
+</ul>
+<h3 id="OpenOCD服务"><a href="#OpenOCD服务" class="headerlink" title="OpenOCD服务"></a><code>OpenOCD</code>服务</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ~$ openocd -f board/atmel_sam4s_xplained_pro.cfg -c init -c 'reset halt' -c '$_TARGETNAME configure -rtos nuttx'</span></span><br><span class="line">~$ openocd -f board/atmel_sam4s_xplained_pro.cfg -c <span class="string">'$_TARGETNAME configure -rtos nuttx'</span></span><br></pre></td></tr></table></figure>
+<h3 id="GDB连接"><a href="#GDB连接" class="headerlink" title="GDB连接"></a>GDB连接</h3><ul>
+<li>在<code>nuttx</code>的目录下运行，为了加载<code>nuttx</code>文件.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ nuttx$ arm-none-eabi-gdb -ex <span class="string">"target remote :3333"</span> -ex <span class="string">"mon reset halt"</span>  nuttx</span><br></pre></td></tr></table></figure>
+<ul>
+<li>定义一些<code>gdb hook</code>函数，只是为了方便一些调试,最好的方式是把这些<code>define</code>放在<code>~/.gdbinit</code>内, 但是要注意，你如果在用系统<code>gdb</code>去调非<code>nuttx</code>的程序时，<br>记得要删了<code>~/.gdbinit</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(gdb) define hookpost-file</span><br><span class="line">Type commands <span class="keyword">for</span> definition of <span class="string">"hookpost-file"</span>.</span><br><span class="line">End with a line saying just <span class="string">"end"</span>.</span><br><span class="line">&gt;  <span class="built_in">eval</span> <span class="string">"monitor nuttx.pid_offset %d"</span>, &amp;((struct tcb_s *)(0))-&gt;pid</span><br><span class="line">&gt;  <span class="built_in">eval</span> <span class="string">"monitor nuttx.xcpreg_offset %d"</span>, &amp;((struct tcb_s *)(0))-&gt;xcp.regs</span><br><span class="line">&gt;  <span class="built_in">eval</span> <span class="string">"monitor nuttx.state_offset %d"</span>, &amp;((struct tcb_s *)(0))-&gt;task_state</span><br><span class="line">&gt;  <span class="built_in">eval</span> <span class="string">"monitor nuttx.name_offset %d"</span>, &amp;((struct tcb_s *)(0))-&gt;name</span><br><span class="line">&gt;  <span class="built_in">eval</span> <span class="string">"monitor nuttx.name_size %d"</span>, sizeof(((struct tcb_s *)(0))-&gt;name)</span><br><span class="line">&gt;end</span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接远程<code>openocd</code>的端口</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(gdb) target extended-remote :3333</span><br><span class="line">Remote debugging using :3333</span><br><span class="line">__start () at chip/sam_start.c:269</span><br><span class="line">269	&#123;</span><br><span class="line">(gdb) file nuttx</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上线的<code>file nuttx</code>是加载文件的<code>symbols</code>，因为定义了<code>hook-file</code>,所以会在<code>openocd</code>内显示，如:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Error: No symbols <span class="keyword">for</span> NuttX  <span class="comment"># 有可能会显示，如果每次都显示，是因为没有打开`CONFIG_DEBUG_SYMBOLS`</span></span><br><span class="line">Info : pid_offset: 12</span><br><span class="line">Info : xcpreg_offset: 132</span><br><span class="line">Info : state_offset: 26</span><br><span class="line">Info : name_offset: 208</span><br><span class="line">Info : name_size: 16</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看调试线程信息.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(gdb) info threads</span><br><span class="line">warning: <span class="keyword">while</span> parsing threads: not well-formed (invalid token)</span><br><span class="line">  Id   Target Id         Frame</span><br><span class="line">* 1    Remote target     __start () at chip/sam_start.c:269</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看寄存器的信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(gdb) info registers</span><br><span class="line">r0             0x0	0</span><br><span class="line">r1             0x20004360	536888160</span><br><span class="line">r2             0x20004360	536888160</span><br><span class="line">r3             0x1	1</span><br><span class="line">r4             0xc	12</span><br><span class="line">r5             0x200010cc	536875212</span><br><span class="line">r6             0x200010cc	536875212</span><br><span class="line">r7             0x3	3</span><br><span class="line">r8             0x0	0</span><br><span class="line">r9             0x0	0</span><br><span class="line">r10            0x0	0</span><br><span class="line">r11            0x0	0</span><br><span class="line">r12            0x20004290	536887952</span><br><span class="line">sp             0x20004340	0x20004340</span><br><span class="line">lr             0x8012621	134293025</span><br><span class="line">pc             0x8003b4c	0x8003b4c &lt;memcpy+20&gt;</span><br><span class="line">xPSR           0x61000000	1627389952</span><br></pre></td></tr></table></figure>
+<h3 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h3><ul>
+<li><p><a href="https://sourceware.org/gdb/current/onlinedocs/gdb/Breakpoints.html#Breakpoints" target="_blank" rel="noopener">Breakpoints</a></p>
+</li>
+<li><p>下面设置的断点是在文件的某行上面，为防止调试时程序跑飞，硬件重启后又需要重新设置断点，这里保存断点到<code>bp.txt</code>文件上，下次可以使用<code>source bp.txt</code>加载.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) b chip/sam_hsmci.c:757</span><br><span class="line">Breakpoint 1 at 0x417cf8: file chip/sam_hsmci.c, line 757.</span><br><span class="line">(gdb) b mmcsd/mmcsd_sdio.c:2780</span><br><span class="line">Breakpoint 2 at 0x415fc4: file mmcsd/mmcsd_sdio.c, line 2780.</span><br><span class="line">(gdb) save breakpoints bp.txt</span><br><span class="line">Saved to file <span class="string">'bp.txt'</span>.</span><br><span class="line">(gdb) rbreak bp.txt</span><br><span class="line">(gdb) info b</span><br><span class="line">Num     Type           Disp Enb Address    What</span><br><span class="line">1       breakpoint     keep y   0x00417cf8 <span class="keyword">in</span> sam_clock at chip/sam_hsmci.c:757</span><br><span class="line">2       breakpoint     keep y   0x00415fc4 <span class="keyword">in</span> mmcsd_probe at mmcsd/mmcsd_sdio.c:2780</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看调用栈，有时调试板子，在板子初始硬件时，串口打印还没有就绪时，此时用<code>backtrace</code>查看调用栈很有用，比如:晶振不起振.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(gdb) backtrace</span><br><span class="line"><span class="comment">#0  sam_clock (dev=0x2000016c &lt;g_sdiodev&gt;, rate=CLOCK_SD_TRANSFER_1BIT)</span></span><br><span class="line">    at chip/sam_hsmci.c:1580</span><br><span class="line"><span class="comment">#1  0x00415e56 in mmcsd_sdinitialize (priv=0x200043b0) at mmcsd/mmcsd_sdio.c:3023</span></span><br><span class="line"><span class="comment">#2  mmcsd_probe (priv=priv@entry=0x200043b0) at mmcsd/mmcsd_sdio.c:3465</span></span><br><span class="line"><span class="comment">#3  0x004162d2 in mmcsd_mediachange (arg=0x200043b0) at mmcsd/mmcsd_sdio.c:2545</span></span><br><span class="line"><span class="comment">#4  0x004185f2 in sdio_mediachange (dev=0x2000016c &lt;g_sdiodev&gt;, cardinslot=&lt;optimized out&gt;)</span></span><br><span class="line">    at chip/sam_hsmci.c:2799</span><br><span class="line"><span class="comment">#5  0x004148e4 in sam_hsmci_initialize () at sam_hsmci.c:180</span></span><br><span class="line"><span class="comment">#6  0x0041478a in board_app_initialize (arg=arg@entry=0) at sam_appinit.c:129</span></span><br><span class="line"><span class="comment">#7  0x004120fa in boardctl (cmd=cmd@entry=65281, arg=arg@entry=0) at boardctl.c:326</span></span><br><span class="line"><span class="comment">#8  0x00405cfa in nsh_initialize () at nsh_init.c:103</span></span><br><span class="line"><span class="comment">#9  0x00405ccc in nsh_main (argc=1, argv=0x200059c8) at nsh_main.c:143</span></span><br><span class="line"><span class="comment">#10 0x00403858 in nxtask_startup (entrypt=0x405ca9 &lt;nsh_main&gt;, argc=1, argv=0x200059c8)</span></span><br><span class="line">    at <span class="built_in">sched</span>/task_startup.c:165</span><br><span class="line"><span class="comment">#11 0x00401320 in nxtask_start () at task/task_start.c:144</span></span><br><span class="line"><span class="comment">#12 0x00000000 in ?? ()</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>单步(s = Step into, n = Step over),单步步入(Step Into)有时会进入很深的调用栈，如果要退回可以使用<code>finish</code>指令跳出.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(gdb) step</span><br><span class="line">100	      ret = nxsig_nanosleep(&amp;rqtp, &amp;rmtp);</span><br><span class="line">(gdb) stepi</span><br><span class="line">nxsig_nanosleep (rqtp=rqtp@entry=0x20004330, rmtp=rmtp@entry=0x20004338) at signal/sig_nanosleep.c:108</span><br><span class="line">108	&#123;</span><br><span class="line">(gdb) n</span><br><span class="line">116	  <span class="keyword">if</span> (rqtp == NULL || rqtp-&gt;tv_nsec &lt; 0 || rqtp-&gt;tv_nsec &gt;= 1000000000)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看变量</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">btle_main (argc=&lt;error reading variable: value has been optimized out&gt;, argv=&lt;error reading variable: value has been optimized out&gt;) at nrf24l01_btle.c:372</span><br><span class="line">372	      memcpy(chunk(buffer,pls)-&gt;data,&amp;hum,2);</span><br><span class="line">(gdb) p hum</span><br><span class="line"><span class="variable">$5</span> = 1844</span><br><span class="line">(gdb) p temp</span><br><span class="line"><span class="variable">$6</span> = 3139</span><br><span class="line">(gdb) p buffer.playload</span><br><span class="line">There is no member named playload.</span><br><span class="line">(gdb) x buffer.payload</span><br><span class="line">0x200010d4 &lt;buffer+8&gt;:	0x06000102</span><br><span class="line">(gdb) x/32b buffer.payload</span><br><span class="line">0x200010d4 &lt;buffer+8&gt;:	2	1	0	6	9	0	0	0</span><br><span class="line">0x200010dc &lt;buffer+16&gt;:	0	0	7	22	0	0	0	0</span><br><span class="line">0x200010e4 &lt;buffer+24&gt;:	0	0	40	7	-56	0	0	0</span><br><span class="line">0x200010ec &lt;current&gt;:	0	0	0	0	0	0	0	0</span><br><span class="line">(gdb) x/32x buffer.payload     <span class="comment"># hex格式数组.</span></span><br><span class="line">0x200010d4 &lt;buffer+8&gt;:	0x02	0x01	0x00	0x06	0x09	0x00	0x00	0x00</span><br><span class="line">0x200010dc &lt;buffer+16&gt;:	0x00	0x00	0x07	0x16	0x00	0x00	0x00	0x00</span><br><span class="line">0x200010e4 &lt;buffer+24&gt;:	0x00	0x00	0x28	0x07	0xc8	0x00	0x00	0x00</span><br><span class="line">0x200010ec &lt;current&gt;:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00</span><br><span class="line">(gdb) <span class="built_in">print</span> /x buffer.payload  <span class="comment"># 使用打印查看数组.</span></span><br><span class="line"><span class="variable">$2</span> = &#123;0x2, 0x1, 0x0, 0x6, 0x9, 0x0, 0x0, 0x0, 0x0, 0x0, 0x7, 0x16, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x28, 0x7, 0xc8, 0x0, 0x0, 0x0&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>hexdump 查看地址，数组</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(gdb) x /32bx data</span><br><span class="line">0x20004374:	0x44	0x12	0x00	0x20	0x20	0x00	0x00	0x00</span><br><span class="line">0x2000437c:	0x95	0x3a	0x01	0x08	0x44	0x12	0x00	0x20</span><br><span class="line">0x20004384:	0x03	0x00	0x00	0x00	0x04	0x00	0x00	0x00</span><br><span class="line">0x2000438c:	0x07	0x5d	0x01	0x08	0x10	0x00	0x00	0x00</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看结构体的内容</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">set</span> <span class="built_in">print</span> pretty on</span><br><span class="line">(gdb) p dev</span><br><span class="line"><span class="variable">$4</span> = (struct nrf24l01_dev_s *) 0x20003370</span><br><span class="line">(gdb) p *dev</span><br><span class="line"><span class="variable">$5</span> = &#123;</span><br><span class="line">  spi = 0x20000174 &lt;g_spi2dev&gt;,</span><br><span class="line">  config = 0x20000140 &lt;nrf_cfg&gt;,</span><br><span class="line">  state = ST_STANDBY,</span><br><span class="line">  tx_payload_noack = 0 <span class="string">'\000'</span>,</span><br><span class="line">  en_aa = 63 <span class="string">'?'</span>,</span><br><span class="line">  en_pipes = 1 <span class="string">'\001'</span>,</span><br><span class="line">  ce_enabled = 0 <span class="string">'\000'</span>,</span><br><span class="line">  lastxmitcount = 0 <span class="string">'\000'</span>,</span><br><span class="line">  addrlen = 5 <span class="string">'\005'</span>,</span><br><span class="line">  pipedatalen = <span class="string">"!\000\000\000\000"</span>,</span><br><span class="line">  pipe0addr = <span class="string">"\001\312\376\022\064"</span>,</span><br><span class="line">  last_recvpipeno = 0 <span class="string">'\000'</span>,</span><br><span class="line">  sem_tx = &#123;</span><br><span class="line">    semcount = 0</span><br><span class="line">  &#125;,</span><br><span class="line">  tx_pending = 1 <span class="string">'\001'</span>,</span><br><span class="line">  rx_fifo = 0x200033d0 <span class="string">"h\020"</span>,</span><br><span class="line">  fifo_len = 0,</span><br><span class="line">  nxt_read = 0,</span><br><span class="line">  nxt_write = 0,</span><br><span class="line"> [.....]</span><br></pre></td></tr></table></figure>
+<h2 id="烧写固件"><a href="#烧写固件" class="headerlink" title="烧写固件"></a>烧写固件</h2><ul>
+<li>烧写<code>flash0</code>,地址<code>0x00400000</code>在链接脚本文件<code>boards/arm/sam34/sam4s-xplained-pro/scripts/sam4s-xplained-pro.ld</code>里有定义.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">~$ openocd -f board/atmel_sam4s_xplained_pro.cfg -c init -c <span class="string">"reset halt"</span> -c <span class="string">"flash write_image erase nuttx.bin 0x00400000"</span> -c <span class="string">"reset"</span></span><br><span class="line">Open On-Chip Debugger 0.10.0+dev-01408-g762ddcb74-dirty (2020-09-25-00:32)</span><br><span class="line">Licensed under GNU GPL v2</span><br><span class="line">For bug reports, <span class="built_in">read</span></span><br><span class="line">	http://openocd.org/doc/doxygen/bugs.html</span><br><span class="line">Info : auto-selecting first available session transport <span class="string">"swd"</span>. To override use <span class="string">'transport select &lt;transport&gt;'</span>.</span><br><span class="line">Info : CMSIS-DAP: SWD  Supported</span><br><span class="line">Info : CMSIS-DAP: JTAG Supported</span><br><span class="line">Info : CMSIS-DAP: FW Version = 1.0</span><br><span class="line">Info : CMSIS-DAP: Serial<span class="comment"># = ATML1803040200001055</span></span><br><span class="line">Info : CMSIS-DAP: Interface Initialised (SWD)</span><br><span class="line">Info : SWCLK/TCK = 1 SWDIO/TMS = 1 TDI = 1 TDO = 1 nTRST = 0 nRESET = 1</span><br><span class="line">Info : CMSIS-DAP: Interface ready</span><br><span class="line">Info : clock speed 500 kHz</span><br><span class="line">Info : SWD DPIDR 0x2ba01477</span><br><span class="line">Info : ATSAM4SD32C.cpu: hardware has 6 breakpoints, 4 watchpoints</span><br><span class="line">Info : starting gdb server <span class="keyword">for</span> ATSAM4SD32C.cpu on 3333</span><br><span class="line">Info : Listening on port 3333 <span class="keyword">for</span> gdb connections</span><br><span class="line">target halted due to debug-request, current mode: Thread</span><br><span class="line">xPSR: 0x01000000 pc: 0x004000cc msp: 0x20001ee4</span><br><span class="line">Info : sam4 does not auto-erase <span class="keyword">while</span> programming (Erasing relevant sectors)</span><br><span class="line">Info : sam4 First: 0x00000000 Last: 0x0000000c</span><br><span class="line">Info : Erasing sector: 0x00000000</span><br><span class="line">Info : Erasing sector: 0x00000001</span><br><span class="line">Info : Erasing sector: 0x00000002</span><br><span class="line">Info : Erasing sector: 0x00000003</span><br><span class="line">Info : Erasing sector: 0x00000004</span><br><span class="line">Info : Erasing sector: 0x00000005</span><br><span class="line">Info : Erasing sector: 0x00000006</span><br><span class="line">Info : Erasing sector: 0x00000007</span><br><span class="line">Info : Erasing sector: 0x00000008</span><br><span class="line">Info : Erasing sector: 0x00000009</span><br><span class="line">Info : Erasing sector: 0x0000000a</span><br><span class="line">Info : Erasing sector: 0x0000000b</span><br><span class="line">Info : Erasing sector: 0x0000000c</span><br><span class="line">auto erase enabled</span><br><span class="line">wrote 106496 bytes from file nuttx.bin <span class="keyword">in</span> 5.418800s (19.192 KiB/s)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接到它的<code>UART</code>接口，进入系统.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo minicom -o -b 115200 -D /dev/ttyACM0</span><br><span class="line">NuttShell (NSH) NuttX-9.1.0</span><br><span class="line">nsh&gt; mm  <span class="comment">#测试一下内存.</span></span><br></pre></td></tr></table></figure>
+<h1 id="NAND-移植"><a href="#NAND-移植" class="headerlink" title="NAND 移植"></a>NAND 移植</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sam_nand_initialize: CS0</span><br><span class="line">nand_initialize: cmdaddr=0x60400000 addraddr=0x60200000 dataaddr=0x60000000</span><br><span class="line">onfi_ebidetect: cmdaddr=60400000 addraddr=60200000 dataaddr=60000000</span><br><span class="line">onfi_read: cmdaddr=60400000 addraddr=60200000 dataaddr=60000000</span><br><span class="line">onfi_read: Returning:</span><br><span class="line">onfi_read:   manufacturer:  0x2c</span><br><span class="line">onfi_read:   buswidth:      0</span><br><span class="line">onfi_read:   luns:          1</span><br><span class="line">onfi_read:   eccsize:       4</span><br><span class="line">onfi_read:   model:         0x @</span><br><span class="line">onfi_read:   sparesize:     64</span><br><span class="line">onfi_read:   pagesperblock: 64</span><br><span class="line">onfi_read:   blocksperlun:  2048</span><br><span class="line">onfi_read:   pagesize:      2048</span><br><span class="line">nand_initialize: Found ONFI compliant NAND FLASH</span><br><span class="line">nand_devscan: Retrieving bad block information. nblocks=2048</span><br></pre></td></tr></table></figure>
+<ul>
+<li>读/写页(page),擦除块(block).在概念上，由大到小来说，就是:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Nand Flash ⇒ Chip ⇒ Plane ⇒ Block ⇒ Page ⇒ oob</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> hexdump /dev/mtdblock0 count=128</span><br><span class="line">/dev/mtdblock0 at 00000000:</span><br><span class="line">0000: eb 3c 90 4e 55 54 54 58 20 20 20 00 08 20 01 00 .&lt;.NUTTX   .. ..</span><br><span class="line">0010: 02 00 02 00 00 f8 05 00 3f 00 ff 00 00 00 00 00 ........?.......</span><br><span class="line">0020: 00 00 02 00 00 00 29 00 00 00 00 20 20 20 20 20 ......)....</span><br><span class="line">0030: 20 20 20 20 20 20 46 41 54 31 36 20 20 20 0e 1f       FAT16   ..</span><br><span class="line">0040: be 5b 7c ac 22 c0 74 0b 56 b4 0e bb 07 00 <span class="built_in">cd</span> 10 .[|.\".t.V.......</span><br><span class="line">0050: 5e eb f0 32 e4 <span class="built_in">cd</span> 16 <span class="built_in">cd</span> 19 eb fe 54 68 69 73 20 ^..2.......This</span><br><span class="line">0060: 69 73 20 6e 6f 74 20 61 20 62 6f 6f 74 61 62 6c is not a bootabl</span><br><span class="line">0070: 65 20 64 69 73 6b 2e 20 20 50 6c 65 61 73 65 20 e disk.  Please</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>格式化<code>nuttx</code>代码</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status | grep <span class="string">"modified:"</span> | awk <span class="string">'&#123;print $2&#125;'</span> | xargs tools/checkpatch.sh -f</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内存分布<code>SAMA5D3 Series</code>是参照<code>Datasheet</code>第5章<code>Memories</code>. SAM4S是<code>SAM4S Datasheet  Chapter 6 . Product Mapping</code></p>
+</li>
+</ul>
+<h1 id="Arduino-Due"><a href="#Arduino-Due" class="headerlink" title="Arduino Due"></a>Arduino Due</h1><ul>
+<li><a href="https://store.arduino.cc/usa/due" target="_blank" rel="noopener">Arduino Due</a></li>
+<li><a href="http://rdiez.shoutwiki.com/wiki/Hacking_with_the_Arduino_Due" target="_blank" rel="noopener">Hacking with the Arduino Due</a></li>
+<li><a href="https://www.arduino.cc/en/Hacking/PinMappingSAM3X" target="_blank" rel="noopener">SAM3X-Arduino Pin Mapping</a></li>
+<li>The Arduino Due is a microcontroller board based on the Atmel SAM3X8E ARM Cortex-M3 CPU. It is the first Arduino board based on a 32-bit ARM core microcontroller. It has 54 digital input/output pins (of which 12 can be used as PWM outputs), 12 analog inputs, 4 UARTs (hardware serial ports), a 84 MHz clock, an USB OTG capable connection, 2 DAC (digital to analog), 2 TWI, a power jack, an SPI header, a JTAG header, a reset button and an erase button.</li>
+<li>根据官方警示:<code>Arduino Due</code>的管脚只容<code>3.3v</code>,高于<code>3.3v</code>会损坏板子.</li>
+</ul>
+<h2 id="BOSSAC烧写"><a href="#BOSSAC烧写" class="headerlink" title="BOSSAC烧写"></a>BOSSAC烧写</h2><ul>
+<li>这里将使用它官方的烧写工具<code>BOSSAC</code>,它一般位于用户目录下.如:<code>~/.arduino15/packages/arduino/tools/bossac/1.7.0-arduino3/bossac</code>.</li>
+</ul>
+<h3 id="检测目标板子信息"><a href="#检测目标板子信息" class="headerlink" title="检测目标板子信息"></a>检测目标板子信息</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$  bossac -p ttyACM0 -U <span class="literal">false</span> -i</span><br><span class="line">No device found on ttyACM0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>需要设置正确的端口参数,如果再不行，按<code>reset</code>再重试，如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~$ stty -F /dev/ttyACM0 speed 1200 cs8 -cstopb -parenb</span><br><span class="line">115200</span><br><span class="line">~ $ bossac -p ttyACM0 -U <span class="literal">false</span> -i</span><br><span class="line">Atmel SMART device 0x285e0a60 found</span><br><span class="line">Device       : ATSAM3X8</span><br><span class="line">Chip ID      : 285e0a60</span><br><span class="line">Version      : v1.1 Dec 15 2010 19:25:04</span><br><span class="line">Address      : 524288</span><br><span class="line">Pages        : 2048</span><br><span class="line">Page Size    : 256 bytes</span><br><span class="line">Total Size   : 512KB</span><br><span class="line">Planes       : 2</span><br><span class="line">Lock Regions : 32</span><br><span class="line">Locked       : none</span><br><span class="line">Security     : <span class="literal">false</span></span><br><span class="line">Boot Flash   : <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h3 id="烧入nuttx-bin"><a href="#烧入nuttx-bin" class="headerlink" title="烧入nuttx.bin"></a>烧入<code>nuttx.bin</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ bossac -p ttyACM0 -U <span class="literal">false</span> -e -w -v -b nuttx.bin -R</span><br><span class="line">Atmel SMART device 0x285e0a60 found</span><br><span class="line">Erase flash</span><br><span class="line"><span class="keyword">done</span> <span class="keyword">in</span> 0.041 seconds</span><br><span class="line"></span><br><span class="line">Write 62368 bytes to flash (244 pages)</span><br><span class="line">[==============================] 100% (244/244 pages)</span><br><span class="line"><span class="keyword">done</span> <span class="keyword">in</span> 12.866 seconds</span><br><span class="line"></span><br><span class="line">Verify 62368 bytes of flash</span><br><span class="line">[==============================] 100% (244/244 pages)</span><br><span class="line">Verify successful</span><br><span class="line"><span class="keyword">done</span> <span class="keyword">in</span> 12.240 seconds</span><br><span class="line">Set boot flash <span class="literal">true</span></span><br><span class="line">CPU reset.</span><br></pre></td></tr></table></figure>
+<h2 id="使用SWD烧写"><a href="#使用SWD烧写" class="headerlink" title="使用SWD烧写"></a>使用SWD烧写</h2><ul>
+<li>除了使用<code>BOSSAC</code>，本来想使用<code>SWD</code>接口与<code>OpenOCD</code>来烧写调试.因为<code>Due</code>板有一个排4针的<code>DEBUG</code>接口，针脚是:<code>1:RESET,2:SWDIO,3:SWCLK,4:GND</code>.<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ cat &gt; ~/sam3x8e.cfg&lt;&lt;EOF</span><br><span class="line"><span class="built_in">source</span> [find interface/stlink.cfg]</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> CPUTAPID 0x2ba01477</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> [find board/atmel_sam3x_ek.cfg]</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">~$ openocd -f ~/sam3x8e.cfg  -c init -c halt -c <span class="string">"flash write_image erase nuttx.bin 0x80000"</span> -c <span class="string">"at91sam3 gpnvm set 1"</span> -c <span class="string">"exit"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="使用板载AT16u2烧写"><a href="#使用板载AT16u2烧写" class="headerlink" title="使用板载AT16u2烧写"></a>使用板载<code>AT16u2</code>烧写</h2><ul>
+<li><p><a href="https://github.com/lanserge/at16u2_cmsis_dap" target="_blank" rel="noopener">at16u2_cmsis_dap</a></p>
+</li>
+<li><p>在网上发现可以修改<code>AT16u2</code>的固件，使它成为<code>CMSIS_DAP</code>,从而可以支持<code>openocd</code>的烧写调试.</p>
+</li>
+</ul>
+<h3 id="更新AT16u2的固件"><a href="#更新AT16u2的固件" class="headerlink" title="更新AT16u2的固件"></a>更新AT16u2的固件</h3><ul>
+<li><a href="https://www.arduino.cc/en/Hacking/Upgrading16U2Due" target="_blank" rel="noopener">Upgrading16U2Due</a></li>
+<li><p>烧写<code>AVR</code>芯片需要一个烧写器，如:<code>avr JATG-ICE, AVR-ISP,Atmel-ICE,USBasp</code>.也可以把一块<code>arduino</code>板子变成<code>AVR-ISP</code>.如:<code>Arduino Uno</code>. 但是这里有一块<code>NUCLEO-L152RE</code>它有兼容<code>arduino</code>的接口，可以使用<a href="https://github.com/stm32duino/Arduino_Core_STM32" target="_blank" rel="noopener">stm32duino</a>把它变成<code>AVR-ISP</code>烧写器,烧入官方的<code>ArduinoISP</code>进去.</p>
+</li>
+<li><p>打开<code>Arduino IDE --&gt; File --&gt; examples(Builtin-examples) --&gt; 11.ArduinoISP --&gt; ArduinoISP</code>,烧写上传到<code>NUCLEO-L152RE</code>.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NUCLEO-L152RE        Arduino Due (ICSP)</span><br><span class="line">  D10 CS     &lt;------&gt;   Reset</span><br><span class="line">  D11 MOSI   &lt;------&gt;   MOSI</span><br><span class="line">  D12 MISO   &lt;------&gt;   MISO</span><br><span class="line">  D13 SCK    &lt;------&gt;   SCK</span><br><span class="line">      GND    &lt;------&gt;   GND</span><br><span class="line">      +5V    &lt;------&gt;   +5V</span><br></pre></td></tr></table></figure>
+<h4 id="avrdude"><a href="#avrdude" class="headerlink" title="avrdude"></a>avrdude</h4><ul>
+<li><p><a href="https://download.savannah.gnu.org/releases/avrdude/" target="_blank" rel="noopener">下载avrdude源码</a>，<code>avrdude</code>是一个开源的<code>AVR</code>烧写软件，它最新地板本是<a href="https://download.savannah.gnu.org/releases/avrdude/avrdude-6.3.tar.gz" target="_blank" rel="noopener">avrdude-6.3</a>,通过源码可以查看它所支持的硬件详情.</p>
+</li>
+<li><p>下面是使用<code>NUCLEO-L152RE</code>做为一个烧写器，按照上面接线，对<code>Arduino Due</code>板上的<code>at16u2</code>的固件进行更新.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span>   ~/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/</span><br><span class="line">~$ tree</span><br><span class="line">.</span><br><span class="line">├── bin</span><br><span class="line">│   └── avrdude</span><br><span class="line">└── etc</span><br><span class="line">    └── avrdude.conf</span><br><span class="line"></span><br><span class="line">~$ avrdude -c arduino  -P /dev/ttyACM0 -b 19200 -p atmega16u2 -vvv -U flash:w:at16u2_cmsis_dap/at16u2_cmsis_dap.elf.hex:i</span><br><span class="line"></span><br><span class="line">avrdude: Version 6.3-20171130</span><br><span class="line">         Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/</span><br><span class="line">         Copyright (c) 2007-2014 Joerg Wunsch</span><br><span class="line"></span><br><span class="line">         System wide configuration file is <span class="string">"/etc/avrdude.conf"</span></span><br><span class="line">         User configuration file is <span class="string">"/home/michael/.avrduderc"</span></span><br><span class="line">         User configuration file does not exist or is not a regular file, skipping</span><br><span class="line"></span><br><span class="line">         Using Port                    : /dev/ttyACM0</span><br><span class="line">         Using Programmer              : arduino</span><br><span class="line">         Overriding Baud Rate          : 19200</span><br><span class="line">         AVR Part                      : ATmega16U2</span><br><span class="line">         Chip Erase delay              : 9000 us</span><br><span class="line">         PAGEL                         : PD7</span><br><span class="line">         BS2                           : PC6</span><br><span class="line">         RESET disposition             : possible i/o</span><br><span class="line">         RETRY pulse                   : SCK</span><br><span class="line">         serial program mode           : yes</span><br><span class="line">         parallel program mode         : yes</span><br><span class="line">         Timeout                       : 200</span><br><span class="line">         StabDelay                     : 100</span><br><span class="line">         CmdexeDelay                   : 25</span><br><span class="line">         SyncLoops                     : 32</span><br><span class="line">         ByteDelay                     : 0</span><br><span class="line">         PollIndex                     : 3</span><br><span class="line">         PollValue                     : 0x53</span><br><span class="line">         Memory Detail                 :</span><br><span class="line"></span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           eeprom        65    20     4    0 no        512    4    128  9000  9000 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           flash         65     6   128    0 yes     16384  128    128  4500  4500 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           lfuse          0     0     0    0 no          1    0      0  9000  9000 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           hfuse          0     0     0    0 no          1    0      0  9000  9000 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           efuse          0     0     0    0 no          1    0      0  9000  9000 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           lock           0     0     0    0 no          1    0      0  9000  9000 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           calibration    0     0     0    0 no          1    0      0     0     0 0x00 0x00</span><br><span class="line">                                  Block Poll               Page                       Polled</span><br><span class="line">           Memory Type Mode Delay Size  Indx Paged  Size   Size <span class="comment">#Pages MinW  MaxW   ReadBack</span></span><br><span class="line">           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------</span><br><span class="line">           signature      0     0     0    0 no          3    0      0     0     0 0x00 0x00</span><br><span class="line"></span><br><span class="line">         Programmer Type : Arduino</span><br><span class="line">         Description     : Arduino</span><br><span class="line">         Hardware Version: 2</span><br><span class="line">         Firmware Version: 1.18</span><br><span class="line">         Topcard         : Unknown</span><br><span class="line">         Vtarget         : 0.0 V</span><br><span class="line">         Varef           : 0.0 V</span><br><span class="line">         Oscillator      : Off</span><br><span class="line">         SCK period      : 0.1 us</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="跳线"><a href="#跳线" class="headerlink" title="跳线"></a>跳线</h3><ul>
+<li>因为<code>Due</code>板上的<code>GND,RESET</code>已经连接到<code>AT16u2</code>上了，这里<code>Due</code>板内只需两根跳线就够了.所以此时的<code>at16u2</code>就是一个<code>CMSIS-DAP</code>的设备了.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> ICSP            DEBUG(SWD)</span><br><span class="line"></span><br><span class="line">SCK (3)  &lt;-----&gt;   SCK (2)</span><br><span class="line">MOSI(4)  &lt;-----&gt;   SDO (3)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用<code>OpenOCD</code>烧写.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ openocd -f interface/cmsis-dap.cfg -f board/atmel_sam3x_ek.cfg  -c init -c halt -c <span class="string">"flash write_image erase nuttx.bin 0x80000"</span> -c <span class="string">"at91sam3 gpnvm set 1"</span> -c <span class="string">"exit"</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用UM232H-FTDI-做烧写器"><a href="#使用UM232H-FTDI-做烧写器" class="headerlink" title="使用UM232H(FTDI)做烧写器"></a>使用<code>UM232H(FTDI)</code>做烧写器</h2><ul>
+<li>上面的做法是使用一块<code>arduino</code>板做为烧写器，这里是使用<code>FT232H USB to SPI/I2C</code>的小板来做为烧写器,连接板上的<code>DEBUG(SWD)</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FT232HQ minimodule channel 0 (Channel A)</span></span><br><span class="line"><span class="comment"># Connector  FTDI               Arduino Due(SWD)</span></span><br><span class="line"><span class="comment"># Pin        Name</span></span><br><span class="line"><span class="comment"># ---------  ------             ------</span></span><br><span class="line"><span class="comment"># CN2-10      GND                GND   (pin1)</span></span><br><span class="line"><span class="comment"># CN2-13     ADBUS0 (TCK)       SWCLK  (pin2)</span></span><br><span class="line"><span class="comment"># CN2-14     ADBUS2 (TDI/TDO)   SWDIO  (pin3)</span></span><br><span class="line"><span class="comment"># CN2-15     ADBUS1 (TDO/TDI)   SWDIO  (pin3)</span></span><br><span class="line"><span class="comment"># CN2-17     ADBUS4 (GPIOL0)    nTRST  (pin4)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>也可以使用<code>Due</code>板上的标准的<code>ARM-JTAG-10pin</code>去调试，接线的方式如同上面，可以使用<code>JTAG</code>信号，也可以只接<code>SWD</code>信号.如果转接到一个<code>20Pin</code>的板上，就需要对接相应的信号线.</p>
+</li>
+<li><p>使用<code>OpenOCD</code>烧写,如果板上原来是<code>arduino</code>镜像，需要按下<code>reset</code>后，马上运行下面命令.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ openocd -f interface/ftdi/ft232h-module-swd.cfg  -f board/atmel_sam3x_ek.cfg  -c init -c halt -c <span class="string">"flash write_image erase nuttx.bin 0x80000"</span> -c <span class="string">"at91sam3 gpnvm set 1"</span> -c <span class="string">"exit"</span></span><br></pre></td></tr></table></figure>
+<h3 id="OpenOCD连接"><a href="#OpenOCD连接" class="headerlink" title="OpenOCD连接"></a>OpenOCD连接</h3><h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
+<li>Write code to FLASH don’t change boot mode and don’t reset.  This lets<br>you examine the FLASH contents that you just loaded while the bootloader<br>is still active.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ bossac.exe --port=COM26 --usb-port=<span class="literal">false</span> -e -w -v --boot=0 nuttx.bin</span><br><span class="line">Write 64628 bytes to flash</span><br><span class="line">[==============================] 100% (253/253 pages)</span><br><span class="line">Verify 64628 bytes of flash</span><br><span class="line">[==============================] 100% (253/253 pages)</span><br><span class="line">Verify successful</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Verify the FLASH contents (the bootloader must be running)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ bossac.exe --port=COM26 --usb-port=<span class="literal">false</span> -v nuttx.bin</span><br><span class="line">Verify 64628 bytes of flash</span><br><span class="line">[==============================] 100% (253/253 pages)</span><br><span class="line">Verify successful</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Read from FLASH to a file  (the bootloader must be running):</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~$ bossac.exe --port=COM26 --usb-port=<span class="literal">false</span> --<span class="built_in">read</span>=4096 nuttx.dump</span><br><span class="line">Read 4096 bytes from flash</span><br><span class="line">[==============================] 100% (16/16 pages)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Change to boot from FLASH</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ bossac.exe --port=COM26 --usb-port=<span class="literal">false</span> --boot=1</span><br><span class="line">Set boot flash <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="恢复AT16u2的固件"><a href="#恢复AT16u2的固件" class="headerlink" title="恢复AT16u2的固件"></a>恢复<code>AT16u2</code>的固件</h3><ul>
+<li><p><a href="https://github.com/arduino/ArduinoCore-sam" target="_blank" rel="noopener">ArduinoCore-sam</a></p>
+</li>
+<li><p>下面是把<code>Arduino Due</code>板上的<code>AT16u2</code>恢复它原来的固件功能，这里是使用<code>FT232H</code>连它的<code>ICSP</code>而不是用一个<code>Arduino</code>板来做烧写器.<code>arduino</code>它所有支持的固件都在它的安装包内,因为<code>Arduino Due</code>是<code>SAM3X8E</code>的芯片，这里选择查看<code>~/.arduino15/packages/arduino/hardware/sam/</code>目录.如下.</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~$ tree ~/.arduino15/packages/arduino/hardware/sam/1.6.12/firmwares</span><br><span class="line">.arduino15/packages/arduino/hardware/sam/1.6.12/firmwares</span><br><span class="line">└── atmega16u2</span><br><span class="line">    ├── Arduino-DUE-usbserial-prod-firmware-2012-11-05.hex</span><br><span class="line">    ├── Arduino-DUE-usbserial-prod-firmware-2013-02-05.hex</span><br><span class="line">    └── arduino-usbserial</span><br><span class="line">        ├── Arduino-usbserial.c</span><br><span class="line">        ├── Arduino-usbserial.h</span><br><span class="line">        ├── Board</span><br><span class="line">        │   └── LEDs.h</span><br><span class="line">        ├── Descriptors.c</span><br><span class="line">        ├── Descriptors.h</span><br><span class="line">        ├── Lib</span><br><span class="line">        │   └── LightweightRingBuff.h</span><br><span class="line">        ├── makefile</span><br><span class="line">        └── readme.txt</span><br><span class="line"></span><br><span class="line">4 directories, 10 files</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于如何接线的问题，可以查看<code>/etc/avrdude.conf</code>，根据里面的注释指导，结合自已板子接线.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    FT232H              Arduino Due (ICSP)</span><br><span class="line"></span><br><span class="line">pin15 ADBUS2   &lt;------&gt;   MISO  pin1</span><br><span class="line">        +5V    &lt;------&gt;   +5V      2</span><br><span class="line">pin13 ADBUS0   &lt;------&gt;   SCK      3</span><br><span class="line">pin14 ADBUS1   &lt;------&gt;   MOSI     4</span><br><span class="line">pin16 ADBUS3   &lt;------&gt;   Reset    5</span><br><span class="line">        GND    &lt;------&gt;   GND      6</span><br></pre></td></tr></table></figure>
+<ul>
+<li>烧写命令如下，如有问题可以，添加<code>-vvv</code>烧写查看.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">~$ avrdude -C /etc/avrdude.conf -c UM232H -P /dev/ttyUSB0 -b 19200 -p atmega16u2 -U flash:w:Arduino-DUE-usbserial-prod-firmware-2013-02-05.hex:i</span><br><span class="line"></span><br><span class="line">avrdude: AVR device initialized and ready to accept instructions</span><br><span class="line"></span><br><span class="line">Reading | <span class="comment">################################################## | 100% 0.01s</span></span><br><span class="line"></span><br><span class="line">avrdude: Device signature = 0x1e9489 (probably m16u2)</span><br><span class="line">avrdude: NOTE: <span class="string">"flash"</span> memory has been specified, an erase cycle will be performed</span><br><span class="line">         To <span class="built_in">disable</span> this feature, specify the -D option.</span><br><span class="line">avrdude: erasing chip</span><br><span class="line">avrdude: reading input file <span class="string">"Arduino-DUE-usbserial-prod-firmware-2013-02-05.hex"</span></span><br><span class="line">avrdude: writing flash (4314 bytes):</span><br><span class="line"></span><br><span class="line">Writing | <span class="comment">################################################## | 100% 7.56s</span></span><br><span class="line"></span><br><span class="line">avrdude: 4314 bytes of flash written</span><br><span class="line">avrdude: verifying flash memory against Arduino-DUE-usbserial-prod-firmware-2013-02-05.hex:</span><br><span class="line">avrdude: load data flash data from input file Arduino-DUE-usbserial-prod-firmware-2013-02-05.hex:</span><br><span class="line">avrdude: input file Arduino-DUE-usbserial-prod-firmware-2013-02-05.hex contains 4314 bytes</span><br><span class="line">avrdude: reading on-chip flash data:</span><br><span class="line"></span><br><span class="line">Reading | <span class="comment">################################################## | 100% 7.28s</span></span><br><span class="line"></span><br><span class="line">avrdude: verifying ...</span><br><span class="line">avrdude: 4314 bytes of flash verified</span><br><span class="line"></span><br><span class="line">avrdude: safemode: Fuses OK (E:F4, H:D9, L:FF)</span><br><span class="line"></span><br><span class="line">avrdude <span class="keyword">done</span>.  Thank you.</span><br></pre></td></tr></table></figure>
+<h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
+<li>微信二维码:</li>
+</ul>
+<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/嵌入式系统，RTOS，nuttx-ARM/" rel="tag"># 嵌入式系统，RTOS，nuttx,ARM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/16/CSV与EXCEL的文件处理/" rel="prev" title="CSV与EXCEL的文件处理">
+      <i class="fa fa-chevron-left"></i> CSV与EXCEL的文件处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/26/STM32与RTOS实践/" rel="next" title="STM32与RTOS实实践">
+      STM32与RTOS实实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编译Nuttx"><span class="nav-number">1.</span> <span class="nav-text">编译Nuttx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Atmel-SAM4S-Xplained-Pro"><span class="nav-number">1.1.</span> <span class="nav-text">Atmel SAM4S Xplained Pro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用BuildRoot构建指交叉工具链"><span class="nav-number">1.2.</span> <span class="nav-text">使用BuildRoot构建指交叉工具链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gcc-4-7-4的补丁"><span class="nav-number">1.2.1.</span> <span class="nav-text">gcc-4.7.4的补丁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-4-7-4的编译错误"><span class="nav-number">1.2.2.</span> <span class="nav-text">GCC-4.7.4的编译错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NuttX系统"><span class="nav-number">1.3.</span> <span class="nav-text">配置NuttX系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用OpenOCD调试"><span class="nav-number">1.4.</span> <span class="nav-text">使用OpenOCD调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译OpenOCD"><span class="nav-number">1.4.1.</span> <span class="nav-text">编译OpenOCD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB调试"><span class="nav-number">1.5.</span> <span class="nav-text">GDB调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenOCD服务"><span class="nav-number">1.5.1.</span> <span class="nav-text">OpenOCD服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GDB连接"><span class="nav-number">1.5.2.</span> <span class="nav-text">GDB连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置断点"><span class="nav-number">1.5.3.</span> <span class="nav-text">设置断点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#烧写固件"><span class="nav-number">1.6.</span> <span class="nav-text">烧写固件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NAND-移植"><span class="nav-number">2.</span> <span class="nav-text">NAND 移植</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Arduino-Due"><span class="nav-number">3.</span> <span class="nav-text">Arduino Due</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BOSSAC烧写"><span class="nav-number">3.1.</span> <span class="nav-text">BOSSAC烧写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测目标板子信息"><span class="nav-number">3.1.1.</span> <span class="nav-text">检测目标板子信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#烧入nuttx-bin"><span class="nav-number">3.1.2.</span> <span class="nav-text">烧入nuttx.bin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用SWD烧写"><span class="nav-number">3.2.</span> <span class="nav-text">使用SWD烧写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用板载AT16u2烧写"><span class="nav-number">3.3.</span> <span class="nav-text">使用板载AT16u2烧写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新AT16u2的固件"><span class="nav-number">3.3.1.</span> <span class="nav-text">更新AT16u2的固件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#avrdude"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">avrdude</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳线"><span class="nav-number">3.3.2.</span> <span class="nav-text">跳线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用UM232H-FTDI-做烧写器"><span class="nav-number">3.4.</span> <span class="nav-text">使用UM232H(FTDI)做烧写器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenOCD连接"><span class="nav-number">3.4.1.</span> <span class="nav-text">OpenOCD连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它"><span class="nav-number">3.4.2.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复AT16u2的固件"><span class="nav-number">3.4.3.</span> <span class="nav-text">恢复AT16u2的固件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">4.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yjdwbj"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">yjdwbj</p>
+  <div class="site-description" itemprop="description">最是人间留不住,朱颜辞镜花辞树</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjdwbj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

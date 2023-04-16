@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640_debugger_connection.png">
 <meta property="og:image" content="http://yoursite.com/imgs/ti/cc2640_debugger_connection_serial.png">
 <meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2022-08-17T13:23:21.915Z">
+<meta property="og:updated_time" content="2023-01-29T05:42:02.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TI-CC2640R2-LaunchPad开发指南">
 <meta name="twitter:description" content="参考链接  CC25xx相关的FAQ 蓝牙协议栈 Secure OTA Firmware Update with CC2650 how to update CC2640 firmware via UART in linux TI CC13xx/CC2538/CC26xx Serial Boot Loader   术语简介  BLE :Bluetooth Low Energy BR/EDR: Ba">
@@ -186,7 +186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-17 21:23:21" itemprop="dateModified" datetime="2022-08-17T21:23:21+08:00">2022-08-17</time>
+                <time title="修改时间：2023-01-29 13:42:02" itemprop="dateModified" datetime="2023-01-29T13:42:02+08:00">2023-01-29</time>
               </span>
 
           
@@ -295,6 +295,26 @@
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#define SET_CCFG_BL_CONFIG_BOOTLOADER_ENABLE  0xC5 // Enable ROM boot loader</span></span><br><span class="line"><span class="comment">#define SET_CCFG_MODE_CONF_SCLK_LF_OPTION     0x3  // LF RCOSC</span></span><br><span class="line">//---- Use default values <span class="keyword">for</span> all others ----</span><br><span class="line"><span class="comment">#include "&lt;project-path&gt;/source/ti/devices/&lt;device&gt;/startup_files/ccfg.c"</span></span><br></pre></td></tr></table></figure>
 <h1 id="OAD下载"><a href="#OAD下载" class="headerlink" title="OAD下载"></a>OAD下载</h1><p><a href="file:///home/michael/3TB-DISK/Embedded-System/TIREX/simplelink_cc2640r2_sdk_1_50_00_58/docs/blestack/ble_user_guide/html/cc2640/architecture.html#hardware-and-software-architecture" target="_blank" rel="noopener">进度</a></p>
+<h1 id="CC1352R1"><a href="#CC1352R1" class="headerlink" title="CC1352R1"></a>CC1352R1</h1><ul>
+<li><p>Links:</p>
+<ul>
+<li><a href="https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/boards/arm/cc1352r1_launchxl/doc/index.html" target="_blank" rel="noopener">CC1352R1 LaunchXL</a></li>
+<li><a href="https://www.ti.com/tool/LAUNCHXL-CC1352R1" target="_blank" rel="noopener">LAUNCHXL-CC1352R1</a></li>
+<li><a href="https://docs.contiki-ng.org/en/develop/" target="_blank" rel="noopener">Contiki-NG Documentation</a></li>
+<li><a href="https://doc.riot-os.org/group__boards__cc1352__launchpad.html" target="_blank" rel="noopener">TI CC1352 LaunchPad</a></li>
+</ul>
+</li>
+<li><p>Github OS:</p>
+<ul>
+<li><a href="https://github.com/zephyrproject-rtos/zephyr" target="_blank" rel="noopener">zephyr</a></li>
+<li><a href="https://github.com/openthread/ot-cc13x2-cc26x2" target="_blank" rel="noopener">ot-cc13x2-cc26x2</a></li>
+<li><a href="https://docs.nanoframework.net/" target="_blank" rel="noopener">nanoframework</a></li>
+<li><a href="https://github.com/Koenkk/zigbee2mqtt" target="_blank" rel="noopener">zigbee2mqtt</a></li>
+<li><a href="https://github.com/contiki-ng/contiki-ng" target="_blank" rel="noopener">contiki-ng</a></li>
+<li><a href="https://github.com/RIOT-OS/RIOT" target="_blank" rel="noopener">RIOT-OS/RIOT</a></li>
+</ul>
+</li>
+</ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
 </ul>
@@ -379,7 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#硬件简介"><span class="nav-number">1.</span> <span class="nav-text">硬件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件架构"><span class="nav-number">1.1.</span> <span class="nav-text">硬件架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BLE软件架构"><span class="nav-number">1.2.</span> <span class="nav-text">BLE软件架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开箱测试"><span class="nav-number">2.</span> <span class="nav-text">开箱测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝牙主机测试-Host-test"><span class="nav-number">2.1.</span> <span class="nav-text">蓝牙主机测试(Host_test)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入工程"><span class="nav-number">2.1.1.</span> <span class="nav-text">导入工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译工程"><span class="nav-number">2.1.2.</span> <span class="nav-text">编译工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BTool测试"><span class="nav-number">2.1.3.</span> <span class="nav-text">BTool测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bootloader"><span class="nav-number">3.</span> <span class="nav-text">Bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反向工程"><span class="nav-number">3.1.</span> <span class="nav-text">反向工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-ROM"><span class="nav-number">3.1.1.</span> <span class="nav-text">dump ROM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装GHIDRA"><span class="nav-number">3.2.</span> <span class="nav-text">安装GHIDRA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装SVD插件"><span class="nav-number">3.3.</span> <span class="nav-text">安装SVD插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设备配置"><span class="nav-number">4.</span> <span class="nav-text">设备配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#厂家配置-Factory-Configuration-FCFG"><span class="nav-number">4.1.</span> <span class="nav-text">厂家配置 Factory Configuration(FCFG)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户配置-Customer-Configuration-CCFG"><span class="nav-number">4.2.</span> <span class="nav-text">用户配置 Customer Configuration(CCFG)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAD下载"><span class="nav-number">5.</span> <span class="nav-text">OAD下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">6.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#硬件简介"><span class="nav-number">1.</span> <span class="nav-text">硬件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件架构"><span class="nav-number">1.1.</span> <span class="nav-text">硬件架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BLE软件架构"><span class="nav-number">1.2.</span> <span class="nav-text">BLE软件架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开箱测试"><span class="nav-number">2.</span> <span class="nav-text">开箱测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝牙主机测试-Host-test"><span class="nav-number">2.1.</span> <span class="nav-text">蓝牙主机测试(Host_test)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入工程"><span class="nav-number">2.1.1.</span> <span class="nav-text">导入工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译工程"><span class="nav-number">2.1.2.</span> <span class="nav-text">编译工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BTool测试"><span class="nav-number">2.1.3.</span> <span class="nav-text">BTool测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bootloader"><span class="nav-number">3.</span> <span class="nav-text">Bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反向工程"><span class="nav-number">3.1.</span> <span class="nav-text">反向工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-ROM"><span class="nav-number">3.1.1.</span> <span class="nav-text">dump ROM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装GHIDRA"><span class="nav-number">3.2.</span> <span class="nav-text">安装GHIDRA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装SVD插件"><span class="nav-number">3.3.</span> <span class="nav-text">安装SVD插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设备配置"><span class="nav-number">4.</span> <span class="nav-text">设备配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#厂家配置-Factory-Configuration-FCFG"><span class="nav-number">4.1.</span> <span class="nav-text">厂家配置 Factory Configuration(FCFG)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户配置-Customer-Configuration-CCFG"><span class="nav-number">4.2.</span> <span class="nav-text">用户配置 Customer Configuration(CCFG)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAD下载"><span class="nav-number">5.</span> <span class="nav-text">OAD下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CC1352R1"><span class="nav-number">6.</span> <span class="nav-text">CC1352R1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -395,7 +415,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

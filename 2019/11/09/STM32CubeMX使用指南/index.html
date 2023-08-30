@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 7.0.0-rc2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,40 +17,35 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="参考链接 STM32CubeMX stm32+lwip(一):使用 STM32CubeMX 生成项目    STM32CubeMX STM32CubeMX这个页面里的Tools&amp;amp;Software包含开发工具与嵌入式工具两大部分.  开发工具STM32CubeIDE STM32CubeIDE是的ST的官方IDE工具，下载后会得到一个很大zip包，解压后会有SetupSTM32CubeMX-">
-<meta name="keywords" content="stm32,Linux,嵌入式">
+  <meta name="description" content="参考链接 STM32CubeMX stm32+lwip(一):使用 STM32CubeMX 生成项目    STM32CubeMX STM32CubeMX这个页面里的Tools&amp;Software包含开发工具与嵌入式工具两大部分.![STM32CubeMX -devtools.png](&#x2F;imgs&#x2F;stmcubemx&#x2F;STM32CubeMX -devtools">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STM32CubeMX使用指南">
-<meta property="og:url" content="http://yoursite.com/2019/11/09/STM32CubeMX使用指南/index.html">
+<meta property="og:url" content="http://example.com/2019/11/09/STM32CubeMX%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
-<meta property="og:description" content="参考链接 STM32CubeMX stm32+lwip(一):使用 STM32CubeMX 生成项目    STM32CubeMX STM32CubeMX这个页面里的Tools&amp;amp;Software包含开发工具与嵌入式工具两大部分.  开发工具STM32CubeIDE STM32CubeIDE是的ST的官方IDE工具，下载后会得到一个很大zip包，解压后会有SetupSTM32CubeMX-">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/STM32CubeMX%20-devtools.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/STM32CubeMX%20-Embedded.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/STM32CubeMX%20-Embedded1.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/STM32CubeMX%20-Embedded2.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/STM32CubeMX.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-freertos.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-usb-otg.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-usb-device.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-gpio.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-usart2.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-clock.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/f407-rtos-project-cfg.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/SystemWorkbench.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/ac6-prj-import.png">
-<meta property="og:image" content="http://yoursite.com/imgs/stmcubemx/prj-rename.png">
-<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2022-02-26T15:52:54.700Z">
+<meta property="og:description" content="参考链接 STM32CubeMX stm32+lwip(一):使用 STM32CubeMX 生成项目    STM32CubeMX STM32CubeMX这个页面里的Tools&amp;Software包含开发工具与嵌入式工具两大部分.![STM32CubeMX -devtools.png](&#x2F;imgs&#x2F;stmcubemx&#x2F;STM32CubeMX -devtools">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/STM32CubeMX.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-freertos.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-usb-otg.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-usb-device.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-gpio.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-usart2.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-clock.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/f407-rtos-project-cfg.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/SystemWorkbench.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/ac6-prj-import.png">
+<meta property="og:image" content="http://example.com/imgs/stmcubemx/prj-rename.png">
+<meta property="article:published_time" content="2019-11-09T13:25:18.000Z">
+<meta property="article:modified_time" content="2022-02-26T15:52:54.700Z">
+<meta property="article:author" content="yjdwbj">
+<meta property="article:tag" content="stm32,Linux,嵌入式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM32CubeMX使用指南">
-<meta name="twitter:description" content="参考链接 STM32CubeMX stm32+lwip(一):使用 STM32CubeMX 生成项目    STM32CubeMX STM32CubeMX这个页面里的Tools&amp;amp;Software包含开发工具与嵌入式工具两大部分.  开发工具STM32CubeIDE STM32CubeIDE是的ST的官方IDE工具，下载后会得到一个很大zip包，解压后会有SetupSTM32CubeMX-">
-<meta name="twitter:image" content="http://yoursite.com/imgs/stmcubemx/STM32CubeMX%20-devtools.png">
+<meta name="twitter:image" content="http://example.com/imgs/stmcubemx/STM32CubeMX.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/09/STM32CubeMX使用指南/">
+<link rel="canonical" href="http://example.com/2019/11/09/STM32CubeMX%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
 
 
 <script id="page-configurations">
@@ -168,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/STM32CubeMX使用指南/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/09/STM32CubeMX%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -206,7 +201,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/嵌入式/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a>
+                  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">嵌入式</span></a>
                 </span>
             </span>
 
@@ -223,28 +218,29 @@
       
         <ul>
 <li>参考链接<ul>
-<li><a href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.license=1573251790793.product=STM32CubeMX.version=5.4.0.html#tools-software" target="_blank" rel="noopener">STM32CubeMX</a></li>
-<li><a href="https://www.cnblogs.com/54zorb/p/9608066.html" target="_blank" rel="noopener">stm32+lwip(一):使用 STM32CubeMX 生成项目</a></li>
+<li><a target="_blank" rel="noopener" href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.license=1573251790793.product=STM32CubeMX.version=5.4.0.html#tools-software">STM32CubeMX</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/54zorb/p/9608066.html">stm32+lwip(一):使用 STM32CubeMX 生成项目</a></li>
 </ul>
 </li>
 </ul>
 <h1 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h1><ul>
-<li><a href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.license=1573251790793.product=STM32CubeMX.version=5.4.0.html#tools-software" target="_blank" rel="noopener">STM32CubeMX</a>这个页面里的<code>Tools&amp;Software</code>包含开发工具与嵌入式工具两大部分.<br><img src="/imgs/stmcubemx/STM32CubeMX -devtools.png" alt="STM32CubeMX -devtools.png"><br><img src="/imgs/stmcubemx/STM32CubeMX -Embedded.png" alt="STM32CubeMX -Embedded.png"><br><img src="/imgs/stmcubemx/STM32CubeMX -Embedded1.png" alt="STM32CubeMX -Embedded.png"><br><img src="/imgs/stmcubemx/STM32CubeMX -Embedded2.png" alt="STM32CubeMX -Embedded.png"></li>
+<li><a target="_blank" rel="noopener" href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.license=1573251790793.product=STM32CubeMX.version=5.4.0.html#tools-software">STM32CubeMX</a>这个页面里的<code>Tools&amp;Software</code>包含开发工具与嵌入式工具两大部分.<br>![STM32CubeMX -devtools.png](&#x2F;imgs&#x2F;stmcubemx&#x2F;STM32CubeMX -devtools.png)<br>![STM32CubeMX -Embedded.png](&#x2F;imgs&#x2F;stmcubemx&#x2F;STM32CubeMX -Embedded.png)<br>![STM32CubeMX -Embedded.png](&#x2F;imgs&#x2F;stmcubemx&#x2F;STM32CubeMX -Embedded1.png)<br>![STM32CubeMX -Embedded.png](&#x2F;imgs&#x2F;stmcubemx&#x2F;STM32CubeMX -Embedded2.png)</li>
 </ul>
 <h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><h3 id="STM32CubeIDE"><a href="#STM32CubeIDE" class="headerlink" title="STM32CubeIDE"></a>STM32CubeIDE</h3><ul>
-<li><a href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-ides/stm32cubeide.html" target="_blank" rel="noopener">STM32CubeIDE</a>是的<code>ST</code>的官方<code>IDE</code>工具，下载后会得到一个很大<code>zip</code>包，解压后会有<code>SetupSTM32CubeMX-5.4.0.app，SetupSTM32CubeMX-5.4.0.exe，SetupSTM32CubeMX-5.4.0.linux</code>三个项目，其中<code>SetupSTM32CubeMX-5.4.0.linux</code>就是<code>Linux</code>下的安装脚本，安装完成后,使用手册在安装目录下的<code>help/UM1718.pdf</code>里，11~19 章是具体的示例教程.Linux 安装后运行截图如下：<br><img src="/imgs/stmcubemx/STM32CubeMX.png" alt="STM32CubeMX.png"></li>
-<li>如上图所示，可以安装相应的嵌入式的软件，就是各种<code>MCU</code>的库文件，模版文件，也可以通过手动下载，如：<a href="https://my.st.com/content/my_st_com/en/products/embedded-software/mcu-mpu-embedded-software/stm32-embedded-software/stm32cube-mcu-mpu-packages/stm32cubef7.html" target="_blank" rel="noopener">STM32Cube MCU Package for STM32F7 series </a>.</li>
-<li>也可以通过<a href="https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-ides/stm32cubeide.html" target="_blank" rel="noopener">这里</a>这种几只平台的发行版本包.</li>
+<li><a target="_blank" rel="noopener" href="https://my.st.com/content/my_st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-ides/stm32cubeide.html">STM32CubeIDE</a>是的<code>ST</code>的官方<code>IDE</code>工具，下载后会得到一个很大<code>zip</code>包，解压后会有<code>SetupSTM32CubeMX-5.4.0.app，SetupSTM32CubeMX-5.4.0.exe，SetupSTM32CubeMX-5.4.0.linux</code>三个项目，其中<code>SetupSTM32CubeMX-5.4.0.linux</code>就是<code>Linux</code>下的安装脚本，安装完成后,使用手册在安装目录下的<code>help/UM1718.pdf</code>里，11~19 章是具体的示例教程.Linux 安装后运行截图如下：<br><img src="/imgs/stmcubemx/STM32CubeMX.png" alt="STM32CubeMX.png"></li>
+<li>如上图所示，可以安装相应的嵌入式的软件，就是各种<code>MCU</code>的库文件，模版文件，也可以通过手动下载，如：<a target="_blank" rel="noopener" href="https://my.st.com/content/my_st_com/en/products/embedded-software/mcu-mpu-embedded-software/stm32-embedded-software/stm32cube-mcu-mpu-packages/stm32cubef7.html">STM32Cube MCU Package for STM32F7 series </a>.</li>
+<li>也可以通过<a target="_blank" rel="noopener" href="https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-ides/stm32cubeide.html">这里</a>这种几只平台的发行版本包.</li>
 <li>Linux 下安装完成，它没有自动在系统菜单添加条目录.可以参照下面路径与文件格式新建一个用户菜单项.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~$ cat ~/.<span class="built_in">local</span>/share/applications/stm32cubemx.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Name=STM32CubeMX</span><br><span class="line">GenericName=STM32CubeMX</span><br><span class="line">Comment=STM32CubeMX</span><br><span class="line">Terminal=<span class="literal">false</span></span><br><span class="line">Categories=Development;IDE;Electronics;</span><br><span class="line">Keywords=embedded electronics;electronics;avr;microcontroller;</span><br><span class="line">Exec=/home/michael/IDE_DIR/STM32CubeMX-5.4/STM32CubeMX</span><br><span class="line">Terminal=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 这里要安装了相应的插件在才有的.</span></span><br><span class="line">Icon=/home/michael/.p2/pool/plugins/com.st.stm32ide.common.utils_1.0.0.201902141520/icons/stm32cube 32x32.png</span><br><span class="line">Categories=GNOME;GTK;Development;</span><br><span class="line">StartupNotify=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存上面文件，更新系统菜单项.</span></span><br><span class="line">~$ update-menus</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cat</span> ~/.local/share/applications/stm32cubemx.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Name=STM32CubeMX</span><br><span class="line">GenericName=STM32CubeMX</span><br><span class="line">Comment=STM32CubeMX</span><br><span class="line">Terminal=<span class="literal">false</span></span><br><span class="line">Categories=Development;IDE;Electronics;</span><br><span class="line">Keywords=embedded electronics;electronics;avr;microcontroller;</span><br><span class="line">Exec=/home/michael/IDE_DIR/STM32CubeMX-5.4/STM32CubeMX</span><br><span class="line">Terminal=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 这里要安装了相应的插件在才有的.</span></span><br><span class="line">Icon=/home/michael/.p2/pool/plugins/com.st.stm32ide.common.utils_1.0.0.201902141520/icons/stm32cube 32x32.png</span><br><span class="line">Categories=GNOME;GTK;Development;</span><br><span class="line">StartupNotify=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存上面文件，更新系统菜单项.</span></span><br><span class="line">~$ update-menus</span><br></pre></td></tr></table></figure>
+
 <h3 id="STSW-STM32095-Eclipse-插件"><a href="#STSW-STM32095-Eclipse-插件" class="headerlink" title="STSW-STM32095 Eclipse 插件"></a>STSW-STM32095 Eclipse 插件</h3><ul>
-<li>下载<a href="https://www.st.com/en/development-tools/stsw-stm32095.html#overview" target="_blank" rel="noopener">STSW-STM32095</a>到本地，打开 Eclipse,进入<code>Help--&gt;Installl New Software... --&gt; 点击 Add --&gt; 在Name里输入一个名字，--&gt; 点击 Archive... --&gt; 选择刚才下载的en.stsw-stm32095.zip --&gt; 确定</code>进行安装.</li>
+<li>下载<a target="_blank" rel="noopener" href="https://www.st.com/en/development-tools/stsw-stm32095.html#overview">STSW-STM32095</a>到本地，打开 Eclipse,进入<code>Help--&gt;Installl New Software... --&gt; 点击 Add --&gt; 在Name里输入一个名字，--&gt; 点击 Archive... --&gt; 选择刚才下载的en.stsw-stm32095.zip --&gt; 确定</code>进行安装.</li>
 <li>安装完成后，在 Eclipse 里可以通过右上角的图标打开<code>STM32CubeMX</code>的<code>Perspective</code>, 也可以通过菜单栏<code>Windows--&gt;Perspective--&gt;Open Perspective--&gt;Other</code> 选择<code>STM32CubeMX</code>打开，打开的界面如同上面的<code>STM32CubeIDE</code>原生界面.</li>
 </ul>
 <h1 id="STM32CubeMX-创建工程"><a href="#STM32CubeMX-创建工程" class="headerlink" title="STM32CubeMX 创建工程"></a>STM32CubeMX 创建工程</h1><ul>
-<li><a href="https://www.freertos.org/FreeRTOS-Plus/BSP_Solutions/ST/RTOS_demonstration_project.html" target="_blank" rel="noopener">FreeRTOS STM32Cube Demonstration Projects</a></li>
-<li><a href="https://www.freertos.org/FreeRTOS-Plus/BSP_Solutions/ST/STM32CubeMX.html#walk-through" target="_blank" rel="noopener">STM32CubeMX – With Example Work-flow</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freertos.org/FreeRTOS-Plus/BSP_Solutions/ST/RTOS_demonstration_project.html">FreeRTOS STM32Cube Demonstration Projects</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freertos.org/FreeRTOS-Plus/BSP_Solutions/ST/STM32CubeMX.html#walk-through">STM32CubeMX – With Example Work-flow</a></li>
 </ul>
 <h2 id="创建基于-STM32F4-discovery-评估板的工程"><a href="#创建基于-STM32F4-discovery-评估板的工程" class="headerlink" title="创建基于 STM32F4-discovery 评估板的工程"></a>创建基于 STM32F4-discovery 评估板的工程</h2><ul>
 <li>在初次打开<code>STM32CubeMX</code>时可能会从通过网络去到<code>ST</code>官网下载一些默认的<code>BSP</code>支持文件，还有在新建项目时，如果本地没有相关的文件件，它也会自动去官网下载，所以联网是必须的.</li>
@@ -252,7 +248,7 @@
 <h3 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h3><ul>
 <li>打开<code>File -&gt; New Project -&gt; Board Selector</code>,右边栏显示所有支持的板子型号，左边栏可以通过一些参数过滤，找到我们要匹配的板子型号.<code>Type -&gt; Discovery kit</code>, <code>MCU/MPU Series -&gt; STM32F4</code>,这里大概会列表 7 个候选板子，我选择最后一个，点击右上解<code>Start Project</code>,它会联网下载一些文件，完成后就会打开一个配置界面.</li>
 </ul>
-<h4 id="配置-Pinout-amp-Configuration"><a href="#配置-Pinout-amp-Configuration" class="headerlink" title="配置 Pinout &amp; Configuration"></a>配置 Pinout &amp; Configuration</h4><ul>
+<h4 id="配置-Pinout-Configuration"><a href="#配置-Pinout-Configuration" class="headerlink" title="配置 Pinout &amp; Configuration"></a>配置 Pinout &amp; Configuration</h4><ul>
 <li><p>中间件 FreeRTOS,配置如下：<br><img src="/imgs/stmcubemx/f407-rtos-freertos.png" alt="f407-rtos-freertos.png"></p>
 </li>
 <li><p>USB OTG,配置如下：<br><img src="/imgs/stmcubemx/f407-rtos-usb-otg.png" alt="f407-rtos-usb-otg.png"></p>
@@ -274,18 +270,19 @@
 <li><img src="/imgs/stmcubemx/f407-rtos-project-cfg.png" alt="f407-rtos-project-cfg.png"></li>
 </ul>
 <h3 id="安装-OpenSTM32-环境"><a href="#安装-OpenSTM32-环境" class="headerlink" title="安装 OpenSTM32 环境"></a>安装 OpenSTM32 环境</h3><ul>
-<li><a href="https://www.openstm32.org/Importing%2Ba%2BSTCubeMX%2Bgenerated%2Bproject" target="_blank" rel="noopener">Importing a STCubeMX generated project</a></li>
-<li><p><a href="https://www.openstm32.org/System%2BWorkbench%2Bfor%2BSTM32" target="_blank" rel="noopener">System Workbench for STM32</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://www.openstm32.org/Importing%2Ba%2BSTCubeMX%2Bgenerated%2Bproject">Importing a STCubeMX generated project</a></p>
 </li>
-<li><p>在<code>Linux</code>环境下，我这里选择<code>Eclipse</code>做为开发<code>IDE</code>,但是要安装一个插件，请参考<code>ST</code>官网<a href="https://www.st.com/en/development-tools/sw4stm32.html#overview" target="_blank" rel="noopener">SW4STM32</a>.这里两种方式安装：</p>
+<li><p><a target="_blank" rel="noopener" href="https://www.openstm32.org/System%2BWorkbench%2Bfor%2BSTM32">System Workbench for STM32</a></p>
+</li>
+<li><p>在<code>Linux</code>环境下，我这里选择<code>Eclipse</code>做为开发<code>IDE</code>,但是要安装一个插件，请参考<code>ST</code>官网<a target="_blank" rel="noopener" href="https://www.st.com/en/development-tools/sw4stm32.html#overview">SW4STM32</a>.这里两种方式安装：</p>
 <ul>
-<li>1.<a href="https://www.openstm32.org/Downloading%2Bthe%2BSystem%2BWorkbench%2Bfor%2BSTM32%2Binstaller#Linux" target="_blank" rel="noopener">下载 Linux 安装程序</a>.<ul>
+<li>1.<a target="_blank" rel="noopener" href="https://www.openstm32.org/Downloading%2Bthe%2BSystem%2BWorkbench%2Bfor%2BSTM32%2Binstaller#Linux">下载 Linux 安装程序</a>.<ul>
 <li>这里其实包含一个完整 <code>Eclipse</code> 与 <code>SystemWorkbench</code> 的安装包，如果系统已经有 <code>Eclipse</code> 了可以选择第二种安装方式（插件安装）,独立安装如图：<br><img src="/imgs/stmcubemx/SystemWorkbench.png" alt="SystemWorkbench.png"></li>
 </ul>
 </li>
-<li>2.添加<code>Eclipse</code>插件源，从<a href="https://www.openstm32.org/Installing%2BSystem%2BWorkbench%2Bfor%2BSTM32%2Bfrom%2BEclipse" target="_blank" rel="noopener">Eclipse 安装</a>,<code>Help--&gt;Installl New Software... --&gt; Add</code>,在 location 里输入<a href="http://ac6-tools.com/Eclipse-updates/org.openstm32.system-workbench.update-site-v2" target="_blank" rel="noopener">http://ac6-tools.com/Eclipse-updates/org.openstm32.system-workbench.update-site-v2</a>,点击 OK 新建一个更新站点.<ul>
+<li>2.添加<code>Eclipse</code>插件源，从<a target="_blank" rel="noopener" href="https://www.openstm32.org/Installing%2BSystem%2BWorkbench%2Bfor%2BSTM32%2Bfrom%2BEclipse">Eclipse 安装</a>,<code>Help--&gt;Installl New Software... --&gt; Add</code>,在 location 里输入<a target="_blank" rel="noopener" href="http://ac6-tools.com/Eclipse-updates/org.openstm32.system-workbench.update-site-v2">http://ac6-tools.com/Eclipse-updates/org.openstm32.system-workbench.update-site-v2</a>,点击 OK 新建一个更新站点.<ul>
 <li>但是因为网络原因，通过<code>http://www.ac6-tools.com/Eclipse-updates/org.openstm32.system-workbench.update-site-v2/</code>安装会很慢，而且会断线.所以这里会先使用 <code>wget -r -np -nH -R -c http://www.ac6-tools.com/Eclipse-updates/org.openstm32.system-workbench.update-site-v2/</code>把它的网站目录下载到本地.进入到 <code>org.openstm32.system-workbench.update-site-v2</code>使用<code>find . -iname &quot;index.*&quot;</code>清除这些无用的<code>index.html</code>文件，还可以用此脚本清除一些旧版的 jar，减小体积.再通过<code>Help--&gt;Installl New Software... --&gt; Add</code>创建一个 本地安装源 如 <code>openstm32 - file:/home/lcy/Downloads/Eclipse-updates/org.openstm32.system-workbench.update-site-v2/</code> 就可以正常使用了. 更新后会出现:</li>
-<li>External Tools # 这里出现版偏旧，可以参考使用 <a href="https://github.com/gnu-mcu-eclipse/eclipse-plugins" target="_blank" rel="noopener">https://github.com/gnu-mcu-eclipse/eclipse-plugins</a><ul>
+<li>External Tools # 这里出现版偏旧，可以参考使用 <a target="_blank" rel="noopener" href="https://github.com/gnu-mcu-eclipse/eclipse-plugins">https://github.com/gnu-mcu-eclipse/eclipse-plugins</a><ul>
 <li>ARM Compiler for MCU</li>
 <li>OpenOCD</li>
 <li>STLinkServer</li>
@@ -306,21 +303,23 @@
 <li>右键<code>project-&gt;Properties</code>,进入到<code>C/C++ Build -&gt; Settings -&gt; Build Artifact</code><br><img src="/imgs/stmcubemx/prj-rename.png" alt="/imgs/stmcubemx/prj-rename.png"></li>
 </ul>
 <h4 id="指定交叉编译工具链"><a href="#指定交叉编译工具链" class="headerlink" title="指定交叉编译工具链"></a>指定交叉编译工具链</h4><ul>
-<li>在右键<code>project-&gt;Properties</code>,进入到<code>C/C++ Build -&gt; Settings -&gt; Tools Settings -&gt; MCU Setings</code>里面的 path 值是<code>${openstm32_compiler_path}</code>，这里出现找不到<code>arm-none-eabi-gcc</code>的错误提示.把这个变量名换成它带的<code>ARM Compiler for MCU</code>工具链的安装绝对路径就可以正常编译了.<code>ARM Compiler for MCU</code>工具链默认是解压在插件路径里，也可以复制到其它的路径里.这里把上述<code>path</code>里的变量改成<code>/home/michael/IDE_DIR/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/st-gnu-arm-gcc-7-2018-q2-update_gdb-5_4-2016q3/bin</code>后，成功编译.如下:</li>
+<li>在右键<code>project-&gt;Properties</code>,进入到<code>C/C++ Build -&gt; Settings -&gt; Tools Settings -&gt; MCU Setings</code>里面的 path 值是<code>$&#123;openstm32_compiler_path&#125;</code>，这里出现找不到<code>arm-none-eabi-gcc</code>的错误提示.把这个变量名换成它带的<code>ARM Compiler for MCU</code>工具链的安装绝对路径就可以正常编译了.<code>ARM Compiler for MCU</code>工具链默认是解压在插件路径里，也可以复制到其它的路径里.这里把上述<code>path</code>里的变量改成<code>/home/michael/IDE_DIR/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/st-gnu-arm-gcc-7-2018-q2-update_gdb-5_4-2016q3/bin</code>后，成功编译.如下:</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Building file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</span><br><span class="line">Invoking: MCU GCC Compiler</span><br><span class="line">/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Debug</span><br><span class="line">arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 <span class="string">'-D__weak=__attribute__((weak))'</span> <span class="string">'-D__packed="__attribute__((__packed__))"'</span> -DUSE_HAL_DRIVER -DSTM32F407xx -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Inc"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/STM32F4xx_HAL_Driver/Inc"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/Third_Party/FreeRTOS/Source/include"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/ST/STM32_USB_Device_Library/Core/Inc"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/CMSIS/Device/ST/STM32F4xx/Include"</span> -I<span class="string">"/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/CMSIS/Include"</span>  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF<span class="string">"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.d"</span> -MT<span class="string">"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.o"</span> -o <span class="string">"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.o"</span> <span class="string">"../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c"</span></span><br><span class="line">Finished building: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</span><br><span class="line"></span><br><span class="line">Building target: stm32f407_rtos.elf</span><br><span class="line">Invoking: MCU GCC Linker</span><br><span class="line">arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T<span class="string">"../STM32F407VGTx_FLASH.ld"</span> -Wl,-Map=output.map -Wl,--gc-sections -o <span class="string">"stm32f407_rtos.elf"</span> @<span class="string">"objects.list"</span>   -lm</span><br><span class="line">Finished building target: stm32f407_rtos.elf</span><br><span class="line"></span><br><span class="line">make --no-print-directory post-build</span><br><span class="line">Generating hex and Printing size information:</span><br><span class="line">arm-none-eabi-objcopy -O ihex <span class="string">"stm32f407_rtos.elf"</span> <span class="string">"stm32f407_rtos.hex"</span></span><br><span class="line">arm-none-eabi-size <span class="string">"stm32f407_rtos.elf"</span></span><br><span class="line">   text	   data	    bss	    dec	    hex	filename</span><br><span class="line">  26768	    492	  27996	  55256	   d7d8	stm32f407_rtos.elf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">21:34:37 Build Finished. 0 errors, 0 warnings. (took 12s.463ms)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Building file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</span><br><span class="line">Invoking: MCU GCC Compiler</span><br><span class="line">/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Debug</span><br><span class="line">arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 <span class="string">&#x27;-D__weak=__attribute__((weak))&#x27;</span> <span class="string">&#x27;-D__packed=&quot;__attribute__((__packed__))&quot;&#x27;</span> -DUSE_HAL_DRIVER -DSTM32F407xx -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Inc&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/STM32F4xx_HAL_Driver/Inc&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/Third_Party/FreeRTOS/Source/include&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/ST/STM32_USB_Device_Library/Core/Inc&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/CMSIS/Device/ST/STM32F4xx/Include&quot;</span> -I<span class="string">&quot;/home/michael/eclipse-workspace/stm32f407_discovery_rtos/Drivers/CMSIS/Include&quot;</span>  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF<span class="string">&quot;Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.d&quot;</span> -MT<span class="string">&quot;Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.o&quot;</span> -o <span class="string">&quot;Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.o&quot;</span> <span class="string">&quot;../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c&quot;</span></span><br><span class="line">Finished building: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</span><br><span class="line"></span><br><span class="line">Building target: stm32f407_rtos.elf</span><br><span class="line">Invoking: MCU GCC Linker</span><br><span class="line">arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T<span class="string">&quot;../STM32F407VGTx_FLASH.ld&quot;</span> -Wl,-Map=output.map -Wl,--gc-sections -o <span class="string">&quot;stm32f407_rtos.elf&quot;</span> @<span class="string">&quot;objects.list&quot;</span>   -lm</span><br><span class="line">Finished building target: stm32f407_rtos.elf</span><br><span class="line"></span><br><span class="line">make --no-print-directory post-build</span><br><span class="line">Generating hex and Printing size information:</span><br><span class="line">arm-none-eabi-objcopy -O ihex <span class="string">&quot;stm32f407_rtos.elf&quot;</span> <span class="string">&quot;stm32f407_rtos.hex&quot;</span></span><br><span class="line">arm-none-eabi-size <span class="string">&quot;stm32f407_rtos.elf&quot;</span></span><br><span class="line">   text	   data	    bss	    dec	    hex	filename</span><br><span class="line">  26768	    492	  27996	  55256	   d7d8	stm32f407_rtos.elf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">21:34:37 Build Finished. 0 errors, 0 warnings. (took 12s.463ms)</span><br></pre></td></tr></table></figure>
+
 <h3 id="测试流水灯代码"><a href="#测试流水灯代码" class="headerlink" title="测试流水灯代码"></a>测试流水灯代码</h3><ul>
 <li>因为在<code>STM32CubeMX</code>加入了 <code>FreeRTOS</code> 的模块，所以 <code>main.c</code> 有一些系统相关的代码，下面只在 <code>main.c</code> 里的 <code>while(1)</code>里，简单测板上的四个流水灯.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//  osKernelInitialize();</span><br><span class="line">//  const osThreadAttr_t defaultTask_attributes = &#123;</span><br><span class="line">//    .name = <span class="string">"defaultTask"</span>,</span><br><span class="line">//    .priority = (osPriority_t) osPriorityNormal,</span><br><span class="line">//    .stack_size = 128</span><br><span class="line">//  &#125;;</span><br><span class="line">//  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &amp;defaultTask_attributes);</span><br><span class="line">//  osKernelStart();</span><br><span class="line">// 需要注释上面的代码才能运行到<span class="keyword">while</span>这里.</span><br><span class="line"><span class="keyword">while</span> (1)</span><br><span class="line">  &#123;</span><br><span class="line">    /* USER CODE END WHILE */</span><br><span class="line">	  HAL_GPIO_TogglePin(LD3_GPIO_Port,LD3_Pin);</span><br><span class="line">	  HAL_Delay(500);//毫秒级延迟</span><br><span class="line">	  HAL_GPIO_TogglePin(LD4_GPIO_Port,LD4_Pin);</span><br><span class="line">	  HAL_Delay(500);</span><br><span class="line">	  HAL_GPIO_TogglePin(LD5_GPIO_Port,LD5_Pin);</span><br><span class="line">	  HAL_Delay(500);</span><br><span class="line">	  HAL_GPIO_TogglePin(LD6_GPIO_Port,LD6_Pin);</span><br><span class="line">	  HAL_Delay(500);</span><br><span class="line"></span><br><span class="line">    /* USER CODE BEGIN 3 */</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//  osKernelInitialize();</span><br><span class="line">//  const osThreadAttr_t defaultTask_attributes = &#123;</span><br><span class="line">//    .name = <span class="string">&quot;defaultTask&quot;</span>,</span><br><span class="line">//    .priority = (osPriority_t) osPriorityNormal,</span><br><span class="line">//    .stack_size = 128</span><br><span class="line">//  &#125;;</span><br><span class="line">//  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &amp;defaultTask_attributes);</span><br><span class="line">//  osKernelStart();</span><br><span class="line">// 需要注释上面的代码才能运行到<span class="keyword">while</span>这里.</span><br><span class="line"><span class="keyword">while</span> (1)</span><br><span class="line">  &#123;</span><br><span class="line">    /* USER CODE END WHILE */</span><br><span class="line">	  HAL_GPIO_TogglePin(LD3_GPIO_Port,LD3_Pin);</span><br><span class="line">	  HAL_Delay(500);//毫秒级延迟</span><br><span class="line">	  HAL_GPIO_TogglePin(LD4_GPIO_Port,LD4_Pin);</span><br><span class="line">	  HAL_Delay(500);</span><br><span class="line">	  HAL_GPIO_TogglePin(LD5_GPIO_Port,LD5_Pin);</span><br><span class="line">	  HAL_Delay(500);</span><br><span class="line">	  HAL_GPIO_TogglePin(LD6_GPIO_Port,LD6_Pin);</span><br><span class="line">	  HAL_Delay(500);</span><br><span class="line"></span><br><span class="line">    /* USER CODE BEGIN 3 */</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>添加上述代码，重新编译，连接上开发板，选择工程右键<code>Run As -&gt; Ac6 STM32 C/C++ Application</code>就会下载代码到开发板，会看四个 LED 轮流慢闪.也可以运行<code>Debug As</code>单步调试每一条指令.</li>
 </ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
-<li><a href="mailto:yjdwbj@gmail.com" target="_blank" rel="noopener">联系作者</a></li>
+<li><a href=mailto:yjdwbj@gmail.com>联系作者</a></li>
 </ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+<img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/>
 
     </div>
 
@@ -330,7 +329,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/stm32-Linux-嵌入式/" rel="tag"># stm32,Linux,嵌入式</a>
+              <a href="/tags/stm32-Linux-%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># stm32,Linux,嵌入式</a>
           </div>
 
         
@@ -339,11 +338,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/11/05/搭建基于Dokku的PaaS平台/" rel="prev" title="搭建基于Dokku的PaaS平台">
+    <a href="/2019/11/05/%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EDokku%E7%9A%84PaaS%E5%B9%B3%E5%8F%B0/" rel="prev" title="搭建基于Dokku的PaaS平台">
       <i class="fa fa-chevron-left"></i> 搭建基于Dokku的PaaS平台
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/11/17/TI-MSP432E401Y开发指南/" rel="next" title="TI-MSP432E401Y开发指南">
+    <a href="/2019/11/17/TI-MSP432E401Y%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/" rel="next" title="TI-MSP432E401Y开发指南">
       TI-MSP432E401Y开发指南 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -404,7 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32CubeMX"><span class="nav-number">1.</span> <span class="nav-text">STM32CubeMX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发工具"><span class="nav-number">1.1.</span> <span class="nav-text">开发工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeIDE"><span class="nav-number">1.1.1.</span> <span class="nav-text">STM32CubeIDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STSW-STM32095-Eclipse-插件"><span class="nav-number">1.1.2.</span> <span class="nav-text">STSW-STM32095 Eclipse 插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32CubeMX-创建工程"><span class="nav-number">2.</span> <span class="nav-text">STM32CubeMX 创建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建基于-STM32F4-discovery-评估板的工程"><span class="nav-number">2.1.</span> <span class="nav-text">创建基于 STM32F4-discovery 评估板的工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建工程"><span class="nav-number">2.1.1.</span> <span class="nav-text">新建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-Pinout-amp-Configuration"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">配置 Pinout &amp; Configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-Clock-Configuration"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">配置 Clock Configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置工程"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">配置工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-OpenSTM32-环境"><span class="nav-number">2.1.2.</span> <span class="nav-text">安装 OpenSTM32 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入-STM32CubeMX-生成工程文件"><span class="nav-number">2.1.3.</span> <span class="nav-text">导入 STM32CubeMX 生成工程文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重命名生成的工程"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">重命名生成的工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定交叉编译工具链"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">指定交叉编译工具链</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试流水灯代码"><span class="nav-number">2.1.4.</span> <span class="nav-text">测试流水灯代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">3.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32CubeMX"><span class="nav-number">1.</span> <span class="nav-text">STM32CubeMX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">开发工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeIDE"><span class="nav-number">1.1.1.</span> <span class="nav-text">STM32CubeIDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STSW-STM32095-Eclipse-%E6%8F%92%E4%BB%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">STSW-STM32095 Eclipse 插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32CubeMX-%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">STM32CubeMX 创建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E4%BA%8E-STM32F4-discovery-%E8%AF%84%E4%BC%B0%E6%9D%BF%E7%9A%84%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">创建基于 STM32F4-discovery 评估板的工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">新建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Pinout-Configuration"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">配置 Pinout &amp; Configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Clock-Configuration"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">配置 Clock Configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">配置工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-OpenSTM32-%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.2.</span> <span class="nav-text">安装 OpenSTM32 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5-STM32CubeMX-%E7%94%9F%E6%88%90%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.3.</span> <span class="nav-text">导入 STM32CubeMX 生成工程文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E7%94%9F%E6%88%90%E7%9A%84%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">重命名生成的工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">指定交叉编译工具链</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.4.</span> <span class="nav-text">测试流水灯代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%A2%E8%B0%A2%E6%94%AF%E6%8C%81"><span class="nav-number">3.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -462,7 +461,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">yjdwbj</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
@@ -482,9 +481,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 

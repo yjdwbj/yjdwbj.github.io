@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 7.0.0-rc2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,26 +17,25 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="参考链接: 近場通訊    NFC概述[摘自维基] 近距离无线通信(英语:Near-field communication,NFC),又简称近距离通信或近场通信,是一套通信协议,让两个电子设备(其中一个通常是移动设备,例如智能手机)在相距几厘米之内进行通信.NFC,如同过去的电子票券智能卡一般,将允许移动支付取代或支持这类系统.NFC应用于社交网络,分享联系方式,照片,视频或文件.具备 NFC">
-<meta name="keywords" content="Linux, `NFC`, Arduino">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NFC读写工具杂记">
-<meta property="og:url" content="http://yoursite.com/2022/02/10/NFC读写工具杂记/index.html">
+<meta property="og:url" content="http://example.com/2022/02/10/NFC%E8%AF%BB%E5%86%99%E5%B7%A5%E5%85%B7%E6%9D%82%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
 <meta property="og:description" content="参考链接: 近場通訊    NFC概述[摘自维基] 近距离无线通信(英语:Near-field communication,NFC),又简称近距离通信或近场通信,是一套通信协议,让两个电子设备(其中一个通常是移动设备,例如智能手机)在相距几厘米之内进行通信.NFC,如同过去的电子票券智能卡一般,将允许移动支付取代或支持这类系统.NFC应用于社交网络,分享联系方式,照片,视频或文件.具备 NFC">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/imgs/PN532_nfc.jpg">
-<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2023-02-04T03:22:07.873Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/imgs/PN532_nfc.jpg">
+<meta property="article:published_time" content="2022-02-10T13:09:03.000Z">
+<meta property="article:modified_time" content="2023-02-04T03:22:07.873Z">
+<meta property="article:author" content="yjdwbj">
+<meta property="article:tag" content="Linux, &#96;NFC&#96;, Arduino">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NFC读写工具杂记">
-<meta name="twitter:description" content="参考链接: 近場通訊    NFC概述[摘自维基] 近距离无线通信(英语:Near-field communication,NFC),又简称近距离通信或近场通信,是一套通信协议,让两个电子设备(其中一个通常是移动设备,例如智能手机)在相距几厘米之内进行通信.NFC,如同过去的电子票券智能卡一般,将允许移动支付取代或支持这类系统.NFC应用于社交网络,分享联系方式,照片,视频或文件.具备 NFC">
-<meta name="twitter:image" content="http://yoursite.com/imgs/PN532_nfc.jpg">
+<meta name="twitter:image" content="http://example.com/imgs/PN532_nfc.jpg">
 
-<link rel="canonical" href="http://yoursite.com/2022/02/10/NFC读写工具杂记/">
+<link rel="canonical" href="http://example.com/2022/02/10/NFC%E8%AF%BB%E5%86%99%E5%B7%A5%E5%85%B7%E6%9D%82%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -154,7 +153,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/10/NFC读写工具杂记/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/NFC%E8%AF%BB%E5%86%99%E5%B7%A5%E5%85%B7%E6%9D%82%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -200,7 +199,7 @@
       
         <ul>
 <li>参考链接:<ul>
-<li><a href="https://zh.wikipedia.org/zh/%E8%BF%91%E5%A0%B4%E9%80%9A%E8%A8%8A" target="_blank" rel="noopener">近場通訊</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh/%E8%BF%91%E5%A0%B4%E9%80%9A%E8%A8%8A">近場通訊</a></li>
 </ul>
 </li>
 </ul>
@@ -209,7 +208,7 @@
 <li>近场通信技术由非接触式射频识别(RFID)演变而来,由飞利浦半导体(现恩智浦半导体 NXP)’诺基亚和索尼共同于2004年研制开发[4],其基础是RFID及互连技术.近场通信是一种短距高频的无线电技术,在<code>13.56MHz</code>频率运行于<code>20</code>厘米距离内.其传输速度有<code>106 Kbit/秒</code>,<code>212 Kbit/秒</code>或者<code>424 Kbit/秒</code>三种.目前近场通信已通过成为<code>ISO/IEC IS 18092</code>国际标准,<code>EMCA-340</code>标准与<code>ETSI TS 102 190</code>标准.<code>NFC</code>采用主动和被动两种读取模式.</li>
 <li>每一个完整的<code>NFC</code>设备可以用三种模式工作:<ul>
 <li>卡模拟模式(Card emulation mode):这个模式其实就是相当于一张采用<code>RFID技</code>术的<code>IC</code>卡.可以替代现在大量的IC卡(包括信用卡)场合商场刷卡,<code>IPASS</code>,门禁管制,车票,门票等等.此种方式下,有一个极大的优点,那就是卡片通过非接触读卡器的RF域来供电,即便是寄主设备(如手机)没电也可以工作.<code>NFC</code>设备若要进行卡片模拟(Card Emulation)相关应用,则必须内置安全组件(Security Element, SE)之<code>NFC</code>芯片或通过软件实现主机卡模拟(Host Card Emulation,HCE).</li>
-<li>读卡器模式(Reader/Writer mode):作为非接触读卡器使用,比如从海报或者展览信息电子标签上读取相关信息.</li>
+<li>读卡器模式(Reader&#x2F;Writer mode):作为非接触读卡器使用,比如从海报或者展览信息电子标签上读取相关信息.</li>
 <li>点对点模式(P2P mode):这个模式和红外线差不多,可用于数据交换,只是传输距离较短,传输创建速度较快,传输速度也快些,功耗低(蓝牙也类似).将两个具备<code>NFC</code>功能的设备链接,能实现数据点对点传输,如下载音乐,交换图片或者同步设备地址薄.因此通过<code>NFC</code>,多个设备如数位相机,<code>PDA</code>,计算机和手机之间都可以交换资料或者服务.</li>
 </ul>
 </li>
@@ -221,71 +220,83 @@
 <li>对于移动电话或是行动消费性电子产品来说,<code>NFC</code>的使用比较方便.<code>NFC</code>的短距离通信特性正是其优点,由于耗电量低,一次只和一台机器链接,拥有较高的保密性与安全性,<code>NFC</code>有利于信用卡交易时避免被盗用.<code>NFC</code>的目标并非是取代蓝牙等其他无线技术,而是在不同的场合,不同的领域起到相互补充的作用.</li>
 </ul>
 <h1 id="Linux连接使用"><a href="#Linux连接使用" class="headerlink" title="Linux连接使用"></a><code>Linux</code>连接使用</h1><ul>
-<li><a href="https://smartlockpicking.com/nfc-toolkit/" target="_blank" rel="noopener">Confidence 2018: NFC research toolkit</a></li>
-<li><a href="https://www.kaper.com/electronics/duplicate-unprotected-mifare-classic-nfc-card/" target="_blank" rel="noopener">Duplicate unprotected Mifare Classic NFC Card</a></li>
-<li><a href="https://samdecrock.medium.com/cracking-mifare-classic-nfc-cards-using-the-hardnested-attack-506aab3ea305" target="_blank" rel="noopener">Howto crack Mifare Classic NFC cards using the hardnested attack</a></li>
-</ul>
-<ul>
-<li>因为<code>Debian</code>里的仓库包含它的这些式具的发行版了,就可以直接安装它使用,而且查看它的源码库,如：<a href="https://github.com/nfc-tools/libnfc" target="_blank" rel="noopener">nfs-tools/libnfc</a>,<a href="https://github.com/nfc-tools/mfoc" target="_blank" rel="noopener">nfc-tools/mfoc</a>都没有大的更新.</li>
+<li><p><a target="_blank" rel="noopener" href="https://smartlockpicking.com/nfc-toolkit/">Confidence 2018: NFC research toolkit</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.kaper.com/electronics/duplicate-unprotected-mifare-classic-nfc-card/">Duplicate unprotected Mifare Classic NFC Card</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://samdecrock.medium.com/cracking-mifare-classic-nfc-cards-using-the-hardnested-attack-506aab3ea305">Howto crack Mifare Classic NFC cards using the hardnested attack</a></p>
+</li>
+<li><p>因为<code>Debian</code>里的仓库包含它的这些式具的发行版了,就可以直接安装它使用,而且查看它的源码库,如：<a target="_blank" rel="noopener" href="https://github.com/nfc-tools/libnfc">nfs-tools&#x2F;libnfc</a>,<a target="_blank" rel="noopener" href="https://github.com/nfc-tools/mfoc">nfc-tools&#x2F;mfoc</a>都没有大的更新.</p>
+</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get install libnfc-bin libnfc-examples mfoc mfcuk</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>这里是直接使用<code>uart</code>来连接,只要一个<code>USB-TTL</code>连接到电脑就要可以,修改<code>/etc/nfc/libnfc.conf</code>成如下内容：</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ grep  <span class="string">'='</span> /etc/nfc/libnfc.conf</span><br><span class="line"><span class="comment">#allow_autoscan = true</span></span><br><span class="line"><span class="comment">#allow_intrusive_scan = false</span></span><br><span class="line"><span class="comment">#log_level = 1</span></span><br><span class="line"><span class="comment">#device.name = "microBuilder.eu"</span></span><br><span class="line">device.connstring = <span class="string">"pn532_uart:/dev/ttyUSB0"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ grep  <span class="string">&#x27;=&#x27;</span> /etc/nfc/libnfc.conf</span><br><span class="line"><span class="comment">#allow_autoscan = true</span></span><br><span class="line"><span class="comment">#allow_intrusive_scan = false</span></span><br><span class="line"><span class="comment">#log_level = 1</span></span><br><span class="line"><span class="comment">#device.name = &quot;microBuilder.eu&quot;</span></span><br><span class="line">device.connstring = <span class="string">&quot;pn532_uart:/dev/ttyUSB0&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>如下图所示,连接<code>UART</code>后,并且通过板上的拨码开关设置成<code>HSV</code>模式.</li>
 </ul>
 <p><img src="/imgs/PN532_nfc.jpg" alt="PN532_nfc.jpg"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  USB-TTL      PN532</span><br><span class="line"></span><br><span class="line">3.3vVCC &lt;-----&gt; VCC</span><br><span class="line">    GND &lt;-----&gt; GND</span><br><span class="line">    RX  &lt;-----&gt; TX</span><br><span class="line">    TX  &lt;-----&gt; RX</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>列出所有的<code>NFC</code>列表,如果<code>LIBNFC_LOG_LEVEL=3</code>会有更加丰富的信息输出.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">~$ LIBNFC_LOG_LEVEL=1 nfc-list -v</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">0 ISO14443A passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 Felica (212 kbps) passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 Felica (424 kbps) passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B-2 ST SRx passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B-2 ASK CTx passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B iClass passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443A-3 Jewel passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443A-2 NFC Barcode passive target(s) found.</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~$ LIBNFC_LOG_LEVEL=1 nfc-list -v</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">0 ISO14443A passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 Felica (212 kbps) passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 Felica (424 kbps) passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B-2 ST SRx passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B-2 ASK CTx passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443B iClass passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443A-3 Jewel passive target(s) found.</span><br><span class="line"></span><br><span class="line">0 ISO14443A-2 NFC Barcode passive target(s) found.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>直接放上一张卡,读取它的基本信息.如下面所示,这张卡的<code>UID</code>是<code>370656b3</code>.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~$ nfc-list</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">1 ISO14443A passive target(s) found:</span><br><span class="line">ISO/IEC 14443A (106 kbps) target:</span><br><span class="line">    ATQA (SENS_RES): 00  04</span><br><span class="line">       UID (NFCID1): 37  06  56  b3</span><br><span class="line">      SAK (SEL_RES): 08</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>再读一张</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">~$ ~$ nfc-list -v</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">1 ISO14443A passive target(s) found:</span><br><span class="line">ISO/IEC 14443A (106 kbps) target:</span><br><span class="line">    ATQA (SENS_RES): 00  04</span><br><span class="line">* UID size: single</span><br><span class="line">* bit frame anticollision supported</span><br><span class="line">       UID (NFCID1): 0f  b7  85  32</span><br><span class="line">      SAK (SEL_RES): 28</span><br><span class="line">* Compliant with ISO/IEC 14443-4</span><br><span class="line">* Not compliant with ISO/IEC 18092</span><br><span class="line">                ATS: 77  33  a0  02  22  30  00  01  01</span><br><span class="line">* Max Frame Size accepted by PICC: 128 bytes</span><br><span class="line">* Bit Rate Capability:</span><br><span class="line">  * PICC to PCD, DS=2, bitrate 212 kbits/s supported</span><br><span class="line">  * PICC to PCD, DS=4, bitrate 424 kbits/s supported</span><br><span class="line">  * PCD to PICC, DR=2, bitrate 212 kbits/s supported</span><br><span class="line">  * PCD to PICC, DR=4, bitrate 424 kbits/s supported</span><br><span class="line">* Frame Waiting Time: 309.3 ms</span><br><span class="line">* No Start-up Frame Guard Time required</span><br><span class="line">* Node Address not supported</span><br><span class="line">* Card IDentifier supported</span><br><span class="line">* Historical bytes Tk: 22  30  00  01  01</span><br><span class="line">  * Proprietary format</span><br><span class="line"></span><br><span class="line">Fingerprinting based on MIFARE <span class="built_in">type</span> Identification Procedure:</span><br><span class="line">* SmartMX with MIFARE 1K emulation</span><br><span class="line">Other possible matches based on ATQA &amp; SAK values:</span><br><span class="line">* JCOP31 v2.3.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">~$ ~$ nfc-list -v</span><br><span class="line">nfc-list uses libnfc 1.8.0</span><br><span class="line">NFC device:  opened</span><br><span class="line">1 ISO14443A passive target(s) found:</span><br><span class="line">ISO/IEC 14443A (106 kbps) target:</span><br><span class="line">    ATQA (SENS_RES): 00  04</span><br><span class="line">* UID size: single</span><br><span class="line">* bit frame anticollision supported</span><br><span class="line">       UID (NFCID1): 0f  b7  85  32</span><br><span class="line">      SAK (SEL_RES): 28</span><br><span class="line">* Compliant with ISO/IEC 14443-4</span><br><span class="line">* Not compliant with ISO/IEC 18092</span><br><span class="line">                ATS: 77  33  a0  02  22  30  00  01  01</span><br><span class="line">* Max Frame Size accepted by PICC: 128 bytes</span><br><span class="line">* Bit Rate Capability:</span><br><span class="line">  * PICC to PCD, DS=2, bitrate 212 kbits/s supported</span><br><span class="line">  * PICC to PCD, DS=4, bitrate 424 kbits/s supported</span><br><span class="line">  * PCD to PICC, DR=2, bitrate 212 kbits/s supported</span><br><span class="line">  * PCD to PICC, DR=4, bitrate 424 kbits/s supported</span><br><span class="line">* Frame Waiting Time: 309.3 ms</span><br><span class="line">* No Start-up Frame Guard Time required</span><br><span class="line">* Node Address not supported</span><br><span class="line">* Card IDentifier supported</span><br><span class="line">* Historical bytes Tk: 22  30  00  01  01</span><br><span class="line">  * Proprietary format</span><br><span class="line"></span><br><span class="line">Fingerprinting based on MIFARE <span class="built_in">type</span> Identification Procedure:</span><br><span class="line">* SmartMX with MIFARE 1K emulation</span><br><span class="line">Other possible matches based on ATQA &amp; SAK values:</span><br><span class="line">* JCOP31 v2.3.1</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>这是一张<code>NXP</code>的<code>SmartMX</code>系列的卡片,同时附带<code>MIFARE Classic 1K</code>模拟.<code>SmartMX</code>是<code>NXP</code>的<code>JCOP</code>卡系列,也就是说这张卡是一种<code>CPU</code>卡（也有叫做Java卡）.<code>CPU卡</code>意味着卡中有一个完整功能的<code>CPU</code>,并且带有操作系统,卡片的功能是基于软件实现的,而不是像<code>MIFAREClassic</code>这种基于<code>ASIC</code>的卡,用硬件电路实现卡片功能.这种类型的卡相比较<code>MifareClassic</code>类型的卡要安全的多,几乎不可能被破解和复制.<h2 id="相关源码编译"><a href="#相关源码编译" class="headerlink" title="相关源码编译"></a>相关源码编译</h2></li>
+<li>这是一张<code>NXP</code>的<code>SmartMX</code>系列的卡片,同时附带<code>MIFARE Classic 1K</code>模拟.<code>SmartMX</code>是<code>NXP</code>的<code>JCOP</code>卡系列,也就是说这张卡是一种<code>CPU</code>卡（也有叫做Java卡）.<code>CPU卡</code>意味着卡中有一个完整功能的<code>CPU</code>,并且带有操作系统,卡片的功能是基于软件实现的,而不是像<code>MIFAREClassic</code>这种基于<code>ASIC</code>的卡,用硬件电路实现卡片功能.这种类型的卡相比较<code>MifareClassic</code>类型的卡要安全的多,几乎不可能被破解和复制.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="相关源码编译"><a href="#相关源码编译" class="headerlink" title="相关源码编译"></a>相关源码编译</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
 <h1 id="树莓派"><a href="#树莓派" class="headerlink" title="树莓派"></a>树莓派</h1><ul>
-<li><a href="http://wiki.sunfounder.cc/index.php?title=PN532_NFC_Module_for_Raspberry_Pi" target="_blank" rel="noopener">PN532 NFC Module for Raspberry Pi</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.sunfounder.cc/index.php?title=PN532_NFC_Module_for_Raspberry_Pi">PN532 NFC Module for Raspberry Pi</a></li>
 </ul>
 <h1 id="手机应用"><a href="#手机应用" class="headerlink" title="手机应用"></a>手机应用</h1><ul>
-<li><a href="https://timdows.com/projects/using-a-mobile-phone-to-clone-a-mifare-card/" target="_blank" rel="noopener">Using a mobile phone to clone a MIFARE card</a></li>
+<li><a target="_blank" rel="noopener" href="https://timdows.com/projects/using-a-mobile-phone-to-clone-a-mifare-card/">Using a mobile phone to clone a MIFARE card</a></li>
 </ul>
 <h1 id="NRF52840"><a href="#NRF52840" class="headerlink" title="NRF52840"></a>NRF52840</h1><h1 id="ESP32"><a href="#ESP32" class="headerlink" title="ESP32"></a>ESP32</h1><ul>
-<li><a href="https://how2electronics.com/interfacing-pn532-nfc-rfid-module-with-arduino/" target="_blank" rel="noopener">Interfacing PN532 NFC RFID Module with Arduino </a></li>
+<li><a target="_blank" rel="noopener" href="https://how2electronics.com/interfacing-pn532-nfc-rfid-module-with-arduino/">Interfacing PN532 NFC RFID Module with Arduino </a></li>
 </ul>
 <h2 id="烧写工具"><a href="#烧写工具" class="headerlink" title="烧写工具"></a>烧写工具</h2><ul>
-<li><a href="https://pyocd.io/" target="_blank" rel="noopener">pyocd</a></li>
-<li><a href="https://github.com/pyocd/pyOCD" target="_blank" rel="noopener">pyocd/pyOCD</a></li>
-<li><p><a href="https://github.com/NordicSemiconductor/pc-nrfutil/" target="_blank" rel="noopener">pc-nrfutil</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://pyocd.io/">pyocd</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/pyocd/pyOCD">pyocd&#x2F;pyOCD</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/NordicSemiconductor/pc-nrfutil/">pc-nrfutil</a></p>
 </li>
 <li><p>makerdiary</p>
 <ul>
-<li><a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle" target="_blank" rel="noopener">nrf52840-mdk-usb-dongle</a></li>
-<li><a href="https://wiki.makerdiary.com/nrf52840-mdk/cn/openthread/" target="_blank" rel="noopener">openThread nrf52840-mdk</a></li>
-<li><a href="https://openthread.io/" target="_blank" rel="noopener">openthread</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle">nrf52840-mdk-usb-dongle</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.makerdiary.com/nrf52840-mdk/cn/openthread/">openThread nrf52840-mdk</a></li>
+<li><a target="_blank" rel="noopener" href="https://openthread.io/">openthread</a></li>
 </ul>
 </li>
 <li><p>OpenSK</p>
 <ul>
-<li><a href="https://github.com/google/OpenSK/blob/stable/docs/boards/nrf52840_dongle.md" target="_blank" rel="noopener">nrf52840_dongle.md</a></li>
-<li><a href="https://github.com/google/OpenSK/blob/stable/docs/install.md" target="_blank" rel="noopener">install.md</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/google/OpenSK/blob/stable/docs/boards/nrf52840_dongle.md">nrf52840_dongle.md</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/google/OpenSK/blob/stable/docs/install.md">install.md</a></li>
 </ul>
 </li>
 </ul>
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+<img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/>
+
 
     </div>
 
@@ -304,11 +315,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/18/Lattice-FPGA-开发板实践/" rel="prev" title="Lattice ECP5 FPGA 开发板实践">
+    <a href="/2021/12/18/Lattice-FPGA-%E5%BC%80%E5%8F%91%E6%9D%BF%E5%AE%9E%E8%B7%B5/" rel="prev" title="Lattice ECP5 FPGA 开发板实践">
       <i class="fa fa-chevron-left"></i> Lattice ECP5 FPGA 开发板实践
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/06/26/使用U2F开源硬件密钥/" rel="next" title="使用U2F开源硬件密钥">
+    <a href="/2022/06/26/%E4%BD%BF%E7%94%A8U2F%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6%E5%AF%86%E9%92%A5/" rel="next" title="使用U2F开源硬件密钥">
       使用U2F开源硬件密钥 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -369,7 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NFC概述-摘自维基"><span class="nav-number">1.</span> <span class="nav-text">NFC概述[摘自维基]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与藍牙的比较"><span class="nav-number">1.1.</span> <span class="nav-text">与藍牙的比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux连接使用"><span class="nav-number">2.</span> <span class="nav-text">Linux连接使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关源码编译"><span class="nav-number">2.1.</span> <span class="nav-text">相关源码编译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树莓派"><span class="nav-number">3.</span> <span class="nav-text">树莓派</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手机应用"><span class="nav-number">4.</span> <span class="nav-text">手机应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NRF52840"><span class="nav-number">5.</span> <span class="nav-text">NRF52840</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ESP32"><span class="nav-number">6.</span> <span class="nav-text">ESP32</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#烧写工具"><span class="nav-number">6.1.</span> <span class="nav-text">烧写工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谢谢支持"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NFC%E6%A6%82%E8%BF%B0-%E6%91%98%E8%87%AA%E7%BB%B4%E5%9F%BA"><span class="nav-number">1.</span> <span class="nav-text">NFC概述[摘自维基]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8E%E8%97%8D%E7%89%99%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.1.</span> <span class="nav-text">与藍牙的比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E8%BF%9E%E6%8E%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Linux连接使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91"><span class="nav-number">2.1.</span> <span class="nav-text">相关源码编译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="nav-number">3.</span> <span class="nav-text">树莓派</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E6%9C%BA%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">手机应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NRF52840"><span class="nav-number">5.</span> <span class="nav-text">NRF52840</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ESP32"><span class="nav-number">6.</span> <span class="nav-text">ESP32</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%A7%E5%86%99%E5%B7%A5%E5%85%B7"><span class="nav-number">6.1.</span> <span class="nav-text">烧写工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%A2%E8%B0%A2%E6%94%AF%E6%8C%81"><span class="nav-number">7.</span> <span class="nav-text">谢谢支持</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -427,7 +438,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">yjdwbj</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
@@ -447,9 +458,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 

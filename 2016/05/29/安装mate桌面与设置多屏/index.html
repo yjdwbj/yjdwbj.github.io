@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 7.0.0-rc2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,28 +17,27 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.  MATE 现在位于 GitHub:   安装 MATE 相关的软件包:1234567891011root# apt-get update &amp;amp;&amp;amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
-<meta name="keywords" content="Debian,Linux,Mate,">
+  <meta name="description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.  MATE 现在位于 GitHub:   安装 MATE 相关的软件包:1234567891011root# apt-get update &amp;&amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="debian 安装mate桌面与设置多屏">
-<meta property="og:url" content="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/index.html">
+<meta property="og:url" content="http://example.com/2016/05/29/%E5%AE%89%E8%A3%85mate%E6%A1%8C%E9%9D%A2%E4%B8%8E%E8%AE%BE%E7%BD%AE%E5%A4%9A%E5%B1%8F/index.html">
 <meta property="og:site_name" content="Sunrise 博客">
-<meta property="og:description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.  MATE 现在位于 GitHub:   安装 MATE 相关的软件包:1234567891011root# apt-get update &amp;amp;&amp;amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/imgs/xrandr_cmd.png">
-<meta property="og:image" content="http://yoursite.com/imgs/xrandr_example.png">
-<meta property="og:image" content="http://yoursite.com/imgs/arandr.png">
-<meta property="og:image" content="http://yoursite.com/imgs/mm_reward_qrcode_1525013906055.png">
-<meta property="og:updated_time" content="2016-12-14T14:28:00.000Z">
+<meta property="og:description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.  MATE 现在位于 GitHub:   安装 MATE 相关的软件包:1234567891011root# apt-get update &amp;&amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/imgs/xrandr_cmd.png">
+<meta property="og:image" content="http://example.com/imgs/xrandr_example.png">
+<meta property="og:image" content="http://example.com/imgs/arandr.png">
+<meta property="article:published_time" content="2016-05-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-12-14T14:28:00.000Z">
+<meta property="article:author" content="yjdwbj">
+<meta property="article:tag" content="Debian,Linux,Mate,">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="debian 安装mate桌面与设置多屏">
-<meta name="twitter:description" content="MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.  MATE 现在位于 GitHub:   安装 MATE 相关的软件包:1234567891011root# apt-get update &amp;amp;&amp;amp; apt-get upgraderoot# apt-get install gir1.2-mate-panel">
-<meta name="twitter:image" content="http://yoursite.com/imgs/xrandr_cmd.png">
+<meta name="twitter:image" content="http://example.com/imgs/xrandr_cmd.png">
 
-<link rel="canonical" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
+<link rel="canonical" href="http://example.com/2016/05/29/%E5%AE%89%E8%A3%85mate%E6%A1%8C%E9%9D%A2%E4%B8%8E%E8%AE%BE%E7%BD%AE%E5%A4%9A%E5%B1%8F/">
 
 
 <script id="page-configurations">
@@ -156,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/29/安装mate桌面与设置多屏/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/29/%E5%AE%89%E8%A3%85mate%E6%A1%8C%E9%9D%A2%E4%B8%8E%E8%AE%BE%E7%BD%AE%E5%A4%9A%E5%B1%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -194,7 +193,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
                 </span>
             </span>
 
@@ -212,54 +211,75 @@
         <ul>
 <li><p>MATE 桌面环境 是 GNOME 2 的一个分支,旨在使用传统的方式，为 Linux 用户提供一个有吸引力的和直观的桌面.</p>
 </li>
-<li><p>MATE 现在位于 <a href="https://github.com/mate-desktop" target="_blank" rel="noopener">GitHub</a>:</p>
+<li><p>MATE 现在位于 <a target="_blank" rel="noopener" href="https://github.com/mate-desktop">GitHub</a>:</p>
 </li>
 </ul>
 <h1 id="安装-MATE-相关的软件包"><a href="#安装-MATE-相关的软件包" class="headerlink" title="安装 MATE 相关的软件包:"></a>安装 MATE 相关的软件包:</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get update &amp;&amp; apt-get upgrade</span></span><br><span class="line">root<span class="comment"># apt-get install gir1.2-mate-panel libmate-desktop-2-17:amd64 libmate-desktop-doc libmate-menu2:amd64</span></span><br><span class="line">libmate-panel-applet-4-1 libmate-window-settings1:amd64 libmatedict6 libmatekbd-common libmatekbd4:amd64</span><br><span class="line">libmatepolkit-dev:amd64 libpolkit-gtk-mate-1-0:amd64 live-image-mate-desktop mate-applets mate-applets-common</span><br><span class="line">mate-backgrounds mate-control-center mate-control-center-common mate-desktop mate-desktop-common</span><br><span class="line">mate-gnome-main-menu-applet mate-icon-theme mate-icon-theme-faenza mate-media mate-media-common mate-media-pulse</span><br><span class="line">mate-menus mate-netbook mate-panel mate-panel-common mate-polkit:amd64 mate-polkit-common mate-power-manager</span><br><span class="line">mate-power-manager-common mate-screensaver mate-screensaver-common mate-sensors-applet mate-session-manager</span><br><span class="line">mate-settings-daemon mate-settings-daemon-common mate-settings-daemon-pulse mate-system-monitor</span><br><span class="line">mate-system-monitor-common mate-system-tools mate-system-tools-common mate-terminal mate-terminal-common</span><br><span class="line">mate-themes mate-utils mate-utils-common</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>安装 FVWM 相关软件包:</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get install fvwm&#123;,-&#123;crystal,icons&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="安装-Lightdm"><a href="#安装-Lightdm" class="headerlink" title="安装 Lightdm"></a>安装 Lightdm</h1><ul>
 <li><p>LightDM 是一个跨桌面环境的显示管理器，其目的是为 X 窗口系统提供一个标准的显示管理器.它的特点有:</p>
 </li>
 <li><p>代码轻量</p>
 </li>
-<li>符合标准 (如 PAM, logind, 等)</li>
-<li>为用户提供一个良好的界面.</li>
-<li>跨桌面（用户可以使用各种各样的桌面环境）.</li>
+<li><p>符合标准 (如 PAM, logind, 等)</p>
+</li>
+<li><p>为用户提供一个良好的界面.</p>
+</li>
+<li><p>跨桌面（用户可以使用各种各样的桌面环境）.</p>
+</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># apt-get install liblightdm-gobject-1-0 lightdm lightdm-gtk-greeter</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>配置系统的<code>Xsession</code>, 这里要选择<code>/usr/bin/mate-session</code> :</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># update-alternatives --config x-session-manager</span></span><br><span class="line">There are 2 choices <span class="keyword">for</span> the alternative x-session-manager (providing /usr/bin/x-session-manager).</span><br><span class="line"></span><br><span class="line">  Selection    Path                      Priority   Status</span><br><span class="line">  ------------------------------------------------------------</span><br><span class="line">    0            /usr/bin/openbox-session   40        auto mode</span><br><span class="line">  * 1            /usr/bin/mate-session      30        manual mode</span><br><span class="line">    2            /usr/bin/openbox-session   40        manual mode</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>配置系统的<code>X-window-manager</code>,这里要选择<code>/usr/bin/fvwm2</code></li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></span><br><span class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</span><br><span class="line"></span><br><span class="line">Selection    Path                   Priority   Status</span><br><span class="line"> ------------------------------------------------------------</span><br><span class="line">* 0            /usr/bin/fvwm2          90        auto mode</span><br><span class="line">  1            /usr/bin/awesome        20        manual mode</span><br><span class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root<span class="comment"># update-alternatives --config x-window-manager</span></span><br><span class="line">There are 7 choices <span class="keyword">for</span> the alternative x-window-manager (providing /usr/bin/x-window-manager).</span><br><span class="line"></span><br><span class="line">Selection    Path                   Priority   Status</span><br><span class="line"> ------------------------------------------------------------</span><br><span class="line">* 0            /usr/bin/fvwm2          90        auto mode</span><br><span class="line">  1            /usr/bin/awesome        20        manual mode</span><br><span class="line">  2            /usr/bin/fvwm-crystal   50        manual mode</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果不能正常启动<code>lightdm</code>,运行测试模式<code>lightdm --test-mode -d</code>,查看它的输出.</li>
+</ul>
 <h1 id="双屏幕设置"><a href="#双屏幕设置" class="headerlink" title="双屏幕设置"></a>双屏幕设置</h1><ul>
 <li>安装<code>x11-xserver-utils</code> 包,这里要用到<code>xrandr</code> 去设置屏幕.</li>
 <li>获取屏幕的信息如下图所示.</li>
 </ul>
-<p><img src="/imgs/xrandr_cmd.png" alt></p>
+<p><img src="/imgs/xrandr_cmd.png"></p>
 <ul>
 <li>通过命令行设置.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xrandr --output HDMI1  --mode 1680x1050 --primary --output VGA1 --mode 1920x1080 --rotate left --right-of HDMI1</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>最后效果图如下.</li>
 </ul>
-<p><img src="/imgs/xrandr_example.png" alt></p>
+<p><img src="/imgs/xrandr_example.png"></p>
 <ul>
 <li>也可以通过一个图形界面工具(<code>arandr</code>)去设置多屏幕,下面是我的笔记本外接一个 HDMI 的显示的图.</li>
 </ul>
-<p><img src="/imgs/arandr.png" alt></p>
+<p><img src="/imgs/arandr.png"></p>
+<ul>
+<li>不同分辩率的屏幕，设置不同的的缩放。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ xrandr --listmonitors</span><br><span class="line">Monitors: 2</span><br><span class="line"> 0: +*DVI-D-0 1920/509x1080/286+0+0  DVI-D-0</span><br><span class="line"> 1: +HDMI-0 3840/597x2160/336+1920+0  HDMI-0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如上图所示，<code>HDMI-0</code>连接的是一个<code>4K</code>屏，使用100%的显示，字体有一点小。使用<code>--scale 0.5x0.5</code>就变成了<code>1920x1080</code>.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ xrandr --output HDMI-0 --scale 0.5x0.5</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h2><ul>
 <li>微信二维码:</li>
 </ul>
-<p><img src="/imgs/mm_reward_qrcode_1525013906055.png" width="40%" height="40%" align="center/"></p>
+<img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/>
 
     </div>
 
@@ -282,7 +302,7 @@
       <i class="fa fa-chevron-left"></i> about
     </a></div>
       <div class="post-nav-item">
-    <a href="/2016/05/29/codeblocks与STM32的开发环境配置/" rel="next" title="codeblocks与STM32的开发环境配置">
+    <a href="/2016/05/29/codeblocks%E4%B8%8ESTM32%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="next" title="codeblocks与STM32的开发环境配置">
       codeblocks与STM32的开发环境配置 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -343,7 +363,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-MATE-相关的软件包"><span class="nav-number">1.</span> <span class="nav-text">安装 MATE 相关的软件包:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-Lightdm"><span class="nav-number">2.</span> <span class="nav-text">安装 Lightdm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双屏幕设置"><span class="nav-number">3.</span> <span class="nav-text">双屏幕设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#谢谢支持"><span class="nav-number">3.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-MATE-%E7%9B%B8%E5%85%B3%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">安装 MATE 相关的软件包:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Lightdm"><span class="nav-number">2.</span> <span class="nav-text">安装 Lightdm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E5%B1%8F%E5%B9%95%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">双屏幕设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%A2%E8%B0%A2%E6%94%AF%E6%8C%81"><span class="nav-number">3.1.</span> <span class="nav-text">谢谢支持</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -401,7 +421,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">yjdwbj</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
@@ -421,9 +441,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 

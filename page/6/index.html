@@ -147,6 +147,129 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2016/06/27/%E5%9C%A8Windows-%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%BC%96%E8%AF%91Qt%E9%9D%99%E6%80%81%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yjdwbj">
+      <meta itemprop="description" content="最是人间留不住,朱颜辞镜花辞树">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise 博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/27/%E5%9C%A8Windows-%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%BC%96%E8%AF%91Qt%E9%9D%99%E6%80%81%E5%BA%93/" class="post-title-link" itemprop="url">在Windows 环境下编译Qt静态库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2016-06-27 20:46:25 / 修改时间：00:00:00" itemprop="dateCreated datePublished" datetime="2016-06-27T20:46:25+08:00">2016-06-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Qt/" itemprop="url" rel="index"><span itemprop="name">Qt</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.qt.io/Building_a_static_Qt_for_Windows_using_MinGW">参考链接</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.qt.io/Qt_5.3_Tools_and_Versions">Qt5.3 Tools and Versions</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw">MinGW</a></li>
+<li><a target="_blank" rel="noopener" href="http://source.icu-project.org/repos/icu/icu/tags/release-49-1-2">ICU</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.activestate.com/activeperl/downloads">ActivePerl</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.qt.io/">Qt</a></li>
+</ul>
+<h3 id="安装MinGW工具链环境"><a href="#安装MinGW工具链环境" class="headerlink" title="安装MinGW工具链环境"></a>安装MinGW工具链环境</h3><ul>
+<li><p>这里在Win32环境下要安装一个<code>MinGW</code>工具链,这里最好是先安装一个Qt环境,使用Qt自带的MinGW工具链,我这里是先安装一个Qt5.6的环境再用它来编译Qt5.3.2的静态库.下载并安装<code>ActivePerl</code>软件.</p>
+</li>
+<li><p>这里要用到MSYS环境,把编译<code>ICU</code>,<code>openssl</code>的<code>gcc</code>都指向<code>QT5.6.1</code>自带的工具链<code>GCC</code>,这样才能保能<code>Qt</code>,<code>ICU</code>,<code>openssl</code>编译出来的C++二进制文是兼容的,修改<code>msys_env.bat</code>脚本如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set path=C:\Python27;C:\Perl\bin;C:\Qt\Qt5.6.1\Tools\mingw492_32\bin;D:\mingw\bin;</span><br><span class="line">D:\mingw\mingw32\bin;D:\mingw\msys\1.0\bin</span><br><span class="line">set HOME=D:\mingw\msys\1.0</span><br><span class="line">bash.exe</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>修改<code>fstab</code>文件,这里从<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/10171761/qt-undefined-reference-to-time32">StackOverFlow</a><br>看到解释</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:/Qt/Qt5.6.1/Tools/mingw492_32  /mingw</span><br><span class="line">c:/perl/Perl</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="下载ICU"><a href="#下载ICU" class="headerlink" title="下载ICU"></a>下载ICU</h3><ul>
+<li>经过测试通过下面页下载的库是不能用来静态链接的.还是需要自已用QT的<code>mingw-GCC</code> 工具链编译源码才能用.</li>
+<li>根据链接<a target="_blank" rel="noopener" href="https://wiki.qt.io/Qt_5.3_Tools_and_Versions">Qt5.3 Tools and Versions</a> 下载一个合适的ICU</li>
+<li>打开<a target="_blank" rel="noopener" href="http://download.qt.io/development_releases/prebuilt/icu/prebuilt/mingw/">http://download.qt.io/development_releases/prebuilt/icu/prebuilt/mingw/</a> 选择下载<a target="_blank" rel="noopener" href="http://download.qt.io/development_releases/prebuilt/icu/prebuilt/mingw/icu_53_1_mingw_builds_4_9_1_posix_seh_64_devel.7z"> icu_53_1_mingw_builds_4_9_1_posix_seh_64_devel.7z</a></li>
+</ul>
+<h3 id="下载编译ICU"><a href="#下载编译ICU" class="headerlink" title="下载编译ICU"></a>下载编译ICU</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://downloads.sourceforge.net/project/icu/ICU4C/53.1/icu4c-53_1-src.zip">下载ICU4C_53_1</a></li>
+<li>这里以icu-53_1为例编译 解压ICU包进入到source目录</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash.exe-3.1$ <span class="built_in">cd</span> icu/source</span><br><span class="line">bash.exe-3.1$ ./runConfigureICU MinGW --prefix=/c/icu4c53_1 --enable-static --disable-shared</span><br><span class="line">--enable-release --disable-debug</span><br><span class="line">[...]</span><br><span class="line">bash.exe-3.1$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="编译openssl"><a href="#编译openssl" class="headerlink" title="编译openssl"></a>编译openssl</h3><ul>
+<li>下载 <a target="_blank" rel="noopener" href="https://www.openssl.org/source/openssl-1.0.1g.tar.gz">https://www.openssl.org/source/openssl-1.0.1g.tar.gz</a></li>
+<li>编译openssl 必需要有msys环境.请仔细查看解压后文件夹里的<code>INSTALL.W32</code>文档.</li>
+<li>运行<code>msys shell</code> ,切换的<code>openssl-1.0.1g</code>目录下:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash.exe-3.1$  ./config --prefix=/c/openssl-1.0.1g no-asm no-shared</span><br><span class="line">[...]</span><br><span class="line">bash.exe-3.1$ make depend</span><br><span class="line">[...]</span><br><span class="line">bash.exe-3.1$ make</span><br><span class="line">[...]</span><br><span class="line">bash.exe-3.1$ make install</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="编译Qt源码"><a href="#编译Qt源码" class="headerlink" title="编译Qt源码"></a>编译Qt源码</h3><ul>
+<li>下载<a target="_blank" rel="noopener" href="http://download.qt.io/archive/qt/5.3/5.3.2/single/qt-everywhere-opensource-src-5.3.2.zip">Qt5.3.2</a></li>
+<li>解压文件并且修改<code>qtbase\mkspecs\win32-g++\qmake.conf</code>最终文件如下:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># qmake configuration for win32-g++</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Written for MinGW / gcc 4.6 or higher</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Cross compile example for i686-w64-mingw32-g++:</span></span><br><span class="line"><span class="comment">#   configure -xplatform win32-g++ -device-option CROSS_COMPILE=i686-w64-mingw32-</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">load(device_config)</span><br><span class="line">MAKEFILE_GENERATOR      = MINGW</span><br><span class="line">QMAKE_PLATFORM          = win32 mingw</span><br><span class="line">CONFIG                 += debug_and_release debug_and_release_target precompile_header</span><br><span class="line">DEFINES                += UNICODE</span><br><span class="line">QMAKE_COMPILER_DEFINES += __GNUC__ WIN32</span><br><span class="line">QMAKE_EXT_OBJ           = .o</span><br><span class="line">QMAKE_EXT_RES           = _res.o</span><br><span class="line">QMAKE_COMPILER          = gcc</span><br><span class="line">QMAKE_CC                = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>gcc</span><br><span class="line">QMAKE_LEX               = flex</span><br><span class="line">QMAKE_LEXFLAGS          =</span><br><span class="line">QMAKE_YACC              = byacc</span><br><span class="line">QMAKE_YACCFLAGS         = -d</span><br><span class="line">QMAKE_CFLAGS            = -pipe -fno-keep-inline-dllexport</span><br><span class="line">QMAKE_CFLAGS_DEPS       = -M</span><br><span class="line">QMAKE_CFLAGS_WARN_ON    = -Wall -Wextra</span><br><span class="line">QMAKE_CFLAGS_WARN_OFF   = -w</span><br><span class="line">QMAKE_CFLAGS_RELEASE -= -O2</span><br><span class="line">QMAKE_CFLAGS_RELEASE += -Os -momit-leaf-frame-pointer  <span class="comment">#注意这一行</span></span><br><span class="line">QMAKE_CFLAGS_DEBUG      = -g</span><br><span class="line">QMAKE_CFLAGS_YACC       = -Wno-unused -Wno-parentheses</span><br><span class="line">QMAKE_CFLAGS_SPLIT_SECTIONS = -ffunction-sections</span><br><span class="line">QMAKE_CFLAGS_SSE2       = -msse2 -mstackrealign</span><br><span class="line">QMAKE_CFLAGS_SSE3       = -msse3</span><br><span class="line">QMAKE_CFLAGS_SSSE3      = -mssse3</span><br><span class="line">QMAKE_CFLAGS_SSE4_1     = -msse4.1</span><br><span class="line">QMAKE_CFLAGS_SSE4_2     = -msse4.2</span><br><span class="line">QMAKE_CFLAGS_AVX        = -mavx</span><br><span class="line">QMAKE_CFLAGS_AVX2       = -mavx2</span><br><span class="line">QMAKE_CFLAGS_IWMMXT     = -mcpu=iwmmxt</span><br><span class="line">QMAKE_CFLAGS_NEON       = -mfpu=neon</span><br><span class="line">QMAKE_CXX               = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>g++</span><br><span class="line">QMAKE_CXXFLAGS          = $<span class="variable">$QMAKE_CFLAGS</span></span><br><span class="line">QMAKE_CXXFLAGS_DEPS     = $<span class="variable">$QMAKE_CFLAGS_DEPS</span></span><br><span class="line">QMAKE_CXXFLAGS_WARN_ON  = $<span class="variable">$QMAKE_CFLAGS_WARN_ON</span></span><br><span class="line">QMAKE_CXXFLAGS_WARN_OFF = $<span class="variable">$QMAKE_CFLAGS_WARN_OFF</span></span><br><span class="line">QMAKE_CXXFLAGS_RELEASE  = $<span class="variable">$QMAKE_CFLAGS_RELEASE</span></span><br><span class="line">QMAKE_CXXFLAGS_DEBUG    = $<span class="variable">$QMAKE_CFLAGS_DEBUG</span></span><br><span class="line">QMAKE_CXXFLAGS_YACC     = $<span class="variable">$QMAKE_CFLAGS_YACC</span></span><br><span class="line">QMAKE_CXXFLAGS_THREAD   = $<span class="variable">$QMAKE_CFLAGS_THREAD</span></span><br><span class="line">QMAKE_CXXFLAGS_RTTI_ON  = -frtti</span><br><span class="line">QMAKE_CXXFLAGS_RTTI_OFF = -fno-rtti</span><br><span class="line">QMAKE_CXXFLAGS_EXCEPTIONS_ON = -fexceptions -mthreads</span><br><span class="line">QMAKE_CXXFLAGS_EXCEPTIONS_OFF = -fno-exceptions</span><br><span class="line">QMAKE_CXXFLAGS_CXX11    = -std=c++0x</span><br><span class="line">QMAKE_CXXFLAGS_SPLIT_SECTIONS = $<span class="variable">$QMAKE_CFLAGS_SPLIT_SECTIONS</span></span><br><span class="line">QMAKE_INCDIR            =</span><br><span class="line">QMAKE_RUN_CC            = $(CC) -c $(CFLAGS) $(INCPATH) -o <span class="variable">$obj</span> <span class="variable">$src</span></span><br><span class="line">QMAKE_RUN_CC_IMP        = $(CC) -c $(CFLAGS) $(INCPATH) -o <span class="variable">$@</span> $&lt;</span><br><span class="line">QMAKE_RUN_CXX           = $(CXX) -c $(CXXFLAGS) $(INCPATH) -o <span class="variable">$obj</span> <span class="variable">$src</span></span><br><span class="line">QMAKE_RUN_CXX_IMP       = $(CXX) -c $(CXXFLAGS) $(INCPATH) -o <span class="variable">$@</span> $&lt;</span><br><span class="line">QMAKE_LINK              = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>g++</span><br><span class="line">QMAKE_LINK_C            = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>gcc</span><br><span class="line">QMAKE_LFLAGS            = -static -static-libgcc <span class="comment"># 添加这一行</span></span><br><span class="line">QMAKE_LFLAGS_EXCEPTIONS_ON = -mthreads</span><br><span class="line">QMAKE_LFLAGS_EXCEPTIONS_OFF =</span><br><span class="line">QMAKE_LFLAGS_RELEASE    = -Wl,-s</span><br><span class="line">QMAKE_LFLAGS_DEBUG      =</span><br><span class="line">QMAKE_LFLAGS_CONSOLE    = -Wl,-subsystem,console</span><br><span class="line">QMAKE_LFLAGS_WINDOWS    = -Wl,-subsystem,windows</span><br><span class="line">QMAKE_LFLAGS_DLL        = -static</span><br><span class="line">QMAKE_LFLAGS_CXX11      =</span><br><span class="line">QMAKE_LFLAGS_GCSECTIONS = -Wl,--gc-sections</span><br><span class="line">QMAKE_LINK_OBJECT_MAX   = 10</span><br><span class="line">QMAKE_LINK_OBJECT_SCRIPT = object_script</span><br><span class="line">QMAKE_PREFIX_STATICLIB  = lib</span><br><span class="line">QMAKE_EXTENSION_STATICLIB = a</span><br><span class="line">QMAKE_LIBS              =</span><br><span class="line">QMAKE_LIBS_CORE         = -lole32 -luuid -lws2_32 -ladvapi32 -lshell32 -luser32 -lkernel32</span><br><span class="line">QMAKE_LIBS_GUI          = -lgdi32 -lcomdlg32 -loleaut32 -limm32 -lwinmm -lws2_32 -lole32 -luuid -luser32 -ladvapi32</span><br><span class="line">QMAKE_LIBS_NETWORK      = -lws2_32</span><br><span class="line">QMAKE_LIBS_OPENGL       = -lglu32 -lopengl32 -lgdi32 -luser32</span><br><span class="line">QMAKE_LIBS_OPENGL_ES2   = -llibEGL -llibGLESv2 -lgdi32 -luser32</span><br><span class="line">QMAKE_LIBS_OPENGL_ES2_DEBUG = -llibEGLd -llibGLESv2d -lgdi32 -luser32</span><br><span class="line">QMAKE_LIBS_COMPAT       = -ladvapi32 -lshell32 -lcomdlg32 -luser32 -lgdi32 -lws2_32</span><br><span class="line">QMAKE_LIBS_QT_ENTRY     = -lmingw32 -lqtmain</span><br><span class="line">!isEmpty(QMAKE_SH) &#123;</span><br><span class="line">    MINGW_IN_SHELL      = 1</span><br><span class="line">    QMAKE_DIR_SEP       = /</span><br><span class="line">    QMAKE_DIRLIST_SEP   = :</span><br><span class="line">    include(../common/shell-unix.conf)</span><br><span class="line">    <span class="comment"># Because install&#x27;s ability to set permissions is not relevant on Windows,</span></span><br><span class="line">    <span class="comment"># and git&#x27;s msys does not provide it to start with.</span></span><br><span class="line">    QMAKE_INSTALL_FILE    = <span class="built_in">cp</span> -f</span><br><span class="line">    QMAKE_INSTALL_PROGRAM = <span class="built_in">cp</span> -f</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    include(../common/shell-win32.conf)</span><br><span class="line">&#125;</span><br><span class="line">QMAKE_IDL               = midl</span><br><span class="line">QMAKE_LIB               = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>ar -ru</span><br><span class="line">QMAKE_RC                = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>windres</span><br><span class="line">QMAKE_STRIP             = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>strip</span><br><span class="line">QMAKE_STRIPFLAGS_LIB   += --strip-unneeded</span><br><span class="line">QMAKE_OBJCOPY           = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>objcopy</span><br><span class="line">QMAKE_NM                = $<span class="variable">$&#123;CROSS_COMPILE&#125;</span>nm -P</span><br><span class="line">load(qt_config)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="创建编译脚本"><a href="#创建编译脚本" class="headerlink" title="创建编译脚本"></a>创建编译脚本</h3><ul>
+<li>创建一个bat的脚本件内容如下,有些变量请按实际系统环境做相应的修改.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> RDIR=c:/Qt/Qt5.6.1</span><br><span class="line"><span class="built_in">set</span> VERGCC=mingw492_32</span><br><span class="line"><span class="built_in">set</span> PATH=C:/Python27;C:/Perl/bin;%RDIR%/5.6/%VERGCC%/bin;%RDIR%/Tools/%VERGCC%/bin;C:\icu\bin;%RDIR%/Tools/QtCreator/bin</span><br><span class="line"><span class="built_in">set</span> INCLUDE=%RDIR%/5.6/%VERGCC%/include;%RDIR%/Tools/%VERGCC%/include;C:\icu4c53_1\include;C:\openssl-1.0.1g\include</span><br><span class="line"><span class="built_in">set</span> LIB=%RDIR%/5.6/%VERGCC%/lib;%RDIR%/Tools/%VERGCC%/lib;C:\icu4c53_1\lib;C:\openssl-1.0.1g\lib</span><br><span class="line"><span class="built_in">set</span> SDIR=D:/qt-everywhere-opensource-src-5.3.2</span><br><span class="line"><span class="built_in">cd</span> %SDIR%</span><br><span class="line">configure.bat -mp    -platform win32-g++  -opensource -confirm-license -release</span><br><span class="line">-static -ltcg -c++11 -prefix <span class="string">&quot;c:/Qt/5.3.2-static&quot;</span> -accessibility</span><br><span class="line">-rtti -qt-sql-sqlite -qt-sql-odbc -plugin-sql-sqlite -plugin-sql-odbc -icu -qt-zlib -qt-libpng -qt-libjpeg</span><br><span class="line">-audio-backend  -opengl desktop -qml-debug -no-vcproj -no-dbus -nomake tests</span><br><span class="line">-openssl -I C:/openssl-1.0.1g/include -L C:/openssl-1.0.1g/lib</span><br><span class="line">-nomake examples -qt-freetype -no-compile-examples -no-openvg -iconv -no-directwrite</span><br><span class="line">-no-iwmmxt -no-crt -skip qtwebkit</span><br><span class="line">;编译</span><br><span class="line">mingw32-make</span><br><span class="line">;安装到-prefix的变量路径中</span><br><span class="line">mingw32-make install</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h3><ul>
+<li>微信二维码:</li>
+<li><a href=mailto:yjdwbj@gmail.com>联系作者: yjdwbj@gmail.com</a></li>
+</ul>
+<img src=/imgs/mm_reward_qrcode_1525013906055.png width=40% height=40% align=center/>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2016/05/29/codeblocks%E4%B8%8ESTM32%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -601,7 +724,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -610,7 +733,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

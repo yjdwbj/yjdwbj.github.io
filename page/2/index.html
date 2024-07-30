@@ -178,7 +178,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-11 15:12:18" itemprop="dateModified" datetime="2023-11-11T15:12:18+08:00">2023-11-11</time>
+                <time title="修改时间：2024-06-08 11:31:36" itemprop="dateModified" datetime="2024-06-08T11:31:36+08:00">2024-06-08</time>
               </span>
 
           
@@ -624,7 +624,85 @@
 <ul>
 <li>第一次启动访问<code>wiki</code>页面时,会是一个初始化安装页,在<code>SITE URL</code>必须填写<code>https://&lt;your full domain&gt;/wiki</code>.</li>
 </ul>
-<h1 id="AI-ML"><a href="#AI-ML" class="headerlink" title="AI&#x2F;ML"></a>AI&#x2F;ML</h1><h2 id="语音控制"><a href="#语音控制" class="headerlink" title="语音控制"></a>语音控制</h2><h3 id="DeepSpeech"><a href="#DeepSpeech" class="headerlink" title="DeepSpeech"></a><a target="_blank" rel="noopener" href="https://github.com/mozilla/DeepSpeech">DeepSpeech</a></h3><ul>
+<h1 id="LoRaWAN-网关"><a href="#LoRaWAN-网关" class="headerlink" title="LoRaWAN 网关"></a>LoRaWAN 网关</h1><h2 id="ChirpStack"><a href="#ChirpStack" class="headerlink" title="ChirpStack"></a>ChirpStack</h2><h3 id="系统应用安装方式"><a href="#系统应用安装方式" class="headerlink" title="系统应用安装方式"></a>系统应用安装方式</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.chirpstack.io/docs/getting-started/debian-ubuntu.html">Quickstart Debian &#x2F; Ubuntu</a></p>
+</li>
+<li><p>需要先安装配置<code>mqtt,sql,redis</code>等基础软件服务。设置<code>ChirpStack</code>仓库</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt install apt-transport-https dirmngr</span><br><span class="line">~$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1CE2AFD36DBCCA00</span><br><span class="line">~$ sudo <span class="built_in">echo</span> <span class="string">&quot;deb https://artifacts.chirpstack.io/packages/4.x/deb stable main&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/chirpstack.list</span><br><span class="line">~$ sudo apt update</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="先安装基础服务"><a href="#先安装基础服务" class="headerlink" title="先安装基础服务"></a>先安装基础服务</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt install \</span><br><span class="line">    mosquitto \</span><br><span class="line">    mosquitto-clients \</span><br><span class="line">    redis-server \</span><br><span class="line">    redis-tools \</span><br><span class="line">    postgresql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置<code>postgresql</code>,创建如下的库。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo -u postgres psql</span><br><span class="line"></span><br><span class="line">-- create role <span class="keyword">for</span> authentication</span><br><span class="line">create role chirpstack with login password <span class="string">&#x27;chirpstack&#x27;</span>;</span><br><span class="line"></span><br><span class="line">-- create database</span><br><span class="line">create database chirpstack with owner chirpstack;</span><br><span class="line"></span><br><span class="line">-- change to chirpstack database</span><br><span class="line">\c chirpstack</span><br><span class="line"></span><br><span class="line">-- create pg_trgm extension</span><br><span class="line">create extension pg_trgm;</span><br><span class="line"></span><br><span class="line">-- <span class="built_in">exit</span> psql</span><br><span class="line">\q</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装ChirpStack-Gateway-Bridge"><a href="#安装ChirpStack-Gateway-Bridge" class="headerlink" title="安装ChirpStack Gateway Bridge."></a>安装<code>ChirpStack Gateway Bridge</code>.</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt install chirpstack-gateway-bridge</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里以<code>EU868</code>为例，需要修改<code>/etc/chirpstack-gateway-bridge/chirpstack-gateway-bridge.toml</code>如下配置：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[...]</span><br><span class="line">[integration.mqtt]</span><br><span class="line">  <span class="comment"># Event topic template.</span></span><br><span class="line">  event_topic_template=<span class="string">&quot;eu868/gateway/&#123;&#123; .GatewayID &#125;&#125;/event/&#123;&#123; .EventType &#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Command topic template.</span></span><br><span class="line">  command_topic_template=<span class="string">&quot;eu868/gateway/&#123;&#123; .GatewayID &#125;&#125;/command/#&quot;</span></span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>开机启动服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start chirpstack-gateway-bridge</span></span><br><span class="line">sudo systemctl start chirpstack-gateway-bridge</span><br><span class="line"></span><br><span class="line"><span class="comment"># start chirpstack-gateway-bridge on boot</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> chirpstack-gateway-bridge</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装ChirpStack"><a href="#安装ChirpStack" class="headerlink" title="安装ChirpStack"></a>安装<code>ChirpStack</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install chirpstack</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这里需要修改<code>/etc/chirpstack/chirpstack.toml</code>里的<code>[enabled_regions]</code>把不必要的区域参数删除或都注释掉。使用<code>openssl rand -base64 32</code>生成一串随机字符串，替换<code>secret=&quot;you-must-replace-this&quot;</code>这一行。</p>
+</li>
+<li><p>并且需要开启后台的依赖服务:<code>postgres,redis,mosquitto</code>, 还需要设置好各后台服务器登录验证。才能正常启动<code>chirpstack-gateway-bridge</code>与<code>chirpstack</code>服务。</p>
+</li>
+<li><p>最后，需要删改增补对应的<code>eu868</code>的区域参数，是在<code>/etc/chirpstack/region_eu868.toml</code>文件内.</p>
+</li>
+<li><p>配置不同区域的参数与频道,需要参考这里<a target="_blank" rel="noopener" href="https://github.com/chirpstack/chirpstack/tree/master/chirpstack/configuration">https://github.com/chirpstack/chirpstack/tree/master/chirpstack/configuration</a>.</p>
+</li>
+<li><p>设置开机运行服务</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start chirpstack</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> chirpstack</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在浏览器打开本机的ip:<code>http://chirpstack-ip:8080</code>出现登录界面，默认的用户密码是:<code>admin,admin</code>.</li>
+</ul>
+<h3 id="Docker安装方式"><a href="#Docker安装方式" class="headerlink" title="Docker安装方式"></a>Docker安装方式</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.chirpstack.io/docs/getting-started/docker.html">Quickstart Docker Compose</a></p>
+</li>
+<li><p>使用<code>Docker</code>安装方式有很多优点，配置一次，可以复制到其它机器上快速大批量部署，并且不会污染到主机的系统环境。这里直接下载<a target="_blank" rel="noopener" href="https://github.com/chirpstack/chirpstack-docker">https://github.com/chirpstack/chirpstack-docker</a>即可快速部署了。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/chirpstack/chirpstack-docker.git</span><br><span class="line"><span class="built_in">cd</span> chirpstack-docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Cloning the device repository， 这里定义一些硬件模本文件。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/brocaar/lorawan-devices /opt/lorawan-devices</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行<code>docker-compose up</code>后，</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ docker-compose up -d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>成功运行后，<code>docker ps</code>如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">panther@panther-x2:~/chirpstack-docker$ docker ps</span><br><span class="line">CONTAINER ID   IMAGE                                    COMMAND                  CREATED          STATUS          PORTS                                       NAMES</span><br><span class="line">03e7d4c17b6b   chirpstack/chirpstack-rest-api:4         <span class="string">&quot;/usr/bin/chirpstack…&quot;</span>   13 minutes ago   Up 11 minutes   0.0.0.0:8090-&gt;8090/tcp, :::8090-&gt;8090/tcp   chirpstack-docker_chirpstack-rest-api_1</span><br><span class="line">43daf00ef2b6   chirpstack/chirpstack:4                  <span class="string">&quot;/usr/bin/chirpstack…&quot;</span>   13 minutes ago   Up 13 minutes   0.0.0.0:8080-&gt;8080/tcp, :::8080-&gt;8080/tcp   chirpstack-docker_chirpstack_1</span><br><span class="line">a68509e131f9   chirpstack/chirpstack-gateway-bridge:4   <span class="string">&quot;/usr/bin/chirpstack…&quot;</span>   13 minutes ago   Up 11 minutes   0.0.0.0:3001-&gt;3001/tcp, :::3001-&gt;3001/tcp   chirpstack-docker_chirpstack-gateway-bridge-basicstation_1</span><br><span class="line">3f4c2b6bf481   chirpstack/chirpstack-gateway-bridge:4   <span class="string">&quot;/usr/bin/chirpstack…&quot;</span>   13 minutes ago   Up 11 minutes   0.0.0.0:1700-&gt;1700/udp, :::1700-&gt;1700/udp   chirpstack-docker_chirpstack-gateway-bridge_1</span><br><span class="line">25645bb601dd   eclipse-mosquitto:2                      <span class="string">&quot;/docker-entrypoint.…&quot;</span>   13 minutes ago   Up 13 minutes   0.0.0.0:1883-&gt;1883/tcp, :::1883-&gt;1883/tcp   chirpstack-docker_mosquitto_1</span><br><span class="line">9c7c3b6c7745   postgres:14-alpine                       <span class="string">&quot;docker-entrypoint.s…&quot;</span>   13 minutes ago   Up 13 minutes   5432/tcp                                    chirpstack-docker_postgres_1</span><br><span class="line">6974cb36c624   redis:7-alpine                           <span class="string">&quot;docker-entrypoint.s…&quot;</span>   13 minutes ago   Up 13 minutes   6379/tcp                                    chirpstack-docker_redis_1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>需导入上面的硬件列表。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ docker <span class="built_in">exec</span> chirpstack-docker_chirpstack_1 chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /opt/lorawan-devices</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>导入成功后，会以在<code>ChirpStack -&gt; Network Server -&gt; Device Profile Templates</code>里看到各种硬件列表。</li>
+</ul>
+<h2 id="注册LoraWAN-gateway"><a href="#注册LoraWAN-gateway" class="headerlink" title="注册LoraWAN gateway"></a>注册<code>LoraWAN gateway</code></h2><h1 id="AI-ML"><a href="#AI-ML" class="headerlink" title="AI&#x2F;ML"></a>AI&#x2F;ML</h1><h2 id="语音控制"><a href="#语音控制" class="headerlink" title="语音控制"></a>语音控制</h2><h3 id="DeepSpeech"><a href="#DeepSpeech" class="headerlink" title="DeepSpeech"></a><a target="_blank" rel="noopener" href="https://github.com/mozilla/DeepSpeech">DeepSpeech</a></h3><ul>
 <li>DeepSpeech is an open source embedded (offline, on-device) speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.</li>
 </ul>
 <h3 id="MycroftAI-mimic3"><a href="#MycroftAI-mimic3" class="headerlink" title="MycroftAI&#x2F;mimic3"></a><a target="_blank" rel="noopener" href="https://github.com/MycroftAI/mimic3">MycroftAI&#x2F;mimic3</a></h3><ul>
@@ -2797,7 +2875,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-30 13:03:39" itemprop="dateModified" datetime="2023-09-30T13:03:39+08:00">2023-09-30</time>
+                <time title="修改时间：2024-07-30 19:12:56" itemprop="dateModified" datetime="2024-07-30T19:12:56+08:00">2024-07-30</time>
               </span>
 
           
@@ -2814,7 +2892,7 @@
           <h1 id="机器学习框架介绍"><a href="#机器学习框架介绍" class="headerlink" title="机器学习框架介绍"></a>机器学习框架介绍</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/keras-or-pytorch">Keras vs PyTorch：谁是「第一」深度学习框架？</a></li>
 </ul>
-<h1 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h1><p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">NVIDIA CUDA Toolkit Release Notes</a><br><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">Linux 安装指导</a></p>
+<h1 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h1><p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">NVIDIA CUDA Toolkit Release Notes</a><br><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">Linux 安装指导</a><br><a target="_blank" rel="noopener" href="https://wiki.debian.org/NVIDIA%20Optimus">Nvidia驱动优化</a><br><a target="_blank" rel="noopener" href="https://wiki.debian.org/NvidiaGraphicsDrivers">Debian Nvidia安装配置</a></p>
 <h2 id="本机系统"><a href="#本机系统" class="headerlink" title="本机系统"></a>本机系统</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">~$ nvidia-debugdump -l</span><br><span class="line">Found 1 NVIDIA devices</span><br><span class="line">	Device ID:              0</span><br><span class="line">	Device name:            Quadro P600   (*PrimaryCard)</span><br><span class="line">	GPU internal ID:        0422018092726</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cat</span> /etc/*release</span><br><span class="line">PRETTY_NAME=<span class="string">&quot;Debian GNU/Linux 9 (stretch)&quot;</span></span><br><span class="line">NAME=<span class="string">&quot;Debian GNU/Linux&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;9&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;9 (stretch)&quot;</span></span><br><span class="line">ID=debian</span><br><span class="line">HOME_URL=<span class="string">&quot;https://www.debian.org/&quot;</span></span><br><span class="line">SUPPORT_URL=<span class="string">&quot;https://www.debian.org/support&quot;</span></span><br><span class="line">BUG_REPORT_URL=<span class="string">&quot;https://bugs.debian.org/&quot;</span></span><br><span class="line"></span><br><span class="line">~$ gcc -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">COLLECT_GCC=gcc</span><br><span class="line">COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper</span><br><span class="line">Target: x86_64-linux-gnu</span><br><span class="line">Configured with: ../src/configure -v --with-pkgversion=<span class="string">&#x27;Debian 6.3.0-18+deb9u1&#x27;</span> --with-bugurl=file:///usr/share/doc/gcc-6/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-6 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=<span class="built_in">yes</span> --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-6-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-6-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-6-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 6.3.0 20170516 (Debian 6.3.0-18+deb9u1)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="安装CUDA"><a href="#安装CUDA" class="headerlink" title="安装CUDA"></a>安装<code>CUDA</code></h2><ul>
@@ -5604,7 +5682,7 @@ ESP8266的串口路径是<code>/dev/ttyS1</code>. 连接图如下.</li>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

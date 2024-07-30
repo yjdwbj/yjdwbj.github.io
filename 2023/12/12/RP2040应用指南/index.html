@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/imgs/usbmon-capture-by-wireshark.png">
 <meta property="og:image" content="http://example.com/imgs/usbmon-capture-by-wireshark-uvc_ok.png">
 <meta property="article:published_time" content="2023-12-12T01:01:19.000Z">
-<meta property="article:modified_time" content="2023-12-12T03:01:13.848Z">
+<meta property="article:modified_time" content="2024-04-10T02:36:52.139Z">
 <meta property="article:author" content="yjdwbj">
 <meta property="article:tag" content="Linux,RP2040">
 <meta name="twitter:card" content="summary">
@@ -177,10 +177,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-12-12 09:01:19 / 修改时间：11:01:13" itemprop="dateCreated datePublished" datetime="2023-12-12T09:01:19+08:00">2023-12-12</time>
+              <time title="创建时间：2023-12-12 09:01:19" itemprop="dateCreated datePublished" datetime="2023-12-12T09:01:19+08:00">2023-12-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-10 10:36:52" itemprop="dateModified" datetime="2024-04-10T10:36:52+08:00">2024-04-10</time>
+              </span>
 
           
 
@@ -220,6 +226,11 @@
 <li><a target="_blank" rel="noopener" href="https://dronebotworkshop.com/shift-registers/">Shift Registers – 74HC595 &amp; 74HC165 with Arduino</a></li>
 <li><a target="_blank" rel="noopener" href="https://lastminuteengineers.com/74hc595-shift-register-arduino-tutorial/">How 74HC595 Shift Register Works &amp; Interface it with Arduino</a></li>
 <li><a target="_blank" rel="noopener" href="https://community.element14.com/products/raspberry-pi/b/blog/posts/lcd-parallel-driver-using-pico-pio?pifragment-17361=2">LCD parallel driver using Pico PIO</a></li>
+<li><a target="_blank" rel="noopener" href="https://gregchadwick.co.uk/blog/playing-with-the-pico-pt4/">Playing with the Pico Part 4 - Getting Acquainted with PIO</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.arduino.cc/tutorials/communication/guide-to-shift-out">Serial to Parallel Shifting-Out with a 74HC595 </a></li>
+<li><a target="_blank" rel="noopener" href="https://dronebotworkshop.com/shift-registers/">Shift Registers – 74HC595 &amp; 74HC165 with Arduino</a></li>
+<li><a target="_blank" rel="noopener" href="https://forums.raspberrypi.com/viewtopic.php?t=336654">Not clear on how to use 2 non-consecutive GPIO’s in PIO</a></li>
+<li><a target="_blank" rel="noopener" href="https://alankrantas.medium.com/%E7%99%BD%E8%A9%B1%E8%A7%A3%E5%AF%86-raspberry-pi-pico-%E7%9A%84-pio-programmed-i-o-%E4%BD%BF%E7%94%A8-micropython-%E6%92%B0%E5%AF%AB-pioasm-part-i-e801a161cf98">白話解密 Raspberry Pi Pico 的 PIO（Programmed I&#x2F;O） — — 使用 MicroPython 撰寫 pioasm：Part I</a></li>
 </ul>
 </li>
 <li><p>Simple example to demonstrate</p>
@@ -241,6 +252,14 @@
 <li>烧写</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">~$ openocd -f interface/ftdi/ft232h-module-swd.cfg  -f target/rp2040.cfg -c <span class="string">&quot;program blink.elf verify reset exit&quot;</span></span><br><span class="line">Open On-Chip Debugger 0.12.0+dev-01369-gb388f4805 (2023-11-04-10:01)</span><br><span class="line">Licensed under GNU GPL v2</span><br><span class="line">For bug reports, <span class="built_in">read</span></span><br><span class="line">	http://openocd.org/doc/doxygen/bugs.html</span><br><span class="line">Info : FTDI SWD mode enabled</span><br><span class="line">swd</span><br><span class="line">Warn : Transport <span class="string">&quot;swd&quot;</span> was already selected</span><br><span class="line">Info : Hardware thread awareness created</span><br><span class="line">Info : Hardware thread awareness created</span><br><span class="line">Warn : An adapter speed is not selected <span class="keyword">in</span> the init scripts. OpenOCD will try to run the adapter at very low speed (100 kHz).</span><br><span class="line">Warn : To remove this warnings and achieve reasonable communication speed with the target, <span class="built_in">set</span> <span class="string">&quot;adapter speed&quot;</span> or <span class="string">&quot;jtag_rclk&quot;</span> <span class="keyword">in</span> the init scripts.</span><br><span class="line">Info : clock speed 100 kHz</span><br><span class="line">Info : SWD DPIDR 0x0bc12477, DLPIDR 0x00000001</span><br><span class="line">Info : SWD DPIDR 0x0bc12477, DLPIDR 0x10000001</span><br><span class="line">Info : [rp2040.core0] Cortex-M0+ r0p1 processor detected</span><br><span class="line">Info : [rp2040.core0] target has 4 breakpoints, 2 watchpoints</span><br><span class="line">Info : [rp2040.core1] Cortex-M0+ r0p1 processor detected</span><br><span class="line">Info : [rp2040.core1] target has 4 breakpoints, 2 watchpoints</span><br><span class="line">Info : starting gdb server <span class="keyword">for</span> rp2040.core0 on 3333</span><br><span class="line">Info : Listening on port 3333 <span class="keyword">for</span> gdb connections</span><br><span class="line">Warn : [rp2040.core1] target was <span class="keyword">in</span> unknown state when halt was requested</span><br><span class="line">[rp2040.core0] halted due to debug-request, current mode: Thread</span><br><span class="line">xPSR: 0xf1000000 pc: 0x000000ee msp: 0x20041f00</span><br><span class="line">[rp2040.core1] halted due to debug-request, current mode: Thread</span><br><span class="line">xPSR: 0xf1000000 pc: 0x000000ee msp: 0x20041f00</span><br><span class="line">** Programming Started **</span><br><span class="line">Info : Found flash device <span class="string">&#x27;win w25q16jv&#x27;</span> (ID 0x001540ef)</span><br><span class="line">Info : RP2040 B0 Flash Probe: 2097152 bytes @0x10000000, <span class="keyword">in</span> 32 sectors</span><br><span class="line"></span><br><span class="line">Info : Padding image section 1 at 0x10002190 with 112 bytes (bank write end alignment)</span><br><span class="line">Warn : Adding extra erase range, 0x10002200 .. 0x1000ffff</span><br><span class="line">** Programming Finished **</span><br><span class="line">** Verify Started **</span><br><span class="line">** Verified OK **</span><br><span class="line">** Resetting Target **</span><br><span class="line">shutdown <span class="built_in">command</span> invoked</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="UF2文件方式烧写"><a href="#UF2文件方式烧写" class="headerlink" title="UF2文件方式烧写"></a><code>UF2</code>文件方式烧写</h2><ul>
+<li><p><code>pico-examples</code>里的工程编译完成后,都会生成<code>.uf2</code>的文件,按住<code>BOOTSEL</code>上电进入到<code>UF2</code>模式，复制粘贴<code>.uf2</code>进去，就能烧写成功。</p>
+</li>
+<li><p>或者使用<code>arduino-pico</code>里的工具烧写，如下：</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -I /home/michael/.arduino15/packages/rp2040/hardware/rp2040/3.6.2/tools/uf2conv.py --serial /dev/ttyACM0 --family RP2040 --deploy /tmp/arduino_build_788465/shift.ino.uf2</span><br></pre></td></tr></table></figure>
 
 <h2 id="学习理解tinyusb-pico-sdk编译工程结构"><a href="#学习理解tinyusb-pico-sdk编译工程结构" class="headerlink" title="学习理解tinyusb+pico-sdk编译工程结构"></a>学习理解<code>tinyusb+pico-sdk</code>编译工程结构</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/hathach/tinyusb">TinyUSB</a> is an open-source cross-platform USB Host&#x2F;Device stack for embedded system, designed to be memory-safe with no dynamic allocation and thread-safe with all interrupt events are deferred then handled in the non-ISR task function.</li>
@@ -289,6 +308,426 @@
 
 <ul>
 <li>选择打开一个<code>TFT_eSPI</code>内置的测试工程。这里使用的是官方的板子，就选择<code>Tools -&gt; Boards -&gt; Rasperry Pi RP2040 Boards  -&gt; Rasperry Pi Pico</code>. 编译上传就可以看到结果，烧写过程中有可能需要手动复位<code>BOOTSEL</code>按键。</li>
+</ul>
+<h2 id="双74HC565N-Daisy-chaining测试"><a href="#双74HC565N-Daisy-chaining测试" class="headerlink" title="双74HC565N Daisy-chaining测试"></a>双<code>74HC565N Daisy-chaining</code>测试</h2><table>
+<thead>
+<tr>
+<th align="center">RP2040</th>
+<th align="center">74HC565N(1)</th>
+<th align="center">74HC565N(2)</th>
+<th align="center">Logic Probe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GPIO0</td>
+<td align="center">STCP</td>
+<td align="center">STCP</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GPIO1</td>
+<td align="center">SHCP</td>
+<td align="center">SHCP</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GPIO2</td>
+<td align="center">DS</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center">MR</td>
+<td align="center">MR</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center">GND</td>
+<td align="center">GND</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center">QE</td>
+<td align="center">QE</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q7S</td>
+<td align="center">DS</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q0</td>
+<td align="center"></td>
+<td align="center">D00</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q1</td>
+<td align="center"></td>
+<td align="center">D01</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q2</td>
+<td align="center"></td>
+<td align="center">D02</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q3</td>
+<td align="center"></td>
+<td align="center">D03</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q4</td>
+<td align="center"></td>
+<td align="center">D04</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q5</td>
+<td align="center"></td>
+<td align="center">D05</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q6</td>
+<td align="center"></td>
+<td align="center">D06</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q7</td>
+<td align="center"></td>
+<td align="center">D07</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q0</td>
+<td align="center">D08</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q1</td>
+<td align="center">D09</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q2</td>
+<td align="center">D10</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q3</td>
+<td align="center">D11</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q4</td>
+<td align="center">D12</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q5</td>
+<td align="center">D13</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q6</td>
+<td align="center">D14</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q7</td>
+<td align="center">D15</td>
+</tr>
+</tbody></table>
+<ul>
+<li>按照上面表格接连，在<code>Arduino</code>里烧写下面的测试代码。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">int latchPin = 0;      // Latch pin of 74HC595 is connected to Digital pin 5 STCP storage clock pin</span><br><span class="line">int clockPin = 1;      // Clock pin of 74HC595 is connected to Digital pin 6 SHCP <span class="built_in">shift</span> clock pin</span><br><span class="line">int dataPin = 2;       // Data pin of 74HC595 is connected to Digital pin 4</span><br><span class="line">byte leds = 0;</span><br><span class="line">short aa = 0xf3;</span><br><span class="line"><span class="comment">#define TOTAL_SHIFT_PINS  16</span></span><br><span class="line"></span><br><span class="line">void <span class="function"><span class="title">setup</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  // Set all the pins of 74HC595 as OUTPUT</span><br><span class="line">  pinMode(latchPin, OUTPUT);</span><br><span class="line">  pinMode(dataPin, OUTPUT);</span><br><span class="line">  pinMode(clockPin, OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void <span class="function"><span class="title">loop</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  leds = 0;        // Initially turns all the LEDs off, by giving the variable <span class="string">&#x27;leds&#x27;</span> the value 0</span><br><span class="line">  updateShiftRegister();</span><br><span class="line">  delay(500);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (int i = 0; i &lt; TOTAL_SHIFT_PINS; i++)        // Turn all the LEDs ON one by one.</span><br><span class="line">  &#123;</span><br><span class="line">    digitalWrite(latchPin, LOW);</span><br><span class="line">    shiftOut(dataPin, clockPin, MSBFIRST, aa);</span><br><span class="line">    digitalWrite(latchPin, HIGH);</span><br><span class="line">    delay(100);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * updateShiftRegister() - This <span class="keyword">function</span> sets the latchPin to low,</span><br><span class="line"> * <span class="keyword">then</span> calls the Arduino <span class="keyword">function</span> <span class="string">&#x27;shiftOut&#x27;</span> to <span class="built_in">shift</span> out contents</span><br><span class="line"> * of variable <span class="string">&#x27;leds&#x27;</span> <span class="keyword">in</span> the <span class="built_in">shift</span> register before putting the <span class="string">&#x27;latchPin&#x27;</span> high again.</span><br><span class="line"> **/</span><br><span class="line">void <span class="function"><span class="title">updateShiftRegister</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">   digitalWrite(latchPin, LOW);</span><br><span class="line">   shiftOut(dataPin, clockPin, LSBFIRST, leds);</span><br><span class="line">   digitalWrite(latchPin, HIGH);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果使用逻辑分析仪抓取到<code>parallel</code>协议解析出来也是<code>aa=0xf3</code>,就是工作正常的。</li>
+</ul>
+<h2 id="使用pico-sdk驱动双屏"><a href="#使用pico-sdk驱动双屏" class="headerlink" title="使用pico-sdk驱动双屏"></a>使用<code>pico-sdk</code>驱动双屏</h2><ul>
+<li><p>这里使用<code>GPIOs bit-banging</code>的方式驱动两个<code>ILI9341</code>的屏幕：</p>
+<ol>
+<li>一个是<code>3.2 inch 320x240 16bit Parallel</code>接口。</li>
+<li>一个是<code>2.8 inch 320x240 SPI</code>接口。</li>
+</ol>
+</li>
+<li><p>由于<code>16bit Parallel LCD</code>会需要16个以上的<code>GPIO</code>大部分板子比较难支持到，这里尝试使用两个<code>74HC595N</code>串连(Daisy-chaining)起来，达到（Serial Input Parallel Output）效果来驱动屏幕。测试线路连接如下表所示。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">RP2040</th>
+<th align="center">74HC565N(1)</th>
+<th align="center">74HC565N(2)</th>
+<th align="center">3.2 inch 16bit</th>
+<th align="center">2.8 inch SPI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GPIO0</td>
+<td align="center">DS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">SDI(MOSI)</td>
+</tr>
+<tr>
+<td align="center">GPIO1</td>
+<td align="center">SHCP</td>
+<td align="center">SHCP</td>
+<td align="center"></td>
+<td align="center">SCK</td>
+</tr>
+<tr>
+<td align="center">GPIO2</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">RS</td>
+<td align="center">DC</td>
+</tr>
+<tr>
+<td align="center">GPIO3</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">WR</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GPIO4</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">RESET</td>
+<td align="center">RESET</td>
+</tr>
+<tr>
+<td align="center">GPIO5</td>
+<td align="center">STCP</td>
+<td align="center">STCP</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center">MR</td>
+<td align="center">MR</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center">GND</td>
+<td align="center">GND</td>
+<td align="center">GND</td>
+<td align="center">GND</td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center">QE</td>
+<td align="center">QE</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q7S</td>
+<td align="center">DS</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q0</td>
+<td align="center"></td>
+<td align="center">D00</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q1</td>
+<td align="center"></td>
+<td align="center">D01</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q2</td>
+<td align="center"></td>
+<td align="center">D02</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q3</td>
+<td align="center"></td>
+<td align="center">D03</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q4</td>
+<td align="center"></td>
+<td align="center">D04</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q5</td>
+<td align="center"></td>
+<td align="center">D05</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q6</td>
+<td align="center"></td>
+<td align="center">D06</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Q7</td>
+<td align="center"></td>
+<td align="center">D07</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q0</td>
+<td align="center">D08</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q1</td>
+<td align="center">D09</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q2</td>
+<td align="center">D10</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q3</td>
+<td align="center">D11</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q4</td>
+<td align="center">D12</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q5</td>
+<td align="center">D13</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q6</td>
+<td align="center">D14</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">Q7</td>
+<td align="center">D15</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+<td align="center">VCC</td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">BL(High Act)</td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">RD</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">CS</td>
+<td align="center">CS</td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">BL(Low Active)</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用的初始寄存器的参数如下，发现初始化的命有顺序的限制，比如：<code>0xf7</code>不跟在<code>0xe8</code>后面，会出现屏幕无法显示的结果.</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">static const uint8_t st7789_init_seq[] = &#123;</span><br><span class="line">    1, 20, 0x1,  // Software reset</span><br><span class="line">    1, 10, 0x11, // Exit <span class="built_in">sleep</span> mode</span><br><span class="line">    4, 0, 0xCF, 0x00, 0x83, 0x30,</span><br><span class="line">    4, 0, 0xE8, 0x85, 0x01, 0x79,</span><br><span class="line">    2, 2, 0xF7, 0x20,</span><br><span class="line">    3, 0, 0xEA, 0x00, 0x00,</span><br><span class="line">    2, 2, 0x3A, 0x55,                                                 // Set colour mode to 16 bit</span><br><span class="line">    2, 0, 0x36, 0x08,                                                 // Set MADCTL: row <span class="keyword">then</span> column, refresh is bottom to top ????</span><br><span class="line">    5, 0, 0x2A, 0x00, 0x00, SCREEN_WIDTH &gt;&gt; 8, SCREEN_WIDTH &amp; 0xff,   // CASET: column addresses</span><br><span class="line">    5, 0, 0x2B, 0x00, 0x00, SCREEN_HEIGHT &gt;&gt; 8, SCREEN_HEIGHT &amp; 0xff, // RASET: row addresses</span><br><span class="line">    3, 2, 0xB1, 0x0, 0x10,                                            // Frame Rate control 100Hz</span><br><span class="line">    2, 2, 0xF2, 0x8,</span><br><span class="line">    2, 0, 0x26, 0x01,</span><br><span class="line">    16, 0, 0xE0, 0x1F, 0x36, 0x36, 0x3A, 0x0C, 0x05, 0x4F, 0X87, 0x3C, 0x08, 0x11, 0x35, 0x19, 0x13, 0x00,</span><br><span class="line">    16, 0, 0xE1, 0x00, 0x09, 0x09, 0x05, 0x13, 0x0A, 0x30, 0x78, 0x43, 0x07, 0x0E, 0x0A, 0x26, 0x2C, 0x1F,</span><br><span class="line">    1, 2, 0x13, // Normal display on, <span class="keyword">then</span> 10 ms delay</span><br><span class="line">    1, 2, 0x29, // Main screen turn on, <span class="keyword">then</span> <span class="built_in">wait</span> 500 ms</span><br><span class="line">    0           // Terminate list</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最终使用<code>GPIOs bit-banging shiftout(位移)</code>的核心代码如下:</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#define LSBFIRST 0</span></span><br><span class="line"><span class="comment">#define MSBFIRST 1</span></span><br><span class="line"></span><br><span class="line">static inline void shiftout( uint16_t val,uint8_t bits) &#123;</span><br><span class="line">    uint8_t bitOrder = MSBFIRST;</span><br><span class="line">    uint8_t i;</span><br><span class="line">    uint8_t max_len = bits - 1;</span><br><span class="line">    gpio_put(PIN_LATCH, 0);</span><br><span class="line">    <span class="keyword">for</span> (i = 0; i &lt; bits; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (bitOrder == MSBFIRST)</span><br><span class="line">        &#123;</span><br><span class="line">            gpio_put(PIN_DIN, (val &amp; (1 &lt;&lt; (max_len - i))) &gt;&gt; (max_len - i));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            gpio_put(PIN_DIN, (val &amp; (1 &lt;&lt; <span class="string">i)) &gt;&gt; i</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        gpio_put(PIN_CLK, 1);</span><br><span class="line">        sleep_us(1);  // 如果只是驱动SPI的LCD,这里是不需要的，并且屏幕的刷新会流畅很多。</span><br><span class="line">        gpio_put(PIN_CLK, 0);</span><br><span class="line">        sleep_us(1);  // 如果只是驱动SPI的LCD,这里是不需要的，并且屏幕的刷新会流畅很多。</span><br><span class="line">    &#125;</span><br><span class="line">    gpio_put(PIN_WR, 0);</span><br><span class="line">    gpio_put(PIN_LATCH, 1);</span><br><span class="line">    gpio_put(PIN_WR, 1);</span><br><span class="line">    sleep_us(1);  // 如果只是驱动SPI的LCD,这里是不需要的，并且屏幕的刷新会流畅很多。</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void lcd_send_cmd(const uint8_t cmd)</span><br><span class="line">&#123;</span><br><span class="line">    gpio_put(PIN_RS, 0);</span><br><span class="line">    shiftout(cmd, 8);</span><br><span class="line">    gpio_put(PIN_RS, 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void lcd_send_data(const uint8_t data) &#123;</span><br><span class="line">    gpio_put(PIN_RS, 1);</span><br><span class="line">    shiftout(data, 8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上面的代码可以同时驱动两块不一样接口的屏幕，但是速度非常的慢，类似一种灯箱广告加载的效果，主要是因为在<code>shiftout</code>里面有三处使用了<code>sleep_us(1)</code>导致的。但是这个地方不用<code>sleep_us(1)</code>,<code>3.2 inch 16bit</code>就无法显示, 且使用<code>__asm volatile(&quot;nop\n&quot;);</code>都无法替代<code>sleep_us(1)</code>.如果只是驱动<code>SPI</code>的<code>LCD</code>,去掉<code>sleep_us(1)</code>,屏幕会流畅的刷新。</li>
 </ul>
 <h1 id="简单逻辑分析仪示例"><a href="#简单逻辑分析仪示例" class="headerlink" title="简单逻辑分析仪示例"></a>简单逻辑分析仪示例</h1><ul>
 <li>Install Rust</li>
@@ -443,6 +882,126 @@
 </ul>
 </li>
 </ul>
+<h1 id="MicroPython"><a href="#MicroPython" class="headerlink" title="MicroPython"></a>MicroPython</h1><ul>
+<li>Links:<ul>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/documentation/microcontrollers/micropython.html">MicroPython</a></li>
+<li><a target="_blank" rel="noopener" href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf">raspberry-pi-pico-python-sdk.pdf</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="下载安装MicroPython的固件"><a href="#下载安装MicroPython的固件" class="headerlink" title="下载安装MicroPython的固件"></a>下载安装<code>MicroPython</code>的固件</h2><ul>
+<li><p>Download the correct MicroPython UF2 file for your board:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://micropython.org/download/rp2-pico/rp2-pico-latest.uf2">Raspberry Pi Pico</a></li>
+<li><a target="_blank" rel="noopener" href="https://micropython.org/download/rp2-pico-w/rp2-pico-w-latest.uf2">Raspberry Pi Pico W</a> with Wi-Fi and Bluetooth LE support</li>
+</ul>
+</li>
+<li><p>Then go ahead and:</p>
+<ol>
+<li>Push and hold the BOOTSEL button and plug your Pico into the USB port of your Raspberry Pi or other computer. Release the BOOTSEL button after your Pico is connected.</li>
+<li>It will mount as a Mass Storage Device called RPI-RP2.</li>
+<li>Drag and drop the MicroPython UF2 file onto the RPI-RP2 volume. Your Pico will reboot. You are now running MicroPython.</li>
+<li>You can access the REPL via USB Serial.</li>
+</ol>
+</li>
+</ul>
+<h2 id="通过USB访问UART串口"><a href="#通过USB访问UART串口" class="headerlink" title="通过USB访问UART串口"></a>通过<code>USB</code>访问<code>UART串口</code></h2><ul>
+<li>可以使用<code>minicom</code>,也可以使用<code>mpremote</code>这里推荐使用后者。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ pip install mpremote</span><br><span class="line"></span><br><span class="line">~$ mpremote connect list</span><br><span class="line">/dev/ttyACM0 e661410403724d2a 2e8a:0005 MicroPython Board <span class="keyword">in</span> FS mode</span><br><span class="line">/dev/ttyS0 None 0000:0000 None None</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试ULN2003步进电机驱动"><a href="#测试ULN2003步进电机驱动" class="headerlink" title="测试ULN2003步进电机驱动"></a>测试<code>ULN2003</code>步进电机驱动</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://vanhunteradams.com/Pico/Steppers/Lorenz.html">PIO-Driven Stepper Motor Driver</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/DasenB/PicoStepper">DasenB&#x2F;PicoStepper</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://coeleveld.com/arduino-stepper-uln2003a/">Arduino + Stepper (ULN2003A)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://help.stepperonline.com/en/article/stepper-motor-wire-sequence-ue0wcp/">Stepper Motor Wire Sequence</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://lastminuteengineers.com/a4988-stepper-motor-driver-arduino-tutorial/">Control Stepper Motor with A4988 Driver Module &amp; Arduino</a></p>
+</li>
+<li><p>电机驱动板与<code>RP2040</code>的连接</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">RP2040</th>
+<th align="center">ULN2003</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GPIO2</td>
+<td align="center">IN1</td>
+</tr>
+<tr>
+<td align="center">GPIO3</td>
+<td align="center">IN2</td>
+</tr>
+<tr>
+<td align="center">GPIO4</td>
+<td align="center">IN3</td>
+</tr>
+<tr>
+<td align="center">GPIO5</td>
+<td align="center">IN4</td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center">GND</td>
+</tr>
+<tr>
+<td align="center">VUSB</td>
+<td align="center">+5V</td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用<code>minicom -o -b 115200 -D /dev/ttyACM0</code>连接到<code>RP2040</code>的<code>REPL</code>命令行终端，输入以下的代码：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> machine <span class="keyword">import</span> Pin</span><br><span class="line"></span><br><span class="line">IN1 = Pin(<span class="number">2</span>,Pin.OUT)</span><br><span class="line">IN2 = Pin(<span class="number">3</span>,Pin.OUT)</span><br><span class="line">IN3 = Pin(<span class="number">4</span>,Pin.OUT)</span><br><span class="line">IN4 = Pin(<span class="number">5</span>,Pin.OUT)</span><br><span class="line"></span><br><span class="line">pins = [IN1, IN2, IN3, IN4]</span><br><span class="line">steps = [</span><br><span class="line">    [IN1],</span><br><span class="line">    [IN1, IN2],</span><br><span class="line">    [IN2],</span><br><span class="line">    [IN2, IN3],</span><br><span class="line">    [IN3],</span><br><span class="line">    [IN3, IN4],</span><br><span class="line">    [IN4],</span><br><span class="line">    [IN4, IN1],</span><br><span class="line">]</span><br><span class="line">current_step = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_pins_low</span>(<span class="params">pins</span>):</span><br><span class="line">    [pin.low() <span class="keyword">for</span> pin <span class="keyword">in</span> pins]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_pins_high</span>(<span class="params">pins</span>):</span><br><span class="line">    [pin.high() <span class="keyword">for</span> pin <span class="keyword">in</span> pins]</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    high_pins = steps[current_step]</span><br><span class="line">    set_pins_low(pins)</span><br><span class="line">    set_pins_high(high_pins)</span><br><span class="line">    current_step += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> current_step == <span class="built_in">len</span>(steps):</span><br><span class="line">        current_step = <span class="number">0</span></span><br><span class="line">    time.sleep(<span class="number">0.001</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>也可以把上面的代码保存成文件如：<code>test_stepper_motor.py</code>，使用<code>mpremote</code>运行：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ mpremote run test_stepper_motor.py</span><br></pre></td></tr></table></figure>
+<h2 id="测试Pico-W-WIFI"><a href="#测试Pico-W-WIFI" class="headerlink" title="测试Pico-W WIFI"></a>测试<code>Pico-W WIFI</code></h2><ul>
+<li>先要确保存<code>Pico-W</code>安装正确的固件<a target="_blank" rel="noopener" href="https://micropython.org/download/rp2-pico-w/rp2-pico-w-latest.uf2">Raspberry Pi Pico W</a>，才能进行下面的测试。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cat</span> test_wifi.py</span><br><span class="line">import time</span><br><span class="line">import network</span><br><span class="line"></span><br><span class="line">ssid = <span class="string">&#x27;your ssid&#x27;</span></span><br><span class="line">password = <span class="string">&#x27;wifi pwd&#x27;</span></span><br><span class="line"></span><br><span class="line">wlan = network.WLAN(network.STA_IF)</span><br><span class="line">wlan.active(True)</span><br><span class="line">wlan.connect(ssid, password)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wait for connect or fail</span></span><br><span class="line">max_wait = 10</span><br><span class="line"><span class="keyword">while</span> max_wait &gt; 0:</span><br><span class="line">    <span class="keyword">if</span> wlan.status() &lt; 0 or wlan.status() &gt;= 3:</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    max_wait -= 1</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;waiting for connection...&#x27;</span>)</span><br><span class="line">    time.sleep(1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Handle connection error</span></span><br><span class="line"><span class="keyword">if</span> wlan.status() != 3:</span><br><span class="line">    raise RuntimeError(<span class="string">&#x27;network connection failed&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;connected&#x27;</span>)</span><br><span class="line">    status = wlan.ifconfig()</span><br><span class="line">    <span class="built_in">print</span>( <span class="string">&#x27;ip = &#x27;</span> + status[0] )</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ifconfig -----------------------------&gt;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(wlan.ifconfig())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用<code>mpremote</code>运行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ mpremote run test_wifi.py</span><br><span class="line">waiting <span class="keyword">for</span> connection...</span><br><span class="line">waiting <span class="keyword">for</span> connection...</span><br><span class="line">waiting <span class="keyword">for</span> connection...</span><br><span class="line">connected</span><br><span class="line">ip = 192.168.4.50</span><br><span class="line">ifconfig -----------------------------&gt;</span><br><span class="line">(<span class="string">&#x27;192.168.4.50&#x27;</span>, <span class="string">&#x27;255.255.255.0&#x27;</span>, <span class="string">&#x27;192.168.4.1&#x27;</span>, <span class="string">&#x27;192.168.4.1&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试ILI9341-XPT2046"><a href="#测试ILI9341-XPT2046" class="headerlink" title="测试ILI9341+XPT2046"></a>测试<code>ILI9341+XPT2046</code></h2><ul>
+<li>下载<a target="_blank" rel="noopener" href="https://github.com/rdagger/micropython-ili9341">micropython-ili9341</a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/rdagger/micropython-ili9341</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上传依赖文件到<code>rp2040</code>,设置好正确接线。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cd</span> micropython-ili9341</span><br><span class="line">~ micropython-ili9341$  mpremote fs <span class="built_in">cp</span> ili9341.py :ili9341.py</span><br><span class="line"></span><br><span class="line">~$ <span class="built_in">cd</span> micropython-ili9341</span><br><span class="line">~ micropython-ili9341$   mpremote fs <span class="built_in">cp</span> xpt2046.py :xpt2046.py</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建测试代码</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">~ micropython-ili9341$ <span class="built_in">cat</span> demo_touch.py</span><br><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;ILI9341 demo (simple touch demo).&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line">from ili9341 import Display, color565</span><br><span class="line">from xpt2046 import Touch</span><br><span class="line">from machine import idle, Pin, SPI  <span class="comment"># type: ignore</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Demo(object):</span><br><span class="line">    <span class="string">&quot;&quot;</span><span class="string">&quot;Touchscreen simple demo.&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line">    CYAN = color565(0, 255, 255)</span><br><span class="line">    PURPLE = color565(255, 0, 255)</span><br><span class="line">    WHITE = color565(255, 255, 255)</span><br><span class="line"></span><br><span class="line">    def __init__(self, display, spi2):</span><br><span class="line">        <span class="string">&quot;&quot;</span><span class="string">&quot;Initialize box.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            display (ILI9341): display object</span></span><br><span class="line"><span class="string">            spi2 (SPI): SPI bus</span></span><br><span class="line"><span class="string">        &quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line">        self.display = display</span><br><span class="line">        self.touch = Touch(spi2, cs=Pin(13), int_pin=Pin(9),</span><br><span class="line">                           int_handler=self.touchscreen_press)</span><br><span class="line">        <span class="comment"># Display initial message</span></span><br><span class="line">        self.display.draw_text8x8(self.display.width // 2 - 32,</span><br><span class="line">                                  self.display.height - 9,</span><br><span class="line">                                  <span class="string">&quot;TOUCH ME&quot;</span>,</span><br><span class="line">                                  self.WHITE,</span><br><span class="line">                                  background=self.PURPLE)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># A small 5x5 sprite for the dot</span></span><br><span class="line">        self.dot = bytearray(b<span class="string">&#x27;\x00\x00\x07\xE0\xF8\x00\x07\xE0\x00\x00\x07\xE0\xF8\x00\xF8\x00\xF8\x00\x07\xE0\xF8\x00\xF8\x00\xF8\x00\xF8\x00\xF8\x00\x07\xE0\xF8\x00\xF8\x00\xF8\x00\x07\xE0\x00\x00\x07\xE0\xF8\x00\x07\xE0\x00\x00&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    def touchscreen_press(self, x, y):</span><br><span class="line">        <span class="string">&quot;&quot;</span><span class="string">&quot;Process touchscreen press events.&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="comment"># Y needs to be flipped</span></span><br><span class="line">        y = (self.display.height - 1) - y</span><br><span class="line">        <span class="comment"># Display coordinates</span></span><br><span class="line">        self.display.draw_text8x8(self.display.width // 2 - 32,</span><br><span class="line">                                  self.display.height - 9,</span><br><span class="line">                                  <span class="string">&quot;&#123;0:03d&#125;, &#123;1:03d&#125;&quot;</span>.format(x, y),</span><br><span class="line">                                  self.CYAN)</span><br><span class="line">        <span class="comment"># Draw dot</span></span><br><span class="line">        self.display.draw_sprite(self.dot, x - 2, y - 2, 5, 5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def <span class="built_in">test</span>():</span><br><span class="line">    <span class="string">&quot;&quot;</span><span class="string">&quot;Test code.&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line">    spi1 = SPI(0, baudrate=40000000, sck=Pin(2), mosi=Pin(3))</span><br><span class="line">    display = Display(spi1, dc=Pin(0), cs=Pin(5), rst=Pin(1))</span><br><span class="line">    spi2 = SPI(1, baudrate=1000000, sck=Pin(14), mosi=Pin(15), miso=Pin(12))</span><br><span class="line"></span><br><span class="line">    Demo(display, spi2)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        <span class="keyword">while</span> True:</span><br><span class="line">            idle()</span><br><span class="line"></span><br><span class="line">    except KeyboardInterrupt:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\nCtrl-C pressed.  Cleaning up and exiting...&quot;</span>)</span><br><span class="line">    finally:</span><br><span class="line">        display.cleanup()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">test</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">~micropython-ili9341$ mpremote run demo_touch.py</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试使用lv-micropython"><a href="#测试使用lv-micropython" class="headerlink" title="测试使用lv_micropython"></a>测试使用<code>lv_micropython</code></h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/lvgl/lv_micropython">lv_micropython</a></p>
+</li>
+<li><p>Build Instructions</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ git <span class="built_in">clone</span> https://github.com/lvgl/lv_micropython.git</span><br><span class="line">~$ <span class="built_in">cd</span> lv_micropython</span><br><span class="line">~$ git submodule update --init --recursive lib/lv_bindings</span><br><span class="line">~$ make -C ports/rp2 BOARD=PICO submodules</span><br><span class="line">~$ make -j -C mpy-cross</span><br><span class="line">~$ make -j -C ports/rp2 BOARD=PICO USER_C_MODULES=../../lib/lv_bindings/bindings.cmake</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Write firmware to device</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ lv_micropython$ <span class="built_in">cp</span> ports/rp2/build-PICO/firmware.uf2 /media/michael/RPI-RP2/</span><br></pre></td></tr></table></figure>
+
 <h1 id="CC1101"><a href="#CC1101" class="headerlink" title="CC1101"></a>CC1101</h1><ul>
 <li>Links:<ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/f4exb/picc1101">picc1101</a></li>
@@ -542,7 +1101,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PIO%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">PIO相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenOCD%E7%83%A7%E5%86%99%E8%B0%83%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">OpenOCD烧写调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%90%86%E8%A7%A3tinyusb-pico-sdk%E7%BC%96%E8%AF%91%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">学习理解tinyusb+pico-sdk编译工程结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8TFT-eSPI-ardion-%E9%A9%B1%E5%8A%A8ili9341-16bit%E5%B9%B6%E5%8F%A3%E5%B1%8F"><span class="nav-number">2.</span> <span class="nav-text">使用TFT_eSPI(ardion)驱动ili9341 16bit并口屏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85rp2040-bsp%E6%94%AF%E6%8C%81"><span class="nav-number">2.1.</span> <span class="nav-text">安装rp2040 bsp支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AETFT-eSPI"><span class="nav-number">2.2.</span> <span class="nav-text">配置TFT_eSPI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%80%BB%E8%BE%91%E5%88%86%E6%9E%90%E4%BB%AA%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">简单逻辑分析仪示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PulseView"><span class="nav-number">3.1.</span> <span class="nav-text">PulseView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SigrokCli"><span class="nav-number">3.2.</span> <span class="nav-text">SigrokCli</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LoRa%E9%80%9A%E4%BF%A1"><span class="nav-number">4.</span> <span class="nav-text">LoRa通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#USB%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="nav-number">5.</span> <span class="nav-text">USB协议栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#USB%E7%BB%93%E6%9E%84%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">USB结构简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Descriptor-Types"><span class="nav-number">5.1.1.</span> <span class="nav-text">Descriptor Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Device-Descriptor"><span class="nav-number">5.1.2.</span> <span class="nav-text">Device Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration-Descriptor"><span class="nav-number">5.1.3.</span> <span class="nav-text">Configuration Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-Descriptor"><span class="nav-number">5.1.4.</span> <span class="nav-text">Interface Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Endpoint-Descriptor"><span class="nav-number">5.1.5.</span> <span class="nav-text">Endpoint Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-Descriptor"><span class="nav-number">5.1.6.</span> <span class="nav-text">String Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#USB-Transfer-Types"><span class="nav-number">5.1.7.</span> <span class="nav-text">USB Transfer Types</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-USB%E6%89%8B%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90"><span class="nav-number">5.2.</span> <span class="nav-text">Linux USB手抓包分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UVC%E7%9B%B8%E5%85%B3"><span class="nav-number">5.3.</span> <span class="nav-text">UVC相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CC1101"><span class="nav-number">6.</span> <span class="nav-text">CC1101</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%94%E7%B3%BB%E4%BD%9C%E8%80%85"><span class="nav-number">7.</span> <span class="nav-text">联系作者</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PIO%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">PIO相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenOCD%E7%83%A7%E5%86%99%E8%B0%83%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">OpenOCD烧写调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UF2%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E7%83%A7%E5%86%99"><span class="nav-number">1.2.</span> <span class="nav-text">UF2文件方式烧写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%90%86%E8%A7%A3tinyusb-pico-sdk%E7%BC%96%E8%AF%91%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">学习理解tinyusb+pico-sdk编译工程结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8TFT-eSPI-ardion-%E9%A9%B1%E5%8A%A8ili9341-16bit%E5%B9%B6%E5%8F%A3%E5%B1%8F"><span class="nav-number">2.</span> <span class="nav-text">使用TFT_eSPI(ardion)驱动ili9341 16bit并口屏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85rp2040-bsp%E6%94%AF%E6%8C%81"><span class="nav-number">2.1.</span> <span class="nav-text">安装rp2040 bsp支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AETFT-eSPI"><span class="nav-number">2.2.</span> <span class="nav-text">配置TFT_eSPI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C74HC565N-Daisy-chaining%E6%B5%8B%E8%AF%95"><span class="nav-number">2.3.</span> <span class="nav-text">双74HC565N Daisy-chaining测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8pico-sdk%E9%A9%B1%E5%8A%A8%E5%8F%8C%E5%B1%8F"><span class="nav-number">2.4.</span> <span class="nav-text">使用pico-sdk驱动双屏</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%80%BB%E8%BE%91%E5%88%86%E6%9E%90%E4%BB%AA%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">简单逻辑分析仪示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PulseView"><span class="nav-number">3.1.</span> <span class="nav-text">PulseView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SigrokCli"><span class="nav-number">3.2.</span> <span class="nav-text">SigrokCli</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LoRa%E9%80%9A%E4%BF%A1"><span class="nav-number">4.</span> <span class="nav-text">LoRa通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#USB%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="nav-number">5.</span> <span class="nav-text">USB协议栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#USB%E7%BB%93%E6%9E%84%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">USB结构简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Descriptor-Types"><span class="nav-number">5.1.1.</span> <span class="nav-text">Descriptor Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Device-Descriptor"><span class="nav-number">5.1.2.</span> <span class="nav-text">Device Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration-Descriptor"><span class="nav-number">5.1.3.</span> <span class="nav-text">Configuration Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-Descriptor"><span class="nav-number">5.1.4.</span> <span class="nav-text">Interface Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Endpoint-Descriptor"><span class="nav-number">5.1.5.</span> <span class="nav-text">Endpoint Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-Descriptor"><span class="nav-number">5.1.6.</span> <span class="nav-text">String Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#USB-Transfer-Types"><span class="nav-number">5.1.7.</span> <span class="nav-text">USB Transfer Types</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-USB%E6%89%8B%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90"><span class="nav-number">5.2.</span> <span class="nav-text">Linux USB手抓包分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UVC%E7%9B%B8%E5%85%B3"><span class="nav-number">5.3.</span> <span class="nav-text">UVC相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MicroPython"><span class="nav-number">6.</span> <span class="nav-text">MicroPython</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85MicroPython%E7%9A%84%E5%9B%BA%E4%BB%B6"><span class="nav-number">6.1.</span> <span class="nav-text">下载安装MicroPython的固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87USB%E8%AE%BF%E9%97%AEUART%E4%B8%B2%E5%8F%A3"><span class="nav-number">6.2.</span> <span class="nav-text">通过USB访问UART串口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95ULN2003%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A8"><span class="nav-number">6.3.</span> <span class="nav-text">测试ULN2003步进电机驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95Pico-W-WIFI"><span class="nav-number">6.4.</span> <span class="nav-text">测试Pico-W WIFI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95ILI9341-XPT2046"><span class="nav-number">6.5.</span> <span class="nav-text">测试ILI9341+XPT2046</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8lv-micropython"><span class="nav-number">6.6.</span> <span class="nav-text">测试使用lv_micropython</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CC1101"><span class="nav-number">7.</span> <span class="nav-text">CC1101</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%94%E7%B3%BB%E4%BD%9C%E8%80%85"><span class="nav-number">8.</span> <span class="nav-text">联系作者</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -594,7 +1153,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

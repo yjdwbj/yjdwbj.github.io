@@ -1238,7 +1238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-18 22:26:00" itemprop="dateModified" datetime="2023-04-18T22:26:00+08:00">2023-04-18</time>
+                <time title="修改时间：2024-05-16 15:17:28" itemprop="dateModified" datetime="2024-05-16T15:17:28+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1527,9 +1527,39 @@
 <h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><ul>
 <li>更新后<code>Web</code>界面出现如下错误：<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/lua/luci/dispatcher.lua:427: /etc/config/luci seems to be corrupt, unable to find section <span class="string">&#x27;main&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">local</span> <span class="keyword">function</span> determine_request_language()</span><br><span class="line">	<span class="built_in">local</span> conf = require <span class="string">&quot;luci.config&quot;</span></span><br><span class="line">	assert(conf.main, <span class="string">&quot;/etc/config/luci seems to be corrupt, unable to find section &#x27;main&#x27;&quot;</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>烧写好固件,路由器的网关为<code>192.168.1.1</code> , 密码:无. 另外要注的是,如果要使用 <code>2.4G 11N</code> 的模式,一定把<strong>Allow legacy 802.11b rates <strong>默认勾选去掉,不然会出现</strong>能连接不能上网</strong>的问题,它位于 UCI Wireless 编辑里的 <code>Device Configuration-&gt;Advanced Settings</code>.或者这样说吧,把所有的 AP 里的<strong>Allow legacy 802.11b rates <strong>勾选去掉,但是这个选项在<code>chaos_calmer</code>这个旧的稳定版里没有的.<strong>联想 newifi y1s</strong> 2.4G 里如果不把上面这个勾选去掉,内核会一直报错</strong>ieee80211 phy3: rt2x00queue_write_tx_frame: Error - Dropping frame due to full tx queue 2</strong>,困扰我很久的问题.</li>
 </ul>
+<h1 id="歌华路由"><a href="#歌华路由" class="headerlink" title="歌华路由"></a>歌华路由</h1><ul>
+<li><p>下载最新的<code>Breed</code>在<code>Bootloader</code>,<a target="_blank" rel="noopener" href="https://breed.hackpascal.net/breed-mt7621-gehua-ghl-r-001.bin">breed-mt7621-gehua-ghl-r-001.bin</a>,</p>
+</li>
+<li><p>再通过<code>telenet</code>或者<code>ssh</code>进入到路由里查看它的分区表。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~$ <span class="built_in">cat</span> /proc/mtd</span><br><span class="line">dev:    size   erasesize  name</span><br><span class="line">mtd0: 00030000 00010000 <span class="string">&quot;Bootloader&quot;</span></span><br><span class="line">mtd1: 00010000 00010000 <span class="string">&quot;Config&quot;</span></span><br><span class="line">mtd2: 00010000 00010000 <span class="string">&quot;Factory&quot;</span></span><br><span class="line">mtd3: 0016f610 00010000 <span class="string">&quot;Kernel&quot;</span></span><br><span class="line">mtd4: 00d409f0 00010000 <span class="string">&quot;RootFS&quot;</span></span><br><span class="line">mtd5: 00100000 00010000 <span class="string">&quot;Storage&quot;</span></span><br><span class="line">mtd6: 00eb0000 00010000 <span class="string">&quot;Firmware_Stub&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上传<code>breed-mt7621-gehua-ghl-r-001.bin</code>到路由器里<code>/tmp</code>. 再使用<code>mtd</code>或者<code>mtd_write</code>进行直接烧写。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ mtd_write write -r /tmp/breed-mt7621-gehua-ghl-r-001.bin Bootloader</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果出现如下面的分区表，也就是没有看到有<code>Bootloader</code>,需要对它进行降级（降低固件版本）。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~<span class="comment"># cat /proc/mtd</span></span><br><span class="line">dev:    size   erasesize  name</span><br><span class="line">mtd0: 00030000 00001000 <span class="string">&quot;u-boot&quot;</span></span><br><span class="line">mtd1: 00010000 00001000 <span class="string">&quot;u-boot-env&quot;</span></span><br><span class="line">mtd2: 00010000 00001000 <span class="string">&quot;factory&quot;</span></span><br><span class="line">mtd3: 00fb0000 00001000 <span class="string">&quot;firmware&quot;</span></span><br><span class="line">mtd4: 001a0583 00001000 <span class="string">&quot;kernel&quot;</span></span><br><span class="line">mtd5: 00e0fa7d 00001000 <span class="string">&quot;rootfs&quot;</span></span><br><span class="line">mtd6: 008c8000 00001000 <span class="string">&quot;rootfs_data&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">~$ mtd_write write -r /tmp/breed-mt7621-gehua-ghl-r-001.bin firmware</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>烧写完成后会自动重启。</p>
+</li>
+<li><p>编译含有<code>golang</code>相关的，需要开启代理.<code>export GOPROXY=https://goproxy.cn,direct</code>.否则可能编译失败或者和很慢。</p>
+</li>
+<li><p>烧入<code>openwrt</code>后的网络如下。</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@OpenWrt:~<span class="comment"># brctl show</span></span><br><span class="line">bridge name	bridge <span class="built_in">id</span>		STP enabled	interfaces</span><br><span class="line">br-lan		7fff.54a31b349abc	no		lan2</span><br><span class="line">							phy0-ap0</span><br><span class="line">							lan3</span><br><span class="line">							phy1-ap0</span><br><span class="line">							lan1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <h1 id="谢谢支持"><a href="#谢谢支持" class="headerlink" title="谢谢支持"></a>谢谢支持</h1><ul>
 <li>微信二维码:</li>
 <li><a href=mailto:yjdwbj@gmail.com>联系作者 yjdwbj@gmail.com</a></li>
@@ -2262,7 +2292,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
